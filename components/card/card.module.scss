@@ -1,0 +1,38 @@
+.card {
+	border-radius: var(--card-border-radius);
+	background-color: var(--card-bg-color);
+	width: 100%;
+	margin-bottom: 25px;
+	padding: 15px;
+	position: relative;
+}
+
+.successColor {
+	color: var(--success-color);
+}
+
+.invertedTextColor {
+	color: var(--main-font-color-inverted);
+}
+
+.accentBgColor {
+	background-color: var(--accent-color);
+}
+
+.invertedImgColor {
+	& path {
+		fill: var(--main-font-color-inverted);
+	}
+}
+
+.invertedImgStrokeColor {
+	& path {
+		stroke: var(--main-font-color-inverted);
+	}
+	& line {
+		stroke: var(--main-font-color-inverted);
+	}
+	& circle {
+		stroke: var(--main-font-color-inverted);
+	}
+}

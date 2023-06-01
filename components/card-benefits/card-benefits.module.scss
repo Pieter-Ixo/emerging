@@ -1,0 +1,15 @@
+.benefitsCard {
+	h4 {
+		margin: 5px 0;
+	}
+	p {
+		margin: 0;
+		font-size: 0.9rem;
+	}
+
+	.images {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		justify-items: center;
+	}
+}
