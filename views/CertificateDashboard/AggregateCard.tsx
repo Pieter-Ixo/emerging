@@ -2,6 +2,8 @@ import Copy from "@/components/emergingAssets/icons/copy";
 import { palette, shadow } from "@/theme/palette";
 import { Box, Card, Flex, Grid, Image, Progress, Text } from "@mantine/core";
 import React from "react";
+import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
+import { useRouter } from "next/navigation";
 
 const data = [
   {
@@ -233,6 +235,7 @@ const StatBox: React.FC<Props> = ({ type, icon, properties }) => (
 );
 
 const ProofCard: React.FC = () => {
+  const router = useRouter();
   return (
     <Card
       shadow={shadow.default}
@@ -245,6 +248,7 @@ const ProofCard: React.FC = () => {
         justify="center"
         gap={20}
         sx={{
+          position: "relative",
           backgroundImage: `url(/images/cert-bg.png)`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -253,6 +257,12 @@ const ProofCard: React.FC = () => {
           borderRadius: 16,
         }}
       >
+        <Flex
+          sx={{ position: "absolute", top: 48, cursor: 'pointer' }}
+          onClick={() => router.back()}
+        >
+          <ArrowLeftIcon />
+        </Flex>
         <Flex direction={"column"} gap={10} justify="center">
           <Text
             fw={700}
