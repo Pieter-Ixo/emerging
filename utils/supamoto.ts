@@ -1,4 +1,4 @@
-import { CHART_DATA } from '@components/chart/chart';
+import { CHART_DATA } from '@/components/chart/chart';
 import { ArrayElement } from 'types/general';
 import { STOVE_PELLETS_CONTENT, STOVE_PERIODS, STOVE_SESSIONS_CONTENT } from 'types/stove';
 import { dynamicSort } from './general';

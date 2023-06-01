@@ -13,15 +13,11 @@ import {
   Divider,
   Grid,
   Group,
-  Text
+  Text,
 } from "@mantine/core";
 import { useViewportSize } from "@mantine/hooks";
 import dayjs from "dayjs";
-import {
-  IChartApi,
-  ISeriesApi,
-  createChart
-} from "lightweight-charts";
+import { IChartApi, ISeriesApi, createChart } from "lightweight-charts";
 import { useEffect, useState } from "react";
 import { palette } from "../../theme/palette";
 import tabs from "../tabs/tabData";
@@ -109,10 +105,12 @@ function GraphPerf({ sessions, fuel, stove, totalSessions }: Props) {
   useEffect(() => {
     setData();
     generateChart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     setInitialData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessions, fuel, stove]);
 
   function getTotalPellets() {

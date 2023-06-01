@@ -7,7 +7,7 @@ import { Web3Modal } from '@web3modal/standalone';
 import { ChainInfo } from '@keplr-wallet/types';
 import { fromHex } from '@cosmjs/encoding';
 
-import * as Toast from '@/components/Toast/Toast';
+import * as Toast from '@/components/toast/toast';
 import { sendTransaction, initStargateClient } from './client';
 import { TRX_FEE_OPTION, TRX_MSG } from 'types/transactions';
 import { USER } from 'types/user';
@@ -96,21 +96,21 @@ export const initializeWC = async (chainInfo: ChainInfo): Promise<USER | undefin
 
     if (sessions.length) {
       const curSession = sessions[0];
-      const curSessionNamespace = Object.keys(curSession?.namespaces)?.[0];
-      const curSessionChain = curSession?.namespaces?.[curSessionNamespace]?.chains?.[0];
-      const curSessionMatchesChain = curSessionChain?.includes(chainInfo.chainId);
-      if (!curSessionMatchesChain) {
-        signClient.session.delete(curSession.topic, getSdkError('USER_DISCONNECTED'));
-        (signClient.session.getAll() ?? []).forEach((session) =>
-          signClient.session.delete(session.topic, getSdkError('USER_DISCONNECTED')),
-        );
-        (signClient.pairing.getAll() ?? []).forEach((pairing) =>
-          signClient.pairing.delete(pairing.topic, getSdkError('USER_DISCONNECTED')),
-        );
-      } else {
+      // const curSessionNamespace = Object.keys(curSession?.namespaces)?.[0];
+      // const curSessionChain = curSession?.namespaces?.[curSessionNamespace]?.chains?.[0];
+      // const curSessionMatchesChain = curSessionChain?.includes(chainInfo.chainId);
+      // if (!curSessionMatchesChain) {
+      //   signClient.session.delete(curSession.topic, getSdkError('USER_DISCONNECTED'));
+      //   (signClient.session.getAll() ?? []).forEach((session) =>
+      //     signClient.session.delete(session.topic, getSdkError('USER_DISCONNECTED')),
+      //   );
+      //   (signClient.pairing.getAll() ?? []).forEach((pairing) =>
+      //     signClient.pairing.delete(pairing.topic, getSdkError('USER_DISCONNECTED')),
+      //   );
+      // } else {
         const account = await onSessionConnected(curSession);
         return account;
-      }
+      // }
     }
 
     const namespaces = {
