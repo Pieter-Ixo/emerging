@@ -1,5 +1,4 @@
 import { mobileBreakpoint } from "@/constants/breakpoints";
-import { setSelectedAssetId } from "@/redux/userSlice";
 import {
   Button,
   Card,
@@ -39,27 +38,29 @@ function EmergingAssets() {
   });
   const [headers, setHeader] = useState(heads);
   const [opened, { open, close }] = useDisclosure(false);
-  const [selectedAssetId, setSelectedAssetId] = useState("");
+  const [selectedExternalId, setSelectedExternalId] = useState("");
 
   const handleClickAssetRow = (id: string) => () => {
-    setSelectedAssetId(id);
+    setSelectedExternalId(id);
   };
 
+  console.log({entitiesData })
+
   const rows = entitiesData?.map((entity) => {
-    if (entity.assetId !== "") {
+    if (entity.externalId !== "") {
       return (
         <tr
           key={entity.id}
-          onClick={handleClickAssetRow(entity.assetId)}
+          onClick={handleClickAssetRow(entity.externalId)}
           // onClick={() => {
           //   setIsModal(true);
           // }}
           // onClick={() => {
           //   console.log("onClick");
           //   dispatch(
-          //     setSelectedAssetId({
+          //     setSelectedExternalId({
           //       deviceId: entity.alsoKnownAs,
-          //       assetId: entity.assetId,
+          //       externalId: entity.externalId,
           //     })
           //   );
           //   dispatch(setSelectedView("singleAsset"));
@@ -75,14 +76,14 @@ function EmergingAssets() {
             radius={16}
             size="lg"
           >
-            <Cookstove id={entity.assetId} />
+            <Cookstove id={entity.externalId} />
           </Modal> */}
           <td
             style={{
               color: sortAssets.SerialNumber ? "#5FA8EB" : "black",
             }}
           >
-            {entity.assetId}
+            {entity.externalId}
           </td>
           <td
             style={{ color: sortAssets.CarbonClaimable ? "#5FA8EB" : "black" }}
@@ -185,13 +186,13 @@ function EmergingAssets() {
   }, [entities]);
 
   useEffect(() => {
-    if (selectedAssetId) {
+    if (selectedExternalId) {
       open();
     } else {
       close();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedAssetId]);
+  }, [selectedExternalId]);
 
   return (
     <>
@@ -325,11 +326,11 @@ function EmergingAssets() {
           </Table>
         </ScrollArea>
       </Card>
-      {selectedAssetId && (
+      {selectedExternalId && (
         <CookstoveModal
           opened={opened}
-          onClose={() => setSelectedAssetId("")}
-          id={Number(selectedAssetId)}
+          onClose={() => setSelectedExternalId("")}
+          id={Number(selectedExternalId)}
         />
       )}
     </>

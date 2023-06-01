@@ -142,7 +142,9 @@ function BalanceCard() {
                     width: viewPortSize.width >= tabletBreakpoint ? 272 : 318,
                     height: 46,
                   }}
-                  onClick={() => router.push("/certificate")}
+                  onClick={() =>
+                    router.push(pathname === "/" ? "/certificate" : "/")
+                  }
                 >
                   <Text
                     style={{
