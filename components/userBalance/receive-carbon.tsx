@@ -29,23 +29,25 @@ interface ItemProps extends React.ComponentPropsWithoutRef<"div"> {
   label: string;
 }
 
+const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
+  ({ icon, label, ...others }: ItemProps, ref) => (
+    <div ref={ref} {...others}>
+      <Group noWrap>
+        <div>{icon}</div>
+        <div>
+          <Text size="sm">{label}</Text>
+        </div>
+      </Group>
+    </div>
+  )
+);
+SelectItem.displayName = "SelectItem";
+
 function ReceiveCarbon() {
   const viewPortSize = useViewportSize();
   const [clipText, setClipText] = useState("ixo12345409659itgruniondfoifnboif");
   const notify = () => toast("Wow so easy!");
 
-  const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
-    ({ icon, label, ...others }: ItemProps, ref) => (
-      <div ref={ref} {...others}>
-        <Group noWrap>
-          <div>{icon}</div>
-          <div>
-            <Text size="sm">{label}</Text>
-          </div>
-        </Group>
-      </div>
-    )
-  );
   return (
     <Center>
       <div
