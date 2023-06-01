@@ -1,7 +1,7 @@
 import { getOpera as getJamboOpera } from '@ixo/jambo-wallet-sdk';
 import { ChainInfo } from '@keplr-wallet/types';
 
-import * as Toast from '@/components/Toast/Toast';
+import * as Toast from '@/components/toast/toast';
 import { sendTransaction, initStargateClient } from './client';
 import { TRX_FEE_OPTION, TRX_MSG } from 'types/transactions';
 import { USER } from 'types/user';

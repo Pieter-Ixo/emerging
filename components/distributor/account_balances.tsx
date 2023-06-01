@@ -1,26 +1,10 @@
-import { palette, shadow } from "@/theme/palette";
+import { palette } from "@/theme/palette";
 import { tabletBreakpoint } from "@/constants/breakpoints";
-import {
-  Card,
-  Image,
-  Text,
-  Badge,
-  Button,
-  Group,
-  Grid,
-  Col,
-  SegmentedControl,
-  List,
-  ThemeIcon,
-  Container,
-} from "@mantine/core";
+import { Card, Text, Button, Grid, Col, List, Container } from "@mantine/core";
 import { useViewportSize } from "@mantine/hooks";
-import { useContext, useState } from "react";
-import { useSelector } from "react-redux";
-import Leaf from "../logIn/icons/leaf";
+import { useState } from "react";
 import ButtonLeaf from "../userBalance/icons/buttonLeaf";
 import Calculate from "../userBalance/icons/calulate";
-import DownArrow from "../userBalance/icons/downArrow";
 import ReceiveArrow from "../userBalance/icons/receiveArrow";
 import SendArrow from "../userBalance/icons/sendArrow";
 import Carbon from "./icons/carbon";
@@ -29,7 +13,6 @@ import ExpandMyBalance from "./icons/Expand";
 import Ixo from "./icons/ixo";
 import OSMO from "./icons/OSMO_Icon";
 import Usdc from "./icons/usdc";
-import { WalletContext } from "@/context/wallet";
 
 // import ButtonLeaf from "./icons/buttonLeaf";
 // import Calculate from "./icons/calulate";
@@ -38,12 +21,9 @@ import { WalletContext } from "@/context/wallet";
 // import SendArrow from "./icons/sendArrow";
 
 function AccountBalance() {
-  const signedIn = useSelector((state: any) => state.user.loggedIn);
   const [available, setAvailable] = useState(true);
   const viewPortSize = useViewportSize();
-  const [isExpanded, setExpand] = useState(true) //in this case false will show it,  and true will hide it
-  const { wallet, showWalletModal, updateWallet, walletModalVisible } =
-    useContext(WalletContext);
+  const [isExpanded, setExpand] = useState(true); //in this case false will show it,  and true will hide it
 
   //console.log("account wllet" , wallet.balances?.balances)
 
@@ -95,17 +75,28 @@ function AccountBalance() {
                   <List.Item icon={<Carbon />}>8,000.00 CARBON</List.Item>
                   <List.Item icon={<Usdc />}>12,000.00 USDC</List.Item>
                   <List.Item icon={<Ixo />}>15,000.00 IXO</List.Item>
-                  <List.Item hidden={isExpanded} icon={<OSMO />}>5,234.00 OSMO</List.Item>
-                  <List.Item hidden={isExpanded} icon={<Carbon />}>1,245.00 REGEN</List.Item>
+                  <List.Item hidden={isExpanded} icon={<OSMO />}>
+                    5,234.00 OSMO
+                  </List.Item>
+                  <List.Item hidden={isExpanded} icon={<Carbon />}>
+                    1,245.00 REGEN
+                  </List.Item>
                   {/* <List.Item hidden={isExpanded} icon={<Carbon />}>1.234 ETH</List.Item>
                   <List.Item hidden={isExpanded} icon={<Carbon />}>312.324 MATIC</List.Item> */}
                 </List>
 
-                <Container onClick={() => setExpand(!isExpanded)} style={{ alignSelf: "flex-end", height: viewPortSize.height * 0.026, paddingLeft: 30, flex: 1 }}>
+                <Container
+                  onClick={() => setExpand(!isExpanded)}
+                  style={{
+                    alignSelf: "flex-end",
+                    height: viewPortSize.height * 0.026,
+                    paddingLeft: 30,
+                    flex: 1,
+                  }}
+                >
                   {isExpanded ? <ExpandMyBalance /> : <Collapse />}
                 </Container>
               </Container>
-
             </Card>
 
             <Grid style={{ paddingTop: 30 }}>

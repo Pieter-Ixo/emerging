@@ -1,4 +1,4 @@
-import { ToastContainer } from "@/components/Toast/Toast";
+import { ToastContainer } from "@/components/toast/toast";
 import { ChainProvider } from "@/context/chain";
 import { WalletProvider } from "@/context/wallet";
 import { store } from "@/redux/store";
