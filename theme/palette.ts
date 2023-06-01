@@ -13,8 +13,9 @@ export const palette = {
   darkestBlue: "#13263D",
   o1blue: "#007ABE",
   //Highlights
-  redFull: "#E2223B",
   redBright: "#F9909E",
+  redFull: "#E2223B",
+  redDark: "#A11C43",
   orangeFull: "#ED9526",
   orangeBright: "#FDC681",
   greenFull: "#61B43A",

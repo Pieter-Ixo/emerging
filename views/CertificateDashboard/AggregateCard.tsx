@@ -3,238 +3,120 @@ import { palette, shadow } from "@/theme/palette";
 import { Box, Card, Flex, Grid, Image, Progress, Text } from "@mantine/core";
 import React from "react";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Router from "next/router";
+import {
+  ICategoriesModel,
+  ICategoryModel,
+  IPropertiesModel,
+  IPropertyModel,
+} from ".";
+import Link from "next/link";
 
-const data = [
-  {
-    type: "Impact Asset",
-    icon: "/images/icon-assets.svg",
-    properties: [
-      {
-        key: "identifier",
-        value: "SupaMoto #15",
-      },
-      {
-        key: "collection",
-        value: "Zambia Collection",
-      },
-      {
-        key: "denom",
-        value: "SUPA",
-      },
-      {
-        key: "creation date",
-        value: "5 Apr 2023",
-      },
-      {
-        key: "total CARBON produced",
-        value: "1,235 CARBON",
-      },
-      {
-        key: "total emissions avoided",
-        value: "1,235 kgCO2",
-      },
-      {
-        key: "owned by",
-        value: "ixo12345...12345",
-      },
-      {
-        key: "performance",
-        value: "dashboard",
-      },
-    ],
-  },
-  {
-    type: "Impact Claim",
-    icon: "/images/icon-leaf-solid.svg",
-    properties: [
-      {
-        key: "fuel type",
-        value: "biomass",
-      },
-      {
-        key: "fuel amount",
-        value: "32 kg",
-      },
-      {
-        key: "cooking time",
-        value: "120 h 30 min",
-      },
-      {
-        key: "conversion factor",
-        value: "11.1",
-      },
-      {
-        key: "period",
-        value: "Apr 10 - May 10 2023",
-      },
-      {
-        key: "emissions avoided",
-        value: "1,000 kgCO2",
-      },
-      {
-        key: "claim issuer",
-        value: "EmergingDAO",
-      },
-      {
-        key: "claim id",
-        value: "12345",
-      },
-    ],
-  },
-  {
-    type: "Clean Energy Device",
-    icon: "/images/icon-cogs-solid.svg",
-    properties: [
-      {
-        key: "type",
-        value: "cookstove",
-      },
-      {
-        key: "model",
-        value: "Mimimoto",
-      },
-      {
-        key: "fuel",
-        value: "biomass",
-      },
-      {
-        key: "manufacture date",
-        value: "Jan 12 2023",
-      },
-      {
-        key: "manufacture place",
-        value: "South Africa",
-      },
-    ],
-  },
-  {
-    type: "Project",
-    icon: "/images/icon-projects.svg",
-    properties: [
-      {
-        key: "name",
-        value: "SupaMoto Zambia",
-      },
-      {
-        key: "developer",
-        value: "Emerging Cooking Solutions",
-      },
-      {
-        key: "country",
-        value: "Zambia",
-      },
-      {
-        key: "impact producers",
-        value: "1,500",
-      },
-      {
-        key: "emissions avoided",
-        value: "1,500,123 kgCO2",
-      },
-    ],
-  },
-  {
-    type: "Impact Producer",
-    icon: "/images/icon-user.svg",
-    properties: [
-      {
-        key: "identifier",
-        value: "abc1234",
-      },
-      {
-        key: "country",
-        value: "Zambia",
-      },
-      {
-        key: "setting",
-        value: "rural",
-      },
-      {
-        key: "household",
-        value: "4 members",
-      },
-      {
-        key: "total cooking time",
-        value: "541h 31min",
-      },
-    ],
-  },
-  {
-    type: "Evaluator",
-    icon: "/images/icon-chart-bar-solid.svg",
-    properties: [
-      {
-        key: "oracle",
-        value: "Carbon Oracle",
-      },
-      {
-        key: "methodology",
-        value: "Gold Standard",
-      },
-      {
-        key: "model",
-        value: "Carbon AI Model",
-      },
-      {
-        key: "version",
-        value: "1.03",
-      },
-      {
-        key: "claims processed",
-        value: "1,200,412",
-      },
-    ],
-  },
-];
+const CategoryBox: React.FC<{
+  category: ICategoryModel;
+  properties: IPropertyModel[];
+}> = ({ category, properties }) => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const detailParam = searchParams.get("detail");
 
-interface Props {
-  type: string;
-  icon: string;
-  properties: {
-    key: string;
-    value: string;
-  }[];
-}
+  const handleClick = (key: string) => {
+    if (detailParam === key) {
+      Router.push({ pathname });
+    } else {
+      Router.push({ pathname, query: { ["detail"]: key } });
+    }
+  };
 
-const StatBox: React.FC<Props> = ({ type, icon, properties }) => (
-  <Flex direction={"column"}>
-    <Flex
-      sx={{
-        borderBottom: `1px solid ${palette.Black}`,
-        paddingBottom: "8px",
-        marginBottom: "8px",
-      }}
-      gap={8}
-      align="center"
-    >
-      <Image width={24} height={24} src={icon} alt="" />
-      <Text
-        fw={400}
-        sx={{ fontSize: 13 }}
-        color={palette.darkestBlue}
-        transform="uppercase"
+  return (
+    <Flex direction={"column"}>
+      <Flex
+        sx={{
+          borderBottom: `1px solid ${palette.Black}`,
+          paddingBottom: "8px",
+          marginBottom: "8px",
+        }}
+        gap={8}
+        align="center"
       >
-        {type}
-      </Text>
-    </Flex>
+        <Image width={24} height={24} src={category.icon} alt="" />
+        <Text
+          fw={400}
+          sx={{ fontSize: 13 }}
+          color={palette.darkestBlue}
+          transform="uppercase"
+        >
+          {category.category}
+        </Text>
+      </Flex>
 
-    <Flex direction={"column"} gap={8}>
-      {properties.map((property, index) => (
-        <Flex key={index} justify="space-between" align={"center"}>
-          <Text fw={400} sx={{ fontSize: 13 }} color={palette.darkestBlue}>
-            {property.key}
-          </Text>
-          <Text fw={400} sx={{ fontSize: 13 }} color={palette.darkestBlue}>
-            {property.value}
-          </Text>
-        </Flex>
-      ))}
+      <Flex direction={"column"} gap={8}>
+        {Object.values(properties).map((property, index) => {
+          const { component, props, key, text, value, external } = property;
+          return (
+            <Flex key={index} justify="space-between" align={"center"}>
+              <Text fw={400} sx={{ fontSize: 13 }} color={palette.darkestBlue}>
+                {text || key}
+              </Text>
+              {detailParam === key ? (
+                <Text
+                  fw={400}
+                  sx={{
+                    fontSize: 13,
+                    cursor: "pointer",
+                    backgroundColor: palette.fullBlue,
+                    borderRadius: 9999,
+                    padding: "0 0.5rem",
+                  }}
+                  color={palette.White}
+                  onClick={() => handleClick(key)}
+                >
+                  {value}
+                </Text>
+              ) : component && props ? (
+                <Text
+                  fw={400}
+                  sx={{
+                    fontSize: 13,
+                    cursor: "pointer",
+                  }}
+                  color={palette.fullBlue}
+                  onClick={() => handleClick(key)}
+                >
+                  {value}
+                </Text>
+              ) : external ? (
+                <Link href={external} passHref>
+                  <Text
+                    fw={400}
+                    sx={{ fontSize: 13, cursor: "pointer" }}
+                    color={palette.fullBlue}
+                  >
+                    {value}
+                  </Text>
+                </Link>
+              ) : (
+                <Text
+                  fw={400}
+                  sx={{ fontSize: 13, cursor: "pointer" }}
+                  color={palette.darkestBlue}
+                >
+                  {value}
+                </Text>
+              )}
+            </Flex>
+          );
+        })}
+      </Flex>
     </Flex>
-  </Flex>
-);
+  );
+};
 
-const ProofCard: React.FC = () => {
+const AggregateCard: React.FC<{
+  categories: ICategoriesModel;
+  properties: IPropertiesModel;
+}> = ({ categories, properties }) => {
   const router = useRouter();
   return (
     <Card
@@ -258,7 +140,7 @@ const ProofCard: React.FC = () => {
         }}
       >
         <Flex
-          sx={{ position: "absolute", top: 48, cursor: 'pointer' }}
+          sx={{ position: "absolute", top: 48, cursor: "pointer" }}
           onClick={() => router.back()}
         >
           <ArrowLeftIcon />
@@ -419,9 +301,14 @@ const ProofCard: React.FC = () => {
 
       <Flex sx={{ padding: "1rem 2rem", width: "100%" }}>
         <Grid sx={{ width: "100%" }} gutter="lg">
-          {data.map((item, index) => (
+          {Object.values(categories).map((category, index) => (
             <Grid.Col key={index} span={6}>
-              <StatBox {...item} />
+              <CategoryBox
+                category={category}
+                properties={Object.values(properties).filter(
+                  (property) => property.category! === category.category
+                )}
+              />
             </Grid.Col>
           ))}
         </Grid>
@@ -430,4 +317,4 @@ const ProofCard: React.FC = () => {
   );
 };
 
-export default ProofCard;
+export default AggregateCard;

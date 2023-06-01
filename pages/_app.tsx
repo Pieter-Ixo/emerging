@@ -6,7 +6,7 @@ import { MantineProvider } from "@mantine/core";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { Provider } from "react-redux";
-import "@/styles/globals.css";
+import "@/styles/globals.scss";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { CookstoveProvider } from "@/context/cookstove";
