@@ -1,0 +1,30 @@
+.imageTextCard {
+	padding: 15px;
+	display: flex;
+	flex-direction: row;
+	cursor: pointer;
+
+	&.vertical {
+		flex-direction: column;
+		align-items: center;
+		height: 100%;
+		margin-bottom: 0;
+
+		div {
+			margin-top: 6px;
+			text-align: center;
+		}
+	}
+
+	.textContainer {
+		flex: 1;
+		margin-left: 5px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		.text {
+			margin: 0;
+		}
+	}
+}

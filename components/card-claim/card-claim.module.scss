@@ -1,0 +1,42 @@
+.carbonClaimCard {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+
+	.textContainer {
+		display: flex;
+		flex-direction: column;
+
+		p {
+			margin: 0;
+			font-size: 0.7rem;
+		}
+
+		.amountContainer {
+			display: flex;
+			flex-direction: row;
+			align-items: baseline;
+			font-size: 0.9rem;
+			margin-top: 8px;
+
+			.amount {
+				font-size: 2.5rem;
+				margin-right: 4px;
+				line-height: 2.7rem;
+			}
+		}
+	}
+
+	button {
+		border-radius: 8px;
+		color: var(--main-font-color-inverted);
+		border: 1px solid #a3d3ff;
+		background-color: #73bafc;
+		font-size: 1.5rem;
+		height: min-content;
+		padding: 8px 12px;
+		margin-left: 8px;
+		cursor: pointer;
+	}
+}
