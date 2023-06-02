@@ -1,9 +1,9 @@
 import Copy from "@/components/emergingAssets/icons/copy";
 import { palette, shadow } from "@/theme/palette";
-import { Box, Card, Flex, Grid, Image, Progress, Text } from "@mantine/core";
+import {  Card, Flex, Grid, Image, Progress, Text } from "@mantine/core";
 import React from "react";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Router from "next/router";
 import {
   ICategoriesModel,
@@ -18,14 +18,13 @@ const CategoryBox: React.FC<{
   properties: IPropertyModel[];
 }> = ({ category, properties }) => {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const detailParam = searchParams.get("detail");
+  const hashId = window.location.hash;
 
   const handleClick = (key: string) => {
-    if (detailParam === key) {
+    if (hashId === `#${key}`) {
       Router.push({ pathname });
     } else {
-      Router.push({ pathname, query: { ["detail"]: key } });
+      Router.push({ pathname, hash: key });
     }
   };
 
@@ -59,7 +58,7 @@ const CategoryBox: React.FC<{
               <Text fw={400} sx={{ fontSize: 13 }} color={palette.darkestBlue}>
                 {text || key}
               </Text>
-              {detailParam === key ? (
+              {hashId === `#${key}` ? (
                 <Text
                   fw={400}
                   sx={{
@@ -87,7 +86,7 @@ const CategoryBox: React.FC<{
                   {value}
                 </Text>
               ) : external ? (
-                <Link href={external} passHref>
+                <Link href={external} target={"_blank"}>
                   <Text
                     fw={400}
                     sx={{ fontSize: 13, cursor: "pointer" }}

@@ -1,17 +1,16 @@
 import { palette, shadow } from "@/theme/palette";
 import { Card, Flex, Text } from "@mantine/core";
-import { useSearchParams } from "next/navigation";
 import React, { useMemo } from "react";
 import { IPropertiesModel } from ".";
 
 const ProofCard: React.FC<{ properties: IPropertiesModel }> = ({
   properties,
 }) => {
-  const searchParams = useSearchParams();
-  const queryParam = searchParams.get("detail");
+  const hashId = window.location.hash.split("#").pop();
+
   const selectedProperty = useMemo(
-    () => properties[queryParam!],
-    [queryParam, properties]
+    () => properties[hashId!],
+    [hashId, properties]
   );
 
   console.log({ selectedProperty });
@@ -40,7 +39,12 @@ const ProofCard: React.FC<{ properties: IPropertiesModel }> = ({
       <Flex
         align={"center"}
         justify="center"
-        sx={{ width: "100%", height: "100%", padding: '1rem 0', margin: 'auto' }}
+        sx={{
+          width: "100%",
+          height: "100%",
+          padding: "1rem 0",
+          margin: "auto",
+        }}
       >
         {selectedProperty ? (
           <selectedProperty.component {...selectedProperty.props} />
