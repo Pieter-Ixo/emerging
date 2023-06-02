@@ -4,6 +4,7 @@ import React from "react";
 import AggregateCard from "./AggregateCard";
 import ProofCard from "./ProofCard";
 import AssetDeviceCard from "./ProofComponents/AssetDeviceCard";
+import JSONViewerCard from "./ProofComponents/JSONViewerCard";
 import CollectionCard from "./ProofComponents/CollectionCard";
 import DAOCard from "./ProofComponents/DAOCard";
 import OracleCard from "./ProofComponents/OracleCard";
@@ -155,6 +156,7 @@ const properties: IPropertiesModel = {
     key: "conversion_factor",
     text: "conversion factor",
     value: "11.1",
+    external: "https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf",
     category: "Impact Claim",
   },
   period: {
@@ -188,6 +190,10 @@ const properties: IPropertiesModel = {
     key: "claim_id",
     text: "claim id",
     value: "12345",
+    component: JSONViewerCard,
+    props: {
+      json: '{"id":"{id}","type":"ImpactNFT","name":"SupaMoto Genesis","tokenName":"SupaMoto","decimals":0,"description":"SupaMoto Genesis","image":"https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi","properties":{"denom":"SUPAMOTO","icon":"https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i","maxSupply":"600"}}',
+    },
     category: "Impact Claim",
   },
   // Clean Energy Device
@@ -201,6 +207,10 @@ const properties: IPropertiesModel = {
     key: "energy_device_model",
     text: "model",
     value: "Mimimoto",
+    component: JSONViewerCard,
+    props: {
+      json: '{"id":"{id}","type":"ImpactNFT","name":"SupaMoto Genesis","tokenName":"SupaMoto","decimals":0,"description":"SupaMoto Genesis","image":"https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi","properties":{"denom":"SUPAMOTO","icon":"https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i","maxSupply":"600"}}',
+    },
     category: "Clean Energy Device",
   },
   energy_device_fuel: {
@@ -232,6 +242,10 @@ const properties: IPropertiesModel = {
     key: "developer",
     text: "developer",
     value: "Emerging Cooking Solutions",
+    component: JSONViewerCard,
+    props: {
+      json: '{"id":"{id}","type":"ImpactNFT","name":"SupaMoto Genesis","tokenName":"SupaMoto","decimals":0,"description":"SupaMoto Genesis","image":"https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi","properties":{"denom":"SUPAMOTO","icon":"https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i","maxSupply":"600"}}',
+    },
     category: "Project",
   },
   country: {
