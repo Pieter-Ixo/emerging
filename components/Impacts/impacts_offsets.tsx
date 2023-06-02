@@ -17,18 +17,7 @@ function ImpactsOffsets() {
   const [rating, setRating] = useState(0);
   const viewPortSize = useViewportSize();
   return (
-    <Card
-      shadow="sm"
-      radius={16}
-      withBorder
-      h={370}
-      style={{
-        width:
-          viewPortSize.width >= mobileBreakpoint
-            ? viewPortSize.width * 0.447
-            : 358,
-      }}
-    >
+    <Card shadow="sm" radius={16} withBorder h={"100%"}>
       <Text
         style={{
           textAlign: "left",

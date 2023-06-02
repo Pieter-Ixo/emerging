@@ -60,7 +60,7 @@ export const Nav = () => {
 
   return (
     <Navbar
-      height={navHeight}
+      height={"100%"}
       p="xs"
       width={{
         base: 360,

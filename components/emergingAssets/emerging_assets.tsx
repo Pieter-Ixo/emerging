@@ -44,7 +44,7 @@ function EmergingAssets() {
     setSelectedExternalId(id);
   };
 
-  console.log({entitiesData })
+  console.log({ entitiesData });
 
   const rows = entitiesData?.map((entity) => {
     if (entity.externalId !== "") {
@@ -196,16 +196,7 @@ function EmergingAssets() {
 
   return (
     <>
-      <Card
-        shadow="sm"
-        p="lg"
-        radius={16}
-        withBorder
-        style={{
-          width: viewPortSize.width >= mobileBreakpoint ? 400 : 358,
-          height: viewPortSize.height >= mobileBreakpoint ? 455 : 358,
-        }}
-      >
+      <Card shadow="sm" p="lg" radius={16} withBorder>
         <Grid align={"center"} justify="space-between">
           <Grid.Col span={6}>
             <Text

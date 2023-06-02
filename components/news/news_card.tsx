@@ -25,10 +25,12 @@ function NewsCard() {
       p="lg"
       radius={16}
       withBorder
-      style={{
-        width: viewPortSize.width >= mobileBreakpoint ? 400 : 358,
-        height: 370,
-      }}
+      style={
+        {
+          // width: viewPortSize.width >= mobileBreakpoint ? 400 : 358,
+          // height: 370,
+        }
+      }
     >
       <Grid>
         <Grid.Col span={6}>
@@ -60,14 +62,15 @@ function NewsCard() {
       <Divider my="sm" />
       <div
         style={{
-          width: viewPortSize.width >= mobileBreakpoint ? 355 : 294,
+          // width: viewPortSize.width >= mobileBreakpoint ? 355 : 294,
           marginLeft: "auto",
           marginRight: "auto",
         }}
       >
         <Image
           radius="md"
-          height={viewPortSize.width >= mobileBreakpoint ? 200 : 171}
+          // height={viewPortSize.width >= mobileBreakpoint ? 200 : 171}
+          height="100%"
           src={IMG_3991.src}
           alt="News"
         />

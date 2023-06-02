@@ -377,7 +377,7 @@ function GraphPerf({ sessions, fuel, stove, totalSessions }: Props) {
     const temp: any[] = [];
     tempFuel?.content?.map((data) => {
       temp.push({
-        time: dayjs(data.dateTime).format("YYYY-MM-DD"),
+        time: data.dateTime ? dayjs(data.dateTime).format("YYYY-MM-DD") : "",
         value: data.pelletsAmount,
       });
     });
@@ -423,7 +423,7 @@ function GraphPerf({ sessions, fuel, stove, totalSessions }: Props) {
 
     tempFuel?.content?.map((data) => {
       temp.push({
-        time: dayjs(data.dateTime).format("YYYY-MM-DD"),
+        time: data.dateTime ? dayjs(data.dateTime).format("YYYY-MM-DD") : "",
         value: data.pelletsAmount * 0.08,
       });
     });
@@ -487,19 +487,7 @@ function GraphPerf({ sessions, fuel, stove, totalSessions }: Props) {
   const viewPortSize = useViewportSize();
 
   return (
-    <Card
-      shadow="sm"
-      radius={16}
-      withBorder
-      // h={459}
-      style={{
-        width:
-          viewPortSize.width >= tabletBreakpoint
-            ? viewPortSize.width * 0.447
-            : 358,
-        height: viewPortSize.width >= smallLaptopBreakpoint ? 459 : 523,
-      }}
-    >
+    <Card shadow="sm" radius={16} withBorder h={"100%"}>
       <Text
         style={{
           textAlign: "left",
