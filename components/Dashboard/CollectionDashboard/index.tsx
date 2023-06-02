@@ -5,11 +5,13 @@ import EmergingAssets from "@/components/emergingAssets/emerging_assets";
 import GraphPerf from "@/components/graphPerf/graphPerf";
 import NewsCard from "@/components/news/news_card";
 import {
+  Box,
   Container,
+  Flex,
   Grid,
   Group,
   Text,
-  Transition
+  Transition,
 } from "@mantine/core";
 import { useViewportSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
@@ -17,7 +19,7 @@ import GlobalIcon from "./icons/global-icon";
 import PortfolioIcon from "./icons/portfolio-icon";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { selectAuthState, setSelectedView } from "@/redux/userSlice";
+import { setSelectedView } from "@/redux/userSlice";
 
 interface pellet {
   content: [
@@ -72,7 +74,7 @@ function CollectionDashboard() {
       {
         amount: 0,
         currency: "",
-        dateTime: "",
+        dateTime: "2023-06-02T17:58:31.293Z",
         id: 0,
         pelletsAmount: 0,
         pelletsAmountUnits: "",
@@ -96,23 +98,19 @@ function CollectionDashboard() {
 
   return (
     <div
-      style={{
-        width: "100%",
-        height: "100%",
-        overflowX: "hidden",
-        overflowY: "hidden",
-      }}
+      style={
+        {
+          // width: "100%",
+          // height: "100%",
+        }
+      }
     >
       <>
         <Container fluid style={{ display: "flex" }}>
-          <Text
-            style={{ fontSize: 40, paddingLeft: 20, paddingTop: 20 }}
-          >
+          <Text style={{ fontSize: 40, paddingLeft: 20, paddingTop: 20 }}>
             Collection Dashboard
           </Text>
-          <div
-            style={{ marginLeft: 24, marginTop: 30, display: "flex" }}
-          >
+          <div style={{ marginLeft: 24, marginTop: 30, display: "flex" }}>
             <div
               style={{ marginRight: 16, cursor: "pointer" }}
               onClick={() => dispatch(setSelectedView("global"))}
@@ -128,16 +126,13 @@ function CollectionDashboard() {
           </div>
         </Container>
 
-        <div style={{ display: "flex", paddingTop: 16 }}>
+        <Container fluid>
           <Grid
-            grow
-            gutter="md"
-            style={{ width: viewPortSize.width * 0.485 }}
+            gutter={"xl"}
+            sx={{ width: "100%", padding: 16, margin: 0 }}
+            align="stretch"
           >
-            <Grid.Col
-              span={2}
-              style={{ paddingTop: 10, paddingLeft: 40 }}
-            >
+            <Grid.Col span={8}>
               <Transition
                 mounted={transitionTop}
                 transition="slide-left"
@@ -145,14 +140,76 @@ function CollectionDashboard() {
                 timingFunction="ease"
               >
                 {(styles) => (
-                  <div style={styles}>{setImpactCard()}</div>
+                  <Box sx={{ height: "100%" }} style={styles}>
+                    {setImpactCard()}
+                  </Box>
                 )}
               </Transition>
             </Grid.Col>
-            <Grid.Col
-              span={2}
-              style={{ paddingLeft: 40, minWidth: 500 }}
-            >
+            <Grid.Col span={4}>
+              <Transition
+                mounted={transitionTop}
+                transition="slide-left"
+                duration={duration}
+                timingFunction="ease"
+              >
+                {(styles) => (
+                  <div style={styles}>
+                    <NewsCard />
+                  </div>
+                )}
+              </Transition>
+            </Grid.Col>
+
+            <Grid.Col span={8}>
+              <Transition
+                mounted={transitionBottom}
+                transition="slide-left"
+                duration={duration}
+                timingFunction="ease"
+              >
+                {(styles) => (
+                  <Box sx={{ height: "100%" }} style={styles}>
+                    <GraphPerf
+                      sessions={sessionsTotal}
+                      fuel={pelletTotal}
+                      stove={stoveData}
+                      totalSessions={sessionAmount}
+                    />
+                  </Box>
+                )}
+              </Transition>
+            </Grid.Col>
+            <Grid.Col span={4}>
+              <Transition
+                mounted={transitionBottom}
+                transition="slide-left"
+                duration={duration}
+                timingFunction="ease"
+              >
+                {(styles) => (
+                  <Box sx={{ height: "100%" }} style={styles}>
+                    <EmergingAssets />
+                  </Box>
+                )}
+              </Transition>
+            </Grid.Col>
+          </Grid>
+        </Container>
+
+        {/* <div style={{ display: "flex", paddingTop: 16, paddingBottom: 16 }}>
+          <Grid grow gutter="md" style={{ width: viewPortSize.width * 0.485 }}>
+            <Grid.Col span={2} style={{ paddingTop: 10, paddingLeft: 40 }}>
+              <Transition
+                mounted={transitionTop}
+                transition="slide-left"
+                duration={duration}
+                timingFunction="ease"
+              >
+                {(styles) => <div style={styles}>{setImpactCard()}</div>}
+              </Transition>
+            </Grid.Col>
+            <Grid.Col span={2} style={{ paddingLeft: 40, minWidth: 500 }}>
               <Transition
                 mounted={transitionBottom}
                 transition="slide-left"
@@ -198,7 +255,7 @@ function CollectionDashboard() {
               )}
             </Transition>
           </Group>
-        </div>
+        </div> */}
       </>
     </div>
   );

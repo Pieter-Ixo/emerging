@@ -37,7 +37,7 @@ function BalanceCard() {
   const [receiveModal, setReceiveModal] = useState(false);
   const entities = useAppSelector((state) => state.collection.entities);
   const [totalClaimable, setTotalClaimable] = useState(0);
-  const [totalOffset, setTotalOffset] = useState(0);
+  const [totalOffset, setTotalOffset] = useState(1412);
   const viewPortSize = useViewportSize();
 
   return (
@@ -94,7 +94,7 @@ function BalanceCard() {
                       color: palette.fullBlue,
                     }}
                   >
-                    0.0
+                    3412
                   </Text>
                 </Col>
                 <Col span={6}>

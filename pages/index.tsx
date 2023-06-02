@@ -1,6 +1,6 @@
 import { useAppDispatch } from "@/hooks/redux";
 import { fetchAllEntities } from "@/redux/collectionSlice";
-import CollectionDashboard from "@/views/collectionDashboard";
+import { CollectionDashboard } from "@/components/Dashboard";
 import { useEffect } from "react";
 
 export default function Home() {

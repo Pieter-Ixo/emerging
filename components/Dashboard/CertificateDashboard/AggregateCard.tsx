@@ -1,6 +1,6 @@
 import Copy from "@/components/emergingAssets/icons/copy";
 import { palette, shadow } from "@/theme/palette";
-import {  Card, Flex, Grid, Image, Progress, Text } from "@mantine/core";
+import { Card, Flex, Grid, Image, Progress, Text } from "@mantine/core";
 import React from "react";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import { usePathname, useRouter } from "next/navigation";
@@ -140,7 +140,7 @@ const AggregateCard: React.FC<{
       >
         <Flex
           sx={{ position: "absolute", top: 48, cursor: "pointer" }}
-          onClick={() => router.back()}
+          onClick={() => router.push("/")}
         >
           <ArrowLeftIcon />
         </Flex>
