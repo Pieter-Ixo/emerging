@@ -8,6 +8,8 @@ import JSONViewerCard from "./ProofComponents/JSONViewerCard";
 import CollectionCard from "./ProofComponents/CollectionCard";
 import DAOCard from "./ProofComponents/DAOCard";
 import OracleCard from "./ProofComponents/OracleCard";
+import ProjectNameCard from "./ProofComponents/ProjectNameCard";
+import CookstoveModal from "@/components/Modals/CookstoveModal";
 
 export interface ICategoryModel {
   category: string;
@@ -66,16 +68,16 @@ const properties: IPropertiesModel = {
     props: {
       id: "{id}",
       type: "ImpactNFT",
-      name: "SupaMoto Genesis",
+      name: "SupaMoto Clean Cooking",
       tokenName: "SupaMoto",
       decimals: 0,
-      description: "SupaMoto Genesis",
+      description: "Zambia Collection 2023",
       image:
         "https://ipfs.io/ipfs/bafkreideszg4fdha4tf7ldpecltxbyxbnapb663tkuksk2vcczkzkxppaa",
       properties: {
         denom: "SUPAMOTO",
         icon: "https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i",
-        maxSupply: "600",
+        maxSupply: "1500",
       },
     },
     category: "Impact Asset",
@@ -87,16 +89,16 @@ const properties: IPropertiesModel = {
     props: {
       id: "{id}",
       type: "ImpactNFT",
-      name: "SupaMoto Genesis",
+      name: `SupaMoto\nZambia Collection`,
       tokenName: "SupaMoto",
       decimals: 0,
-      description: "SupaMoto Genesis",
+      description: "2023",
       image:
         "https://ipfs.io/ipfs/bafkreideszg4fdha4tf7ldpecltxbyxbnapb663tkuksk2vcczkzkxppaa",
       properties: {
         denom: "SUPAMOTO",
         icon: "https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i",
-        maxSupply: "600",
+        maxSupply: "1500",
       },
     },
     category: "Impact Asset",
@@ -118,7 +120,7 @@ const properties: IPropertiesModel = {
   },
   total_avoided: {
     key: "total emissions avoided",
-    value: "1,235 kgCO2",
+    value: "1,235 kgCO₂",
     category: "Impact Asset",
   },
   owned_by: {
@@ -131,6 +133,10 @@ const properties: IPropertiesModel = {
   performance: {
     key: "performance",
     value: "dashboard",
+    component: CookstoveModal,
+    props: {
+      id: 202200001,
+    },
     category: "Impact Asset",
   },
   // Impact Claim
@@ -156,7 +162,7 @@ const properties: IPropertiesModel = {
     key: "conversion_factor",
     text: "conversion factor",
     value: "11.1",
-    external: "https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf",
+    external: "Conversion Factor.pdf",
     category: "Impact Claim",
   },
   period: {
@@ -168,7 +174,7 @@ const properties: IPropertiesModel = {
   emissions_avoided: {
     key: "emissions_avoided",
     text: "emissions avoided",
-    value: "1,000 kgCO2",
+    value: "1,000 kgCO₂",
     category: "Impact Claim",
   },
   claim_issuer: {
@@ -209,7 +215,7 @@ const properties: IPropertiesModel = {
     value: "Mimimoto",
     component: JSONViewerCard,
     props: {
-      json: '{"id":"{id}","type":"ImpactNFT","name":"SupaMoto Genesis","tokenName":"SupaMoto","decimals":0,"description":"SupaMoto Genesis","image":"https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi","properties":{"denom":"SUPAMOTO","icon":"https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i","maxSupply":"600"}}',
+      json: '{"id":"https://registry.emerging.eco/device/?id=202200001","product":{"model":"MimiMoto","description":"Micro-gasification pellet stove with IoT sensor","color":"Red"},"manufacturer":{"name":"Mimi Moto BV","country":"CN","date":"2019-2022"},"certification":{"id":"https://ipfs.io/ipfs/bafkreiefafy2u5df4l52yb7vvz32hxrxhcceyaq3z7xww2qlz2fp3ppeum","type":"PerformanceTestingCertificate","issuer":"Aprovecho Research Center","date":"2017","code":"WBT 4.2.3, LEMS, Safety"}}',
     },
     category: "Clean Energy Device",
   },
@@ -236,6 +242,22 @@ const properties: IPropertiesModel = {
     key: "name",
     text: "name",
     value: "SupaMoto Zambia",
+    component: ProjectNameCard,
+    props: {
+      id: "{id}",
+      type: "ImpactNFT",
+      name: "SupaMoto Zambia",
+      tokenName: "SupaMoto",
+      decimals: 0,
+      description: "Zambia Collection 2023",
+      image:
+        "https://bafybeifduopicws7pddcddmnm2hcna6wbr3y4bqg6wmo5yzgcbbnad23xm.ipfs.w3s.link/SupaMoto_DAO_02_hero_1920x1080%201.png",
+      properties: {
+        denom: "SUPAMOTO",
+        icon: "https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i",
+        maxSupply: "1600",
+      },
+    },
     category: "Project",
   },
   developer: {
@@ -263,7 +285,7 @@ const properties: IPropertiesModel = {
   project_emissions_avoided: {
     key: "project_emissions_avoided",
     text: "emissions avoided",
-    value: "1,500,123 kgCO2",
+    value: "1,500,123 kgCO₂",
     category: "Project",
   },
   // Impact Producer
@@ -305,8 +327,9 @@ const properties: IPropertiesModel = {
     value: "Carbon Oracle",
     component: OracleCard,
     props: {
-      image: "",
-      icon: "",
+      image:
+        "https://bafybeigbfzbn2ap6th7l7agupjfusojteheb33ih3fe4hvi64xwslpepde.ipfs.w3s.link/carbonORACLE_02_profile_960x540%202.png",
+      icon: "https://bafybeibkxdea27zfi6ibrh4yzdvx7m2no6m4aartsujok47c26eslpefga.ipfs.w3s.link/Group%20747.png",
       name: "CARBON Oracle",
       description: "Causal AI claim evaluation",
       numOfAssets: 5124,

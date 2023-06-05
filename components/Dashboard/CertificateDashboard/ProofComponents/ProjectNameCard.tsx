@@ -4,17 +4,24 @@ import React from "react";
 import moment from "moment";
 
 interface Props {
-  image: string;
-  icon: string;
+  id: string;
+  type: string;
   name: string;
+  tokenName: string;
+  decimals: number;
   description: string;
-  numOfMembers: number;
+  image: string;
+  properties: {
+    denom: string;
+    icon: string;
+    maxSupply: string;
+  };
 }
 
-const DAOCard: React.FC<Props> = (props: Props) => {
+const ProjectNameCard: React.FC<Props> = (props: Props) => {
   //
 
-  console.log("DAOCard", { props });
+  console.log("ProjectNameCard", { props });
 
   return (
     <Flex
@@ -43,7 +50,7 @@ const DAOCard: React.FC<Props> = (props: Props) => {
           <Flex align={"center"} gap={4}>
             <Flex
               sx={{
-                background: palette.fullBlue,
+                background: palette.redDark,
                 borderRadius: 6,
                 padding: "2px 8px",
               }}
@@ -53,7 +60,7 @@ const DAOCard: React.FC<Props> = (props: Props) => {
                 sx={{ fontFamily: "Roboto", fontSize: 12 }}
                 fw={600}
               >
-                DAO
+                Project
               </Text>
             </Flex>
             <Flex
@@ -79,7 +86,7 @@ const DAOCard: React.FC<Props> = (props: Props) => {
               width: 32,
               height: 32,
               borderRadius: "100%",
-              background: `url(${props.icon})`,
+              background: `url(${props.properties.icon}), ${palette.Neutral100}`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
@@ -110,9 +117,25 @@ const DAOCard: React.FC<Props> = (props: Props) => {
           </Text>
         </Flex>
 
-        <Flex direction={"column"} gap={4} sx={{ height: 25 }}></Flex>
+        <Flex
+          direction={"column"}
+          justify="flex-end"
+          gap={4}
+          sx={{ height: 25 }}
+        >
+          <Progress
+            sx={{ width: "100%" }}
+            size={8}
+            sections={[
+              {
+                value: 80,
+                color: "#73B556",
+              },
+            ]}
+          />
+        </Flex>
 
-        <Flex>
+        <Flex align={"baseline"} gap={8}>
           <Text
             color={"#01283B"}
             fw={500}
@@ -122,7 +145,18 @@ const DAOCard: React.FC<Props> = (props: Props) => {
               lineHeight: "21px",
             }}
           >
-            {props.numOfMembers.toLocaleString()} members
+            {Number(props.properties.maxSupply).toLocaleString()}
+          </Text>
+          <Text
+            color={"#7D8498"}
+            fw={500}
+            sx={{
+              fontFamily: "Roboto",
+              fontSize: 12,
+              lineHeight: "14px",
+            }}
+          >
+            clean cookstoves distributed
           </Text>
         </Flex>
 
@@ -144,4 +178,4 @@ const DAOCard: React.FC<Props> = (props: Props) => {
   );
 };
 
-export default DAOCard;
+export default ProjectNameCard;

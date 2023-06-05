@@ -27,7 +27,7 @@ import SendArrow from "./icons/sendArrow";
 import Loading from "./loading";
 import ReceiveCarbon from "./receive-carbon";
 import SendCarbon from "./send-carbon";
-import Generated from "../Impacts/icons/generated";
+import Generated from "../Dashboard/CollectionDashboard/cards/ImpactsCard/icons/generated";
 
 function BalanceCard() {
   const router = useRouter();
@@ -37,7 +37,7 @@ function BalanceCard() {
   const [receiveModal, setReceiveModal] = useState(false);
   const entities = useAppSelector((state) => state.collection.entities);
   const [totalClaimable, setTotalClaimable] = useState(0);
-  const [totalOffset, setTotalOffset] = useState(1412);
+  const [totalOffset, setTotalOffset] = useState(421);
   const viewPortSize = useViewportSize();
 
   return (
@@ -94,7 +94,7 @@ function BalanceCard() {
                       color: palette.fullBlue,
                     }}
                   >
-                    3412
+                    779
                   </Text>
                 </Col>
                 <Col span={6}>

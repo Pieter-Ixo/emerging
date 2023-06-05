@@ -1,25 +1,15 @@
-import ImpactsGenerated from "@/components/Impacts/impacts_generated";
-import ImpactsOffsets from "@/components/Impacts/impacts_offsets";
-import ImpactsSaved from "@/components/Impacts/impacts_saved";
-import EmergingAssets from "@/components/emergingAssets/emerging_assets";
-import GraphPerf from "@/components/graphPerf/graphPerf";
-import NewsCard from "@/components/news/news_card";
-import {
-  Box,
-  Container,
-  Flex,
-  Grid,
-  Group,
-  Text,
-  Transition,
-} from "@mantine/core";
-import { useViewportSize } from "@mantine/hooks";
+import AssetsCard from "./cards/AssetsCard";
+import PerformanceCard from "./cards/PerformanceCard";
+import NewsCard from "./cards/NewsCard";
+import ImpactsCard from "./cards/ImpactsCard";
+import { Container, Grid, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import GlobalIcon from "./icons/global-icon";
 import PortfolioIcon from "./icons/portfolio-icon";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setSelectedView } from "@/redux/userSlice";
+import { motion } from "framer-motion";
 
 interface pellet {
   content: [
@@ -43,7 +33,6 @@ interface pellet {
 
 function CollectionDashboard() {
   const dispatch = useAppDispatch();
-  const viewPortSize = useViewportSize();
   const user = useAppSelector((state) => state.user);
 
   // Needed to trigger the animations
@@ -51,12 +40,12 @@ function CollectionDashboard() {
   const [transitionBottom, setTransitionBottom] = useState(false);
 
   const duration = 700;
-  let bigTransitionTop = true;
+  const bigTransitionTop = true;
 
   useEffect(() => {
     setTimeout(() => {
       setTransitionTop(bigTransitionTop);
-    }, duration - 600);
+    }, duration - 100);
 
     setTimeout(() => {
       setTransitionBottom(bigTransitionTop);
@@ -90,21 +79,14 @@ function CollectionDashboard() {
   });
 
   // Impact card
-  function setImpactCard() {
-    if (user.impactNavi === "Saved") return <ImpactsSaved />;
-    else if (user.impactNavi === "Generated") return <ImpactsGenerated />;
-    else if (user.impactNavi === "Offset") return <ImpactsOffsets />;
-  }
+  // function setImpactCard() {
+  // if (user.impactNavi === "Saved") return <ImpactsSaved />;
+  // else if (user.impactNavi === "Generated") return <ImpactsGenerated />;
+  // else if (user.impactNavi === "Offset") return <ImpactsOffsets />;
+  // }
 
   return (
-    <div
-      style={
-        {
-          // width: "100%",
-          // height: "100%",
-        }
-      }
-    >
+    <div>
       <>
         <Container fluid style={{ display: "flex" }}>
           <Text style={{ fontSize: 40, paddingLeft: 20, paddingTop: 20 }}>
@@ -133,129 +115,53 @@ function CollectionDashboard() {
             align="stretch"
           >
             <Grid.Col span={8}>
-              <Transition
-                mounted={transitionTop}
-                transition="slide-left"
-                duration={duration}
-                timingFunction="ease"
+              <motion.div
+                initial={{ x: "100%", opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 1, delay: 0.5 }}
+                style={{ height: "100%" }}
               >
-                {(styles) => (
-                  <Box sx={{ height: "100%" }} style={styles}>
-                    {setImpactCard()}
-                  </Box>
-                )}
-              </Transition>
+                <ImpactsCard />
+              </motion.div>
             </Grid.Col>
             <Grid.Col span={4}>
-              <Transition
-                mounted={transitionTop}
-                transition="slide-left"
-                duration={duration}
-                timingFunction="ease"
+              <motion.div
+                initial={{ x: "100%", opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 1, delay: 1 }}
+                style={{ height: "100%" }}
               >
-                {(styles) => (
-                  <div style={styles}>
-                    <NewsCard />
-                  </div>
-                )}
-              </Transition>
+                <NewsCard />
+              </motion.div>
             </Grid.Col>
 
             <Grid.Col span={8}>
-              <Transition
-                mounted={transitionBottom}
-                transition="slide-left"
-                duration={duration}
-                timingFunction="ease"
+              <motion.div
+                initial={{ x: "100%", opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 1, delay: 1.5 }}
+                style={{ height: "100%" }}
               >
-                {(styles) => (
-                  <Box sx={{ height: "100%" }} style={styles}>
-                    <GraphPerf
-                      sessions={sessionsTotal}
-                      fuel={pelletTotal}
-                      stove={stoveData}
-                      totalSessions={sessionAmount}
-                    />
-                  </Box>
-                )}
-              </Transition>
+                <PerformanceCard
+                  sessions={sessionsTotal}
+                  fuel={pelletTotal}
+                  stove={stoveData}
+                  totalSessions={sessionAmount}
+                />
+              </motion.div>
             </Grid.Col>
             <Grid.Col span={4}>
-              <Transition
-                mounted={transitionBottom}
-                transition="slide-left"
-                duration={duration}
-                timingFunction="ease"
+              <motion.div
+                initial={{ x: "100%", opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 1, delay: 2 }}
+                style={{ height: "100%" }}
               >
-                {(styles) => (
-                  <Box sx={{ height: "100%" }} style={styles}>
-                    <EmergingAssets />
-                  </Box>
-                )}
-              </Transition>
+                <AssetsCard />
+              </motion.div>
             </Grid.Col>
           </Grid>
         </Container>
-
-        {/* <div style={{ display: "flex", paddingTop: 16, paddingBottom: 16 }}>
-          <Grid grow gutter="md" style={{ width: viewPortSize.width * 0.485 }}>
-            <Grid.Col span={2} style={{ paddingTop: 10, paddingLeft: 40 }}>
-              <Transition
-                mounted={transitionTop}
-                transition="slide-left"
-                duration={duration}
-                timingFunction="ease"
-              >
-                {(styles) => <div style={styles}>{setImpactCard()}</div>}
-              </Transition>
-            </Grid.Col>
-            <Grid.Col span={2} style={{ paddingLeft: 40, minWidth: 500 }}>
-              <Transition
-                mounted={transitionBottom}
-                transition="slide-left"
-                duration={duration}
-                timingFunction="ease"
-              >
-                {(styles) => (
-                  <div style={styles}>
-                    <GraphPerf
-                      sessions={sessionsTotal}
-                      fuel={pelletTotal}
-                      stove={stoveData}
-                      totalSessions={sessionAmount}
-                    />
-                  </div>
-                )}
-              </Transition>
-            </Grid.Col>
-          </Grid>
-          <Group style={{ paddingLeft: 10 }}>
-            <Transition
-              mounted={transitionTop}
-              transition="slide-left"
-              duration={duration}
-              timingFunction="ease"
-            >
-              {(styles) => (
-                <div style={styles}>
-                  <NewsCard />
-                </div>
-              )}
-            </Transition>
-            <Transition
-              mounted={transitionBottom}
-              transition="slide-left"
-              duration={duration}
-              timingFunction="ease"
-            >
-              {(styles) => (
-                <div style={styles}>
-                  <EmergingAssets />
-                </div>
-              )}
-            </Transition>
-          </Group>
-        </div> */}
       </>
     </div>
   );

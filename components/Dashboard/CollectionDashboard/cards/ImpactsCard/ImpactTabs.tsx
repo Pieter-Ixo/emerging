@@ -8,7 +8,7 @@ import Generated from "./icons/generated";
 import Offset from "./icons/offset";
 import Saved from "./icons/saved";
 
-function ImpactNavigation() {
+function ImpactTabs() {
   const viewPortSize = useViewportSize();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
@@ -50,6 +50,7 @@ function ImpactNavigation() {
                   color:
                     user.impactNavi === "Saved" ? palette.White : palette.Black,
                   fontSize: 16,
+                  lineHeight: "100%",
                   fontWeight: 500,
                 }}
               >
@@ -93,6 +94,7 @@ function ImpactNavigation() {
                       ? palette.White
                       : palette.Black,
                   fontSize: 16,
+                  lineHeight: "100%",
                   fontWeight: 500,
                 }}
               >
@@ -132,10 +134,11 @@ function ImpactNavigation() {
                         ? palette.White
                         : palette.Black,
                     fontSize: 16,
+                    lineHeight: "100%",
                     fontWeight: 500,
                   }}
                 >
-                  Co₂ offset
+                  CO₂ offset
                 </Text>
               </Badge>
             ) : (
@@ -177,6 +180,7 @@ function ImpactNavigation() {
                   color:
                     user.impactNavi === "Saved" ? palette.White : palette.Black,
                   fontSize: 16,
+                  lineHeight: "100%",
                   fontWeight: 500,
                 }}
               >
@@ -232,4 +236,4 @@ function ImpactNavigation() {
   );
 }
 
-export default ImpactNavigation;
+export default ImpactTabs;

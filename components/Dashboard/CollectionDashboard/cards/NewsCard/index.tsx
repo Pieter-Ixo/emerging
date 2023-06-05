@@ -1,24 +1,7 @@
-import {
-  Card,
-  Text,
-  Divider,
-  Group,
-  Badge,
-  Grid,
-  Col,
-  Image,
-} from "@mantine/core";
-import { useState } from "react";
+import { Card, Text, Divider, Group, Grid, Image } from "@mantine/core";
 import ArrowRight from "./icons/arrowRight";
-import IMG_3991 from "../../public/IMG_3991.jpg";
-import { useViewportSize } from "@mantine/hooks";
-import { mobileBreakpoint } from "@/constants/breakpoints";
 
 function NewsCard() {
-  const [rating, setRating] = useState(0.3);
-
-  const viewPortSize = useViewportSize();
-
   return (
     <Card
       shadow="sm"
@@ -71,7 +54,7 @@ function NewsCard() {
           radius="md"
           // height={viewPortSize.width >= mobileBreakpoint ? 200 : 171}
           height="100%"
-          src={IMG_3991.src}
+          src={"IMG_3991.jpg"}
           alt="News"
         />
         <Text

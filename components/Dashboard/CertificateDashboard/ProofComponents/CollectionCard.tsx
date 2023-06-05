@@ -102,11 +102,11 @@ const CollectionCard: React.FC<Props> = (props: Props) => {
             sx={{
               fontFamily: "Roboto",
               fontSize: 20,
-              lineHeight: "100%",
+              lineHeight: "21px",
             }}
             lineClamp={2}
           >
-            {props.tokenName}
+            {props.name}
           </Text>
           <Text
             color={"#828E94"}
@@ -114,7 +114,7 @@ const CollectionCard: React.FC<Props> = (props: Props) => {
             sx={{ fontFamily: "Roboto", fontSize: 12, lineHeight: "100%" }}
             lineClamp={2}
           >
-            {props.name}
+            {props.description}
           </Text>
         </Flex>
 

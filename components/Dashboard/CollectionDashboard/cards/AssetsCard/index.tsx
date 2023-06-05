@@ -1,10 +1,10 @@
 import { mobileBreakpoint } from "@/constants/breakpoints";
 import {
-  Button,
   Card,
   Divider,
   Grid,
   Group,
+  Modal,
   ScrollArea,
   Table,
   Text,
@@ -14,14 +14,14 @@ import { useViewportSize, useDisclosure } from "@mantine/hooks";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setSelectedView } from "@/redux/userSlice";
 import { Suspense, useEffect, useState } from "react";
-import ArrowRight from "../news/icons/arrowRight";
+import ArrowRight from "../NewsCard/icons/arrowRight";
 import DownArrow from "./icons/downArrow";
 import Loading from "./loading";
-import Cookstove from "../Modals/CookstoveModal";
-import CookstoveModal from "../Modals/CookstoveModal";
+import CookstoveModal from "@/components/Modals/CookstoveModal";
+import Head from "next/head";
 
-function EmergingAssets() {
-  console.log("in EmergingAssets");
+function AssetsCard() {
+  console.log("in AssetsCard");
   const dispatch = useAppDispatch();
   const entities = useAppSelector((state) => state.collection.entities[0]);
   const [entitiesData, setEntitiesData] = useState<any[]>([]);
@@ -318,14 +318,33 @@ function EmergingAssets() {
         </ScrollArea>
       </Card>
       {selectedExternalId && (
-        <CookstoveModal
+        <Modal.Root
           opened={opened}
           onClose={() => setSelectedExternalId("")}
-          id={Number(selectedExternalId)}
-        />
+          radius={16}
+          size="md"
+          centered
+          scrollAreaComponent={ScrollArea.Autosize}
+        >
+          <Head>
+            <title>Supamoto Dashboard</title>
+            <meta name="description" content="Supamoto Dashboard" />
+          </Head>
+
+          <Modal.Overlay />
+          <Modal.Content>
+            <Modal.Header style={{ height: 36 }}>
+              <Modal.Title>Supamoto Dashboard</Modal.Title>
+              <Modal.CloseButton />
+            </Modal.Header>
+            <Modal.Body style={{ padding: 0 }}>
+              <CookstoveModal id={Number(selectedExternalId)} />
+            </Modal.Body>
+          </Modal.Content>
+        </Modal.Root>
       )}
     </>
   );
 }
 
-export default EmergingAssets;
+export default AssetsCard;
