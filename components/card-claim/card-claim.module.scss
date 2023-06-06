@@ -7,6 +7,7 @@
 	.textContainer {
 		display: flex;
 		flex-direction: column;
+		color: white;
 
 		p {
 			margin: 0;
@@ -30,7 +31,7 @@
 
 	button {
 		border-radius: 8px;
-		color: var(--main-font-color-inverted);
+		color: white;
 		border: 1px solid #a3d3ff;
 		background-color: #73bafc;
 		font-size: 1.5rem;

@@ -1,9 +1,5 @@
 import Map from "@/components/Map";
-import {
-  mobileBreakpoint,
-  smallLaptopBreakpoint,
-  tabletBreakpoint,
-} from "@/constants/breakpoints";
+import { mobileBreakpoint, tabletBreakpoint } from "@/constants/breakpoints";
 import { faker } from "@faker-js/faker";
 import {
   Button,
@@ -19,10 +15,9 @@ import { useViewportSize } from "@mantine/hooks";
 import dayjs from "dayjs";
 import { IChartApi, ISeriesApi, createChart } from "lightweight-charts";
 import { useEffect, useState } from "react";
-import { palette } from "../../theme/palette";
-import tabs from "../tabs/tabData";
-import TabComponent from "../tabs/tabcomponent";
-dayjs().format();
+import { palette } from "../../../../../theme/palette";
+import tabs from "../../../../tabs/tabData";
+import TabComponent from "../../../../tabs/tabcomponent";
 
 interface Props {
   sessions: any;
@@ -86,7 +81,7 @@ const timefilterButtons = [
   },
 ];
 
-function GraphPerf({ sessions, fuel, stove, totalSessions }: Props) {
+function PerformanceCard({ sessions, fuel, stove, totalSessions }: Props) {
   const [rating, setRating] = useState(0.3);
   const [chart, setChart] = useState<IChartApi>();
   const [lineSeries, setLineSeries] = useState<ISeriesApi<"Area">>();
@@ -162,7 +157,7 @@ function GraphPerf({ sessions, fuel, stove, totalSessions }: Props) {
         text: "saved on energy costs",
       },
       Health: {
-        value: 0.14,
+        value: 0,
         text: "healthy life-years saved ",
       },
       Location: {
@@ -501,7 +496,7 @@ function GraphPerf({ sessions, fuel, stove, totalSessions }: Props) {
       <Divider my="sm" />
       <TabComponent tabs={tabs} getTabId={handleTabChange} />
       {/* <Suspense fallback={<Loading />}> */}
-      {!currentTab && !healthSelected && (
+      {!currentTab && (
         <>
           <Grid>
             <Col span="content" pl={20}>
@@ -535,17 +530,6 @@ function GraphPerf({ sessions, fuel, stove, totalSessions }: Props) {
               </Text>
             </Col>
           </Grid>
-        </>
-      )}
-      {healthSelected && (
-        <>
-          <Group
-            w={viewPortSize.width >= mobileBreakpoint ? "800" : "250"}
-            h={350}
-            align="center"
-          >
-            <Text>Health</Text>
-          </Group>
         </>
       )}
       {currentTab && (stove.latitude || stove[0]?.latitude) ? (
@@ -610,4 +594,4 @@ function GraphPerf({ sessions, fuel, stove, totalSessions }: Props) {
   );
 }
 
-export default GraphPerf;
+export default PerformanceCard;

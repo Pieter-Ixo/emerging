@@ -9,14 +9,14 @@ import { palette } from "@/theme/palette";
 
 const tabVariant = {
   active: {
-    width: "50%",
+    width: "auto",
     transition: {
       type: "tween",
       duration: 0.4,
     },
   },
   inactive: {
-    width: "15%",
+    width: "60px",
     transition: {
       type: "tween",
       duration: 0.4,
@@ -28,11 +28,10 @@ const tabTextVariant = {
   active: {
     opacity: 1,
     x: 0,
-    display: "block",
     transition: {
       type: "tween",
       duration: 0.3,
-      delay: 0.3,
+      delay: 0.1,
     },
   },
   inactive: {
@@ -43,7 +42,6 @@ const tabTextVariant = {
       duration: 0.3,
       delay: 0.1,
     },
-    transitionEnd: { display: "none" },
   },
 };
 
@@ -69,26 +67,14 @@ const TabComponent = ({ tabs, defaultIndex = 0, getTabId }) => {
       style={{ width: viewPortSize.width >= tabletBreakpoint ? "100%" : "80%" }}
     >
       <div className={"tabs-component"}>
-        <ul
-          className="tab-links"
-          role="tablist"
-          style={{
-            marginLeft: 0,
-            display: "flex",
-            flexWrap: "wrap",
-            maxWidth: 500,
-            // width: 500,
-          }}
-        >
-          {/* <Flex wrap="wrap" direction="row"> */}
+        <Flex wrap="wrap" direction="row" gap={16}>
           {tabs.map((tab: any, index: any) => (
-            <motion.li
+            <motion.div
               key={tab.id}
               className={cn("tab", { active: activeTabIndex === index })}
               role="presentation"
               variants={tabVariant}
               animate={activeTabIndex === index ? "active" : "inactive"}
-              style={{ flex: index == 5 ? 5 : 1 }}
             >
               <Tooltip label={tab.title} color={palette.fullBlue}>
                 <a
@@ -109,10 +95,9 @@ const TabComponent = ({ tabs, defaultIndex = 0, getTabId }) => {
                   </motion.span>
                 </a>
               </Tooltip>
-            </motion.li>
+            </motion.div>
           ))}
-          {/* </Flex> */}
-        </ul>
+        </Flex>
       </div>
     </div>
   );

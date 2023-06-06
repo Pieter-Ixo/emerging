@@ -1,4 +1,4 @@
-import Copy from "@/components/emergingAssets/icons/copy";
+import Copy from "../CollectionDashboard/cards/AssetsCard/icons/copy";
 import { palette, shadow } from "@/theme/palette";
 import { Card, Flex, Grid, Image, Progress, Text } from "@mantine/core";
 import React from "react";
@@ -215,7 +215,7 @@ const AggregateCard: React.FC<{
               <Text span c={palette.fullBlue} inherit>
                 421 CARBON
               </Text>{" "}
-              / 1,200 CARBON offset ( 1 CARBON = 1 kgCO2)
+              / 1,200 CARBON offset ( 1 CARBON = 1 kgCO₂)
             </Text>
           </Flex>
         </Flex>

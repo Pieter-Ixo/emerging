@@ -1,6 +1,6 @@
 .card {
-	border-radius: var(--card-border-radius);
-	background-color: var(--card-bg-color);
+	border-radius: 12px;
+	background-color: rgba(255, 255, 255, 0.65);
 	width: 100%;
 	margin-bottom: 25px;
 	padding: 15px;
@@ -16,7 +16,7 @@
 }
 
 .accentBgColor {
-	background-color: var(--accent-color);
+	background-color: #5FA8EB;
 }
 
 .invertedImgColor {

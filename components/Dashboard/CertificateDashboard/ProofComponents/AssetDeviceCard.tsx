@@ -21,8 +21,6 @@ interface Props {
 const AssetDeviceCard: React.FC<Props> = (props: Props) => {
   //
 
-  console.log("AssetDeviceCard", { props });
-
   return (
     <Flex
       direction={"column"}
@@ -102,11 +100,11 @@ const AssetDeviceCard: React.FC<Props> = (props: Props) => {
             sx={{
               fontFamily: "Roboto",
               fontSize: 20,
-              lineHeight: "100%",
+              lineHeight: "21px",
             }}
             lineClamp={2}
           >
-            {props.tokenName}
+            {props.name}
           </Text>
           <Text
             color={"#828E94"}
@@ -114,7 +112,7 @@ const AssetDeviceCard: React.FC<Props> = (props: Props) => {
             sx={{ fontFamily: "Roboto", fontSize: 12, lineHeight: "100%" }}
             lineClamp={2}
           >
-            {props.name}
+            {props.description}
           </Text>
         </Flex>
 
@@ -165,7 +163,7 @@ const AssetDeviceCard: React.FC<Props> = (props: Props) => {
             }}
           >
             <Text color={"#01283B"} sx={{ fontSize: 20 }} inherit>
-              15
+              250
             </Text>{" "}
             of {Number(props.properties.maxSupply).toLocaleString()}
           </Text>
