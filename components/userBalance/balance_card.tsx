@@ -41,21 +41,8 @@ function BalanceCard() {
   const viewPortSize = useViewportSize();
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-      }}
-    >
-      <Card
-        shadow={shadow.default}
-        p="lg"
-        radius={16}
-        withBorder
-        style={{ width: viewPortSize.width >= tabletBreakpoint ? 312 : 358 }}
-      >
+    <>
+      <Card p="lg" radius={16}>
         <Text
           style={{
             fontStyle: "normal",
@@ -374,7 +361,7 @@ function BalanceCard() {
           )}
         </>
       )}
-    </div>
+    </>
   );
 }
 

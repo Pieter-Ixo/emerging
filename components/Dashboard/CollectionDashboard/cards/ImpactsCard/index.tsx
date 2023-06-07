@@ -9,7 +9,7 @@ function ImpactsCard() {
   const impactNavi = useAppSelector((state) => state.user.impactNavi);
 
   return (
-    <Card shadow="sm" radius={16} withBorder h={"100%"}>
+    <Card radius={16} style={{ padding: "1rem 2rem" }} h="100%">
       <Text
         style={{
           textAlign: "left",
@@ -20,7 +20,7 @@ function ImpactsCard() {
         CLIMATE IMPACTS
       </Text>
 
-      <Divider my="sm" />
+      <Divider mb="lg" color={"#000000"} />
 
       <ImpactTabs />
 

@@ -1,13 +1,13 @@
-import { Text } from "@mantine/core";
+import { Flex, Text } from "@mantine/core";
 import EmergingLogo from "./Icon_Header/emerging";
 
 export default function HeaderLogo() {
   return (
-    <>
+    <Flex align={"center"} gap={8} style={{ cursor: "pointer" }}>
       <EmergingLogo />
       <Text
-      className="logo-text-font"
         style={{
+          fontFamily: "Quicksand",
           fontSize: 30,
           color: "#13263D",
           paddingTop: 3,
@@ -17,6 +17,6 @@ export default function HeaderLogo() {
       >
         emerging
       </Text>
-    </>
+    </Flex>
   );
 }

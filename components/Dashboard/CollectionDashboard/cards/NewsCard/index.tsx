@@ -1,34 +1,29 @@
-import { Card, Text, Divider, Group, Grid, Image } from "@mantine/core";
+import { Card, Text, Divider, Group, Grid, Image, Flex } from "@mantine/core";
 import ArrowRight from "./icons/arrowRight";
 
 function NewsCard() {
   return (
-    <Card
-      shadow="sm"
-      p="lg"
-      radius={16}
-      withBorder
-      style={
-        {
-          // width: viewPortSize.width >= mobileBreakpoint ? 400 : 358,
-          // height: 370,
-        }
-      }
-    >
+    <Card radius={16} style={{ padding: "1rem 2rem" }} h="100%">
       <Grid>
         <Grid.Col span={6}>
           <Text
+            fw={400}
             style={{
               textAlign: "left",
-              fontWeight: "bold",
               fontSize: 16,
             }}
+            transform="uppercase"
           >
-            NEWS
+            News
           </Text>
         </Grid.Col>
         <Grid.Col span={6}>
-          <Group style={{ paddingLeft: 60 }}>
+          <Flex
+            justify={"flex-end"}
+            align="center"
+            gap={8}
+            sx={{ cursor: "pointer" }}
+          >
             <Text
               style={{
                 textAlign: "right",
@@ -38,18 +33,12 @@ function NewsCard() {
             >
               SEE ALL
             </Text>
-            <ArrowRight />
-          </Group>
+            <ArrowRight pathFill="#000000" />
+          </Flex>
         </Grid.Col>
       </Grid>
-      <Divider my="sm" />
-      <div
-        style={{
-          // width: viewPortSize.width >= mobileBreakpoint ? 355 : 294,
-          marginLeft: "auto",
-          marginRight: "auto",
-        }}
-      >
+      <Divider mb="lg" color={"#000000"} />
+      <Flex direction={"column"} gap={8}>
         <Image
           radius="md"
           // height={viewPortSize.width >= mobileBreakpoint ? 200 : 171}
@@ -59,31 +48,22 @@ function NewsCard() {
         />
         <Text
           style={{
-            textAlign: "left",
-
-            fontWeight: "300",
+            fontWeight: "500",
             fontSize: 12,
-            paddingTop: 10,
-            paddingLeft: 5,
-            fontStyle: "bold",
           }}
         >
           Nov 12 22
         </Text>
         <Text
           style={{
-            textAlign: "left",
-
-            fontWeight: "500",
+            fontWeight: "300",
             fontSize: 16,
-            paddingTop: 10,
-            paddingLeft: 5,
             fontStyle: "normal",
           }}
         >
           The success story of African Emerging Households
         </Text>
-      </div>
+      </Flex>
     </Card>
   );
 }

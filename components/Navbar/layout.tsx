@@ -1,30 +1,25 @@
 import { Nav } from "./navbar";
 import { useViewportSize } from "@mantine/hooks";
-import { mobileBreakpoint, tabletBreakpoint } from "@/constants/breakpoints";
+import { smallLaptopBreakpoint } from "@/constants/breakpoints";
+import { Center, Flex, Text } from "@mantine/core";
 
 //@ts-ignore
 export default function Layout({ children }) {
   const viewPortSize = useViewportSize();
-  let styles = {};
-  if (viewPortSize.width <= tabletBreakpoint) {
-    styles = {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignContent: "center",
-      width: "100%",
-    };
-  } else {
-    styles = { display: "flex" };
+
+  if (viewPortSize.width <= smallLaptopBreakpoint) {
+    return (
+      <Center maw={"100vw"} h={"100vh"} mx="auto">
+        <Text fw={700} sx={{ fontSize: 40 }} align="center">
+          View on a Desktop Browser
+        </Text>
+      </Center>
+    );
   }
   return (
-    <div>
-      <div style={styles}>
-        <Nav />
-        <main className="flex-1" style={{ width: "100%" }}>
-          {children}
-        </main>
-      </div>
-    </div>
+    <Flex>
+      <Nav />
+      <main style={{ width: "100%", background: "#FAFAFA" }}>{children}</main>
+    </Flex>
   );
 }

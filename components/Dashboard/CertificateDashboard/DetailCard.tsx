@@ -1,9 +1,11 @@
-import { palette, shadow } from "@/theme/palette";
+import { palette } from "@/theme/palette";
 import { Card, Flex, Text } from "@mantine/core";
+import Link from "next/link";
 import React, { useMemo } from "react";
 import { IPropertiesModel } from ".";
+import JSONViewerCard from "./ProofComponents/JSONViewerCard";
 
-const ProofCard: React.FC<{ properties: IPropertiesModel }> = ({
+const DetailCard: React.FC<{ properties: IPropertiesModel }> = ({
   properties,
 }) => {
   const hashId = window.location.hash.split("#").pop();
@@ -13,11 +15,8 @@ const ProofCard: React.FC<{ properties: IPropertiesModel }> = ({
     [hashId, properties]
   );
 
-  console.log({ selectedProperty });
-
   return (
     <Card
-      shadow={shadow.default}
       radius={16}
       sx={{ minHeight: 400 }}
       style={{ padding: "1rem 2rem", display: "flex", flexDirection: "column" }}
@@ -29,11 +28,13 @@ const ProofCard: React.FC<{ properties: IPropertiesModel }> = ({
         sx={{ borderBottom: `1px solid ${palette.Black}` }}
       >
         <Text fw={400} transform="uppercase">
-          Proof
+          Detail
         </Text>
+        {/* <Link href={""}> */}
         <Text fw={400} transform="uppercase">
-          Visit ➔
+          Download ➔
         </Text>
+        {/* </Link> */}
       </Flex>
 
       <Flex
@@ -58,4 +59,4 @@ const ProofCard: React.FC<{ properties: IPropertiesModel }> = ({
   );
 };
 
-export default ProofCard;
+export default DetailCard;
