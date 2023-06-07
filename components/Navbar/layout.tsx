@@ -7,6 +7,10 @@ import { Center, Flex, Text } from "@mantine/core";
 export default function Layout({ children }) {
   const viewPortSize = useViewportSize();
 
+  if (!viewPortSize.width) {
+    return <></>;
+  }
+
   if (viewPortSize.width <= smallLaptopBreakpoint) {
     return (
       <Center maw={"100vw"} h={"100vh"} mx="auto">
