@@ -63,33 +63,27 @@ export const Nav = () => {
           </Link>
         </Flex>
       </Navbar.Section>
-
-      {(styles) => (
-        <Box style={styles} sx={{ width: "100%" }}>
-          <Navbar.Section p="xs">
-            <ConnectedAccount />
-          </Navbar.Section>
-        </Box>
-      )}
-
-      {user.walletConnected && (
-        <>
-          {(styles) => (
-            <div style={styles}>
+      <Box
+        sx={{ width: "100%" }}>
+        <Navbar.Section p="xs">
+          <ConnectedAccount />
+        </Navbar.Section>
+      </Box>
+      <>
+        {user.walletConnected && (
+          <>
+            <div>
               <Navbar.Section p="xs">
                 <BalanceCard />
               </Navbar.Section>
-            </div>
-          )}
-          {(styles) => (
-            <div style={styles}>
+            </div><div>
               <Navbar.Section p="xs">
                 <BuyAndSell />
               </Navbar.Section>
             </div>
-          )}
-        </>
-      )}
+          </>
+        )}
+      </>
     </Navbar>
   );
 };
