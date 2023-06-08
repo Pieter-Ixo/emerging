@@ -40,7 +40,7 @@ function CollectionDashboard() {
   const [transitionBottom, setTransitionBottom] = useState(false);
 
   const duration = 700;
-  const bigTransitionTop = true;
+  const bigTransitionTop = false;
 
   useEffect(() => {
     setTimeout(() => {
