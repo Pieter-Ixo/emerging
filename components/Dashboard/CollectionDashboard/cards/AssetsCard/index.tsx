@@ -44,8 +44,6 @@ function AssetsCard() {
     setSelectedExternalId(id);
   };
 
-  console.log({ entitiesData });
-
   const rows = entitiesData?.map((entity) => {
     if (entity.externalId !== "") {
       return (
@@ -196,7 +194,7 @@ function AssetsCard() {
 
   return (
     <>
-      <Card shadow="sm" p="lg" radius={16} withBorder>
+      <Card radius={16} style={{ padding: "1rem 2rem" }} h="100%">
         <Grid align={"center"} justify="space-between">
           <Grid.Col span={6}>
             <Text
@@ -227,7 +225,7 @@ function AssetsCard() {
             </Group>
           </Grid.Col>
         </Grid>
-        <Divider my="sm" />
+        <Divider mb="lg" color={"#000000"} />
         <ScrollArea
           h={viewPortSize.height >= mobileBreakpoint ? 425 : 328}
           type={"scroll"}

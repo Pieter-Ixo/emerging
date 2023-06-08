@@ -3,7 +3,15 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import useWindowDimensions from "@/hooks/windowDimensions";
 import { selectAuthState } from "@/redux/userSlice";
 import { palette } from "@/theme/palette";
-import { Affix, Center, Group, Navbar, Transition } from "@mantine/core";
+import {
+  Affix,
+  Box,
+  Center,
+  Flex,
+  Group,
+  Navbar,
+  Transition,
+} from "@mantine/core";
 import { useViewportSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 import HeaderLogo from "../Header_Logo/Index";
@@ -12,6 +20,7 @@ import BuyAndSell from "../buyAndSell/buy_and_sell";
 import ConnectedAccount from "../connectedAccount/connected_account";
 import DemoMode from "../demoMode/demoMode";
 import BalanceCard from "../userBalance/balance_card";
+import Link from "next/link";
 
 interface Message {
   visible: boolean;
@@ -60,34 +69,27 @@ export const Nav = () => {
 
   return (
     <Navbar
-      height={"100%"}
       p="xs"
-      width={{
-        base: 360,
-      }}
-      bg="#F8F8F8"
+      width={{ base: 360, sm: 360 }}
+      height={"100%"}
+      bg="#F2F2F2"
       withBorder={false}
     >
       <Navbar.Section p="xs" style={{ paddingBottom: 10 }}>
         <Affix position={{ left: 0, top: 0 }}>
           <div
             style={{
-              backgroundColor: palette.Neutral100,
-              width: 354,
+              backgroundColor: "#F2F2F2",
+              width: 360,
               height: "100vh",
-              borderRightColor: palette.Neutral200,
-              borderRightWidth: 1.7,
-              borderRightStyle: "solid",
             }}
           ></div>
         </Affix>
-        <Group style={{ display: "flex" }}>
-          <HeaderLogo />
-        </Group>
-      </Navbar.Section>
-
-      <Navbar.Section p="xs">
-        <DemoMode />
+        <Flex justify={"center"} sx={{ padding: "20px 0px" }}>
+          <Link href={"/"}>
+            <HeaderLogo />
+          </Link>
+        </Flex>
       </Navbar.Section>
 
       <Transition
@@ -97,11 +99,11 @@ export const Nav = () => {
         timingFunction="ease"
       >
         {(styles) => (
-          <div style={styles}>
+          <Box style={styles} sx={{ width: "100%" }}>
             <Navbar.Section p="xs">
               <ConnectedAccount />
             </Navbar.Section>
-          </div>
+          </Box>
         )}
       </Transition>
 
@@ -137,12 +139,6 @@ export const Nav = () => {
           </Transition>
         </>
       )}
-
-      <Navbar.Section grow> </Navbar.Section>
-
-      <Navbar.Section>
-        <div style={{ height: 100 }}></div>
-      </Navbar.Section>
     </Navbar>
   );
 };

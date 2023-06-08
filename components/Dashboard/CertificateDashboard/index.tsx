@@ -2,7 +2,7 @@ import { palette } from "@/theme/palette";
 import { Container, Grid, Text } from "@mantine/core";
 import React from "react";
 import AggregateCard from "./AggregateCard";
-import ProofCard from "./ProofCard";
+import DetailCard from "./DetailCard";
 import AssetDeviceCard from "./ProofComponents/AssetDeviceCard";
 import JSONViewerCard from "./ProofComponents/JSONViewerCard";
 import CollectionCard from "./ProofComponents/CollectionCard";
@@ -84,7 +84,7 @@ const properties: IPropertiesModel = {
   },
   collection: {
     key: "collection",
-    value: "Zambia Collection",
+    value: "SupaMoto Genesis",
     component: CollectionCard,
     props: {
       id: "{id}",
@@ -380,15 +380,15 @@ const CertificateDashboard: React.FC = () => {
         color={palette.Neutral800}
         sx={{ marginBottom: "2rem" }}
       >
-        Carbon Certificate
+        CARBON Certificate
       </Text>
 
-      <Grid>
+      <Grid gutter={"xl"}>
         <Grid.Col span={8}>
           <AggregateCard categories={categories} properties={properties} />
         </Grid.Col>
         <Grid.Col span={4}>
-          <ProofCard properties={properties} />
+          <DetailCard properties={properties} />
         </Grid.Col>
       </Grid>
     </Container>

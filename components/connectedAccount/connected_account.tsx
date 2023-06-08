@@ -1,11 +1,17 @@
-import { tabletBreakpoint } from "@/constants/breakpoints";
 import { WalletContext } from "@/context/wallet";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useAppDispatch } from "@/hooks/redux";
 import { connectWallet, disconnectWallet } from "@/redux/userSlice";
-import { palette, shadow } from "@/theme/palette";
+import { palette } from "@/theme/palette";
 import { WALLET_TYPE } from "@/types/wallet";
-import { Avatar, Button, Card, Group, Text } from "@mantine/core";
-import { useViewportSize } from "@mantine/hooks";
+import {
+  ActionIcon,
+  Avatar,
+  Button,
+  Card,
+  Flex,
+  Group,
+  Text,
+} from "@mantine/core";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import DisconnectWallet from "./icons/disconnectWallet";
@@ -13,7 +19,6 @@ import Wallet from "./icons/wallet";
 
 function ConnectedAccount() {
   const dispatch = useAppDispatch();
-  const viewPortSize = useViewportSize();
   const router = useRouter();
   const { wallet, updateWalletType, logoutWallet } = useContext(WalletContext);
   const userAddress = wallet.user?.address;
@@ -55,31 +60,10 @@ function ConnectedAccount() {
 
   if (userAddress) {
     return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Card
-          shadow={shadow.default}
-          p="md"
-          radius={16}
-          withBorder
-          style={{ width: viewPortSize.width >= tabletBreakpoint ? 312 : 358 }}
-        >
-          <Group position="apart" mt="md" mb="xs">
-            <Text>Connected Account</Text>
-          </Group>
-          <Group
-            style={{
-              display: "flex",
-              width: "100%",
-              marginTop: 25,
-              // justifyContent: "space-between",
-            }}
-          >
+      <Card p="lg" radius={16}>
+        <Flex direction={"column"} gap={30}>
+          <Text>Connected Account</Text>
+          <Flex align={"center"} gap={8} sx={{ width: "100%" }}>
             <Text
               style={{
                 borderRadius: 23,
@@ -97,65 +81,49 @@ function ConnectedAccount() {
                 {truncate(userAddress, 24, ".....") || ""}
               </Text>
             </Text>
-            <Avatar
-              size={46}
-              radius={30}
-              variant="filled"
-              style={{ cursor: "pointer", padding: 0, margin: 0 }}
+            <ActionIcon
+              variant="transparent"
+              w={"100%"}
               onClick={() => {
                 dispatch(disconnectWallet());
                 logoutWallet();
               }}
             >
               <DisconnectWallet />
-            </Avatar>
-          </Group>
-        </Card>
-      </div>
+            </ActionIcon>
+          </Flex>
+        </Flex>
+      </Card>
     );
   } else {
     return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Card
-          shadow={shadow.default}
-          p="lg"
-          radius={16}
-          withBorder
-          style={{ width: viewPortSize.width >= tabletBreakpoint ? 312 : 358 }}
-        >
-          <Group position="apart" mt="md" mb="xs">
-            <Text style={{ fontSize: 16, fontWeight: 300 }}>
-              Connect your Wallet to view your device data, assets and customer
-              details.
-            </Text>
-          </Group>
-          <div style={{ paddingTop: 30 }} />
+      <Card p="lg" radius={16} w="100%">
+        <Group position="apart">
+          <Text style={{ fontSize: 16, fontWeight: 300 }}>
+            Connect your Wallet to view your device data, assets and customer
+            details.
+          </Text>
+        </Group>
+        <div style={{ paddingTop: 30 }} />
 
-          <Button
-            onClick={() => {
-              if (!wallet.user) {
-                updateWalletType(WALLET_TYPE.keplr);
-              } else {
-                router.push("/dashboard");
-              }
-            }}
-            w={"99%"}
-            radius={23}
-            leftIcon={<Wallet fill="#FFFFFF" />}
-            h={46}
-          >
-            <Text style={{ fontWeight: 500, fontSize: 16 }}>
-              Connect Wallet
-            </Text>
-          </Button>
-        </Card>
-      </div>
+        <Button
+          onClick={() => {
+            if (!wallet.user) {
+              updateWalletType(WALLET_TYPE.keplr);
+            } else {
+              router.push("/dashboard");
+            }
+          }}
+          w={"99%"}
+          radius={23}
+          leftIcon={<Wallet fill="#FFFFFF" />}
+          h={46}
+        >
+          <Text style={{ fontWeight: 500, fontSize: 16 }}>
+            Connect My Account
+          </Text>
+        </Button>
+      </Card>
     );
   }
 }

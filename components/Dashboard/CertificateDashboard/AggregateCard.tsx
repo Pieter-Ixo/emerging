@@ -1,6 +1,6 @@
 import Copy from "../CollectionDashboard/cards/AssetsCard/icons/copy";
 import { palette, shadow } from "@/theme/palette";
-import { Card, Flex, Grid, Image, Progress, Text } from "@mantine/core";
+import { Box, Card, Flex, Grid, Image, Progress, Text } from "@mantine/core";
 import React from "react";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import { usePathname, useRouter } from "next/navigation";
@@ -118,12 +118,7 @@ const AggregateCard: React.FC<{
 }> = ({ categories, properties }) => {
   const router = useRouter();
   return (
-    <Card
-      shadow={shadow.default}
-      radius={16}
-      sx={{}}
-      style={{ padding: "0rem" }}
-    >
+    <Card radius={16} style={{ padding: "0rem" }}>
       <Flex
         direction={"column"}
         justify="center"
@@ -155,7 +150,7 @@ const AggregateCard: React.FC<{
               letterSpacing: "0.1rem",
             }}
           >
-            VERIFIED EMISSION REDUCTION CERTIFICATE
+            VERIFIED EMISSION REDUCTIONS
           </Text>
 
           <Flex
@@ -164,15 +159,26 @@ const AggregateCard: React.FC<{
             justify="center"
             sx={{ cursor: "pointer" }}
           >
-            <Text
-              fw={600}
-              color={palette.darkestBlue}
-              sx={{ fontSize: "13px" }}
-              align="center"
-            >
-              CARBON/bafyb...j2hha
-            </Text>
-            <Copy fill={palette.fullBlue} />
+            <Box sx={{ position: "relative" }}>
+              <Text
+                fw={600}
+                color={palette.darkestBlue}
+                sx={{ fontSize: "13px" }}
+                align="center"
+              >
+                CARBON/bafyb...j2hha
+              </Text>
+              <Flex
+                sx={{
+                  position: "absolute",
+                  right: -30,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                }}
+              >
+                <Copy fill={palette.fullBlue} />
+              </Flex>
+            </Box>
           </Flex>
         </Flex>
 

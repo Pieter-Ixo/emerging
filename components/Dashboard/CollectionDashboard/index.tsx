@@ -2,7 +2,7 @@ import AssetsCard from "./cards/AssetsCard";
 import PerformanceCard from "./cards/PerformanceCard";
 import NewsCard from "./cards/NewsCard";
 import ImpactsCard from "./cards/ImpactsCard";
-import { Container, Grid, Text } from "@mantine/core";
+import { Container, Flex, Grid, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import GlobalIcon from "./icons/global-icon";
 import PortfolioIcon from "./icons/portfolio-icon";
@@ -86,84 +86,84 @@ function CollectionDashboard() {
   // }
 
   return (
-    <div>
-      <>
-        <Container fluid style={{ display: "flex" }}>
-          <Text style={{ fontSize: 40, paddingLeft: 20, paddingTop: 20 }}>
-            Collection Dashboard
+    <Flex direction={"column"} sx={{ paddingTop: 40 }}>
+      <Container fluid sx={{ width: "100%" }}>
+        <Flex align={"center"} gap={24} sx={{ padding: 16, paddingLeft: 32 }}>
+          <Text fw={300} sx={{ fontSize: 40 }}>
+            SupaMoto Collection Dashboard
           </Text>
-          <div style={{ marginLeft: 24, marginTop: 30, display: "flex" }}>
-            <div
-              style={{ marginRight: 16, cursor: "pointer" }}
+          <Flex align={"center"} gap={16}>
+            <Flex
+              sx={{ cursor: "pointer" }}
               onClick={() => dispatch(setSelectedView("global"))}
             >
               <GlobalIcon selected={user.selectedView} />
-            </div>
-            <div
+            </Flex>
+            <Flex
+              sx={{ cursor: "pointer" }}
               onClick={() => dispatch(setSelectedView("portfolio"))}
-              style={{ cursor: "pointer" }}
             >
               <PortfolioIcon selected={user.selectedView} />
-            </div>
-          </div>
-        </Container>
+            </Flex>
+          </Flex>
+        </Flex>
+      </Container>
 
-        <Container fluid>
-          <Grid
-            gutter={"xl"}
-            sx={{ width: "100%", padding: 16, margin: 0 }}
-            align="stretch"
-          >
-            <Grid.Col span={8}>
-              <motion.div
-                initial={{ x: "100%", opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 1, delay: 0.5 }}
-                style={{ height: "100%" }}
-              >
-                <ImpactsCard />
-              </motion.div>
-            </Grid.Col>
-            <Grid.Col span={4}>
-              <motion.div
-                initial={{ x: "100%", opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 1, delay: 1 }}
-                style={{ height: "100%" }}
-              >
-                <NewsCard />
-              </motion.div>
-            </Grid.Col>
+      <Container fluid>
+        <Grid
+          gutter={"xl"}
+          sx={{ width: "100%", padding: 16, margin: 0 }}
+          align="stretch"
+        >
+          <Grid.Col span={8}>
+            <motion.div
+              initial={{ x: "100%", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1, delay: 0.5 }}
+              style={{ height: "100%" }}
+            >
+              <ImpactsCard />
+            </motion.div>
+          </Grid.Col>
+          <Grid.Col span={4}>
+            <motion.div
+              initial={{ x: "100%", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1, delay: 1 }}
+              style={{ height: "100%" }}
+            >
+              <NewsCard />
+            </motion.div>
+          </Grid.Col>
 
-            <Grid.Col span={8}>
-              <motion.div
-                initial={{ x: "100%", opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 1, delay: 1.5 }}
-                style={{ height: "100%" }}
-              >
-                <PerformanceCard
-                  sessions={sessionsTotal}
-                  fuel={pelletTotal}
-                  stove={stoveData}
-                  totalSessions={sessionAmount}
-                />
-              </motion.div>
-            </Grid.Col>
-            <Grid.Col span={4}>
-              <motion.div
-                initial={{ x: "100%", opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 1, delay: 2 }}
-                style={{ height: "100%" }}
-              >
-                <AssetsCard />
-              </motion.div>
-            </Grid.Col>
-          </Grid>
-        </Container>
-      </>
-    </div>
+          <Grid.Col span={8}>
+            <motion.div
+              initial={{ x: "100%", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1, delay: 1.5 }}
+              style={{ height: "100%" }}
+            >
+              <PerformanceCard
+                sessions={sessionsTotal}
+                fuel={pelletTotal}
+                stove={stoveData}
+                totalSessions={sessionAmount}
+              />
+            </motion.div>
+          </Grid.Col>
+          <Grid.Col span={4}>
+            <motion.div
+              initial={{ x: "100%", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1, delay: 2 }}
+              style={{ height: "100%" }}
+            >
+              <AssetsCard />
+            </motion.div>
+          </Grid.Col>
+        </Grid>
+      </Container>
+    </Flex>
   );
 }
 
