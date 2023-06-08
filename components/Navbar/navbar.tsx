@@ -1,26 +1,18 @@
 import { tabletBreakpoint } from "@/constants/breakpoints";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import useWindowDimensions from "@/hooks/windowDimensions";
-import { selectAuthState } from "@/redux/userSlice";
-import { palette } from "@/theme/palette";
 import {
   Affix,
   Box,
-  Center,
   Flex,
-  Group,
-  Navbar,
-  Transition,
+  Navbar
 } from "@mantine/core";
 import { useViewportSize } from "@mantine/hooks";
-import { useEffect, useState } from "react";
+import Link from "next/link";
 import HeaderLogo from "../Header_Logo/Index";
-import BottomButtons from "../bottomButtons/bottom_buttons";
 import BuyAndSell from "../buyAndSell/buy_and_sell";
 import ConnectedAccount from "../connectedAccount/connected_account";
-import DemoMode from "../demoMode/demoMode";
 import BalanceCard from "../userBalance/balance_card";
-import Link from "next/link";
 
 interface Message {
   visible: boolean;
@@ -36,26 +28,6 @@ export const Nav = () => {
 
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
-
-  const [transitionFirst, setTranitionFirst] = useState(false);
-  const [transitionSecond, setTranitionSecond] = useState(false);
-
-  const duration = 600;
-
-  let transition,
-    secondTransition = false;
-
-  if (!user.walletConnected) {
-    transition = true;
-  } else {
-    transition = true;
-    secondTransition = true;
-  }
-
-  useEffect(() => {
-    setTranitionFirst(transition);
-    setTranitionSecond(secondTransition);
-  }, [transition, secondTransition]);
 
   let navHeight: any;
 
@@ -92,51 +64,30 @@ export const Nav = () => {
         </Flex>
       </Navbar.Section>
 
-      <Transition
-        mounted={transitionFirst}
-        transition="slide-up"
-        duration={duration}
-        timingFunction="ease"
-      >
-        {(styles) => (
-          <Box style={styles} sx={{ width: "100%" }}>
-            <Navbar.Section p="xs">
-              <ConnectedAccount />
-            </Navbar.Section>
-          </Box>
-        )}
-      </Transition>
+      {(styles) => (
+        <Box style={styles} sx={{ width: "100%" }}>
+          <Navbar.Section p="xs">
+            <ConnectedAccount />
+          </Navbar.Section>
+        </Box>
+      )}
 
       {user.walletConnected && (
         <>
-          <Transition
-            mounted={transitionSecond}
-            duration={duration + 400}
-            timingFunction="ease"
-            transition="slide-up"
-          >
-            {(styles) => (
-              <div style={styles}>
-                <Navbar.Section p="xs">
-                  <BalanceCard />
-                </Navbar.Section>
-              </div>
-            )}
-          </Transition>
-          <Transition
-            mounted={transitionSecond}
-            duration={duration + 800}
-            timingFunction="ease"
-            transition="slide-up"
-          >
-            {(styles) => (
-              <div style={styles}>
-                <Navbar.Section p="xs">
-                  <BuyAndSell />
-                </Navbar.Section>
-              </div>
-            )}
-          </Transition>
+          {(styles) => (
+            <div style={styles}>
+              <Navbar.Section p="xs">
+                <BalanceCard />
+              </Navbar.Section>
+            </div>
+          )}
+          {(styles) => (
+            <div style={styles}>
+              <Navbar.Section p="xs">
+                <BuyAndSell />
+              </Navbar.Section>
+            </div>
+          )}
         </>
       )}
     </Navbar>

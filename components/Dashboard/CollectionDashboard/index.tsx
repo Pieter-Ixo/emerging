@@ -1,5 +1,5 @@
 import { Container, Flex, Grid, Text } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AssetsCard from "./cards/AssetsCard";
 import ImpactsCard from "./cards/ImpactsCard";
 import NewsCard from "./cards/NewsCard";
@@ -33,25 +33,6 @@ interface pellet {
 function CollectionDashboard() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
-
-  // Needed to trigger the animations
-  const [transitionTop, setTransitionTop] = useState(false);
-  const [transitionBottom, setTransitionBottom] = useState(false);
-
-  const duration = 700;
-  const bigTransitionTop = false;
-
-  useEffect(() => {
-    setTimeout(() => {
-      setTransitionTop(bigTransitionTop);
-    }, duration - 100);
-
-    setTimeout(() => {
-      setTransitionBottom(bigTransitionTop);
-    }, duration);
-  }, [bigTransitionTop]);
-
-  // end of animation section
 
   // GETTING GRAPH DATA
   const [stoveData, setStoveData] = useState<any[]>([]);
