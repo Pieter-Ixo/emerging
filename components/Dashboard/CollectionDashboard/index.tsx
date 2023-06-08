@@ -1,15 +1,14 @@
-import AssetsCard from "./cards/AssetsCard";
-import PerformanceCard from "./cards/PerformanceCard";
-import NewsCard from "./cards/NewsCard";
-import ImpactsCard from "./cards/ImpactsCard";
 import { Container, Flex, Grid, Text } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import AssetsCard from "./cards/AssetsCard";
+import ImpactsCard from "./cards/ImpactsCard";
+import NewsCard from "./cards/NewsCard";
+import PerformanceCard from "./cards/PerformanceCard";
 import GlobalIcon from "./icons/global-icon";
 import PortfolioIcon from "./icons/portfolio-icon";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setSelectedView } from "@/redux/userSlice";
-import { motion } from "framer-motion";
 
 interface pellet {
   content: [
@@ -34,25 +33,6 @@ interface pellet {
 function CollectionDashboard() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
-
-  // Needed to trigger the animations
-  const [transitionTop, setTransitionTop] = useState(false);
-  const [transitionBottom, setTransitionBottom] = useState(false);
-
-  const duration = 700;
-  const bigTransitionTop = false;
-
-  useEffect(() => {
-    setTimeout(() => {
-      setTransitionTop(bigTransitionTop);
-    }, duration - 100);
-
-    setTimeout(() => {
-      setTransitionBottom(bigTransitionTop);
-    }, duration);
-  }, [bigTransitionTop]);
-
-  // end of animation section
 
   // GETTING GRAPH DATA
   const [stoveData, setStoveData] = useState<any[]>([]);
@@ -116,50 +96,22 @@ function CollectionDashboard() {
           align="stretch"
         >
           <Grid.Col span={8}>
-            <motion.div
-              initial={{ x: "100%", opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              style={{ height: "100%" }}
-            >
-              <ImpactsCard />
-            </motion.div>
+            <ImpactsCard />
           </Grid.Col>
           <Grid.Col span={4}>
-            <motion.div
-              initial={{ x: "100%", opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1, delay: 1 }}
-              style={{ height: "100%" }}
-            >
-              <NewsCard />
-            </motion.div>
+            <NewsCard />
           </Grid.Col>
 
           <Grid.Col span={8}>
-            <motion.div
-              initial={{ x: "100%", opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1, delay: 1.5 }}
-              style={{ height: "100%" }}
-            >
-              <PerformanceCard
-                sessions={sessionsTotal}
-                fuel={pelletTotal}
-                stove={stoveData}
-                totalSessions={sessionAmount}
-              />
-            </motion.div>
+            <PerformanceCard
+              sessions={sessionsTotal}
+              fuel={pelletTotal}
+              stove={stoveData}
+              totalSessions={sessionAmount}
+            />
           </Grid.Col>
           <Grid.Col span={4}>
-            <motion.div
-              initial={{ x: "100%", opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1, delay: 2 }}
-              style={{ height: "100%" }}
-            >
-              <AssetsCard />
-            </motion.div>
+            <AssetsCard />
           </Grid.Col>
         </Grid>
       </Container>
