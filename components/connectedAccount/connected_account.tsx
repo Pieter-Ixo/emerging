@@ -109,7 +109,9 @@ function ConnectedAccount() {
         <Button
           onClick={() => {
             if (!wallet.user) {
-              updateWalletType(WALLET_TYPE.keplr);
+              // TODO: when to keplr, when to walletconnect
+              // updateWalletType(WALLET_TYPE.keplr);
+              updateWalletType(WALLET_TYPE.walletConnect);
             } else {
               router.push("/dashboard");
             }
