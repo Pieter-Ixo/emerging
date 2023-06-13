@@ -1,5 +1,11 @@
-import { createContext, useState, useEffect, HTMLAttributes, useRef } from 'react';
-import { createQueryClient } from '@ixo/impactxclient-sdk';
+import {
+  createContext,
+  useState,
+  useEffect,
+  HTMLAttributes,
+  useRef,
+} from "react";
+import { createQueryClient } from "@ixo/impactxclient-sdk";
 
 // import Banner from '@/components/Banner/Banner';
 import {
@@ -8,10 +14,14 @@ import {
   getChainsByNetwork,
   getChainOptions,
   getChainInfoByChainId,
-} from '@/utils/chains';
-import { CHAIN_INFO_REQUEST, CHAIN_NETWORK_TYPE, KEPLR_CHAIN_INFO_TYPE } from 'types/chain';
-import { QUERY_CLIENT } from 'types/query';
-import { DefaultChainNetwork } from '@/constants/chains';
+} from "@/utils/chains";
+import {
+  CHAIN_INFO_REQUEST,
+  CHAIN_NETWORK_TYPE,
+  KEPLR_CHAIN_INFO_TYPE,
+} from "types/chain";
+import { QUERY_CLIENT } from "types/query";
+import { DefaultChainNetwork } from "@/constants/chains";
 
 type CHAIN_STATE_TYPE = {
   chainId: string;
@@ -20,7 +30,7 @@ type CHAIN_STATE_TYPE = {
 };
 
 const DEFAULT_CHAIN: CHAIN_STATE_TYPE = {
-  chainId: '',
+  chainId: "",
   chainNetwork: DefaultChainNetwork as CHAIN_NETWORK_TYPE,
   chainLoading: true,
 };
@@ -31,12 +41,14 @@ export const ChainContext = createContext({
   chains: [] as KEPLR_CHAIN_INFO_TYPE[],
   queryClient: undefined as QUERY_CLIENT | undefined,
   updateChainId: (callback?: Function) => (selectedChainId: string) => {},
-  updateChainNetwork: (callback?: Function) => (selectedChainNetwork: CHAIN_NETWORK_TYPE) => {},
+  updateChainNetwork:
+    (callback?: Function) => (selectedChainNetwork: CHAIN_NETWORK_TYPE) => {},
 });
 
 export const ChainProvider = ({ children }: HTMLAttributes<HTMLDivElement>) => {
   const [chains, setChains] = useState<CHAIN_INFO_REQUEST[]>([]);
-  const [currentChain, setCurrentChain] = useState<CHAIN_STATE_TYPE>(DEFAULT_CHAIN);
+  const [currentChain, setCurrentChain] =
+    useState<CHAIN_STATE_TYPE>(DEFAULT_CHAIN);
   const queryClientRef = useRef<QUERY_CLIENT | undefined>();
 
   const updateCurrentChain = (newChain: any, override: boolean = false) => {
@@ -59,12 +71,13 @@ export const ChainProvider = ({ children }: HTMLAttributes<HTMLDivElement>) => {
   const initQueryClient = async () => {
     try {
       const chainInfo = getChainInfoByChainId(chains, currentChain.chainId);
-      if (!chainInfo) throw new Error('Unable to create query client - no chain info');
+      if (!chainInfo)
+        throw new Error("Unable to create query client - no chain info");
       const queryClient = await createQueryClient(chainInfo.rpc);
       queryClientRef.current = queryClient;
     } catch (error) {
       if (queryClientRef.current) queryClientRef.current = undefined;
-      console.error('initQueryClient::', error);
+      console.error("initQueryClient::", error);
     }
     updateCurrentChain({ chainLoading: false });
   };
@@ -72,25 +85,29 @@ export const ChainProvider = ({ children }: HTMLAttributes<HTMLDivElement>) => {
   const updateChainId = (callback?: Function) => (selectedChainId: string) => {
     if (selectedChainId === currentChain.chainId) return false;
     if (queryClientRef.current) queryClientRef.current = undefined;
-    if (callback && typeof callback === 'function') callback();
+    if (callback && typeof callback === "function") callback();
     updateCurrentChain({ chainLoading: true, chainId: selectedChainId });
     return true;
   };
 
-  const updateChainNetwork = (callback?: Function) => (selectedChainNetwork: CHAIN_NETWORK_TYPE) => {
-    if (selectedChainNetwork === currentChain.chainNetwork) return;
-    try {
-      updateCurrentChain({ chainLoading: true });
-      if (queryClientRef.current) queryClientRef.current = undefined;
-      const chainInfos = getChainsByNetwork(chains, selectedChainNetwork);
-      const nextChainId = extractChainIdFromChainInfos(chainInfos);
-      if (callback && typeof callback === 'function') callback();
-      updateCurrentChain({ chainId: nextChainId, chainNetwork: selectedChainNetwork });
-      return true;
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const updateChainNetwork =
+    (callback?: Function) => (selectedChainNetwork: CHAIN_NETWORK_TYPE) => {
+      if (selectedChainNetwork === currentChain.chainNetwork) return;
+      try {
+        updateCurrentChain({ chainLoading: true });
+        if (queryClientRef.current) queryClientRef.current = undefined;
+        const chainInfos = getChainsByNetwork(chains, selectedChainNetwork);
+        const nextChainId = extractChainIdFromChainInfos(chainInfos);
+        if (callback && typeof callback === "function") callback();
+        updateCurrentChain({
+          chainId: nextChainId,
+          chainNetwork: selectedChainNetwork,
+        });
+        return true;
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
   useEffect(() => {
     fetchChainOptions();
@@ -101,7 +118,9 @@ export const ChainProvider = ({ children }: HTMLAttributes<HTMLDivElement>) => {
   }, [currentChain.chainId]);
 
   const value = {
-    chains: extractChainInfosFromChainState(getChainsByNetwork(chains, currentChain.chainNetwork)),
+    chains: extractChainInfosFromChainState(
+      getChainsByNetwork(chains, currentChain.chainNetwork)
+    ),
     chain: currentChain,
     chainInfo: getChainInfoByChainId(chains, currentChain.chainId),
     queryClient: queryClientRef.current,

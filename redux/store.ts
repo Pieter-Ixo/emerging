@@ -1,6 +1,14 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+  persistReducer,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 import CollectionSlice from "@/redux/collectionSlice";
 import UserSlice from "@/redux/userSlice";
@@ -8,7 +16,7 @@ import SupamotoSlice from "@/redux/supamotoSlice";
 import StovesSlice from "@/redux/stoveSlice";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   version: 1,
   storage: storage,
 };

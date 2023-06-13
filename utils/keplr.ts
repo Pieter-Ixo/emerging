@@ -1,16 +1,18 @@
-import { ChainInfo, Keplr } from '@keplr-wallet/types';
+import { ChainInfo, Keplr } from "@keplr-wallet/types";
 
-import { sendTransaction, initStargateClient } from './client';
-import { TRX_FEE_OPTION, TRX_MSG } from 'types/transactions';
-import { USER } from 'types/user';
+import { sendTransaction, initStargateClient } from "./client";
+import { TRX_FEE_OPTION, TRX_MSG } from "types/transactions";
+import { USER } from "types/user";
 
 export const getKeplr = (): Keplr | undefined => {
   //@ts-ignore
-  if (typeof window !== 'undefined' && window.keplr) return window.keplr;
+  if (typeof window !== "undefined" && window.keplr) return window.keplr;
   return undefined;
 };
 
-export const initializeKeplr = async (chainInfo: ChainInfo): Promise<USER | undefined> => {
+export const initializeKeplr = async (
+  chainInfo: ChainInfo
+): Promise<USER | undefined> => {
   const keplr = getKeplr();
   try {
     await keplr?.experimentalSuggestChain(chainInfo as ChainInfo);
@@ -26,12 +28,14 @@ export const initializeKeplr = async (chainInfo: ChainInfo): Promise<USER | unde
         }
       : undefined;
   } catch (error) {
-    console.error('Error initializing Keplr:: ' + error);
+    console.error("Error initializing Keplr:: " + error);
   }
   return;
 };
 
-export const connectKeplrAccount = async (chainInfo: ChainInfo): Promise<any> => {
+export const connectKeplrAccount = async (
+  chainInfo: ChainInfo
+): Promise<any> => {
   const keplr = getKeplr();
   if (!keplr) return [null, null];
   await keplr.experimentalSuggestChain(chainInfo as ChainInfo);
@@ -49,10 +53,10 @@ const trx_fail = () => {
 
 export const keplrBroadCastMessage = async (
   msgs: TRX_MSG[],
-  memo = '',
+  memo = "",
   fee: TRX_FEE_OPTION,
   feeDenom: string,
-  chainInfo: ChainInfo,
+  chainInfo: ChainInfo
 ): Promise<string | null> => {
   const [accounts, offlineSigner] = await connectKeplrAccount(chainInfo);
   if (!accounts || !offlineSigner) return trx_fail();
@@ -73,7 +77,7 @@ export const keplrBroadCastMessage = async (
       // Toast.successToast(`Transaction Successful`);
       return result.transactionHash;
     } else {
-      throw 'transaction failed';
+      throw "transaction failed";
     }
   } catch (e) {
     return trx_fail();

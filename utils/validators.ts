@@ -1,11 +1,16 @@
-import axios from 'axios';
-import { DELEGATION, DELEGATION_REWARD, VALIDATOR, VALIDATORS_AVATARS } from 'types/validators';
-import { isFulfilled } from './misc';
+import axios from "axios";
+import {
+  DELEGATION,
+  DELEGATION_REWARD,
+  VALIDATOR,
+  VALIDATORS_AVATARS,
+} from "types/validators";
+import { isFulfilled } from "./misc";
 
 export const generateValidators = (
   validators: VALIDATOR[] = [],
   delegations: DELEGATION[] = [],
-  rewards: DELEGATION_REWARD[] = [],
+  rewards: DELEGATION_REWARD[] = []
 ): VALIDATOR[] | undefined => {
   if (!validators) return;
   const validatorDelegationMap = new Map<string, DELEGATION>();
