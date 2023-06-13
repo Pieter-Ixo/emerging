@@ -32,8 +32,7 @@ function BottomButtons({ selectView, currentView }: Props) {
   return (
     <div style={NavStyle}>
       {viewPortSize.width <= tabletBreakpoint ? (
-        <>
-          <UnstyledButton
+        <UnstyledButton
             style={{ padding: 5 }}
             onClick={() => {
               dispatch(toggleDashboard());
@@ -49,7 +48,6 @@ function BottomButtons({ selectView, currentView }: Props) {
               <Stove />
             </Avatar>
           </UnstyledButton>
-        </>
       ) : (
         <></>
       )}

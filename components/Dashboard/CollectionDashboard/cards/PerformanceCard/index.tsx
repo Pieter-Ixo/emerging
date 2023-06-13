@@ -111,14 +111,14 @@ function PerformanceCard({ sessions, fuel, stove, totalSessions }: Props) {
   function getTotalPellets() {
     let total = 0;
     fuel.content?.map((data) => {
-      total = total + data.pelletsAmount;
+      total += data.pelletsAmount;
     });
     return total;
   }
   function getTotalCosts() {
     let total = 0;
     fuel.content?.map((data) => {
-      total = total + data.pelletsAmount * 0.08;
+      total += data.pelletsAmount * 0.08;
     });
     return Math.round(total * 100) / 100;
   }
@@ -126,7 +126,7 @@ function PerformanceCard({ sessions, fuel, stove, totalSessions }: Props) {
     // check time calc
     let total = 0;
     sessions?.map((data) => {
-      total = total + (data.duration.total / 60 / 60) * 0.4;
+      total += (data.duration.total / 60 / 60) * 0.4;
     });
     return Math.round(total);
   }
@@ -182,13 +182,13 @@ function PerformanceCard({ sessions, fuel, stove, totalSessions }: Props) {
   }
 
   function setData() {
-    //setting the default value of graph to new array
-    //new array can read in the data from api in future
-    let setSessions = [0];
-    let setFeul = [0];
-    let setTime = [0];
-    let setCosts = [0];
-    let setHealth = [0];
+    // setting the default value of graph to new array
+    // new array can read in the data from api in future
+    const setSessions = [0];
+    const setFeul = [0];
+    const setTime = [0];
+    const setCosts = [0];
+    const setHealth = [0];
 
     for (let index = 0; index < 50; index++) {
       setSessions[index] = parseFloat(faker.random.numeric());
@@ -198,7 +198,7 @@ function PerformanceCard({ sessions, fuel, stove, totalSessions }: Props) {
       setHealth[index] = parseFloat(faker.random.numeric());
     }
 
-    //set the sessions data = to new array
+    // set the sessions data = to new array
     setSessionsData(setSessions);
     setCostsData(setCosts);
     setFuelData(setFeul);
@@ -208,15 +208,15 @@ function PerformanceCard({ sessions, fuel, stove, totalSessions }: Props) {
 
   function filterGrafTime(index) {
     // 1. Make a shallow copy of the items
-    let items = [...timeFilterButtons];
+    const items = [...timeFilterButtons];
     // 2. Make a shallow copy of the item you want to mutate
-    let item = { ...items[index] };
+    const item = { ...items[index] };
     // 3. Replace the property you're intested in
-    let prevFilter = items.filter((i) => i.clicked == true);
+    const prevFilter = items.filter((i) => i.clicked == true);
 
-    //checks if there is a previos filter
+    // checks if there is a previos filter
     if (prevFilter.length != 0) {
-      let prev = items.indexOf(prevFilter[0]);
+      const prev = items.indexOf(prevFilter[0]);
       items[prev].clicked = false;
       item.clicked = !item.clicked;
     } else {
@@ -235,7 +235,7 @@ function PerformanceCard({ sessions, fuel, stove, totalSessions }: Props) {
       variant="subtle"
       color="dark"
       size="xs"
-      radius={"xs"}
+      radius="xs"
       compact
       key={index}
       onClick={() => filterGrafTime(index)}
@@ -250,7 +250,7 @@ function PerformanceCard({ sessions, fuel, stove, totalSessions }: Props) {
     const dates: Array<any> = [];
     let currentDate: Date = startDate;
     const addDays = function (days) {
-      //@ts-ignore
+      // @ts-ignore
       const date = new Date(this.valueOf());
       date.setDate(date.getDate() + days);
       return date;
@@ -304,7 +304,7 @@ function PerformanceCard({ sessions, fuel, stove, totalSessions }: Props) {
       });
       setLineSeries(lineSeries);
 
-      //adding the tooltip
+      // adding the tooltip
       // var toolTip = document.createElement('graph');
       // toolTip.className = 'floating-tooltip-2';
       // id?.appendChild(toolTip);
@@ -493,12 +493,11 @@ function PerformanceCard({ sessions, fuel, stove, totalSessions }: Props) {
       >
         PERFORMANCE
       </Text>
-      <Divider mb="lg" color={"#000000"} />
+      <Divider mb="lg" color="#000000" />
       <TabComponent tabs={tabs} getTabId={handleTabChange} />
       {/* <Suspense fallback={<Loading />}> */}
       {!currentTab && (
-        <>
-          <Grid>
+        <Grid>
             <Col span="content" pl={20}>
               <Text
                 style={{
@@ -508,7 +507,7 @@ function PerformanceCard({ sessions, fuel, stove, totalSessions }: Props) {
                 }}
               >
                 {
-                  //@ts-ignore
+                  // @ts-ignore
                   data[tab].value
                 }
               </Text>
@@ -524,13 +523,12 @@ function PerformanceCard({ sessions, fuel, stove, totalSessions }: Props) {
                 }}
               >
                 {
-                  //@ts-ignore
+                  // @ts-ignore
                   data[tab].text
                 }
               </Text>
             </Col>
           </Grid>
-        </>
       )}
       {currentTab && (stove.latitude || stove[0]?.latitude) ? (
         <Map
@@ -559,11 +557,9 @@ function PerformanceCard({ sessions, fuel, stove, totalSessions }: Props) {
                   ))}
                 </>
               ) : (
-                <>
-                  <Marker position={[stove?.latitude, stove?.longitude]}>
+                <Marker position={[stove?.latitude, stove?.longitude]}>
                     {/* <Popup></Popup> */}
                   </Marker>
-                </>
               )}
             </>
           )}
@@ -572,7 +568,7 @@ function PerformanceCard({ sessions, fuel, stove, totalSessions }: Props) {
         <></>
       )}
 
-      <div id="graph" style={{ display: currentTab ? "none" : "block" }}></div>
+      <div id="graph" style={{ display: currentTab ? "none" : "block" }} />
       {!currentTab && !healthSelected ? (
         <Group
           style={{
@@ -583,11 +579,9 @@ function PerformanceCard({ sessions, fuel, stove, totalSessions }: Props) {
           {button}
         </Group>
       ) : (
-        <>
-          <Center h={"50%"}>
+        <Center h="50%">
             <Text>Not found</Text>
           </Center>
-        </>
       )}
       {/* </Suspense> */}
     </Card>

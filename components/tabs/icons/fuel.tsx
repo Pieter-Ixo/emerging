@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const Fuel = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Fuel(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={24}
     height={25}
     fill={props.fill}
@@ -16,6 +16,6 @@ const Fuel = (props: SVGProps<SVGSVGElement>) => (
       fill={props.fill}
     />
   </svg>
-);
+}
 
 export default Fuel;

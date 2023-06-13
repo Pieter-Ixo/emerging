@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const FilledStar = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function FilledStar(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={22}
     height={22}
     style={{marginBottom:3}}
@@ -14,6 +14,6 @@ const FilledStar = (props: SVGProps<SVGSVGElement>) => (
       fill="#fff"
     />
   </svg>
-)
+}
 
 export default FilledStar

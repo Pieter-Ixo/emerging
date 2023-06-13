@@ -13,9 +13,9 @@ function SingleNotification({ icon, sender, message, viewMessage }: Props) {
   function handleClick() {
     viewMessage({
       visible: true,
-      sender: sender,
-      message: message,
-      icon: icon,
+      sender,
+      message,
+      icon,
     });
   }
   return (

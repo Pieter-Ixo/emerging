@@ -36,10 +36,10 @@ function ConnectedAccount() {
 
       separator = separator || "...";
 
-      var sepLen = separator.length,
-        charsToShow = strLen - sepLen,
-        frontChars = Math.ceil(charsToShow / 2),
-        backChars = Math.floor(charsToShow / 2);
+      const sepLen = separator.length;
+        const charsToShow = strLen - sepLen;
+        const frontChars = Math.ceil(charsToShow / 2);
+        const backChars = Math.floor(charsToShow / 2);
 
       return (
         fullStr.substring(0, frontChars) +
@@ -61,9 +61,9 @@ function ConnectedAccount() {
   if (userAddress) {
     return (
       <Card p="lg" radius={16}>
-        <Flex direction={"column"} gap={30}>
+        <Flex direction="column" gap={30}>
           <Text>Connected Account</Text>
-          <Flex align={"center"} gap={8} sx={{ width: "100%" }}>
+          <Flex align="center" gap={8} sx={{ width: "100%" }}>
             <Text
               style={{
                 borderRadius: 23,
@@ -83,7 +83,7 @@ function ConnectedAccount() {
             </Text>
             <ActionIcon
               variant="transparent"
-              w={"100%"}
+              w="100%"
               onClick={() => {
                 dispatch(disconnectWallet());
                 logoutWallet();
@@ -95,7 +95,7 @@ function ConnectedAccount() {
         </Flex>
       </Card>
     );
-  } else {
+  } 
     return (
       <Card p="lg" radius={16} w="100%">
         <Group position="apart">
@@ -116,7 +116,7 @@ function ConnectedAccount() {
               router.push("/dashboard");
             }
           }}
-          w={"99%"}
+          w="99%"
           radius={23}
           leftIcon={<Wallet fill="#FFFFFF" />}
           h={46}
@@ -127,7 +127,7 @@ function ConnectedAccount() {
         </Button>
       </Card>
     );
-  }
+  
 }
 
 export default ConnectedAccount;

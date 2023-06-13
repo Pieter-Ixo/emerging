@@ -16,8 +16,7 @@ function ImpactTabs() {
   return (
     <>
       {viewPortSize.width >= tabletBreakpoint ? (
-        <>
-          <Group>
+        <Group>
             <Badge
               style={{
                 width: 150,
@@ -145,7 +144,6 @@ function ImpactTabs() {
               <></>
             )}
           </Group>
-        </>
       ) : (
         <>
           {/* 
@@ -210,7 +208,7 @@ function ImpactTabs() {
               onClick={() => {
                 dispatch(setImpactNavi("Generated"));
               }}
-            ></Badge>
+             />
             <Badge
               style={{ width: 50, height: 46, cursor: "pointer" }}
               variant="filled"
@@ -228,7 +226,7 @@ function ImpactTabs() {
               onClick={() => {
                 dispatch(setImpactNavi("Offset"));
               }}
-            ></Badge>
+             />
           </Group>
         </>
       )}

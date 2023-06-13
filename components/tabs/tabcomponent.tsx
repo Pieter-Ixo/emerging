@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import cn from "classnames";
-//@ts-ignore
+// @ts-ignore
 import { motion } from "framer-motion";
 import { Grid, Space, Flex, Stack, Tooltip } from "@mantine/core";
 import { useViewportSize } from "@mantine/hooks";
@@ -45,7 +45,7 @@ const tabTextVariant = {
   },
 };
 
-const TabComponent = ({ tabs, defaultIndex = 0, getTabId }) => {
+function TabComponent({ tabs, defaultIndex = 0, getTabId }) {
   const [activeTabIndex, setActiveTabIndex] = useState(defaultIndex);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const TabComponent = ({ tabs, defaultIndex = 0, getTabId }) => {
       className="container"
       style={{ width: viewPortSize.width >= tabletBreakpoint ? "100%" : "80%" }}
     >
-      <div className={"tabs-component"}>
+      <div className="tabs-component">
         <Flex wrap="wrap" direction="row" gap={16}>
           {tabs.map((tab: any, index: any) => (
             <motion.div
@@ -101,6 +101,6 @@ const TabComponent = ({ tabs, defaultIndex = 0, getTabId }) => {
       </div>
     </div>
   );
-};
+}
 
 export default TabComponent;

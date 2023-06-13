@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const Registered = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Registered(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={20}
     height={22}
     // fill="none"
@@ -14,6 +14,6 @@ const Registered = (props: SVGProps<SVGSVGElement>) => (
       fill={props?.fill}
     />
   </svg>
-);
+}
 
 export default Registered;

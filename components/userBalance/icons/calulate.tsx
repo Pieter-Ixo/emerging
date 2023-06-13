@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const Calculate = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Calculate(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={24}
     height={24}
     fill="none"
@@ -14,6 +14,6 @@ const Calculate = (props: SVGProps<SVGSVGElement>) => (
       fill="#D7D7D7"
     />
   </svg>
-);
+}
 
 export default Calculate;

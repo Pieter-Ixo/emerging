@@ -5,8 +5,8 @@ interface Props {
   selected: String;
 }
 
-const PortfolioIcon = ({ selected }: Props, props: SVGProps<SVGSVGElement>) => (
-  <svg
+function PortfolioIcon({ selected }: Props, props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={46}
     height={47}
     fill="none"
@@ -25,6 +25,6 @@ const PortfolioIcon = ({ selected }: Props, props: SVGProps<SVGSVGElement>) => (
       fill={selected == "portfolio" ? "#fff" : "#000000"}
     />
   </svg>
-);
+}
 
 export default PortfolioIcon;

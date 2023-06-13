@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const ImpactsLeaf = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function ImpactsLeaf(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={25}
     height={25}
     fill="none"
@@ -25,6 +25,6 @@ const ImpactsLeaf = (props: SVGProps<SVGSVGElement>) => (
       strokeLinecap="round"
     />
   </svg>
-)
+}
 
 export default ImpactsLeaf

@@ -14,11 +14,11 @@ import { useViewportSize, useDisclosure } from "@mantine/hooks";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setSelectedView } from "@/redux/userSlice";
 import { Suspense, useEffect, useState } from "react";
+import CookstoveModal from "@/components/Modals/CookstoveModal";
+import Head from "next/head";
 import ArrowRight from "../NewsCard/icons/arrowRight";
 import DownArrow from "./icons/downArrow";
 import Loading from "./loading";
-import CookstoveModal from "@/components/Modals/CookstoveModal";
-import Head from "next/head";
 
 function AssetsCard() {
   console.log("in AssetsCard");
@@ -106,11 +106,11 @@ function AssetsCard() {
 
   const viewPortSize = useViewportSize();
 
-  //not working with actual data
+  // not working with actual data
   const handleFilterActive = (index: number) => {
     const copy = [...headers];
     const copyData = [...entitiesData];
-    let item = copy[index];
+    const item = copy[index];
     item.filterActive = !item.filterActive;
     setHeader(copy);
     switch (item.name) {
@@ -195,7 +195,7 @@ function AssetsCard() {
   return (
     <>
       <Card radius={16} style={{ padding: "1rem 2rem" }} h="100%">
-        <Grid align={"center"} justify="space-between">
+        <Grid align="center" justify="space-between">
           <Grid.Col span={6}>
             <Text
               style={{
@@ -225,13 +225,13 @@ function AssetsCard() {
             </Group>
           </Grid.Col>
         </Grid>
-        <Divider mb="lg" color={"#000000"} />
+        <Divider mb="lg" color="#000000" />
         <ScrollArea
           h={viewPortSize.height >= mobileBreakpoint ? 425 : 328}
-          type={"scroll"}
+          type="scroll"
         >
           <Table
-            highlightOnHover={true}
+            highlightOnHover
             style={{
               alignSelf: "stretch",
               width: viewPortSize.width >= mobileBreakpoint ? 390 : 243,
@@ -247,13 +247,11 @@ function AssetsCard() {
                   }}
                   onClick={() => {
                     handleFilterActive(0);
-                    setSortAssets((prevSorts) => {
-                      return {
+                    setSortAssets((prevSorts) => ({
                         SerialNumber: !prevSorts.SerialNumber,
                         CarbonClaimable: false,
                         CarbonIssued: false,
-                      };
-                    });
+                      }));
                   }}
                 >
                   <Text style={{ display: "flex" }}>
@@ -270,13 +268,11 @@ function AssetsCard() {
                   }}
                   onClick={() => {
                     handleFilterActive(1);
-                    setSortAssets((prevSorts) => {
-                      return {
+                    setSortAssets((prevSorts) => ({
                         CarbonClaimable: !prevSorts.CarbonClaimable,
                         SerialNumber: false,
                         CarbonIssued: false,
-                      };
-                    });
+                      }));
                   }}
                 >
                   <Text style={{ display: "flex" }}>
@@ -293,13 +289,11 @@ function AssetsCard() {
                   }}
                   onClick={() => {
                     handleFilterActive(2);
-                    setSortAssets((prevSorts) => {
-                      return {
+                    setSortAssets((prevSorts) => ({
                         CarbonIssued: !prevSorts.CarbonIssued,
                         SerialNumber: false,
                         CarbonClaimable: false,
-                      };
-                    });
+                      }));
                   }}
                 >
                   <Text style={{ display: "flex" }}>

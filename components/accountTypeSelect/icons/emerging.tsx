@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const EmergingLogoSmall = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function EmergingLogoSmall(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={69}
     height={50}
     fill="none"
@@ -36,6 +36,6 @@ const EmergingLogoSmall = (props: SVGProps<SVGSVGElement>) => (
       fill="#5FA8EB"
     />
   </svg>
-);
+}
 
 export default EmergingLogoSmall;

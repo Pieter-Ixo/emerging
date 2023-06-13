@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const Inactive = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Inactive(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={21}
     height={21}
     fill="none"
@@ -14,6 +14,6 @@ const Inactive = (props: SVGProps<SVGSVGElement>) => (
       fill="#FF1919"
     />
   </svg>
-);
+}
 
 export default Inactive;

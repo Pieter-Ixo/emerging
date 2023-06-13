@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const ArrowLeft = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function ArrowLeft(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={18}
     height={15}
     fill="none"
@@ -14,6 +14,6 @@ const ArrowLeft = (props: SVGProps<SVGSVGElement>) => (
       fill="#000"
     />
   </svg>
-)
+}
 
 export default ArrowLeft

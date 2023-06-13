@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const Usdc = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Usdc(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={20}
     height={20}
     fill="none"
@@ -28,6 +28,6 @@ const Usdc = (props: SVGProps<SVGSVGElement>) => (
       />
     </defs>
   </svg>
-)
+}
 
 export default Usdc

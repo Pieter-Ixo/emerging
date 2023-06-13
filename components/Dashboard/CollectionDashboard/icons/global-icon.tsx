@@ -5,8 +5,8 @@ interface Props {
   selected: String;
 }
 
-const GlobalIcon = ({ selected }: Props, props: SVGProps<SVGSVGElement>) => (
-  <svg
+function GlobalIcon({ selected }: Props, props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={46}
     height={47}
     fill="none"
@@ -27,6 +27,6 @@ const GlobalIcon = ({ selected }: Props, props: SVGProps<SVGSVGElement>) => (
       fill={selected == "global" ? "#fff" : "#000000"}
     />
   </svg>
-);
+}
 
 export default GlobalIcon;

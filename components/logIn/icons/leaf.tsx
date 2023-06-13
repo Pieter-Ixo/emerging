@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const Leaf = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Leaf(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={36}
     height={45}
     fill="none"
@@ -14,6 +14,6 @@ const Leaf = (props: SVGProps<SVGSVGElement>) => (
       fill="#5FA8EB"
     />
   </svg>
-)
+}
 
 export default Leaf

@@ -1,6 +1,6 @@
 import { Text, Grid, Col } from "@mantine/core";
 import { palette } from "@/theme/palette";
-//@ts-ignore
+// @ts-ignore
 import Ratings from "react-ratings-declarative";
 import { Suspense, useState } from "react";
 import { mobileBreakpoint, tabletBreakpoint } from "@/constants/breakpoints";
@@ -54,9 +54,7 @@ function ImpactsIssued() {
       >
         ≈ 0 average yearly personal car emissions{" "}
         <Link
-          href={
-            "https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle"
-          }
+          href="https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle"
           target="_blank"
         >
           (source)

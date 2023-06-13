@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const USDCIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function USDCIcon(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={20}
     height={21}
     fill="none"
@@ -22,6 +22,6 @@ const USDCIcon = (props: SVGProps<SVGSVGElement>) => (
       d="M4.289 4.557h11.422v11.422H4.289z"
     />
   </svg>
-);
+}
 
 export default USDCIcon;

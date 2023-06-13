@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const OSMO = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function OSMO(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={21}
     height={20}
     fill="none"
@@ -358,6 +358,6 @@ const OSMO = (props: SVGProps<SVGSVGElement>) => (
       </clipPath>
     </defs>
   </svg>
-)
+}
 
 export default OSMO

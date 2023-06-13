@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const DescendingFilter = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function DescendingFilter(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={16}
     height={15}
     fill="none"
@@ -14,6 +14,6 @@ const DescendingFilter = (props: SVGProps<SVGSVGElement>) => (
       fill="#5FA8EB"
     />
   </svg>
-)
+}
 
 export default DescendingFilter

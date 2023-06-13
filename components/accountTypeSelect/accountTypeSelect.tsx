@@ -10,14 +10,14 @@ import {
   Transition
 } from "@mantine/core";
 import { useViewportSize } from "@mantine/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { loginAsset, loginDis, selectAuthState, userCarbonClaimable } from "@/redux/userSlice";
+import { mobileBreakpoint, tabletBreakpoint } from "@/constants/breakpoints";
 import HeaderLogo from "../Header_Logo/Index";
 import AssetOwnerLogin from "../logIn/assetOwner_login";
 import DistributorLogin from "../logIn/distributor_login";
 import EmergingLogoSmall from "./icons/emerging";
 
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { loginAsset, loginDis, selectAuthState, userCarbonClaimable } from "@/redux/userSlice";
-import { mobileBreakpoint, tabletBreakpoint } from "@/constants/breakpoints";
 
 function AccountTypeSelect() {
   const authState = useAppSelector(selectAuthState);
@@ -70,11 +70,9 @@ function AccountTypeSelect() {
           </Group>
         </Header>
       ) : (
-        <>
-          <Center style={{ marginTop: 42 }}>
+        <Center style={{ marginTop: 42 }}>
             <EmergingLogoSmall />
           </Center>
-        </>
       )}
 
       {/* viewPortSize.width >= 880 */}

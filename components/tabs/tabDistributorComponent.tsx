@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import cn from "classnames";
-//@ts-ignore
+// @ts-ignore
 import { motion } from "framer-motion";
-import tabsDist from "./tabData_Distributor";
 import { useViewportSize } from "@mantine/hooks";
+import tabsDist from "./tabData_Distributor";
 
 const tabVariant = {
   active: {
@@ -45,8 +45,8 @@ const tabTextVariant = {
   },
 };
 
-//@ts-ignore
-const DistTabComponent = ({ tabsDist, defaultIndex = 0, getTabId }) => {
+// @ts-ignore
+function DistTabComponent({ tabsDist, defaultIndex = 0, getTabId }) {
   const [activeTabIndex, setActiveTabIndex] = useState(defaultIndex);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const DistTabComponent = ({ tabsDist, defaultIndex = 0, getTabId }) => {
 
   return (
     <div className="container" style={{overflowX: viewPortSize.width <= 880 ? "scroll" : "hidden", width: (viewPortSize.width - 420) }}>
-      <div className={"tabsDist-component"} >
+      <div className="tabsDist-component" >
         <ul className="tab-links" role="tablist" style={{marginLeft:0}}>
           {tabsDist.map((tab: any, index: any) => (
             <motion.li
@@ -97,6 +97,6 @@ const DistTabComponent = ({ tabsDist, defaultIndex = 0, getTabId }) => {
       </div>
     </div>
   );
-};
+}
 
 export default DistTabComponent;

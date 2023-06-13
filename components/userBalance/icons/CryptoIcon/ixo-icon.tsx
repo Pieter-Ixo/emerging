@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const IXOIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function IXOIcon(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={20}
     height={20}
     fill="none"
@@ -28,6 +28,6 @@ const IXOIcon = (props: SVGProps<SVGSVGElement>) => (
       />
     </defs>
   </svg>
-);
+}
 
 export default IXOIcon;

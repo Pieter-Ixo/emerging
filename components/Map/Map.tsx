@@ -10,13 +10,13 @@ const DynamicMap = dynamic(() => import("./DynamicMap"), {
 const DEFAULT_WIDTH = 600;
 const DEFAULT_HEIGHT = 600;
 
-const Map = (props: any) => {
+function Map(props: any) {
   const { width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT } = props;
   return (
     <div style={{ aspectRatio: width / height }}>
       <DynamicMap {...props} />
     </div>
   );
-};
+}
 
 export default Map;

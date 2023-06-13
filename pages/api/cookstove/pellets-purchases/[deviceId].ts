@@ -15,7 +15,7 @@ const cookstovePellets = async (req: NextApiRequest, res: NextApiResponse<Cookst
 	if (isNaN(deviceIdNum)) return res.status(400).json({ error: 'deviceId not a number' });
 	if (!startDate || !endDate) return res.status(400).json({ error: 'startDate and endDate is required' });
 
-	const authBasic = process.env.SUPAMOTO_AUTH_HEADER ?? Buffer.from(process.env.SUPAMOTO_USER_ID + ':' + process.env.SUPAMOTO_USER_PASSWORD).toString();
+	const authBasic = process.env.SUPAMOTO_AUTH_HEADER ?? Buffer.from(`${process.env.SUPAMOTO_USER_ID  }:${  process.env.SUPAMOTO_USER_PASSWORD}`).toString();
 
 	let allData: STOVE_PELLETS;
 	const getData = async (pageNumber?: number) => {

@@ -8,10 +8,10 @@ import Footer from '@/components/footer/footer';
 import Image from 'next/image';
 import { shimmerDataUrl } from '@/utils/image';
 
-const Household = () => {
+function Household() {
 	console.log("in Household");
 	const router = useRouter();
-	const id = router.query.id;
+	const {id} = router.query;
 
 	const images = ['/images/family1.png', '/images/family2.png', '/images/family3.png', '/images/family4.png'];
 
@@ -38,6 +38,6 @@ const Household = () => {
 			</main>
 		</div>
 	);
-};
+}
 
 export default Household;

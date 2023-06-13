@@ -1,6 +1,7 @@
 import { palette } from "@/theme/palette";
 import { Container, Grid, Text } from "@mantine/core";
 import React from "react";
+import CookstoveModal from "@/components/Modals/CookstoveModal";
 import AggregateCard from "./AggregateCard";
 import DetailCard from "./DetailCard";
 import AssetDeviceCard from "./ProofComponents/AssetDeviceCard";
@@ -9,7 +10,6 @@ import CollectionCard from "./ProofComponents/CollectionCard";
 import DAOCard from "./ProofComponents/DAOCard";
 import OracleCard from "./ProofComponents/OracleCard";
 import ProjectNameCard from "./ProofComponents/ProjectNameCard";
-import CookstoveModal from "@/components/Modals/CookstoveModal";
 
 export interface ICategoryModel {
   category: string;
@@ -363,8 +363,7 @@ const properties: IPropertiesModel = {
   },
 };
 
-const CertificateDashboard: React.FC = () => {
-  return (
+const CertificateDashboard: React.FC = () => (
     <Container
       fluid
       sx={{
@@ -375,7 +374,7 @@ const CertificateDashboard: React.FC = () => {
     >
       <Text
         component="h1"
-        size={"40px"}
+        size="40px"
         fw={300}
         color={palette.Neutral800}
         sx={{ marginBottom: "2rem" }}
@@ -383,7 +382,7 @@ const CertificateDashboard: React.FC = () => {
         CARBON Certificate
       </Text>
 
-      <Grid gutter={"xl"}>
+      <Grid gutter="xl">
         <Grid.Col span={8}>
           <AggregateCard categories={categories} properties={properties} />
         </Grid.Col>
@@ -393,6 +392,5 @@ const CertificateDashboard: React.FC = () => {
       </Grid>
     </Container>
   );
-};
 
 export default CertificateDashboard;

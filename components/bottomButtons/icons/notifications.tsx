@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const Notifications = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Notifications(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={28}
     height={28}
     fill="none"
@@ -14,6 +14,6 @@ const Notifications = (props: SVGProps<SVGSVGElement>) => (
       fill="#fff"
     />
   </svg>
-)
+}
 
 export default Notifications

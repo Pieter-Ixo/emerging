@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const Plane = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Plane(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={51}
     height={51}
     fill="none"
@@ -14,6 +14,6 @@ const Plane = (props: SVGProps<SVGSVGElement>) => (
       fill="#61B43A"
     />
   </svg>
-)
+}
 
 export default Plane

@@ -14,7 +14,7 @@ type BenefitsCardProps = {
 	invertedImg?: boolean;
 } & HTMLAttributes<HTMLDivElement>;
 
-const BenefitsCard = ({ Img, images, title, text, className, children, invertedImg = false, ...other }: BenefitsCardProps) => {
+function BenefitsCard({ Img, images, title, text, className, children, invertedImg = false, ...other }: BenefitsCardProps) {
 	return (
 		<Card className={cls(styles.benefitsCard, className)} {...other}>
 			{Img ? <Img width={45} height={45} className={cls({ [cardStyles.invertedImgStrokeColor]: invertedImg, [cardStyles.invertedImgColor]: !invertedImg })} /> : null}
@@ -29,6 +29,6 @@ const BenefitsCard = ({ Img, images, title, text, className, children, invertedI
 			<p>{text}</p>
 		</Card>
 	);
-};
+}
 
 export default BenefitsCard;

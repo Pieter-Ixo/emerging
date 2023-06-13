@@ -69,9 +69,9 @@ function SendCarbon(): JSX.Element {
         />
         {/* Token Drop down */}
         <Select
-          label={"Token"}
+          label="Token"
           radius={16}
-          variant={"filled"}
+          variant="filled"
           itemComponent={SelectItem}
           h={46}
           data={[

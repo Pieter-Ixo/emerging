@@ -19,7 +19,7 @@ function NewsCard() {
         </Grid.Col>
         <Grid.Col span={6}>
           <Flex
-            justify={"flex-end"}
+            justify="flex-end"
             align="center"
             gap={8}
             sx={{ cursor: "pointer" }}
@@ -37,13 +37,13 @@ function NewsCard() {
           </Flex>
         </Grid.Col>
       </Grid>
-      <Divider mb="lg" color={"#000000"} />
-      <Flex direction={"column"} gap={8}>
+      <Divider mb="lg" color="#000000" />
+      <Flex direction="column" gap={8}>
         <Image
           radius="md"
           // height={viewPortSize.width >= mobileBreakpoint ? 200 : 171}
           height="100%"
-          src={"IMG_3991.jpg"}
+          src="IMG_3991.jpg"
           alt="News"
         />
         <Text

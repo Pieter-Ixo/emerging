@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const DisconnectWallet = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function DisconnectWallet(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={46}
     height={46}
     fill="none"
@@ -15,6 +15,6 @@ const DisconnectWallet = (props: SVGProps<SVGSVGElement>) => (
       fill="#fff"
     />
   </svg>
-);
+}
 
 export default DisconnectWallet;

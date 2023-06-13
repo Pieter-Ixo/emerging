@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const Car = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Car(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={57}
     height={51}
     fill="none"
@@ -14,6 +14,6 @@ const Car = (props: SVGProps<SVGSVGElement>) => (
       fill={props.fill}
     />
   </svg>
-);
+}
 
 export default Car;

@@ -1,6 +1,6 @@
 import { Card, Text, Divider, Box } from "@mantine/core";
-import ImpactTabs from "./ImpactTabs";
 import { useAppSelector } from "@/hooks/redux";
+import ImpactTabs from "./ImpactTabs";
 import ImpactsSaved from "./ImpactsSaved";
 import ImpactsOffset from "./ImpactsOffsets";
 import ImpactsIssued from "./ImpactsIssued";
@@ -20,7 +20,7 @@ function ImpactsCard() {
         CLIMATE IMPACTS
       </Text>
 
-      <Divider mb="lg" color={"#000000"} />
+      <Divider mb="lg" color="#000000" />
 
       <ImpactTabs />
 

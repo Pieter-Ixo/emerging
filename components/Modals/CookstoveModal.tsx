@@ -46,7 +46,7 @@ const CookstoveModal: React.FC<Props> = ({ id }) => {
 
                 <div className={styles.rowCards}>
                   {/* <Link href={`/household?id=${id}`}> */}
-                  <Link href={`#`}>
+                  <Link href="#">
                     <ImageTextCard
                       Img={Household}
                       text="Visit the household"
@@ -54,7 +54,7 @@ const CookstoveModal: React.FC<Props> = ({ id }) => {
                     />
                   </Link>
                   {/* <Link href={`/benefits?id=${id}`}> */}
-                  <Link href={`#`}>
+                  <Link href="#">
                     <ImageTextCard
                       Img={Sprout}
                       text="Explore the benefits of clean cooking"
@@ -62,7 +62,7 @@ const CookstoveModal: React.FC<Props> = ({ id }) => {
                     />
                   </Link>
                 </div>
-                <Link href={`#`}>
+                <Link href="#">
                   <ImageTextCard Img={Eye} text="My Carbon Credits Activity" />
                 </Link>
               </div>

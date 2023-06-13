@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const FilterArrow = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function FilterArrow(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={10}
     height={16}
     fill="none"
@@ -14,6 +14,6 @@ const FilterArrow = (props: SVGProps<SVGSVGElement>) => (
       fill="#5FA8EB"
     />
   </svg>
-)
+}
 
 export default FilterArrow

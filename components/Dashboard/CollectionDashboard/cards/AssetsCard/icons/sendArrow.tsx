@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const SendArrow = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function SendArrow(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={24}
     height={25}
     fill="none"
@@ -14,6 +14,6 @@ const SendArrow = (props: SVGProps<SVGSVGElement>) => (
       fill="#000"
     />
   </svg>
-)
+}
 
 export default SendArrow

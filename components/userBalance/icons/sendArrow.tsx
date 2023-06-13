@@ -5,8 +5,8 @@ interface Props {
   color?: string;
 }
 
-const SendArrow = ({ color }: Props, props: SVGProps<SVGSVGElement>) => (
-  <svg
+function SendArrow({ color }: Props, props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={24}
     height={24}
     fill="none"
@@ -15,9 +15,9 @@ const SendArrow = ({ color }: Props, props: SVGProps<SVGSVGElement>) => (
   >
     <path
       d="M8.543 5.644V7.17h7.192l-10.64 10.64 1.061 1.06 10.64-10.64v7.193h1.525V6.407l-.017-.746-.746-.017H8.543Z"
-      fill={color ? color : "#000"}
+      fill={color || "#000"}
     />
   </svg>
-);
+}
 
 export default SendArrow;

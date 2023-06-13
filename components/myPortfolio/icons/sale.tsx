@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const Sale = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Sale(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={24}
     height={25}
     fill="none"
@@ -14,6 +14,6 @@ const Sale = (props: SVGProps<SVGSVGElement>) => (
       fill="#FFF"
     />
   </svg>
-);
+}
 
 export default Sale;

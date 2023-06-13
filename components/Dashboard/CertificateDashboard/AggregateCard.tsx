@@ -1,17 +1,17 @@
-import Copy from "../CollectionDashboard/cards/AssetsCard/icons/copy";
 import { palette, shadow } from "@/theme/palette";
 import { Box, Card, Flex, Grid, Image, Progress, Text } from "@mantine/core";
 import React from "react";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import { usePathname, useRouter } from "next/navigation";
 import Router from "next/router";
+import Link from "next/link";
 import {
   ICategoriesModel,
   ICategoryModel,
   IPropertiesModel,
   IPropertyModel,
 } from ".";
-import Link from "next/link";
+import Copy from "../CollectionDashboard/cards/AssetsCard/icons/copy";
 
 const CategoryBox: React.FC<{
   category: ICategoryModel;
@@ -29,7 +29,7 @@ const CategoryBox: React.FC<{
   };
 
   return (
-    <Flex direction={"column"}>
+    <Flex direction="column">
       <Flex
         sx={{
           borderBottom: `1px solid ${palette.Black}`,
@@ -50,11 +50,11 @@ const CategoryBox: React.FC<{
         </Text>
       </Flex>
 
-      <Flex direction={"column"} gap={8}>
+      <Flex direction="column" gap={8}>
         {Object.values(properties).map((property, index) => {
           const { component, props, key, text, value, external } = property;
           return (
-            <Flex key={index} justify="space-between" align={"center"}>
+            <Flex key={index} justify="space-between" align="center">
               <Text fw={400} sx={{ fontSize: 13 }} color={palette.darkestBlue}>
                 {text || key}
               </Text>
@@ -86,7 +86,7 @@ const CategoryBox: React.FC<{
                   {value}
                 </Text>
               ) : external ? (
-                <Link href={external} target={"_blank"}>
+                <Link href={external} target="_blank">
                   <Text
                     fw={400}
                     sx={{ fontSize: 13, cursor: "pointer" }}
@@ -120,7 +120,7 @@ const AggregateCard: React.FC<{
   return (
     <Card radius={16} style={{ padding: "0rem" }}>
       <Flex
-        direction={"column"}
+        direction="column"
         justify="center"
         gap={20}
         sx={{
@@ -139,7 +139,7 @@ const AggregateCard: React.FC<{
         >
           <ArrowLeftIcon />
         </Flex>
-        <Flex direction={"column"} gap={10} justify="center">
+        <Flex direction="column" gap={10} justify="center">
           <Text
             fw={700}
             color={palette.White}
@@ -155,7 +155,7 @@ const AggregateCard: React.FC<{
 
           <Flex
             gap={8}
-            align={"center"}
+            align="center"
             justify="center"
             sx={{ cursor: "pointer" }}
           >
@@ -182,15 +182,15 @@ const AggregateCard: React.FC<{
           </Flex>
         </Flex>
 
-        <Flex align={"center"} justify="center" gap={28}>
+        <Flex align="center" justify="center" gap={28}>
           <Image
             width={150}
             height={150}
-            src={"/images/carbon-logo-lg.svg"}
+            src="/images/carbon-logo-lg.svg"
             alt=""
           />
 
-          <Flex direction={"column"}>
+          <Flex direction="column">
             <Flex gap={8} align="baseline">
               <Text
                 color={palette.White}
@@ -226,8 +226,8 @@ const AggregateCard: React.FC<{
           </Flex>
         </Flex>
 
-        <Flex justify={"center"} gap={10}>
-          <Flex direction={"column"} gap={4} justify="center" align={"center"}>
+        <Flex justify="center" gap={10}>
+          <Flex direction="column" gap={4} justify="center" align="center">
             <Text
               color={palette.darkestBlue}
               sx={{ fontSize: 10 }}
@@ -237,7 +237,7 @@ const AggregateCard: React.FC<{
             </Text>
 
             <Flex
-              justify={"center"}
+              justify="center"
               align="center"
               sx={{
                 width: 150,
@@ -252,7 +252,7 @@ const AggregateCard: React.FC<{
             </Flex>
           </Flex>
 
-          <Flex direction={"column"} gap={4} justify="center" align={"center"}>
+          <Flex direction="column" gap={4} justify="center" align="center">
             <Text
               color={palette.darkestBlue}
               sx={{ fontSize: 10 }}
@@ -262,7 +262,7 @@ const AggregateCard: React.FC<{
             </Text>
 
             <Flex
-              justify={"center"}
+              justify="center"
               align="center"
               sx={{
                 width: 150,
@@ -277,7 +277,7 @@ const AggregateCard: React.FC<{
             </Flex>
           </Flex>
 
-          <Flex direction={"column"} gap={4} justify="center" align={"center"}>
+          <Flex direction="column" gap={4} justify="center" align="center">
             <Text
               color={palette.darkestBlue}
               sx={{ fontSize: 10 }}
@@ -287,7 +287,7 @@ const AggregateCard: React.FC<{
             </Text>
 
             <Flex
-              justify={"center"}
+              justify="center"
               align="center"
               sx={{
                 width: 150,

@@ -18,7 +18,7 @@ const DAOCard: React.FC<Props> = (props: Props) => {
 
   return (
     <Flex
-      direction={"column"}
+      direction="column"
       sx={{
         boxShadow: shadow.default,
         width: 250,
@@ -27,7 +27,7 @@ const DAOCard: React.FC<Props> = (props: Props) => {
       }}
     >
       <Flex
-        justify={"center"}
+        justify="center"
         align="center"
         sx={{
           height: 150,
@@ -38,9 +38,9 @@ const DAOCard: React.FC<Props> = (props: Props) => {
         }}
       />
 
-      <Flex direction={"column"} gap={8} sx={{ padding: "1rem" }}>
-        <Flex align={"center"} justify="space-between">
-          <Flex align={"center"} gap={4}>
+      <Flex direction="column" gap={8} sx={{ padding: "1rem" }}>
+        <Flex align="center" justify="space-between">
+          <Flex align="center" gap={4}>
             <Flex
               sx={{
                 background: palette.fullBlue,
@@ -73,7 +73,7 @@ const DAOCard: React.FC<Props> = (props: Props) => {
             </Flex>
           </Flex>
           <Flex
-            align={"center"}
+            align="center"
             justify="center"
             sx={{
               width: 32,
@@ -87,9 +87,9 @@ const DAOCard: React.FC<Props> = (props: Props) => {
           />
         </Flex>
 
-        <Flex direction={"column"} gap={4} sx={{ minHeight: 60 }}>
+        <Flex direction="column" gap={4} sx={{ minHeight: 60 }}>
           <Text
-            color={"#01283B"}
+            color="#01283B"
             fw={700}
             sx={{
               fontFamily: "Roboto",
@@ -101,7 +101,7 @@ const DAOCard: React.FC<Props> = (props: Props) => {
             {props.name}
           </Text>
           <Text
-            color={"#828E94"}
+            color="#828E94"
             fw={400}
             sx={{ fontFamily: "Roboto", fontSize: 12, lineHeight: "100%" }}
             lineClamp={2}
@@ -110,11 +110,11 @@ const DAOCard: React.FC<Props> = (props: Props) => {
           </Text>
         </Flex>
 
-        <Flex direction={"column"} gap={4} sx={{ height: 25 }}></Flex>
+        <Flex direction="column" gap={4} sx={{ height: 25 }} />
 
         <Flex>
           <Text
-            color={"#01283B"}
+            color="#01283B"
             fw={500}
             sx={{
               fontFamily: "Roboto",
@@ -126,9 +126,9 @@ const DAOCard: React.FC<Props> = (props: Props) => {
           </Text>
         </Flex>
 
-        <Flex align={"center"} justify="space-between">
+        <Flex align="center" justify="space-between">
           <Text
-            color={"#828E94"}
+            color="#828E94"
             fw={400}
             sx={{
               fontFamily: "Roboto",

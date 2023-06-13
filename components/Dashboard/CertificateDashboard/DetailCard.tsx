@@ -22,9 +22,9 @@ const DetailCard: React.FC<{ properties: IPropertiesModel }> = ({
       style={{ padding: "1rem 2rem", display: "flex", flexDirection: "column" }}
     >
       <Flex
-        align={"center"}
+        align="center"
         justify="space-between"
-        gap={"md"}
+        gap="md"
         sx={{ borderBottom: `1px solid ${palette.Black}` }}
       >
         <Text fw={400} transform="uppercase">
@@ -38,7 +38,7 @@ const DetailCard: React.FC<{ properties: IPropertiesModel }> = ({
       </Flex>
 
       <Flex
-        align={"center"}
+        align="center"
         justify="center"
         sx={{
           width: "100%",

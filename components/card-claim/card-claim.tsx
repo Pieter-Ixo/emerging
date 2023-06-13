@@ -9,7 +9,7 @@ type CarbonClaimCardProps = {
 	amount: number;
 } & HTMLAttributes<HTMLDivElement>;
 
-const CarbonClaimCard = ({ amount, className, children, ...other }: CarbonClaimCardProps) => {
+function CarbonClaimCard({ amount, className, children, ...other }: CarbonClaimCardProps) {
 	return (
 		<Card className={cls(styles.carbonClaimCard, cardStyles.invertedTextColor, cardStyles.accentBgColor, className)} {...other}>
 			<div className={styles.textContainer}>
@@ -23,6 +23,6 @@ const CarbonClaimCard = ({ amount, className, children, ...other }: CarbonClaimC
 			<button>CLAIM</button>
 		</Card>
 	);
-};
+}
 
 export default CarbonClaimCard;

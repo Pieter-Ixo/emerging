@@ -1,8 +1,8 @@
 import { toast, ToastContainer as Toast } from 'react-toastify';
 
-export const ToastContainer = () => {
-  return <Toast autoClose={3000} hideProgressBar={true} limit={5} />;
-};
+export function ToastContainer() {
+  return <Toast autoClose={3000} hideProgressBar limit={5} />;
+}
 
 export const infoToast = (message: string): void => {
   toast.info(message, {

@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const BuyLeaf = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function BuyLeaf(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={25}
     height={15}
     fill="none"
@@ -25,6 +25,6 @@ const BuyLeaf = (props: SVGProps<SVGSVGElement>) => (
       strokeLinecap="round"
     />
   </svg>
-)
+}
 
 export default BuyLeaf
