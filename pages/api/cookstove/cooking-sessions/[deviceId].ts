@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { getCookstoveSessions } from '@/lib/cookstove';
-import { STOVE_SESSIONS } from 'types/stove';
+import { STOVE_SESSIONS } from '@/types/stove';
 
 export type CookstoveSessionsResponse = {
 	error?: string;

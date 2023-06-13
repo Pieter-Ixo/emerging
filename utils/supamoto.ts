@@ -1,10 +1,10 @@
 import { CHART_DATA } from "@/components/chart/chart";
-import { ArrayElement } from "types/general";
+import { ArrayElement } from "@/types/general";
 import {
   STOVE_PELLETS_CONTENT,
   STOVE_PERIODS,
   STOVE_SESSIONS_CONTENT,
-} from "types/stove";
+} from "@/types/stove";
 import { dynamicSort } from "./general";
 
 export const roundNumber = (num: number, scale: number) => {

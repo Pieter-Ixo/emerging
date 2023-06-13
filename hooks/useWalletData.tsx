@@ -6,9 +6,9 @@ import {
   DELEGATION,
   DELEGATION_REWARDS,
   UNBONDING_DELEGATION,
-} from "types/validators";
-import { CURRENCY_TOKEN } from "types/wallet";
-import { QUERY_CLIENT } from "types/query";
+} from "@/types/validators";
+import { CURRENCY_TOKEN } from "@/types/wallet";
+import { QUERY_CLIENT } from "@/types/query";
 
 const defaultData = {
   loading: false,

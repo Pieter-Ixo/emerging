@@ -1,5 +1,5 @@
 import axios from "axios";
-import { STOVE_DATA, STOVE_PELLETS, STOVE_SESSIONS } from "types/stove";
+import { STOVE_DATA, STOVE_PELLETS, STOVE_SESSIONS } from "@/types/stove";
 
 export const getCookstove = async (
   deviceId: number,

@@ -2,9 +2,10 @@ import { getOpera as getJamboOpera } from "@ixo/jambo-wallet-sdk";
 import { ChainInfo } from "@keplr-wallet/types";
 
 import * as Toast from "@/components/toast/toast";
+import { TRX_FEE_OPTION, TRX_MSG } from "@/types/transactions";
+import { USER } from "@/types/user";
+
 import { sendTransaction, initStargateClient } from "./client";
-import { TRX_FEE_OPTION, TRX_MSG } from "types/transactions";
-import { USER } from "types/user";
 
 export const getOpera = getJamboOpera;
 
@@ -19,12 +20,12 @@ export const initializeOpera = async (
     const key = await opera.getKey(chainInfo.chainId);
     return key
       ? {
-          name: key.name,
-          pubKey: key.pubKey,
-          address: key.bech32Address,
-          algo: key.algo,
-          ledgered: true,
-        }
+        name: key.name,
+        pubKey: key.pubKey,
+        address: key.bech32Address,
+        algo: key.algo,
+        ledgered: true,
+      }
       : undefined;
   } catch (error) {
     console.error("Error initializing Opera:: " + error);

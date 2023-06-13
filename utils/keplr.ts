@@ -1,8 +1,8 @@
 import { ChainInfo, Keplr } from "@keplr-wallet/types";
 
 import { sendTransaction, initStargateClient } from "./client";
-import { TRX_FEE_OPTION, TRX_MSG } from "types/transactions";
-import { USER } from "types/user";
+import { TRX_FEE_OPTION, TRX_MSG } from "@/types/transactions";
+import { USER } from "@/types/user";
 
 export const getKeplr = (): Keplr | undefined => {
   //@ts-ignore

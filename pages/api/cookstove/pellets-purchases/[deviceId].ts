@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { getCookstovePellets } from '@/lib/cookstove';
-import { STOVE_PELLETS } from 'types/stove';
+import { STOVE_PELLETS } from '@/types/stove';
 
 export type CookstovePelletsResponse = {
 	error?: string;

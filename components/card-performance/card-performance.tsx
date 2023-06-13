@@ -3,7 +3,7 @@ import cls from "classnames";
 
 import Card from "@/components/card/card";
 import Info from "@/assets/icons/info.svg";
-import { sections, SECTIONS } from "types/stove";
+import { sections, SECTIONS } from "@/types/stove";
 import Chart from "@/components/chart/chart";
 import { useCookstove } from "@/context/cookstove";
 import { hoursSaved, lifeYearsSaved } from "@/utils/supamoto";

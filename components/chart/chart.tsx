@@ -1,7 +1,7 @@
 // import { createChart, ColorType } from 'lightweight-charts';
 import React, { useEffect, useRef, HTMLAttributes, useState } from "react";
 
-import { STOVE_DATA_TYPES, STOVE_PERIODS } from "types/stove";
+import { STOVE_DATA_TYPES, STOVE_PERIODS } from "@/types/stove";
 import { useCookstove } from "@/context/cookstove";
 import { formatPellets, formatSessions } from "@/utils/supamoto";
 import styles from "./chart.module.scss";

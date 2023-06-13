@@ -4,7 +4,7 @@ import {
   CHAIN_INFO_REQUEST,
   CHAIN_NETWORK_TYPE,
   KEPLR_CHAIN_INFO_TYPE,
-} from "types/chain";
+} from "@/types/chain";
 import {
   ChainNames,
   DefaultChainName,
@@ -34,6 +34,7 @@ export const getChainOptions = async () => {
     throw new Error("Chain Names are required to continue");
   const requests: Promise<CHAIN_INFO_REQUEST>[] = [];
 
+  // eslint-disable-next-line no-restricted-syntax
   for (const chainName of ChainNames) {
     requests.push(fetchChainInfo(chainName, "mainnet"));
     if (EnableDeveloperMode) {
