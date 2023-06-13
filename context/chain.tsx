@@ -19,8 +19,8 @@ import {
   CHAIN_INFO_REQUEST,
   CHAIN_NETWORK_TYPE,
   KEPLR_CHAIN_INFO_TYPE,
-} from "types/chain";
-import { QUERY_CLIENT } from "types/query";
+} from "@/types/chain";
+import { QUERY_CLIENT } from "@/types/query";
 import { DefaultChainNetwork } from "@/constants/chains";
 
 type CHAIN_STATE_TYPE = {

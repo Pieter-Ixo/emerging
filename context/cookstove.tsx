@@ -8,7 +8,7 @@ import {
   useCallback,
 } from "react";
 
-import { STOVE, STOVE_PERIODS } from "types/stove";
+import { STOVE, STOVE_PERIODS } from "@/types/stove";
 import { datesFromPeriod } from "@/utils/supamoto";
 
 export const CookstoveContext = createContext({

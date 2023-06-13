@@ -1,20 +1,20 @@
 // A file to combine all wallet types methods into one callback function
 import { ChainInfo } from "@keplr-wallet/types";
 
-import { TRX_FEE_OPTION, TRX_MSG } from "types/transactions";
-import { KEPLR_CHAIN_INFO_TYPE } from "types/chain";
+import { TRX_FEE_OPTION, TRX_MSG } from "@/types/transactions";
+import { KEPLR_CHAIN_INFO_TYPE } from "@/types/chain";
 import {
   TOKEN_BALANCE,
   WALLET,
   WALLET_TYPE,
   CURRENCY_TOKEN,
-} from "types/wallet";
-import { USER } from "types/user";
+} from "@/types/wallet";
+import { USER } from "@/types/user";
 import { initializeWC, WCBroadCastMessage } from "./walletConnect";
 import { initializeKeplr, keplrBroadCastMessage } from "./keplr";
 import { initializeOpera, operaBroadCastMessage } from "./opera";
 import { getFeeDenom, TOKEN_ASSET } from "./currency";
-import { DELEGATION, UNBONDING_DELEGATION } from "types/validators";
+import { DELEGATION, UNBONDING_DELEGATION } from "@/types/validators";
 import { sumArray } from "./misc";
 
 // TODO: add address regex validations

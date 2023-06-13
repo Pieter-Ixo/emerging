@@ -5,13 +5,13 @@ import {
 } from "@ixo/impactxclient-sdk";
 import { assertIsDeliverTxSuccess } from "@cosmjs/stargate";
 
+import { EncodeObject } from "@cosmjs/proto-signing";
 import {
   TRX_FEE,
   TRX_FEE_OPTION,
   TRX_FEE_OPTIONS,
   TRX_MSG,
-} from "types/transactions";
-import { EncodeObject } from "@cosmjs/proto-signing";
+} from "@/types/transactions";
 
 export const initializeQueryClient = async (blockchainRpcUrl: string) => {
   const client = await createQueryClient(blockchainRpcUrl);

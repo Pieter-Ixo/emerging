@@ -18,8 +18,8 @@ import {
 } from "@/utils/persistence";
 import { queryAllBalances } from "@/utils/query";
 import { initializeWallet } from "@/utils/wallets";
-import { KEPLR_CHAIN_INFO_TYPE } from "types/chain";
-import { WALLET, WALLET_TYPE } from "types/wallet";
+import { KEPLR_CHAIN_INFO_TYPE } from "@/types/chain";
+import { WALLET, WALLET_TYPE } from "@/types/wallet";
 import { ChainContext } from "./chain";
 
 export const WalletContext = createContext({

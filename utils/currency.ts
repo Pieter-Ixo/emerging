@@ -1,8 +1,8 @@
 import { TokenAsset } from "@ixo/impactxclient-sdk/types/custom_queries/currency.types";
 import { customQueries } from "@ixo/impactxclient-sdk";
 
-import { ArrayElement } from "types/general";
-import { CURRENCY, CURRENCY_TOKEN } from "types/wallet";
+import { ArrayElement } from "@/types/general";
+import { CURRENCY, CURRENCY_TOKEN } from "@/types/wallet";
 
 export const formatUSDAmount = (amount: number) => formatterUSD.format(amount);
 

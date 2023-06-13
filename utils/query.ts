@@ -11,9 +11,9 @@ import {
   UNBONDING_DELEGATION,
   VALIDATOR,
   VALIDATOR_FILTER_TYPE,
-} from "types/validators";
-import { CURRENCY, CURRENCY_TOKEN } from "types/wallet";
-import { QUERY_CLIENT } from "types/query";
+} from "@/types/validators";
+import { CURRENCY, CURRENCY_TOKEN } from "@/types/wallet";
+import { QUERY_CLIENT } from "@/types/query";
 import { filterValidators } from "./filters";
 import { TOKEN_ASSET } from "./currency";
 

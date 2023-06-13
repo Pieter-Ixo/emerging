@@ -14,8 +14,8 @@ import { ChainInfo } from "@keplr-wallet/types";
 import { fromHex } from "@cosmjs/encoding";
 
 import { sendTransaction, initStargateClient } from "./client";
-import { TRX_FEE_OPTION, TRX_MSG } from "types/transactions";
-import { USER } from "types/user";
+import { TRX_FEE_OPTION, TRX_MSG } from "@/types/transactions";
+import { USER } from "@/types/user";
 import { stringifySignDoc } from "./encoding";
 import { EVENT_LISTENER_TYPE } from "@/constants/events";
 import { setLocalStorage } from "./persistence";
