@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const SendButton = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function SendButton(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={24}
     height={19}
     fill="none"
@@ -14,6 +14,6 @@ const SendButton = (props: SVGProps<SVGSVGElement>) => (
       fill="#2B94F5"
     />
   </svg>
-);
+}
 
 export default SendButton;

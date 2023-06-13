@@ -1,11 +1,11 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const ArrowRight = ({
+function ArrowRight({
   pathFill,
   ...rest
-}: SVGProps<SVGSVGElement> & { pathFill?: string }) => (
-  <svg
+}: SVGProps<SVGSVGElement> & { pathFill?: string }) {
+  return <svg
     width={18}
     height={15}
     fill="none"
@@ -17,6 +17,6 @@ const ArrowRight = ({
       fill={pathFill || "#FFF"}
     />
   </svg>
-);
+}
 
 export default ArrowRight;

@@ -13,10 +13,10 @@ export default async function handler(
     headers: {
       accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: "Basic" + process.env.API_KEY,
+      Authorization: `Basic${  process.env.API_KEY}`,
     },
   };
-  const id = req.query.id;
+  const {id} = req.query;
 
   if (req.method === "GET") {
     try {
@@ -27,7 +27,7 @@ export default async function handler(
       api.setHeaders({
         accept: "application/json",
         "Content-Type": "application/json",
-        //Authorization: "Basic" + process.env.API_KEY,
+        // Authorization: "Basic" + process.env.API_KEY,
       });
 
       const response = await api.get("");

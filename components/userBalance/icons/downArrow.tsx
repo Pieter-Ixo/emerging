@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const DownArrow = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function DownArrow(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={24}
     height={24}
     fill="none"
@@ -14,6 +14,6 @@ const DownArrow = (props: SVGProps<SVGSVGElement>) => (
       fill="#fff"
     />
   </svg>
-)
+}
 
 export default DownArrow

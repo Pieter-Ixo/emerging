@@ -2,7 +2,7 @@ import {
   ChainNetwork,
   KeplrChainInfo,
   RegistryChainInfo,
-} from '@ixo/impactxclient-sdk/types/custom_queries/chain.types';
+} from "@ixo/impactxclient-sdk/types/custom_queries/chain.types";
 
 export type REGISTRY_CHAIN_INFO_TYPE = RegistryChainInfo;
 export type KEPLR_CHAIN_INFO_TYPE = KeplrChainInfo;

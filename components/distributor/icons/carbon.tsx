@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const Carbon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Carbon(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={20}
     height={20}
     fill="none"
@@ -31,6 +31,6 @@ const Carbon = (props: SVGProps<SVGSVGElement>) => (
       fill="#fff"
     />
   </svg>
-)
+}
 
 export default Carbon

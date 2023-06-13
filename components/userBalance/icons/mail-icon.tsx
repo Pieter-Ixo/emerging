@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const MailIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function MailIcon(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={25}
     height={25}
     fill="none"
@@ -14,6 +14,6 @@ const MailIcon = (props: SVGProps<SVGSVGElement>) => (
       fill="#000"
     />
   </svg>
-);
+}
 
 export default MailIcon;

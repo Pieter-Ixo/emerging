@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const Search = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Search(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={20}
     height={21}
     fill="none"
@@ -14,6 +14,6 @@ const Search = (props: SVGProps<SVGSVGElement>) => (
       fill="#000"
     />
   </svg>
-)
+}
 
 export default Search

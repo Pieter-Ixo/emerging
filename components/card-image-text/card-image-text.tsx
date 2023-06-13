@@ -10,7 +10,7 @@ type ImageTextCardProps = {
 	vertical?: boolean;
 } & HTMLAttributes<HTMLDivElement>;
 
-const ImageTextCard = ({ text, Img, className, vertical = false, ...other }: ImageTextCardProps) => {
+function ImageTextCard({ text, Img, className, vertical = false, ...other }: ImageTextCardProps) {
 	return (
 		<Card className={cls(styles.imageTextCard, className, { [styles.vertical]: vertical })} {...other}>
 			<Img width={45} height={45} />
@@ -19,6 +19,6 @@ const ImageTextCard = ({ text, Img, className, vertical = false, ...other }: Ima
 			</div>
 		</Card>
 	);
-};
+}
 
 export default ImageTextCard;

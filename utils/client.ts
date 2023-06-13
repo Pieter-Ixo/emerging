@@ -1,15 +1,27 @@
-import { createSigningClient, SigningStargateClient, createQueryClient } from '@ixo/impactxclient-sdk';
-import { assertIsDeliverTxSuccess } from '@cosmjs/stargate';
+import {
+  createSigningClient,
+  SigningStargateClient,
+  createQueryClient,
+} from "@ixo/impactxclient-sdk";
+import { assertIsDeliverTxSuccess } from "@cosmjs/stargate";
 
-import { TRX_FEE, TRX_FEE_OPTION, TRX_FEE_OPTIONS, TRX_MSG } from 'types/transactions';
-import { EncodeObject } from '@cosmjs/proto-signing';
+import {
+  TRX_FEE,
+  TRX_FEE_OPTION,
+  TRX_FEE_OPTIONS,
+  TRX_MSG,
+} from "types/transactions";
+import { EncodeObject } from "@cosmjs/proto-signing";
 
 export const initializeQueryClient = async (blockchainRpcUrl: string) => {
   const client = await createQueryClient(blockchainRpcUrl);
   return client;
 };
 
-export const initStargateClient = async (endpoint: string, offlineSigner: any): Promise<SigningStargateClient> => {
+export const initStargateClient = async (
+  endpoint: string,
+  offlineSigner: any
+): Promise<SigningStargateClient> => {
   const cosmJS = await createSigningClient(endpoint, offlineSigner);
   return cosmJS;
 };
@@ -39,11 +51,15 @@ export const sendTransaction = async (
     memo: string;
     fee: TRX_FEE_OPTION;
     feeDenom: string;
-  },
+  }
 ): Promise<any> => {
   // console.log({ client, delegatorAddress, payload });
   try {
-    const gasUsed = await client.simulate(delegatorAddress, payload.msgs as EncodeObject[], payload.memo);
+    const gasUsed = await client.simulate(
+      delegatorAddress,
+      payload.msgs as EncodeObject[],
+      payload.memo
+    );
 
     const gas = gasUsed * 1.3;
     const gasOptions = calculateGasOptions(gas);
@@ -51,16 +67,21 @@ export const sendTransaction = async (
       amount: [
         {
           denom: payload.feeDenom,
-          amount: String(Math.round(gasOptions[payload.fee || 'average'])),
+          amount: String(Math.round(gasOptions[payload.fee || "average"])),
         },
       ],
       gas: String(Math.round(gas)),
     };
-    const result: any = await client.signAndBroadcast(delegatorAddress, payload.msgs as any, fee, payload.memo);
+    const result: any = await client.signAndBroadcast(
+      delegatorAddress,
+      payload.msgs as any,
+      fee,
+      payload.memo
+    );
     assertIsDeliverTxSuccess(result);
     return result;
   } catch (e) {
-    console.error('sendTransaction', e);
+    console.error("sendTransaction", e);
     throw e;
   }
 };

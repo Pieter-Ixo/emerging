@@ -11,7 +11,7 @@ export default async function handler(
     headers: {
       accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: "Basic" + process.env.API_KEY,
+      Authorization: `Basic${  process.env.API_KEY}`,
     },
   };
   const id = req.query;
@@ -19,11 +19,11 @@ export default async function handler(
     try {
       const api = create({ baseURL: "https://api.github.com" });
 
-      api.setBaseURL("https://api.supamoto.app/api/v2/stoves/" + id.id);
+      api.setBaseURL(`https://api.supamoto.app/api/v2/stoves/${  id.id}`);
       api.setHeaders({
         accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Basic" + process.env.API_KEY,
+        Authorization: `Basic${  process.env.API_KEY}`,
       });
       const response = await api.get("");
       if (response.problem) {

@@ -1,5 +1,7 @@
 import { Container, Flex, Grid, Text } from "@mantine/core";
 import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { setSelectedView } from "@/redux/userSlice";
 import AssetsCard from "./cards/AssetsCard";
 import ImpactsCard from "./cards/ImpactsCard";
 import NewsCard from "./cards/NewsCard";
@@ -7,8 +9,6 @@ import PerformanceCard from "./cards/PerformanceCard";
 import GlobalIcon from "./icons/global-icon";
 import PortfolioIcon from "./icons/portfolio-icon";
 
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { setSelectedView } from "@/redux/userSlice";
 
 interface pellet {
   content: [
@@ -66,13 +66,13 @@ function CollectionDashboard() {
   // }
 
   return (
-    <Flex direction={"column"} sx={{ paddingTop: 40 }}>
+    <Flex direction="column" sx={{ paddingTop: 40 }}>
       <Container fluid sx={{ width: "100%" }}>
-        <Flex align={"center"} gap={24} sx={{ padding: 16, paddingLeft: 32 }}>
+        <Flex align="center" gap={24} sx={{ padding: 16, paddingLeft: 32 }}>
           <Text fw={300} sx={{ fontSize: 40 }}>
             SupaMoto Collection Dashboard
           </Text>
-          <Flex align={"center"} gap={16}>
+          <Flex align="center" gap={16}>
             <Flex
               sx={{ cursor: "pointer" }}
               onClick={() => dispatch(setSelectedView("global"))}
@@ -91,7 +91,7 @@ function CollectionDashboard() {
 
       <Container fluid>
         <Grid
-          gutter={"xl"}
+          gutter="xl"
           sx={{ width: "100%", padding: 16, margin: 0 }}
           align="stretch"
         >

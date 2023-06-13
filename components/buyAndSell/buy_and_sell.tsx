@@ -2,8 +2,8 @@
 import { palette } from "@/theme/palette";
 import { Card, Text, Button } from "@mantine/core";
 
-import BuyLeaf from "./icons/buyLeaf";
 import { useViewportSize } from "@mantine/hooks";
+import BuyLeaf from "./icons/buyLeaf";
 
 function BuyAndSell() {
   return (

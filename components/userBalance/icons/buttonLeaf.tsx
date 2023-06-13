@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const ButtonLeaf = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function ButtonLeaf(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={24}
     height={24}
     fill="none"
@@ -21,6 +21,6 @@ const ButtonLeaf = (props: SVGProps<SVGSVGElement>) => (
       </clipPath>
     </defs>
   </svg>
-)
+}
 
 export default ButtonLeaf

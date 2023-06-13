@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const Copy = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Copy(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={18}
     height={19}
     fill="none"
@@ -14,6 +14,6 @@ const Copy = (props: SVGProps<SVGSVGElement>) => (
       fill={props.fill || "#5FA8EB"}
     />
   </svg>
-);
+}
 
 export default Copy;

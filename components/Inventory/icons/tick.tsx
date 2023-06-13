@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const Tick = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Tick(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={21}
     height={21}
     fill="none"
@@ -14,6 +14,6 @@ const Tick = (props: SVGProps<SVGSVGElement>) => (
       fill="#61B43A"
     />
   </svg>
-);
+}
 
 export default Tick;

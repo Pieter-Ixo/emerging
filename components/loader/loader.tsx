@@ -7,8 +7,8 @@ type LoaderProps = {
 	size: string;
 };
 
-const Loader = ({ size }: LoaderProps) => {
-	return <LottieLight play={true} loop={true} animationData={loader} speed={1} style={{ height: size, width: size }}></LottieLight>;
-};
+function Loader({ size }: LoaderProps) {
+	return <LottieLight play loop animationData={loader} speed={1} style={{ height: size, width: size }} />;
+}
 
 export default Loader;

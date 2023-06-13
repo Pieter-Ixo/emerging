@@ -12,7 +12,7 @@ import { persistStore } from "redux-persist";
 import { CookstoveProvider } from "@/context/cookstove";
 import Layout from "@/components/Navbar/layout";
 
-let persistor = persistStore(store);
+const persistor = persistStore(store);
 
 function App({ Component, pageProps }: AppProps) {
   return (

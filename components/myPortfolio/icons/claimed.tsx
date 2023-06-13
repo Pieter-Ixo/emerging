@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const Claimed = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Claimed(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={32}
     height={33}
     fill="none"
@@ -31,6 +31,6 @@ const Claimed = (props: SVGProps<SVGSVGElement>) => (
       fill="#fff"
     />
   </svg>
-)
+}
 
 export default Claimed

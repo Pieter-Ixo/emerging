@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const Van = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Van(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={70}
     height={71}
     fill="none"
@@ -29,6 +29,6 @@ const Van = (props: SVGProps<SVGSVGElement>) => (
       strokeLinejoin="round"
     />
   </svg>
-)
+}
 
 export default Van

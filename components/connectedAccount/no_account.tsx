@@ -1,7 +1,7 @@
 import * as React from "react";
 
-const NoAccount = (props) => (
-  <svg
+function NoAccount(props) {
+  return <svg
     width={321}
     height={374}
     fill="none"
@@ -23,6 +23,6 @@ const NoAccount = (props) => (
       strokeWidth={8}
     />
   </svg>
-);
+}
 
 export default NoAccount;

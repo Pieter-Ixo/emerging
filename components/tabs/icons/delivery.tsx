@@ -1,13 +1,13 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const Delivery = (props: SVGProps<SVGSVGElement>) => (
-  <svg width={18} height={18} xmlns="http://www.w3.org/2000/svg" {...props}>
+function Delivery(props: SVGProps<SVGSVGElement>) {
+  return <svg width={18} height={18} xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       d="M.75.465v15.75h2.367c.334 1.289 1.494 2.25 2.883 2.25s2.549-.961 2.883-2.25h6.234c.334 1.289 1.494 2.25 2.883 2.25s2.549-.961 2.883-2.25h2.367V8.41l-.21-.234-4.5-4.5-.235-.211H14.25v-3H.75Zm1.5 1.5h10.5v12.75H8.883c-.334-1.29-1.494-2.25-2.883-2.25s-2.549.96-2.883 2.25H2.25V1.965Zm12 3h3.422l4.078 4.078v5.672h-.867c-.334-1.29-1.494-2.25-2.883-2.25s-2.549.96-2.883 2.25h-.867v-9.75Zm-8.25 9c.838 0 1.5.662 1.5 1.5 0 .837-.662 1.5-1.5 1.5s-1.5-.663-1.5-1.5c0-.838.662-1.5 1.5-1.5Zm12 0c.838 0 1.5.662 1.5 1.5 0 .837-.662 1.5-1.5 1.5s-1.5-.663-1.5-1.5c0-.838.662-1.5 1.5-1.5Z"
       fill={props.fill}
     />
   </svg>
-);
+}
 
 export default Delivery;

@@ -3,9 +3,9 @@ import cls from "classnames";
 import Image from "next/image";
 
 import circle from "@/assets/images/circle.png";
-import styles from "./pie-chart.module.scss";
 import { HTMLAttributes, useState } from "react";
 import Card from "@/components/card/card";
+import styles from "./pie-chart.module.scss";
 
 const data = [
   {
@@ -26,7 +26,7 @@ type PieChartProps = {
   amount: number;
 } & HTMLAttributes<HTMLDivElement>;
 
-const PieChart = ({}: PieChartProps) => {
+function PieChart({}: PieChartProps) {
   const [active, setActive] = useState<number>(0);
 
   const activeSection = active !== null ? data[active] : null;
@@ -44,7 +44,7 @@ const PieChart = ({}: PieChartProps) => {
           <PieChartImport
             lineWidth={12}
             startAngle={270}
-            animate={true}
+            animate
             onClick={(_, i) => setActive(i)}
             data={data}
             segmentsStyle={{ cursor: "pointer" }}
@@ -54,7 +54,7 @@ const PieChart = ({}: PieChartProps) => {
         </div>
 
         <div className={styles.image}>
-          <Image src={circle} alt={""} />
+          <Image src={circle} alt="" />
         </div>
 
         <div
@@ -87,6 +87,6 @@ const PieChart = ({}: PieChartProps) => {
       </div>
     </div>
   );
-};
+}
 
 export default PieChart;

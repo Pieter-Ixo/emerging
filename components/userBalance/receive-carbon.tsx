@@ -15,6 +15,7 @@ import { useViewportSize } from "@mantine/hooks";
 import React, { forwardRef, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 // import { ToastContainer } from "react-toastify/dist/components";
+import QRCode from "react-qr-code";
 import Clipboard from "./icons/clipboard";
 import CarbonIcon from "./icons/CryptoIcon/carbon-icon";
 import IXOIcon from "./icons/CryptoIcon/ixo-icon";
@@ -22,7 +23,6 @@ import USDCIcon from "./icons/CryptoIcon/USDC-icon";
 import QRCodeIcon from "./icons/QrCode";
 import RecipientIcon from "./icons/recipient-icon";
 import SendArrow from "./icons/sendArrow";
-import QRCode from "react-qr-code";
 
 interface ItemProps extends React.ComponentPropsWithoutRef<"div"> {
   icon: string;
@@ -61,9 +61,9 @@ function ReceiveCarbon() {
       >
         {/* Token Drop down */}
         <Select
-          label={"Select coin to receive"}
+          label="Select coin to receive"
           radius={16}
-          variant={"filled"}
+          variant="filled"
           itemComponent={SelectItem}
           h={46}
           data={[
@@ -79,7 +79,7 @@ function ReceiveCarbon() {
         />
         {/* QR Code */}
         <Center style={{ ...styles.inputTopMarg, paddingTop: 28 }}>
-          <QRCode value={"qr code"} size={165} />
+          <QRCode value="qr code" size={165} />
         </Center>
         <Center style={styles.inputTopMarg}>
           <Text style={{ fontSize: 16, fontWeight: 600 }}>My ixo account</Text>

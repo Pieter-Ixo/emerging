@@ -1,18 +1,26 @@
-import { ChainNetwork } from '@ixo/impactxclient-sdk/types/custom_queries/chain.types';
-import cls from 'classnames';
-import { HTMLAttributes, createContext, useContext, useEffect, useState } from 'react';
-
-import utilsStyles from '@/styles/utils.module.scss';
-import { EVENT_LISTENER_TYPE } from '@/constants/events';
-import useWalletData from '@/hooks/useWalletData';
-import { getLocalStorage, removeLocalStorage, setLocalStorage } from '@/utils/persistence';
+import { ChainNetwork } from "@ixo/impactxclient-sdk/types/custom_queries/chain.types";
+import cls from "classnames";
 import {
-  queryAllBalances
-} from '@/utils/query';
-import { initializeWallet } from '@/utils/wallets';
-import { KEPLR_CHAIN_INFO_TYPE } from 'types/chain';
-import { WALLET, WALLET_TYPE } from 'types/wallet';
-import { ChainContext } from './chain';
+  HTMLAttributes,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+
+import utilsStyles from "@/styles/utils.module.scss";
+import { EVENT_LISTENER_TYPE } from "@/constants/events";
+import useWalletData from "@/hooks/useWalletData";
+import {
+  getLocalStorage,
+  removeLocalStorage,
+  setLocalStorage,
+} from "@/utils/persistence";
+import { queryAllBalances } from "@/utils/query";
+import { initializeWallet } from "@/utils/wallets";
+import { KEPLR_CHAIN_INFO_TYPE } from "types/chain";
+import { WALLET, WALLET_TYPE } from "types/wallet";
+import { ChainContext } from "./chain";
 
 export const WalletContext = createContext({
   wallet: {} as WALLET,
@@ -29,35 +37,44 @@ const DEFAULT_WALLET: WALLET = {
   user: undefined,
 };
 
-export const WalletProvider = ({ children }: HTMLAttributes<HTMLDivElement>) => {
+export const WalletProvider = ({
+  children,
+}: HTMLAttributes<HTMLDivElement>) => {
   const [wallet, setWallet] = useState<WALLET>(DEFAULT_WALLET);
   const [loaded, setLoaded] = useState<boolean>(false);
-  const { chain, chainInfo, queryClient, updateChainId, updateChainNetwork } = useContext(ChainContext);
-  const [balances, fetchBalances, clearBalances] = useWalletData(queryAllBalances, wallet?.user?.address);
-  const walletKey = 'wallet';
+  const { chain, chainInfo, queryClient, updateChainId, updateChainNetwork } =
+    useContext(ChainContext);
+  const [balances, fetchBalances, clearBalances] = useWalletData(
+    queryAllBalances,
+    wallet?.user?.address
+  );
+  const walletKey = "wallet";
 
   const updateWallet = (newWallet: WALLET, override: boolean = false) => {
     if (override) {
       setWallet({ ...DEFAULT_WALLET, ...newWallet });
-    }
-    else setWallet((currentWallet) => ({ ...currentWallet, ...newWallet }));
+    } else setWallet((currentWallet) => ({ ...currentWallet, ...newWallet }));
   };
 
-  const updateWalletType = (newWalletType: WALLET_TYPE) => updateWallet({ walletType: newWalletType });
+  const updateWalletType = (newWalletType: WALLET_TYPE) =>
+    updateWallet({ walletType: newWalletType });
 
   const initializeWallets = async () => {
     try {
-      const user = await initializeWallet(wallet.walletType, chainInfo as KEPLR_CHAIN_INFO_TYPE);
+      const user = await initializeWallet(
+        wallet.walletType,
+        chainInfo as KEPLR_CHAIN_INFO_TYPE
+      );
       updateWallet({ user });
     } catch (error) {
-      console.error('Initializing wallets error:', error);
+      console.error("Initializing wallets error:", error);
     }
   };
 
   const logoutWallet = () => {
     removeLocalStorage(walletKey);
     updateWallet({}, true);
-  }
+  };
 
   const fetchAssets = () => {
     fetchBalances();
@@ -85,24 +102,61 @@ export const WalletProvider = ({ children }: HTMLAttributes<HTMLDivElement>) => 
   useEffect(() => {
     if (loaded && wallet.walletType) initializeWallets();
     if (wallet.walletType === WALLET_TYPE.keplr) {
-      window.addEventListener(EVENT_LISTENER_TYPE.wc_sessionupdate, updateWalletConnectWallet);
-      window.removeEventListener(EVENT_LISTENER_TYPE.wc_sessiondelete, logoutWallet);
-      window.addEventListener(EVENT_LISTENER_TYPE.keplr_keystorechange, updateKeplrWallet);
+      window.addEventListener(
+        EVENT_LISTENER_TYPE.wc_sessionupdate,
+        updateWalletConnectWallet
+      );
+      window.removeEventListener(
+        EVENT_LISTENER_TYPE.wc_sessiondelete,
+        logoutWallet
+      );
+      window.addEventListener(
+        EVENT_LISTENER_TYPE.keplr_keystorechange,
+        updateKeplrWallet
+      );
 
-      return () => window.removeEventListener(EVENT_LISTENER_TYPE.keplr_keystorechange, updateKeplrWallet);
+      return () =>
+        window.removeEventListener(
+          EVENT_LISTENER_TYPE.keplr_keystorechange,
+          updateKeplrWallet
+        );
     } else if (wallet.walletType === WALLET_TYPE.walletConnect) {
-      window.removeEventListener(EVENT_LISTENER_TYPE.keplr_keystorechange, updateKeplrWallet);
-      window.addEventListener(EVENT_LISTENER_TYPE.wc_sessionupdate, updateWalletConnectWallet);
-      window.addEventListener(EVENT_LISTENER_TYPE.wc_sessiondelete, logoutWallet);
+      window.removeEventListener(
+        EVENT_LISTENER_TYPE.keplr_keystorechange,
+        updateKeplrWallet
+      );
+      window.addEventListener(
+        EVENT_LISTENER_TYPE.wc_sessionupdate,
+        updateWalletConnectWallet
+      );
+      window.addEventListener(
+        EVENT_LISTENER_TYPE.wc_sessiondelete,
+        logoutWallet
+      );
 
       return () => {
-        window.removeEventListener(EVENT_LISTENER_TYPE.wc_sessionupdate, updateWalletConnectWallet);
-        window.removeEventListener(EVENT_LISTENER_TYPE.wc_sessiondelete, logoutWallet);
+        window.removeEventListener(
+          EVENT_LISTENER_TYPE.wc_sessionupdate,
+          updateWalletConnectWallet
+        );
+        window.removeEventListener(
+          EVENT_LISTENER_TYPE.wc_sessiondelete,
+          logoutWallet
+        );
       };
     } else {
-      window.removeEventListener(EVENT_LISTENER_TYPE.keplr_keystorechange, updateKeplrWallet);
-      window.removeEventListener(EVENT_LISTENER_TYPE.wc_sessionupdate, updateWalletConnectWallet);
-      window.removeEventListener(EVENT_LISTENER_TYPE.wc_sessiondelete, logoutWallet);
+      window.removeEventListener(
+        EVENT_LISTENER_TYPE.keplr_keystorechange,
+        updateKeplrWallet
+      );
+      window.removeEventListener(
+        EVENT_LISTENER_TYPE.wc_sessionupdate,
+        updateWalletConnectWallet
+      );
+      window.removeEventListener(
+        EVENT_LISTENER_TYPE.wc_sessiondelete,
+        logoutWallet
+      );
     }
   }, [wallet.walletType, chain.chainId, chain.chainNetwork]);
 
@@ -120,9 +174,7 @@ export const WalletProvider = ({ children }: HTMLAttributes<HTMLDivElement>) => 
     wallet: {
       ...wallet,
       balances,
-      loading:
-        balances.loading ||
-        chain.chainLoading,
+      loading: balances.loading || chain.chainLoading,
     } as WALLET,
     updateWalletType,
     fetchAssets,

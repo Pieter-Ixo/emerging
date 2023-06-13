@@ -1,11 +1,11 @@
-import styles from './footer.module.scss';
 import Logo from '@/assets/icons/logo.svg';
+import styles from './footer.module.scss';
 
 type FooterProps = {
 	showLinks?: boolean;
 };
 
-const Footer = ({ showLinks = true }: FooterProps) => {
+function Footer({ showLinks = true }: FooterProps) {
 	return (
 		<footer className={styles.footer}>
 			{showLinks ? <p>T&Cs</p> : null}
@@ -15,6 +15,6 @@ const Footer = ({ showLinks = true }: FooterProps) => {
 			{showLinks ? <p>FAQ</p> : null}
 		</footer>
 	);
-};
+}
 
 export default Footer;

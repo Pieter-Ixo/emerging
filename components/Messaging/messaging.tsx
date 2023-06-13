@@ -21,9 +21,7 @@ function Messaging() {
         }}
       >
         {chat ? (
-          <>
-            <Chat />
-          </>
+          <Chat />
         ) : (
           <>
             <Text style={{ fontSize: 16, marginBottom: 20 }}>Messaging</Text>

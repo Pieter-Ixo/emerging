@@ -1,13 +1,13 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const Health = (props: SVGProps<SVGSVGElement>) => (
-  <svg width={22} height={19} xmlns="http://www.w3.org/2000/svg" {...props}>
+function Health(props: SVGProps<SVGSVGElement>) {
+  return <svg width={22} height={19} xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       d="M6.125.75C3.022.75.5 3.302.5 6.375c0 1.072.486 2.001.938 2.672.45.67.914 1.101.914 1.101l8.109 8.133.539.54.54-.54 8.108-8.133S21.5 8.517 21.5 6.375C21.5 3.302 18.977.75 15.875.75 13.3.75 11.642 2.3 11 2.953 10.358 2.3 8.7.75 6.125.75Zm0 1.5c2.241 0 4.313 2.18 4.313 2.18l.562.633.563-.633s2.07-2.18 4.312-2.18C18.157 2.25 20 4.122 20 6.375c0 1.157-1.406 2.719-1.406 2.719L11 16.688 3.406 9.093s-.363-.349-.726-.89C2.316 7.66 2 6.954 2 6.374 2 4.122 3.843 2.25 6.125 2.25Z"
       fill={props?.fill}
     />
   </svg>
-);
+}
 
 export default Health;

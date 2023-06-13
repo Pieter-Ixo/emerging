@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const Collapse = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Collapse(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={20}
     height={8}
     style={{marginBottom:6}}
@@ -15,6 +15,6 @@ const Collapse = (props: SVGProps<SVGSVGElement>) => (
       fill="#0000007a"
     />
   </svg>
-)
+}
 
 export default Collapse

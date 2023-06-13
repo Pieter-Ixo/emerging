@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const Wallet = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Wallet(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={28}
     height={28}
     fill="none"
@@ -14,6 +14,6 @@ const Wallet = (props: SVGProps<SVGSVGElement>) => (
       fill="#fff"
     />
   </svg>
-)
+}
 
 export default Wallet

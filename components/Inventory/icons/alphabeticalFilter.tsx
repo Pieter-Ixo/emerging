@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const AlphabeticalFilter = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function AlphabeticalFilter(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={16}
     height={15}
     fill="none"
@@ -14,6 +14,6 @@ const AlphabeticalFilter = (props: SVGProps<SVGSVGElement>) => (
       fill={props.fill}
     />
   </svg>
-);
+}
 
 export default AlphabeticalFilter;

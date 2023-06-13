@@ -16,7 +16,7 @@ import BuyLeaf from "../buyAndSell/icons/buyLeaf";
 import FilledStar from "../Inventory/icons/Filled_Star";
 import Star from "../Inventory/icons/star";
 
-//@ts-ignore
+// @ts-ignore
 function MintActionCard({ counter }) {
   const viewPortSize = useViewportSize()
   return (

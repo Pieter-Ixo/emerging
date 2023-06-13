@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const Cross = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Cross(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={16}
     height={17}
     fill="none"
@@ -14,6 +14,6 @@ const Cross = (props: SVGProps<SVGSVGElement>) => (
       fill="#000"
     />
   </svg>
-)
+}
 
 export default Cross

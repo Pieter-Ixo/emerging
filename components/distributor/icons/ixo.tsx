@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const Ixo = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Ixo(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={20}
     height={20}
     fill="none"
@@ -22,6 +22,6 @@ const Ixo = (props: SVGProps<SVGSVGElement>) => (
       d="M4.289 4.289h11.422v11.422H4.289z"
     />
   </svg>
-)
+}
 
 export default Ixo

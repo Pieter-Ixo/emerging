@@ -3,7 +3,7 @@ import EmergingLogo from "./Icon_Header/emerging";
 
 export default function HeaderLogo() {
   return (
-    <Flex align={"center"} gap={8} style={{ cursor: "pointer" }}>
+    <Flex align="center" gap={8} style={{ cursor: "pointer" }}>
       <EmergingLogo />
       <Text
         style={{

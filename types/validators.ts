@@ -1,6 +1,10 @@
-import { CURRENCY, CURRENCY_TOKEN } from './wallet';
+import { CURRENCY, CURRENCY_TOKEN } from "./wallet";
 
-export type VALIDATOR_FILTER_TYPE = 'voting_asc' | 'voting_desc' | 'commission_asc' | 'commission_desc';
+export type VALIDATOR_FILTER_TYPE =
+  | "voting_asc"
+  | "voting_desc"
+  | "commission_asc"
+  | "commission_desc";
 
 export type DELEGATION_REWARD = {
   validatorAddress: string;
@@ -53,7 +57,7 @@ export type VALIDATOR_AMOUNT_CONFIG = {
   defaultLabel: string;
   label: string;
   sub?: string;
-  source: 'wallet' | 'validator';
+  source: "wallet" | "validator";
 };
 
 export type VALIDATORS_AVATARS = {

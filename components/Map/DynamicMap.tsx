@@ -7,7 +7,7 @@ import styles from "./Map.module.css";
 
 const { MapContainer } = ReactLeaflet;
 
-const Map = ({ children, className, width, height, ...rest }) => {
+function Map({ children, className, width, height, ...rest }) {
   let mapClassName = styles.map;
 
   if (className) {
@@ -16,7 +16,7 @@ const Map = ({ children, className, width, height, ...rest }) => {
 
   useEffect(() => {
     (async function init() {
-      //@ts-ignore
+      // @ts-ignore
       delete Leaflet.Icon.Default.prototype._getIconUrl;
       Leaflet.Icon.Default.mergeOptions({
         iconRetinaUrl: "leaflet/images/marker-icon-2x.png",
@@ -31,6 +31,6 @@ const Map = ({ children, className, width, height, ...rest }) => {
       {children(ReactLeaflet, Leaflet)}
     </MapContainer>
   );
-};
+}
 
 export default Map;

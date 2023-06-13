@@ -12,10 +12,10 @@ export default async function handler(
     headers: {
       accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: "Basic" + process.env.API_KEY,
+      Authorization: `Basic${  process.env.API_KEY}`,
     },
   };
-  const id = req.query.id;
+  const {id} = req.query;
   const startDate = dayjs("2023-01-01").format("YYYY-MM-DD");
   const endDate = dayjs(new Date()).format("YYYY-MM-DD");
   if (req.method === "GET") {
@@ -28,7 +28,7 @@ export default async function handler(
       api.setHeaders({
         accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Basic" + process.env.API_KEY,
+        Authorization: `Basic${  process.env.API_KEY}`,
       });
       const response = await api.get("");
       if (response.problem) {

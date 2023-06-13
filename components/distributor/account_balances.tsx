@@ -23,9 +23,9 @@ import Usdc from "./icons/usdc";
 function AccountBalance() {
   const [available, setAvailable] = useState(true);
   const viewPortSize = useViewportSize();
-  const [isExpanded, setExpand] = useState(true); //in this case false will show it,  and true will hide it
+  const [isExpanded, setExpand] = useState(true); // in this case false will show it,  and true will hide it
 
-  //console.log("account wllet" , wallet.balances?.balances)
+  // console.log("account wllet" , wallet.balances?.balances)
 
   return (
     <div

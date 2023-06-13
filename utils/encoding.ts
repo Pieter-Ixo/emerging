@@ -1,24 +1,24 @@
-import * as base58 from 'bs58';
-import { BigNumber } from 'bignumber.js';
-import { toBase64, fromBase64, toHex } from '@cosmjs/encoding';
-import { SignDoc } from '@ixo/impactxclient-sdk/types/codegen/cosmos/tx/v1beta1/tx';
+import * as base58 from "bs58";
+import { BigNumber } from "bignumber.js";
+import { toBase64, fromBase64, toHex } from "@cosmjs/encoding";
+import { SignDoc } from "@ixo/impactxclient-sdk/types/codegen/cosmos/tx/v1beta1/tx";
 
 export const utf16_to_b64 = (str: string) => {
-  return Buffer.from(str, 'utf8').toString('base64');
+  return Buffer.from(str, "utf8").toString("base64");
 };
 
 export const file_to_b64 = (file: File): Promise<string> => {
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result?.toString() || '');
+    reader.onload = () => resolve(reader.result?.toString() || "");
     reader.onerror = (error) => reject(error);
   });
 };
 
 export const b58_to_b64 = (str: string): string => {
   // @ts-ignore
-  return base58.decode(str).toString('base64');
+  return base58.decode(str).toString("base64");
 };
 
 export const b58_to_uint8Arr = (str: string): Uint8Array => {
@@ -48,7 +48,7 @@ const Utf8ArrayToStr = (array: Uint8Array) => {
   let out, i, c;
   let char2, char3;
 
-  out = '';
+  out = "";
   const len = array.length;
   i = 0;
   while (i < len) {
@@ -75,7 +75,9 @@ const Utf8ArrayToStr = (array: Uint8Array) => {
         // 1110 xxxx  10xx xxxx  10xx xxxx
         char2 = array[i++];
         char3 = array[i++];
-        out += String.fromCharCode(((c & 0x0f) << 12) | ((char2 & 0x3f) << 6) | ((char3 & 0x3f) << 0));
+        out += String.fromCharCode(
+          ((c & 0x0f) << 12) | ((char2 & 0x3f) << 6) | ((char3 & 0x3f) << 0)
+        );
         break;
     }
   }

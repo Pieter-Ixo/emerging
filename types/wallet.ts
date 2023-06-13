@@ -1,8 +1,12 @@
-import { DecCoin } from '@ixo/impactxclient-sdk/types/codegen/cosmos/base/v1beta1/coin';
+import { DecCoin } from "@ixo/impactxclient-sdk/types/codegen/cosmos/base/v1beta1/coin";
 
-import { DELEGATION, DELEGATION_REWARDS, UNBONDING_DELEGATION } from './validators';
-import { TOKEN_ASSET } from '@/utils/currency';
-import { USER } from './user';
+import {
+  DELEGATION,
+  DELEGATION_REWARDS,
+  UNBONDING_DELEGATION,
+} from "./validators";
+import { TOKEN_ASSET } from "@/utils/currency";
+import { USER } from "./user";
 
 export type CURRENCY = DecCoin;
 
@@ -13,9 +17,9 @@ export type CURRENCY_TOKEN = {
 } & CURRENCY;
 
 export enum WALLET_TYPE {
-  opera = 'opera',
-  keplr = 'keplr',
-  walletConnect = 'walletConnect',
+  opera = "opera",
+  keplr = "keplr",
+  walletConnect = "walletConnect",
 }
 
 export type WALLET = {
@@ -28,9 +32,13 @@ export type WALLET = {
   unbondingDelegations?: WALLET_UNBONDING;
 };
 
-export type WALLET_KEYS = 'balances' | 'delegations' | 'rewards' | 'unbonding';
+export type WALLET_KEYS = "balances" | "delegations" | "rewards" | "unbonding";
 
-export type WALLET_ASSETS = WALLET_BALANCES | WALLET_DELEGATIONS | WALLET_DELEGATION_REWARDS | WALLET_UNBONDING;
+export type WALLET_ASSETS =
+  | WALLET_BALANCES
+  | WALLET_DELEGATIONS
+  | WALLET_DELEGATION_REWARDS
+  | WALLET_UNBONDING;
 
 export type WALLET_BALANCES = {
   loading?: boolean;

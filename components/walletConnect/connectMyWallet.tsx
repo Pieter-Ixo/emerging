@@ -14,10 +14,11 @@ import {
   SegmentedControl,
 } from "@mantine/core";
 import { useContext, useEffect, useState } from "react";
+import { useQRCode } from "next-qrcode";
 import DownArrow from "../userBalance/icons/downArrow";
 import Ixo from "./icons/ixo";
-import { useQRCode } from "next-qrcode";
 import wcLogo from "../../public/WalletConnect-logo.png";
+
 function ConnectMyWallet(uri: string) {
   const [opened, setOpened] = useState(true);
   const { wallet } = useContext(WalletContext);
@@ -25,15 +26,15 @@ function ConnectMyWallet(uri: string) {
   const [mobileDesktop, setMobileDesktop] = useState(false) // false is mobile, true is desktop
 
 
-  console.log("mobDesk: " + mobileDesktop)
+  console.log(`mobDesk: ${  mobileDesktop}`)
 
   return (
     <Modal
-      opened={true}
+      opened
       onClose={() => setOpened(false)}
       title="CONNECT YOUR WALLET"
       radius={16}
-      //style={{marginLeft: 70}}
+      // style={{marginLeft: 70}}
     >
       <Divider my="sm" />
       <Text

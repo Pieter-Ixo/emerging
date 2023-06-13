@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const Eye = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Eye(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={20}
     height={11}
     fill="none"
@@ -14,6 +14,6 @@ const Eye = (props: SVGProps<SVGSVGElement>) => (
       fill="#5FA8EB"
     />
   </svg>
-)
+}
 
 export default Eye

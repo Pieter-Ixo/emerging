@@ -1,8 +1,8 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-const TransactionLeaf = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function TransactionLeaf(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={32}
     height={33}
     fill="none"
@@ -22,6 +22,6 @@ const TransactionLeaf = (props: SVGProps<SVGSVGElement>) => (
       </clipPath>
     </defs>
   </svg>
-)
+}
 
 export default TransactionLeaf

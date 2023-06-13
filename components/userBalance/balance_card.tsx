@@ -70,8 +70,7 @@ function BalanceCard() {
           />
         </div>
         {availableTab && (
-          <>
-            <Suspense fallback={<Loading />}>
+          <Suspense fallback={<Loading />}>
               <Grid>
                 <Col span="content">
                   <Text
@@ -206,7 +205,6 @@ function BalanceCard() {
                 </Grid>
               </Center>
             </Suspense>
-          </>
         )}
         {!availableTab && (
           <>
@@ -316,8 +314,7 @@ function BalanceCard() {
       ) : (
         <>
           {sendModal === true || receiveModal === true ? (
-            <>
-              <div style={{ marginTop: 20 }}>
+            <div style={{ marginTop: 20 }}>
                 <Card
                   shadow={shadow.default}
                   p="lg"
@@ -355,7 +352,6 @@ function BalanceCard() {
                   {receiveModal ? <ReceiveCarbon /> : <></>}
                 </Card>
               </div>
-            </>
           ) : (
             <></>
           )}

@@ -13,7 +13,7 @@ const cookstoveById = async (req: NextApiRequest, res: NextApiResponse<Cookstove
 	const deviceIdNum = Number(deviceId);
 	if (isNaN(deviceIdNum)) return res.status(400).json({ error: 'deviceId not a number' });
 
-	const authBasic = process.env.SUPAMOTO_AUTH_HEADER ?? Buffer.from(process.env.SUPAMOTO_USER_ID + ':' + process.env.SUPAMOTO_USER_PASSWORD).toString();
+	const authBasic = process.env.SUPAMOTO_AUTH_HEADER ?? Buffer.from(`${process.env.SUPAMOTO_USER_ID  }:${  process.env.SUPAMOTO_USER_PASSWORD}`).toString();
 
 	try {
 		const data = await getCookstove(deviceIdNum, {

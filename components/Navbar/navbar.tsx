@@ -22,7 +22,7 @@ interface Message {
   icon: any;
 }
 
-export const Nav = () => {
+export function Nav() {
   const { height, width } = useWindowDimensions();
   const viewPortSize = useViewportSize();
 
@@ -43,7 +43,7 @@ export const Nav = () => {
     <Navbar
       p="xs"
       width={{ base: 360, sm: 360 }}
-      height={"100%"}
+      height="100%"
       bg="#F2F2F2"
       withBorder={false}
     >
@@ -55,10 +55,10 @@ export const Nav = () => {
               width: 360,
               height: "100vh",
             }}
-          ></div>
+           />
         </Affix>
-        <Flex justify={"center"} sx={{ padding: "20px 0px" }}>
-          <Link href={"/"}>
+        <Flex justify="center" sx={{ padding: "20px 0px" }}>
+          <Link href="/">
             <HeaderLogo />
           </Link>
         </Flex>
@@ -86,4 +86,4 @@ export const Nav = () => {
       </>
     </Navbar>
   );
-};
+}

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const Offset = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function Offset(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={24}
     height={25}
     fill="none"
@@ -25,6 +25,6 @@ const Offset = (props: SVGProps<SVGSVGElement>) => (
       </clipPath>
     </defs>
   </svg>
-);
+}
 
 export default Offset;

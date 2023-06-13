@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const QRCode = (props: SVGProps<SVGSVGElement>) => (
-  <svg
+function QRCode(props: SVGProps<SVGSVGElement>) {
+  return <svg
     width={192}
     height={193}
     fill="none"
@@ -17,6 +17,6 @@ const QRCode = (props: SVGProps<SVGSVGElement>) => (
       fill="#333"
     />
   </svg>
-);
+}
 
 export default QRCode;
