@@ -2,7 +2,7 @@ import { getTable } from "@/pages/api/hello";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 
-import { fetchStoveById } from "./supamoto/supamotoAPI";
+import { fetchStoveById } from "../requests/historicalDataEmergingEco";
 
 export interface SupamotoState {
   value: any;
@@ -53,12 +53,10 @@ export const SupamotoSlice = createSlice({
   },
   // Special reducer for hydrating the state. Special case for next-redux-wrapper
   extraReducers: {
-    [HYDRATE]: (state, action) => {
-      return {
-        ...state,
-        ...action.payload.supamoto,
-      };
-    },
+    [HYDRATE]: (state, action) => ({
+      ...state,
+      ...action.payload.supamoto,
+    }),
   },
 });
 

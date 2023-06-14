@@ -20,12 +20,12 @@ export const initializeOpera = async (
     const key = await opera.getKey(chainInfo.chainId);
     return key
       ? {
-        name: key.name,
-        pubKey: key.pubKey,
-        address: key.bech32Address,
-        algo: key.algo,
-        ledgered: true,
-      }
+          name: key.name,
+          pubKey: key.pubKey,
+          address: key.bech32Address,
+          algo: key.algo,
+          ledgered: true,
+        }
       : undefined;
   } catch (error) {
     console.error("Error initializing Opera:: " + error);

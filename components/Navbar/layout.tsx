@@ -1,14 +1,13 @@
 import { useViewportSize } from "@mantine/hooks";
 import { smallLaptopBreakpoint } from "@/constants/breakpoints";
-import { Center, Flex, Text } from "@mantine/core";
-import { Nav } from "./navbar";
+import { Center, Text } from "@mantine/core";
 
 // @ts-ignore
 export default function Layout({ children }) {
   const viewPortSize = useViewportSize();
 
   if (!viewPortSize.width) {
-    return <></>;
+    return null;
   }
 
   if (viewPortSize.width <= smallLaptopBreakpoint) {
@@ -20,10 +19,8 @@ export default function Layout({ children }) {
       </Center>
     );
   }
+
   return (
-    <Flex>
-      <Nav />
-      <main style={{ width: "100%", background: "#FAFAFA" }}>{children}</main>
-    </Flex>
+    <main style={{ width: "100%", background: "#FAFAFA" }}>{children}</main>
   );
 }
