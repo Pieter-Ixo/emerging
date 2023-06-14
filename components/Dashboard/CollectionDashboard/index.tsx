@@ -6,7 +6,7 @@ import AssetsCard from "./cards/AssetsCard";
 import ImpactsCard from "./cards/ImpactsCard";
 import NewsCard from "./cards/NewsCard";
 import PerformanceCard from "./cards/PerformanceCard";
-import GlobalIcon from "./icons/global-icon";
+import GlobalIcon from "../../icons/global-icon";
 import PortfolioIcon from "./icons/portfolio-icon";
 
 

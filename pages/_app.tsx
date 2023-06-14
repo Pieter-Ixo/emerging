@@ -21,7 +21,7 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Emerging Dashboard</title>
+        <title>Emerging App</title>
       </Head>
 
       <MantineProvider withGlobalStyles withNormalizeCSS theme={mantineTheme}>

@@ -1,21 +1,10 @@
-import { useAppDispatch } from "@/hooks/redux";
-import { fetchAllEntities } from "@/redux/collectionSlice";
-import { CollectionDashboard } from "@/components/Dashboard";
 import { useEffect } from "react";
-import { Nav } from "@/components/Navbar/navbar";
-import { Flex } from "@mantine/core";
+import { useRouter } from "next/router";
 
 export default function Collections() {
-  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   useEffect(() => {
-    dispatch(fetchAllEntities());
-  }, [dispatch]);
-
-  return (
-    <Flex>
-      <Nav />
-      <main style={{ width: "100%", background: "#FAFAFA" }}>here</main>
-    </Flex>
-  );
+    router.push("/collections/global", undefined, { shallow: true });
+  }, [router]);
 }
