@@ -15,9 +15,7 @@ export default function Collections() {
   return (
     <Flex>
       <Nav />
-      <main style={{ width: "100%", background: "#FAFAFA" }}>
-        <CollectionDashboard />
-      </main>
+      <main style={{ width: "100%", background: "#FAFAFA" }}>here</main>
     </Flex>
   );
 }
