@@ -1,5 +1,5 @@
-import Header from "../components/Header";
 import CollectionsLayout from "../components/Layout";
+import Header from "./components/Header";
 
 export default function Collections() {
   return (
