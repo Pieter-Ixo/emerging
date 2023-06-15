@@ -71,140 +71,136 @@ function BalanceCard() {
         </div>
         {availableTab && (
           <Suspense fallback={<Loading />}>
-              <Grid>
-                <Col span="content">
-                  <Text
+            <Grid>
+              <Col span="content">
+                <Text
+                  style={{
+                    fontStyle: "normal",
+                    fontSize: 56,
+                    color: palette.fullBlue,
+                  }}
+                >
+                  779
+                </Text>
+              </Col>
+              <Col span={6}>
+                <Text
+                  style={{
+                    fontStyle: "normal",
+                    fontSize: 16,
+                    color: palette.fullBlue,
+                    paddingTop: 44,
+                  }}
+                >
+                  CARBON
+                </Text>
+              </Col>
+            </Grid>
+
+            <div style={{ paddingTop: 12 }}>
+              <Button
+                leftIcon={totalClaimable ? <DownArrow /> : <></>}
+                style={{
+                  borderRadius: 23,
+                  backgroundColor: palette.fullBlue,
+                  width: viewPortSize.width >= tabletBreakpoint ? 272 : 318,
+                  height: 46,
+                }}
+              >
+                <Text style={{ fontWeight: 500, fontSize: 16 }}>
+                  {totalClaimable} CARBON credits to claim
+                </Text>
+              </Button>
+            </div>
+
+            {/* Show Carbon Certificate */}
+            <div style={{ paddingTop: 12 }}>
+              <Button
+                leftIcon={
+                  <Generated
+                    fill={pathname === "/" ? palette.Black : palette.White}
+                  />
+                }
+                style={{
+                  borderRadius: 23,
+                  backgroundColor:
+                    pathname === "/" ? palette.Neutral200 : palette.fullBlue,
+                  width: viewPortSize.width >= tabletBreakpoint ? 272 : 318,
+                  height: 46,
+                }}
+                onClick={() => router.push("/certificate")}
+              >
+                <Text
+                  style={{
+                    fontWeight: 500,
+                    fontSize: 16,
+                    color: pathname === "/" ? palette.Black : palette.White,
+                  }}
+                >
+                  Show Carbon Certificate
+                </Text>
+              </Button>
+            </div>
+            <Center>
+              <Grid
+                style={{
+                  paddingTop: 16,
+                  width: viewPortSize.width >= tabletBreakpoint ? 272 : 318,
+                }}
+              >
+                <Grid.Col span={6} style={{ paddingLeft: 0 }}>
+                  <Button
+                    onClick={() => {
+                      setSendModal(true);
+                      setReceiveModal(false);
+                    }}
+                    leftIcon={<SendArrow />}
                     style={{
-                      fontStyle: "normal",
-                      fontSize: 56,
-                      color: palette.fullBlue,
+                      borderRadius: 23,
+                      backgroundColor: palette.Neutral200,
+                      width: viewPortSize.width >= tabletBreakpoint ? 128 : 151,
+                      height: 46,
                     }}
                   >
-                    779
-                  </Text>
-                </Col>
-                <Col span={6}>
-                  <Text
+                    <Text
+                      style={{
+                        color: palette.Black,
+                        fontWeight: 500,
+                        fontSize: 16,
+                      }}
+                    >
+                      Send
+                    </Text>
+                  </Button>
+                </Grid.Col>
+                <Grid.Col span={6} style={{ paddingRight: 0 }}>
+                  <Button
+                    onClick={() => {
+                      setReceiveModal(true);
+                      setSendModal(false);
+                    }}
+                    leftIcon={<ReceiveArrow />}
                     style={{
-                      fontStyle: "normal",
-                      fontSize: 16,
-                      color: palette.fullBlue,
-                      paddingTop: 44,
+                      borderRadius: 23,
+                      backgroundColor: palette.Neutral200,
+                      width: viewPortSize.width >= tabletBreakpoint ? 128 : 151,
+                      height: 46,
                     }}
                   >
-                    CARBON
-                  </Text>
-                </Col>
+                    <Text
+                      style={{
+                        color: palette.Black,
+                        fontWeight: 500,
+                        fontSize: 16,
+                      }}
+                    >
+                      Receive
+                    </Text>
+                  </Button>
+                </Grid.Col>
               </Grid>
-
-              <div style={{ paddingTop: 12 }}>
-                <Button
-                  leftIcon={totalClaimable ? <DownArrow /> : <></>}
-                  style={{
-                    borderRadius: 23,
-                    backgroundColor: palette.fullBlue,
-                    width: viewPortSize.width >= tabletBreakpoint ? 272 : 318,
-                    height: 46,
-                  }}
-                >
-                  <Text style={{ fontWeight: 500, fontSize: 16 }}>
-                    {totalClaimable} CARBON credits to claim
-                  </Text>
-                </Button>
-              </div>
-
-              {/* Show Carbon Certificate */}
-              <div style={{ paddingTop: 12 }}>
-                <Button
-                  leftIcon={
-                    <Generated
-                      fill={pathname === "/" ? palette.Black : palette.White}
-                    />
-                  }
-                  style={{
-                    borderRadius: 23,
-                    backgroundColor:
-                      pathname === "/" ? palette.Neutral200 : palette.fullBlue,
-                    width: viewPortSize.width >= tabletBreakpoint ? 272 : 318,
-                    height: 46,
-                  }}
-                  onClick={() =>
-                    router.push(pathname === "/" ? "/certificate" : "/")
-                  }
-                >
-                  <Text
-                    style={{
-                      fontWeight: 500,
-                      fontSize: 16,
-                      color: pathname === "/" ? palette.Black : palette.White,
-                    }}
-                  >
-                    Show Carbon Certificate
-                  </Text>
-                </Button>
-              </div>
-              <Center>
-                <Grid
-                  style={{
-                    paddingTop: 16,
-                    width: viewPortSize.width >= tabletBreakpoint ? 272 : 318,
-                  }}
-                >
-                  <Grid.Col span={6} style={{ paddingLeft: 0 }}>
-                    <Button
-                      onClick={() => {
-                        setSendModal(true);
-                        setReceiveModal(false);
-                      }}
-                      leftIcon={<SendArrow />}
-                      style={{
-                        borderRadius: 23,
-                        backgroundColor: palette.Neutral200,
-                        width:
-                          viewPortSize.width >= tabletBreakpoint ? 128 : 151,
-                        height: 46,
-                      }}
-                    >
-                      <Text
-                        style={{
-                          color: palette.Black,
-                          fontWeight: 500,
-                          fontSize: 16,
-                        }}
-                      >
-                        Send
-                      </Text>
-                    </Button>
-                  </Grid.Col>
-                  <Grid.Col span={6} style={{ paddingRight: 0 }}>
-                    <Button
-                      onClick={() => {
-                        setReceiveModal(true);
-                        setSendModal(false);
-                      }}
-                      leftIcon={<ReceiveArrow />}
-                      style={{
-                        borderRadius: 23,
-                        backgroundColor: palette.Neutral200,
-                        width:
-                          viewPortSize.width >= tabletBreakpoint ? 128 : 151,
-                        height: 46,
-                      }}
-                    >
-                      <Text
-                        style={{
-                          color: palette.Black,
-                          fontWeight: 500,
-                          fontSize: 16,
-                        }}
-                      >
-                        Receive
-                      </Text>
-                    </Button>
-                  </Grid.Col>
-                </Grid>
-              </Center>
-            </Suspense>
+            </Center>
+          </Suspense>
         )}
         {!availableTab && (
           <>
@@ -315,43 +311,43 @@ function BalanceCard() {
         <>
           {sendModal === true || receiveModal === true ? (
             <div style={{ marginTop: 20 }}>
-                <Card
-                  shadow={shadow.default}
-                  p="lg"
-                  radius={16}
-                  withBorder
-                  style={{
-                    width: viewPortSize.width >= tabletBreakpoint ? 312 : 358,
-                  }}
-                >
-                  <div style={{ display: "flex" }}>
-                    <Text style={{ flex: 1 }}>
-                      {sendModal ? "SEND" : "RECEIVE"}
-                    </Text>
+              <Card
+                shadow={shadow.default}
+                p="lg"
+                radius={16}
+                withBorder
+                style={{
+                  width: viewPortSize.width >= tabletBreakpoint ? 312 : 358,
+                }}
+              >
+                <div style={{ display: "flex" }}>
+                  <Text style={{ flex: 1 }}>
+                    {sendModal ? "SEND" : "RECEIVE"}
+                  </Text>
 
-                    <div
-                      onClick={() => {
-                        if (sendModal === true) {
-                          setSendModal(false);
-                        } else if (receiveModal === true) {
-                          setReceiveModal(false);
-                        }
-                      }}
-                    >
-                      <CloseIcon />
-                    </div>
+                  <div
+                    onClick={() => {
+                      if (sendModal === true) {
+                        setSendModal(false);
+                      } else if (receiveModal === true) {
+                        setReceiveModal(false);
+                      }
+                    }}
+                  >
+                    <CloseIcon />
                   </div>
+                </div>
 
-                  <Divider
-                    my="sm"
-                    size="xs"
-                    color="black"
-                    style={{ paddingTop: 0, marginTop: 0 }}
-                  />
-                  {sendModal ? <SendCarbon /> : <></>}
-                  {receiveModal ? <ReceiveCarbon /> : <></>}
-                </Card>
-              </div>
+                <Divider
+                  my="sm"
+                  size="xs"
+                  color="black"
+                  style={{ paddingTop: 0, marginTop: 0 }}
+                />
+                {sendModal ? <SendCarbon /> : <></>}
+                {receiveModal ? <ReceiveCarbon /> : <></>}
+              </Card>
+            </div>
           ) : (
             <></>
           )}

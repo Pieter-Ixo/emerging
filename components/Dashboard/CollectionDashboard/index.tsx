@@ -6,7 +6,7 @@ import AssetsCard from "./cards/AssetsCard";
 import ImpactsCard from "./cards/ImpactsCard";
 import NewsCard from "./cards/NewsCard";
 import PerformanceCard from "./cards/PerformanceCard";
-import GlobalIcon from "./icons/global-icon";
+import GlobalIcon from "../../icons/global-icon";
 import PortfolioIcon from "./icons/portfolio-icon";
 
 
@@ -77,7 +77,7 @@ function CollectionDashboard() {
               sx={{ cursor: "pointer" }}
               onClick={() => dispatch(setSelectedView("global"))}
             >
-              <GlobalIcon selected={user.selectedView} />
+              <GlobalIcon selected={user.selectedView === "global"} />
             </Flex>
             <Flex
               sx={{ cursor: "pointer" }}
