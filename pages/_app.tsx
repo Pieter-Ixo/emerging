@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
-import Layout from "@/components/Navbar/layout";
 import { ToastContainer } from "@/components/toast/toast";
 import { ChainProvider } from "@/context/chain";
 import { WalletProvider } from "@/context/wallet";
@@ -14,6 +13,7 @@ import { store } from "@/redux/store";
 
 import "@/styles/globals.scss";
 import mantineTheme from "@/helpers/mantine/theme";
+import Layout from "./_layout";
 
 const persistor = persistStore(store);
 
