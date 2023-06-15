@@ -1,4 +1,3 @@
-import {} from "@/redux/store";
 import { createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 
@@ -26,7 +25,7 @@ const initialState: UserState = {
   impactNavi: "Saved",
 };
 
-export const UserSlice = createSlice({
+const UserSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
@@ -76,12 +75,10 @@ export const UserSlice = createSlice({
   },
   // Special reducer for hydrating the state. Special case for next-redux-wrapper
   extraReducers: {
-    [HYDRATE]: (state, action) => {
-      return {
+    [HYDRATE]: (state, action) => ({
         ...state,
         ...action.payload.user,
-      };
-    },
+      }),
   },
 });
 
@@ -104,4 +101,5 @@ export const userCarbonClaimable = (state) => state.user.ClaimableCarbon;
 
 export const { setCarbonClaimable } = UserSlice.actions;
 
-export default UserSlice.reducer;
+const UserSliceReducer = UserSlice.reducer;
+export default UserSliceReducer;
