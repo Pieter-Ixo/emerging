@@ -77,7 +77,7 @@ function CollectionDashboard() {
               sx={{ cursor: "pointer" }}
               onClick={() => dispatch(setSelectedView("global"))}
             >
-              <GlobalIcon selected={user.selectedView} />
+              <GlobalIcon selected={user.selectedView === "global"} />
             </Flex>
             <Flex
               sx={{ cursor: "pointer" }}
