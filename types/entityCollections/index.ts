@@ -138,7 +138,10 @@ export type IEntity = {
   settings: ISettings;
 };
 
-export type ICollectionProfile = ISetting;
+export type ICollectionProfile = ISetting & {
+  imageUrl?: string;
+  logoUrl?: string;
+};
 
 export type ICollectionExtended = ICollection & {
   _profile?: ICollectionProfile;

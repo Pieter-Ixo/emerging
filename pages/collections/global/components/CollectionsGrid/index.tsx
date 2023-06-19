@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Grid, Text } from "@mantine/core";
+import { Grid, Loader, Text } from "@mantine/core";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchAndFillCollections } from "@/redux/entityCollections/thunks";
@@ -22,7 +22,7 @@ export default function CollectionsGrid() {
   if (!isLoading) console.log("🐸, collections", collections);
 
   return isLoading ? (
-    <Text>loading...</Text>
+    <Loader m="lg" />
   ) : (
     <Grid>
       {collections.map((collection) => (
