@@ -11,6 +11,8 @@ import {
 import storage from "redux-persist/lib/storage";
 
 import CollectionSlice from "@/redux/collection/slice";
+// eslint-disable-next-line import/no-cycle
+import EntityCollectionSlice from "@/redux/entityCollections/slice";
 import UserSlice from "@/redux/userSlice";
 
 const persistConfig = {
@@ -22,6 +24,7 @@ const persistConfig = {
 export const rootReducers = combineReducers({
   user: UserSlice,
   collection: CollectionSlice,
+  entityCollection: EntityCollectionSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);

@@ -4,6 +4,8 @@
  * 2023, June 15
  */
 
+import { ISetting } from "./settings";
+
 export type IAccordedRight = {
   aid: number;
   type: string;
@@ -136,9 +138,15 @@ export type IEntity = {
   settings: ISettings;
 };
 
-export type ICollectionWithEntities = {
-  collection: ICollection;
+export type ICollectionProfile = ISetting;
+
+export type ICollectionExtended = ICollection & {
+  _profile?: ICollectionProfile;
+};
+
+export type ICollectionEntities = {
+  collection: ICollectionExtended;
   entities: IEntity[];
 };
 
-export type IApiEntityCollectionsResponse = ICollectionWithEntities[];
+export type IApiEntityCollectionsResponse = ICollectionEntities[];

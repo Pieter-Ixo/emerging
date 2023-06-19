@@ -1,9 +1,35 @@
-import { Text } from "@mantine/core";
-import { useAppSelector } from "@/hooks/redux";
+import { useEffect } from "react";
+import { Grid, Text } from "@mantine/core";
+
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { fetchAndFillCollections } from "@/redux/entityCollections/thunks";
+import {
+  selectCollections,
+  selectIsEntityCollectionsLoading,
+} from "@/redux/entityCollections/selectors";
+
+import CollectionCard from "./CollectionCard";
 
 export default function CollectionsGrid() {
-  const state = useAppSelector((state) => state);
-  console.log("🍣", state);
+  const dispatch = useAppDispatch();
+  const collections = useAppSelector(selectCollections);
+  const isLoading = useAppSelector(selectIsEntityCollectionsLoading);
 
-  return <Text>Hello</Text>;
+  useEffect(() => {
+    dispatch(fetchAndFillCollections());
+  }, [dispatch]);
+
+  if (!isLoading) console.log("🐸, collections", collections);
+
+  return isLoading ? (
+    <Text>loading...</Text>
+  ) : (
+    <Grid>
+      {collections.map((collection) => (
+        <Grid.Col span={6} key={`collection-${collection?.id}`}>
+          <CollectionCard collection={collection} />
+        </Grid.Col>
+      ))}
+    </Grid>
+  );
 }

@@ -7,7 +7,6 @@ export default function Collections() {
     <CollectionsLayout>
       <Header />
       <CollectionsGrid />
-      global Collections
     </CollectionsLayout>
   );
 }

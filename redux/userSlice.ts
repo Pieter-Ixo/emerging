@@ -76,9 +76,9 @@ const UserSlice = createSlice({
   // Special reducer for hydrating the state. Special case for next-redux-wrapper
   extraReducers: {
     [HYDRATE]: (state, action) => ({
-        ...state,
-        ...action.payload.user,
-      }),
+      ...state,
+      ...action.payload.user,
+    }),
   },
 });
 

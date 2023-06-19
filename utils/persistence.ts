@@ -4,7 +4,7 @@ export const setLocalStorage = <T>(key: string, value: T) => {
   }
 };
 
-export const getLocalStorage = <T>(key: string) => {
+export const getLocalStorage = <T>(key: string): T | void => {
   if (typeof window !== "undefined") {
     const value = window.localStorage.getItem(key);
     if (!value) return;
@@ -28,6 +28,6 @@ export const copyToClipboard = async (text: string) => {
 
 export const pasteFromClipboard = async (): Promise<void | string> => {
   if (typeof window !== "undefined") {
-    return await navigator.clipboard.readText();
+    return navigator.clipboard.readText();
   }
 };

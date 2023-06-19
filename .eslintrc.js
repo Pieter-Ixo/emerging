@@ -36,7 +36,6 @@ module.exports = {
     "no-nested-ternary": 1,
     "no-restricted-globals": 1,
     "no-restricted-exports": 1,
-    "no-underscore-dangle": 1,
     "array-callback-return": 1,
     "react/no-this-in-sfc": 1,
     "no-plusplus": 1,
@@ -53,7 +52,8 @@ module.exports = {
         "ts": "never",
         "tsx": "never"
       }
-   ]
+   ],
+   "no-underscore-dangle":0
   },
 
 };
