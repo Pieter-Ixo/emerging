@@ -4,11 +4,7 @@ import { HYDRATE } from "next-redux-wrapper";
 
 import { IApiEntityCollectionsResponse } from "@/types/entityCollections";
 // eslint-disable-next-line import/no-cycle
-import {
-  fetchAllCollectionsProfiles,
-  fetchAndFillCollections,
-  fetchEntitiesCollections,
-} from "./thunks";
+import { fetchAndFillCollections } from "./thunks";
 
 export type EntityCollectionState = {
   entityCollections: IApiEntityCollectionsResponse;
@@ -24,9 +20,6 @@ const EntityCollectionSlice = createSlice({
   name: "entityCollections",
   initialState,
   reducers: {
-    setIsEntityCollectionsLoading: (state, action: PayloadAction<boolean>) => {
-      state.isEntityCollectionsLoading = action.payload;
-    },
     setEntityCollections: (
       state,
       action: PayloadAction<IApiEntityCollectionsResponse>
@@ -35,24 +28,8 @@ const EntityCollectionSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase(fetchEntitiesCollections.pending, (state) => {
+    builder.addCase(fetchAndFillCollections.pending, (state) => {
       state.isEntityCollectionsLoading = true;
-    });
-
-    builder.addCase(fetchEntitiesCollections.fulfilled, (state, action) => {
-      state.isEntityCollectionsLoading = false;
-      if (action.payload) state.entityCollections = action.payload;
-    });
-
-    // TODO: do I need this builder?
-    builder.addCase(fetchAllCollectionsProfiles.fulfilled, (state, action) => {
-      const collectionProfilesData = action.payload;
-
-      state.isEntityCollectionsLoading = false;
-      state.entityCollections.forEach((entityCollection, i) => {
-        state.entityCollections[i].collection._profile =
-          collectionProfilesData[i];
-      });
     });
 
     builder.addCase(fetchAndFillCollections.fulfilled, (state, action) => {
@@ -69,7 +46,6 @@ const EntityCollectionSlice = createSlice({
   },
 });
 
-export const { setIsEntityCollectionsLoading, setEntityCollections } =
-  EntityCollectionSlice.actions;
+export const { setEntityCollections } = EntityCollectionSlice.actions;
 
 export default EntityCollectionSlice.reducer;

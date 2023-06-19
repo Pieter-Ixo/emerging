@@ -1,17 +1,11 @@
-export type IContext = {
-  ixo: string;
-  web3: string;
-  id: string;
-  type: string;
-  "@protected": boolean;
-};
+import { ISettingsContext } from "./commonTypes";
 
 export type IAttribute = {
   key: string;
   value: string;
 };
-export type ISetting = {
-  "@context": Array<IContext | string>;
+export type IProfileSettings = {
+  "@context": Array<ISettingsContext | string>;
   id: string;
   type: string;
   name: string;

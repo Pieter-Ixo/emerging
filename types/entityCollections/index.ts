@@ -4,7 +4,9 @@
  * 2023, June 15
  */
 
-import { ISetting } from "./settings";
+import { IMetadata } from "./commonTypes";
+import { IProfileSettings } from "./settings";
+import { ITagsSettings } from "./tag";
 
 export type IAccordedRight = {
   aid: number;
@@ -21,7 +23,7 @@ export type IAccount = {
   address: string;
 };
 
-export type IContext = {
+export type ICollectionContext = {
   aid: number;
   key: string;
   val: string;
@@ -48,13 +50,6 @@ export type ILinkedResource = {
   encrypted: string;
   right: string;
   iid: string;
-};
-
-export type IMetadata = {
-  versionId: string;
-  created: Date;
-  updated: Date;
-  deactivated: boolean;
 };
 
 export type IService = {
@@ -101,7 +96,7 @@ export type ICollection = {
   capabilityInvocation: unknown[];
   capabilityDelegation: unknown[];
   alsoKnownAs: string;
-  context: IContext[];
+  context: ICollectionContext[];
   accordedRight: IAccordedRight[];
   linkedEntity: ILinkedEntity[];
   linkedResource: ILinkedResource[];
@@ -130,7 +125,7 @@ export type IEntity = {
   capabilityInvocation: unknown[];
   capabilityDelegation: unknown[];
   alsoKnownAs: string;
-  context: IContext[];
+  context: ICollectionContext[];
   accordedRight: IAccordedRight[];
   linkedEntity: ILinkedEntity[];
   linkedResource: ILinkedResource[];
@@ -138,13 +133,15 @@ export type IEntity = {
   settings: ISettings;
 };
 
-export type ICollectionProfile = ISetting & {
+export type ICollectionProfile = IProfileSettings & {
   imageUrl?: string;
   logoUrl?: string;
 };
+export type ICollectionTags = ITagsSettings & {};
 
 export type ICollectionExtended = ICollection & {
   _profile?: ICollectionProfile;
+  _tags?: ICollectionTags;
 };
 
 export type ICollectionEntities = {
