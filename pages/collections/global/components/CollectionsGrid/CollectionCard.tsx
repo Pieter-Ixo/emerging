@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { Box, Text, Avatar, BackgroundImage, Title, Flex } from "@mantine/core";
 
 import styles from "@/styles/pages/collections/CollectionCard.module.scss";
@@ -9,6 +10,7 @@ import TagIcon from "./TagIcon";
 type Props = { collection: ICollectionExtended };
 
 export default function CollectionCard({ collection }: Props) {
+  const router = useRouter();
   if (!collection?._profile) return null;
 
   const { brand, name, imageUrl, logoUrl } = collection._profile;
@@ -16,7 +18,10 @@ export default function CollectionCard({ collection }: Props) {
   const tags = getCollectionSDGTagsFromFilled(collection);
 
   return (
-    <Box className={styles.CollectionCard} m="lg">
+    <Box
+      className={styles.CollectionCard}
+      onClick={() => router.push(`/collections/${collection.id}`)}
+    >
       <BackgroundImage src={imageUrl || ""} p="md" mih="260px" radius="lg">
         <Flex direction="column" mih="inherit" justify="space-between">
           <Flex justify="flex-end" align="flex-start" gap="10px">

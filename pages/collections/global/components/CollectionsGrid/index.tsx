@@ -19,12 +19,12 @@ export default function CollectionsGrid() {
     dispatch(fetchAndFillCollections());
   }, [dispatch]);
 
-  if (!isLoading) console.log("🐸, collections", collections);
+  if (isLoading) return <Loader m="lg" />;
 
-  return isLoading ? (
-    <Loader m="lg" />
-  ) : (
-    <Grid>
+  console.log("🐸, collections", collections);
+
+  return (
+    <Grid p="lg" gutter="lg">
       {collections.map((collection) => (
         <Grid.Col span={6} key={`collection-${collection?.id}`}>
           <CollectionCard collection={collection} />

@@ -23,10 +23,10 @@ export const fetchAndFillCollections = createAsyncThunk(
 
     const getCollectionProfilePromises = collectionsResponse?.map(
       async (entityCollection): Promise<ICollectionEntities> => {
-        const profileData = await getCollectionProfile(
-          entityCollection.collection
-        );
-        const tagData = await getCollectionTags(entityCollection.collection);
+        const [profileData, tagData] = await Promise.all([
+          await getCollectionProfile(entityCollection.collection),
+          await getCollectionTags(entityCollection.collection),
+        ]);
         entityCollection.collection._profile = profileData;
         entityCollection.collection._tags = tagData;
         return entityCollection;

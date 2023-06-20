@@ -15,7 +15,8 @@ import TruckSVG from "@/assets/icons/truck.svg";
 import LeafSVG from "@/assets/icons/leaf.svg";
 import styles from "@/styles/pages/indexPage.module.scss";
 
-function NavLink({ href, children }: { href: string } & PropsWithChildren) {
+// eslint-disable-next-line react/require-default-props
+function NavLink({ href, children }: { href?: string } & PropsWithChildren) {
   return (
     <Text ta="center" mt={32} p={20} className={styles.AnchorContainer}>
       <Anchor href={href} className={styles.Anchor}>
@@ -38,7 +39,7 @@ export default function Home() {
         <Popover width={200} position="bottom" withArrow shadow="md">
           <Popover.Target>
             <Container>
-              <NavLink href="">
+              <NavLink>
                 <TruckSVG aria-hidden width={70} height={70} alt="" />
                 <Text>Distributor</Text>
               </NavLink>
