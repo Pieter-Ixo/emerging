@@ -1,7 +1,7 @@
 import { useAppDispatch } from "@/hooks/redux";
-import { fetchAllEntities } from "@/redux/collectionSlice";
-import { CollectionDashboard } from "@/components/Dashboard";
 import { useEffect } from "react";
+import { CollectionDashboard } from "@/components/Dashboard";
+import { fetchAllEntities } from "@/redux/collection/thunks";
 import { Nav } from "@/components/Navbar/navbar";
 import { Flex } from "@mantine/core";
 
@@ -12,8 +12,12 @@ export default function Home() {
     dispatch(fetchAllEntities());
   }, [dispatch]);
 
-  return <Flex>
-    <Nav />
-    <main style={{ width: "100%", background: "#FAFAFA" }}><CollectionDashboard /></main>
-  </Flex>
+  return (
+    <Flex>
+      <Nav />
+      <main style={{ width: "100%", background: "#FAFAFA" }}>
+        <CollectionDashboard />
+      </main>
+    </Flex>
+  );
 }

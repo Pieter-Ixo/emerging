@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "prettier": "prettier **/*.{js,ts,tsx,md} --write"
+    "prettier": "prettier **/*.{js,ts,tsx,md} --write",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@cosmjs/amino": "^0.29.5",
