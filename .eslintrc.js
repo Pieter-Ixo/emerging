@@ -13,7 +13,6 @@ module.exports = {
     "react/jsx-props-no-spreading": 1,
     "no-use-before-define": 1,
     "no-shadow": 1,
-    "react/require-default-props": 1,
     "react/jsx-no-useless-fragment": 1,
     "jsx-a11y/click-events-have-key-events": 1,
     "jsx-a11y/no-static-element-interactions": 1,
@@ -53,6 +52,7 @@ module.exports = {
         "tsx": "never"
       }
    ],
+   "react/require-default-props": 0,
    "no-underscore-dangle":0
   },
 

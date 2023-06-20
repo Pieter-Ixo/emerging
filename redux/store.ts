@@ -8,7 +8,7 @@ import {
   REHYDRATE,
   persistReducer,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import localStorage from "redux-persist/lib/storage";
 
 import CollectionSlice from "@/redux/collection/slice";
 // eslint-disable-next-line import/no-cycle
@@ -18,16 +18,16 @@ import UserSlice from "@/redux/userSlice";
 const persistConfig = {
   key: "root",
   version: 1,
-  storage,
+  storage: localStorage,
 };
 
-export const rootReducers = combineReducers({
+export const rootReducer = combineReducers({
   user: UserSlice,
-  collection: CollectionSlice,
+  // collection: CollectionSlice, //TODO: delete this as soon as possible
   entityCollection: EntityCollectionSlice,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducers);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,

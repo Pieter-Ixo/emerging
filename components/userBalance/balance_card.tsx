@@ -35,7 +35,6 @@ function BalanceCard() {
   const [availableTab, setAvailable] = useState(true);
   const [sendModal, setSendModal] = useState(false);
   const [receiveModal, setReceiveModal] = useState(false);
-  const entities = useAppSelector((state) => state.collection.entities);
   const [totalClaimable, setTotalClaimable] = useState(0);
   const [totalOffset, setTotalOffset] = useState(421);
   const viewPortSize = useViewportSize();

@@ -16,13 +16,15 @@ import { setSelectedView } from "@/redux/userSlice";
 import { Suspense, useEffect, useState } from "react";
 import CookstoveModal from "@/components/Modals/CookstoveModal";
 import Head from "next/head";
-import ArrowRight from "../NewsCard/icons/arrowRight";
+import ArrowRight from "../CollectionNewsCard/icons/arrowRight";
 import DownArrow from "./icons/downArrow";
 import Loading from "./loading";
 
-function AssetsCard() {
+export default function CollectionAssetsCard() {
   const dispatch = useAppDispatch();
-  const entities = useAppSelector((state) => state.entityCollection.entityCollections[0].entities);
+  const entities = useAppSelector(
+    (state) => state.entityCollection.entityCollections[0].entities
+  );
   const [entitiesData, setEntitiesData] = useState<any[]>([]);
   const heads = [
     { name: "Serial number", filterActive: false },
@@ -247,10 +249,10 @@ function AssetsCard() {
                   onClick={() => {
                     handleFilterActive(0);
                     setSortAssets((prevSorts) => ({
-                        SerialNumber: !prevSorts.SerialNumber,
-                        CarbonClaimable: false,
-                        CarbonIssued: false,
-                      }));
+                      SerialNumber: !prevSorts.SerialNumber,
+                      CarbonClaimable: false,
+                      CarbonIssued: false,
+                    }));
                   }}
                 >
                   <Text style={{ display: "flex" }}>
@@ -268,10 +270,10 @@ function AssetsCard() {
                   onClick={() => {
                     handleFilterActive(1);
                     setSortAssets((prevSorts) => ({
-                        CarbonClaimable: !prevSorts.CarbonClaimable,
-                        SerialNumber: false,
-                        CarbonIssued: false,
-                      }));
+                      CarbonClaimable: !prevSorts.CarbonClaimable,
+                      SerialNumber: false,
+                      CarbonIssued: false,
+                    }));
                   }}
                 >
                   <Text style={{ display: "flex" }}>
@@ -289,10 +291,10 @@ function AssetsCard() {
                   onClick={() => {
                     handleFilterActive(2);
                     setSortAssets((prevSorts) => ({
-                        CarbonIssued: !prevSorts.CarbonIssued,
-                        SerialNumber: false,
-                        CarbonClaimable: false,
-                      }));
+                      CarbonIssued: !prevSorts.CarbonIssued,
+                      SerialNumber: false,
+                      CarbonClaimable: false,
+                    }));
                   }}
                 >
                   <Text style={{ display: "flex" }}>
@@ -337,5 +339,3 @@ function AssetsCard() {
     </>
   );
 }
-
-export default AssetsCard;
