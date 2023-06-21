@@ -27,11 +27,7 @@ export default function Collection() {
   return (
     <CollectionsLayout>
       <Header />
-      <Grid
-        gutter="xl"
-        sx={{ width: "100%", padding: 16, margin: 0 }}
-        // align="stretch"
-      >
+      <Grid gutter="xl" sx={{ width: "100%", padding: 16, margin: 0 }}>
         <Grid.Col span={8}>
           <Stack spacing="lg">
             <CollectionClimateImpactsCard />
