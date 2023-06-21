@@ -10,10 +10,18 @@ export const selectRoot = (state: RootState) => state;
 
 export const selectEntityCollections = createDraftSafeSelector(
   selectRoot,
-  (state: RootState): EntityCollectionState => state.entityCollection
+  (state: RootState): EntityCollectionState => state?.entityCollection
 );
 
 export const selectCollections = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): ICollectionExtended[] =>
+    state.entityCollections.map(
+      (collectionWithEntites) => collectionWithEntites.collection
+    )
+);
+
+export const selectCollection = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState): ICollectionExtended[] =>
     state.entityCollections.map(
