@@ -2,18 +2,23 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 
-import { IApiEntityCollectionsResponse } from "@/types/entityCollections";
+import {
+  IApiEntityCollectionsResponse,
+  IEntity,
+} from "@/types/entityCollections";
 // eslint-disable-next-line import/no-cycle
 import { fetchAndFillCollections } from "./thunks";
 
 export type EntityCollectionState = {
   entityCollections: IApiEntityCollectionsResponse;
   isEntityCollectionsLoading: boolean;
+  selectedAssetExternalId: undefined | IEntity["externalId"];
 };
 
 const initialState: EntityCollectionState = {
   entityCollections: [],
   isEntityCollectionsLoading: false,
+  selectedAssetExternalId: undefined,
 };
 
 const EntityCollectionSlice = createSlice({
@@ -22,9 +27,15 @@ const EntityCollectionSlice = createSlice({
   reducers: {
     setEntityCollections: (
       state,
-      action: PayloadAction<IApiEntityCollectionsResponse>
+      action: PayloadAction<EntityCollectionState["entityCollections"]>
     ) => {
       state.entityCollections = action.payload;
+    },
+    setSelectedAssetExternalId: (
+      state,
+      action: PayloadAction<EntityCollectionState["selectedAssetExternalId"]>
+    ) => {
+      state.selectedAssetExternalId = action.payload;
     },
   },
   extraReducers(builder) {
@@ -46,6 +57,7 @@ const EntityCollectionSlice = createSlice({
   },
 });
 
-export const { setEntityCollections } = EntityCollectionSlice.actions;
+export const { setEntityCollections, setSelectedAssetExternalId } =
+  EntityCollectionSlice.actions;
 
 export default EntityCollectionSlice.reducer;

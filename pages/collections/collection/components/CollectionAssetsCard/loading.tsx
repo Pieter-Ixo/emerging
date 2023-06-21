@@ -1,20 +1,8 @@
-import { Center, Text, Transition } from "@mantine/core";
+import { Center, Text } from "@mantine/core";
 
 export default function Loading() {
   // You can add any UI inside Loading, including a Skeleton.
   return (
-    // <Transition
-    //   mounted={true}
-    //   transition="slide-up"
-    //   duration={800}
-    //   timingFunction="ease"
-    // >
-    //   {(styles) => (
-    //     <div style={styles}>
-
-    //     </div>
-    //   )}
-    // </Transition>
     <div
       style={{
         alignSelf: "stretch",

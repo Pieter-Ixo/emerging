@@ -1,43 +1,13 @@
-import { tabletBreakpoint } from "@/constants/breakpoints";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import useWindowDimensions from "@/hooks/windowDimensions";
-import {
-  Affix,
-  Box,
-  Flex,
-  Navbar
-} from "@mantine/core";
-import { useViewportSize } from "@mantine/hooks";
+import { useAppSelector } from "@/hooks/redux";
+import { Affix, Box, Flex, Navbar } from "@mantine/core";
 import Link from "next/link";
 import HeaderLogo from "../Header_Logo/Index";
 import BuyAndSell from "../buyAndSell/buy_and_sell";
 import ConnectedAccount from "../connectedAccount/connected_account";
 import BalanceCard from "../userBalance/balance_card";
 
-interface Message {
-  visible: boolean;
-  message: String;
-  date: String;
-  sender: String;
-  icon: any;
-}
-
-export function Nav() {
-  const { height, width } = useWindowDimensions();
-  const viewPortSize = useViewportSize();
-
-  const dispatch = useAppDispatch();
+export default function Nav() {
   const user = useAppSelector((state) => state.user);
-
-  let navHeight: any;
-
-  if (viewPortSize.width >= tabletBreakpoint) {
-    navHeight = "100vh";
-  } else if (viewPortSize.width <= tabletBreakpoint && user.dashboardVisible) {
-    navHeight = "100vh";
-  } else if (viewPortSize.width <= tabletBreakpoint && !user.dashboardVisible) {
-    navHeight = "0";
-  }
 
   return (
     <Navbar
@@ -55,7 +25,7 @@ export function Nav() {
               width: 360,
               height: "100vh",
             }}
-           />
+          />
         </Affix>
         <Flex justify="center" sx={{ padding: "20px 0px" }}>
           <Link href="/">
@@ -63,27 +33,21 @@ export function Nav() {
           </Link>
         </Flex>
       </Navbar.Section>
-      <Box
-        sx={{ width: "100%" }}>
+      <Box sx={{ width: "100%" }}>
         <Navbar.Section p="xs">
           <ConnectedAccount />
         </Navbar.Section>
       </Box>
-      <>
-        {user.walletConnected && (
-          <>
-            <div>
-              <Navbar.Section p="xs">
-                <BalanceCard />
-              </Navbar.Section>
-            </div><div>
-              <Navbar.Section p="xs">
-                <BuyAndSell />
-              </Navbar.Section>
-            </div>
-          </>
-        )}
-      </>
+      {user.walletConnected && (
+        <>
+          <Navbar.Section p="xs">
+            <BalanceCard />
+          </Navbar.Section>
+          <Navbar.Section p="xs">
+            <BuyAndSell />
+          </Navbar.Section>
+        </>
+      )}
     </Navbar>
   );
 }

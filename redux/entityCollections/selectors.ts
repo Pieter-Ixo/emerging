@@ -30,5 +30,10 @@ export const selectCollection = createDraftSafeSelector(
 );
 export const selectIsEntityCollectionsLoading = createDraftSafeSelector(
   selectEntityCollections,
-  (state: EntityCollectionState): boolean => state.isEntityCollectionsLoading
+  (state: EntityCollectionState) => state.isEntityCollectionsLoading
+);
+
+export const selectSelectedAssetExternalId = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState) => state.selectedAssetExternalId
 );
