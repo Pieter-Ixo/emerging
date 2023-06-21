@@ -5,14 +5,13 @@ import { palette } from "@/theme/palette";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import { IEntity } from "@/types/entityCollections";
 
-import AggregateCard from "./AggregateCard";
+import Certificate from "./Certificate";
 import DetailCard from "./DetailCard";
-import { categories, properties } from "./MOCKS";
 
 export default function CertificateDashboard() {
   const assetExternalId =
     useValueFromRouter<IEntity["externalId"]>("assetExternalId");
-  console.log(assetExternalId);
+  console.log("🦋 assetExternalId ", assetExternalId);
 
   return (
     <Container fluid w="100%" h="100%" p="2em">
@@ -22,10 +21,10 @@ export default function CertificateDashboard() {
 
       <Grid gutter="xl">
         <Grid.Col span={8}>
-          <AggregateCard categories={categories} properties={properties} />
+          <Certificate />
         </Grid.Col>
         <Grid.Col span={4}>
-          <DetailCard properties={properties} />
+          <DetailCard />
         </Grid.Col>
       </Grid>
     </Container>

@@ -6,38 +6,35 @@ import { palette } from "@/theme/palette";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import Copy from "@/components/Dashboard/CollectionDashboard/cards/AssetsCard/icons/copy";
 
-import { ICategoriesModel, IPropertiesModel } from "./types";
 import CategoryBox from "./CategoryBox";
+import { categories, properties } from "./MOCKS";
 
-type AggregateCardProps = {
-  categories: ICategoriesModel;
-  properties: IPropertiesModel;
-};
-
-function AggregateCard({ categories, properties }: AggregateCardProps) {
+export default function Certificate() {
   const router = useRouter();
+
   return (
-    <Card radius={16} style={{ padding: "0rem" }}>
+    <Card radius={16} p={0}>
       <Flex
         direction="column"
         justify="center"
         gap={20}
+        py="1rem"
+        px="2rem"
         sx={{
           position: "relative",
           backgroundImage: `url(/images/cert-bg.png)`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           height: 400,
-          padding: "1rem 2rem",
           borderRadius: 16,
         }}
       >
-        <Flex
+        <Box
           sx={{ position: "absolute", top: 48, cursor: "pointer" }}
-          onClick={() => router.push("/")}
+          onClick={() => router.back()}
         >
           <ArrowLeftIcon />
-        </Flex>
+        </Box>
         <Flex direction="column" gap={10} justify="center">
           <Text
             fw={700}
@@ -52,33 +49,20 @@ function AggregateCard({ categories, properties }: AggregateCardProps) {
             VERIFIED EMISSION REDUCTIONS
           </Text>
 
-          <Flex
-            gap={8}
-            align="center"
-            justify="center"
-            sx={{ cursor: "pointer" }}
-          >
-            <Box sx={{ position: "relative" }}>
-              <Text
-                fw={600}
-                color={palette.darkestBlue}
-                sx={{ fontSize: "13px" }}
-                align="center"
-              >
-                CARBON/bafyb...j2hha
-              </Text>
-              <Flex
-                sx={{
-                  position: "absolute",
-                  right: -30,
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                }}
-              >
-                <Copy fill={palette.fullBlue} />
-              </Flex>
-            </Box>
-          </Flex>
+          <Box sx={{ position: "relative" }}>
+            <Text
+              fw={600}
+              color={palette.darkestBlue}
+              sx={{ fontSize: "13px" }}
+              align="center"
+            >
+              CARBON/bafyb...j2hha
+              <Copy
+                fill={palette.fullBlue}
+                style={{ position: "absolute", top: "2px", marginLeft: "1em" }}
+              />
+            </Text>
+          </Box>
         </Flex>
 
         <Flex align="center" justify="center" gap={28}>
@@ -220,5 +204,4 @@ function AggregateCard({ categories, properties }: AggregateCardProps) {
     </Card>
   );
 }
-
-export default AggregateCard;
+//
