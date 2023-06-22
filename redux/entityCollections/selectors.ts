@@ -1,6 +1,6 @@
 import { createDraftSafeSelector } from "@reduxjs/toolkit";
 
-import { ICollectionExtended } from "@/types/entityCollections";
+import { ICollectionExtended, IEntity } from "@/types/entityCollections";
 
 // eslint-disable-next-line import/no-cycle
 import { RootState } from "../store";
@@ -37,3 +37,17 @@ export const selectSelectedAssetExternalId = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState) => state.selectedAssetExternalId
 );
+
+export const selectAllEntities = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.entityCollections?.[0]?.entities
+);
+
+export const selectEntityByExternalId = (
+  state: RootState,
+  externalId: IEntity["externalId"]
+): IEntity | undefined => {
+  const entities = selectAllEntities(state);
+  return entities?.find((entity) => entity.externalId === externalId);
+};

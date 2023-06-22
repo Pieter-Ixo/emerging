@@ -1,4 +1,4 @@
-import { Container, Grid, Title } from "@mantine/core";
+import { Container, Grid, Title, Text } from "@mantine/core";
 import React from "react";
 
 import { palette } from "@/theme/palette";
@@ -11,7 +11,8 @@ import DetailCard from "./DetailCard";
 export default function CertificateDashboard() {
   const assetExternalId =
     useValueFromRouter<IEntity["externalId"]>("assetExternalId");
-  console.log("🦋 assetExternalId ", assetExternalId);
+
+  if (!assetExternalId) return <Text>Wrong URL</Text>;
 
   return (
     <Container fluid w="100%" h="100%" p="2em">
@@ -21,7 +22,7 @@ export default function CertificateDashboard() {
 
       <Grid gutter="xl">
         <Grid.Col span={8}>
-          <Certificate />
+          <Certificate assetExternalId={assetExternalId} />
         </Grid.Col>
         <Grid.Col span={4}>
           <DetailCard />
