@@ -17,6 +17,7 @@ import {
   OffsetProgres,
   TagForSomethingIDunnoWhat,
 } from "./components";
+import CertificateData from "./CertificateData";
 
 type Props = {
   assetExternalId: IEntity["externalId"];
@@ -24,11 +25,11 @@ type Props = {
 
 export default function Certificate({ assetExternalId }: Props) {
   const dispatch = useAppDispatch();
-  const batches = useAppSelector(selectBatchesForEntity(assetExternalId));
+  const batch = useAppSelector(selectBatchesForEntity(assetExternalId))?.[0];
 
   console.log(
     `🦔 <Certificate/> useAppSelector(selectBatchesForEntity(${assetExternalId})):`,
-    batches
+    batch
   );
 
   useEffect(() => {
@@ -41,7 +42,7 @@ export default function Certificate({ assetExternalId }: Props) {
         <ArrowLeft />
         <Flex direction="column" gap={10} justify="center">
           <CardTitle>VERIFIED EMISSION REDUCTIONS</CardTitle>
-          <BatchIdentifier>CARBON/bafyb...j2hha</BatchIdentifier>
+          <BatchIdentifier>{`${batch?.name}/${batch?.index}`}</BatchIdentifier>
         </Flex>
 
         <Flex align="center" justify="center" gap={28}>
@@ -61,6 +62,8 @@ export default function Certificate({ assetExternalId }: Props) {
           </TagForSomethingIDunnoWhat>
         </Flex>
       </CardContainer>
+
+      {batch && <CertificateData />}
 
       <Grid py="md" px="lg" gutter="lg">
         {Object.values(categoryIconMap).map((category, index) => (
