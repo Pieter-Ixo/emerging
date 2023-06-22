@@ -7,7 +7,7 @@ import OracleCard from "./ProofComponents/OracleCard";
 import ProjectNameCard from "./ProofComponents/ProjectNameCard";
 import { ICategoriesModel, IPropertiesModel } from "./types";
 
-export const categories: ICategoriesModel = {
+export const categoryIconMap: ICategoriesModel = {
   "Impact Asset": {
     category: "Impact Asset",
     icon: "/images/icon-assets.svg",
