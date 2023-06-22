@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Box, Card, Flex, Grid, Image, Progress, Text } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import Copy from "@/components/Dashboard/CollectionDashboard/cards/AssetsCard/icons/copy";
+import { requestBatches } from "@/requests/blocksync";
 
 import CategoryBox from "./CategoryBox";
 import { categories, properties } from "./MOCKS";
 
 export default function Certificate() {
   const router = useRouter();
+
+  useEffect(() => {
+    requestBatches().then((batches) => console.log("🦇", batches));
+  }, []);
 
   return (
     <Card radius={16} p={0}>

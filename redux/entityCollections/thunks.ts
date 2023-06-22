@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { requestBlocksyncAPI } from "@/requests/request";
+import { requestBlocksyncAPI } from "@/requests/blocksync";
 import getCollectionProfile from "@/helpers/getCollectionProfile";
 
 import {

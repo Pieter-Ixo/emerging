@@ -1,4 +1,4 @@
-import { request } from "@/requests/request";
+import request from "@/requests/request";
 import { ICollection, ICollectionTags } from "@/types/entityCollections";
 import getFullServiceEndpoint from "@/utils/getServiceEndpoint";
 
