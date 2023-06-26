@@ -21,13 +21,6 @@ export const selectCollections = createDraftSafeSelector(
     )
 );
 
-export const selectCollection = createDraftSafeSelector(
-  selectEntityCollections,
-  (state: EntityCollectionState): ICollectionExtended[] =>
-    state.entityCollections.map(
-      (collectionWithEntites) => collectionWithEntites.collection
-    )
-);
 export const selectIsEntityCollectionsLoading = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState) => state.isEntityCollectionsLoading
@@ -35,7 +28,12 @@ export const selectIsEntityCollectionsLoading = createDraftSafeSelector(
 
 export const selectSelectedAssetExternalId = createDraftSafeSelector(
   selectEntityCollections,
-  (state: EntityCollectionState) => state.selectedAssetExternalId
+  (state: EntityCollectionState) => state.selectedEntity?.externalId
+);
+
+export const selectSelectedEntity = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState) => state.selectedEntity
 );
 
 export const selectAllEntities = createDraftSafeSelector(

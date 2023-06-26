@@ -1,16 +1,37 @@
+import { useEffect } from "react";
 import { Container, Grid, Title, Text } from "@mantine/core";
-import React from "react";
 
 import { palette } from "@/theme/palette";
-import useValueFromRouter from "@/utils/useValueFromRouter";
 import { IEntity } from "@/types/entityCollections";
+import useValueFromRouter from "@/utils/useValueFromRouter";
+
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { fetchAllBatches } from "@/redux/batches/thunks";
+import { fetchEntityByExterbalIdAndFill } from "@/redux/entityCollections/thunks";
+import { selectAllBatches } from "@/redux/batches/selectors";
+import { setSelectedBatch } from "@/redux/batches/slice";
 
 import Certificate from "./Certificate";
 import DetailCard from "./DetailCard";
 
 export default function CertificateDashboard() {
+  const dispatch = useAppDispatch();
+  const batches = useAppSelector(selectAllBatches);
+
   const assetExternalId =
     useValueFromRouter<IEntity["externalId"]>("assetExternalId");
+
+  useEffect(() => {
+    if (!assetExternalId) return;
+    dispatch(fetchEntityByExterbalIdAndFill(assetExternalId));
+    dispatch(fetchAllBatches());
+  }, [dispatch, assetExternalId]);
+
+  useEffect(() => {
+    if (batches?.[0]) {
+      dispatch(setSelectedBatch(batches[0]));
+    }
+  }, [dispatch, batches]);
 
   if (!assetExternalId) return <Text>Wrong URL</Text>;
 

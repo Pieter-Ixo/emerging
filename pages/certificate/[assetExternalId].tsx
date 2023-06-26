@@ -5,7 +5,6 @@ import Nav from "@/components/Navbar/navbar";
 import CertificateDashboard from "./CertificateDashboard";
 
 export default function Certificate() {
-
   return (
     <Flex>
       <Nav />

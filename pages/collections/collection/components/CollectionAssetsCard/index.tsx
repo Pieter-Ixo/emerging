@@ -13,10 +13,11 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 
 import { setSelectedView } from "@/redux/userSlice";
-import { setSelectedAssetExternalId } from "@/redux/entityCollections/slice";
+import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { selectSelectedAssetExternalId } from "@/redux/entityCollections/selectors";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import CookstoveModal from "@/components/Modals/CookstoveModal";
+import { IEntity } from "@/types/entityCollections";
 
 import ArrowRight from "../CollectionNewsCard/icons/arrowRight";
 import DownArrow from "./icons/downArrow";
@@ -43,13 +44,9 @@ export default function CollectionAssetsCard() {
   });
   const [headers, setHeader] = useState(heads);
   const [opened, { open, close }] = useDisclosure(false);
-  const [selectedExternalId, setSelectedExternalId] = useState("");
 
-  const handleClickAssetRow = (externalId: string) => () => {
-    console.log("handleClickAssetRow");
-
-    setSelectedExternalId(externalId);
-    dispatch(setSelectedAssetExternalId(externalId));
+  const handleClickAssetRow = (entity: IEntity) => () => {
+    dispatch(setSelectedEntity(entity));
   };
 
   const rows = entitiesData?.map((entity) => {
@@ -58,7 +55,7 @@ export default function CollectionAssetsCard() {
       return (
         <tr
           key={entity.id}
-          onClick={handleClickAssetRow(entity.externalId)}
+          onClick={handleClickAssetRow(entity)}
           style={{
             cursor: "pointer",
             backgroundColor: isSelectedRow ? "#F8F8F8" : "inherit",
@@ -82,7 +79,6 @@ export default function CollectionAssetsCard() {
         </tr>
       );
     }
-    console.log("🔴 hoba boba", entity);
   });
 
   const handleFilterActive = (index: number) => {
@@ -123,13 +119,13 @@ export default function CollectionAssetsCard() {
   }, [entities]);
 
   useEffect(() => {
-    if (selectedExternalId) {
+    if (selectedAssetExternalId) {
       open();
     } else {
       close();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedExternalId]);
+  }, [selectedAssetExternalId]);
 
   return (
     <>
@@ -245,10 +241,10 @@ export default function CollectionAssetsCard() {
           </Table>
         </ScrollArea>
       </Card>
-      {selectedExternalId && (
+      {selectedAssetExternalId && (
         <Modal.Root
           opened={opened}
-          onClose={() => setSelectedExternalId("")}
+          onClose={() => dispatch(setSelectedEntity(undefined))}
           radius={16}
           size="md"
           centered
@@ -266,7 +262,7 @@ export default function CollectionAssetsCard() {
               <Modal.CloseButton />
             </Modal.Header>
             <Modal.Body style={{ padding: 0 }}>
-              <CookstoveModal id={Number(selectedExternalId)} />
+              <CookstoveModal id={Number(selectedAssetExternalId)} />
             </Modal.Body>
           </Modal.Content>
         </Modal.Root>

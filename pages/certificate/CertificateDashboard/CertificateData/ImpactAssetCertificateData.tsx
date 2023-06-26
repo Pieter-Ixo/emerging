@@ -1,9 +1,16 @@
-import { Flex } from "@mantine/core";
+import { Flex, Loader } from "@mantine/core";
+
+import { useAppSelector } from "@/hooks/redux";
+import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
 
 import DataPartTitle from "./CertificateDataTitle";
 import CertificateDataRow from "./CertificateDataRow";
 
 export default function ImpactAssetCertificateData() {
+  const entity = useAppSelector(selectSelectedEntity);
+
+  if (!entity) return <Loader />;
+
   return (
     <Flex direction="column" gap={8}>
       <DataPartTitle iconsrc="/images/icon-assets.svg">
@@ -13,49 +20,49 @@ export default function ImpactAssetCertificateData() {
       <CertificateDataRow //
         rowName="identifier"
       >
-        SupaMoto #15
+        {`${entity._profile?.brand} ${entity.alsoKnownAs?.split("}")[1]}`}
       </CertificateDataRow>
 
       <CertificateDataRow //
         rowName="collection"
       >
-        SupaMoto Genesis
+        TOKEN_IPFS.name
       </CertificateDataRow>
 
       <CertificateDataRow //
         rowName="denom"
       >
-        SUPA
+        TOKEN_IPFS.”properties”.”denom”
       </CertificateDataRow>
 
       <CertificateDataRow //
         rowName="creation date"
       >
-        5 Apr 2023
+        {new Date(entity.startDate).toLocaleDateString()}
       </CertificateDataRow>
 
       <CertificateDataRow //
         rowName="total CARBON produced"
       >
-        1,235 CARBON
+        CARBON.”totalProduced”
       </CertificateDataRow>
 
       <CertificateDataRow //
         rowName="total emissions avoided"
       >
-        1,235 kgCO₂
+        Calculation kgCO₂
       </CertificateDataRow>
 
       <CertificateDataRow //
         rowName="owned by"
       >
-        ixo12345...12345
+        ENTITY.”owner”
       </CertificateDataRow>
 
       <CertificateDataRow //
         rowName="performance"
       >
-        dashboard
+        DASHBOARD_LINK
       </CertificateDataRow>
     </Flex>
   );

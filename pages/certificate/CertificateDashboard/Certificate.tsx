@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
 import { Card, Flex, Grid } from "@mantine/core";
 
 import { selectBatchesForEntity } from "@/redux/batches/selectors";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { fetchAllBatches } from "@/redux/batches/thunks";
+import { useAppSelector } from "@/hooks/redux";
 import { IEntity } from "@/types/entityCollections";
 
 import CategoryBox from "./CategoryBox";
@@ -24,17 +22,7 @@ type Props = {
 };
 
 export default function Certificate({ assetExternalId }: Props) {
-  const dispatch = useAppDispatch();
   const batch = useAppSelector(selectBatchesForEntity(assetExternalId))?.[0];
-
-  console.log(
-    `🦔 <Certificate/> useAppSelector(selectBatchesForEntity(${assetExternalId})):`,
-    batch
-  );
-
-  useEffect(() => {
-    dispatch(fetchAllBatches());
-  }, [dispatch]);
 
   return (
     <Card radius={16} p={0}>

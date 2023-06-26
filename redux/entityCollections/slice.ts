@@ -4,38 +4,36 @@ import { HYDRATE } from "next-redux-wrapper";
 
 import {
   IApiEntityCollectionsResponse,
-  IEntity,
+  IEntityExtended,
 } from "@/types/entityCollections";
-// eslint-disable-next-line import/no-cycle
-import { fetchAndFillCollections } from "./thunks";
+import {
+  fetchAndFillCollections,
+  fetchEntityByExterbalIdAndFill,
+} from "./thunks";
 
 export type EntityCollectionState = {
   entityCollections: IApiEntityCollectionsResponse;
   isEntityCollectionsLoading: boolean;
-  selectedAssetExternalId: undefined | IEntity["externalId"];
+  isEntityLoading: boolean;
+  selectedEntity: undefined | IEntityExtended;
 };
 
 const initialState: EntityCollectionState = {
   entityCollections: [],
   isEntityCollectionsLoading: false,
-  selectedAssetExternalId: undefined,
+  isEntityLoading: false,
+  selectedEntity: undefined,
 };
 
 const EntityCollectionSlice = createSlice({
   name: "entityCollections",
   initialState,
   reducers: {
-    setEntityCollections: (
+    setSelectedEntity: (
       state,
-      action: PayloadAction<EntityCollectionState["entityCollections"]>
+      action: PayloadAction<EntityCollectionState["selectedEntity"]>
     ) => {
-      state.entityCollections = action.payload;
-    },
-    setSelectedAssetExternalId: (
-      state,
-      action: PayloadAction<EntityCollectionState["selectedAssetExternalId"]>
-    ) => {
-      state.selectedAssetExternalId = action.payload;
+      state.selectedEntity = action.payload;
     },
   },
   extraReducers(builder) {
@@ -44,11 +42,20 @@ const EntityCollectionSlice = createSlice({
     });
 
     builder.addCase(fetchAndFillCollections.fulfilled, (state, action) => {
-      const filledCollectionEntites = action.payload;
-
       state.isEntityCollectionsLoading = false;
-      state.entityCollections = filledCollectionEntites;
+      state.entityCollections = action.payload;
     });
+
+    builder.addCase(fetchEntityByExterbalIdAndFill.pending, (state) => {
+      state.isEntityLoading = true;
+    });
+    builder.addCase(
+      fetchEntityByExterbalIdAndFill.fulfilled,
+      (state, action) => {
+        state.selectedEntity = action.payload;
+        state.isEntityLoading = false;
+      }
+    );
 
     builder.addCase(HYDRATE, (state, action) => ({
       ...state,
@@ -57,7 +64,6 @@ const EntityCollectionSlice = createSlice({
   },
 });
 
-export const { setEntityCollections, setSelectedAssetExternalId } =
-  EntityCollectionSlice.actions;
+export const { setSelectedEntity } = EntityCollectionSlice.actions;
 
 export default EntityCollectionSlice.reducer;

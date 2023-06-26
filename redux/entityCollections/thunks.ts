@@ -1,25 +1,23 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { requestBlocksyncAPI } from "@/requests/blocksync";
+import {
+  requestCollections,
+  requestEntityByExternalID,
+} from "@/requests/blocksync";
 import getCollectionProfile from "@/helpers/getCollectionProfile";
+import getEntityProfile from "@/helpers/getEntityProfile";
 
 import {
-  IApiEntityCollectionsResponse,
   ICollectionEntities,
+  IEntityExtended,
 } from "@/types/entityCollections";
 import getCollectionTags from "@/helpers/getCollectionTags";
 
-// eslint-disable-next-line import/prefer-default-export
 export const fetchAndFillCollections = createAsyncThunk(
   "entityCollections/fetchAndFillCollections",
   async (): Promise<ICollectionEntities[]> => {
-    const collectionsResponse =
-      await requestBlocksyncAPI<IApiEntityCollectionsResponse>(
-        "/api/entity/collections"
-      );
-
-    if (!collectionsResponse) throw new Error("panica!");
+    const collectionsResponse = await requestCollections();
 
     const getCollectionProfilePromises = collectionsResponse?.map(
       async (entityCollection): Promise<ICollectionEntities> => {
@@ -33,6 +31,23 @@ export const fetchAndFillCollections = createAsyncThunk(
       }
     );
     const newCollections = await Promise.all(getCollectionProfilePromises);
+
     return newCollections;
+  }
+);
+
+export const fetchCollectionOfEntity = createAsyncThunk(
+  "entityCollections/fetchCollectionOfEntity",
+  () => {}
+);
+
+export const fetchEntityByExterbalIdAndFill = createAsyncThunk(
+  "entityCollections/fetchEntityByExterbalIdAndFill",
+  async (externalId: string): Promise<IEntityExtended> => {
+    const entity = await requestEntityByExternalID(externalId);
+    const profile = await getEntityProfile(entity);
+    entity._profile = profile;
+
+    return entity;
   }
 );
