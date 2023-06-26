@@ -45,18 +45,20 @@ export const properties: IPropertiesModel = {
     value: "SupaMoto #15",
     component: AssetDeviceCard,
     props: {
-      id: "{id}",
-      type: "ImpactNFT",
-      name: "SupaMoto Clean Cooking",
-      tokenName: "SupaMoto",
-      decimals: 0,
-      description: "Zambia Collection 2023",
+      name: "SupaMoto Zambia",
+      date: "",
+      carbonClaimable: "5,160",
+      carbonProduced: "5,160",
+      creadedDate: "2023-06-26",
+      price: "189.00",
+      description:
+        "The SupaMoto clean cookstove is a smart, IoT-connected device that helps households cut carbon emissions while cooking with affordable and renewable biomass fuel. This convenient solution offers a more cost-effective, healthy, and time-saving alternative to traditional cooking methods.",
       image:
         "https://ipfs.io/ipfs/bafkreideszg4fdha4tf7ldpecltxbyxbnapb663tkuksk2vcczkzkxppaa",
       properties: {
         denom: "SUPAMOTO",
-        icon: "https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i",
-        maxSupply: "1500",
+        icon: "https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi",
+        maxSupply: "",
       },
     },
     category: "Impact Asset",
@@ -99,7 +101,7 @@ export const properties: IPropertiesModel = {
   },
   total_avoided: {
     key: "total emissions avoided",
-    value: "1,235 kgCO₂",
+    value: "344 kgCO₂",
     category: "Impact Asset",
   },
   owned_by: {
@@ -131,18 +133,16 @@ export const properties: IPropertiesModel = {
     value: "30 kg",
     category: "Impact Claim",
   },
-  cooking_time: {
-    key: "cooking_time",
-    text: "cooking time",
-    value: " ",
-    category: "Impact Claim",
-  },
   conversion_factor: {
     key: "conversion_factor",
     text: "conversion factor",
     value: "11.48",
     external: "Conversion Factor.pdf",
     category: "Impact Claim",
+    component: JSONViewerCard,
+    props: {
+      json: `{"@context":["https://www.w3.org/2018/credentials/v1",{"ixo":"https://w3id.org/ixo/context/v1","claim":"https://w3id.org/emerging/vocab/v1","protocol":"did:ixo:entity:8fcbc757e75c120dd4beae0e5696fd38#","web3":"https://ipfs.io/ipfs/","cellnode":"https://devnet-cellnode.ixo.earth","type":"@type","@protected":true,"@version":1.1}],"id":"urn:uuid:bd7413dc-003a-4b9f-bfdf-e4cf32dd7a66","type":["VerifiableCredential","ixo:credential","claim:VER"],"validFrom":"2023-06-26T08:58:56.841Z","status":"verified","credentialSubject":{"id":"did:ixo:entity:fe10ed6f17aa11f35068b126be43a1fc","type":["ixo:entity","claim:CleanCooking","claim:CER"],"impact":{"id":"protocol:VER","type":"claim:VER","claim":"GHG Emission Reduction","description":"Verified reduction in the emission of GHGs achieved by using a modern energy cooking device","project":{"id":"web3:bafybeihxer3dxr4zaagzntb7w7rrg3ck33rox6x42ersgb4p4z5ccnxkti","type":"claim:GasifyingBiomass","credential":{"id":"did:ixo:entity:eb98bb2c92a62557b6c88c6f80e8d258#projectCredential","type":["VerifiableCredential","claim:ProjectCredential"],"issuer":"did:ixo:entity:a1fcead81eab2f1158a726597d872413","proof":"bafybeihxer3dxr4zaagzntb7w7rrg3ck33rox6x42ersgb4p4z5ccnxkti"}},"location":{"country":"ZM","region":"Africa","setting":"Domestic"}},"evaluation":{"id":"protocol:Evaluation-VER","type":"claim:Evaluation","methodology":{"id":"https://globalgoals.goldstandard.org/431_ee_ics_methodology-for-metered-measured-energy-cooking-devices/","type":"claim:GoldStandard","description":"Methodology for Metered and Measured Cooking Devices"},"model":"ProbabilisticModel1","version":"0cece87f-1d09-42e4-a629-e460f8ebb7cd","date":"2023-06-26T08:58:56.841Z"},"evaluator":{"id":"did:ixo:entity:7889238a0a6a68554f65f5c7da96f13b","type":"ixo:oracle"}},"outcome":{"linkedClaim":{"id":"cellnode:/bafkreihtm6vohz6hm5deacngsw4hgtrqen4owd5zb3q6x3anevlx2bwife","type":"ixo:CER","description":"Carbon Emission Reduction","issuanceDate":"2023-06-26T06:49:43.831Z","issuer":"did:ixo:entity:a1fcead81eab2f1158a726597d872413","digestMultibase":"bafkreihtm6vohz6hm5deacngsw4hgtrqen4owd5zb3q6x3anevlx2bwife"},"period":{"startDate":"2022-08-18T12:23:00.000Z","endDate":"2022-09-03T10:34:00.000Z"},"calculation":{"id":"web3:bafkreidougsptgelhhkpjz6lpqiogbwyw4tyuvqbktm5wdbuolcyiyuuui","type":"claim:EmissionReductionFactor","factor":11.48,"quantity":{"type":["claim:CookingFuel","claim:BiomassPellets"],"amount":30,"units":"kg"},"result":{"type":"claim:Carbon","amount":344.4,"units":"kg"}},"confidence":[{"id":"web3:...","type":"claim:Statistical","score":"","threshold":"0.95","reason":[{"id":"https://library.emerging.eco/codes/A","type":"claim:Violation","description":"Claim is not signed","result":"rejected"}]}]},"evidence":[{"id":"cellnode:/bafkreie577cpd2ujdp5h2i4ulsxgjcdquedyztu3nkiewpuk6udxhbnzse","type":"linkedClaim","description":"Fuel Purchase","collectionId":"1","claimEvaluation":{"submitted":1,"pending":0,"approved":1,"rejected":0,"disputed":0},"proof":{"digestMultibase":"bafkreie577cpd2ujdp5h2i4ulsxgjcdquedyztu3nkiewpuk6udxhbnzse"}},{"id":"https://api.supamoto.app/api/v2/stoves/202200189/sessions/cooking?pageSize=500&startDate=2022-08-18&endDate=2022-09-03","type":"claim:Data","description":"Cooking sessions monitored by IoT sensor"}],"issuer":{"id":"did:ixo:entity:7889238a0a6a68554f65f5c7da96f13b"},"issuanceDate":"2023-06-26T08:58:57.995Z","proof":{"type":"Ed25519Signature2018","created":"2023-06-26T08:58:58Z","verificationMethod":"did:ixo:entity:7889238a0a6a68554f65f5c7da96f13b#HwjkTsEueSMoJXkkFSyH6zL8JhYjid8Sm1ZTydrTiT32","proofPurpose":"assertionMethod","jws":"eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..kLHJdrhi7SmuWIZO44_yjXE-C9JNkGwpB2xt_A7CpBGemQ9XW97RfGw4IDrdlxx-l2WqZ-LhnTWZ_t1LGfwGAA"}}`,
+    },
   },
   period: {
     key: "period",
@@ -153,7 +153,7 @@ export const properties: IPropertiesModel = {
   emissions_avoided: {
     key: "emissions_avoided",
     text: "emissions avoided",
-    value: "344.4 kgCO₂",
+    value: "344 kgCO₂",
     category: "Impact Claim",
   },
   claim_issuer: {
@@ -294,12 +294,12 @@ export const properties: IPropertiesModel = {
     value: " ",
     category: "Impact Producer",
   },
-  total_cooking_time: {
-    key: "total_cooking_time",
-    text: "total cooking time",
-    value: " ",
-    category: "Impact Producer",
-  },
+  // total_cooking_time: {
+  //   key: "total_cooking_time",
+  //   text: "total cooking time",
+  //   value: " ",
+  //   category: "Impact Producer",
+  // },
   // Evaluator
   oracle: {
     key: "oracle",

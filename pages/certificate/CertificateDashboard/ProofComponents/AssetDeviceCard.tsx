@@ -4,11 +4,7 @@ import React from "react";
 import moment from "moment";
 
 interface Props {
-  id: string;
-  type: string;
   name: string;
-  tokenName: string;
-  decimals: number;
   description: string;
   image: string;
   properties: {
@@ -16,12 +12,14 @@ interface Props {
     icon: string;
     maxSupply: string;
   };
+  carbonClaimable: string;
+  carbonProduced: string;
+  creadedDate: string;
+  price: string;
 }
 
-const AssetDeviceCard: React.FC<Props> = (props: Props) => 
-  //
-
-   (
+function AssetDeviceCard(props: Props) {
+  return (
     <Flex
       direction="column"
       sx={{
@@ -122,7 +120,7 @@ const AssetDeviceCard: React.FC<Props> = (props: Props) =>
             size={8}
             sections={[
               {
-                value: 80,
+                value: 0,
                 color: "#73B556",
               },
             ]}
@@ -139,33 +137,13 @@ const AssetDeviceCard: React.FC<Props> = (props: Props) =>
             }}
           >
             <Text color="#00D2FF" fw={700} inherit>
-              123 CARBON
+              {props.carbonClaimable} CARBON
             </Text>{" "}
             claimable /{" "}
             <Text fw={700} inherit>
-              2145
+              {props.carbonProduced}
             </Text>{" "}
             produced
-          </Text>
-        </Flex>
-
-        <Flex>
-          <Text
-            color="#7D8498"
-            fw={500}
-            sx={{
-              display: "flex",
-              alignItems: "baseline",
-              gap: 4,
-              fontFamily: "Roboto",
-              fontSize: 12,
-              lineHeight: "14px",
-            }}
-          >
-            <Text color="#01283B" sx={{ fontSize: 20 }} inherit>
-              250
-            </Text>{" "}
-            of {Number(props.properties.maxSupply).toLocaleString()}
           </Text>
         </Flex>
 
@@ -179,7 +157,7 @@ const AssetDeviceCard: React.FC<Props> = (props: Props) =>
               lineHeight: "14px",
             }}
           >
-            {moment().format("DD/MM/YYYY")}
+            {moment(props.creadedDate).format("DD/MM/YYYY")}
           </Text>
           <Text
             color="#01283B"
@@ -190,12 +168,11 @@ const AssetDeviceCard: React.FC<Props> = (props: Props) =>
               lineHeight: "14px",
             }}
           >
-            $250.00
+            ${props.price}
           </Text>
         </Flex>
       </Flex>
     </Flex>
-  )
-;
-
+  );
+}
 export default AssetDeviceCard;

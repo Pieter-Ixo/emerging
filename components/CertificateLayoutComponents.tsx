@@ -124,7 +124,7 @@ export function OffsetProgres({
         <Text span c={palette.fullBlue} inherit>
           {value} CARBON
         </Text>{" "}
-        / {maxString} CARBON offset ( 1 CARBON = 1 kgCO₂)
+        / {maxString || 0} CARBON offset ( 1 CARBON = 1 kgCO₂)
       </Text>
     </Flex>
   );
