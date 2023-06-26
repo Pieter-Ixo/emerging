@@ -16,7 +16,7 @@ const data = [
   },
   {
     title: "Generated",
-    value: 344,
+    value: 5160,
     color: "#2B94F5",
     text: "CARBON CREDITS",
   },

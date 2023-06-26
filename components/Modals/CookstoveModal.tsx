@@ -39,7 +39,7 @@ export default function CookstoveModal({ id }: Props) {
             <h1 className={styles.title}>SUPAMOTO #{id}</h1>
             <section className={utilsStyles.column}>
               <div className={cls(utilsStyles.flex)}>
-                <CarbonClaimCard amount={344} />
+                <CarbonClaimCard amount="5,160" />
                 <PieChart />
                 <PerformanceCard />
 
