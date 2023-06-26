@@ -76,7 +76,7 @@ export const properties: IPropertiesModel = {
       image:
         "https://ipfs.io/ipfs/bafkreideszg4fdha4tf7ldpecltxbyxbnapb663tkuksk2vcczkzkxppaa",
       properties: {
-        denom: "SUPA1",
+        denom: "SUPAMOTO",
         icon: "https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi",
         maxSupply: "1",
       },
