@@ -1,5 +1,18 @@
 import { Popover, Text } from "@mantine/core";
 
+function isURL(str) {
+  const pattern = new RegExp(
+    "^(https?:\\/\\/)?" + // protocol
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|" + // domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+      "(\\#[-a-z\\d_]*)?$",
+    "i"
+  ); // fragment locator
+  return pattern.test(str);
+}
+
 interface Props {
   json: string;
   depth?: number;
@@ -76,11 +89,20 @@ export default function JSONViewerCard({ json, depth }: Props) {
           }
           const v1 = String(value);
           let v2;
+
           if (v1.length >= 40) {
             v2 = (
               <Popover width={200} position="bottom" withArrow shadow="md">
                 <Popover.Target>
-                  <div>{v1.slice(0, 20)}...</div>
+                  {isURL(v1) ? (
+                    <a style={{ whiteSpace: "nowrap" }} href={v1}>
+                      {v1.slice(0, 40)}...
+                    </a>
+                  ) : (
+                    <div style={{ whiteSpace: "nowrap" }}>
+                      {v1.slice(0, 40)}...
+                    </div>
+                  )}
                 </Popover.Target>
                 <Popover.Dropdown>
                   <Text size="sm">{v1}</Text>
@@ -102,6 +124,7 @@ export default function JSONViewerCard({ json, depth }: Props) {
                 letterSpacing: "0.1rem",
                 margin: "4px 0",
                 flexWrap: "nowrap",
+                overflow: "hidden",
               }}
             >
               <span
@@ -123,8 +146,14 @@ export default function JSONViewerCard({ json, depth }: Props) {
                   flexWrap: "nowrap",
                 }}
               >
-                <div>{key} </div>
-                <div>{v2 ?? v1}</div>
+                <div style={{ paddingRight: "2em" }}>{key} </div>
+                {isURL(v1) ? (
+                  <a style={{ whiteSpace: "nowrap" }} href={v1}>
+                    {v1.slice(0, 40)}...
+                  </a>
+                ) : (
+                  <div>{v2 ?? v1}</div>
+                )}
               </div>
             </div>
           );
