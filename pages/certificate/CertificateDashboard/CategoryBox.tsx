@@ -6,7 +6,10 @@ import { Flex, Image, Text } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
 
-import { ICategoryModel, IPropertyModel } from "../../../types/certificates/certificatePageTypes";
+import {
+  ICategoryModel,
+  IPropertyModel,
+} from "../../../types/certificates/certificatePageTypes";
 
 type CategoryBoxProps = {
   category: ICategoryModel;
@@ -63,7 +66,6 @@ export default function CategoryBox({
                   fw={400}
                   sx={{
                     fontSize: 13,
-                    cursor: "pointer",
                     backgroundColor: palette.fullBlue,
                     borderRadius: 9999,
                     padding: "0 0.5rem",
@@ -98,7 +100,7 @@ export default function CategoryBox({
               ) : (
                 <Text
                   fw={400}
-                  sx={{ fontSize: 13, cursor: "pointer" }}
+                  sx={{ fontSize: 13 }}
                   color={palette.darkestBlue}
                 >
                   {value}

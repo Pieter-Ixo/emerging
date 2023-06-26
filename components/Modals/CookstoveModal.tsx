@@ -39,13 +39,11 @@ export default function CookstoveModal({ id }: Props) {
             <h1 className={styles.title}>SUPAMOTO #{id}</h1>
             <section className={utilsStyles.column}>
               <div className={cls(utilsStyles.flex)}>
-                <CarbonClaimCard amount={321} />
-                <PieChart amount={0.321} />
+                <CarbonClaimCard amount={344} />
+                <PieChart />
                 <PerformanceCard />
-                {/* <EventsCard events={['test']} /> */}
 
                 <div className={styles.rowCards}>
-                  {/* <Link href={`/household?id=${id}`}> */}
                   <Link href="#">
                     <ImageTextCard
                       Img={Household}
@@ -53,7 +51,6 @@ export default function CookstoveModal({ id }: Props) {
                       vertical
                     />
                   </Link>
-                  {/* <Link href={`/benefits?id=${id}`}> */}
                   <Link href="#">
                     <ImageTextCard
                       Img={Sprout}

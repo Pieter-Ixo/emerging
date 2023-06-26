@@ -3,28 +3,26 @@ import cls from "classnames";
 import Image from "next/image";
 
 import circle from "@/assets/images/circle.png";
-import { HTMLAttributes, useState } from "react";
+import {  useState } from "react";
 import Card from "@/components/card/card";
 import styles from "./pie-chart.module.scss";
 
 const data = [
   {
     title: "Claimable",
-    value: 2131,
+    value: 5160,
     color: "#5FA8EB",
     text: "AVAILABLE CREDITS",
   },
   {
     title: "Generated",
-    value: 3764,
+    value: 344,
     color: "#2B94F5",
     text: "CARBON CREDITS",
   },
 ];
 
-type PieChartProps = {
-  amount: number;
-} & HTMLAttributes<HTMLDivElement>;
+type PieChartProps = {};
 
 function PieChart({}: PieChartProps) {
   const [active, setActive] = useState<number>(0);
