@@ -1,34 +1,11 @@
-import React from "react";
+import { Popover, Text } from "@mantine/core";
 
 interface Props {
   json: string;
+  depth?: number;
 }
 
-export function JSONViewerCard(props: Props) {
-  const json = JSON.stringify(JSON.parse(props.json), undefined, 2);
-
-  return (
-    <textarea
-      value={json}
-      readOnly
-      style={{
-        resize: "none",
-        width: "100%",
-        height: "500px",
-        fontFamily: "RobotoCondensed",
-        fontSize: 12,
-        lineHeight: "16px",
-        letterSpacing: "0.1rem",
-        background: "#EFEFEF",
-        padding: 10,
-        borderRadius: 8,
-        border: "none",
-      }}
-    />
-  );
-}
-
-export function JSONViewerCardPretty({ json }: Props) {
+export default function JSONViewerCard({ json, depth }: Props) {
   const obj = JSON.parse(json);
 
   return (
@@ -36,35 +13,74 @@ export function JSONViewerCardPretty({ json }: Props) {
       style={{
         resize: "none",
         width: "100%",
-        fontFamily: "RobotoCondensed",
-        fontSize: 12,
-        lineHeight: "16px",
-        letterSpacing: "0.1rem",
-        padding: 10,
         borderRadius: 8,
         border: "none",
         display: "block",
+        flexWrap: "nowrap",
       }}
     >
       <div
         style={{
-          // display: "flex",
-          justifyContent: "space-between",
-          alignContent: "center",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        THIS COMPONENT IS IN PROGRESS, DO NOT LOOK HERE YET
         {Object.entries(obj).map(([key, value]) => {
           if (typeof value === "object") {
             return (
-              <></>
-              // <JSONViewerCardPretty key={key} json={JSON.stringify(value)} />
+              <JSONViewerCard
+                key={key}
+                json={JSON.stringify(value)}
+                depth={depth ? depth + 1 : 1}
+              />
+            );
+          }
+          const v1 = String(value);
+          let v2;
+          if (v1.length >= 12) {
+            v2 = (
+              <Popover width={200} position="bottom" withArrow shadow="md">
+                <Popover.Target>
+                  <div>{v1.slice(0, 12)}...</div>
+                </Popover.Target>
+                <Popover.Dropdown>
+                  <Text size="sm">{v1}</Text>
+                </Popover.Dropdown>
+              </Popover>
             );
           }
           return (
-            <div key={key}>
-              {/* <div>🔺{key} ➖ </div>
-              <div>{String(value)}🔻</div> */}
+            <div
+              key={key}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "left",
+                alignContent: "center",
+                fontFamily: "RobotoCondensed",
+                fontSize: 12,
+                lineHeight: "16px",
+                letterSpacing: "0.1rem",
+                margin: "4px 0",
+                flexWrap: "nowrap",
+              }}
+            >
+              <span style={{ whiteSpace: "nowrap", marginRight: "4px" }}>
+                {"● ".repeat(depth || 0)}
+              </span>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignContent: "center",
+                  flexWrap: "nowrap",
+                }}
+              >
+                <div>{key} </div>
+                <div>{v2 ?? v1}</div>
+              </div>
             </div>
           );
         })}
