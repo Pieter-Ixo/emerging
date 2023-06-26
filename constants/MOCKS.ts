@@ -188,14 +188,14 @@ export const properties: IPropertiesModel = {
     value: "MimiMoto",
     component: JSONViewerCard,
     props: {
-      json: '{"id":"https://registry.emerging.eco/device/?id=202200001","product":{"model":"MimiMoto","description":"Micro-gasification pellet stove with IoT sensor","color":"Red"},"manufacturer":{"name":"Mimi Moto BV","country":"CN","date":"2019-2022"},"certification":{"id":"https://ipfs.io/ipfs/bafkreiefafy2u5df4l52yb7vvz32hxrxhcceyaq3z7xww2qlz2fp3ppeum","type":"PerformanceTestingCertificate","issuer":"Aprovecho Research Center","date":"2017","code":"WBT 4.2.3, LEMS, Safety"}}',
+      json: '{"product":{"model":"MimiMoto","description":"Micro-gasification pellet stove with IoT sensor","color":"Red"},"manufacturer":{"name":"Mimi Moto BV","country":"CN","date":"2019-2022"},"certification":{"id":"https://ipfs.io/ipfs/bafkreiefafy2u5df4l52yb7vvz32hxrxhcceyaq3z7xww2qlz2fp3ppeum","type":"PerformanceTestingCertificate","issuer":"Aprovecho Research Center","date":"2017","code":"WBT 4.2.3, LEMS, Safety"}}',
     },
     category: "Clean Energy Device",
   },
   energy_device_fuel: {
     key: "energy_device_fuel",
-    text: "fuel",
-    value: "Renewable Biomass Pellets",
+    text: "manufacturer",
+    value: "Mimi Moto BV",
     category: "Clean Energy Device",
   },
   manufacture_date: {
