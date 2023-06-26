@@ -6,7 +6,7 @@ import { Flex, Image, Text } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
 
-import { ICategoryModel, IPropertyModel } from "./types";
+import { ICategoryModel, IPropertyModel } from "../../../types/certificates/certificatePageTypes";
 
 type CategoryBoxProps = {
   category: ICategoryModel;

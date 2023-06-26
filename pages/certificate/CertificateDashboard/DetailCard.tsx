@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { Card, Flex, Text } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
-import { properties } from "./MOCKS";
+import { properties } from "@/constants/MOCKS";
 
 function DetailCard() {
   const hashId = window.location.hash.split("#").pop();

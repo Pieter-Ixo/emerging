@@ -1,11 +1,11 @@
 import { Card, Flex, Grid } from "@mantine/core";
 
+import { categoryIconMap, properties } from "@/constants/MOCKS";
 import { selectBatchesForEntity } from "@/redux/batches/selectors";
 import { useAppSelector } from "@/hooks/redux";
 import { IEntity } from "@/types/entityCollections";
 
 import CategoryBox from "./CategoryBox";
-import { categoryIconMap, properties } from "./MOCKS";
 import {
   CardContainer,
   ArrowLeft,
@@ -14,8 +14,7 @@ import {
   AstroCarbonImage,
   OffsetProgres,
   TagForSomethingIDunnoWhat,
-} from "./components";
-import CertificateData from "./CertificateData";
+} from "../../../components/CertificateLayoutComponents";
 
 type Props = {
   assetExternalId: IEntity["externalId"];

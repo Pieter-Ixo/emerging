@@ -1,11 +1,14 @@
 import CookstoveModal from "@/components/Modals/CookstoveModal";
-import AssetDeviceCard from "./ProofComponents/AssetDeviceCard";
-import JSONViewerCard from "./ProofComponents/JSONViewerCard";
-import CollectionCard from "./ProofComponents/CollectionCard";
-import DAOCard from "./ProofComponents/DAOCard";
-import OracleCard from "./ProofComponents/OracleCard";
-import ProjectNameCard from "./ProofComponents/ProjectNameCard";
-import { ICategoriesModel, IPropertiesModel } from "./types";
+import AssetDeviceCard from "@/pages/certificate/CertificateDashboard/ProofComponents/AssetDeviceCard";
+import CollectionCard from "@/pages/certificate/CertificateDashboard/ProofComponents/CollectionCard";
+import DAOCard from "@/pages/certificate/CertificateDashboard/ProofComponents/DAOCard";
+import JSONViewerCard from "@/pages/certificate/CertificateDashboard/ProofComponents/JSONViewerCard";
+import OracleCard from "@/pages/certificate/CertificateDashboard/ProofComponents/OracleCard";
+import ProjectNameCard from "@/pages/certificate/CertificateDashboard/ProofComponents/ProjectNameCard";
+import {
+  ICategoriesModel,
+  IPropertiesModel,
+} from "@/types/certificates/certificatePageTypes";
 
 export const categoryIconMap: ICategoriesModel = {
   "Impact Asset": {
