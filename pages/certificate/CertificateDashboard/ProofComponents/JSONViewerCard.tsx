@@ -28,9 +28,8 @@ export default function JSONViewerCard({ json, depth }: Props) {
         {Object.entries(obj).map(([key, value]) => {
           if (typeof value === "object") {
             return (
-              <>
+              <div key={`key-header-${key}`}>
                 <div
-                  key={key}
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -72,7 +71,7 @@ export default function JSONViewerCard({ json, depth }: Props) {
                   json={JSON.stringify(value)}
                   depth={depth ? depth + 1 : 1}
                 />
-              </>
+              </div>
             );
           }
           const v1 = String(value);
@@ -91,7 +90,7 @@ export default function JSONViewerCard({ json, depth }: Props) {
           }
           return (
             <div
-              key={key}
+              key={`row-${key}`}
               style={{
                 display: "flex",
                 flexDirection: "row",
