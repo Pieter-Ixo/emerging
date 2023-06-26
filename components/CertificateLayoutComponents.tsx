@@ -82,9 +82,15 @@ export function AstroCarbonImage() {
   );
 }
 
-export function OffsetProgres({ max, value }: { max: number; value: number }) {
-  const maxString = max.toLocaleString();
-  const progresPercent = (value / max) * 100;
+export function OffsetProgres({
+  max,
+  value,
+}: {
+  max: number | undefined;
+  value: number;
+}) {
+  const maxString = max?.toLocaleString?.();
+  const progresPercent = max ? (value / max) * 100 : 0;
 
   return (
     <Flex direction="column">
@@ -94,7 +100,7 @@ export function OffsetProgres({ max, value }: { max: number; value: number }) {
           fw={600}
           sx={{ fontFamily: "Quicksand", fontSize: "48px" }}
         >
-          {maxString}
+          {maxString ?? value}
         </Text>
 
         <Text

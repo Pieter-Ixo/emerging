@@ -2,7 +2,7 @@ import CookstoveModal from "@/components/Modals/CookstoveModal";
 import AssetDeviceCard from "@/pages/certificate/CertificateDashboard/ProofComponents/AssetDeviceCard";
 import CollectionCard from "@/pages/certificate/CertificateDashboard/ProofComponents/CollectionCard";
 import DAOCard from "@/pages/certificate/CertificateDashboard/ProofComponents/DAOCard";
-import JSONViewerCard from "@/pages/certificate/CertificateDashboard/ProofComponents/JSONViewerCard";
+import { JSONViewerCardPretty } from "@/pages/certificate/CertificateDashboard/ProofComponents/JSONViewerCard";
 import OracleCard from "@/pages/certificate/CertificateDashboard/ProofComponents/OracleCard";
 import ProjectNameCard from "@/pages/certificate/CertificateDashboard/ProofComponents/ProjectNameCard";
 import {
@@ -94,7 +94,7 @@ export const properties: IPropertiesModel = {
   },
   total_produced: {
     key: "total CARBON produced",
-    value: "2,064 CARBON",
+    value: "344 CARBON",
     category: "Impact Asset",
   },
   total_avoided: {
@@ -176,7 +176,7 @@ export const properties: IPropertiesModel = {
     key: "claim_id",
     text: "claim id",
     value: "urn:uuid...8f422",
-    component: JSONViewerCard,
+    component: JSONViewerCardPretty,
     props: {
       json: '{"id":"{id}","type":"ImpactNFT","name":"SupaMoto Genesis","tokenName":"SupaMoto","decimals":0,"description":"SupaMoto Genesis","image":"https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi","properties":{"denom":"SUPAMOTO","icon":"https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i","maxSupply":"600"}}',
     },
@@ -193,7 +193,7 @@ export const properties: IPropertiesModel = {
     key: "energy_device_model",
     text: "model",
     value: "MimiMoto",
-    component: JSONViewerCard,
+    component: JSONViewerCardPretty,
     props: {
       json: '{"id":"https://registry.emerging.eco/device/?id=202200001","product":{"model":"MimiMoto","description":"Micro-gasification pellet stove with IoT sensor","color":"Red"},"manufacturer":{"name":"Mimi Moto BV","country":"CN","date":"2019-2022"},"certification":{"id":"https://ipfs.io/ipfs/bafkreiefafy2u5df4l52yb7vvz32hxrxhcceyaq3z7xww2qlz2fp3ppeum","type":"PerformanceTestingCertificate","issuer":"Aprovecho Research Center","date":"2017","code":"WBT 4.2.3, LEMS, Safety"}}',
     },
@@ -244,7 +244,7 @@ export const properties: IPropertiesModel = {
     key: "developer",
     text: "developer",
     value: "SupaMoto",
-    component: JSONViewerCard,
+    component: JSONViewerCardPretty,
     props: {
       json: '{"id":"{id}","type":"ImpactNFT","name":"SupaMoto Genesis","tokenName":"SupaMoto","decimals":0,"description":"SupaMoto Genesis","image":"https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi","properties":{"denom":"SUPAMOTO","icon":"https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i","maxSupply":"600"}}',
     },

@@ -11,6 +11,7 @@ function DetailCard() {
     () => properties[hashId!],
     [hashId, properties]
   );
+  console.log(selectedProperty);
 
   return (
     <Card

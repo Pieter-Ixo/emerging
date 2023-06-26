@@ -34,7 +34,7 @@ export default function Certificate() {
 
         <Flex align="center" justify="center" gap={28}>
           <AstroCarbonImage />
-          <OffsetProgres value={421} max={1200} />
+          <OffsetProgres value={344} max={undefined} />
         </Flex>
 
         <Flex gap="md" justify="center" align="center" direction="row">
