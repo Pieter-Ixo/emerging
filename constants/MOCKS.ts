@@ -68,17 +68,15 @@ export const properties: IPropertiesModel = {
     value: "SupaMoto Genesis Collection",
     component: CollectionCard,
     props: {
-      id: "{id}",
-      type: "ImpactNFT",
+      assets: 468,
       name: "SupaMoto Genesis Collection",
-      tokenName: "SupaMoto",
-      decimals: 0,
-      description: "SupaMoto Genesis Collection",
+      description:
+        "The SupaMoto clean cookstove is a smart, IoT-connected device that helps households cut carbon emissions while cooking with affordable and renewable biomass fuel. This convenient solution offers a more cost-effective, healthy, and time-saving alternative to traditional cooking methods.",
       image:
-        "https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi",
+        "https://ipfs.io/ipfs/bafkreideszg4fdha4tf7ldpecltxbyxbnapb663tkuksk2vcczkzkxppaa",
       properties: {
         denom: "SUPA1",
-        icon: "https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i",
+        icon: "https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi",
         maxSupply: "1",
       },
     },

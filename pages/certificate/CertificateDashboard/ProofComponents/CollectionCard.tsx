@@ -1,16 +1,13 @@
 import { palette, shadow } from "@/theme/palette";
-import { Flex, Progress, Text } from "@mantine/core";
+import { Flex, Text } from "@mantine/core";
 import React from "react";
 import moment from "moment";
 
 interface Props {
-  id: string;
-  type: string;
   name: string;
-  tokenName: string;
-  decimals: number;
   description: string;
   image: string;
+  assets: number;
   properties: {
     denom: string;
     icon: string;
@@ -18,11 +15,7 @@ interface Props {
   };
 }
 
-const CollectionCard: React.FC<Props> = (props: Props) => {
-  //
-
-  console.log("CollectionCard", { props });
-
+export default function CollectionCard(props: Props) {
   return (
     <Flex
       direction="column"
@@ -112,7 +105,7 @@ const CollectionCard: React.FC<Props> = (props: Props) => {
             color="#828E94"
             fw={400}
             sx={{ fontFamily: "Roboto", fontSize: 12, lineHeight: "100%" }}
-            lineClamp={2}
+            // lineClamp={4}
           >
             {props.description}
           </Text>
@@ -130,7 +123,7 @@ const CollectionCard: React.FC<Props> = (props: Props) => {
               lineHeight: "21px",
             }}
           >
-            {Number(props.properties.maxSupply).toLocaleString()} assets
+            {props.assets} assets
           </Text>
         </Flex>
 
@@ -144,12 +137,10 @@ const CollectionCard: React.FC<Props> = (props: Props) => {
               lineHeight: "14px",
             }}
           >
-            {moment().format("DD/MM/YYYY")}
+            {moment("2023-06-26").format("DD/MM/YYYY")}
           </Text>
         </Flex>
       </Flex>
     </Flex>
   );
-};
-
-export default CollectionCard;
+}

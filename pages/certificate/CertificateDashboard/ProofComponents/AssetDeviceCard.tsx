@@ -108,7 +108,7 @@ function AssetDeviceCard(props: Props) {
             color="#828E94"
             fw={400}
             sx={{ fontFamily: "Roboto", fontSize: 12, lineHeight: "100%" }}
-            lineClamp={2}
+            // lineClamp={2}
           >
             {props.description}
           </Text>
