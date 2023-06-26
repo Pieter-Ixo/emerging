@@ -43,7 +43,7 @@ export const properties: IPropertiesModel = {
   device_identifier: {
     key: "device_identifier",
     text: "identifier",
-    value: "SupaMoto #15",
+    value: "SupaMoto #19",
     component: AssetDeviceCard,
     props: {
       name: "SupaMoto Zambia",
@@ -74,10 +74,10 @@ export const properties: IPropertiesModel = {
       description:
         "The SupaMoto clean cookstove is a smart, IoT-connected device that helps households cut carbon emissions while cooking with affordable and renewable biomass fuel. This convenient solution offers a more cost-effective, healthy, and time-saving alternative to traditional cooking methods.",
       image:
-        "https://ipfs.io/ipfs/bafkreideszg4fdha4tf7ldpecltxbyxbnapb663tkuksk2vcczkzkxppaa",
+        "https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi",
       properties: {
-        denom: "SUPAMOTO",
-        icon: "https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi",
+        denom: "SUPA1",
+        icon: "https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i",
         maxSupply: "1",
       },
     },
@@ -85,12 +85,12 @@ export const properties: IPropertiesModel = {
   },
   denom: {
     key: "denom",
-    value: "SUPA1",
+    value: "SUPAMOTO",
     category: "Impact Asset",
   },
   creation_date: {
     key: "creation date",
-    value: "19 Jun 2023",
+    value: "26 Jun 2023",
     category: "Impact Asset",
   },
   total_produced: {
@@ -105,9 +105,9 @@ export const properties: IPropertiesModel = {
   },
   owned_by: {
     key: "owned by",
-    value: "ixo146su...ef0rm",
+    value: "ixo1vk3d90k...neaghprhu",
     external:
-      "https://www.mintscan.io/ixo/account/ixo146sugu8ll73m2wk5aupd3pe3pw9tcuj84ef0rm",
+      "https://www.mintscan.io/ixo/account/ixo1vk3d90kpe6wpal2n6usucx5xpu066neaghprhu",
     category: "Impact Asset",
   },
   performance: {
