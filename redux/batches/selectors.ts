@@ -18,6 +18,14 @@ export const selectAllBatches = createDraftSafeSelector(
     batchesState.batches
 );
 
+export const selectSelectedBatch = createDraftSafeSelector(
+  selectBatchesState,
+  (
+    batchesState: IBatchesState
+  ): IBatchesState["selectedBatchData"] | undefined =>
+    batchesState.selectedBatchData
+);
+
 export const selectIsBatchesLoading = createDraftSafeSelector(
   selectBatchesState,
   (batchesState: IBatchesState): IBatchesState["isBatchesLoading"] =>

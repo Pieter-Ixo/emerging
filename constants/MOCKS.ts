@@ -94,7 +94,7 @@ export const properties: IPropertiesModel = {
   },
   total_produced: {
     key: "total CARBON produced",
-    value: "1,235 CARBON",
+    value: "2,064 CARBON",
     category: "Impact Asset",
   },
   total_avoided: {

@@ -1,7 +1,7 @@
 import { Card, Flex, Grid } from "@mantine/core";
 
 import { categoryIconMap, properties } from "@/constants/MOCKS";
-import { selectBatchesForEntity } from "@/redux/batches/selectors";
+import { selectSelectedBatch } from "@/redux/batches/selectors";
 import { useAppSelector } from "@/hooks/redux";
 import { IEntity } from "@/types/entityCollections";
 
@@ -20,15 +20,15 @@ type Props = {
   assetExternalId: IEntity["externalId"];
 };
 
-export default function Certificate({ assetExternalId }: Props) {
-  const batch = useAppSelector(selectBatchesForEntity(assetExternalId))?.[0];
+export default function Certificate() {
+  const batch = useAppSelector(selectSelectedBatch);
 
   return (
     <Card radius={16} p={0}>
       <CardContainer>
         <ArrowLeft />
         <Flex direction="column" gap={10} justify="center">
-          <CardTitle>VERIFIED EMISSION REDUCTIONS</CardTitle>
+          <CardTitle>Verified Emission Reduction</CardTitle>
           <BatchIdentifier>{`${batch?.name}/${batch?.index}`}</BatchIdentifier>
         </Flex>
 

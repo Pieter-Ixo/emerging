@@ -29,6 +29,7 @@ export function CardTitle({ children }: PropsWithChildren) {
         fontFamily: "Quicksand",
         fontSize: "18px",
         letterSpacing: "0.1rem",
+        textTransform: "uppercase",
       }}
     >
       {children}

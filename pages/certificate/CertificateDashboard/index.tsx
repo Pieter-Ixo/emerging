@@ -7,7 +7,10 @@ import useValueFromRouter from "@/utils/useValueFromRouter";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchAllBatches } from "@/redux/batches/thunks";
-import { fetchEntityByExterbalIdAndFill } from "@/redux/entityCollections/thunks";
+import {
+  fetchAndFillCollections,
+  fetchEntityByExterbalIdAndFill,
+} from "@/redux/entityCollections/thunks";
 import { selectAllBatches } from "@/redux/batches/selectors";
 import { setSelectedBatch } from "@/redux/batches/slice";
 
@@ -24,6 +27,7 @@ export default function CertificateDashboard() {
   useEffect(() => {
     if (!assetExternalId) return;
     dispatch(fetchEntityByExterbalIdAndFill(assetExternalId));
+    dispatch(fetchAndFillCollections());
     dispatch(fetchAllBatches());
   }, [dispatch, assetExternalId]);
 
@@ -43,7 +47,7 @@ export default function CertificateDashboard() {
 
       <Grid gutter="xl">
         <Grid.Col span={8}>
-          <Certificate assetExternalId={assetExternalId} />
+          <Certificate />
         </Grid.Col>
         <Grid.Col span={4}>
           <DetailCard />

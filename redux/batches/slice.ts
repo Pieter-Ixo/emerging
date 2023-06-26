@@ -33,6 +33,9 @@ const BatchesSlice = createSlice({
     builder.addCase(fetchAllBatches.fulfilled, (state, action) => {
       state.isBatchesLoading = false;
       state.batches = action.payload;
+      // TODO: below is a temporary expression
+      // eslint-disable-next-line prefer-destructuring
+      state.selectedBatchData = action.payload[0];
     });
 
     builder.addCase(HYDRATE, (state, action) => ({

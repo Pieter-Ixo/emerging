@@ -19,3 +19,16 @@ export const fetchAllBatches = createAsyncThunk<
 
   return batchesResponse;
 });
+export const fetchBatchesForEntity = createAsyncThunk<
+  IBatch[],
+  string,
+  { dispatch: AppDispatch }
+>(
+  "batches/fetchBatchesForEntity",
+  async (externalId: string, { dispatch }): Promise<IBatch[]> => {
+    const batchesResponse = await requestBatches();
+    if (!batchesResponse) throw new Error("panica!");
+
+    return batchesResponse;
+  }
+);

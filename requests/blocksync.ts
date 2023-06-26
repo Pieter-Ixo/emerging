@@ -46,3 +46,12 @@ export async function requestBatches(): Promise<IBatch[] | undefined> {
   if (problem) throw problem;
   return data;
 }
+
+export async function requestBatchesByEntityID(
+  entityId: IEntity["id"]
+): Promise<IBatch[] | undefined> {
+  const url = `/api/token/entity/${entityId}`;
+  const { data, problem } = await blocksynkAPI.get<IBatch[]>(url);
+  if (problem) throw problem;
+  return data;
+}
