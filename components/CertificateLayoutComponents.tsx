@@ -86,7 +86,7 @@ export function OffsetProgres({
   max,
   value,
 }: {
-  max: number | undefined;
+  max?: number | undefined;
   value: number;
 }) {
   const maxString = max?.toLocaleString?.();
@@ -122,9 +122,9 @@ export function OffsetProgres({
 
       <Text c={palette.White} fw={400} sx={{ fontSize: 13 }}>
         <Text span c={palette.fullBlue} inherit>
-          {value} CARBON
+          {maxString || 0} CARBON
         </Text>{" "}
-        / {maxString || 0} CARBON offset ( 1 CARBON = 1 kgCO₂)
+        / {value} CARBON offset ( 1 CARBON = 1 kgCO₂)
       </Text>
     </Flex>
   );
