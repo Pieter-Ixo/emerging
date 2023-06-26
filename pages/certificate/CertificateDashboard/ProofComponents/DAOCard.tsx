@@ -111,21 +111,22 @@ const DAOCard: React.FC<Props> = (props: Props) => {
         </Flex>
 
         <Flex direction="column" gap={4} sx={{ height: 25 }} />
-
-        <Flex>
-          <Text
-            color="#01283B"
-            fw={500}
-            sx={{
-              fontFamily: "Roboto",
-              fontSize: 20,
-              lineHeight: "21px",
-            }}
-          >
-            {props.numOfMembers.toLocaleString()} members
-          </Text>
-        </Flex>
-
+        {props.numOfMembers && (
+          <Flex>
+            <Text
+              color="#01283B"
+              fw={500}
+              sx={{
+                fontFamily: "Roboto",
+                fontSize: 20,
+                lineHeight: "21px",
+              }}
+            >
+              {props.numOfMembers.toLocaleString()} members
+            </Text>
+          </Flex>
+        )}
+  
         <Flex align="center" justify="space-between">
           <Text
             color="#828E94"

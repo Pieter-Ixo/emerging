@@ -60,33 +60,33 @@ export const properties: IPropertiesModel = {
   },
   collection: {
     key: "collection",
-    value: "SupaMoto Genesis",
+    value: "SupaMoto Genesis Collection",
     component: CollectionCard,
     props: {
       id: "{id}",
       type: "ImpactNFT",
-      name: `SupaMoto\nZambia Collection`,
+      name: "SupaMoto Genesis Collection",
       tokenName: "SupaMoto",
       decimals: 0,
-      description: "2023",
+      description: "SupaMoto Genesis Collection",
       image:
-        "https://ipfs.io/ipfs/bafkreideszg4fdha4tf7ldpecltxbyxbnapb663tkuksk2vcczkzkxppaa",
+        "https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi",
       properties: {
-        denom: "SUPAMOTO",
+        denom: "SUPA1",
         icon: "https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i",
-        maxSupply: "1500",
+        maxSupply: "1",
       },
     },
     category: "Impact Asset",
   },
   denom: {
     key: "denom",
-    value: "SUPA",
+    value: "SUPA1",
     category: "Impact Asset",
   },
   creation_date: {
     key: "creation date",
-    value: "5 Apr 2023",
+    value: "19 Jun 2023",
     category: "Impact Asset",
   },
   total_produced: {
@@ -101,9 +101,9 @@ export const properties: IPropertiesModel = {
   },
   owned_by: {
     key: "owned by",
-    value: "ixo12345...12345",
+    value: "ixo146su...ef0rm",
     external:
-      "https://www.mintscan.io/ixo/account/ixo13myvkxke3k47gzr92xrdlfd24ay3yhwlelkfmn",
+      "https://www.mintscan.io/ixo/account/ixo146sugu8ll73m2wk5aupd3pe3pw9tcuj84ef0rm",
     category: "Impact Asset",
   },
   performance: {
@@ -119,59 +119,60 @@ export const properties: IPropertiesModel = {
   fuel_type: {
     key: "fuel_type",
     text: "fuel type",
-    value: "biomass",
+    value: "BiomassPellets",
     category: "Impact Claim",
   },
   fuel_amount: {
     key: "fuel_amount",
     text: "fuel amount",
-    value: "32 kg",
+    value: "30 kg",
     category: "Impact Claim",
   },
   cooking_time: {
     key: "cooking_time",
     text: "cooking time",
-    value: "120 h 30 min",
+    value: " ",
     category: "Impact Claim",
   },
   conversion_factor: {
     key: "conversion_factor",
     text: "conversion factor",
-    value: "11.1",
+    value: "11.48",
     external: "Conversion Factor.pdf",
     category: "Impact Claim",
   },
   period: {
     key: "period",
     text: "period",
-    value: "Apr 10 - May 10 2023",
+    value: "Aug 18 - Sep 3 2022",
     category: "Impact Claim",
   },
   emissions_avoided: {
     key: "emissions_avoided",
     text: "emissions avoided",
-    value: "1,000 kgCO₂",
+    value: "344.4 kgCO₂",
     category: "Impact Claim",
   },
   claim_issuer: {
     key: "claim_issuer",
     text: "claim issuer",
-    value: "EmergingDAO",
+    value: "Emerging Cooking Solutions",
     component: DAOCard,
     props: {
       image:
-        "https://ipfs.io/ipfs/bafkreihstux2zf7cobztq5acdqmihbmvkptml7tpvjrd6ecluqllb4iji4",
-      icon: "https://ipfs.io/ipfs/bafkreiditx3ykwyfa2e4jk6yjp2vylhqgj45fq4zdxj32hwvp5k4dar7ju",
-      name: "EmergingDAO",
-      description: "2023",
-      numOfMembers: 49,
+        "https://ipfs.io/ipfs/bafkreiac7mlmlodnhy453xlmdfgnvkqtyx2mcehloxsyl2pig3yjrvkfza",
+      icon: "https://ipfs.io/ipfs/bafkreifw7mvuwremuf3ffpdx3r2jgxjme4s2dbsld5y3oe75wavar6hwja",
+      name: "Emerging Cooking Solutions",
+      description:
+        "Pioneering Smart, Clean, and Affordable Cooking and Household Energy Solutions in Emerging Economies.",
+      // numOfMembers: undefined,
     },
     category: "Impact Claim",
   },
   claim_id: {
     key: "claim_id",
     text: "claim id",
-    value: "12345",
+    value: "urn:uuid...8f422",
     component: JSONViewerCard,
     props: {
       json: '{"id":"{id}","type":"ImpactNFT","name":"SupaMoto Genesis","tokenName":"SupaMoto","decimals":0,"description":"SupaMoto Genesis","image":"https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi","properties":{"denom":"SUPAMOTO","icon":"https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i","maxSupply":"600"}}',
@@ -182,13 +183,13 @@ export const properties: IPropertiesModel = {
   energy_device_type: {
     key: "energy_device_type",
     text: "type",
-    value: "cookstove",
+    value: "Micro-gasification pellet stove with IoT sensor",
     category: "Clean Energy Device",
   },
   energy_device_model: {
     key: "energy_device_model",
     text: "model",
-    value: "Mimimoto",
+    value: "MimiMoto",
     component: JSONViewerCard,
     props: {
       json: '{"id":"https://registry.emerging.eco/device/?id=202200001","product":{"model":"MimiMoto","description":"Micro-gasification pellet stove with IoT sensor","color":"Red"},"manufacturer":{"name":"Mimi Moto BV","country":"CN","date":"2019-2022"},"certification":{"id":"https://ipfs.io/ipfs/bafkreiefafy2u5df4l52yb7vvz32hxrxhcceyaq3z7xww2qlz2fp3ppeum","type":"PerformanceTestingCertificate","issuer":"Aprovecho Research Center","date":"2017","code":"WBT 4.2.3, LEMS, Safety"}}',
@@ -198,19 +199,19 @@ export const properties: IPropertiesModel = {
   energy_device_fuel: {
     key: "energy_device_fuel",
     text: "fuel",
-    value: "biomass",
+    value: "Renewable Biomass Pellets",
     category: "Clean Energy Device",
   },
   manufacture_date: {
     key: "manufacture_date",
     text: "manufacture date",
-    value: "Jan 12 2023",
+    value: "2019-2022",
     category: "Clean Energy Device",
   },
   manufacture_place: {
     key: "manufacture_place",
     text: "manufacture place",
-    value: "South Africa",
+    value: "CN",
     category: "Clean Energy Device",
   },
   // Project
@@ -227,10 +228,10 @@ export const properties: IPropertiesModel = {
       decimals: 0,
       description: "Zambia Collection 2023",
       image:
-        "https://bafybeifduopicws7pddcddmnm2hcna6wbr3y4bqg6wmo5yzgcbbnad23xm.ipfs.w3s.link/SupaMoto_DAO_02_hero_1920x1080%201.png",
+        "https://ipfs.io/ipfs/bafkreideszg4fdha4tf7ldpecltxbyxbnapb663tkuksk2vcczkzkxppaa",
       properties: {
         denom: "SUPAMOTO",
-        icon: "https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i",
+        icon: "https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi",
         maxSupply: "1600",
       },
     },
@@ -239,7 +240,7 @@ export const properties: IPropertiesModel = {
   developer: {
     key: "developer",
     text: "developer",
-    value: "Emerging Cooking Solutions",
+    value: "SupaMoto",
     component: JSONViewerCard,
     props: {
       json: '{"id":"{id}","type":"ImpactNFT","name":"SupaMoto Genesis","tokenName":"SupaMoto","decimals":0,"description":"SupaMoto Genesis","image":"https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi","properties":{"denom":"SUPAMOTO","icon":"https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i","maxSupply":"600"}}',
@@ -249,58 +250,58 @@ export const properties: IPropertiesModel = {
   country: {
     key: "country",
     text: "country",
-    value: "Zambia",
+    value: "ZM",
     category: "Project",
   },
   impact_producers: {
     key: "impact_producers",
     text: "impact producers",
-    value: "1,500",
+    value: " ",
     category: "Project",
   },
   project_emissions_avoided: {
     key: "project_emissions_avoided",
     text: "emissions avoided",
-    value: "1,500,123 kgCO₂",
+    value: " ",
     category: "Project",
   },
   // Impact Producer
   impact_producer_identifier: {
     key: "impact_producer_identifier",
     text: "identifier",
-    value: "abc1234",
+    value: "202200189",
     category: "Impact Producer",
   },
   impact_producer_country: {
     key: "impact_producer_country",
     text: "country",
-    value: "Zambia",
+    value: " ",
     category: "Impact Producer",
   },
   impact_producer_setting: {
     key: "impact_producer_setting",
     text: "setting",
-    value: "rural",
-    external: "https://goo.gl/maps/dpedFSLcDZLbhK1T6?coh=178571&entry=tt",
+    value: " ",
+    // external: "https://goo.gl/maps/dpedFSLcDZLbhK1T6?coh=178571&entry=tt",
     category: "Impact Producer",
   },
   impact_producer_household: {
     key: "impact_producer_household",
     text: "household",
-    value: "4 members",
+    value: " ",
     category: "Impact Producer",
   },
   total_cooking_time: {
     key: "total_cooking_time",
     text: "total cooking time",
-    value: "541h 31min",
+    value: " ",
     category: "Impact Producer",
   },
   // Evaluator
   oracle: {
     key: "oracle",
     text: "oracle",
-    value: "Carbon Oracle",
+    value: "did:ixo:...96f13b",
     component: OracleCard,
     props: {
       image:
@@ -315,26 +316,27 @@ export const properties: IPropertiesModel = {
   methodology: {
     key: "methodology",
     text: "methodology",
-    value: "Gold Standard",
-    external: "https://globalgoals.goldstandard.org/documents/methodology/",
+    value: "431_ee_ics",
+    external:
+      "https://globalgoals.goldstandard.org/431_ee_ics_methodology-for-metered-measured-energy-cooking-devices/",
     category: "Evaluator",
   },
   model: {
     key: "model",
     text: "model",
-    value: "Carbon AI Model",
+    value: "ProbabilisticModel1",
     category: "Evaluator",
   },
   version: {
     key: "version",
     text: "version",
-    value: "1.03",
+    value: "0cece87f-1d09-42e4-a629-e460f8ebb7cd",
     category: "Evaluator",
   },
   claims_processed: {
     key: "claims_processed",
     text: "claims processed",
-    value: "1,200,412",
+    value: " ",
     category: "Evaluator",
   },
 };

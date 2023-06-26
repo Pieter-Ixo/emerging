@@ -20,7 +20,7 @@ interface Props {
   id: number;
 }
 
-const CookstoveModal: React.FC<Props> = ({ id }) => {
+export default function CookstoveModal({ id }: Props) {
   const [loaded] = useState(true);
   const { stove, fetchStove } = useCookstove();
 
@@ -96,6 +96,4 @@ const CookstoveModal: React.FC<Props> = ({ id }) => {
       )}
     </Box>
   );
-};
-
-export default CookstoveModal;
+}

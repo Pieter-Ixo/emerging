@@ -51,7 +51,7 @@ export default function Certificate({ assetExternalId }: Props) {
         </Flex>
       </CardContainer>
 
-      {batch && <CertificateData />}
+      {/* {batch && <CertificateData />} */}
 
       <Grid py="md" px="lg" gutter="lg">
         {Object.values(categoryIconMap).map((category, index) => (
