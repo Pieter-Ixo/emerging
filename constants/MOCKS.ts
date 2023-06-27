@@ -135,7 +135,11 @@ export const properties: IPropertiesModel = {
   conversion_factor: {
     key: "conversion_factor",
     text: "conversion factor",
-    value: "11.48",
+    value: "11.69",
+    component: JSONViewerCard,
+    props: {
+      json: `{"data":[{"Project_FuelConsumption":{"value":"1.000","units":"tonnes","id":"vocab:QuantitativeValue","type":"QuantitativeValue","description":"Ratio of fuel purchased that is used for cooking"}},{"Project_FuelEnergy":{"value":"0.0176","units":"Tj/t","id":"vocab:Energy","type":"Energy","description":"Energy generated per tonne of Fuel for the Modern Energy Device type and model used by the Project. Based on independent tests conducted by a certified lab. If not available, 0,017 is used for woody pellets and 0,014 for non-woody."}},{"Baseline_Wood":{"value":"","units":"t/a","id":"vocab:QuantitativeValue","type":"QuantitativeValue","description":"Baseline wood consumption"}},{"Baseline_Charcoal":{"value":"0.796","units":"t/a","id":"vocab:QuantitativeValue","type":"QuantitativeValue","description":"Baseline charcoal consumption"}},{"Baseline_LPG":{"value":"2.760","units":"kg/a","id":"vocab:QuantitativeValue","type":"QuantitativeValue","description":"Baseline LPG consumption"}},{"Baseline_Kerosine":{"value":"","units":"kg/a","id":"vocab:QuantitativeValue","type":"QuantitativeValue","description":"Baseline kerosine consumption"}},{"Baseline_Electricity":{"value":"713","units":"kWh/a","id":"vocab:QuantitativeValue","type":"QuantitativeValue","description":"Baseline electricity consumption"}},{"Fuel_NonRenewable_Biomass":{"value":"86.9","units":"%","id":"vocab:QuantitativeValue","type":"QuantitativeValue","description":"Fraction non-renewable biomass (fNRB)"}},{"Device_Efficiency":{"value":"54.7","units":"%","id":"vocab:QuantitativeValue","type":"QuantitativeValue","description":"Percentage of generated energy that goes into the cooking pot. Based on independent lab tests of the device."}},{"Fuel_NonWaste":{"value":"10","units":"%","id":"vocab:QuantitativeValue","type":"QuantitativeValue","description":"Relates to only burning of pellets under Project emissions."}},{"Fuel_AddedWood":{"value":"20","units":"%","id":"vocab:QuantitativeValue","type":"QuantitativeValue","description":"Percentage of additional dry-matter wood that is required to manufacture pellets"}},{"Fuel_ProductionEmissions":{"value":"0.33","units":"tCO2/a","id":"vocab:CO2Emission","type":"CO2Emission","description":"calcuated as 0.33tCO2/tPellets"}},{"Fuel_TransportEmissions":{"value":"0.05","units":"tCO2/a","id":"vocab:CO2Emission","type":"CO2Emission","description":"calcuated as 0.05tCO2/tPellets"}},{"Fuel_Wood_EmissionsFactor":{"value":"1.89","units":"tCO2e/t","id":"vocab:CO2Emission","type":"CO2Emission","description":"Emissions factor for Wood"}},{"Fuel_Charcoal_EmissionsFactor":{"value":"11.37","units":"tCO2e/t","id":"vocab:CO2Emission","type":"CO2Emission","description":"Emissions factor for Charcoal"}},{"Fuel_LPG_EmissionsFactor":{"value":"2.98","units":"tCO2e/t","id":"vocab:CO2Emission","type":"CO2Emission","description":"Emissions factor for LPG"}},{"Fuel_Kerosene_EmissionsFactor":{"value":"3.15","units":"tCO2e/t","id":"vocab:CO2Emission","type":"CO2Emission","description":"Emissions factor for Kerosene"}},{"Fuel_Electricity_EmissionsFactor":{"value":"0.87","units":"tCO2/MWh","id":"vocab:CO2Emission","type":"CO2Emission","description":"Emissions factor for Electricity"}},{"Fuel_Wood_Energy":{"value":"0.0156","units":"TJ/t","id":"vocab:Energy","type":"Energy","description":"Net calorific value of the Fuel"}},{"Fuel_Charcoal_Energy":{"value":"0.0295","units":"TJ/t","id":"vocab:Energy","type":"Energy","description":"Net calorific value of the Fuel"}},{"Fuel_LPG_Energy":{"value":"0.0473","units":"TJ/t","id":"vocab:Energy","type":"Energy","description":"Net calorific value of the Fuel"}},{"Fuel_Kerosine_Energy":{"value":"0.0438","units":"TJ/t","id":"vocab:Energy","type":"Energy","description":"Net calorific value of the Fuel"}},{"Fuel_Electricity_Energy":{"value":"0.0036","units":"GJ/kWh","id":"vocab:Energy","type":"Energy","description":"Net calorific value of the Fuel"}},{"Device_Wood_Efficiency":{"value":"10","units":"%","id":"vocab:QuantitativeValue","type":"QuantitativeValue","description":"Device Efficiency"}},{"Device_Charcoal_Efficiency":{"value":"20","units":"%","id":"vocab:QuantitativeValue","type":"QuantitativeValue","description":"Device Efficiency"}},{"Device_LPG_Efficiency":{"value":"51","units":"%","id":"vocab:QuantitativeValue","type":"QuantitativeValue","description":"Device Efficiency"}},{"Device_Kerosine_Efficiency":{"value":"43","units":"%","id":"vocab:QuantitativeValue","type":"QuantitativeValue","description":"Device Efficiency"}},{"Device_Electricity_Efficiency":{"value":"74","units":"%","id":"vocab:QuantitativeValue","type":"QuantitativeValue","description":"Device Efficiency"}},{"Fuel_Wood_Emissions_Baseline":{"value":"","units":"tCO2/a","id":"vocab:CO2Emission","type":"CO2Emission","description":"How much CO2 is emitted in the baseline scenario"}},{"Fuel_Charcoal_Emissions_Baseline":{"value":"7.86","units":"tCO2/a","id":"vocab:CO2Emission","type":"CO2Emission","description":"How much CO2 is emitted in the baseline scenario"}},{"Fuel_LPG_Emissions_Baseline":{"value":"0.01","units":"tCO2/a","id":"vocab:CO2Emission","type":"CO2Emission","description":"How much CO2 is emitted in the baseline scenario"}},{"Fuel_Kerosine_Emissions_Baseline":{"value":"","units":"tCO2/a","id":"vocab:CO2Emission","type":"CO2Emission","description":"How much CO2 is emitted in the baseline scenario"}},{"Fuel_Electricity_Emissions_Baseline":{"value":"0.62","units":"tCO2/a","id":"vocab:CO2Emission","type":"CO2Emission","description":"How much CO2 is emitted in the baseline scenario"}},{"Fuel_Total_Emissions_Baseline":{"value":"8.49","units":"tCO2/a","id":"vocab:CO2Emission","type":"CO2Emission","description":"How much CO2 is emitted in the baseline scenario"}},{"Device_Wood_UsefulEnergy":{"value":"","units":"GJ/a","id":"vocab:Energy","type":"Energy","description":"How much energy goes into the pot in the baseline scenario"}},{"Device_Charcoal_UsefulEnergy":{"value":"4.70","units":"GJ/a","id":"vocab:Energy","type":"Energy","description":"How much energy goes into the pot in the baseline scenario"}},{"Device_LPG_UsefulEnergy":{"value":"0.07","units":"GJ/a","id":"vocab:Energy","type":"Energy","description":"How much energy goes into the pot in the baseline scenario"}},{"Device_Kerosine_UsefulEnergy":{"value":"","units":"GJ/a","id":"vocab:Energy","type":"Energy","description":"How much energy goes into the pot in the baseline scenario"}},{"Device_Electricity_UsefulEnergy":{"value":"1.90","units":"GJ/a","id":"vocab:Energy","type":"Energy","description":"How much energy goes into the pot in the baseline scenario"}},{"Device_Total_UsefulEnergy":{"value":"6.66","units":"GJ/a","id":"vocab:Energy","type":"Energy","description":"How much energy goes into the pot in the baseline scenario"}},{"Project_Emissions_Baseline":{"value":"1.27","units":"tCO2/GJ","id":"vocab:CO2Emission","type":"CO2Emission","description":"Baseline Emission Factor"}},{"Project_UsefulEnergy":{"value":"9.63","units":"GJ/a","id":"vocab:Energy","type":"Energy","description":"How much Energy per Tonne of Fuel goes into the pot on average for the entire Project"}},{"Project_Emissions_GrossSavings":{"value":"12.27","units":"tCO2/a","id":"vocab:CO2Emission","type":"CO2Emission","description":"Total Gross amount of CO2 Emissions Reduced by the Project per Tonne of Fuel using the Modern Energy Cooking Device, before compensating for Emissions from Manufacturing and Transportation of Fuels."}},{"Project_Emissions_FuelProduction":{"value":"0.33","units":"tCO2/a","id":"vocab:CO2Emission","type":"CO2Emission","description":"Constant of 0.33tCO2/tpellets"}},{"Project_Emissions_FuelTransportation":{"value":"0.05","units":"tCO2/a","id":"vocab:CO2Emission","type":"CO2Emission","description":"Constant of 0.05tCO2/tpellets"}},{"Project_Emissions_FuelUsage":{"value":"0.20","units":"tCO2/a","id":"vocab:CO2Emission","type":"CO2Emission","description":"Emissions from burning Pellets. Value is 0 if pellets are made from 100% sustainable wood"}},{"Project_Emissions_Total":{"value":"0.58","units":"tCO2/a","id":"vocab:CO2Emission","type":"CO2Emission","description":"Total Project Emissions"}},{"Project_Emissions_Leakage":{"value":"0","units":"tCO2/a","id":"vocab:CO2Emission","type":"CO2Emission","description":"Unintended increase in emissions elsewhere attributable to the Project"}},{"Project_Emissions_Reduced":{"value":"11.69","units":"tCO2/a","id":"vocab:CO2Emission","type":"CO2Emission","description":"Total Net Amount of CO2 Emissions Reduced by the Project per Tonne of Fuel using the Modern Energy Cooking Device"}}]}`,
+    },
     category: "Impact Claim",
   },
   period: {
@@ -228,7 +232,7 @@ export const properties: IPropertiesModel = {
       properties: {
         denom: "SUPAMOTO",
         icon: "https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi",
-        maxSupply: "1600",
+        maxSupply: "468",
       },
     },
     category: "Project",
@@ -252,7 +256,7 @@ export const properties: IPropertiesModel = {
   impact_producers: {
     key: "impact_producers",
     text: "impact producers",
-    value: " ",
+    value: "468",
     category: "Project",
   },
   project_emissions_avoided: {
@@ -271,20 +275,20 @@ export const properties: IPropertiesModel = {
   impact_producer_country: {
     key: "impact_producer_country",
     text: "country",
-    value: " ",
+    value: "ZM",
     category: "Impact Producer",
   },
   impact_producer_setting: {
     key: "impact_producer_setting",
-    text: "setting",
-    value: " ",
+    text: "usage",
+    value: "Domestic",
     // external: "https://goo.gl/maps/dpedFSLcDZLbhK1T6?coh=178571&entry=tt",
     category: "Impact Producer",
   },
   impact_producer_household: {
     key: "impact_producer_household",
-    text: "household",
-    value: " ",
+    text: "location",
+    value: "-13.10882, 28.639104",
     category: "Impact Producer",
   },
   // total_cooking_time: {
@@ -312,7 +316,7 @@ export const properties: IPropertiesModel = {
   methodology: {
     key: "methodology",
     text: "methodology",
-    value: "431_ee_ics",
+    value: "Gold Standard",
     external:
       "https://globalgoals.goldstandard.org/431_ee_ics_methodology-for-metered-measured-energy-cooking-devices/",
     category: "Evaluator",
