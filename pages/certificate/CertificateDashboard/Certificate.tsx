@@ -1,24 +1,19 @@
 import { Card, Flex, Grid } from "@mantine/core";
 
 import { categoryIconMap, properties } from "@/constants/MOCKS";
-import { selectSelectedBatch } from "@/redux/batches/selectors";
 import { useAppSelector } from "@/hooks/redux";
-import { IEntity } from "@/types/entityCollections";
+import { selectSelectedBatch } from "@/redux/batches/selectors";
 
-import CategoryBox from "./CategoryBox";
 import {
-  CardContainer,
   ArrowLeft,
-  CardTitle,
-  BatchIdentifier,
   AstroCarbonImage,
+  BatchIdentifier,
+  CardContainer,
+  CardTitle,
   OffsetProgres,
   TagForSomethingIDunnoWhat,
 } from "../../../components/CertificateLayoutComponents";
-
-type Props = {
-  assetExternalId: IEntity["externalId"];
-};
+import CategoryBox from "./CategoryBox";
 
 export default function Certificate() {
   const batch = useAppSelector(selectSelectedBatch);
@@ -29,9 +24,8 @@ export default function Certificate() {
         <ArrowLeft />
         <Flex direction="column" gap={10} justify="center">
           <CardTitle>Verified Emission Reduction</CardTitle>
-          <BatchIdentifier>{`${
-            batch?.name || "CARBON"
-          }/bafkreibzfmpb5vi3dezygipylystbunhg5nbqwgdahmf4orgeemitelxae`}</BatchIdentifier>
+          <BatchIdentifier>{`${batch?.name || "CARBON"
+            }/bafkreibzfmpb5vi3dezygipylystbunhg5nbqwgdahmf4orgeemitelxae`}</BatchIdentifier>
         </Flex>
 
         <Flex align="center" justify="center" gap={28}>

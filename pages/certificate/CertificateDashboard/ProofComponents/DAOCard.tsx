@@ -50,7 +50,7 @@ const DAOCard: React.FC<Props> = (props: Props) => {
             >
               <Text
                 color={palette.White}
-                sx={{ fontFamily: "Roboto", fontSize: 12 }}
+                sx={{ fontSize: 12 }}
                 fw={600}
               >
                 DAO
@@ -65,7 +65,7 @@ const DAOCard: React.FC<Props> = (props: Props) => {
             >
               <Text
                 color={palette.White}
-                sx={{ fontFamily: "Roboto", fontSize: 12 }}
+                sx={{ fontSize: 12 }}
                 fw={600}
               >
                 Clean Cooking
@@ -92,7 +92,6 @@ const DAOCard: React.FC<Props> = (props: Props) => {
             color="#01283B"
             fw={700}
             sx={{
-              fontFamily: "Roboto",
               fontSize: 20,
               lineHeight: "21px",
             }}
@@ -103,7 +102,7 @@ const DAOCard: React.FC<Props> = (props: Props) => {
           <Text
             color="#828E94"
             fw={400}
-            sx={{ fontFamily: "Roboto", fontSize: 12, lineHeight: "100%" }}
+            sx={{ fontSize: 12, lineHeight: "100%" }}
             lineClamp={2}
           >
             {props.description}
@@ -117,7 +116,6 @@ const DAOCard: React.FC<Props> = (props: Props) => {
               color="#01283B"
               fw={500}
               sx={{
-                fontFamily: "Roboto",
                 fontSize: 20,
                 lineHeight: "21px",
               }}
@@ -126,13 +124,12 @@ const DAOCard: React.FC<Props> = (props: Props) => {
             </Text>
           </Flex>
         )}
-  
+
         <Flex align="center" justify="space-between">
           <Text
             color="#828E94"
             fw={400}
             sx={{
-              fontFamily: "Roboto",
               fontSize: 12,
               lineHeight: "14px",
             }}

@@ -53,7 +53,7 @@ function AssetDeviceCard(props: Props) {
             >
               <Text
                 color={palette.White}
-                sx={{ fontFamily: "Roboto", fontSize: 12 }}
+                sx={{ fontSize: 12 }}
                 fw={600}
               >
                 Inventory
@@ -68,7 +68,7 @@ function AssetDeviceCard(props: Props) {
             >
               <Text
                 color={palette.White}
-                sx={{ fontFamily: "Roboto", fontSize: 12 }}
+                sx={{ fontSize: 12 }}
                 fw={600}
                 transform="uppercase"
               >
@@ -96,7 +96,6 @@ function AssetDeviceCard(props: Props) {
             color="#01283B"
             fw={700}
             sx={{
-              fontFamily: "Roboto",
               fontSize: 20,
               lineHeight: "21px",
             }}
@@ -107,8 +106,8 @@ function AssetDeviceCard(props: Props) {
           <Text
             color="#828E94"
             fw={400}
-            sx={{ fontFamily: "Roboto", fontSize: 12, lineHeight: "100%" }}
-            // lineClamp={2}
+            sx={{ fontSize: 12, lineHeight: "100%" }}
+          // lineClamp={2}
           >
             {props.description}
           </Text>
@@ -131,7 +130,6 @@ function AssetDeviceCard(props: Props) {
             sx={{
               display: "flex",
               gap: 4,
-              fontFamily: "Roboto",
               fontSize: 11,
               lineHeight: "13px",
             }}
@@ -152,7 +150,6 @@ function AssetDeviceCard(props: Props) {
             color="#828E94"
             fw={400}
             sx={{
-              fontFamily: "Roboto",
               fontSize: 12,
               lineHeight: "14px",
             }}
@@ -163,7 +160,6 @@ function AssetDeviceCard(props: Props) {
             color="#01283B"
             fw={400}
             sx={{
-              fontFamily: "Roboto",
               fontSize: 12,
               lineHeight: "14px",
             }}

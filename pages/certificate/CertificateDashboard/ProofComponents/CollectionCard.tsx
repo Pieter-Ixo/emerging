@@ -50,7 +50,7 @@ export default function CollectionCard(props: Props) {
             >
               <Text
                 color={palette.White}
-                sx={{ fontFamily: "Roboto", fontSize: 12 }}
+                sx={{ fontSize: 12 }}
                 fw={600}
               >
                 Inventory
@@ -65,7 +65,7 @@ export default function CollectionCard(props: Props) {
             >
               <Text
                 color={palette.White}
-                sx={{ fontFamily: "Roboto", fontSize: 12 }}
+                sx={{ fontSize: 12 }}
                 fw={600}
                 transform="uppercase"
               >
@@ -93,7 +93,6 @@ export default function CollectionCard(props: Props) {
             color="#01283B"
             fw={700}
             sx={{
-              fontFamily: "Roboto",
               fontSize: 20,
               lineHeight: "21px",
             }}
@@ -104,8 +103,8 @@ export default function CollectionCard(props: Props) {
           <Text
             color="#828E94"
             fw={400}
-            sx={{ fontFamily: "Roboto", fontSize: 12, lineHeight: "100%" }}
-            // lineClamp={4}
+            sx={{ fontSize: 12, lineHeight: "100%" }}
+          // lineClamp={4}
           >
             {props.description}
           </Text>
@@ -118,7 +117,6 @@ export default function CollectionCard(props: Props) {
             color="#01283B"
             fw={500}
             sx={{
-              fontFamily: "Roboto",
               fontSize: 20,
               lineHeight: "21px",
             }}
@@ -132,7 +130,6 @@ export default function CollectionCard(props: Props) {
             color="#828E94"
             fw={400}
             sx={{
-              fontFamily: "Roboto",
               fontSize: 12,
               lineHeight: "14px",
             }}

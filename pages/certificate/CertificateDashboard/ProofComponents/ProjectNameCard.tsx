@@ -57,7 +57,7 @@ const ProjectNameCard: React.FC<Props> = (props: Props) => {
             >
               <Text
                 color={palette.White}
-                sx={{ fontFamily: "Roboto", fontSize: 12 }}
+                sx={{ fontSize: 12 }}
                 fw={600}
               >
                 Project
@@ -72,7 +72,7 @@ const ProjectNameCard: React.FC<Props> = (props: Props) => {
             >
               <Text
                 color={palette.White}
-                sx={{ fontFamily: "Roboto", fontSize: 12 }}
+                sx={{ fontSize: 12 }}
                 fw={600}
               >
                 Clean Cooking
@@ -99,7 +99,6 @@ const ProjectNameCard: React.FC<Props> = (props: Props) => {
             color="#01283B"
             fw={700}
             sx={{
-              fontFamily: "Roboto",
               fontSize: 20,
               lineHeight: "21px",
             }}
@@ -110,7 +109,7 @@ const ProjectNameCard: React.FC<Props> = (props: Props) => {
           <Text
             color="#828E94"
             fw={400}
-            sx={{ fontFamily: "Roboto", fontSize: 12, lineHeight: "100%" }}
+            sx={{ fontSize: 12, lineHeight: "100%" }}
             lineClamp={2}
           >
             {props.description}
@@ -140,7 +139,6 @@ const ProjectNameCard: React.FC<Props> = (props: Props) => {
             color="#01283B"
             fw={500}
             sx={{
-              fontFamily: "Roboto",
               fontSize: 20,
               lineHeight: "21px",
             }}
@@ -151,7 +149,6 @@ const ProjectNameCard: React.FC<Props> = (props: Props) => {
             color="#7D8498"
             fw={500}
             sx={{
-              fontFamily: "Roboto",
               fontSize: 12,
               lineHeight: "14px",
             }}
@@ -165,7 +162,6 @@ const ProjectNameCard: React.FC<Props> = (props: Props) => {
             color="#828E94"
             fw={400}
             sx={{
-              fontFamily: "Roboto",
               fontSize: 12,
               lineHeight: "14px",
             }}

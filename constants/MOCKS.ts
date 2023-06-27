@@ -2,7 +2,6 @@ import CookstoveModal from "@/components/Modals/CookstoveModal";
 import AssetDeviceCard from "@/pages/certificate/CertificateDashboard/ProofComponents/AssetDeviceCard";
 import CollectionCard from "@/pages/certificate/CertificateDashboard/ProofComponents/CollectionCard";
 import DAOCard from "@/pages/certificate/CertificateDashboard/ProofComponents/DAOCard";
-import JSONViewerAlternative from "@/pages/certificate/CertificateDashboard/ProofComponents/JSONViewerAlternative";
 import JSONViewerCard from "@/pages/certificate/CertificateDashboard/ProofComponents/JSONViewerCard";
 import OracleCard from "@/pages/certificate/CertificateDashboard/ProofComponents/OracleCard";
 import ProjectNameCard from "@/pages/certificate/CertificateDashboard/ProofComponents/ProjectNameCard";
@@ -122,8 +121,8 @@ export const properties: IPropertiesModel = {
   // Impact Claim
   fuel_type: {
     key: "fuel_type",
-    text: "fuel type",
-    value: "BiomassPellets",
+    text: "fuel",
+    value: "Renewable Biomass Pellets",
     category: "Impact Claim",
   },
   fuel_amount: {
@@ -240,10 +239,15 @@ export const properties: IPropertiesModel = {
   developer: {
     key: "developer",
     text: "developer",
-    value: "SupaMoto",
-    component: JSONViewerCard,
+    value: "did:ixo:entity:a1fce...72413",
+    component: DAOCard,
     props: {
-      json: '{"id":"{id}","type":"ImpactNFT","name":"SupaMoto Genesis","tokenName":"SupaMoto","decimals":0,"description":"SupaMoto Genesis","image":"https://ipfs.io/ipfs/bafkreifkl6w55nasgqid22d2cqyxccjktbciefzmiqvcudlq3eoer2mzhi","properties":{"denom":"SUPAMOTO","icon":"https://ipfs.io/ipfs/bafkreigkajsskkswn5jwcmfxhn3rqc7gevzgroacq7ygfz6mzkgo72ej4i","maxSupply":"600"}}',
+      image:
+        "https://ipfs.io/ipfs/bafkreiac7mlmlodnhy453xlmdfgnvkqtyx2mcehloxsyl2pig3yjrvkfza",
+      icon: "https://ipfs.io/ipfs/bafkreifw7mvuwremuf3ffpdx3r2jgxjme4s2dbsld5y3oe75wavar6hwja",
+      name: "Emerging Cooking Solutions",
+      description:
+        "Pioneering Smart, Clean, and Affordable Cooking and Household Energy Solutions in Emerging Economies.",
     },
     category: "Project",
   },
