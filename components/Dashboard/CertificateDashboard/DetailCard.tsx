@@ -30,11 +30,6 @@ const DetailCard: React.FC<{ properties: IPropertiesModel }> = ({
         <Text fw={400} transform="uppercase">
           Detail
         </Text>
-        {/* <Link href={""}> */}
-        <Text fw={400} transform="uppercase">
-
-        </Text>
-        {/* </Link> */}
       </Flex>
 
       <Flex
