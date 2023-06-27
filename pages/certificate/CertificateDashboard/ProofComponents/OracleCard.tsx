@@ -50,7 +50,7 @@ const OracleCard: React.FC<Props> = (props: Props) => {
             >
               <Text
                 color={palette.White}
-                sx={{ fontFamily: "Roboto", fontSize: 12 }}
+                sx={{ fontSize: 12 }}
                 fw={600}
               >
                 Oracle
@@ -65,7 +65,7 @@ const OracleCard: React.FC<Props> = (props: Props) => {
             >
               <Text
                 color={palette.White}
-                sx={{ fontFamily: "Roboto", fontSize: 12 }}
+                sx={{ fontSize: 12 }}
                 fw={600}
               >
                 Impact Tokens
@@ -92,7 +92,6 @@ const OracleCard: React.FC<Props> = (props: Props) => {
             color="#01283B"
             fw={700}
             sx={{
-              fontFamily: "Roboto",
               fontSize: 20,
               lineHeight: "100%",
             }}
@@ -103,7 +102,7 @@ const OracleCard: React.FC<Props> = (props: Props) => {
           <Text
             color="#828E94"
             fw={400}
-            sx={{ fontFamily: "Roboto", fontSize: 12, lineHeight: "100%" }}
+            sx={{ fontSize: 12, lineHeight: "100%" }}
             lineClamp={2}
           >
             {props.description}
@@ -120,12 +119,11 @@ const OracleCard: React.FC<Props> = (props: Props) => {
               display: "flex",
               alignItems: "baseline",
               gap: 4,
-              fontFamily: "Roboto",
               fontSize: 12,
               lineHeight: "14px",
             }}
           >
-            <Text color="#01283B" sx={{ fontSize: 20 }} inherit>
+            <Text color="#01283B" sx={{}} inherit>
               {props.numOfAssets.toLocaleString()}
             </Text>{" "}
             CARBON issued
@@ -137,7 +135,6 @@ const OracleCard: React.FC<Props> = (props: Props) => {
             color="#828E94"
             fw={400}
             sx={{
-              fontFamily: "Roboto",
               fontSize: 12,
               lineHeight: "14px",
             }}
