@@ -309,7 +309,7 @@ export const properties: IPropertiesModel = {
       icon: "https://bafybeibkxdea27zfi6ibrh4yzdvx7m2no6m4aartsujok47c26eslpefga.ipfs.w3s.link/Group%20747.png",
       name: "CARBON Oracle",
       description: "Causal AI claim evaluation",
-      numOfAssets: 5124,
+      numOfAssets: 6968,
     },
     category: "Evaluator",
   },
@@ -336,7 +336,11 @@ export const properties: IPropertiesModel = {
   claims_processed: {
     key: "claims_processed",
     text: "claims processed",
-    value: " ",
+    value: "6968",
+    component: JSONViewerCard,
+    props: {
+      json: '{"count":"6968","evaluated":"6968","approved":"6683","rejected":"285","disputed":"0"}',
+    },
     category: "Evaluator",
   },
 };
