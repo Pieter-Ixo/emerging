@@ -32,7 +32,7 @@ const DetailCard: React.FC<{ properties: IPropertiesModel }> = ({
         </Text>
         {/* <Link href={""}> */}
         <Text fw={400} transform="uppercase">
-          Download ➔
+
         </Text>
         {/* </Link> */}
       </Flex>
