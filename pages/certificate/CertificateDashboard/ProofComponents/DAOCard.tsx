@@ -1,7 +1,7 @@
 import { palette, shadow } from "@/theme/palette";
-import { Flex, Progress, Text } from "@mantine/core";
-import React from "react";
+import { Flex, Text } from "@mantine/core";
 import moment from "moment";
+import React from "react";
 
 interface Props {
   image: string;
@@ -12,7 +12,6 @@ interface Props {
 }
 
 const DAOCard: React.FC<Props> = (props: Props) => {
-  //
 
   console.log("DAOCard", { props });
 
