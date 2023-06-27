@@ -27,9 +27,6 @@ function DetailCard() {
         <Text fw={400} transform="uppercase">
           Detail
         </Text>
-        <Text fw={400} transform="uppercase">
-          Download ➔
-        </Text>
       </Flex>
 
       <Flex
