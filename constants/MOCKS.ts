@@ -340,10 +340,10 @@ export const properties: IPropertiesModel = {
   claims_processed: {
     key: "claims_processed",
     text: "claims processed",
-    value: "6968",
+    value: "6,968",
     component: JSONViewerCard,
     props: {
-      json: '{"count":"6968","evaluated":"6968","approved":"6683","rejected":"285","disputed":"0"}',
+      json: '{"count":"6,968","evaluated":"6,968","approved":"6,683","rejected":"285","disputed":"0"}',
     },
     category: "Evaluator",
   },
