@@ -1,5 +1,9 @@
 import request from "@/requests/request";
-import { ICollection, ICollectionProfile } from "@/types/entityCollections";
+import {
+  ICollectionProfile,
+  IEntityExtended,
+  IEntityProfile,
+} from "@/types/entityCollections";
 import getFullServiceEndpoint from "@/utils/getServiceEndpoint";
 
 function fillProfileLinkedData(
@@ -14,13 +18,13 @@ function fillProfileLinkedData(
   };
 }
 
-export default async function getCollectionProfile(
-  collection: ICollection
-): Promise<ICollectionProfile | undefined> {
-  const profileEndpointLastPart = collection.settings.Profile.serviceEndpoint;
+export default async function getEntityProfile(
+  entity: IEntityExtended
+): Promise<IEntityProfile | undefined> {
+  const profileEndpointLastPart = entity.settings.Profile.serviceEndpoint;
   const collectionProfileEndpoint = getFullServiceEndpoint(
     profileEndpointLastPart,
-    collection.service
+    entity.service
   );
   const profile = await request<ICollectionProfile>(collectionProfileEndpoint);
 

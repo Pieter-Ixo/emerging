@@ -1,13 +1,10 @@
-import { palette } from "@/theme/palette";
-import { Card, Flex, Text } from "@mantine/core";
-import Link from "next/link";
 import React, { useMemo } from "react";
-import { IPropertiesModel } from ".";
-import JSONViewerCard from "./ProofComponents/JSONViewerCard";
+import { Card, Flex, Text } from "@mantine/core";
 
-const DetailCard: React.FC<{ properties: IPropertiesModel }> = ({
-  properties,
-}) => {
+import { palette } from "@/theme/palette";
+import { properties } from "@/constants/MOCKS";
+
+function DetailCard() {
   const hashId = window.location.hash.split("#").pop();
 
   const selectedProperty = useMemo(
@@ -29,6 +26,9 @@ const DetailCard: React.FC<{ properties: IPropertiesModel }> = ({
       >
         <Text fw={400} transform="uppercase">
           Detail
+        </Text>
+        <Text fw={400} transform="uppercase">
+          Download ➔
         </Text>
       </Flex>
 
@@ -52,6 +52,6 @@ const DetailCard: React.FC<{ properties: IPropertiesModel }> = ({
       </Flex>
     </Card>
   );
-};
+}
 
 export default DetailCard;

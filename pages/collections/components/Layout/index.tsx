@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Flex } from "@mantine/core";
 
-import { Nav } from "@/components/Navbar/navbar";
+import Nav from "@/components/Navbar/navbar";
 
 function CollectionsLayout({ children }) {
   return (

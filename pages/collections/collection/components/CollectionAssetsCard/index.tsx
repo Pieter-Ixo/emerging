@@ -1,4 +1,5 @@
-import { mobileBreakpoint } from "@/constants/breakpoints";
+import { Suspense, useEffect, useState } from "react";
+import Head from "next/head";
 import {
   Card,
   Divider,
@@ -9,13 +10,15 @@ import {
   Table,
   Text,
 } from "@mantine/core";
-import { useViewportSize, useDisclosure } from "@mantine/hooks";
+import { useDisclosure } from "@mantine/hooks";
 
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setSelectedView } from "@/redux/userSlice";
-import { Suspense, useEffect, useState } from "react";
+import { setSelectedEntity } from "@/redux/entityCollections/slice";
+import { selectSelectedAssetExternalId } from "@/redux/entityCollections/selectors";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import CookstoveModal from "@/components/Modals/CookstoveModal";
-import Head from "next/head";
+import { IEntity } from "@/types/entityCollections";
+
 import ArrowRight from "../CollectionNewsCard/icons/arrowRight";
 import DownArrow from "./icons/downArrow";
 import Loading from "./loading";
@@ -25,6 +28,8 @@ export default function CollectionAssetsCard() {
   const entities = useAppSelector(
     (state) => state.entityCollection.entityCollections[0].entities
   );
+  const selectedAssetExternalId = useAppSelector(selectSelectedAssetExternalId);
+
   const [entitiesData, setEntitiesData] = useState<any[]>([]);
   const heads = [
     { name: "Serial number", filterActive: false },
@@ -39,44 +44,23 @@ export default function CollectionAssetsCard() {
   });
   const [headers, setHeader] = useState(heads);
   const [opened, { open, close }] = useDisclosure(false);
-  const [selectedExternalId, setSelectedExternalId] = useState("");
 
-  const handleClickAssetRow = (id: string) => () => {
-    setSelectedExternalId(id);
+  const handleClickAssetRow = (entity: IEntity) => () => {
+    dispatch(setSelectedEntity(entity));
   };
 
   const rows = entitiesData?.map((entity) => {
     if (entity.externalId !== "") {
+      const isSelectedRow = selectedAssetExternalId === entity.externalId;
       return (
         <tr
           key={entity.id}
-          onClick={handleClickAssetRow(entity.externalId)}
-          // onClick={() => {
-          //   setIsModal(true);
-          // }}
-          // onClick={() => {
-          //   console.log("onClick");
-          //   dispatch(
-          //     setSelectedExternalId({
-          //       deviceId: entity.alsoKnownAs,
-          //       externalId: entity.externalId,
-          //     })
-          //   );
-          //   dispatch(setSelectedView("singleAsset"));
-          // }}
-          style={{ cursor: "pointer" }}
+          onClick={handleClickAssetRow(entity)}
+          style={{
+            cursor: "pointer",
+            backgroundColor: isSelectedRow ? "#F8F8F8" : "inherit",
+          }}
         >
-          {/* <Modal
-            opened={isModal}
-            onClose={() => {
-              setIsModal(false);
-            }}
-            centered={true}
-            radius={16}
-            size="lg"
-          >
-            <Cookstove id={entity.externalId} />
-          </Modal> */}
           <td
             style={{
               color: sortAssets.SerialNumber ? "#5FA8EB" : "black",
@@ -87,27 +71,16 @@ export default function CollectionAssetsCard() {
           <td
             style={{ color: sortAssets.CarbonClaimable ? "#5FA8EB" : "black" }}
           >
-            {
-              0
-              /* {entity.CARBONClaimable[0]?.balance
-              ? entity.CARBONClaimable[0]?.balance
-              : 0} */
-            }
+            {0}
           </td>
           <td style={{ color: sortAssets.CarbonIssued ? "#5FA8EB" : "black" }}>
-            {
-              0
-              /* {entity.CarbonIssued} */
-            }
+            {0}
           </td>
         </tr>
       );
     }
   });
 
-  const viewPortSize = useViewportSize();
-
-  // not working with actual data
   const handleFilterActive = (index: number) => {
     const copy = [...headers];
     const copyData = [...entitiesData];
@@ -116,62 +89,23 @@ export default function CollectionAssetsCard() {
     setHeader(copy);
     switch (item.name) {
       case "Serial number":
-        item.filterActive
-          ? setEntitiesData(
-              copyData?.sort(
-                (a, b) =>
-                  parseInt(a.alsoKnownAs.split(`#`)[1]) -
-                  parseInt(b.alsoKnownAs.split(`#`)[1])
-              )
+        if (item.filterActive)
+          setEntitiesData(
+            copyData?.sort(
+              (a, b) =>
+                parseInt(a.alsoKnownAs.split(`#`)[1]) -
+                parseInt(b.alsoKnownAs.split(`#`)[1])
             )
-          : setEntitiesData(
-              copyData?.sort(
-                (a, b) =>
-                  parseInt(b.alsoKnownAs.split(`#`)[1]) -
-                  parseInt(a.alsoKnownAs.split(`#`)[1])
-              )
-            );
+          );
+        else
+          setEntitiesData(
+            copyData?.sort(
+              (a, b) =>
+                parseInt(b.alsoKnownAs.split(`#`)[1]) -
+                parseInt(a.alsoKnownAs.split(`#`)[1])
+            )
+          );
         break;
-      // case "CARBON claimable":
-      //   item.filterActive
-      //     ? setEntitiesData(
-      //       copyData.sort((a, b) => {
-      //         if (!a.CARBONClaimable[0]?.balance) {
-      //           return 0 - parseFloat(b.CARBONClaimable[0]?.balance);
-      //         } else {
-      //           return (
-      //             parseFloat(a.CARBONClaimable[0]?.balance) -
-      //             parseFloat(b.CARBONClaimable[0]?.balance)
-      //           );
-      //         }
-      //       })
-      //     )
-      //     : setEntitiesData(
-      //       copyData.sort(
-      //         (a, b) => 0 - parseFloat(a.CARBONClaimable[0]?.balance)
-      //       )
-      //     );
-      //   break;
-      // case "CARBON generated":
-      //   item.filterActive
-      //     ? setEntitiesData(
-      //       copyData.sort((a, b) => {
-      //         if (!a.CARBONClaimable[0]?.balance) {
-      //           return 0 - parseFloat(b.CARBONClaimable[0]?.balance);
-      //         } else {
-      //           return (
-      //             parseFloat(a.CARBONClaimable[0]?.balance) -
-      //             parseFloat(b.CARBONClaimable[0]?.balance)
-      //           );
-      //         }
-      //       })
-      //     )
-      //     : setEntitiesData(
-      //       copyData.sort(
-      //         (a, b) => 0 - parseFloat(a.CARBONClaimable[0]?.balance)
-      //       )
-      //     );
-      //   break;
 
       default:
         break;
@@ -185,13 +119,13 @@ export default function CollectionAssetsCard() {
   }, [entities]);
 
   useEffect(() => {
-    if (selectedExternalId) {
+    if (selectedAssetExternalId) {
       open();
     } else {
       close();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedExternalId]);
+  }, [selectedAssetExternalId]);
 
   return (
     <>
@@ -227,15 +161,12 @@ export default function CollectionAssetsCard() {
           </Grid.Col>
         </Grid>
         <Divider mb="lg" color="#000000" />
-        <ScrollArea
-          h={viewPortSize.height >= mobileBreakpoint ? 425 : 328}
-          type="scroll"
-        >
+        <ScrollArea h={425} type="scroll">
           <Table
             highlightOnHover
             style={{
               alignSelf: "stretch",
-              width: viewPortSize.width >= mobileBreakpoint ? 390 : 243,
+              width: 390,
             }}
           >
             <thead>
@@ -257,7 +188,7 @@ export default function CollectionAssetsCard() {
                 >
                   <Text style={{ display: "flex" }}>
                     Serial number{" "}
-                    {sortAssets.SerialNumber ? <DownArrow /> : <></>}
+                    {sortAssets.SerialNumber ? <DownArrow /> : null}
                   </Text>
                 </th>
 
@@ -278,7 +209,7 @@ export default function CollectionAssetsCard() {
                 >
                   <Text style={{ display: "flex" }}>
                     CARBON claimable{" "}
-                    {sortAssets.CarbonClaimable ? <DownArrow /> : <></>}
+                    {sortAssets.CarbonClaimable ? <DownArrow /> : null}
                   </Text>
                 </th>
 
@@ -299,7 +230,7 @@ export default function CollectionAssetsCard() {
                 >
                   <Text style={{ display: "flex" }}>
                     CARBON Issued{" "}
-                    {sortAssets.CarbonIssued ? <DownArrow /> : <></>}
+                    {sortAssets.CarbonIssued ? <DownArrow /> : null}
                   </Text>
                 </th>
               </tr>
@@ -310,10 +241,10 @@ export default function CollectionAssetsCard() {
           </Table>
         </ScrollArea>
       </Card>
-      {selectedExternalId && (
+      {selectedAssetExternalId && (
         <Modal.Root
           opened={opened}
-          onClose={() => setSelectedExternalId("")}
+          onClose={() => dispatch(setSelectedEntity(undefined))}
           radius={16}
           size="md"
           centered
@@ -331,7 +262,7 @@ export default function CollectionAssetsCard() {
               <Modal.CloseButton />
             </Modal.Header>
             <Modal.Body style={{ padding: 0 }}>
-              <CookstoveModal id={Number(selectedExternalId)} />
+              <CookstoveModal id={Number(selectedAssetExternalId)} />
             </Modal.Body>
           </Modal.Content>
         </Modal.Root>

@@ -133,6 +133,8 @@ export type IEntity = {
   settings: ISettings;
 };
 
+export type IEntityProfile = IProfileSettings;
+
 export type ICollectionProfile = IProfileSettings & {
   imageUrl?: string;
   logoUrl?: string;
@@ -142,6 +144,10 @@ export type ICollectionTags = ITagsSettings & {};
 export type ICollectionExtended = ICollection & {
   _profile?: ICollectionProfile;
   _tags?: ICollectionTags;
+};
+
+export type IEntityExtended = IEntity & {
+  _profile?: IEntityProfile;
 };
 
 export type ICollectionEntities = {

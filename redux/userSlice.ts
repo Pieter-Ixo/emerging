@@ -7,7 +7,7 @@ export interface UserState {
   count: number;
   walletConnected: boolean;
   dashboardVisible: boolean;
-  selectedView: String;
+  selectedView: "global" | "fullAssets" | "portfolio" | "singleAsset";
   selectedAssetId: { deviceId: string; assetId: string };
   ClaimableCarbon: number;
   impactNavi: string;
