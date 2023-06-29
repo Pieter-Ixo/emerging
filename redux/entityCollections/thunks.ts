@@ -5,14 +5,17 @@ import {
   requestCollections,
   requestEntityByExternalID,
 } from "@/requests/blocksync";
+
 import getCollectionProfile from "@/helpers/getCollectionProfile";
+import getCollectionTags from "@/helpers/getCollectionTags";
+import getCollectionTokenIpfs from "@/helpers/getCollectionTokenIpfs";
 import getEntityProfile from "@/helpers/getEntityProfile";
 
 import {
   ICollectionEntities,
   IEntityExtended,
 } from "@/types/entityCollections";
-import getCollectionTags from "@/helpers/getCollectionTags";
+import getEntityToken from "@/helpers/getEntityToken";
 
 export const fetchAndFillCollections = createAsyncThunk(
   "entityCollections/fetchAndFillCollections",
@@ -21,12 +24,14 @@ export const fetchAndFillCollections = createAsyncThunk(
 
     const getCollectionProfilePromises = collectionsResponse?.map(
       async (entityCollection): Promise<ICollectionEntities> => {
-        const [profileData, tagData] = await Promise.all([
+        const [profileData, tagData, tokenIpfs] = await Promise.all([
           await getCollectionProfile(entityCollection.collection),
           await getCollectionTags(entityCollection.collection),
+          await getCollectionTokenIpfs(entityCollection.collection),
         ]);
         entityCollection.collection._profile = profileData;
         entityCollection.collection._tags = tagData;
+        entityCollection.collection._tokenIpfs = tokenIpfs;
         return entityCollection;
       }
     );
@@ -36,17 +41,23 @@ export const fetchAndFillCollections = createAsyncThunk(
   }
 );
 
-export const fetchCollectionOfEntity = createAsyncThunk(
-  "entityCollections/fetchCollectionOfEntity",
+export const fetchCollectionByEntity = createAsyncThunk(
+  "entityCollections/fetchCollectionByEntity",
   () => {}
 );
 
-export const fetchEntityByExterbalIdAndFill = createAsyncThunk(
-  "entityCollections/fetchEntityByExterbalIdAndFill",
+export const fetchEntityByExternalIdAndFill = createAsyncThunk(
+  "entityCollections/fetchEntityByExternalIdAndFill",
   async (externalId: string): Promise<IEntityExtended> => {
     const entity = await requestEntityByExternalID(externalId);
-    const profile = await getEntityProfile(entity);
+
+    const [profile, token] = await Promise.all([
+      await getEntityProfile(entity),
+      await getEntityToken(entity),
+    ]);
+
     entity._profile = profile;
+    entity._token = token;
 
     return entity;
   }

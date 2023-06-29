@@ -54,12 +54,12 @@ export default function Home() {
           <Text>Asset Owner</Text>
         </NavLink>
       </Container>
-      <Dialog opened size="lg" radius="md" position={{ top: 20, left: 20 }}>
+      {/* <Dialog opened size="lg" radius="md" position={{ top: 20, left: 20 }}>
         <Alert color="red" title="Web Application is under development">
           If you want to see the previous working UI version click{" "}
           <Anchor href="/collections-dashboard">here</Anchor>.
         </Alert>
-      </Dialog>
+      </Dialog> */}
     </Center>
   );
 }

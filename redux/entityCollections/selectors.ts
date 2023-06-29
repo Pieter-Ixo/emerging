@@ -20,6 +20,11 @@ export const selectCollections = createDraftSafeSelector(
       (collectionWithEntites) => collectionWithEntites.collection
     )
 );
+export const selectOnlyCollection = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): ICollectionExtended =>
+    state.entityCollections[0]?.collection
+);
 
 export const selectIsEntityCollectionsLoading = createDraftSafeSelector(
   selectEntityCollections,

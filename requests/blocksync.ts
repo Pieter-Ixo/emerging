@@ -55,3 +55,12 @@ export async function requestBatchesByEntityID(
   if (problem) throw problem;
   return data;
 }
+
+export async function requestBatchByID(
+  batchId: IBatch["id"]
+): Promise<IBatch | undefined> {
+  const url = `/api/token/id/${batchId}`;
+  const { data, problem } = await blocksynkAPI.get<IBatch>(url);
+  if (problem) throw problem;
+  return data;
+}

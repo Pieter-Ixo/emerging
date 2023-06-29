@@ -8,7 +8,7 @@ import {
 } from "@/types/entityCollections";
 import {
   fetchAndFillCollections,
-  fetchEntityByExterbalIdAndFill,
+  fetchEntityByExternalIdAndFill,
 } from "./thunks";
 
 export type EntityCollectionState = {
@@ -37,6 +37,7 @@ const EntityCollectionSlice = createSlice({
     },
   },
   extraReducers(builder) {
+    // fetchAndFillCollections
     builder.addCase(fetchAndFillCollections.pending, (state) => {
       state.isEntityCollectionsLoading = true;
     });
@@ -46,11 +47,12 @@ const EntityCollectionSlice = createSlice({
       state.entityCollections = action.payload;
     });
 
-    builder.addCase(fetchEntityByExterbalIdAndFill.pending, (state) => {
+    // fetchEntityByExternalIdAndFill
+    builder.addCase(fetchEntityByExternalIdAndFill.pending, (state) => {
       state.isEntityLoading = true;
     });
     builder.addCase(
-      fetchEntityByExterbalIdAndFill.fulfilled,
+      fetchEntityByExternalIdAndFill.fulfilled,
       (state, action) => {
         state.selectedEntity = action.payload;
         state.isEntityLoading = false;

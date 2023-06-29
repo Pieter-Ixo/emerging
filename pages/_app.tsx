@@ -18,6 +18,10 @@ import Layout from "./_layout";
 const persistor = persistStore(store);
 
 function App({ Component, pageProps }: AppProps) {
+  // useEffect(() => {
+  //   // @ts-ignore
+  //   window.purge = persistor.purge;
+  // }, []);
   return (
     <>
       <Head>
