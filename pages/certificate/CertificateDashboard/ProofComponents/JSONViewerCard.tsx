@@ -1,22 +1,10 @@
+import isURL from "@/utils/isStrUrl";
 import { Popover, Text } from "@mantine/core";
-import React, { CSSProperties, PropsWithChildren, ReactElement } from "react";
+import { CSSProperties, PropsWithChildren, memo } from "react";
 
 function isLong(str: string): boolean {
   return str.length >= 40;
 }
-function isURL(str): boolean {
-  const pattern = new RegExp(
-    "^(https?:\\/\\/)?" + // protocol
-      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|" + // domain name
-      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-      "(\\#[-a-z\\d_]*)?$",
-    "i"
-  ); // fragment locator
-  return pattern.test(str);
-}
-
 function PopoverElement({
   text,
   children,
@@ -81,17 +69,16 @@ const StylesWrapper: CSSProperties = {
 };
 
 function JSONViewerCard({ json, depth = 0 }: Props) {
-  console.log({ depth });
-
-  const obj = JSON.parse(json);
+  const obj = JSON.parse(json) as Record<
+    string,
+    string | number | object | null
+  >;
 
   return (
     <div style={StylesWrapper}>
       <div style={StylesColumn}>
         {Object.entries(obj).map(([key, value]) => {
           if (typeof value === "object") {
-            console.log("object", key);
-
             return (
               <div key={`key-header-${key}`}>
                 <div style={StylesRowDotContent}>
@@ -109,23 +96,9 @@ function JSONViewerCard({ json, depth = 0 }: Props) {
               </div>
             );
           }
-          if (typeof value === "number") {
-            console.log("number", key, value);
-
-            return (
-              <div key={`row-${key}`} style={StylesRowDotContent}>
-                <span style={StylesDotSpan}>{"● ".repeat(depth || 0)}</span>
-                <div style={StylesRowKeyValue}>
-                  <div style={StylesPaddingRight}>{key} </div>
-                  <div>{value}</div>
-                </div>
-              </div>
-            );
-          }
           if (typeof value === "string") {
             if (isLong(value)) {
               if (isURL(value)) {
-                console.log("Long & URL", key, value);
                 // Long & URL
                 return (
                   <div key={`row-${key}`} style={StylesRowDotContent}>
@@ -160,7 +133,6 @@ function JSONViewerCard({ json, depth = 0 }: Props) {
                 </div>
               );
             }
-            console.log("not Long not URL", key, value);
             // not Long not URL
             return (
               <div key={`row-${key}`} style={StylesRowDotContent}>
@@ -172,10 +144,19 @@ function JSONViewerCard({ json, depth = 0 }: Props) {
               </div>
             );
           }
+          return (
+            <div key={`row-${key}`} style={StylesRowDotContent}>
+              <span style={StylesDotSpan}>{"● ".repeat(depth || 0)}</span>
+              <div style={StylesRowKeyValue}>
+                <div style={StylesPaddingRight}>{key} </div>
+                <div>{value}</div>
+              </div>
+            </div>
+          );
         })}
       </div>
     </div>
   );
 }
 
-export default React.memo(JSONViewerCard);
+export default memo(JSONViewerCard);
