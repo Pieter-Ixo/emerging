@@ -1,3 +1,5 @@
+import { IEntityExtended } from "../entityCollections";
+
 export type ContextClass = {
   ixo: string;
   claim: string;
@@ -161,3 +163,5 @@ export type IClaimVer = {
   issuanceDate: string;
   proof: IClimeVerProof;
 };
+
+export type IClaimIssuer = IEntityExtended;

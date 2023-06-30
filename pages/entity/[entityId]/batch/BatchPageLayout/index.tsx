@@ -1,8 +1,7 @@
 import { useEffect } from "react";
-import { Container, Grid, Title, Text, List, Code, Image } from "@mantine/core";
+import { Container, Grid, Title } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
-import { IEntity } from "@/types/entityCollections";
 import { IBatch } from "@/types/certificates";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 
@@ -28,8 +27,7 @@ export default function BatchPageLayout() {
   const entity = useAppSelector(selectSelectedEntity);
   const collection = useAppSelector(selectOnlyCollection);
 
-  const entityExternalId =
-    useValueFromRouter<IEntity["externalId"]>("entityId");
+  const entityExternalId = useValueFromRouter<string>("entityId");
   const batchId = useValueFromRouter<IBatch["id"]>("batchId");
 
   useEffect(() => {
@@ -88,8 +86,8 @@ export default function BatchPageLayout() {
                 conversionFactor={claimOut?.calculation.factor.toLocaleString()}
                 period={claimOut?.period}
                 emissionsAvoided={`${claimOut?.calculation.result.amount} ${claimOut?.calculation.result.units}`}
-                // claimIssuer={}
-                // claimId={}
+                claimIssuer={batch?._claimIssuer?._profile?.name}
+                claimId={claimOut?.linkedClaim.id}
               />
             </Grid.Col>
           </Grid>

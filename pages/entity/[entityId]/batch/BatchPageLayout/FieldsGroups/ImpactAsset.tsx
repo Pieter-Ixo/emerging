@@ -1,4 +1,5 @@
 import { Flex } from "@mantine/core";
+import shortStr from "@/utils/shortStr";
 import { FieldText, FieldsGroupTitle } from ".";
 
 type Props = {
@@ -70,7 +71,7 @@ export default function ImpactAsset({
         </Flex>
         <Flex justify="space-between" align="center">
           <FieldText>Owned By</FieldText>
-          <FieldText>{entityOwner}</FieldText>
+          <FieldText>{shortStr(entityOwner)}</FieldText>
         </Flex>
       </Flex>
     </Flex>

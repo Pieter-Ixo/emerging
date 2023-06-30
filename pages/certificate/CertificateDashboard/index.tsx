@@ -21,8 +21,7 @@ export default function CertificateDashboard() {
   const dispatch = useAppDispatch();
   const batches = useAppSelector(selectAllBatches);
 
-  const assetExternalId =
-    useValueFromRouter<IEntity["externalId"]>("assetExternalId");
+  const assetExternalId = useValueFromRouter<string>("assetExternalId");
 
   useEffect(() => {
     if (!assetExternalId) return;

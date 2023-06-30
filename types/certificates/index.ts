@@ -1,4 +1,4 @@
-import { IClaimVer } from "./claim";
+import { IClaimIssuer, IClaimVer } from "./claim";
 
 export type ITokenData = {
   aid: number;
@@ -37,4 +37,5 @@ export type IBatchDataFilled = IBatch & {
   _impactAsset?: IImpactAssetData;
   _tokenBalance?: ITokenBalance;
   _claimVer?: IClaimVer;
+  _claimIssuer?: IClaimIssuer;
 };

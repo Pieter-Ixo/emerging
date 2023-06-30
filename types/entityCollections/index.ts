@@ -107,7 +107,7 @@ export type ICollection = {
 export type IEntity = {
   id: string;
   type: string;
-  startDate: Date;
+  startDate: string;
   endDate: null;
   status: number;
   relayerNode: string;
@@ -115,7 +115,7 @@ export type IEntity = {
   entityVerified: boolean;
   metadata: IMetadata;
   accounts: IAccount[];
-  externalId: string;
+  externalId: string | null;
   owner: string;
   controller: string[];
   verificationMethod: IVerificationMethod[];

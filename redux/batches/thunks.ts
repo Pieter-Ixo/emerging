@@ -1,9 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+import getEntityProfile from "@/helpers/getEntityProfile";
 import request from "@/requests/request";
-import { requestBatchByID, requestBatches } from "@/requests/blocksync";
+import {
+  requestBatchByID,
+  requestBatches,
+  requestBlocksyncAPI,
+} from "@/requests/blocksync";
 import { IBatch, IBatchDataFilled } from "@/types/certificates";
-import { IClaimVer } from "@/types/certificates/claim";
+import { IClaimVer, IClaimIssuer } from "@/types/certificates/claim";
 
 import isURL from "@/utils/isStrUrl";
 
@@ -57,6 +62,20 @@ export const fetchBatchById = createAsyncThunk<
         batchesResponse.tokenData[0].uri
       );
       filledBatch._claimVer = claimVer;
+
+      const claimIssuerId = claimVer?.outcome.linkedClaim.issuer;
+
+      if (claimIssuerId) {
+        const claimIssuerUri = `/api/entity/byId/${claimIssuerId}`;
+        const claimIssuer = await requestBlocksyncAPI<IClaimIssuer>(
+          claimIssuerUri
+        );
+        if (claimIssuer) {
+          const claimIssuerProfile = await getEntityProfile(claimIssuer);
+          claimIssuer._profile = claimIssuerProfile;
+        }
+        filledBatch._claimIssuer = claimIssuer;
+      }
     }
 
     return batchesResponse;

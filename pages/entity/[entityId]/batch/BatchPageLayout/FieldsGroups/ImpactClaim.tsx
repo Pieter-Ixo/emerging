@@ -1,5 +1,7 @@
 import { Flex } from "@mantine/core";
 
+import shortStr from "@/utils/shortStr";
+
 import { FieldText, FieldsGroupTitle } from ".";
 
 type Props = {
@@ -69,7 +71,7 @@ export default function ImpactClaim({
         </Flex>
         <Flex justify="space-between" align="center">
           <FieldText>Claim ID</FieldText>
-          <FieldText>{claimId}</FieldText>
+          <FieldText>{shortStr(claimId)}</FieldText>
         </Flex>
       </Flex>
     </Flex>
