@@ -36,3 +36,7 @@ export function FieldsGroupTitle({
     </Flex>
   );
 }
+
+export default function PagePlug() {
+  return null;
+}
