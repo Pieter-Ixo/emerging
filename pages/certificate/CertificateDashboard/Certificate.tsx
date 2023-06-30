@@ -5,14 +5,15 @@ import { useAppSelector } from "@/hooks/redux";
 import { selectSelectedBatch } from "@/redux/batches/selectors";
 
 import {
-  ArrowLeft,
-  AstroCarbonImage,
-  BatchIdentifier,
   CardContainer,
+  ArrowLeft,
   CardTitle,
+  BatchIdentifier,
+  AstroCarbonImage,
   OffsetProgres,
   TagForSomethingIDunnoWhat,
-} from "../../../components/CertificateLayoutComponents";
+} from "@/components/CertificateLayoutComponents";
+
 import CategoryBox from "./CategoryBox";
 
 export default function Certificate() {
@@ -24,13 +25,14 @@ export default function Certificate() {
         <ArrowLeft />
         <Flex direction="column" gap={10} justify="center">
           <CardTitle>Verified Emission Reduction</CardTitle>
-          <BatchIdentifier>{`${batch?.name || "CARBON"
-            }/bafkreibzfmpb5vi3dezygipylystbunhg5nbqwgdahmf4orgeemitelxae`}</BatchIdentifier>
+          <BatchIdentifier>{`${
+            batch?.name || "CARBON"
+          }/bafkreibzfmpb5vi3dezygipylystbunhg5nbqwgdahmf4orgeemitelxae`}</BatchIdentifier>
         </Flex>
 
         <Flex align="center" justify="center" gap={28}>
           <AstroCarbonImage />
-          <OffsetProgres value={344} />
+          <OffsetProgres progress={344} />
         </Flex>
 
         <Flex gap="md" justify="center" align="center" direction="row">

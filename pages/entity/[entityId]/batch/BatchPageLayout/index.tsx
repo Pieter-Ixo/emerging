@@ -18,6 +18,9 @@ import {
 } from "@/redux/entityCollections/selectors";
 import { selectSelectedBatch } from "@/redux/batches/selectors";
 
+import HeaderCard from "./FieldsGroups/HeaderCard";
+import ImpactAsset from "./FieldsGroups/ImpactAsset";
+
 export default function BatchPageLayout() {
   const dispatch = useAppDispatch();
   const batch = useAppSelector(selectSelectedBatch);
@@ -43,82 +46,30 @@ export default function BatchPageLayout() {
 
       <Grid gutter="xl">
         <Grid.Col span={8}>
-          <List>
-            <List.Item>
-              <Text fw={700}>Header Card</Text>
-              <List>
-                <List.Item>
-                  <Text>Batch Identifier</Text>
-                  <Code color="blue">{`${batch?.name}/${batch?.index}`}</Code>
-                </List.Item>
-              </List>
-            </List.Item>
-            <List.Item>
-              <Text fw={700}>Impact Asset</Text>
-              <List>
-                <List.Item>
-                  <Text>Identifier</Text>
-                  <Code color="blue">
-                    {`${entity?._profile?.brand} ${entity?.alsoKnownAs}`}
-                  </Code>
-                </List.Item>
-                <List.Item>
-                  <Text>Collection</Text>
-                  <Code color="blue">{collection?._tokenIpfs?.name}</Code>
-                </List.Item>
-                <List.Item>
-                  <Text>Image</Text>
-                  <Image
-                    alt=""
-                    src={collection?._tokenIpfs?.image}
-                    width={50}
-                    height={50}
-                  />
-                </List.Item>
-                <List.Item>
-                  <Text>Logo</Text>
-                  <Image
-                    alt=""
-                    src={collection?._tokenIpfs?.properties.icon}
-                    width={50}
-                    height={50}
-                  />
-                </List.Item>
-                <List.Item>
-                  <Text>Denom</Text>
-                  <Code color="blue">
-                    {collection?._tokenIpfs?.properties.denom}
-                  </Code>
-                </List.Item>
-                <List.Item>
-                  <Text>Creation Date</Text>
-                  <Code color="blue">
-                    {!entity?.metadata?.created
-                      ? null
-                      : new Date(
-                          entity?.metadata?.created
-                        ).toLocaleDateString()}
-                  </Code>
-                </List.Item>
-                <List.Item>
-                  <Text>Total CARBON Produced</Text>
-                  <Code color="red">
-                    {entity?._token?.CARBON._totalMinted} CARBON
-                  </Code>
-                </List.Item>
-                <List.Item>
-                  <Text>Total Emissions Avoided</Text>
-                  <Code color="red">
-                    {entity?._token?.CARBON._totalMinted} kgCO2
-                  </Code>
-                </List.Item>
-                <List.Item>
-                  <Text>Owned By</Text>
-                  <Code color="blue">{entity?.owner}</Code>
-                </List.Item>
-              </List>
-            </List.Item>
-          </List>
+          <HeaderCard
+            name={batch?.name}
+            index={batch?.index}
+            progress={entity?._token?.CARBON._totalMinted}
+          />
+
+          <Grid py="md" px="lg" gutter="lg">
+          <Grid.Col span={6}>
+              <ImpactAsset
+                entityIdentifier={`${entity?._profile?.brand} ${entity?.alsoKnownAs}`}
+                collectionName={collection?._tokenIpfs?.name}
+                collectionImage={collection?._tokenIpfs?.image}
+                collectionLogo={collection?._tokenIpfs?.properties.icon}
+                collectionDenom={collection?._tokenIpfs?.properties.denom}
+                entityCreated={
+                  !entity?.metadata?.created
+                    ? undefined
+                    : new Date(entity?.metadata?.created).toLocaleDateString()
+                }
+                entityTotalMinted={entity?._token?.CARBON._totalMinted}
+                entityOwner={entity?.owner}
+              />
+            </Grid.Col>
+          </Grid>
         </Grid.Col>
         <Grid.Col span={4}>{/* <DetailCard /> */}</Grid.Col>
       </Grid>

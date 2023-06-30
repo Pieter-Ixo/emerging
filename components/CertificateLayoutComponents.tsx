@@ -83,14 +83,15 @@ export function AstroCarbonImage() {
 }
 
 export function OffsetProgres({
-  max,
-  value,
+  offset,
+  progress,
 }: {
-  max?: number | undefined;
-  value: number;
+  offset?: number;
+  progress?: number;
 }) {
-  const maxString = max?.toLocaleString?.();
-  const progresPercent = max ? (value / max) * 100 : 0;
+  const offsetString = offset?.toLocaleString?.() ?? 0;
+  const progressString = progress?.toLocaleString?.() ?? 0;
+  const progresPercent = !offset || !progress ? 0 : (progress / offset) * 100;
 
   return (
     <Flex direction="column">
@@ -100,7 +101,7 @@ export function OffsetProgres({
           fw={600}
           sx={{ fontFamily: "Quicksand", fontSize: "48px" }}
         >
-          {maxString ?? value}
+          {progressString}
         </Text>
 
         <Text
@@ -116,15 +117,16 @@ export function OffsetProgres({
       <Progress
         radius="xl"
         size={14}
+        value={progresPercent}
         sections={[{ value: progresPercent, color: palette.fullBlue }]}
         sx={{ minWidth: 300 }}
       />
 
       <Text c={palette.White} fw={400} sx={{ fontSize: 13 }}>
         <Text span c={palette.fullBlue} inherit>
-          {maxString || 0} CARBON
+          {offsetString} CARBON
         </Text>{" "}
-        / {value} CARBON offset ( 1 CARBON = 1 kgCO₂)
+        / {progressString} CARBON offset ( 1 CARBON = 1 kgCO₂)
       </Text>
     </Flex>
   );
