@@ -39,6 +39,17 @@ export default function BatchPageLayout() {
     dispatch(fetchBatchById(batchId));
   }, [dispatch, entityExternalId, batchId]);
 
+  useEffect(() => {
+    console.log("🦍🦧🐒", {
+      batch,
+      entity,
+      collection,
+    });
+  }, [batch, entity, collection]);
+
+  const tokenIpfs = collection?._tokenIpfs;
+  const claimOut = batch?._claimVer?.outcome;
+
   return (
     <Container fluid w="100%" h="100%" p="2em">
       <Title order={1} size="40px" fw={300} color={palette.Neutral800} mb="2em">
@@ -57,10 +68,10 @@ export default function BatchPageLayout() {
             <Grid.Col span={6}>
               <ImpactAsset
                 entityIdentifier={`${entity?._profile?.brand} ${entity?.alsoKnownAs}`}
-                collectionName={collection?._tokenIpfs?.name}
-                collectionImage={collection?._tokenIpfs?.image}
-                collectionLogo={collection?._tokenIpfs?.properties.icon}
-                collectionDenom={collection?._tokenIpfs?.properties.denom}
+                collectionName={tokenIpfs?.name}
+                collectionImage={tokenIpfs?.image}
+                collectionLogo={tokenIpfs?.properties.icon}
+                collectionDenom={tokenIpfs?.properties.denom}
                 entityCreated={
                   !entity?.metadata?.created
                     ? undefined
@@ -72,7 +83,13 @@ export default function BatchPageLayout() {
             </Grid.Col>
             <Grid.Col span={6}>
               <ImpactClaim
-                entityIdentifier={`${entity?._profile?.brand}`}
+                fuelType={claimOut?.calculation.type}
+                fuelAmount={`${claimOut?.calculation.quantity.amount} ${claimOut?.calculation.quantity.units}`}
+                conversionFactor={claimOut?.calculation.factor.toLocaleString()}
+                period={claimOut?.period}
+                emissionsAvoided={`${claimOut?.calculation.result.amount} ${claimOut?.calculation.result.units}`}
+                // claimIssuer={}
+                // claimId={}
               />
             </Grid.Col>
           </Grid>

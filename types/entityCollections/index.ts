@@ -177,7 +177,7 @@ export type ITokenCarbon = {
 };
 
 export type ITokenCarbonExtended = ITokenCarbon & {
-  _totalMinted: number;
+  _totalMinted?: number;
 };
 
 export type ITokenWhateverItMean = {

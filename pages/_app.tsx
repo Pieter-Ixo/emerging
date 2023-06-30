@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { MantineProvider } from "@mantine/core";
 import Head from "next/head";
 import { AppProps } from "next/app";
@@ -18,10 +19,10 @@ import Layout from "./_layout";
 const persistor = persistStore(store);
 
 function App({ Component, pageProps }: AppProps) {
-  // useEffect(() => {
-  //   // @ts-ignore
-  //   window.purge = persistor.purge;
-  // }, []);
+  useEffect(() => {
+    // @ts-ignore
+    window.purge = persistor.purge;
+  }, []);
   return (
     <>
       <Head>
