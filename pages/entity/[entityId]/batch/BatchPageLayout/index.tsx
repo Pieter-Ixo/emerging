@@ -20,6 +20,7 @@ import { selectSelectedBatch } from "@/redux/batches/selectors";
 
 import HeaderCard from "./FieldsGroups/HeaderCard";
 import ImpactAsset from "./FieldsGroups/ImpactAsset";
+import ImpactClaim from "./FieldsGroups/ImpactClaim";
 
 export default function BatchPageLayout() {
   const dispatch = useAppDispatch();
@@ -53,7 +54,7 @@ export default function BatchPageLayout() {
           />
 
           <Grid py="md" px="lg" gutter="lg">
-          <Grid.Col span={6}>
+            <Grid.Col span={6}>
               <ImpactAsset
                 entityIdentifier={`${entity?._profile?.brand} ${entity?.alsoKnownAs}`}
                 collectionName={collection?._tokenIpfs?.name}
@@ -67,6 +68,11 @@ export default function BatchPageLayout() {
                 }
                 entityTotalMinted={entity?._token?.CARBON._totalMinted}
                 entityOwner={entity?.owner}
+              />
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <ImpactClaim
+                entityIdentifier={`${entity?._profile?.brand}`}
               />
             </Grid.Col>
           </Grid>

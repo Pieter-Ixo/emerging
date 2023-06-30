@@ -1,6 +1,5 @@
-import { Text, List, Image, Flex } from "@mantine/core";
-import { palette } from "@/theme/palette";
-import { PropsWithChildren } from "react";
+import { Flex } from "@mantine/core";
+import { FieldText, FieldsGroupTitle } from ".";
 
 type Props = {
   entityIdentifier?: string;
@@ -12,14 +11,6 @@ type Props = {
   entityTotalMinted?: number | string;
   entityOwner?: string;
 };
-
-function FieldText({ children }: PropsWithChildren) {
-  return (
-    <Text fw={400} sx={{ fontSize: 13 }} color={palette.darkestBlue}>
-      {children}
-    </Text>
-  );
-}
 
 export default function ImpactAsset({
   entityIdentifier,
@@ -33,25 +24,10 @@ export default function ImpactAsset({
 }: Props) {
   return (
     <Flex direction="column">
-      <Flex
-        sx={{
-          borderBottom: `1px solid ${palette.Black}`,
-          paddingBottom: "8px",
-          marginBottom: "8px",
-        }}
-        gap={8}
-        align="center"
-      >
-        <Image width={24} height={24} src="/images/icon-assets.svg" alt="" />
-        <Text
-          fw={400}
-          sx={{ fontSize: 13 }}
-          color={palette.darkestBlue}
-          transform="uppercase"
-        >
-          Impact Asset
-        </Text>
-      </Flex>
+      <FieldsGroupTitle icon="/images/icon-assets.svg">
+        Impact Asset
+      </FieldsGroupTitle>
+
       <Flex direction="column" gap="md">
         <Flex justify="space-between" align="center">
           <FieldText>Identifier</FieldText>
