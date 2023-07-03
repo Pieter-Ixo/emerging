@@ -22,6 +22,8 @@ import ImpactAsset from "./FieldsGroups/ImpactAsset";
 import ImpactClaim from "./FieldsGroups/ImpactClaim";
 import CleanEnergyDevice from "./FieldsGroups/CleanEnergyDevice";
 import Project from "./FieldsGroups/Project";
+import ImpactProducer from "./FieldsGroups/ImpactProducer";
+import Evaluator from "./FieldsGroups/Evaluator";
 
 export default function BatchPageLayout() {
   const dispatch = useAppDispatch();
@@ -49,7 +51,9 @@ export default function BatchPageLayout() {
 
   const tokenIpfs = collection?._tokenIpfs;
   const claimOut = batch?._claimVer?.outcome;
+  const claimVer = batch?._claimVer;
   const deviceCredSubject = entity?._deviceCredential?.credentialSubject;
+  const supamoto = entity?._supamoto;
 
   return (
     <Container fluid w="100%" h="100%" p="2em">
@@ -111,6 +115,26 @@ export default function BatchPageLayout() {
                 country={entity?._profile?.location}
                 impactProducer=""
                 emissionsAvoided=""
+              />
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <ImpactProducer
+                identifier={entity?.externalId?.toString()}
+                country={entity?._supamoto?.country}
+                setting={`${supamoto?.latitude} ${supamoto?.longitude}`}
+                household=""
+                cookingSummary={entity?._supamotoCookingSummary?.content}
+              />
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <Evaluator
+                oracle={claimVer?.issuer.id}
+                methodology={
+                  claimVer?.credentialSubject.evaluation.methodology.id
+                }
+                model={claimVer?.credentialSubject.evaluation.model}
+                version={claimVer?.credentialSubject.evaluation.version}
+                claimsProcessed=""
               />
             </Grid.Col>
           </Grid>

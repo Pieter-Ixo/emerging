@@ -1,6 +1,7 @@
 import { Flex } from "@mantine/core";
 
 import { IAttribute } from "@/types/entityCollections/settings";
+import shortStr from "@/utils/shortStr";
 
 import { FieldText, FieldsGroupTitle } from ".";
 
@@ -30,7 +31,7 @@ export default function CleanEnergyDevice({
       <Flex direction="column" gap="md">
         <Flex justify="space-between" align="center">
           <FieldText>Type </FieldText>
-          <FieldText>{type}</FieldText>
+          <FieldText>{shortStr(type)}</FieldText>
         </Flex>
         <Flex justify="space-between" align="center">
           <FieldText>Model </FieldText>

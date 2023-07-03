@@ -8,6 +8,7 @@ import { IMetadata } from "./commonTypes";
 import { IProfileSettings } from "./settings";
 import { ITagsSettings } from "./tag";
 import { IDeviceCredentials } from "./deviceCredentials";
+import { ISupamoto, ISupamotoCookingSumary } from "../supamoto";
 
 export type IAccordedRight = {
   aid: number;
@@ -189,6 +190,8 @@ export type IEntityExtended = IEntity & {
   _profile?: IEntityProfile;
   _token?: ITokenWhateverItMean;
   _deviceCredential?: IDeviceCredentials;
+  _supamoto?: ISupamoto;
+  _supamotoCookingSummary?: ISupamotoCookingSumary;
 };
 
 export type ICollectionEntities = {

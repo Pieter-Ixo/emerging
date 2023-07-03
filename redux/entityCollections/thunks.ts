@@ -5,6 +5,10 @@ import {
   requestCollections,
   requestEntityByExternalID,
 } from "@/requests/blocksync";
+import {
+  requestSupamoto,
+  requestSupamotoCookingSummary,
+} from "@/requests/supamoto";
 
 import getCollectionProfile from "@/helpers/getCollectionProfile";
 import getCollectionTags from "@/helpers/getCollectionTags";
@@ -51,16 +55,22 @@ export const fetchEntityByExternalIdAndFill = createAsyncThunk(
   "entityCollections/fetchEntityByExternalIdAndFill",
   async (externalId: string): Promise<IEntityExtended> => {
     const entity = await requestEntityByExternalID(externalId);
+    if (!entity) return entity;
 
-    const [profile, token, deviceCredential] = await Promise.all([
-      await getEntityProfile(entity),
-      await getEntityToken(entity),
-      await getEntityDeviceCredential(entity),
-    ]);
+    const [profile, token, deviceCredential, supamoto, supamotoCookingSummary] =
+      await Promise.all([
+        await getEntityProfile(entity),
+        await getEntityToken(entity),
+        await getEntityDeviceCredential(entity),
+        await requestSupamoto(entity.externalId),
+        await requestSupamotoCookingSummary(entity.externalId),
+      ]);
 
     entity._profile = profile;
     entity._token = token;
     entity._deviceCredential = deviceCredential;
+    entity._supamoto = supamoto;
+    entity._supamotoCookingSummary = supamotoCookingSummary;
 
     return entity;
   }
