@@ -42,11 +42,14 @@ export default function BatchPageLayout() {
   }, [dispatch, entityExternalId, batchId]);
 
   useEffect(() => {
-    console.log("🦍🦧🐒", {
-      batch,
-      entity,
-      collection,
-    });
+    console.log(
+      [batch ? "🦍" : "", entity ? "🦧" : "", collection ? "🐒" : ""].join(''),
+      {
+        batch,
+        entity,
+        collection,
+      }
+    );
   }, [batch, entity, collection]);
 
   const tokenIpfs = collection?._tokenIpfs;
