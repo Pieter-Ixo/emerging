@@ -21,6 +21,7 @@ import HeaderCard from "./FieldsGroups/HeaderCard";
 import ImpactAsset from "./FieldsGroups/ImpactAsset";
 import ImpactClaim from "./FieldsGroups/ImpactClaim";
 import CleanEnergyDevice from "./FieldsGroups/CleanEnergyDevice";
+import Project from "./FieldsGroups/Project";
 
 export default function BatchPageLayout() {
   const dispatch = useAppDispatch();
@@ -101,6 +102,15 @@ export default function BatchPageLayout() {
                 )}
                 manufactureDate={deviceCredSubject?.manufacturer.date}
                 manufacturePlace={deviceCredSubject?.manufacturer.country}
+              />
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <Project
+                name={entity?._profile?.name}
+                developer={entity?._profile?.brand}
+                country={entity?._profile?.location}
+                impactProducer=""
+                emissionsAvoided=""
               />
             </Grid.Col>
           </Grid>
