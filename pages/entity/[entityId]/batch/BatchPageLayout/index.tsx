@@ -20,6 +20,7 @@ import { selectSelectedBatch } from "@/redux/batches/selectors";
 import HeaderCard from "./FieldsGroups/HeaderCard";
 import ImpactAsset from "./FieldsGroups/ImpactAsset";
 import ImpactClaim from "./FieldsGroups/ImpactClaim";
+import CleanEnergyDevice from "./FieldsGroups/CleanEnergyDevice";
 
 export default function BatchPageLayout() {
   const dispatch = useAppDispatch();
@@ -47,6 +48,7 @@ export default function BatchPageLayout() {
 
   const tokenIpfs = collection?._tokenIpfs;
   const claimOut = batch?._claimVer?.outcome;
+  const deviceCredSubject = entity?._deviceCredential?.credentialSubject;
 
   return (
     <Container fluid w="100%" h="100%" p="2em">
@@ -88,6 +90,17 @@ export default function BatchPageLayout() {
                 emissionsAvoided={`${claimOut?.calculation.result.amount} ${claimOut?.calculation.result.units}`}
                 claimIssuer={batch?._claimIssuer?._profile?.name}
                 claimId={claimOut?.linkedClaim.id}
+              />
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <CleanEnergyDevice
+                type={deviceCredSubject?.product.description}
+                model={deviceCredSubject?.product.model}
+                fuelAttribute={entity?._profile?.attributes.find(
+                  (a) => a.key === "Fuel"
+                )}
+                manufactureDate={deviceCredSubject?.manufacturer.date}
+                manufacturePlace={deviceCredSubject?.manufacturer.country}
               />
             </Grid.Col>
           </Grid>

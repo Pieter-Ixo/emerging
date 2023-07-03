@@ -69,6 +69,7 @@ const TEMPORARY_MOCK: ITokenWhateverItMean = {
     },
   },
 };
+
 export default async function getEntityToken(
   entity: IEntityExtended
 ): Promise<ITokenWhateverItMean | undefined> {

@@ -16,6 +16,7 @@ import {
   IEntityExtended,
 } from "@/types/entityCollections";
 import getEntityToken from "@/helpers/getEntityToken";
+import getEntityDeviceCredential from "@/helpers/getEntityDeviceCredential";
 
 export const fetchAndFillCollections = createAsyncThunk(
   "entityCollections/fetchAndFillCollections",
@@ -51,13 +52,15 @@ export const fetchEntityByExternalIdAndFill = createAsyncThunk(
   async (externalId: string): Promise<IEntityExtended> => {
     const entity = await requestEntityByExternalID(externalId);
 
-    const [profile, token] = await Promise.all([
+    const [profile, token, deviceCredential] = await Promise.all([
       await getEntityProfile(entity),
       await getEntityToken(entity),
+      await getEntityDeviceCredential(entity),
     ]);
 
     entity._profile = profile;
     entity._token = token;
+    entity._deviceCredential = deviceCredential;
 
     return entity;
   }

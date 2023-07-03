@@ -7,6 +7,7 @@
 import { IMetadata } from "./commonTypes";
 import { IProfileSettings } from "./settings";
 import { ITagsSettings } from "./tag";
+import { IDeviceCredentials } from "./deviceCredentials";
 
 export type IAccordedRight = {
   aid: number;
@@ -187,6 +188,7 @@ export type ITokenWhateverItMean = {
 export type IEntityExtended = IEntity & {
   _profile?: IEntityProfile;
   _token?: ITokenWhateverItMean;
+  _deviceCredential?: IDeviceCredentials;
 };
 
 export type ICollectionEntities = {
