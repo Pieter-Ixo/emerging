@@ -8,7 +8,7 @@ export default function CollectionNewsCard() {
     <Card radius={16} py="1rem" px="2rem" h="100%">
       <Grid>
         <Grid.Col span={6}>
-          <Text ta="left" size={16} fw={400} transform="uppercase">
+          <Text ta="left" fw={400} transform="uppercase">
             News
           </Text>
         </Grid.Col>
@@ -32,9 +32,7 @@ export default function CollectionNewsCard() {
         <Text fw={500} size={12}>
           Nov 12 22
         </Text>
-        <Text fw={300} size={16} fs="normal">
-          The success story of African Emerging Households
-        </Text>
+        <Text>The success story of African Emerging Households</Text>
       </Flex>
     </Card>
   );

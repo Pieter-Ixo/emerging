@@ -29,11 +29,11 @@ export default function ImpactsCharts({ activeTab }: Props) {
         <Text size={56} color={accentColor} pr={10} fs="normal">
           31,212
         </Text>
-        <Text size={16} color={palette.Black} pb={18} fs="normal" weight={300}>
+        <Text color={palette.Black} pb={18} fs="normal" weight={300}>
           kg CO₂ emissions saved
         </Text>
       </Flex>
-      <Text size={16} color={accentColor} fs="normal">
+      <Text color={accentColor} fs="normal">
         ≈ 3.32 average yearly personal car emissions
       </Text>
 

@@ -12,6 +12,7 @@ import {
   fetchEntityByExternalIdAndFill,
 } from "@/redux/entityCollections/thunks";
 import {
+  selectCollectionAssetsCount,
   selectOnlyCollection,
   selectSelectedEntity,
 } from "@/redux/entityCollections/selectors";
@@ -24,12 +25,14 @@ import CleanEnergyDevice from "./FieldsGroups/CleanEnergyDevice";
 import Project from "./FieldsGroups/Project";
 import ImpactProducer from "./FieldsGroups/ImpactProducer";
 import Evaluator from "./FieldsGroups/Evaluator";
+import DetailCard from "./DetailCard";
 
 export default function BatchPageLayout() {
   const dispatch = useAppDispatch();
   const batch = useAppSelector(selectSelectedBatch);
   const entity = useAppSelector(selectSelectedEntity);
   const collection = useAppSelector(selectOnlyCollection);
+  const collectionAssetsCount = useAppSelector(selectCollectionAssetsCount);
 
   const entityExternalId = useValueFromRouter<string>("entityId");
   const batchId = useValueFromRouter<IBatch["id"]>("batchId");
@@ -43,7 +46,7 @@ export default function BatchPageLayout() {
 
   useEffect(() => {
     console.log(
-      [batch ? "🦍" : "", entity ? "🦧" : "", collection ? "🐒" : ""].join(''),
+      [batch ? "🦍" : "", entity ? "🦧" : "", collection ? "🐒" : ""].join(""),
       {
         batch,
         entity,
@@ -52,6 +55,7 @@ export default function BatchPageLayout() {
     );
   }, [batch, entity, collection]);
 
+  const entityProfile = entity?._profile;
   const tokenIpfs = collection?._tokenIpfs;
   const claimOut = batch?._claimVer?.outcome;
   const claimVer = batch?._claimVer;
@@ -65,7 +69,11 @@ export default function BatchPageLayout() {
       </Title>
 
       <Grid gutter="xl">
-        <Grid.Col span={8}>
+        <Grid.Col span={4} order={2}>
+          {/* The component below serves as a portal target, so it should render before main grid below */}
+          <DetailCard />
+        </Grid.Col>
+        <Grid.Col span={8} order={1}>
           <HeaderCard
             name={batch?.name}
             index={batch?.index}
@@ -75,7 +83,7 @@ export default function BatchPageLayout() {
           <Grid py="md" px="lg" gutter="lg">
             <Grid.Col span={6}>
               <ImpactAsset
-                entityIdentifier={`${entity?._profile?.brand} ${entity?.alsoKnownAs}`}
+                entityIdentifier={`${entityProfile?.brand} ${entity?.alsoKnownAs}`}
                 collectionName={tokenIpfs?.name}
                 collectionImage={tokenIpfs?.image}
                 collectionLogo={tokenIpfs?.properties.icon}
@@ -87,6 +95,12 @@ export default function BatchPageLayout() {
                 }
                 entityTotalMinted={entity?._token?.CARBON._totalMinted}
                 entityOwner={entity?.owner}
+                entityName={entityProfile?.name}
+                entityDescription={entityProfile?.description}
+                entityStartDate={entity?.startDate}
+                collectionProfileDescription={collection?._profile?.description}
+                collectionProfileName={collection?._profile?.name}
+                collectionAssetsAmount={collectionAssetsCount}
               />
             </Grid.Col>
             <Grid.Col span={6}>
@@ -104,7 +118,7 @@ export default function BatchPageLayout() {
               <CleanEnergyDevice
                 type={deviceCredSubject?.product.description}
                 model={deviceCredSubject?.product.model}
-                fuelAttribute={entity?._profile?.attributes.find(
+                fuelAttribute={entityProfile?.attributes.find(
                   (a) => a.key === "Fuel"
                 )}
                 manufactureDate={deviceCredSubject?.manufacturer.date}
@@ -113,9 +127,9 @@ export default function BatchPageLayout() {
             </Grid.Col>
             <Grid.Col span={6}>
               <Project
-                name={entity?._profile?.name}
-                developer={entity?._profile?.brand}
-                country={entity?._profile?.location}
+                name={entityProfile?.name}
+                developer={entityProfile?.brand}
+                country={entityProfile?.location}
                 impactProducer=""
                 emissionsAvoided=""
               />
@@ -142,7 +156,6 @@ export default function BatchPageLayout() {
             </Grid.Col>
           </Grid>
         </Grid.Col>
-        <Grid.Col span={4}>{/* <DetailCard /> */}</Grid.Col>
       </Grid>
     </Container>
   );

@@ -1,6 +1,8 @@
 import { Flex } from "@mantine/core";
 import shortStr from "@/utils/shortStr";
-import { FieldText, FieldsGroupTitle } from ".";
+import { FieldText, FieldsGroupTitle } from "..";
+import Identifier from "./Identifier";
+import Collection from "./Collection";
 
 type Props = {
   entityIdentifier?: string;
@@ -11,6 +13,12 @@ type Props = {
   entityCreated?: string;
   entityTotalMinted?: number | string;
   entityOwner?: string;
+  entityName?: string;
+  entityDescription?: string;
+  entityStartDate?: string;
+  collectionProfileDescription?: string;
+  collectionProfileName?: string;
+  collectionAssetsAmount?: number;
 };
 
 export default function ImpactAsset({
@@ -22,6 +30,12 @@ export default function ImpactAsset({
   entityCreated,
   entityTotalMinted,
   entityOwner,
+  entityName,
+  entityDescription,
+  entityStartDate,
+  collectionProfileDescription,
+  collectionProfileName,
+  collectionAssetsAmount,
 }: Props) {
   return (
     <Flex direction="column">
@@ -30,29 +44,23 @@ export default function ImpactAsset({
       </FieldsGroupTitle>
 
       <Flex direction="column" gap="md">
-        <Flex justify="space-between" align="center">
-          <FieldText>Identifier</FieldText>
-          <FieldText>{entityIdentifier}</FieldText>
-        </Flex>
-        <Flex justify="space-between" align="center">
-          <FieldText>Collection</FieldText>
-          <FieldText>{collectionName}</FieldText>
-        </Flex>
-        {/* 
-          TODO: FIELDS BELOW WILL BE APPLIED IN THE DETAILS PORTAL
-        */}
-        {/* <Flex justify="space-between" align="center">
-          <FieldText>
-            Image
-          </Text>
-          <Image alt="" src={collectionImage} width={50} height={50} />
-        </Flex>
-        <Flex justify="space-between" align="center">
-          <FieldText>
-            Logo
-          </Text>
-          <Image alt="" src={collectionLogo} width={50} height={50} />
-        </Flex> */}
+        <Identifier
+          entityIdentifier={entityIdentifier}
+          collectionImage={collectionImage}
+          collectionLogo={collectionLogo}
+          entityName={entityName}
+          entityDescription={entityDescription}
+          entityStartDate={entityStartDate}
+        />
+        <Collection
+          collectionImage={collectionImage}
+          collectionLogo={collectionLogo}
+          collectionProfileDescription={collectionProfileDescription}
+          collectionProfileName={collectionProfileName}
+          collectionName={collectionName}
+          collectionAssetsAmount={collectionAssetsAmount}
+        />
+
         <Flex justify="space-between" align="center">
           <FieldText>Denom</FieldText>
           <FieldText>{collectionDenom}</FieldText>
