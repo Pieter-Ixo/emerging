@@ -14,6 +14,8 @@ export default function ImpactAsset({
   collectionName,
   collectionImage,
   collectionLogo,
+  assetLogo,
+  assetImage,
   collectionDenom,
   entityCreated,
   entityTotalMinted,
@@ -34,8 +36,8 @@ export default function ImpactAsset({
       <Flex direction="column" gap="md">
         <Identifier
           entityIdentifier={entityIdentifier}
-          collectionImage={collectionImage}
-          collectionLogo={collectionLogo}
+          assetImage={assetImage}
+          assetLogo={assetLogo}
           entityName={entityName}
           entityDescription={entityDescription}
           entityStartDate={entityStartDate}

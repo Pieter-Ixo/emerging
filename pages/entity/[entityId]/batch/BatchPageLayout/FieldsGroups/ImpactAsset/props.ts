@@ -4,6 +4,8 @@ export type ImpactAssetProps = {
   collectionName?: string;
   collectionImage?: string;
   collectionLogo?: string;
+  assetLogo?: string;
+  assetImage?: string;
   collectionDenom?: string;
   entityCreated?: string;
   entityTotalMinted?: number | string;

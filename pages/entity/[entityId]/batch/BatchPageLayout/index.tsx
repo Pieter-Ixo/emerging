@@ -88,6 +88,8 @@ export default function BatchPageLayout() {
                 collectionName={tokenIpfs?.name}
                 collectionImage={tokenIpfs?.image}
                 collectionLogo={tokenIpfs?.properties.icon}
+                assetImage={entityProfile?.imageUrl}
+                assetLogo={entityProfile?.logoUrl}
                 collectionDenom={tokenIpfs?.properties.denom}
                 entityCreated={
                   !entity?.metadata?.created

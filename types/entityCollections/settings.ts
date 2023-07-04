@@ -11,6 +11,8 @@ export type IProfileSettings = {
   name: string;
   image: string;
   logo: string;
+  imageUrl: string;
+  logoUrl: string;
   brand: string;
   location: string;
   description: string;

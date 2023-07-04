@@ -19,8 +19,8 @@ import { ImpactAssetProps, PortalProps } from "./props";
 
 function PortalComponent({
   _isVisible,
-  collectionImage,
-  collectionLogo,
+  assetImage,
+  assetLogo,
   entityName,
   entityDescription,
   entityStartDate,
@@ -35,7 +35,7 @@ function PortalComponent({
   return createPortal(
     <Card shadow="sm" padding="lg" radius="md" withBorder>
       <Card.Section>
-        <Image src={collectionImage} height={160} alt="" />
+        <Image src={assetImage} height={160} alt="" />
       </Card.Section>
 
       <Flex direction="row" justify="space-between">
@@ -47,7 +47,7 @@ function PortalComponent({
             CARBON
           </Badge>
         </Group>
-        <Avatar src={collectionLogo} alt="it's me" />
+        <Avatar src={assetLogo} alt="it's me" />
       </Flex>
 
       <Title color="#01283B" fw={700} size="20px" lh="lg">
@@ -73,8 +73,8 @@ function PortalComponent({
 
 export default function Identifier({
   entityIdentifier,
-  collectionImage,
-  collectionLogo,
+  assetImage,
+  assetLogo,
   entityName,
   entityDescription,
   entityStartDate,
@@ -98,8 +98,8 @@ export default function Identifier({
       </Button>
       <PortalComponent
         _isVisible={isVisible}
-        collectionImage={collectionImage}
-        collectionLogo={collectionLogo}
+        assetImage={assetImage}
+        assetLogo={assetLogo}
         entityName={entityName}
         entityDescription={entityDescription}
         entityStartDate={entityStartDate}
