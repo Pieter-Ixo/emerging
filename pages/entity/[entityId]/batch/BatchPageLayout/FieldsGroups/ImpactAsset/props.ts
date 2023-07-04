@@ -1,4 +1,5 @@
 export type ImpactAssetProps = {
+  entityExternalId?: string;
   entityIdentifier?: string;
   collectionName?: string;
   collectionImage?: string;

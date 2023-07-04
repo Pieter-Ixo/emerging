@@ -13,15 +13,15 @@ import { datesFromPeriod } from "@/utils/supamoto";
 
 export const CookstoveContext = createContext({
   stove: {} as STOVE,
-  fetchStove: (id: number) => {},
+  fetchStove: (id: number | string) => {},
   updateStove: (newStove: STOVE, override?: boolean) => {},
   fetchSessions: async (period: STOVE_PERIODS) => {},
   fetchPellets: async (period: STOVE_PERIODS) => {},
 });
 
-export const CookstoveProvider = ({
+export function CookstoveProvider({
   children,
-}: HTMLAttributes<HTMLDivElement>) => {
+}: HTMLAttributes<HTMLDivElement>) {
   const [stove, setStove] = useState<STOVE>({});
 
   // useEffect(() => {
@@ -165,7 +165,7 @@ export const CookstoveProvider = ({
       {children}
     </CookstoveContext.Provider>
   );
-};
+}
 
 export const useCookstove = () => {
   const context = useContext(CookstoveContext);

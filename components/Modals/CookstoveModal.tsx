@@ -17,7 +17,7 @@ import PerformanceCard from "@/components/card-performance/card-performance";
 import { Box } from "@mantine/core";
 
 interface Props {
-  id: number;
+  id: number | string;
 }
 
 export default function CookstoveModal({ id }: Props) {

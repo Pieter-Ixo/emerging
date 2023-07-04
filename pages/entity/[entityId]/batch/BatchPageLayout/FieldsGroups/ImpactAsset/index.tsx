@@ -1,11 +1,15 @@
 import { Flex } from "@mantine/core";
 import shortStr from "@/utils/shortStr";
+
 import { FieldText, FieldsGroupTitle } from "..";
-import Identifier from "./Identifier";
-import Collection from "./Collection";
 import { ImpactAssetProps } from "./props";
 
+import Identifier from "./Identifier";
+import Collection from "./Collection";
+import Performance from "./Performance";
+
 export default function ImpactAsset({
+  entityExternalId,
   entityIdentifier,
   collectionName,
   collectionImage,
@@ -44,7 +48,6 @@ export default function ImpactAsset({
           collectionName={collectionName}
           collectionAssetsAmount={collectionAssetsAmount}
         />
-
         <Flex justify="space-between" align="center">
           <FieldText>Denom</FieldText>
           <FieldText>{collectionDenom}</FieldText>
@@ -65,6 +68,7 @@ export default function ImpactAsset({
           <FieldText>Owned By</FieldText>
           <FieldText>{shortStr(entityOwner)}</FieldText>
         </Flex>
+        <Performance entityExternalId={entityExternalId} />
       </Flex>
     </Flex>
   );
