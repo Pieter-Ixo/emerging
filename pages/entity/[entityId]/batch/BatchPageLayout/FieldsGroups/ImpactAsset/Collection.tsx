@@ -14,16 +14,8 @@ import {
 
 import { palette } from "@/theme/palette";
 import { FieldText } from "..";
+import { ImpactAssetProps, PortalProps } from "./props";
 
-type Props = {
-  _isVisible?: boolean;
-  collectionName?: string;
-  collectionImage?: string;
-  collectionLogo?: string;
-  collectionProfileDescription?: string;
-  collectionProfileName?: string;
-  collectionAssetsAmount?: number;
-};
 function PortalComponent({
   _isVisible,
   collectionImage,
@@ -31,7 +23,7 @@ function PortalComponent({
   collectionProfileDescription,
   collectionProfileName,
   collectionAssetsAmount,
-}: Partial<Props>) {
+}: Partial<PortalProps>) {
   const portalTargetElement = document.getElementById("detail-portal-target");
   if (!_isVisible || !portalTargetElement) return null;
 
@@ -74,7 +66,7 @@ export default function Collection({
   collectionProfileDescription,
   collectionProfileName,
   collectionAssetsAmount,
-}: Props) {
+}: ImpactAssetProps) {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   function handleClick() {
     setIsVisible((prev) => !prev);

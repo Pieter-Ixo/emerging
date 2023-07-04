@@ -3,23 +3,7 @@ import shortStr from "@/utils/shortStr";
 import { FieldText, FieldsGroupTitle } from "..";
 import Identifier from "./Identifier";
 import Collection from "./Collection";
-
-type Props = {
-  entityIdentifier?: string;
-  collectionName?: string;
-  collectionImage?: string;
-  collectionLogo?: string;
-  collectionDenom?: string;
-  entityCreated?: string;
-  entityTotalMinted?: number | string;
-  entityOwner?: string;
-  entityName?: string;
-  entityDescription?: string;
-  entityStartDate?: string;
-  collectionProfileDescription?: string;
-  collectionProfileName?: string;
-  collectionAssetsAmount?: number;
-};
+import { ImpactAssetProps } from "./props";
 
 export default function ImpactAsset({
   entityIdentifier,
@@ -36,7 +20,7 @@ export default function ImpactAsset({
   collectionProfileDescription,
   collectionProfileName,
   collectionAssetsAmount,
-}: Props) {
+}: ImpactAssetProps) {
   return (
     <Flex direction="column">
       <FieldsGroupTitle icon="/images/icon-assets.svg">
