@@ -36,7 +36,7 @@ export default function Performance({ entityExternalId }: ImpactAssetProps) {
         size="xs"
         radius="xl"
         onClick={() => handleClick()}
-        variant={isVisible ? "outline" : "filled"}
+        variant={isVisible ? "outline" : "subtle"}
       >
         dashboard
       </Button>

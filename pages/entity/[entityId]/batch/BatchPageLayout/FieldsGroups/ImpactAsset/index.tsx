@@ -1,7 +1,7 @@
-import { Flex } from "@mantine/core";
+import { Anchor, Flex } from "@mantine/core";
 import shortStr from "@/utils/shortStr";
 
-import { FieldText, FieldsGroupTitle } from "..";
+import { FieldAnchor, FieldText, FieldsGroupTitle } from "..";
 import { ImpactAssetProps } from "./props";
 
 import Identifier from "./Identifier";
@@ -68,7 +68,12 @@ export default function ImpactAsset({
         </Flex>
         <Flex justify="space-between" align="center">
           <FieldText>Owned By</FieldText>
-          <FieldText>{shortStr(entityOwner)}</FieldText>
+          <FieldAnchor
+            href={`https://www.mintscan.io/ixo/account/${entityOwner}`}
+            target="_blank"
+          >
+            {shortStr(entityOwner)}
+          </FieldAnchor>
         </Flex>
         <Performance entityExternalId={entityExternalId} />
       </Flex>

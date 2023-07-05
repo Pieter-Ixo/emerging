@@ -1,4 +1,4 @@
-import { Text, Flex, Image } from "@mantine/core";
+import { Text, Flex, Image, Anchor, AnchorProps } from "@mantine/core";
 import { palette } from "@/theme/palette";
 import { PropsWithChildren } from "react";
 
@@ -7,6 +7,20 @@ export function FieldText({ children }: PropsWithChildren) {
     <Text fw={400} sx={{ fontSize: 13 }} color={palette.darkestBlue}>
       {children}
     </Text>
+  );
+}
+export function FieldAnchor({
+  children,
+  ...props
+}: AnchorProps & { href: string; target?: "_blank" | undefined }) {
+  return (
+    <Anchor
+      fw={400}
+      sx={{ fontSize: 13 }}
+      {...props}
+    >
+      {children}
+    </Anchor>
   );
 }
 

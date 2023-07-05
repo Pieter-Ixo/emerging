@@ -92,7 +92,7 @@ export default function Identifier({
         size="xs"
         radius="xl"
         onClick={() => handleClick()}
-        variant={isVisible ? "outline" : "filled"}
+        variant={isVisible ? "outline" : "subtle"}
       >
         {entityIdentifier}
       </Button>
