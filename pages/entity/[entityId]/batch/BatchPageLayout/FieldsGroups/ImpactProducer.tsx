@@ -18,11 +18,15 @@ export default function ImpactProducer({
   household,
   cookingSummary,
 }: Props) {
-  const totalCookingTime = cookingSummary?.reduce(
-    (acc, sessionOrIDunnoWhatIsThis) =>
-      acc + sessionOrIDunnoWhatIsThis.duration.total,
-    0
-  );
+  const totalCookingTime =
+    cookingSummary?.reduce(
+      (acc, sessionOrIDunnoWhatIsThis) =>
+        acc + sessionOrIDunnoWhatIsThis.duration.total,
+      0
+    ) || 0;
+  const totalCookingTimeString = new Date(totalCookingTime * 1000)
+    .toISOString()
+    .substring(11, 16);
 
   return (
     <Flex direction="column">
@@ -49,7 +53,7 @@ export default function ImpactProducer({
         </Flex>
         <Flex justify="space-between" align="center">
           <FieldText>Total Cooking Time</FieldText>
-          <FieldText>{totalCookingTime}</FieldText>
+          <FieldText>{totalCookingTimeString}</FieldText>
         </Flex>
       </Flex>
     </Flex>
