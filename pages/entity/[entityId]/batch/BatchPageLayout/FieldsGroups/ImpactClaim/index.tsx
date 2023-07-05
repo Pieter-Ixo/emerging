@@ -2,20 +2,9 @@ import { Flex } from "@mantine/core";
 
 import shortStr from "@/utils/shortStr";
 
-import { FieldText, FieldsGroupTitle } from ".";
-
-type Props = {
-  fuelType?: string | string[];
-  fuelAmount?: string;
-  conversionFactor?: string;
-  period?: {
-    startDate: string;
-    endDate: string;
-  };
-  emissionsAvoided?: string;
-  claimIssuer?: string;
-  claimId?: string;
-};
+import { FieldText, FieldsGroupTitle } from "..";
+import { ImpactClaimProps } from "./props";
+import ClaimIssuer from "./ClaimIssuer";
 
 export default function ImpactClaim({
   fuelType,
@@ -25,7 +14,7 @@ export default function ImpactClaim({
   emissionsAvoided,
   claimIssuer,
   claimId,
-}: Props) {
+}: ImpactClaimProps) {
   const startDate = period?.startDate
     ? new Date(period?.startDate).toLocaleDateString()
     : "...";
@@ -65,10 +54,7 @@ export default function ImpactClaim({
           <FieldText>Emissions Avoided</FieldText>
           <FieldText>{emissionsAvoided}</FieldText>
         </Flex>
-        <Flex justify="space-between" align="center">
-          <FieldText>Claim Issuer</FieldText>
-          <FieldText>{claimIssuer}</FieldText>
-        </Flex>
+        <ClaimIssuer claimIssuer={claimIssuer} />
         <Flex justify="space-between" align="center">
           <FieldText>Claim ID</FieldText>
           <FieldText>{shortStr(claimId)}</FieldText>

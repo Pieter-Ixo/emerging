@@ -61,6 +61,10 @@ export default function BatchPageLayout() {
   const claimVer = batch?._claimVer;
   const deviceCredSubject = entity?._deviceCredential?.credentialSubject;
   const supamoto = entity?._supamoto;
+  const claimIssuerProfile = batch?._claimIssuer?._profile;
+  const entityCreated = !entity?.metadata?.created
+    ? undefined
+    : new Date(entity?.metadata?.created).toLocaleDateString();
 
   return (
     <Container fluid w="100%" h="100%" p="2em">
@@ -91,11 +95,7 @@ export default function BatchPageLayout() {
                 assetImage={entityProfile?.imageUrl}
                 assetLogo={entityProfile?.logoUrl}
                 collectionDenom={tokenIpfs?.properties.denom}
-                entityCreated={
-                  !entity?.metadata?.created
-                    ? undefined
-                    : new Date(entity?.metadata?.created).toLocaleDateString()
-                }
+                entityCreated={entityCreated}
                 entityTotalMinted={entity?._token?.CARBON._totalMinted}
                 entityOwner={entity?.owner}
                 entityName={entityProfile?.name}
@@ -113,7 +113,7 @@ export default function BatchPageLayout() {
                 conversionFactor={claimOut?.calculation.factor.toLocaleString()}
                 period={claimOut?.period}
                 emissionsAvoided={`${claimOut?.calculation.result.amount} ${claimOut?.calculation.result.units}`}
-                claimIssuer={batch?._claimIssuer?._profile?.name}
+                claimIssuer={claimIssuerProfile}
                 claimId={claimOut?.linkedClaim.id}
               />
             </Grid.Col>
