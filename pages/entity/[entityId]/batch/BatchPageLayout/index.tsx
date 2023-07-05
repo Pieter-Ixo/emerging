@@ -114,7 +114,7 @@ export default function BatchPageLayout() {
                 period={claimOut?.period}
                 emissionsAvoided={`${claimOut?.calculation.result.amount} ${claimOut?.calculation.result.units}`}
                 claimIssuer={claimIssuerProfile}
-                claimId={claimOut?.linkedClaim.id}
+                claimCer={batch?._claimCer}
               />
             </Grid.Col>
             <Grid.Col span={6}>

@@ -1,4 +1,5 @@
-import { IClaimIssuer } from "@/types/certificates/claim";
+import { IClaimCer } from "@/types/certificates/claimCer";
+import { IClaimIssuer } from "@/types/certificates/claimVer";
 
 export type ImpactClaimProps = {
   fuelType?: string | string[];
@@ -9,7 +10,7 @@ export type ImpactClaimProps = {
     endDate: string;
   };
   emissionsAvoided?: string;
-  claimId?: string;
+  claimCer?: IClaimCer;
   claimIssuer?: IClaimIssuer["_profile"];
 };
 

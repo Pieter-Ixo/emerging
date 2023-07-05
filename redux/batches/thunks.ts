@@ -1,14 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import getEntityProfile from "@/helpers/getEntityProfile";
+import getClaimCer from "@/helpers/getClaimCer";
+import getClaimIssuer from "@/helpers/getClaimIssuer";
 import request from "@/requests/request";
-import {
-  requestBatchByID,
-  requestBatches,
-  requestBlocksyncAPI,
-} from "@/requests/blocksync";
+import { requestBatchByID, requestBatches } from "@/requests/blocksync";
 import { IBatch, IBatchDataFilled } from "@/types/certificates";
-import { IClaimVer, IClaimIssuer } from "@/types/certificates/claim";
+import { IClaimVer } from "@/types/certificates/claimVer";
 
 import isURL from "@/utils/isStrUrl";
 
@@ -51,7 +48,6 @@ export const fetchBatchById = createAsyncThunk<
   "batches/fetchBatchById",
   async (batchId: string, { dispatch }): Promise<IBatchDataFilled> => {
     const batchesResponse = await requestBatchByID(batchId);
-
     if (!batchesResponse) throw new Error("!batchesResponse");
     const filledBatch: IBatchDataFilled = batchesResponse;
 
@@ -63,21 +59,17 @@ export const fetchBatchById = createAsyncThunk<
       );
       filledBatch._claimVer = claimVer;
 
-      const claimIssuerId = claimVer?.outcome.linkedClaim.issuer;
+      if (claimVer) {
+        const [claimCer, claimIssuer] = await Promise.all([
+          await getClaimCer(claimVer),
+          await getClaimIssuer(claimVer?.outcome.linkedClaim.issuer),
+        ]);
 
-      if (claimIssuerId) {
-        const claimIssuerUri = `/api/entity/byId/${claimIssuerId}`;
-        const claimIssuer = await requestBlocksyncAPI<IClaimIssuer>(
-          claimIssuerUri
-        );
-        if (claimIssuer) {
-          const claimIssuerProfile = await getEntityProfile(claimIssuer);
-          claimIssuer._profile = claimIssuerProfile;
-        }
         filledBatch._claimIssuer = claimIssuer;
+        filledBatch._claimCer = claimCer;
       }
     }
 
-    return batchesResponse;
+    return filledBatch;
   }
 );

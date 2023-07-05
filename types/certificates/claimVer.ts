@@ -151,7 +151,7 @@ export type CredentialSubject = {
 };
 
 export type IClaimVer = {
-  "@context": Array<ContextClass | string>;
+  "@context": [string, ContextClass];
   id: string;
   type: string[];
   validFrom: string;
