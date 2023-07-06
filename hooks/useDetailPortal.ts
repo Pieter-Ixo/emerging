@@ -1,33 +1,30 @@
-import { ReactNode, ReactPortal, useState } from "react";
-import { createPortal } from "react-dom";
+import { ReactNode, useState } from "react";
+import { createRoot } from "react-dom/client";
+
+const childState = {
+  child: null as ReactNode,
+  setChild: (a: ReactNode) => {
+    childState.child = a;
+  },
+};
 
 export default function useDetailPortal() {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [child, setChild] = useState<ReactNode>();
   const portalTargetElement = document.getElementById("detail-portal-target");
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   function closePortal() {
+    if (!portalTargetElement) return;
+    portalTargetElement.innerHTML = "";
     setIsVisible(false);
-    setChild(undefined);
   }
 
-  function openPortal(childToRender?: ReactNode): void {
-    if (child) {
-      closePortal();
-    }
+  function openPortal(childToRender: ReactNode): void {
+    if (!portalTargetElement) return;
+    closePortal();
 
-    if (childToRender) {
-      setIsVisible(true);
-      setChild(childToRender);
-    }
+    createRoot(portalTargetElement).render(childToRender);
+    setIsVisible(true);
   }
 
-  function renderToPortal(): ReactPortal | null {
-    if (!portalTargetElement) return null;
-    if (!child) return null;
-
-    return createPortal(child, portalTargetElement);
-  }
-
-  return { isVisible, openPortal, closePortal, renderToPortal };
+  return { isVisible, openPortal, closePortal };
 }

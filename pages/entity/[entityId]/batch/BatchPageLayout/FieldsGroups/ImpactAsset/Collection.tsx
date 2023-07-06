@@ -25,8 +25,7 @@ export default function Collection({
   collectionProfileName,
   collectionAssetsAmount,
 }: ImpactAssetProps) {
-  const { isVisible, openPortal, closePortal, renderToPortal } =
-    useDetailPortal();
+  const { isVisible, openPortal, closePortal } = useDetailPortal();
 
   const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -70,7 +69,6 @@ export default function Collection({
       >
         {collectionName}
       </Button>
-      {renderToPortal()}
     </Flex>
   );
 }
