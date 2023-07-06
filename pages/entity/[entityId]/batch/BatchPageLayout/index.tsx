@@ -66,6 +66,7 @@ export default function BatchPageLayout() {
     ? undefined
     : new Date(entity?.metadata?.created).toLocaleDateString();
   const verifiableCred = batch?._verifiableCred;
+  const evaluation = claimVer?.credentialSubject.evaluation;
 
   return (
     <Container fluid w="100%" h="100%" p="2em">
@@ -151,11 +152,10 @@ export default function BatchPageLayout() {
             <Grid.Col span={6}>
               <Evaluator
                 oracle={claimVer?.issuer.id}
-                methodology={
-                  claimVer?.credentialSubject.evaluation.methodology.id
-                }
-                model={claimVer?.credentialSubject.evaluation.model}
-                version={claimVer?.credentialSubject.evaluation.version}
+                methodologyName={evaluation?.methodology.type.split(":")[1]}
+                methodologyLink={evaluation?.methodology.id}
+                model={evaluation?.model}
+                version={evaluation?.version}
                 claimsProcessed=""
               />
             </Grid.Col>

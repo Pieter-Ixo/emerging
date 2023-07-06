@@ -2,11 +2,12 @@ import { Flex } from "@mantine/core";
 
 import shortStr from "@/utils/shortStr";
 
-import { FieldText, FieldsGroupTitle } from ".";
+import { FieldAnchor, FieldText, FieldsGroupTitle } from "..";
 
 type Props = {
   oracle?: string;
-  methodology?: string;
+  methodologyName?: string;
+  methodologyLink?: string;
   model?: string;
   version?: string;
   claimsProcessed?: string;
@@ -14,7 +15,8 @@ type Props = {
 
 export default function Evaluator({
   oracle,
-  methodology,
+  methodologyName,
+  methodologyLink,
   model,
   version,
   claimsProcessed,
@@ -32,7 +34,9 @@ export default function Evaluator({
         </Flex>
         <Flex justify="space-between" align="center">
           <FieldText>Methodology</FieldText>
-          <FieldText>{shortStr(methodology)}</FieldText>
+          <FieldAnchor href={methodologyLink || ""} target="_blank">
+            {methodologyName}
+          </FieldAnchor>
         </Flex>
         <Flex justify="space-between" align="center">
           <FieldText>Model</FieldText>
