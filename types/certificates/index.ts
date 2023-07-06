@@ -1,5 +1,6 @@
 import { IClaimCer } from "./claimCer";
 import { IClaimIssuer, IClaimVer } from "./claimVer";
+import { IVerifiableCred } from "./verifiableCred";
 
 export type ITokenData = {
   aid: number;
@@ -38,6 +39,7 @@ export type IBatchDataFilled = IBatch & {
   _impactAsset?: IImpactAssetData;
   _tokenBalance?: ITokenBalance;
   _claimVer?: IClaimVer;
+  _verifiableCred?: IVerifiableCred;
   _claimIssuer?: IClaimIssuer;
   _claimCer?: IClaimCer;
 };

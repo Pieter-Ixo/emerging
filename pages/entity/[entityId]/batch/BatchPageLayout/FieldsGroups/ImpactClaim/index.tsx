@@ -4,6 +4,7 @@ import { FieldText, FieldsGroupTitle } from "..";
 import { ImpactClaimProps } from "./props";
 import ClaimIssuer from "./ClaimIssuer";
 import ClaimId from "./ClaimId";
+import ConversionFactor from "./ConversionFactor";
 
 export default function ImpactClaim({
   fuelType,
@@ -13,6 +14,7 @@ export default function ImpactClaim({
   emissionsAvoided,
   claimIssuer,
   claimCer,
+  verifiableCred,
 }: ImpactClaimProps) {
   const startDate = period?.startDate
     ? new Date(period?.startDate).toLocaleDateString()
@@ -41,10 +43,10 @@ export default function ImpactClaim({
           <FieldText>Fuel Amount</FieldText>
           <FieldText>{fuelAmount}</FieldText>
         </Flex>
-        <Flex justify="space-between" align="center">
-          <FieldText>Conversion Factor</FieldText>
-          <FieldText>{conversionFactor}</FieldText>
-        </Flex>
+        <ConversionFactor
+          conversionFactor={conversionFactor}
+          verifiableCred={verifiableCred}
+        />
         <Flex justify="space-between" align="center">
           <FieldText>Period</FieldText>
           <FieldText>{periodFormatted}</FieldText>

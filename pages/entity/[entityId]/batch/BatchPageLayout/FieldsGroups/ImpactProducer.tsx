@@ -1,5 +1,6 @@
 import { Flex } from "@mantine/core";
 import { ISupamotoCookingSumaryContent } from "@/types/supamoto";
+import calculateTotalCookingTime from "@/helpers/calculateTotalCookingTime";
 
 import { FieldText, FieldsGroupTitle } from ".";
 
@@ -18,15 +19,7 @@ export default function ImpactProducer({
   household,
   cookingSummary,
 }: Props) {
-  const totalCookingTime =
-    cookingSummary?.reduce(
-      (acc, sessionOrIDunnoWhatIsThis) =>
-        acc + sessionOrIDunnoWhatIsThis.duration.total,
-      0
-    ) || 0;
-  const totalCookingTimeString = new Date(totalCookingTime * 1000)
-    .toISOString()
-    .substring(11, 16);
+  const totalCookingTimeString = calculateTotalCookingTime(cookingSummary);
 
   return (
     <Flex direction="column">

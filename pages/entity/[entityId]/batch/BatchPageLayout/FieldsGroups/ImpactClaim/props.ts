@@ -1,3 +1,4 @@
+import {  IBatchDataFilled } from "@/types/certificates";
 import { IClaimCer } from "@/types/certificates/claimCer";
 import { IClaimIssuer } from "@/types/certificates/claimVer";
 
@@ -12,6 +13,7 @@ export type ImpactClaimProps = {
   emissionsAvoided?: string;
   claimCer?: IClaimCer;
   claimIssuer?: IClaimIssuer["_profile"];
+  verifiableCred?: IBatchDataFilled["_verifiableCred"];
 };
 
 export type PortalProps = ImpactClaimProps & { _isVisible: boolean };

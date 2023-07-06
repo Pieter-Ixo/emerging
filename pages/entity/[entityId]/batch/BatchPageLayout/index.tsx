@@ -65,6 +65,7 @@ export default function BatchPageLayout() {
   const entityCreated = !entity?.metadata?.created
     ? undefined
     : new Date(entity?.metadata?.created).toLocaleDateString();
+  const verifiableCred = batch?._verifiableCred;
 
   return (
     <Container fluid w="100%" h="100%" p="2em">
@@ -115,6 +116,7 @@ export default function BatchPageLayout() {
                 emissionsAvoided={`${claimOut?.calculation.result.amount} ${claimOut?.calculation.result.units}`}
                 claimIssuer={claimIssuerProfile}
                 claimCer={batch?._claimCer}
+                verifiableCred={verifiableCred}
               />
             </Grid.Col>
             <Grid.Col span={6}>
