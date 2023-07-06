@@ -13,21 +13,22 @@ import {
 } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
+import useDetailPortal from "@/hooks/useDetailPortal";
 import { FieldText } from "..";
-import { ImpactAssetProps, PortalProps } from "./props";
+import { ImpactAssetProps } from "./props";
 
-function PortalComponent({
-  _isVisible,
+export default function Collection({
+  collectionName,
   collectionImage,
   collectionLogo,
   collectionProfileDescription,
   collectionProfileName,
   collectionAssetsAmount,
-}: Partial<PortalProps>) {
-  const portalTargetElement = document.getElementById("detail-portal-target");
-  if (!_isVisible || !portalTargetElement) return null;
+}: ImpactAssetProps) {
+  const { isVisible, openPortal, closePortal, renderToPortal } =
+    useDetailPortal();
 
-  return createPortal(
+  const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
       <Card.Section>
         <Image src={collectionImage} height={160} alt="" />
@@ -54,23 +55,8 @@ function PortalComponent({
       {collectionAssetsAmount !== undefined && (
         <Text mt="lg">{collectionAssetsAmount} assets</Text>
       )}
-    </Card>,
-    portalTargetElement
+    </Card>
   );
-}
-
-export default function Collection({
-  collectionName,
-  collectionImage,
-  collectionLogo,
-  collectionProfileDescription,
-  collectionProfileName,
-  collectionAssetsAmount,
-}: ImpactAssetProps) {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  function handleClick() {
-    setIsVisible((prev) => !prev);
-  }
 
   return (
     <Flex justify="space-between" align="center">
@@ -79,19 +65,12 @@ export default function Collection({
         compact
         size="xs"
         radius="xl"
-        onClick={() => handleClick()}
+        onClick={() => (isVisible ? closePortal() : openPortal(PortalChild))}
         variant={isVisible ? "outline" : "subtle"}
       >
         {collectionName}
       </Button>
-      <PortalComponent
-        _isVisible={isVisible}
-        collectionImage={collectionImage}
-        collectionLogo={collectionLogo}
-        collectionProfileDescription={collectionProfileDescription}
-        collectionProfileName={collectionProfileName}
-        collectionAssetsAmount={collectionAssetsAmount}
-      />
+      {renderToPortal()}
     </Flex>
   );
 }
