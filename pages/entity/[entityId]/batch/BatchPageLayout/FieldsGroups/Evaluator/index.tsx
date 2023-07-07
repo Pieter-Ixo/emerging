@@ -44,7 +44,7 @@ export default function Evaluator({
         </Flex>
         <Flex justify="space-between" align="center">
           <FieldText>Version</FieldText>
-          <FieldText>{version}</FieldText>
+          <FieldText>{shortStr(version)}</FieldText>
         </Flex>
         <Flex justify="space-between" align="center">
           <FieldText>Claims Processed</FieldText>
