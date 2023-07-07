@@ -12,9 +12,9 @@ export default function calculateTotalCookingTime(
       0
     ) || 0;
 
-  const totalCookingTimeString = new Date(totalCookingTime * 1000)
-    .toISOString()
-    .substring(11, 16);
+  const timeObj = new Date(totalCookingTime * 1000);
+  const h = timeObj.getHours();
+  const min = timeObj.getMinutes();
 
-  return totalCookingTimeString;
+  return `${h}h ${min}min`;
 }
