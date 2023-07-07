@@ -1,7 +1,7 @@
 import { ISettingsContext } from "./commonTypes";
 
 export type IAttribute = {
-  key: string;
+  key: string | "Model" | "Fuel";
   value: string;
 };
 export type IProfileSettings = {

@@ -3,11 +3,12 @@ import { Flex } from "@mantine/core";
 import { IAttribute } from "@/types/entityCollections/settings";
 import shortStr from "@/utils/shortStr";
 
-import { FieldText, FieldsGroupTitle } from ".";
+import { FieldAnchor, FieldText, FieldsGroupTitle } from ".";
 
 type Props = {
   type?: string;
-  model?: string;
+  modelCertificationUrl?: string;
+  modelAttribute?: IAttribute;
   fuelAttribute?: IAttribute;
   manufactureDate?: string;
   manufacturePlace?: string;
@@ -15,12 +16,14 @@ type Props = {
 
 export default function CleanEnergyDevice({
   type,
-  model,
+  modelCertificationUrl,
+  modelAttribute,
   fuelAttribute,
   manufactureDate,
   manufacturePlace,
 }: Props) {
   const fuel = fuelAttribute?.value;
+  const model = modelAttribute?.value;
 
   return (
     <Flex direction="column">
@@ -34,8 +37,10 @@ export default function CleanEnergyDevice({
           <FieldText>{shortStr(type)}</FieldText>
         </Flex>
         <Flex justify="space-between" align="center">
-          <FieldText>Model </FieldText>
-          <FieldText>{model}</FieldText>
+          <FieldText>Model</FieldText>
+          <FieldAnchor href={modelCertificationUrl ?? ""} target="_blank">
+            {model}
+          </FieldAnchor>
         </Flex>
         <Flex justify="space-between" align="center">
           <FieldText>Fuel </FieldText>

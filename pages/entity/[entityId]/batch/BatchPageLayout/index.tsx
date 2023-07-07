@@ -135,7 +135,10 @@ export default function BatchPageLayout() {
               <Grid.Col span={6}>
                 <CleanEnergyDevice
                   type={deviceCredSubject?.product.description}
-                  model={deviceCredSubject?.product.model}
+                  modelCertificationUrl={deviceCredSubject?.certification.id}
+                  modelAttribute={entity?._profile?.attributes.find(
+                    (a) => a.key === "Model"
+                  )}
                   fuelAttribute={entityProfile?.attributes.find(
                     (a) => a.key === "Fuel"
                   )}
