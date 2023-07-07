@@ -16,8 +16,7 @@ export default function Performance({ entityExternalId }: ImpactAssetProps) {
     if (entityExternalId) {
       fetchStove(entityExternalId);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stove.id]);
+  }, [stove.id, entityExternalId, fetchStove]);
 
   const PortalChild = (
     <Card shadow="sm" padding="0" radius="md" withBorder>
