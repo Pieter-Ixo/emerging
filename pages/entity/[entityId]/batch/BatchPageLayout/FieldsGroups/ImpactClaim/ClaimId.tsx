@@ -9,7 +9,7 @@ import { FieldText } from "..";
 import { ImpactClaimProps } from "./props";
 
 export default function ClaimId({ claimCer }: Partial<ImpactClaimProps>) {
-  const { isVisible, openPortal, closePortal } = useDetailPortal("Collection");
+  const { isVisible, openPortal, closePortal } = useDetailPortal("ClaimId");
 
   const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
