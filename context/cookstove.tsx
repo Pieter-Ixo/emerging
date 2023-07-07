@@ -2,7 +2,6 @@ import {
   createContext,
   useState,
   HTMLAttributes,
-  useEffect,
   useContext,
   useMemo,
   useCallback,
@@ -23,12 +22,6 @@ export function CookstoveProvider({
   children,
 }: HTMLAttributes<HTMLDivElement>) {
   const [stove, setStove] = useState<STOVE>({});
-
-  // useEffect(() => {
-  //   console.log("in context effect");
-  //   if (stove.id) fetchStove(stove.id);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [stove.id]);
 
   const fetchStove = useCallback(async (id) => {
     if (!id) return;
@@ -78,35 +71,9 @@ export function CookstoveProvider({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fetchSessions = async (period: STOVE_PERIODS) => {
-    // if (!stove.id || (stove.sessions?.periodsFetched && stove.sessions?.periodsFetched[period])) return;
-    // updateStoveSessions({ loading: true });
-    // try {
-    // 	const { endDateISOString, startDateISOString } = datesFromPeriod(period);
-    // 	const res = await fetch(`/api/cookstove/cooking-sessions/${stove.id}?startDate=${startDateISOString}&endDate=${endDateISOString}&getAllForPeriod=true`);
-    // 	const data = await res.json();
-    // 	if (res.status != 200) throw data.error;
-    // 	updateStoveSessions(data.data);
-    // } catch (error) {
-    // 	console.error({ error });
-    // }
-    // updateStoveSessions({ loading: false });
-  };
+  const fetchSessions = async (period: STOVE_PERIODS) => {};
 
-  const fetchPellets = async (period: STOVE_PERIODS) => {
-    // if (!stove.id || (stove.pellets?.periodsFetched && stove.pellets?.periodsFetched[period])) return;
-    // updateStovePellets({ loading: true });
-    // try {
-    // 	const { endDateISOString, startDateISOString } = datesFromPeriod(period);
-    // 	const res = await fetch(`/api/cookstove/pellets-purchases/${stove.id}?startDate=${startDateISOString}&endDate=${endDateISOString}&getAllForPeriod=true`);
-    // 	const data = await res.json();
-    // 	if (res.status != 200) throw data.error;
-    // 	updateStovePellets(data.data);
-    // } catch (error) {
-    // 	console.error({ error });
-    // }
-    // updateStovePellets({ loading: false });
-  };
+  const fetchPellets = async (period: STOVE_PERIODS) => {};
 
   const updateStove = (newStove: {}, override: boolean = false) => {
     if (override) setStove(newStove);

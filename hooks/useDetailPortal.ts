@@ -1,20 +1,31 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 
-const childState = {
-  child: null as ReactNode,
-  setChild: (a: ReactNode) => {
-    childState.child = a;
-  },
-};
+import DetailPortalContext from "@/context/detailPortalContext";
 
-export default function useDetailPortal() {
+/**
+ * This hook renders another React root into the element with the id `#detail-portal-target`.
+ * It means that selectors and contexts are not reachable from within the child. Provide all
+ * needed data to the portal child through the props.
+ */
+export default function useDetailPortal(originKey: string): {
+  isVisible: boolean;
+  openPortal: (childToRender: ReactNode) => void;
+  closePortal: () => void;
+} {
   const portalTargetElement = document.getElementById("detail-portal-target");
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const { key, setKey } = useContext(DetailPortalContext);
+
+  useEffect(() => {
+    setIsVisible(key === originKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
 
   function closePortal() {
     if (!portalTargetElement) return;
     portalTargetElement.innerHTML = "";
+    setKey(null);
     setIsVisible(false);
   }
 
@@ -23,8 +34,13 @@ export default function useDetailPortal() {
     closePortal();
 
     createRoot(portalTargetElement).render(childToRender);
+    setKey(originKey);
     setIsVisible(true);
   }
 
-  return { isVisible, openPortal, closePortal };
+  return {
+    isVisible,
+    openPortal,
+    closePortal,
+  };
 }

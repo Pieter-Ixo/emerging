@@ -7,7 +7,7 @@ import HumanHeart from "@/assets/icons/human-heart.svg";
 import { hoursSaved, lifeYearsSaved } from "@/utils/supamoto";
 
 export type STOVE = {
-  id?: number;
+  id?: string;
   data?: STOVE_DATA;
   sessions?: STOVE_SESSIONS;
   pellets?: STOVE_PELLETS;

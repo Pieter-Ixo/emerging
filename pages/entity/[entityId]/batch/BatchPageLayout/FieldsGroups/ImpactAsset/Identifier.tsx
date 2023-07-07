@@ -25,7 +25,7 @@ export default function Identifier({
   entityDescription,
   entityStartDate,
 }: ImpactAssetProps) {
-  const { isVisible, openPortal, closePortal } = useDetailPortal();
+  const { isVisible, openPortal, closePortal } = useDetailPortal("Identifier");
 
   const startDate = entityStartDate
     ? new Date(entityStartDate).toLocaleDateString()

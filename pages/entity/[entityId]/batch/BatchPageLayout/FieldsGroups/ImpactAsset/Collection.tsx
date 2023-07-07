@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { createPortal } from "react-dom";
 import {
   Badge,
   Button,
@@ -25,7 +23,7 @@ export default function Collection({
   collectionProfileName,
   collectionAssetsAmount,
 }: ImpactAssetProps) {
-  const { isVisible, openPortal, closePortal } = useDetailPortal();
+  const { isVisible, openPortal, closePortal } = useDetailPortal("Collection");
 
   const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>

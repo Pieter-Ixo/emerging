@@ -53,7 +53,8 @@ module.exports = {
       }
    ],
    "react/require-default-props": 0,
-   "no-underscore-dangle":0
+   "no-underscore-dangle":0,
+   "react/jsx-no-constructed-context-values":0
   },
 
 };

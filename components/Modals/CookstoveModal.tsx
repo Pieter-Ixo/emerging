@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import cls from "classnames";
 
 import utilsStyles from "@/styles/utils.module.scss";
@@ -7,7 +6,6 @@ import Stove from "@/assets/icons/stove.svg";
 import Household from "@/assets/icons/household.svg";
 import Sprout from "@/assets/icons/sprout.svg";
 import Eye from "@/assets/icons/eye.svg";
-import { useCookstove } from "@/context/cookstove";
 import Loader from "@/components/loader/loader";
 import Link from "next/link";
 import PieChart from "@/components/pie-chart/pie-chart";
@@ -15,25 +13,17 @@ import CarbonClaimCard from "@/components/card-claim/card-claim";
 import ImageTextCard from "@/components/card-image-text/card-image-text";
 import PerformanceCard from "@/components/card-performance/card-performance";
 import { Box } from "@mantine/core";
+import { STOVE } from "@/types/stove";
 
 interface Props {
   id: number | string;
+  stove: STOVE;
 }
 
-export default function CookstoveModal({ id }: Props) {
-  const [loaded] = useState(true);
-  const { stove, fetchStove } = useCookstove();
-
-  useEffect(() => {
-    if (!!id && stove.id !== id) {
-      fetchStove(id);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stove.id]);
-
+export default function CookstoveModal({ id, stove }: Props) {
   return (
     <Box className={utilsStyles.pageContainer}>
-      {loaded && (!stove.loading || isNaN(Number(id))) ? (
+      {!stove.loading || isNaN(Number(id)) ? (
         stove.sessions && stove.pellets ? (
           <>
             <h1 className={styles.title}>SUPAMOTO #{id}</h1>
