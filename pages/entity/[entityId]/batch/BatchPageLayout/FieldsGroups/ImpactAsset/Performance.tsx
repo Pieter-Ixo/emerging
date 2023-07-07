@@ -3,10 +3,10 @@ import { Button, Card, Flex } from "@mantine/core";
 
 import { useCookstove } from "@/context/cookstove";
 import useDetailPortal from "@/hooks/useDetailPortal";
-import CookstoveModal from "@/components/Modals/CookstoveModal";
 
 import { FieldText } from "..";
 import { ImpactAssetProps } from "./props";
+import CookstoveDashboard from "./CookstoveDashboard";
 
 export default function Performance({ entityExternalId }: ImpactAssetProps) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("Performance");
@@ -22,7 +22,7 @@ export default function Performance({ entityExternalId }: ImpactAssetProps) {
   const PortalChild = (
     <Card shadow="sm" padding="0" radius="md" withBorder>
       {entityExternalId && (
-        <CookstoveModal id={entityExternalId} stove={stove} />
+        <CookstoveDashboard id={entityExternalId} stove={stove} />
       )}
     </Card>
   );
