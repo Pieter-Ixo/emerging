@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { createPortal } from "react-dom";
 import {
   Avatar,
   Badge,
@@ -13,15 +11,17 @@ import {
 } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
+import useDetailPortal from "@/hooks/useDetailPortal";
 
 import { FieldText } from "..";
-import { ImpactClaimProps, PortalProps } from "./props";
+import { ImpactClaimProps } from "./props";
 
-function PortalComponent({ _isVisible, claimIssuer }: Partial<PortalProps>) {
-  const portalTargetElement = document.getElementById("detail-portal-target");
-  if (!_isVisible || !portalTargetElement) return null;
+export default function ClaimIssuer({
+  claimIssuer,
+}: Partial<ImpactClaimProps>) {
+  const { isVisible, openPortal, closePortal } = useDetailPortal("ClaimIssuer");
 
-  return createPortal(
+  const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
       <Card.Section>
         <Image src={claimIssuer?.imageUrl} height={160} alt="" />
@@ -45,19 +45,8 @@ function PortalComponent({ _isVisible, claimIssuer }: Partial<PortalProps>) {
       <Text color="dimmed" size="12px" lh="100%">
         {claimIssuer?.description}
       </Text>
-    </Card>,
-    portalTargetElement
+    </Card>
   );
-}
-
-export default function ClaimIssuer({
-  claimIssuer,
-}: Partial<ImpactClaimProps>) {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  function handleClick() {
-    setIsVisible((prev) => !prev);
-  }
-
   return (
     <Flex justify="space-between" align="center">
       <FieldText>Claim Issuer</FieldText>
@@ -65,12 +54,11 @@ export default function ClaimIssuer({
         compact
         size="xs"
         radius="xl"
-        onClick={() => handleClick()}
+        onClick={() => (isVisible ? closePortal() : openPortal(PortalChild))}
         variant={isVisible ? "outline" : "subtle"}
       >
         {claimIssuer?.name}
       </Button>
-      <PortalComponent _isVisible={isVisible} claimIssuer={claimIssuer} />
     </Flex>
   );
 }

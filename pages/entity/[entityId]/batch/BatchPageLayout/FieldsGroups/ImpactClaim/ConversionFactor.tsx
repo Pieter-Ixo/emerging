@@ -1,17 +1,18 @@
-import { useState } from "react";
-import { createPortal } from "react-dom";
 import { Card, Flex, Button } from "@mantine/core";
 
+import useDetailPortal from "@/hooks/useDetailPortal";
 import { FieldText } from "..";
-import { ImpactClaimProps, PortalProps } from "./props";
+import { ImpactClaimProps } from "./props";
 
-function PortalComponent({ _isVisible, verifiableCred }: Partial<PortalProps>) {
-  const portalTargetElement = document.getElementById("detail-portal-target");
-  if (!_isVisible || !portalTargetElement || !verifiableCred?.data) return null;
+export default function ConversionFactor({
+  conversionFactor,
+  verifiableCred,
+}: Partial<ImpactClaimProps>) {
+  const { isVisible, openPortal, closePortal } = useDetailPortal("ConversionFactor");
 
-  return createPortal(
+  const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
-      {verifiableCred.data.map((item) => {
+      {verifiableCred?.data.map((item) => {
         const [key] = Object.keys(item);
         const datum = item[key];
         return (
@@ -24,20 +25,8 @@ function PortalComponent({ _isVisible, verifiableCred }: Partial<PortalProps>) {
           </Flex>
         );
       })}
-    </Card>,
-    portalTargetElement
+    </Card>
   );
-}
-
-export default function ConversionFactor({
-  conversionFactor,
-  verifiableCred,
-}: Partial<ImpactClaimProps>) {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  function handleClick() {
-    setIsVisible((prev) => !prev);
-  }
-
   return (
     <Flex justify="space-between" align="center">
       <FieldText>Conversion Factor</FieldText>
@@ -45,12 +34,11 @@ export default function ConversionFactor({
         compact
         size="xs"
         radius="xl"
-        onClick={() => handleClick()}
+        onClick={() => (isVisible ? closePortal() : openPortal(PortalChild))}
         variant={isVisible ? "outline" : "subtle"}
       >
         {conversionFactor}
       </Button>
-      <PortalComponent _isVisible={isVisible} verifiableCred={verifiableCred} />
     </Flex>
   );
 }

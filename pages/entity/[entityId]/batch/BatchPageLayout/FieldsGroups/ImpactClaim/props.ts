@@ -1,4 +1,4 @@
-import {  IBatchDataFilled } from "@/types/certificates";
+import { IBatchDataFilled } from "@/types/certificates";
 import { IClaimCer } from "@/types/certificates/claimCer";
 import { IClaimIssuer } from "@/types/certificates/claimVer";
 
@@ -15,8 +15,6 @@ export type ImpactClaimProps = {
   claimIssuer?: IClaimIssuer["_profile"];
   verifiableCred?: IBatchDataFilled["_verifiableCred"];
 };
-
-export type PortalProps = ImpactClaimProps & { _isVisible: boolean };
 
 export default function PagePlug() {
   return null;

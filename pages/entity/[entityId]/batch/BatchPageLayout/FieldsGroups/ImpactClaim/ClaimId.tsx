@@ -1,31 +1,21 @@
-import { useState } from "react";
-import { createPortal } from "react-dom";
 import { Card, Flex, Button } from "@mantine/core";
 
 // TODO: this should be imported from components folder
 import JSONViewerAlternative from "@/pages/certificate/CertificateDashboard/ProofComponents/JSONViewerAlternative";
+import useDetailPortal from "@/hooks/useDetailPortal";
 import shortStr from "@/utils/shortStr";
 
 import { FieldText } from "..";
-import { ImpactClaimProps, PortalProps } from "./props";
-
-function PortalComponent({ _isVisible, claimCer }: Partial<PortalProps>) {
-  const portalTargetElement = document.getElementById("detail-portal-target");
-  if (!_isVisible || !portalTargetElement) return null;
-
-  return createPortal(
-    <Card shadow="sm" padding="lg" radius="md" withBorder>
-      <JSONViewerAlternative json={JSON.stringify(claimCer)} />
-    </Card>,
-    portalTargetElement
-  );
-}
+import { ImpactClaimProps } from "./props";
 
 export default function ClaimId({ claimCer }: Partial<ImpactClaimProps>) {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  function handleClick() {
-    setIsVisible((prev) => !prev);
-  }
+  const { isVisible, openPortal, closePortal } = useDetailPortal("Collection");
+
+  const PortalChild = (
+    <Card shadow="sm" padding="lg" radius="md" withBorder>
+      <JSONViewerAlternative json={JSON.stringify(claimCer)} />
+    </Card>
+  );
 
   return (
     <Flex justify="space-between" align="center">
@@ -34,12 +24,11 @@ export default function ClaimId({ claimCer }: Partial<ImpactClaimProps>) {
         compact
         size="xs"
         radius="xl"
-        onClick={() => handleClick()}
+        onClick={() => (isVisible ? closePortal() : openPortal(PortalChild))}
         variant={isVisible ? "outline" : "subtle"}
       >
         {shortStr(claimCer?.id)}
       </Button>
-      <PortalComponent _isVisible={isVisible} claimCer={claimCer} />
     </Flex>
   );
 }
