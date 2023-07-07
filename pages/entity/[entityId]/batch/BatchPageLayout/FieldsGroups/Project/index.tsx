@@ -1,6 +1,6 @@
 import { Flex } from "@mantine/core";
 
-import { FieldText, FieldsGroupTitle } from ".";
+import { FieldText, FieldsGroupTitle } from "..";
 
 type Props = {
   name?: string;
