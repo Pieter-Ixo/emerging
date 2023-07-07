@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { createPortal } from "react-dom";
 import {
   Badge,
   Button,
@@ -14,25 +12,26 @@ import {
 } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
-import { FieldText } from "..";
-import { ImpactAssetProps, PortalProps } from "./props";
+import useDetailPortal from "@/hooks/useDetailPortal";
 
-function PortalComponent({
-  _isVisible,
+import { FieldText } from "..";
+import { ImpactAssetProps } from "./props";
+
+export default function Identifier({
+  entityIdentifier,
   assetImage,
   assetLogo,
   entityName,
   entityDescription,
   entityStartDate,
-}: Partial<PortalProps>) {
-  const portalTargetElement = document.getElementById("detail-portal-target");
-  if (!_isVisible || !portalTargetElement) return null;
+}: ImpactAssetProps) {
+  const { isVisible, openPortal, closePortal } = useDetailPortal("Identifier");
 
   const startDate = entityStartDate
     ? new Date(entityStartDate).toLocaleDateString()
     : null;
 
-  return createPortal(
+  const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
       <Card.Section>
         <Image src={assetImage} height={160} alt="" />
@@ -66,23 +65,8 @@ function PortalComponent({
           </Text>
         </Tooltip>
       </Flex>
-    </Card>,
-    portalTargetElement
+    </Card>
   );
-}
-
-export default function Identifier({
-  entityIdentifier,
-  assetImage,
-  assetLogo,
-  entityName,
-  entityDescription,
-  entityStartDate,
-}: ImpactAssetProps) {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  function handleClick() {
-    setIsVisible((prev) => !prev);
-  }
 
   return (
     <Flex justify="space-between" align="center">
@@ -91,19 +75,11 @@ export default function Identifier({
         compact
         size="xs"
         radius="xl"
-        onClick={() => handleClick()}
+        onClick={() => (isVisible ? closePortal() : openPortal(PortalChild))}
         variant={isVisible ? "outline" : "subtle"}
       >
         {entityIdentifier}
       </Button>
-      <PortalComponent
-        _isVisible={isVisible}
-        assetImage={assetImage}
-        assetLogo={assetLogo}
-        entityName={entityName}
-        entityDescription={entityDescription}
-        entityStartDate={entityStartDate}
-      />
     </Flex>
   );
 }

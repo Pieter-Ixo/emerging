@@ -17,7 +17,6 @@ export type ImpactAssetProps = {
   collectionProfileName?: string;
   collectionAssetsAmount?: number;
 };
-export type PortalProps = ImpactAssetProps & { _isVisible: boolean };
 
 export default function PagePlug() {
   return null;
