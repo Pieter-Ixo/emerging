@@ -1,21 +1,23 @@
 import { Flex } from "@mantine/core";
 import { ISupamotoCookingSumaryContent } from "@/types/supamoto";
+
+import { IAttribute } from "@/types/entityCollections/settings";
 import calculateTotalCookingTime from "@/helpers/calculateTotalCookingTime";
 
 import { FieldText, FieldsGroupTitle } from "./styledComponents";
 
 type Props = {
   identifier?: string;
-  country?: string;
-  setting?: string;
+  countryAttribute?: IAttribute;
+  settingAttribute?: IAttribute;
   household?: string;
   cookingSummary?: ISupamotoCookingSumaryContent[];
 };
 
 export default function ImpactProducer({
   identifier,
-  country,
-  setting,
+  countryAttribute,
+  settingAttribute,
   household,
   cookingSummary,
 }: Props) {
@@ -34,11 +36,11 @@ export default function ImpactProducer({
         </Flex>
         <Flex justify="space-between" align="center">
           <FieldText>Country</FieldText>
-          <FieldText>{country}</FieldText>
+          <FieldText>{countryAttribute?.value}</FieldText>
         </Flex>
         <Flex justify="space-between" align="center">
           <FieldText>Setting</FieldText>
-          <FieldText>{setting}</FieldText>
+          <FieldText>{settingAttribute?.value}</FieldText>
         </Flex>
         <Flex justify="space-between" align="center">
           <FieldText>Household</FieldText>

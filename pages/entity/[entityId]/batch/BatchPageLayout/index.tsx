@@ -5,6 +5,7 @@ import { palette } from "@/theme/palette";
 import { IBatch } from "@/types/certificates";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import DetailPortalContext from "@/context/detailPortalContext";
+import byKey from "@/helpers/byKey";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchBatchById } from "@/redux/batches/thunks";
@@ -136,12 +137,8 @@ export default function BatchPageLayout() {
                 <CleanEnergyDevice
                   type={deviceCredSubject?.product.description}
                   modelCertificationUrl={deviceCredSubject?.certification.id}
-                  modelAttribute={entity?._profile?.attributes.find(
-                    (a) => a.key === "Model"
-                  )}
-                  fuelAttribute={entityProfile?.attributes.find(
-                    (a) => a.key === "Fuel"
-                  )}
+                  modelAttribute={entity?._profile?.attributes.find(byKey("Model"))}
+                  fuelAttribute={entityProfile?.attributes.find(byKey("Fuel"))}
                   manufactureDate={deviceCredSubject?.manufacturer.date}
                   manufacturePlace={deviceCredSubject?.manufacturer.country}
                 />
@@ -158,8 +155,12 @@ export default function BatchPageLayout() {
               <Grid.Col span={6}>
                 <ImpactProducer
                   identifier={entity?.externalId?.toString()}
-                  country={entity?._supamoto?.country}
-                  setting={`${supamoto?.latitude} ${supamoto?.longitude}`}
+                  countryAttribute={entityProfile?.attributes.find(
+                    byKey("Location")
+                  )}
+                  settingAttribute={entityProfile?.attributes.find(
+                    byKey("Usage")
+                  )}
                   household=""
                   cookingSummary={entity?._supamotoCookingSummary?.content}
                 />
