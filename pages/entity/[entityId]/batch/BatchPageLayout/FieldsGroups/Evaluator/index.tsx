@@ -2,7 +2,7 @@ import { Flex } from "@mantine/core";
 
 import shortStr from "@/utils/shortStr";
 
-import { FieldAnchor, FieldText, FieldsGroupTitle } from "..";
+import { FieldAnchor, FieldText, FieldsGroupTitle } from "../styledComponents";
 
 type Props = {
   oracle?: string;

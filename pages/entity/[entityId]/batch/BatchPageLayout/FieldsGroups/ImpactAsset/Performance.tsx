@@ -4,7 +4,7 @@ import { Button, Card, Flex } from "@mantine/core";
 import { useCookstove } from "@/context/cookstove";
 import useDetailPortal from "@/hooks/useDetailPortal";
 
-import { FieldText } from "..";
+import { FieldText } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
 import CookstoveDashboard from "./CookstoveDashboard";
 

@@ -5,7 +5,7 @@ import JSONViewerAlternative from "@/pages/certificate/CertificateDashboard/Proo
 import useDetailPortal from "@/hooks/useDetailPortal";
 import shortStr from "@/utils/shortStr";
 
-import { FieldText } from "..";
+import { FieldText } from "../styledComponents";
 import { ImpactClaimProps } from "./props";
 
 export default function ClaimId({ claimCer }: Partial<ImpactClaimProps>) {

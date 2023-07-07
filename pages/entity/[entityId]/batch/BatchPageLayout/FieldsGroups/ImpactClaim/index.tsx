@@ -1,6 +1,6 @@
 import { Flex } from "@mantine/core";
 
-import { FieldText, FieldsGroupTitle } from "..";
+import { FieldText, FieldsGroupTitle } from "../styledComponents";
 import { ImpactClaimProps } from "./props";
 import ClaimIssuer from "./ClaimIssuer";
 import ClaimId from "./ClaimId";

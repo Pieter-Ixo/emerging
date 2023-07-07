@@ -12,7 +12,7 @@ import {
 
 import { palette } from "@/theme/palette";
 import useDetailPortal from "@/hooks/useDetailPortal";
-import { FieldText } from "..";
+import { FieldText } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
 
 export default function Collection({

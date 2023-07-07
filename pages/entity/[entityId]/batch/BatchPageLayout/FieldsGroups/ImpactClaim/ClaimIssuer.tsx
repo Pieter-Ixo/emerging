@@ -13,7 +13,7 @@ import {
 import { palette } from "@/theme/palette";
 import useDetailPortal from "@/hooks/useDetailPortal";
 
-import { FieldText } from "..";
+import { FieldText } from "../styledComponents";
 import { ImpactClaimProps } from "./props";
 
 export default function ClaimIssuer({

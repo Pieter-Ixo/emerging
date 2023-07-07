@@ -2,7 +2,7 @@ import { Flex } from "@mantine/core";
 import { ISupamotoCookingSumaryContent } from "@/types/supamoto";
 import calculateTotalCookingTime from "@/helpers/calculateTotalCookingTime";
 
-import { FieldText, FieldsGroupTitle } from ".";
+import { FieldText, FieldsGroupTitle } from "./styledComponents";
 
 type Props = {
   identifier?: string;

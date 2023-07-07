@@ -1,7 +1,7 @@
 import { Card, Flex, Button } from "@mantine/core";
 
 import useDetailPortal from "@/hooks/useDetailPortal";
-import { FieldText } from "..";
+import { FieldText } from "../styledComponents";
 import { ImpactClaimProps } from "./props";
 
 export default function ConversionFactor({
