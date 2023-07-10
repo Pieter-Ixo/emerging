@@ -53,10 +53,10 @@ export function BatchIdentifier({
           color={palette.fullBlue}
           sx={{ fontSize: "13px", position: "relative" }}
           align="center"
+          onClick={copy}
         >
           {`${name}/${shortStr(index, 25, 10)}`}
           <Copy
-            onClick={copy}
             fill={copied ? palette.brightBlue : palette.fullBlue}
             style={{ position: "absolute", top: "2px", marginLeft: "1em" }}
           />
