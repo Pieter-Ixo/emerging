@@ -59,7 +59,7 @@ function TextField({ children, ...props }: PropsWithChildren & TextProps) {
   return (
     <Text
       color={palette.darkestBlue}
-      ff="Roboto Condensed"
+      ff="RobotoCondensed"
       size="13px"
       lh="200%"
       lts="1.3px"
@@ -105,7 +105,6 @@ function JSONViewerCard({ json, depth = 0 }: Props) {
         display: "block",
         flexWrap: "nowrap",
       }}
-      ff="RobotoCondensed"
     >
       <Flex direction="column">
         {Object.entries(obj).map(([key, value]) => {
