@@ -9,7 +9,7 @@ export default function shortStr(
   const len = str.length;
   if (len <= threshold) return str;
 
-  const ending = str.slice(-1 * saveSymbolsAtTheEnd);
+  const ending = saveSymbolsAtTheEnd ? str.slice(-1 * saveSymbolsAtTheEnd) : "";
   const beginning = str.substring(
     0,
     threshold - saveSymbolsAtTheEnd - insert.length

@@ -1,9 +1,12 @@
 import isURL from "@/utils/isStrUrl";
+import shortStr from "@/utils/shortStr";
 import { Popover, Text } from "@mantine/core";
 import { CSSProperties, PropsWithChildren, memo } from "react";
 
+const MAX_VALUE_LENGTH = 24;
+
 function isLong(str: string): boolean {
-  return str.length >= 40;
+  return str.length >= MAX_VALUE_LENGTH;
 }
 function PopoverElement({
   text,
@@ -98,14 +101,15 @@ function JSONViewerCard({ json, depth = 0 }: Props) {
           }
           if (typeof value === "string") {
             if (isLong(value)) {
-              if (isURL(value)) {
-                // Long & URL
-                return (
-                  <div key={`row-${key}`} style={StylesRowDotContent}>
-                    <span style={StylesDotSpan}>{"● ".repeat(depth || 0)}</span>
-                    <div style={StylesRowKeyValue}>
-                      <div style={StylesPaddingRight}>{key} </div>
-                      <PopoverElement text={`${value.slice(0, 40)}...`}>
+              return (
+                <div key={`row-${key}`} style={StylesRowDotContent}>
+                  <span style={StylesDotSpan}>{"● ".repeat(depth || 0)}</span>
+                  <div style={StylesRowKeyValue}>
+                    <div style={StylesPaddingRight}>{key} </div>
+                    <PopoverElement
+                      text={shortStr(value, MAX_VALUE_LENGTH, 0) || ""}
+                    >
+                      {isURL(value) ? (
                         <a
                           style={StylesNoWrap}
                           href={value}
@@ -114,36 +118,16 @@ function JSONViewerCard({ json, depth = 0 }: Props) {
                         >
                           {value}
                         </a>
-                      </PopoverElement>
-                    </div>
-                  </div>
-                );
-              }
-              console.log("Long & not URL", key, value);
-              // Long & not URL
-              return (
-                <div key={`row-${key}`} style={StylesRowDotContent}>
-                  <span style={StylesDotSpan}>{"● ".repeat(depth || 0)}</span>
-                  <div style={StylesRowKeyValue}>
-                    <div style={StylesPaddingRight}>{key} </div>
-                    <PopoverElement text={`${value.slice(0, 40)}...`}>
-                      <div>{value}</div>
+                      ) : (
+                        <div>{value}</div>
+                      )}
                     </PopoverElement>
                   </div>
                 </div>
               );
             }
-            // not Long not URL
-            return (
-              <div key={`row-${key}`} style={StylesRowDotContent}>
-                <span style={StylesDotSpan}>{"● ".repeat(depth || 0)}</span>
-                <div style={StylesRowKeyValue}>
-                  <div style={StylesPaddingRight}>{key} </div>
-                  <div>{value}</div>
-                </div>
-              </div>
-            );
           }
+          // not Long not URL or number
           return (
             <div key={`row-${key}`} style={StylesRowDotContent}>
               <span style={StylesDotSpan}>{"● ".repeat(depth || 0)}</span>

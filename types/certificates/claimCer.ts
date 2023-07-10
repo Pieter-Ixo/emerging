@@ -67,7 +67,7 @@ export type Proof = {
   proofPurpose: string;
   jws: string;
 };
-export type Claim = {
+export type IClaim = {
   id: string;
   type: string;
   impact: Impact;
@@ -81,7 +81,7 @@ export type Claim = {
 export type CredentialSubject = {
   id: string;
   type: string[];
-  claim: Claim;
+  claim: IClaim;
 };
 
 export type IClaimCer = {

@@ -1,7 +1,7 @@
 import { Card, Flex, Button } from "@mantine/core";
 
 // TODO: this should be imported from components folder
-import JSONViewerAlternative from "@/pages/certificate/CertificateDashboard/ProofComponents/JSONViewerAlternative";
+import JSONViewerCard from "@/pages/certificate/CertificateDashboard/ProofComponents/JSONViewerCard";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import shortStr from "@/utils/shortStr";
 
@@ -13,7 +13,9 @@ export default function ClaimId({ claimCer }: Partial<ImpactClaimProps>) {
 
   const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
-      <JSONViewerAlternative json={JSON.stringify(claimCer)} />
+      <JSONViewerCard
+        json={JSON.stringify(claimCer?.credentialSubject?.claim)}
+      />
     </Card>
   );
 
