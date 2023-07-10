@@ -1,6 +1,6 @@
 import { Flex } from "@mantine/core";
 
-import { FieldText, FieldsGroupTitle } from "../styledComponents";
+import { FieldAnchor, FieldText, FieldsGroupTitle } from "../styledComponents";
 import { ProjectProps } from "./props";
 import ProjectName from "./ProjectName";
 
@@ -11,6 +11,7 @@ export default function Project({
   country,
   impactProducer,
   emissionsAvoided,
+  developerDetailHref,
 }: ProjectProps) {
   return (
     <Flex direction="column">
@@ -22,7 +23,9 @@ export default function Project({
         <ProjectName projectName={projectName} profile={profile} />
         <Flex justify="space-between" align="center">
           <FieldText>Developer</FieldText>
-          <FieldText>{developer}</FieldText>
+          <FieldAnchor href={developerDetailHref ?? ""} target="_blank">
+            {developer}
+          </FieldAnchor>
         </Flex>
         <Flex justify="space-between" align="center">
           <FieldText>Country</FieldText>

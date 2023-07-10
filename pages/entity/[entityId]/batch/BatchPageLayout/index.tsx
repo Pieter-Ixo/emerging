@@ -150,6 +150,11 @@ export default function BatchPageLayout() {
                   profile={entityProfile}
                   projectName={entityProfile?.name}
                   developer={entityProfile?.brand}
+                  developerDetailHref={
+                    entity?.linkedResource.find(
+                      (lr) => lr.id === "{id}#projectCredential"
+                    )?.serviceEndpoint
+                  }
                   country={entityProfile?.location}
                   impactProducer=""
                   emissionsAvoided=""
