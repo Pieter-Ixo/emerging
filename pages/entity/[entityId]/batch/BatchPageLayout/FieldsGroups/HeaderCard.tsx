@@ -22,7 +22,7 @@ export default function HeaderCard({ name, index, offset, progress }: Props) {
       <ArrowLeft />
       <Flex direction="column" gap={10} justify="center">
         <CardTitle>Verified Emission Reduction</CardTitle>
-        <BatchIdentifier>{`${name}/${index}`}</BatchIdentifier>
+        <BatchIdentifier name={name} index={index} />
       </Flex>
 
       <Flex align="center" justify="center" gap={28}>

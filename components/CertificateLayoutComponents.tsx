@@ -1,10 +1,11 @@
 import React, { PropsWithChildren } from "react";
 import { useRouter } from "next/navigation";
-import { Box, Flex, Text, Image, Progress } from "@mantine/core";
+import { Box, Flex, Text, Image, Progress, CopyButton } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import Copy from "@/components/Dashboard/CollectionDashboard/cards/AssetsCard/icons/copy";
+import shortStr from "@/utils/shortStr";
 
 export function ArrowLeft() {
   const router = useRouter();
@@ -37,20 +38,31 @@ export function CardTitle({ children }: PropsWithChildren) {
   );
 }
 
-export function BatchIdentifier({ children }: PropsWithChildren) {
+export function BatchIdentifier({
+  name,
+  index,
+}: {
+  name?: string;
+  index?: string;
+}) {
   return (
-    <Text
-      fw={600}
-      color={palette.darkestBlue}
-      sx={{ fontSize: "13px", position: "relative" }}
-      align="center"
-    >
-      {children}
-      <Copy
-        fill={palette.fullBlue}
-        style={{ position: "absolute", top: "2px", marginLeft: "1em" }}
-      />
-    </Text>
+    <CopyButton value={`${name}/${index}`}>
+      {({ copied, copy }) => (
+        <Text
+          fw={600}
+          color={palette.fullBlue}
+          sx={{ fontSize: "13px", position: "relative" }}
+          align="center"
+        >
+          {`${name}/${shortStr(index, 25, 10)}`}
+          <Copy
+            onClick={copy}
+            fill={copied ? palette.brightBlue : palette.fullBlue}
+            style={{ position: "absolute", top: "2px", marginLeft: "1em" }}
+          />
+        </Text>
+      )}
+    </CopyButton>
   );
 }
 
