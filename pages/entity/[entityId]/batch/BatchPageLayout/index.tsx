@@ -80,7 +80,7 @@ export default function BatchPageLayout() {
           size="40px"
           fw={300}
           color={palette.Neutral800}
-          mb="2em"
+          mb="1.45em"
         >
           CARBON Certificate
         </Title>
@@ -137,7 +137,9 @@ export default function BatchPageLayout() {
                 <CleanEnergyDevice
                   type={deviceCredSubject?.product.description}
                   modelCertificationUrl={deviceCredSubject?.certification.id}
-                  modelAttribute={entity?._profile?.attributes.find(byKey("Model"))}
+                  modelAttribute={entity?._profile?.attributes.find(
+                    byKey("Model")
+                  )}
                   fuelAttribute={entityProfile?.attributes.find(byKey("Fuel"))}
                   manufactureDate={deviceCredSubject?.manufacturer.date}
                   manufacturePlace={deviceCredSubject?.manufacturer.country}
