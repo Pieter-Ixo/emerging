@@ -40,10 +40,10 @@ export default function Collection({
             CARBON
           </Badge>
         </Group>
-        <Avatar src={collectionLogo} alt="it's me" />
+        <Avatar src={collectionLogo} alt="" />
       </Flex>
 
-      <Title color="#01283B" fw={700} size="20px" lh="lg">
+      <Title order={3} color="#01283B" fw={700} size="20px" lh="lg">
         {collectionProfileName}
       </Title>
       <Text color="dimmed" size="12px" lh="100%">

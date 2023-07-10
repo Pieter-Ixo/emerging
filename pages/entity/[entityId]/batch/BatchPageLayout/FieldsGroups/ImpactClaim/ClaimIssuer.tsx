@@ -36,10 +36,10 @@ export default function ClaimIssuer({
             CARBON
           </Badge>
         </Group>
-        <Avatar src={claimIssuer?.logoUrl} alt="it's me" />
+        <Avatar src={claimIssuer?.logoUrl} alt="" />
       </Flex>
 
-      <Title color="#01283B" fw={700} size="20px" lh="lg">
+      <Title order={3} color="#01283B" fw={700} size="20px" lh="lg">
         {claimIssuer?.name}
       </Title>
       <Text color="dimmed" size="12px" lh="100%">

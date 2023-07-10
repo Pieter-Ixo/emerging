@@ -1,22 +1,17 @@
 import { Flex } from "@mantine/core";
 
 import { FieldText, FieldsGroupTitle } from "../styledComponents";
-
-type Props = {
-  name?: string;
-  developer?: string;
-  country?: string;
-  impactProducer?: string;
-  emissionsAvoided?: string;
-};
+import { ProjectProps } from "./props";
+import ProjectName from "./ProjectName";
 
 export default function Project({
-  name,
+  projectName,
+  profile,
   developer,
   country,
   impactProducer,
   emissionsAvoided,
-}: Props) {
+}: ProjectProps) {
   return (
     <Flex direction="column">
       <FieldsGroupTitle icon="/images/icon-projects.svg">
@@ -24,10 +19,7 @@ export default function Project({
       </FieldsGroupTitle>
 
       <Flex direction="column" gap="md">
-        <Flex justify="space-between" align="center">
-          <FieldText>Name</FieldText>
-          <FieldText>{name}</FieldText>
-        </Flex>
+        <ProjectName projectName={projectName} profile={profile} />
         <Flex justify="space-between" align="center">
           <FieldText>Developer</FieldText>
           <FieldText>{developer}</FieldText>

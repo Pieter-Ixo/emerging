@@ -147,7 +147,8 @@ export default function BatchPageLayout() {
               </Grid.Col>
               <Grid.Col span={6}>
                 <Project
-                  name={entityProfile?.name}
+                  profile={entityProfile}
+                  projectName={entityProfile?.name}
                   developer={entityProfile?.brand}
                   country={entityProfile?.location}
                   impactProducer=""

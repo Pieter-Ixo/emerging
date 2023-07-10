@@ -46,10 +46,10 @@ export default function Identifier({
             CARBON
           </Badge>
         </Group>
-        <Avatar src={assetLogo} alt="it's me" />
+        <Avatar src={assetLogo} alt="" />
       </Flex>
 
-      <Title color="#01283B" fw={700} size="20px" lh="lg">
+      <Title order={3} color="#01283B" fw={700} size="20px" lh="lg">
         {entityName}
       </Title>
       <Text color="dimmed" size="12px" lh="100%">
