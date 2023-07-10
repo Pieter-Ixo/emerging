@@ -25,9 +25,13 @@ export default function Certificate() {
         <ArrowLeft />
         <Flex direction="column" gap={10} justify="center">
           <CardTitle>Verified Emission Reduction</CardTitle>
-          <BatchIdentifier>{`${
-            batch?.name || "CARBON"
-          }/bafkreibzfmpb5vi3dezygipylystbunhg5nbqwgdahmf4orgeemitelxae`}</BatchIdentifier>
+          <BatchIdentifier
+            index="CARBON"
+            name={
+              batch?.name ||
+              "bafkreibzfmpb5vi3dezygipylystbunhg5nbqwgdahmf4orgeemitelxae"
+            }
+          />
         </Flex>
 
         <Flex align="center" justify="center" gap={28}>
