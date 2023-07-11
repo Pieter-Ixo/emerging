@@ -28,6 +28,7 @@ import ImpactProducer from "./FieldsGroups/ImpactProducer";
 import Evaluator from "./FieldsGroups/Evaluator";
 import DetailCard from "./DetailCard";
 import Outcome from "./FieldsGroups/Outcome";
+import AssetAttributes from "./FieldsGroups/AssetAttributes";
 
 export default function BatchPageLayout() {
   const dispatch = useAppDispatch();
@@ -137,6 +138,12 @@ export default function BatchPageLayout() {
                   fuelPurchase={claimCer?._fuelPurchase}
                   result={claimOut?.calculation.result}
                   claimIssuer={claimIssuerProfile}
+                />
+              </Grid.Col>
+              <Grid.Col span={6}>
+                <AssetAttributes
+                  entityProfile={entityProfile}
+                  deviceCredSubject={deviceCredSubject}
                 />
               </Grid.Col>
               <Grid.Col span={6}>
