@@ -10,3 +10,14 @@ export default function isURL(str): boolean {
   ); // fragment locator
   return pattern.test(str);
 }
+export function isHttpUrl(string) {
+  let url;
+
+  try {
+    url = new URL(string);
+  } catch (_) {
+    return false;
+  }
+
+  return url.protocol === "http:" || url.protocol === "https:";
+}

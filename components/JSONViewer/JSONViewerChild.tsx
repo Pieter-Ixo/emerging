@@ -1,5 +1,8 @@
 import { PropsWithChildren, useState } from "react";
-import { Flex, Button } from "@mantine/core";
+import { Flex, Button, Anchor } from "@mantine/core";
+
+import { isHttpUrl } from "@/utils/isStrUrl";
+import { palette } from "@/theme/palette";
 
 import { Obj } from "./types";
 import Txt from "./Txt";
@@ -23,14 +26,20 @@ function Row({ children }: PropsWithChildren) {
     </Flex>
   );
 }
-function RowWithText({
-  children,
-  label,
-}: PropsWithChildren & { label: string }) {
+function RowWithText({ value, label }: { label: string; value: string }) {
+  if (isHttpUrl(value))
+    return (
+      <Row>
+        <Txt pr="lg">{label} </Txt>
+        <Anchor href={value} target="_blank" rel="noreferrer">
+          <Txt color="unset">{value}</Txt>
+        </Anchor>
+      </Row>
+    );
   return (
     <Row>
       <Txt pr="lg">{label} </Txt>
-      <Txt>{children}</Txt>
+      <Txt>{value}</Txt>
     </Row>
   );
 }
@@ -81,9 +90,7 @@ export default function JSONViewerChild({ obj, depth = 0 }: Props) {
           );
         }
         return (
-          <RowWithText key={`row-${key}`} label={key}>
-            {value}
-          </RowWithText>
+          <RowWithText key={`row-${key}`} label={key} value={value ?? ""} />
         );
       })}
     </Flex>
