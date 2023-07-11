@@ -1,10 +1,17 @@
 import { IClaimCer } from "@/types/certificates/claimCer";
 import { IQuantity } from "@/types/certificates/claimVer";
+import { IVerifiableCred } from "@/types/certificates/verifiableCred";
 
 export type OutcomeProps = {
   claimCer?: IClaimCer;
   claimDescription?: string;
   quantity?: IQuantity;
+  conversionFactor?: string;
+  verifiableCred?: IVerifiableCred;
+  period?: {
+    startDate: string;
+    endDate: string;
+  };
 };
 
 export default function PagePlug() {

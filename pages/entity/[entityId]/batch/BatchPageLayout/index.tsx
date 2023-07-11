@@ -127,6 +127,9 @@ export default function BatchPageLayout() {
                   claimCer={batch?._claimCer}
                   claimDescription={claimOut?.linkedClaim.description}
                   quantity={claimOut?.calculation.quantity}
+                  conversionFactor={claimOut?.calculation.factor.toLocaleString()}
+                  verifiableCred={verifiableCred}
+                  period={claimOut?.period}
                 />
               </Grid.Col>
               <Grid.Col span={6}>
