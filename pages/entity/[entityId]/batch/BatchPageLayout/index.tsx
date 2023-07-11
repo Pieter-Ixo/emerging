@@ -28,6 +28,7 @@ import Project from "./FieldsGroups/Project";
 import ImpactProducer from "./FieldsGroups/ImpactProducer";
 import Evaluator from "./FieldsGroups/Evaluator";
 import DetailCard from "./DetailCard";
+import Outcome from "./FieldsGroups/Outcome";
 
 export default function BatchPageLayout() {
   const dispatch = useAppDispatch();
@@ -119,6 +120,13 @@ export default function BatchPageLayout() {
                   }
                   collectionProfileName={collection?._profile?.name}
                   collectionAssetsAmount={collectionAssetsCount}
+                />
+              </Grid.Col>
+              <Grid.Col span={6}>
+                <Outcome
+                  claimCer={batch?._claimCer}
+                  claimDescription={claimOut?.linkedClaim.description}
+                  quantity={claimOut?.calculation.quantity}
                 />
               </Grid.Col>
               <Grid.Col span={6}>

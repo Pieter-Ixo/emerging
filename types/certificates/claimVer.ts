@@ -85,27 +85,27 @@ export type Issuer = {
   id: string;
 };
 
-export type Quantity = {
+export type IQuantity = {
   type: string[];
   amount: number;
   units: string;
 };
 
-export type Result = {
+export type IResult = {
   type: string;
   amount: number;
   units: string;
 };
 
-export type Calculation = {
+export type ICalculation = {
   id: string;
   type: string[];
   factor: number;
-  quantity: Quantity;
-  result: Result;
+  quantity: IQuantity;
+  result: IResult;
 };
 
-export type Confidence = {
+export type IConfidence = {
   id: string;
   type: string;
   score: string;
@@ -113,7 +113,7 @@ export type Confidence = {
   reason: Methodology[];
 };
 
-export type LinkedClaim = {
+export type ILinkedClaim = {
   id: string;
   type: string;
   description: string;
@@ -122,7 +122,7 @@ export type LinkedClaim = {
   digestMultibase: string;
 };
 
-export type Period = {
+export type IPeriod = {
   startDate: string;
   endDate: string;
 };
@@ -135,11 +135,11 @@ export type IClimeVerProof = {
   jws: string;
 };
 
-export type Outcome = {
-  linkedClaim: LinkedClaim;
-  period: Period;
-  calculation: Calculation;
-  confidence: Confidence[];
+export type IOutcome = {
+  linkedClaim: ILinkedClaim;
+  period: IPeriod;
+  calculation: ICalculation;
+  confidence: IConfidence[];
 };
 
 export type CredentialSubject = {
@@ -157,7 +157,7 @@ export type IClaimVer = {
   validFrom: string;
   status: string;
   credentialSubject: CredentialSubject;
-  outcome: Outcome;
+  outcome: IOutcome;
   evidence: Evidence[];
   issuer: Issuer;
   issuanceDate: string;
