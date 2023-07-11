@@ -137,6 +137,7 @@ export default function BatchPageLayout() {
                   }
                   fuelPurchase={claimCer?._fuelPurchase}
                   result={claimOut?.calculation.result}
+                  claimIssuer={claimIssuerProfile}
                 />
               </Grid.Col>
               <Grid.Col span={6}>

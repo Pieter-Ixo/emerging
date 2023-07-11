@@ -5,6 +5,7 @@ import { OutcomeProps } from "./props";
 import Claim from "./Claim";
 import ConversionFactor from "./ConversionFactor";
 import Evidence from "./Evidence";
+import ClaimIssuer from "./ClaimIssuer";
 
 export default function Outcome({
   claimCer,
@@ -16,6 +17,7 @@ export default function Outcome({
   evidence,
   fuelPurchase,
   result,
+  claimIssuer,
 }: OutcomeProps) {
   const quantityType = quantity?.type[1]?.split(":")?.[1] || quantity?.type[1];
   const quantityString = `${quantity?.amount} ${quantity?.units} ${quantityType}`;
@@ -54,6 +56,7 @@ export default function Outcome({
           <FieldText>Result</FieldText>
           <FieldText>{resultString}</FieldText>
         </Flex>
+        <ClaimIssuer claimIssuer={claimIssuer} />
       </Flex>
     </Flex>
   );
