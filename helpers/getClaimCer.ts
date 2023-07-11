@@ -1,5 +1,5 @@
 import request from "@/requests/request";
-import { IClaimCer } from "@/types/certificates/claimCer";
+import { IClaimCer, IFuelPurchase } from "@/types/certificates/claimCer";
 import { IClaimVer } from "@/types/certificates/claimVer";
 
 const CLAIM_CER_MOCK: IClaimCer = {
@@ -66,6 +66,16 @@ const CLAIM_CER_MOCK: IClaimCer = {
         },
       ],
     },
+    evidence: [
+      {
+        linkedClaim: {
+          id: "cellnode:/bafkreibiqum3sxhibvn6xotp6isuyslkktjuq2jgcqyidrzzecufd5ham4",
+          type: ["VerifiableCredential", "claim:FuelPurchase"],
+          digestMultibase:
+            "bafkreibiqum3sxhibvn6xotp6isuyslkktjuq2jgcqyidrzzecufd5ham4",
+        },
+      },
+    ],
   },
   issuer: {
     id: "did:ixo:entity:a1fcead81eab2f1158a726597d872413",
@@ -87,10 +97,26 @@ export default async function getClaimCer(
   const claimCerId = claimVer?.outcome.linkedClaim.id.split(":")?.[1];
   const cellnodeURL = claimVer["@context"][1]?.cellnode;
 
+  let claimCer: IClaimCer | undefined;
+  let fuelPurchase: IFuelPurchase | undefined;
   try {
-    const claimCer = await request<IClaimCer>(`${cellnodeURL}${claimCerId}`);
-    return claimCer;
+    claimCer = await request<IClaimCer>(`${cellnodeURL}${claimCerId}`);
+    if (!claimCer) return undefined;
   } catch (error) {
-    return CLAIM_CER_MOCK;
+    claimCer = CLAIM_CER_MOCK;
   }
+
+  const fuelPurchaseId =
+    claimCer?.credentialSubject.evidence[0].linkedClaim.id.split(":")[1];
+
+  try {
+    fuelPurchase = await request<IFuelPurchase>(
+      `${cellnodeURL}${fuelPurchaseId}`
+    );
+    if (!claimCer) return undefined;
+  } catch (error) {
+    fuelPurchase = undefined;
+  }
+
+  return { ...claimCer, _fuelPurchase: fuelPurchase };
 }

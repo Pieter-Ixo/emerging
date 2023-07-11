@@ -71,6 +71,7 @@ export default function BatchPageLayout() {
     : new Date(entity?.metadata?.created).toLocaleDateString();
   const verifiableCred = batch?._verifiableCred;
   const evaluation = claimVer?.credentialSubject.evaluation;
+  const claimCer = batch?._claimCer;
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -124,12 +125,17 @@ export default function BatchPageLayout() {
               </Grid.Col>
               <Grid.Col span={6}>
                 <Outcome
-                  claimCer={batch?._claimCer}
+                  claimCer={claimCer}
                   claimDescription={claimOut?.linkedClaim.description}
                   quantity={claimOut?.calculation.quantity}
                   conversionFactor={claimOut?.calculation.factor.toLocaleString()}
                   verifiableCred={verifiableCred}
                   period={claimOut?.period}
+                  evidence={
+                    claimCer?.credentialSubject.claim.evidence[0].linkedClaim
+                      .type[1]
+                  }
+                  fuelPurchase={claimCer?._fuelPurchase}
                 />
               </Grid.Col>
               <Grid.Col span={6}>
@@ -140,7 +146,7 @@ export default function BatchPageLayout() {
                   period={claimOut?.period}
                   emissionsAvoided={`${claimOut?.calculation.result.amount} ${claimOut?.calculation.result.units}`}
                   claimIssuer={claimIssuerProfile}
-                  claimCer={batch?._claimCer}
+                  claimCer={claimCer}
                   verifiableCred={verifiableCred}
                 />
               </Grid.Col>

@@ -1,6 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-import process from "process";
-
 import { ISupamoto, ISupamotoCookingSumary } from "@/types/supamoto";
 
 export async function requestSupamoto(

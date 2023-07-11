@@ -1,4 +1,4 @@
-import { IClaimCer } from "@/types/certificates/claimCer";
+import { IClaimCer, IFuelPurchase } from "@/types/certificates/claimCer";
 import { IQuantity } from "@/types/certificates/claimVer";
 import { IVerifiableCred } from "@/types/certificates/verifiableCred";
 
@@ -12,6 +12,8 @@ export type OutcomeProps = {
     startDate: string;
     endDate: string;
   };
+  evidence?: string;
+  fuelPurchase?: IFuelPurchase;
 };
 
 export default function PagePlug() {

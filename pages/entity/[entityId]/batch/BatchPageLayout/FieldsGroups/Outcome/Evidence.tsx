@@ -6,15 +6,16 @@ import useDetailPortal from "@/hooks/useDetailPortal";
 import { FieldText } from "../styledComponents";
 import { OutcomeProps } from "./props";
 
-export default function Claim({
-  claimCer,
-  claimDescription,
+export default function Evidence({
+  evidence,
+  fuelPurchase,
 }: Partial<OutcomeProps>) {
-  const { isVisible, openPortal, closePortal } = useDetailPortal("Claim");
+  const { isVisible, openPortal, closePortal } = useDetailPortal("Evidence");
+  const evidenceString = evidence?.split(":")?.[1] || evidence;
 
   const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
-      <JSONViewer json={JSON.stringify(claimCer?.credentialSubject?.claim)} />
+      <JSONViewer json={JSON.stringify(fuelPurchase)} />
     </Card>
   );
 
@@ -28,7 +29,7 @@ export default function Claim({
         onClick={() => (isVisible ? closePortal() : openPortal(PortalChild))}
         variant={isVisible ? "outline" : "subtle"}
       >
-        {claimDescription}
+        {evidenceString}
       </Button>
     </Flex>
   );

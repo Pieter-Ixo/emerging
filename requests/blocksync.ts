@@ -61,8 +61,7 @@ export async function requestBatchByID(
 ): Promise<IBatch | undefined> {
   const url = `/api/token/id/${batchId}`;
   const { data, problem } = await blocksynkAPI.get<IBatch>(url);
-  if (problem) throw problem;
-  // return data;
+  if (!problem && data) return data;
   return {
     id: "998db61979e94a939cfaa635ba8c63d3",
     index: "bafkreibzfmpb5vi3dezygipylystbunhg5nbqwgdahmf4orgeemitelxae",

@@ -4,6 +4,7 @@ import { FieldText, FieldsGroupTitle } from "../styledComponents";
 import { OutcomeProps } from "./props";
 import Claim from "./Claim";
 import ConversionFactor from "./ConversionFactor";
+import Evidence from "./Evidence";
 
 export default function Outcome({
   claimCer,
@@ -12,6 +13,8 @@ export default function Outcome({
   conversionFactor,
   verifiableCred,
   period,
+  evidence,
+  fuelPurchase,
 }: OutcomeProps) {
   const quantityType = quantity?.type[1]?.split(":")?.[1] || quantity?.type[1];
   const quantityString = `${quantity?.amount} ${quantity?.units} ${quantityType}`;
@@ -44,6 +47,7 @@ export default function Outcome({
           <FieldText>Period</FieldText>
           <FieldText>{periodFormatted}</FieldText>
         </Flex>
+        <Evidence evidence={evidence} fuelPurchase={fuelPurchase} />
       </Flex>
     </Flex>
   );

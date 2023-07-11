@@ -1,3 +1,5 @@
+import { IVerifiableCred } from "./verifiableCred";
+
 export type ContextClass = {
   ixo: string;
   claim: string;
@@ -82,7 +84,9 @@ export type CredentialSubject = {
   id: string;
   type: string[];
   claim: IClaim;
+  evidence: Evidence[];
 };
+export type IFuelPurchase = IVerifiableCred;
 
 export type IClaimCer = {
   "@context": Array<ContextClass | string>;
@@ -92,4 +96,5 @@ export type IClaimCer = {
   issuer: Issuer;
   issuanceDate: string;
   proof: Proof;
+  _fuelPurchase?: IFuelPurchase;
 };

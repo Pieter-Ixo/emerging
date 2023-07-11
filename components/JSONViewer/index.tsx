@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { Box } from "@mantine/core";
 
 import { Obj } from "./types";
@@ -9,7 +9,10 @@ interface Props {
 }
 
 function JSONViewer({ json }: Props) {
-  const obj = JSON.parse(json) as Obj;
+  const obj: Obj = useMemo(
+    () => (json ? JSON.parse(json) : ["no data"]),
+    [json]
+  );
 
   return (
     <Box
