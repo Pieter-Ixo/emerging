@@ -1,8 +1,8 @@
 import { PropsWithChildren, useState } from "react";
-import { Text, Flex, TextProps, Button } from "@mantine/core";
+import { Flex, Button } from "@mantine/core";
 
-import { palette } from "@/theme/palette";
 import { Obj } from "./types";
+import Txt from "./Txt";
 
 interface Props {
   obj: Obj;
@@ -20,25 +20,6 @@ function Row({ children }: PropsWithChildren) {
     >
       {children}
     </Flex>
-  );
-}
-function Txt({ children, ...props }: PropsWithChildren & TextProps) {
-  return (
-    <Text
-      color={palette.darkestBlue}
-      ff="RobotoCondensed"
-      size="13px"
-      //   lh="200%"
-      lts="1.3px"
-      style={{
-        ...props.style,
-        whiteSpace: "nowrap",
-        alignContent: "left",
-      }}
-      {...props}
-    >
-      {children}
-    </Text>
   );
 }
 function RowWithText({
@@ -66,10 +47,16 @@ function RowWithObj({
     <>
       <Row>
         <Txt pr="lg">
-          <Button variant="subtle" onClick={() => setIsUnfolded(!isFolded)}>
+          <Button
+            variant="subtle"
+            onClick={() => setIsUnfolded(!isFolded)}
+            px="0"
+            w="1.5em"
+            h="1em"
+          >
             {isFolded ? "▽" : "△"}
           </Button>
-          {label}{" "}
+          {label}
         </Txt>
         <Txt />
       </Row>
@@ -80,7 +67,7 @@ function RowWithObj({
 
 export default function JSONViewerChild({ obj, depth = 0 }: Props) {
   return (
-    <Flex direction="column" ml="sm">
+    <Flex direction="column" ml={depth === 0 ? "0" : "1.5em"}>
       {Object.entries(obj).map(([key, value]) => {
         if (typeof value === "object" && value !== null) {
           return (
