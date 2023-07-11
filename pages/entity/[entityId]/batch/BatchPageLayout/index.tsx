@@ -30,6 +30,7 @@ import DetailCard from "./DetailCard";
 import Outcome from "./FieldsGroups/Outcome";
 import AssetAttributes from "./FieldsGroups/AssetAttributes";
 import ProjectAttributes from "./FieldsGroups/ProjectAttributes";
+import ImpactVerification from "./FieldsGroups/ImpactVerification";
 
 export default function BatchPageLayout() {
   const dispatch = useAppDispatch();
@@ -148,10 +149,10 @@ export default function BatchPageLayout() {
                 />
               </Grid.Col>
               <Grid.Col span={6}>
-                <ProjectAttributes
-                  entityProfile={entityProfile}
-                  deviceCredSubject={deviceCredSubject}
-                />
+                <ProjectAttributes entityProfile={undefined} />
+              </Grid.Col>
+              <Grid.Col span={6}>
+                <ImpactVerification protocolProfile={undefined} />
               </Grid.Col>
               <Grid.Col span={6}>
                 <CleanEnergyDevice
