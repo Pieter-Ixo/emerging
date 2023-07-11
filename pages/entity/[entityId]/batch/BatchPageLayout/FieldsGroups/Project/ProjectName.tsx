@@ -7,9 +7,13 @@ import {
   Title,
   Text,
   Progress,
+  Badge,
+  Group,
+  Tooltip,
 } from "@mantine/core";
 
 import useDetailPortal from "@/hooks/useDetailPortal";
+import { palette } from "@/theme/palette";
 
 import { ProjectProps } from "./props";
 import { FieldText } from "../styledComponents";
@@ -22,22 +26,34 @@ export default function ProjectName({ projectName, profile }: ProjectProps) {
       <Card.Section>
         <Image src={profile?.imageUrl} height={160} alt="" />
       </Card.Section>
-      <Flex direction="row" justify="space-between" align="center" pt="xs">
-        <Title order={3} color="#01283B" fw={700} size="20px" lh="100%">
-          {profile?.name}
-        </Title>
+      <Flex direction="row" justify="space-between">
+        <Group spacing="4px">
+          <Badge bg={palette.redDark} variant="filled">
+            Inventory
+          </Badge>
+          <Badge bg={palette.orangeFull} variant="filled">
+            CARBON
+          </Badge>
+        </Group>
         <Avatar src={profile?.logoUrl} alt="" />
       </Flex>
-      <Text color="dimmed" size="12px" lh="100%">
-        *Zambia Collection 2023
-      </Text>
+      <Title order={3} color="#01283B" fw={700} size="20px" lh="lg">
+        {profile?.name}
+      </Title>
       *<Progress color="green" radius="xl" value={70} />
-      <Text my="md" color="dimmed" size="12px" lh="100%">
+      <Text color="dimmed" size="12px" lh="100%">
         *Distributed 1,600
       </Text>
-      <Text my="md" color="dimmed" size="12px" lh="100%">
-        *Date (31/09/2022)
-      </Text>
+      <Flex direction="row" justify="space-between" mt="lg">
+        <Text color="dimmed" size="12px" lh="100%">
+          *31/09/2022
+        </Text>
+        <Tooltip label="MOCKED VALUE">
+          <Text color="dimmed" size="12px" lh="100%">
+            ${(189.0).toLocaleString()}
+          </Text>
+        </Tooltip>
+      </Flex>
     </Card>
   );
 
