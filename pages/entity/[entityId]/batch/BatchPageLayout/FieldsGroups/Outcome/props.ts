@@ -1,5 +1,5 @@
 import { IClaimCer, IFuelPurchase } from "@/types/certificates/claimCer";
-import { IQuantity } from "@/types/certificates/claimVer";
+import { IQuantity, IResult } from "@/types/certificates/claimVer";
 import { IVerifiableCred } from "@/types/certificates/verifiableCred";
 
 export type OutcomeProps = {
@@ -14,6 +14,7 @@ export type OutcomeProps = {
   };
   evidence?: string;
   fuelPurchase?: IFuelPurchase;
+  result?: IResult;
 };
 
 export default function PagePlug() {

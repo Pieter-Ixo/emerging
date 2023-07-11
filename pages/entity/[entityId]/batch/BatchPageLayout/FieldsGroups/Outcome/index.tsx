@@ -15,9 +15,11 @@ export default function Outcome({
   period,
   evidence,
   fuelPurchase,
+  result,
 }: OutcomeProps) {
   const quantityType = quantity?.type[1]?.split(":")?.[1] || quantity?.type[1];
   const quantityString = `${quantity?.amount} ${quantity?.units} ${quantityType}`;
+  const resultString = `${result?.amount} ${result?.units} `;
 
   const startDate = period?.startDate
     ? new Date(period?.startDate).toLocaleDateString()
@@ -48,6 +50,10 @@ export default function Outcome({
           <FieldText>{periodFormatted}</FieldText>
         </Flex>
         <Evidence evidence={evidence} fuelPurchase={fuelPurchase} />
+        <Flex justify="space-between" align="center">
+          <FieldText>Result</FieldText>
+          <FieldText>{resultString}</FieldText>
+        </Flex>
       </Flex>
     </Flex>
   );
