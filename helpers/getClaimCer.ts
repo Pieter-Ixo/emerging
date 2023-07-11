@@ -7,6 +7,7 @@ export default async function getClaimCer(
 ): Promise<IClaimCer | undefined> {
   const claimCerId = claimVer?.outcome.linkedClaim.id.split(":")?.[1];
   const cellnodeURL = claimVer["@context"][1]?.cellnode;
+  console.log("claimCer", `${cellnodeURL}${claimCerId}`);
 
   const claimCer = await request<IClaimCer>(`${cellnodeURL}${claimCerId}`);
 
@@ -16,6 +17,8 @@ export default async function getClaimCer(
   const fuelPurchase = await request<IFuelPurchase>(
     `${cellnodeURL}${fuelPurchaseId}`
   );
+
+  // const project=
 
   // @ts-ignore
   return { ...claimCer, _fuelPurchase: fuelPurchase };

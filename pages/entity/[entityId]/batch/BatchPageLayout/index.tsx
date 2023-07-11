@@ -29,6 +29,7 @@ import Evaluator from "./FieldsGroups/Evaluator";
 import DetailCard from "./DetailCard";
 import Outcome from "./FieldsGroups/Outcome";
 import AssetAttributes from "./FieldsGroups/AssetAttributes";
+import ProjectAttributes from "./FieldsGroups/ProjectAttributes";
 
 export default function BatchPageLayout() {
   const dispatch = useAppDispatch();
@@ -142,6 +143,12 @@ export default function BatchPageLayout() {
               </Grid.Col>
               <Grid.Col span={6}>
                 <AssetAttributes
+                  entityProfile={entityProfile}
+                  deviceCredSubject={deviceCredSubject}
+                />
+              </Grid.Col>
+              <Grid.Col span={6}>
+                <ProjectAttributes
                   entityProfile={entityProfile}
                   deviceCredSubject={deviceCredSubject}
                 />
