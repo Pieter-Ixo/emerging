@@ -22,7 +22,6 @@ import { selectSelectedBatch } from "@/redux/batches/selectors";
 
 import HeaderCard from "./FieldsGroups/HeaderCard";
 import ImpactAsset from "./FieldsGroups/ImpactAsset";
-import ImpactClaim from "./FieldsGroups/ImpactClaim";
 import CleanEnergyDevice from "./FieldsGroups/CleanEnergyDevice";
 import Project from "./FieldsGroups/Project";
 import ImpactProducer from "./FieldsGroups/ImpactProducer";
@@ -138,18 +137,6 @@ export default function BatchPageLayout() {
                   fuelPurchase={claimCer?._fuelPurchase}
                   result={claimOut?.calculation.result}
                   claimIssuer={claimIssuerProfile}
-                />
-              </Grid.Col>
-              <Grid.Col span={6}>
-                <ImpactClaim
-                  fuelType={claimOut?.calculation.type}
-                  fuelAmount={`${claimOut?.calculation.quantity.amount} ${claimOut?.calculation.quantity.units}`}
-                  conversionFactor={claimOut?.calculation.factor.toLocaleString()}
-                  period={claimOut?.period}
-                  emissionsAvoided={`${claimOut?.calculation.result.amount} ${claimOut?.calculation.result.units}`}
-                  claimIssuer={claimIssuerProfile}
-                  claimCer={claimCer}
-                  verifiableCred={verifiableCred}
                 />
               </Grid.Col>
               <Grid.Col span={6}>
