@@ -3,6 +3,7 @@ import { Flex, Button } from "@mantine/core";
 
 import { Obj } from "./types";
 import Txt from "./Txt";
+import Dropdown from "./Dropdown.svg";
 
 interface Props {
   obj: Obj;
@@ -46,7 +47,7 @@ function RowWithObj({
   return (
     <>
       <Row>
-        <Txt pr="lg">
+        <Flex align="center">
           <Button
             variant="subtle"
             onClick={() => setIsUnfolded(!isFolded)}
@@ -54,13 +55,13 @@ function RowWithObj({
             w="1.5em"
             h="1em"
           >
-            {isFolded ? "▽" : "△"}
+            {isFolded ? <Dropdown /> : "△"}
           </Button>
-          {label}
-        </Txt>
+          <Txt pr="lg">{label}</Txt>
+        </Flex>
         <Txt />
       </Row>
-      {isFolded ? null : <JSONViewerChild obj={obj} depth={depth} />}
+      {!isFolded && <JSONViewerChild obj={obj} depth={depth} />}
     </>
   );
 }
