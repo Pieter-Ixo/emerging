@@ -31,6 +31,7 @@ export default function ImpactAsset({
 
       <Flex direction="column" gap="md">
         <Identifier entity={entity} />
+
         <Collection
           collectionImage={collectionImage}
           collectionLogo={collectionLogo}
