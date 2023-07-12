@@ -28,7 +28,10 @@ export default function ImpactAsset({
       </FieldsGroupTitle>
 
       <Flex direction="column" gap="md">
-        <Identifier entity={entity} />
+        <Identifier
+          entity={entity}
+          collectionAssetsAmount={collectionAssetsAmount}
+        />
         <Collection
           collection={collection}
           collectionAssetsAmount={collectionAssetsAmount}

@@ -6,20 +6,31 @@ import ProfileCard from "@/components/ProfileCard";
 import { FieldText } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
 
-export default function Identifier({ entity }: ImpactAssetProps) {
+export default function Identifier({
+  entity,
+  collectionAssetsAmount,
+}: ImpactAssetProps) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("Identifier");
   const label = entity?.alsoKnownAs.split("}")[1];
+  const orderNumberOfAsset = Number(label?.substring(1));
+  const isShowProgress =
+    !Number.isNaN(orderNumberOfAsset) && collectionAssetsAmount;
 
   const PortalChild = (
     <ProfileCard
       entity={entity}
       measure={
         <Box>
-          <Progress value={55} mt="xl" />
+          {isShowProgress && (
+            <Progress
+              value={(orderNumberOfAsset / collectionAssetsAmount) * 100}
+              mt="xl"
+            />
+          )}
           <Group spacing="4px" pt="xs">
-            <Text>{(1600).toLocaleString()}</Text>
+            <Text>{collectionAssetsAmount}</Text>
             <Text color="dimmed" size="12px">
-              clean cookstoves disctributed
+              clean cookstoves distributed
             </Text>
           </Group>
         </Box>
