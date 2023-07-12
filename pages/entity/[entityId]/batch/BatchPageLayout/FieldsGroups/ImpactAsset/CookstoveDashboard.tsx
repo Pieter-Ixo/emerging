@@ -18,9 +18,10 @@ import { STOVE } from "@/types/stove";
 interface Props {
   id: number | string;
   stove: STOVE;
+  totalMinted?: number;
 }
 
-export default function CookstoveDashboard({ id, stove }: Props) {
+export default function CookstoveDashboard({ id, stove, totalMinted }: Props) {
   return (
     <Box className={utilsStyles.pageContainer}>
       {!stove.loading || !id ? (
@@ -29,8 +30,8 @@ export default function CookstoveDashboard({ id, stove }: Props) {
             <h1 className={styles.title}>SUPAMOTO #{id}</h1>
             <section className={utilsStyles.column}>
               <div className={cls(utilsStyles.flex)}>
-                <CarbonClaimCard amount="5,160" />
-                <PieChart />
+                <CarbonClaimCard amount={totalMinted?.toLocaleString() || ""} />
+                <PieChart totalMinted={totalMinted} />
                 <PerformanceCard stove={stove} />
 
                 <div className={styles.rowCards}>

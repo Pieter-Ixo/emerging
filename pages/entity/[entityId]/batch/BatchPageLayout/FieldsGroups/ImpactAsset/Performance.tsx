@@ -8,7 +8,10 @@ import { FieldText } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
 import CookstoveDashboard from "./CookstoveDashboard";
 
-export default function Performance({ entityExternalId }: ImpactAssetProps) {
+export default function Performance({
+  entityExternalId,
+  totalMinted,
+}: ImpactAssetProps) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("Performance");
   const { stove, fetchStove } = useCookstove();
 
@@ -21,7 +24,7 @@ export default function Performance({ entityExternalId }: ImpactAssetProps) {
   const PortalChild = (
     <Card shadow="sm" padding="0" radius="md" withBorder>
       {entityExternalId && (
-        <CookstoveDashboard id={entityExternalId} stove={stove} />
+        <CookstoveDashboard id={entityExternalId} stove={stove} totalMinted={totalMinted}/>
       )}
     </Card>
   );

@@ -48,7 +48,10 @@ export default function ImpactAsset({
           <FieldText>Credits Retired</FieldText>
           <FieldText>TBC</FieldText>
         </Flex>
-        <Performance entityExternalId={entityExternalId} />
+        <Performance
+          entityExternalId={entityExternalId}
+          totalMinted={totalMinted}
+        />
         <Flex justify="space-between" align="center">
           <FieldText>Owned By</FieldText>
           <FieldAnchor
