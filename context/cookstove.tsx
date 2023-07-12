@@ -122,11 +122,8 @@ export function CookstoveProvider({
       }));
   };
 
-  const value = useMemo(
-    () => ({ stove, fetchStove, updateStove, fetchSessions, fetchPellets }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [stove]
-  );
+  const value = { stove, fetchStove, updateStove, fetchSessions, fetchPellets };
+
   return (
     <CookstoveContext.Provider value={value}>
       {children}

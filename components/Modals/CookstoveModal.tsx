@@ -41,7 +41,7 @@ export default function CookstoveModal({ id }: Props) {
               <div className={cls(utilsStyles.flex)}>
                 <CarbonClaimCard amount="5,160" />
                 <PieChart />
-                <PerformanceCard />
+                <PerformanceCard stove={stove} />
 
                 <div className={styles.rowCards}>
                   <Link href="#">

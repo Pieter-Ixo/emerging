@@ -1,7 +1,7 @@
 // import { createChart, ColorType } from 'lightweight-charts';
 import React, { useEffect, useRef, HTMLAttributes, useState } from "react";
 
-import { STOVE_DATA_TYPES, STOVE_PERIODS } from "@/types/stove";
+import { STOVE, STOVE_DATA_TYPES, STOVE_PERIODS } from "@/types/stove";
 import { useCookstove } from "@/context/cookstove";
 import { formatPellets, formatSessions } from "@/utils/supamoto";
 import styles from "./chart.module.scss";
@@ -23,7 +23,7 @@ const options = {
     visible: true,
     timeVisible: false,
     secondsVisible: false,
-    tickMarkFormatter: (time: any) => `${time.day  }/${  time.month}`,
+    tickMarkFormatter: (time: any) => `${time.day}/${time.month}`,
   },
   grid: {
     vertLines: {
@@ -78,17 +78,19 @@ export type ChartProps = {
   id: string;
   lineColor?: string;
   dataType?: STOVE_DATA_TYPES;
+  stove: STOVE;
   dataFormatter?: (val: number) => number;
 } & HTMLAttributes<HTMLDivElement>;
 
 function Chart({
   id,
+  stove,
   lineColor = "#000",
   dataFormatter,
   dataType = STOVE_DATA_TYPES.cooking_sessions,
 }: ChartProps) {
   const [data, setData] = useState<CHART_DATA>([]);
-  const { stove, fetchSessions, fetchPellets } = useCookstove();
+  const { fetchSessions, fetchPellets } = useCookstove();
   const [period, setPeriod] = useState<STOVE_PERIODS>(STOVE_PERIODS.monthly);
   const chartContainerRef = useRef<HTMLDivElement>(null);
 

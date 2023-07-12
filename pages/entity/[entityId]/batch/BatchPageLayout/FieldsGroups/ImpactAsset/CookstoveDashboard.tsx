@@ -23,7 +23,7 @@ interface Props {
 export default function CookstoveDashboard({ id, stove }: Props) {
   return (
     <Box className={utilsStyles.pageContainer}>
-      {!stove.loading || isNaN(Number(id)) ? (
+      {!stove.loading || !id ? (
         stove.sessions && stove.pellets ? (
           <>
             <h1 className={styles.title}>SUPAMOTO #{id}</h1>
@@ -31,7 +31,7 @@ export default function CookstoveDashboard({ id, stove }: Props) {
               <div className={cls(utilsStyles.flex)}>
                 <CarbonClaimCard amount="5,160" />
                 <PieChart />
-                <PerformanceCard />
+                <PerformanceCard stove={stove} />
 
                 <div className={styles.rowCards}>
                   <Link href="#">
