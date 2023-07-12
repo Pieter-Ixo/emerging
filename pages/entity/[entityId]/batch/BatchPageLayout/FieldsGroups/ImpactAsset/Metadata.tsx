@@ -23,7 +23,7 @@ export default function Metadata({
 
   return (
     <Flex justify="space-between" align="center">
-      <FieldText>Identifier</FieldText>
+      <FieldText>Created</FieldText>
       <Button
         compact
         size="xs"

@@ -12,25 +12,16 @@ export default function Identifier({
 }: ImpactAssetProps) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("Identifier");
   const label = entity?.alsoKnownAs.split("}")[1];
-  const orderNumberOfAsset = Number(label?.substring(1));
-  const isShowProgress =
-    !Number.isNaN(orderNumberOfAsset) && collectionAssetsAmount;
 
   const PortalChild = (
     <ProfileCard
       entity={entity}
       measure={
         <Box>
-          {isShowProgress && (
-            <Progress
-              value={(orderNumberOfAsset / collectionAssetsAmount) * 100}
-              mt="xl"
-            />
-          )}
           <Group spacing="4px" pt="xs">
-            <Text>{collectionAssetsAmount}</Text>
+            <Text>{label}</Text>
             <Text color="dimmed" size="12px">
-              clean cookstoves distributed
+              of {collectionAssetsAmount}
             </Text>
           </Group>
         </Box>
