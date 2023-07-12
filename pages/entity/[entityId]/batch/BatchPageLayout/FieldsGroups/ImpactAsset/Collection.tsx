@@ -1,58 +1,26 @@
-import {
-  Badge,
-  Button,
-  Card,
-  Flex,
-  Group,
-  Text,
-  Image,
-  Avatar,
-  Title,
-} from "@mantine/core";
+import { Button, Flex, Text } from "@mantine/core";
 
-import { palette } from "@/theme/palette";
+import ProfileCard from "@/components/ProfileCard";
 import useDetailPortal from "@/hooks/useDetailPortal";
+
 import { FieldText } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
 
 export default function Collection({
-  collectionName,
-  collectionImage,
-  collectionLogo,
-  collectionProfileDescription,
-  collectionProfileName,
   collectionAssetsAmount,
+  collection,
 }: ImpactAssetProps) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("Collection");
 
   const PortalChild = (
-    <Card shadow="sm" padding="lg" radius="md" withBorder>
-      <Card.Section>
-        <Image src={collectionImage} height={160} alt="" />
-      </Card.Section>
-
-      <Flex direction="row" justify="space-between">
-        <Group spacing="4px">
-          <Badge bg={palette.redDark} variant="filled">
-            Inventory
-          </Badge>
-          <Badge bg={palette.orangeFull} variant="filled">
-            CARBON
-          </Badge>
-        </Group>
-        <Avatar src={collectionLogo} alt="" />
-      </Flex>
-
-      <Title order={3} color="#01283B" fw={700} size="20px" lh="lg">
-        {collectionProfileName}
-      </Title>
-      <Text color="dimmed" size="12px" lh="100%">
-        {collectionProfileDescription}
-      </Text>
-      {collectionAssetsAmount !== undefined && (
-        <Text mt="lg">{collectionAssetsAmount} assets</Text>
-      )}
-    </Card>
+    <ProfileCard
+      entity={collection}
+      measure={
+        collectionAssetsAmount !== undefined && (
+          <Text mt="lg">{collectionAssetsAmount} assets</Text>
+        )
+      }
+    />
   );
 
   return (
@@ -65,7 +33,7 @@ export default function Collection({
         onClick={() => (isVisible ? closePortal() : openPortal(PortalChild))}
         variant={isVisible ? "outline" : "subtle"}
       >
-        {collectionName}
+        {collection?._profile?.name}
       </Button>
     </Flex>
   );

@@ -106,17 +106,10 @@ export default function BatchPageLayout() {
                   entity={entity}
                   collection={collection}
                   entityExternalId={entityExternalId}
-                  collectionName={tokenIpfs?.name}
-                  collectionImage={tokenIpfs?.image}
-                  collectionLogo={tokenIpfs?.properties.icon}
                   collectionDenom={tokenIpfs?.properties.denom}
                   entityCreated={entityCreated}
                   entityTotalMinted={entity?._token?.CARBON._totalMinted}
                   entityOwner={entity?.owner}
-                  collectionProfileDescription={
-                    collection?._profile?.description
-                  }
-                  collectionProfileName={collection?._profile?.name}
                   collectionAssetsAmount={collectionAssetsCount}
                 />
               </Grid.Col>

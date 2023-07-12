@@ -12,13 +12,16 @@ import {
 } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
-import { IEntityExtended } from "@/types/entityCollections";
+import {
+  ICollectionExtended,
+  IEntityExtended,
+} from "@/types/entityCollections";
 
 export default function ProfileCard({
   entity,
   measure,
 }: {
-  entity?: IEntityExtended;
+  entity?: IEntityExtended | ICollectionExtended;
   measure?: ReactNode;
 }) {
   const tags = entity?._tags?.entityTags.find(
@@ -50,11 +53,11 @@ export default function ProfileCard({
       <Title order={3} color="#01283B" fw={700} size="20px" lh="lg">
         {entity?._profile?.brand}
       </Title>
-      <Text color="dimmed" size="12px" lh="100%">
+      <Text color="dimmed" size="12px" lh="100%" mb="50px">
         {entity?._profile?.name}
       </Text>
       {measure || null}
-      <Flex direction="row" justify="space-between" mt="lg">
+      <Flex mt="md" direction="row" justify="space-between">
         <Text color="dimmed" size="12px" lh="100%">
           {startDate}
         </Text>

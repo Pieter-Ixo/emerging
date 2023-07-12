@@ -10,15 +10,10 @@ import Performance from "./Performance";
 
 export default function ImpactAsset({
   entityExternalId,
-  collectionName,
-  collectionImage,
-  collectionLogo,
   collectionDenom,
   entityCreated,
   entityTotalMinted,
   entityOwner,
-  collectionProfileDescription,
-  collectionProfileName,
   collectionAssetsAmount,
   entity,
   collection,
@@ -31,13 +26,8 @@ export default function ImpactAsset({
 
       <Flex direction="column" gap="md">
         <Identifier entity={entity} />
-
         <Collection
-          collectionImage={collectionImage}
-          collectionLogo={collectionLogo}
-          collectionProfileDescription={collectionProfileDescription}
-          collectionProfileName={collectionProfileName}
-          collectionName={collectionName}
+          collection={collection}
           collectionAssetsAmount={collectionAssetsAmount}
         />
         <Flex justify="space-between" align="center">
