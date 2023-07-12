@@ -12,7 +12,7 @@ export default function ProjectAttributes({
 
   return (
     <Flex direction="column">
-      <FieldsGroupTitle icon="/images/icon-leaf-solid.svg">
+      <FieldsGroupTitle icon="/images/icon-projects.svg">
         Project
       </FieldsGroupTitle>
 

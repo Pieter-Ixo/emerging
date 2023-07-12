@@ -13,7 +13,7 @@ export default function Outcome({
 
   return (
     <Flex direction="column">
-      <FieldsGroupTitle icon="/images/icon-leaf-solid.svg">
+      <FieldsGroupTitle icon="/images/icon-young-tree.svg">
         ASSET ATTRIBUTES
       </FieldsGroupTitle>
 
