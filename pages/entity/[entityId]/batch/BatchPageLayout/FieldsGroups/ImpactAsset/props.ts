@@ -8,8 +8,6 @@ export type ImpactAssetProps = {
   collectionName?: string;
   collectionImage?: string;
   collectionLogo?: string;
-  collectionDenom?: string;
-  entityCreated?: string;
   entityTotalMinted?: number | string;
   entityOwner?: string;
   collectionProfileDescription?: string;
@@ -17,6 +15,7 @@ export type ImpactAssetProps = {
   collectionAssetsAmount?: number;
   entity?: IEntityExtended;
   collection?: ICollectionExtended;
+  totalMinted?: number;
 };
 
 export default function PagePlug() {

@@ -16,6 +16,7 @@ import {
   ICollectionExtended,
   IEntityExtended,
 } from "@/types/entityCollections";
+import dateLocale from "@/utils/dateLocale";
 
 export default function ProfileCard({
   entity,
@@ -27,9 +28,7 @@ export default function ProfileCard({
   const tags = entity?._tags?.entityTags.find(
     (t) => t.category === "Asset Type"
   )?.tags;
-  const startDate = entity?.metadata.created
-    ? new Date(entity?.metadata.created).toLocaleDateString()
-    : entity?.metadata.created;
+  const startDate = dateLocale(entity?.metadata.created);
 
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>

@@ -1,5 +1,6 @@
 import { Flex } from "@mantine/core";
 import shortStr from "@/utils/shortStr";
+import dateLocale from "@/utils/dateLocale";
 
 import { FieldAnchor, FieldText, FieldsGroupTitle } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
@@ -7,16 +8,16 @@ import { ImpactAssetProps } from "./props";
 import Identifier from "./Identifier";
 import Collection from "./Collection";
 import Performance from "./Performance";
+import Metadata from "./Metadata";
+import ImpactCreditsProduced from "./ImpactCreditsProduced";
 
 export default function ImpactAsset({
   entityExternalId,
-  collectionDenom,
-  entityCreated,
-  entityTotalMinted,
   entityOwner,
   collectionAssetsAmount,
   entity,
   collection,
+  totalMinted,
 }: ImpactAssetProps) {
   return (
     <Flex direction="column">
@@ -30,22 +31,19 @@ export default function ImpactAsset({
           collection={collection}
           collectionAssetsAmount={collectionAssetsAmount}
         />
+        <Metadata
+          created={dateLocale(entity?.metadata.created)}
+          metadata={entity?.metadata}
+        />
+        <ImpactCreditsProduced
+          tokenTotal={totalMinted}
+          tokens={entity?._token?.CARBON}
+        />
         <Flex justify="space-between" align="center">
-          <FieldText>Denom</FieldText>
-          <FieldText>{collectionDenom}</FieldText>
+          <FieldText>Credits Retired</FieldText>
+          <FieldText>TBC</FieldText>
         </Flex>
-        <Flex justify="space-between" align="center">
-          <FieldText>Creation Date</FieldText>
-          <FieldText>{entityCreated}</FieldText>
-        </Flex>
-        <Flex justify="space-between" align="center">
-          <FieldText>Total CARBON Produced</FieldText>
-          <FieldText>{entityTotalMinted} CARBON</FieldText>
-        </Flex>
-        <Flex justify="space-between" align="center">
-          <FieldText>Total Emissions Avoided</FieldText>
-          <FieldText>{entityTotalMinted} kgCO2</FieldText>
-        </Flex>
+        <Performance entityExternalId={entityExternalId} />
         <Flex justify="space-between" align="center">
           <FieldText>Owned By</FieldText>
           <FieldAnchor
@@ -55,7 +53,6 @@ export default function ImpactAsset({
             {shortStr(entityOwner)}
           </FieldAnchor>
         </Flex>
-        <Performance entityExternalId={entityExternalId} />
       </Flex>
     </Flex>
   );

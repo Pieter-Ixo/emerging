@@ -74,6 +74,10 @@ export default function BatchPageLayout() {
   const evaluation = claimVer?.credentialSubject.evaluation;
   const claimCer = batch?._claimCer;
 
+  const totalMinted = Object.entries(
+    entity?._token?.CARBON._totalMinted?.tokens ?? {}
+  )?.[0][1].amount;
+
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <DetailPortalContext.Provider value={{ key, setKey }}>
@@ -97,7 +101,7 @@ export default function BatchPageLayout() {
             <HeaderCard
               name={batch?.name}
               index={batch?.index}
-              progress={entity?._token?.CARBON._totalMinted}
+              progress={totalMinted}
             />
 
             <Grid py="md" px="lg" gutter="lg">
@@ -106,11 +110,9 @@ export default function BatchPageLayout() {
                   entity={entity}
                   collection={collection}
                   entityExternalId={entityExternalId}
-                  collectionDenom={tokenIpfs?.properties.denom}
-                  entityCreated={entityCreated}
-                  entityTotalMinted={entity?._token?.CARBON._totalMinted}
                   entityOwner={entity?.owner}
                   collectionAssetsAmount={collectionAssetsCount}
+                  totalMinted={totalMinted}
                 />
               </Grid.Col>
               <Grid.Col span={6}>
