@@ -1,4 +1,4 @@
-import { Anchor, Flex } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import shortStr from "@/utils/shortStr";
 
 import { FieldAnchor, FieldText, FieldsGroupTitle } from "../styledComponents";
@@ -10,22 +10,18 @@ import Performance from "./Performance";
 
 export default function ImpactAsset({
   entityExternalId,
-  entityIdentifier,
   collectionName,
   collectionImage,
   collectionLogo,
-  assetLogo,
-  assetImage,
   collectionDenom,
   entityCreated,
   entityTotalMinted,
   entityOwner,
-  entityName,
-  entityDescription,
-  entityStartDate,
   collectionProfileDescription,
   collectionProfileName,
   collectionAssetsAmount,
+  entity,
+  collection,
 }: ImpactAssetProps) {
   return (
     <Flex direction="column">
@@ -34,14 +30,7 @@ export default function ImpactAsset({
       </FieldsGroupTitle>
 
       <Flex direction="column" gap="md">
-        <Identifier
-          entityIdentifier={entityIdentifier}
-          assetImage={assetImage}
-          assetLogo={assetLogo}
-          entityName={entityName}
-          entityDescription={entityDescription}
-          entityStartDate={entityStartDate}
-        />
+        <Identifier entity={entity} />
         <Collection
           collectionImage={collectionImage}
           collectionLogo={collectionLogo}

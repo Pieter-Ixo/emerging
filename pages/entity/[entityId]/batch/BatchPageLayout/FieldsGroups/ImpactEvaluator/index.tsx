@@ -19,7 +19,7 @@ export default function ImpactEvaluator({
       <Flex direction="column" gap="md">
         <Protocol oracleProfile={oracleProfile} />
         <Flex justify="space-between" align="center">
-          <FieldText>TBC</FieldText>
+          <FieldText>Claims Processed</FieldText>
           <FieldText>TBC</FieldText>
         </Flex>
         {attributes?.map((attr) => (

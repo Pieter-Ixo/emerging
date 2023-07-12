@@ -192,6 +192,7 @@ export type IEntityExtended = IEntity & {
   _deviceCredential?: IDeviceCredentials;
   _supamoto?: ISupamoto;
   _supamotoCookingSummary?: ISupamotoCookingSumary;
+  _tags?: ICollectionTags;
 };
 
 export type ICollectionEntities = {

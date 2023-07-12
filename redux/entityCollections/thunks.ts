@@ -21,6 +21,7 @@ import {
 } from "@/types/entityCollections";
 import getEntityToken from "@/helpers/getEntityToken";
 import getEntityDeviceCredential from "@/helpers/getEntityDeviceCredential";
+import getEntityTags from "@/helpers/getEntityTags";
 
 export const fetchAndFillCollections = createAsyncThunk(
   "entityCollections/fetchAndFillCollections",
@@ -58,20 +59,28 @@ export const fetchEntityByExternalIdAndFill = createAsyncThunk(
     const entity = await requestEntityByExternalID(externalId);
     if (!entity) return entity;
 
-    const [profile, token, deviceCredential, supamoto, supamotoCookingSummary] =
-      await Promise.all([
-        await getEntityProfile(entity),
-        await getEntityToken(entity),
-        await getEntityDeviceCredential(entity),
-        await requestSupamoto(entity.externalId),
-        await requestSupamotoCookingSummary(entity.externalId),
-      ]);
+    const [
+      profile,
+      token,
+      deviceCredential,
+      supamoto,
+      supamotoCookingSummary,
+      tags,
+    ] = await Promise.all([
+      await getEntityProfile(entity),
+      await getEntityToken(entity),
+      await getEntityDeviceCredential(entity),
+      await requestSupamoto(entity.externalId),
+      await requestSupamotoCookingSummary(entity.externalId),
+      await getEntityTags(entity),
+    ]);
 
     entity._profile = profile;
     entity._token = token;
     entity._deviceCredential = deviceCredential;
     entity._supamoto = supamoto;
     entity._supamotoCookingSummary = supamotoCookingSummary;
+    entity._tags = tags;
 
     return entity;
   }

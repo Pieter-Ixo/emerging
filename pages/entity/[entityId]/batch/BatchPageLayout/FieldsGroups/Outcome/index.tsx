@@ -22,8 +22,8 @@ export default function Outcome({
   claimIssuer,
 }: OutcomeProps) {
   const quantityType = quantity?.type[1]?.split(":")?.[1] || quantity?.type[1];
-  const quantityString = `${quantity?.amount} ${quantity?.units} ${quantityType}`;
-  const quantityStringWithSpaces = splitCamelCase(quantityString).join(" ");
+  const quantityTypeWithSpaces = splitCamelCase(quantityType || "").join(" ");
+  const quantityString = `${quantity?.amount} ${quantity?.units} ${quantityTypeWithSpaces}`;
   const resultString = `${result?.amount} ${result?.units} `;
 
   const startDate = period?.startDate
@@ -44,7 +44,7 @@ export default function Outcome({
         <Claim claimCer={claimCer} claimDescription={claimDescription} />
         <Flex justify="space-between" align="center">
           <FieldText>Quantity</FieldText>
-          <FieldText>{quantityStringWithSpaces}</FieldText>
+          <FieldText>{quantityString}</FieldText>
         </Flex>
         <ConversionFactor
           conversionFactor={conversionFactor}

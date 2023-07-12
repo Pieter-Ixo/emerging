@@ -103,20 +103,16 @@ export default function BatchPageLayout() {
             <Grid py="md" px="lg" gutter="lg">
               <Grid.Col span={6}>
                 <ImpactAsset
+                  entity={entity}
+                  collection={collection}
                   entityExternalId={entityExternalId}
-                  entityIdentifier={`${entityProfile?.brand} ${entity?.alsoKnownAs}`}
                   collectionName={tokenIpfs?.name}
                   collectionImage={tokenIpfs?.image}
                   collectionLogo={tokenIpfs?.properties.icon}
-                  assetImage={entityProfile?.imageUrl}
-                  assetLogo={entityProfile?.logoUrl}
                   collectionDenom={tokenIpfs?.properties.denom}
                   entityCreated={entityCreated}
                   entityTotalMinted={entity?._token?.CARBON._totalMinted}
                   entityOwner={entity?.owner}
-                  entityName={entityProfile?.name}
-                  entityDescription={entityProfile?.description}
-                  entityStartDate={entity?.startDate}
                   collectionProfileDescription={
                     collection?._profile?.description
                   }

@@ -2,7 +2,6 @@ import { PropsWithChildren, useState } from "react";
 import { Flex, Button, Anchor } from "@mantine/core";
 
 import { isHttpUrl } from "@/utils/isStrUrl";
-import { palette } from "@/theme/palette";
 
 import { Obj } from "./types";
 import Txt from "./Txt";
@@ -64,7 +63,7 @@ function RowWithObj({
             w="1.5em"
             h="1em"
           >
-            {isFolded ? <Dropdown /> : "△"}
+            {isFolded ? <Dropdown /> : <Dropdown style={{transform: 'rotate(180deg)'}} />}
           </Button>
           <Txt pr="lg">{label}</Txt>
         </Flex>
