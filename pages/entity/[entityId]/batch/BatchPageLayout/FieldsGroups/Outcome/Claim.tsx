@@ -20,7 +20,7 @@ export default function Claim({
 
   return (
     <Flex justify="space-between" align="center">
-      <FieldText>Claim ID</FieldText>
+      <FieldText>Claim</FieldText>
       <Button
         compact
         size="xs"

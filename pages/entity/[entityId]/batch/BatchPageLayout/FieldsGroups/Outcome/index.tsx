@@ -1,5 +1,7 @@
 import { Flex } from "@mantine/core";
 
+import splitCamelCase from "@/utils/splitCamelCase";
+
 import { FieldText, FieldsGroupTitle } from "../styledComponents";
 import { OutcomeProps } from "./props";
 import Claim from "./Claim";
@@ -21,6 +23,7 @@ export default function Outcome({
 }: OutcomeProps) {
   const quantityType = quantity?.type[1]?.split(":")?.[1] || quantity?.type[1];
   const quantityString = `${quantity?.amount} ${quantity?.units} ${quantityType}`;
+  const quantityStringWithSpaces = splitCamelCase(quantityString).join(" ");
   const resultString = `${result?.amount} ${result?.units} `;
 
   const startDate = period?.startDate
@@ -41,7 +44,7 @@ export default function Outcome({
         <Claim claimCer={claimCer} claimDescription={claimDescription} />
         <Flex justify="space-between" align="center">
           <FieldText>Quantity</FieldText>
-          <FieldText>{quantityString}</FieldText>
+          <FieldText>{quantityStringWithSpaces}</FieldText>
         </Flex>
         <ConversionFactor
           conversionFactor={conversionFactor}

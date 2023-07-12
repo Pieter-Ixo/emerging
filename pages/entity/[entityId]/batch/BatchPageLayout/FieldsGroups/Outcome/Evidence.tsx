@@ -21,7 +21,7 @@ export default function Evidence({
 
   return (
     <Flex justify="space-between" align="center">
-      <FieldText>Claim ID</FieldText>
+      <FieldText>Evidence</FieldText>
       <Button
         compact
         size="xs"
