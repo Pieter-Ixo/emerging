@@ -5,10 +5,8 @@ import { FieldText, FieldsGroupTitle } from "../styledComponents";
 import { ProjectAttributesProps } from "./props";
 import ProjectName from "./ProjectName";
 
-export default function ProjectAttributes({
-  projectProfile,
-}: ProjectAttributesProps) {
-  const attributes = projectProfile?.attributes;
+export default function ProjectAttributes({ project }: ProjectAttributesProps) {
+  const attributes = project?._profile?.attributes;
 
   return (
     <Flex direction="column">
@@ -17,7 +15,7 @@ export default function ProjectAttributes({
       </FieldsGroupTitle>
 
       <Flex direction="column" gap="md">
-        <ProjectName projectProfile={projectProfile} />
+        <ProjectName project={project} />
         {attributes?.map((attr) => (
           <Flex key={attr.key} justify="space-between" align="center">
             <FieldText>{attr.key}</FieldText>

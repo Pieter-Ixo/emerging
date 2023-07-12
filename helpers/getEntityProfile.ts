@@ -6,18 +6,8 @@ import {
   IEntityProfile,
 } from "@/types/entityCollections";
 import getFullServiceEndpoint from "@/utils/getServiceEndpoint";
-
-function fillProfileLinkedData(
-  profile: ICollectionProfile
-): ICollectionProfile {
-  const contextItem = profile["@context"][1];
-  const web3 = typeof contextItem === "object" ? contextItem?.web3 : "";
-  return {
-    ...profile,
-    imageUrl: profile.image.replace("web3:", web3),
-    logoUrl: profile.logo.replace("web3:", web3),
-  };
-}
+import fillProfileLinkedData from "./fillProfileLinkedData";
+import getEntityTags from "./getEntityTags";
 
 export default async function getEntityProfile(
   entity: IEntityExtended
@@ -38,6 +28,13 @@ export async function getEntityWithProfile(
   id: string
 ): Promise<IEntityExtended> {
   const entity = await requestEntityByID(id);
-  const profile = await getEntityProfile(entity);
-  return { ...entity, _profile: profile };
+
+  const [profile, tags] = await Promise.all([
+    await getEntityProfile(entity),
+    await getEntityTags(entity),
+  ]);
+
+  const profileFilled = fillProfileLinkedData(profile);
+
+  return { ...entity, _profile: profileFilled, _tags: tags };
 }

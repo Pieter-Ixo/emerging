@@ -21,13 +21,21 @@ import dateLocale from "@/utils/dateLocale";
 export default function ProfileCard({
   entity,
   measure,
+  tags: argumentTags,
 }: {
   entity?: IEntityExtended | ICollectionExtended;
   measure?: ReactNode;
+  tags?: (string | undefined)[];
 }) {
-  const tags = entity?._tags?.entityTags.find(
-    (t) => t.category === "Asset Type"
-  )?.tags;
+  let tags;
+
+  if (!argumentTags) {
+    tags = entity?._tags?.entityTags.find(
+      (t) => t.category === "Asset Type"
+    )?.tags;
+  } else {
+    tags = argumentTags;
+  }
   const startDate = dateLocale(entity?.metadata.created);
 
   return (
@@ -39,11 +47,13 @@ export default function ProfileCard({
       <Flex direction="row" justify="space-between">
         {tags && (
           <Group spacing="4px">
-            {tags.map((tag) => (
-              <Badge key={tag} bg={palette.redDark} variant="filled">
-                {tag}
-              </Badge>
-            ))}
+            {tags.map((tag) =>
+              tag ? (
+                <Badge key={tag} bg={palette.redDark} variant="filled">
+                  {tag}
+                </Badge>
+              ) : null
+            )}
           </Group>
         )}
         <Avatar src={entity?._profile?.logoUrl} alt="" />

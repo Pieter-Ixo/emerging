@@ -67,16 +67,13 @@ export default function BatchPageLayout() {
   const protocol = batch?._protocol;
   const oracle = batch?._oracle;
   const claimIssuerProfile = batch?._claimIssuer?._profile;
-  const entityCreated = entity?.metadata?.created
-    ? new Date(entity?.metadata?.created).toLocaleDateString()
-    : undefined;
   const verifiableCred = batch?._verifiableCred;
   const evaluation = claimVer?.credentialSubject.evaluation;
   const claimCer = batch?._claimCer;
 
   const totalMinted = Object.entries(
     entity?._token?.CARBON._totalMinted?.tokens ?? {}
-  )?.[0][1].amount;
+  )?.[0]?.[1].amount;
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -139,7 +136,7 @@ export default function BatchPageLayout() {
                 />
               </Grid.Col>
               <Grid.Col span={6}>
-                <ProjectAttributes projectProfile={project?._profile} />
+                <ProjectAttributes project={project} />
               </Grid.Col>
               <Grid.Col span={6}>
                 <ImpactVerification protocolProfile={protocol?._profile} />

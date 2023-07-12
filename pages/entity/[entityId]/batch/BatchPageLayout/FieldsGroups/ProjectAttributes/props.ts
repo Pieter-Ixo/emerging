@@ -1,7 +1,7 @@
-import { IProfileSettings } from "@/types/entityCollections/settings";
+import { IEntityExtended } from "@/types/entityCollections";
 
 export type ProjectAttributesProps = {
-  projectProfile?: IProfileSettings;
+  project?: IEntityExtended;
 };
 
 export default function PagePlug() {
