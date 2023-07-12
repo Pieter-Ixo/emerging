@@ -10,9 +10,12 @@ export default function ProjectName({
   project,
 }: Partial<ProjectAttributesProps>) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("ProjectName");
-  const tag = project?._tags?.entityTags[0].category;
 
-  const PortalChild = <ProfileCard entity={project} tags={[tag]} />;
+  const tag = project?._tags?.entityTags.find(
+    (et) => et.category === "Project Type"
+  )?.tags || [project?._tags?.entityTags[0].category];
+
+  const PortalChild = <ProfileCard entity={project} tags={tag} />;
 
   return (
     <Flex justify="space-between" align="center">
