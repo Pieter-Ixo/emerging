@@ -7,14 +7,13 @@ import { FieldText } from "../styledComponents";
 import { ProjectAttributesProps } from "./props";
 
 export default function ProjectName({
-  deviceCredSubject,
-  entityProfile,
+  projectProfile,
 }: Partial<ProjectAttributesProps>) {
-  const { isVisible, openPortal, closePortal } = useDetailPortal("AssetName");
+  const { isVisible, openPortal, closePortal } = useDetailPortal("ProjectName");
 
   const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
-      <JSONViewer json={JSON.stringify(deviceCredSubject)} />
+      <JSONViewer json={JSON.stringify(projectProfile)} />
     </Card>
   );
 
@@ -28,7 +27,7 @@ export default function ProjectName({
         onClick={() => (isVisible ? closePortal() : openPortal(PortalChild))}
         variant={isVisible ? "outline" : "subtle"}
       >
-        {entityProfile?.name}
+        {projectProfile?.name}
       </Button>
     </Flex>
   );

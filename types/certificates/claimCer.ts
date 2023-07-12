@@ -1,3 +1,4 @@
+import { IEntityExtended } from "../entityCollections";
 import { IVerifiableCred } from "./verifiableCred";
 
 export type ContextClass = {
@@ -97,4 +98,5 @@ export type IClaimCer = {
   issuanceDate: string;
   proof: Proof;
   _fuelPurchase?: IFuelPurchase;
+  _project?: IEntityExtended;
 };

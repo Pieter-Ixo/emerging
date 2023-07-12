@@ -6,10 +6,9 @@ import { ProjectAttributesProps } from "./props";
 import ProjectName from "./ProjectName";
 
 export default function ProjectAttributes({
-  entityProfile,
-  deviceCredSubject,
+  projectProfile,
 }: ProjectAttributesProps) {
-  const attributes = entityProfile?.attributes;
+  const attributes = projectProfile?.attributes;
 
   return (
     <Flex direction="column">
@@ -18,10 +17,7 @@ export default function ProjectAttributes({
       </FieldsGroupTitle>
 
       <Flex direction="column" gap="md">
-        <ProjectName
-          deviceCredSubject={deviceCredSubject}
-          entityProfile={entityProfile}
-        />
+        <ProjectName projectProfile={projectProfile} />
         {attributes?.map((attr) => (
           <Flex key={attr.key} justify="space-between" align="center">
             <FieldText>{attr.key}</FieldText>

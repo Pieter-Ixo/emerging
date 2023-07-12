@@ -63,12 +63,13 @@ export default function BatchPageLayout() {
   const claimVer = batch?._claimVer;
   const deviceCredSubject = entity?._deviceCredential?.credentialSubject;
   const supamoto = entity?._supamoto;
+  const project = batch?._claimCer?._project;
   const protocol = batch?._protocol;
   const oracle = batch?._oracle;
   const claimIssuerProfile = batch?._claimIssuer?._profile;
-  const entityCreated = !entity?.metadata?.created
-    ? undefined
-    : new Date(entity?.metadata?.created).toLocaleDateString();
+  const entityCreated = entity?.metadata?.created
+    ? new Date(entity?.metadata?.created).toLocaleDateString()
+    : undefined;
   const verifiableCred = batch?._verifiableCred;
   const evaluation = claimVer?.credentialSubject.evaluation;
   const claimCer = batch?._claimCer;
@@ -147,7 +148,7 @@ export default function BatchPageLayout() {
                 />
               </Grid.Col>
               <Grid.Col span={6}>
-                <ProjectAttributes entityProfile={undefined} />
+                <ProjectAttributes projectProfile={project?._profile} />
               </Grid.Col>
               <Grid.Col span={6}>
                 <ImpactVerification protocolProfile={protocol?._profile} />

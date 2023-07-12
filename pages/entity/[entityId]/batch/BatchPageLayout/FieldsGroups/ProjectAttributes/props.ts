@@ -1,9 +1,7 @@
-import { CredentialSubject } from "@/types/entityCollections/deviceCredentials";
 import { IProfileSettings } from "@/types/entityCollections/settings";
 
 export type ProjectAttributesProps = {
-  entityProfile?: IProfileSettings;
-  deviceCredSubject?: CredentialSubject;
+  projectProfile?: IProfileSettings;
 };
 
 export default function PagePlug() {

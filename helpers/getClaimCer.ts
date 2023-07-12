@@ -2,6 +2,8 @@ import request from "@/requests/request";
 import { IClaimCer, IFuelPurchase } from "@/types/certificates/claimCer";
 import { IClaimVer } from "@/types/certificates/claimVer";
 
+import { getEntityWithProfile } from "./getEntityProfile";
+
 export default async function getClaimCer(
   claimVer: IClaimVer
 ): Promise<IClaimCer | undefined> {
@@ -9,16 +11,20 @@ export default async function getClaimCer(
   const cellnodeURL = claimVer["@context"][1]?.cellnode;
 
   const claimCer = await request<IClaimCer>(`${cellnodeURL}${claimCerId}`);
+  if (!claimCer) return undefined;
 
   const fuelPurchaseId =
     claimCer?.credentialSubject.claim.evidence[0].linkedClaim.id.split(":")[1];
 
-  const fuelPurchase = await request<IFuelPurchase>(
-    `${cellnodeURL}${fuelPurchaseId}`
-  );
+  const projectEntityId = claimCer?.credentialSubject.claim.project.id;
 
-  // const project=
+  const [fuelPurchase, project] = await Promise.all([
+    request<IFuelPurchase>(`${cellnodeURL}${fuelPurchaseId}`),
+    getEntityWithProfile(projectEntityId),
+  ]);
 
-  // @ts-ignore
-  return { ...claimCer, _fuelPurchase: fuelPurchase };
+  claimCer._fuelPurchase = fuelPurchase;
+  claimCer._project = project;
+
+  return claimCer;
 }
