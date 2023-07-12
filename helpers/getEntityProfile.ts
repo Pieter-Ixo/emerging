@@ -1,3 +1,4 @@
+import { requestEntityByID } from "@/requests/blocksync";
 import request from "@/requests/request";
 import {
   ICollectionProfile,
@@ -32,4 +33,11 @@ export default async function getEntityProfile(
 
   const profileFilled = fillProfileLinkedData(profile);
   return profileFilled;
+}
+export async function getEntityWithProfile(
+  id: string
+): Promise<IEntityExtended> {
+  const entity = await requestEntityByID(id);
+  const profile = await getEntityProfile(entity);
+  return { ...entity, _profile: profile };
 }

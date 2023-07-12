@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import getClaimCer from "@/helpers/getClaimCer";
 import getClaimIssuer from "@/helpers/getClaimIssuer";
+import { getEntityWithProfile } from "@/helpers/getEntityProfile";
 import getVerifiableCredential from "@/helpers/getVerifiableCredential";
 import request from "@/requests/request";
 import { requestBatchByID, requestBatches } from "@/requests/blocksync";
@@ -61,17 +62,18 @@ export const fetchBatchById = createAsyncThunk<
       filledBatch._claimVer = claimVer;
 
       if (claimVer) {
-        const [claimCer, claimIssuer, verifiableCredential] = await Promise.all(
-          [
+        const [claimCer, claimIssuer, verifiableCredential, protocol] =
+          await Promise.all([
             await getClaimCer(claimVer),
             await getClaimIssuer(claimVer?.outcome.linkedClaim.issuer),
             await getVerifiableCredential(claimVer),
-          ]
-        );
+            await getEntityWithProfile(claimVer["@context"][1].protocol),
+          ]);
 
         filledBatch._claimIssuer = claimIssuer;
         filledBatch._claimCer = claimCer;
         filledBatch._verifiableCred = verifiableCredential;
+        filledBatch._protocol = protocol;
       }
     }
 

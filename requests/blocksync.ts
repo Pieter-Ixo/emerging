@@ -39,6 +39,12 @@ export async function requestEntityByExternalID(
 
   return entity;
 }
+export async function requestEntityByID(id: string): Promise<IEntityExtended> {
+  const entity = await requestBlocksyncAPI<IEntity>(`/api/entity/byId/${id}`);
+  if (!entity) throw new Error("panica!");
+
+  return entity;
+}
 
 export async function requestBatches(): Promise<IBatch[] | undefined> {
   const url = "/api/token/name/CARBON";

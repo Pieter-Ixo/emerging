@@ -67,6 +67,7 @@ export default function BatchPageLayout() {
   const claimVer = batch?._claimVer;
   const deviceCredSubject = entity?._deviceCredential?.credentialSubject;
   const supamoto = entity?._supamoto;
+  const protocol = batch?._protocol;
   const claimIssuerProfile = batch?._claimIssuer?._profile;
   const entityCreated = !entity?.metadata?.created
     ? undefined
@@ -152,7 +153,7 @@ export default function BatchPageLayout() {
                 <ProjectAttributes entityProfile={undefined} />
               </Grid.Col>
               <Grid.Col span={6}>
-                <ImpactVerification protocolProfile={undefined} />
+                <ImpactVerification protocolProfile={protocol?._profile} />
               </Grid.Col>
               <Grid.Col span={6}>
                 <CleanEnergyDevice

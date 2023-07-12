@@ -51,6 +51,7 @@ export const fetchCollectionByEntity = createAsyncThunk(
   () => {}
 );
 
+// TODO: Let's migrate this to this file: "@/helpers/getEntityProfile"
 export const fetchEntityByExternalIdAndFill = createAsyncThunk(
   "entityCollections/fetchEntityByExternalIdAndFill",
   async (externalId: string): Promise<IEntityExtended> => {

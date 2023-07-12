@@ -9,7 +9,7 @@ import { ImpactVerificationProps } from "./props";
 export default function Protocol({
   protocolProfile,
 }: Partial<ImpactVerificationProps>) {
-  const { isVisible, openPortal, closePortal } = useDetailPortal("AssetName");
+  const { isVisible, openPortal, closePortal } = useDetailPortal("Protocol");
 
   const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>

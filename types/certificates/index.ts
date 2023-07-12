@@ -1,3 +1,4 @@
+import { IEntityExtended } from "../entityCollections";
 import { IClaimCer } from "./claimCer";
 import { IClaimIssuer, IClaimVer } from "./claimVer";
 import { IVerifiableCred } from "./verifiableCred";
@@ -42,4 +43,5 @@ export type IBatchDataFilled = IBatch & {
   _verifiableCred?: IVerifiableCred;
   _claimIssuer?: IClaimIssuer;
   _claimCer?: IClaimCer;
+  _protocol?: IEntityExtended;
 };
