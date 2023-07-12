@@ -22,10 +22,6 @@ import { selectSelectedBatch } from "@/redux/batches/selectors";
 
 import HeaderCard from "./FieldsGroups/HeaderCard";
 import ImpactAsset from "./FieldsGroups/ImpactAsset";
-import CleanEnergyDevice from "./FieldsGroups/CleanEnergyDevice";
-import Project from "./FieldsGroups/Project";
-import ImpactProducer from "./FieldsGroups/ImpactProducer";
-import Evaluator from "./FieldsGroups/Evaluator";
 import DetailCard from "./DetailCard";
 import Outcome from "./FieldsGroups/Outcome";
 import AssetAttributes from "./FieldsGroups/AssetAttributes";
@@ -154,56 +150,6 @@ export default function BatchPageLayout() {
               </Grid.Col>
               <Grid.Col span={6}>
                 <ImpactVerification protocolProfile={protocol?._profile} />
-              </Grid.Col>
-              <Grid.Col span={6}>
-                <CleanEnergyDevice
-                  type={deviceCredSubject?.product.description}
-                  modelCertificationUrl={deviceCredSubject?.certification.id}
-                  modelAttribute={entity?._profile?.attributes.find(
-                    byKey("Model")
-                  )}
-                  fuelAttribute={entityProfile?.attributes.find(byKey("Fuel"))}
-                  manufactureDate={deviceCredSubject?.manufacturer.date}
-                  manufacturePlace={deviceCredSubject?.manufacturer.country}
-                />
-              </Grid.Col>
-              <Grid.Col span={6}>
-                <Project
-                  profile={entityProfile}
-                  projectName={entityProfile?.name}
-                  developer={entityProfile?.brand}
-                  developerDetailHref={
-                    entity?.linkedResource.find(
-                      (lr) => lr.id === "{id}#projectCredential"
-                    )?.serviceEndpoint
-                  }
-                  country={entityProfile?.location}
-                  impactProducer=""
-                  emissionsAvoided=""
-                />
-              </Grid.Col>
-              <Grid.Col span={6}>
-                <ImpactProducer
-                  identifier={entity?.externalId?.toString()}
-                  countryAttribute={entityProfile?.attributes.find(
-                    byKey("Location")
-                  )}
-                  settingAttribute={entityProfile?.attributes.find(
-                    byKey("Usage")
-                  )}
-                  household=""
-                  cookingSummary={entity?._supamotoCookingSummary?.content}
-                />
-              </Grid.Col>
-              <Grid.Col span={6}>
-                <Evaluator
-                  oracle={claimVer?.issuer.id}
-                  methodologyName={evaluation?.methodology.type.split(":")[1]}
-                  methodologyLink={evaluation?.methodology.id}
-                  model={evaluation?.model}
-                  version={evaluation?.version}
-                  claimsProcessed=""
-                />
               </Grid.Col>
             </Grid>
           </Grid.Col>
