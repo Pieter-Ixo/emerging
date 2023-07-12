@@ -17,8 +17,10 @@ export default function ImpactAsset({
   collectionAssetsAmount,
   entity,
   collection,
-  totalMinted,
 }: ImpactAssetProps) {
+  const totalMinted = Object.entries(
+    entity?._token?.CARBON._totalMinted?.tokens ?? {}
+  )?.[0]?.[1].amount;
   return (
     <Flex direction="column">
       <FieldsGroupTitle icon="/images/icon-assets.svg">
