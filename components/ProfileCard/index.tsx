@@ -37,6 +37,7 @@ export default function ProfileCard({
     tags = argumentTags;
   }
   const startDate = dateLocale(entity?.metadata.created);
+  const price = entity?._profile?.metrics[0];
 
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -70,11 +71,11 @@ export default function ProfileCard({
         <Text color="dimmed" size="12px" lh="100%">
           {startDate}
         </Text>
-        <Tooltip label="MOCKED VALUE">
+        {price && (
           <Text color="dimmed" size="12px" lh="100%">
-            ${(189.0).toLocaleString()}
+            {`${price?.prefix} ${price?.metric}`}
           </Text>
-        </Tooltip>
+        )}
       </Flex>
     </Card>
   );

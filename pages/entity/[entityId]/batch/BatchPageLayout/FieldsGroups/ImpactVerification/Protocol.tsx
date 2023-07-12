@@ -1,21 +1,17 @@
-import { Card, Flex, Button } from "@mantine/core";
+import { Flex, Button } from "@mantine/core";
 
-import JSONViewer from "@/components/JSONViewer";
+import ProfileCard from "@/components/ProfileCard";
 import useDetailPortal from "@/hooks/useDetailPortal";
 
 import { FieldText } from "../styledComponents";
 import { ImpactVerificationProps } from "./props";
 
 export default function Protocol({
-  protocolProfile,
+  protocol,
 }: Partial<ImpactVerificationProps>) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("Protocol");
 
-  const PortalChild = (
-    <Card shadow="sm" padding="lg" radius="md" withBorder>
-      <JSONViewer json={JSON.stringify(protocolProfile)} />
-    </Card>
-  );
+  const PortalChild = <ProfileCard entity={protocol} />;
 
   return (
     <Flex justify="space-between" align="center">
@@ -27,7 +23,7 @@ export default function Protocol({
         onClick={() => (isVisible ? closePortal() : openPortal(PortalChild))}
         variant={isVisible ? "outline" : "subtle"}
       >
-        {protocolProfile?.name}
+        {protocol?._profile?.name}
       </Button>
     </Flex>
   );

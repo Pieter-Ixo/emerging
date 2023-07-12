@@ -1,5 +1,11 @@
 import { ISettingsContext } from "./commonTypes";
 
+export type IMetric = {
+  prefix: string;
+  metric: string;
+  suffix: string;
+  source: string;
+};
 export type IAttribute = {
   key: string | "Model" | "Fuel";
   value: string;
@@ -17,5 +23,5 @@ export type IProfileSettings = {
   location: string;
   description: string;
   attributes: IAttribute[];
-  metrics: unknown[];
+  metrics: IMetric[];
 };

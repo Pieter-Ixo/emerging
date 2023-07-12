@@ -6,10 +6,10 @@ import { ImpactVerificationProps } from "./props";
 import Protocol from "./Protocol";
 
 export default function ImpactVerification({
-  protocolProfile,
+  protocol,
 }: ImpactVerificationProps) {
   // @ts-ignore
-  const attributes = protocolProfile?.attributes;
+  const attributes = protocol?._profile?.attributes;
 
   return (
     <Flex direction="column">
@@ -18,7 +18,7 @@ export default function ImpactVerification({
       </FieldsGroupTitle>
 
       <Flex direction="column" gap="md">
-        <Protocol protocolProfile={protocolProfile} />
+        <Protocol protocol={protocol} />
         {attributes?.map((attr) => (
           <Flex key={attr.key} justify="space-between" align="center">
             <FieldText>{attr.key}</FieldText>

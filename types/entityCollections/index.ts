@@ -105,7 +105,6 @@ export type ICollection = {
   service: IService[];
   settings: ISettings;
 };
-
 export type IEntity = {
   id: string;
   type: string;

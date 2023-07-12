@@ -139,7 +139,7 @@ export default function BatchPageLayout() {
                 <ProjectAttributes project={project} />
               </Grid.Col>
               <Grid.Col span={6}>
-                <ImpactVerification protocolProfile={protocol?._profile} />
+                <ImpactVerification protocol={protocol} />
               </Grid.Col>
               <Grid.Col span={6}>
                 <ImpactEvaluator oracleProfile={oracle?._profile} />

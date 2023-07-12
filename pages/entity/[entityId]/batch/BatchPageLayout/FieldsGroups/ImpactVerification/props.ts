@@ -1,7 +1,7 @@
-import { IEntityProfile } from "@/types/entityCollections";
+import { IEntityExtended } from "@/types/entityCollections";
 
 export type ImpactVerificationProps = {
-  protocolProfile?: IEntityProfile;
+  protocol?: IEntityExtended;
 };
 
 export default function PagePlug() {
