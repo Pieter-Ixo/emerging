@@ -1,7 +1,7 @@
-import { IEntityProfile } from "@/types/entityCollections";
+import { IEntityExtended } from "@/types/entityCollections";
 
 export type OracleVerificationProps = {
-  oracleProfile?: IEntityProfile;
+  oracle?: IEntityExtended;
 };
 
 export default function PagePlug() {

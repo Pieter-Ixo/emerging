@@ -5,10 +5,8 @@ import { FieldText, FieldsGroupTitle } from "../styledComponents";
 import Protocol from "./Oracle";
 import { OracleVerificationProps } from "./props";
 
-export default function ImpactEvaluator({
-  oracleProfile,
-}: OracleVerificationProps) {
-  const attributes = oracleProfile?.attributes;
+export default function ImpactEvaluator({ oracle }: OracleVerificationProps) {
+  const attributes = oracle?._profile?.attributes;
 
   return (
     <Flex direction="column">
@@ -17,7 +15,7 @@ export default function ImpactEvaluator({
       </FieldsGroupTitle>
 
       <Flex direction="column" gap="md">
-        <Protocol oracleProfile={oracleProfile} />
+        <Protocol oracle={oracle} />
         <Flex justify="space-between" align="center">
           <FieldText>Claims Processed</FieldText>
           <FieldText>TBC</FieldText>

@@ -45,7 +45,7 @@ export default function ProfileCard({
         <Image src={entity?._profile?.imageUrl} height={160} alt="" />
       </Card.Section>
 
-      <Flex direction="row" justify="space-between">
+      <Flex direction="row" justify="space-between" pt="xs">
         {tags && (
           <Group spacing="4px">
             {tags.map((tag) =>
@@ -57,7 +57,7 @@ export default function ProfileCard({
             )}
           </Group>
         )}
-        <Avatar src={entity?._profile?.logoUrl} alt="" />
+        <Avatar src={entity?._profile?.logoUrl} alt="" radius="xl" />
       </Flex>
 
       <Title order={3} color="#01283B" fw={700} size="20px" lh="lg">
