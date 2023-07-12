@@ -4,16 +4,16 @@ import JSONViewer from "@/components/JSONViewer";
 import useDetailPortal from "@/hooks/useDetailPortal";
 
 import { FieldText } from "../styledComponents";
-import { ImpactVerificationProps } from "./props";
+import { OracleVerificationProps } from "./props";
 
-export default function Protocol({
-  protocolProfile,
-}: Partial<ImpactVerificationProps>) {
-  const { isVisible, openPortal, closePortal } = useDetailPortal("Protocol");
+export default function Oracle({
+  oracleProfile,
+}: Partial<OracleVerificationProps>) {
+  const { isVisible, openPortal, closePortal } = useDetailPortal("Oracle");
 
   const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
-      <JSONViewer json={JSON.stringify(protocolProfile)} />
+      <JSONViewer json={JSON.stringify(oracleProfile)} />
     </Card>
   );
 
@@ -27,7 +27,10 @@ export default function Protocol({
         onClick={() => (isVisible ? closePortal() : openPortal(PortalChild))}
         variant={isVisible ? "outline" : "subtle"}
       >
-        {protocolProfile?.name}
+        {
+          // @ts-ignore
+          oracleProfile?.name
+        }
       </Button>
     </Flex>
   );

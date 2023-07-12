@@ -44,4 +44,5 @@ export type IBatchDataFilled = IBatch & {
   _claimIssuer?: IClaimIssuer;
   _claimCer?: IClaimCer;
   _protocol?: IEntityExtended;
+  _oracle?: IEntityExtended;
 };

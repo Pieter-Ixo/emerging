@@ -1,7 +1,7 @@
 import { IEntityProfile } from "@/types/entityCollections";
 
-export type ImpactVerificationProps = {
-  protocolProfile?: IEntityProfile;
+export type OracleVerificationProps = {
+  oracleProfile?: IEntityProfile;
 };
 
 export default function PagePlug() {

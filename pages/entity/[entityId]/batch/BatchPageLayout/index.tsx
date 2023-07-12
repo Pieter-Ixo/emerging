@@ -5,7 +5,6 @@ import { palette } from "@/theme/palette";
 import { IBatch } from "@/types/certificates";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import DetailPortalContext from "@/context/detailPortalContext";
-import byKey from "@/helpers/byKey";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchBatchById } from "@/redux/batches/thunks";
@@ -27,6 +26,7 @@ import Outcome from "./FieldsGroups/Outcome";
 import AssetAttributes from "./FieldsGroups/AssetAttributes";
 import ProjectAttributes from "./FieldsGroups/ProjectAttributes";
 import ImpactVerification from "./FieldsGroups/ImpactVerification";
+import ImpactEvaluator from "./FieldsGroups/ImpactEvaluator";
 
 export default function BatchPageLayout() {
   const dispatch = useAppDispatch();
@@ -64,6 +64,7 @@ export default function BatchPageLayout() {
   const deviceCredSubject = entity?._deviceCredential?.credentialSubject;
   const supamoto = entity?._supamoto;
   const protocol = batch?._protocol;
+  const oracle = batch?._oracle;
   const claimIssuerProfile = batch?._claimIssuer?._profile;
   const entityCreated = !entity?.metadata?.created
     ? undefined
@@ -150,6 +151,9 @@ export default function BatchPageLayout() {
               </Grid.Col>
               <Grid.Col span={6}>
                 <ImpactVerification protocolProfile={protocol?._profile} />
+              </Grid.Col>
+              <Grid.Col span={6}>
+                <ImpactEvaluator oracleProfile={oracle?._profile} />
               </Grid.Col>
             </Grid>
           </Grid.Col>

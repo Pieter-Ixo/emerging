@@ -62,18 +62,20 @@ export const fetchBatchById = createAsyncThunk<
       filledBatch._claimVer = claimVer;
 
       if (claimVer) {
-        const [claimCer, claimIssuer, verifiableCredential, protocol] =
+        const [claimCer, claimIssuer, verifiableCredential, protocol, oracle] =
           await Promise.all([
             await getClaimCer(claimVer),
             await getClaimIssuer(claimVer?.outcome.linkedClaim.issuer),
             await getVerifiableCredential(claimVer),
             await getEntityWithProfile(claimVer["@context"][1].protocol),
+            await getEntityWithProfile(claimVer.issuer.id),
           ]);
 
         filledBatch._claimIssuer = claimIssuer;
         filledBatch._claimCer = claimCer;
         filledBatch._verifiableCred = verifiableCredential;
         filledBatch._protocol = protocol;
+        filledBatch._oracle = oracle;
       }
     }
 
