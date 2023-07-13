@@ -25,7 +25,7 @@ export default function ProfileCard({
 }: {
   entity?: IEntityExtended | ICollectionExtended;
   measure?: ReactNode;
-  tags?: (string | undefined)[];
+  tags?: string[];
 }) {
   let tags;
 
@@ -38,6 +38,8 @@ export default function ProfileCard({
   }
   const startDate = dateLocale(entity?.metadata.created);
   const price = entity?._profile?.metrics[0];
+
+  console.log("🎺", tags);
 
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>

@@ -18,7 +18,7 @@ export default function ImpactEvaluator({ oracle }: OracleVerificationProps) {
         <Protocol oracle={oracle} />
         <Flex justify="space-between" align="center">
           <FieldText>Claims Processed</FieldText>
-          <FieldText>TBC</FieldText>
+          <FieldText>2,913</FieldText>
         </Flex>
         {attributes?.map((attr) => (
           <Flex key={attr.key} justify="space-between" align="center">

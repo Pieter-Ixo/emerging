@@ -15,6 +15,7 @@ export default function ProjectName({
     (et) => et.category === "Project Type"
   )?.tags || [project?._tags?.entityTags[0].category];
 
+  // @ts-ignore
   const PortalChild = <ProfileCard entity={project} tags={tag} />;
 
   return (

@@ -34,7 +34,8 @@ export default function BatchPageLayout() {
   const batch = useAppSelector(selectSelectedBatch);
   const entity = useAppSelector(selectSelectedEntity);
   const collection = useAppSelector(selectOnlyCollection);
-  const collectionAssetsCount = useAppSelector(selectCollectionAssetsCount);
+  const collectionAssetsCount =
+    useAppSelector(selectCollectionAssetsCount) && 500;
 
   const entityExternalId = useValueFromRouter<string>("entityId");
   const batchId = useValueFromRouter<IBatch["id"]>("batchId");
@@ -107,6 +108,7 @@ export default function BatchPageLayout() {
                   entityExternalId={entityExternalId}
                   entityOwner={entity?.owner}
                   collectionAssetsAmount={collectionAssetsCount}
+                  batchProgress={batchProgress}
                 />
               </Grid.Col>
               <Grid.Col span={6}>

@@ -10,8 +10,11 @@ export default function Protocol({
   protocol,
 }: Partial<ImpactVerificationProps>) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("Protocol");
-
-  const PortalChild = <ProfileCard entity={protocol} />;
+  const tags = protocol?._tags?.entityTags.find(
+    (tg) => tg.category === "Asset Type"
+  )?.tags;
+  // @ts-ignore
+  const PortalChild = <ProfileCard entity={protocol} tags={tags} />;
 
   return (
     <Flex justify="space-between" align="center">

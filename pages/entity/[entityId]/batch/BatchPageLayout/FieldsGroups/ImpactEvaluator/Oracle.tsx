@@ -8,12 +8,12 @@ import { OracleVerificationProps } from "./props";
 
 export default function Oracle({ oracle }: Partial<OracleVerificationProps>) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("Oracle");
-  const tag = oracle?._tags?.entityTags[0].tags as unknown as string;
-  const PortalChild = <ProfileCard entity={oracle} tags={[tag]} />;
+  const tag = oracle?._tags?.entityTags[0].tags;
+  const PortalChild = <ProfileCard entity={oracle} tags={tag} />;
 
   return (
     <Flex justify="space-between" align="center">
-      <FieldText>Protocol</FieldText>
+      <FieldText>Oracle</FieldText>
       <Button
         compact
         size="xs"
