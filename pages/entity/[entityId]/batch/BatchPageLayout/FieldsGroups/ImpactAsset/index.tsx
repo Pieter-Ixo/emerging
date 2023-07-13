@@ -17,10 +17,12 @@ export default function ImpactAsset({
   collectionAssetsAmount,
   entity,
   collection,
+  batchProgress,
 }: ImpactAssetProps) {
   const totalMinted = Object.entries(
     entity?._token?.CARBON._totalMinted?.tokens ?? {}
   )?.[0]?.[1].amount;
+
   return (
     <Flex direction="column">
       <FieldsGroupTitle icon="/images/icon-assets.svg">
@@ -29,6 +31,9 @@ export default function ImpactAsset({
 
       <Flex direction="column" gap="md">
         <Identifier
+          retired={totalMinted / 2}
+          claimable={Number(batchProgress) * 2}
+          produced={totalMinted}
           entity={entity}
           collectionAssetsAmount={collectionAssetsAmount}
         />
@@ -46,7 +51,7 @@ export default function ImpactAsset({
         />
         <Flex justify="space-between" align="center">
           <FieldText>Credits Retired</FieldText>
-          <FieldText>TBC</FieldText>
+          <FieldText>2,460</FieldText>
         </Flex>
         <Performance
           entityExternalId={entityExternalId}

@@ -16,6 +16,10 @@ export type ImpactAssetProps = {
   entity?: IEntityExtended;
   collection?: ICollectionExtended;
   totalMinted?: number;
+  retired?: number;
+  claimable?: number;
+  produced?: number;
+  batchProgress?: number;
 };
 
 export default function PagePlug() {
