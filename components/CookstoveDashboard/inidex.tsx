@@ -65,15 +65,15 @@ export default function CookstoveDashboard({
       </BackgroundImage>
     );
 
-  const carbonClaimAmount = (totalTokenAmount || 0) + (totalMinted || 0);
-
   return (
     <BackgroundImage src="/images/background.jpg">
       <Container maw="600px">
         <h1 className={styles.title}>SUPAMOTO #{id}</h1>
         <section className={utilsStyles.column}>
           <div className={cls(utilsStyles.flex)}>
-            <CarbonClaimCard amount={carbonClaimAmount.toLocaleString()} />
+            <CarbonClaimCard
+              amount={(totalTokenAmount || 0).toLocaleString()}
+            />
             <PieChart
               totalTokenAmount={totalTokenAmount || 0}
               totalMinted={totalMinted || 0}
