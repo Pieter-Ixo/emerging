@@ -1,7 +1,8 @@
-import { Card, Flex, Button } from "@mantine/core";
+import { Text, Card, Flex, Button } from "@mantine/core";
 
 import JSONViewer from "@/components/JSONViewer";
 import useDetailPortal from "@/hooks/useDetailPortal";
+import { palette } from "@/theme/palette";
 
 import { FieldText } from "../styledComponents";
 import { OutcomeProps } from "./props";
@@ -15,6 +16,15 @@ export default function Evidence({
 
   const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
+      <Flex
+        align="center"
+        justify="space-between"
+        sx={{ borderBottom: `1px solid ${palette.Black}` }}
+        mb="xs"
+      >
+        <Text>Evidence Details</Text>
+        <Text>DOWNLOAD ➔</Text>
+      </Flex>
       <JSONViewer json={JSON.stringify(fuelPurchase)} />
     </Card>
   );

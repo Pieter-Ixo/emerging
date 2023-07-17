@@ -1,5 +1,6 @@
-import { Card, Flex, Button } from "@mantine/core";
+import { Card, Flex, Button, Text } from "@mantine/core";
 
+import { palette } from "@/theme/palette";
 import JSONViewer from "@/components/JSONViewer";
 import useDetailPortal from "@/hooks/useDetailPortal";
 
@@ -14,6 +15,15 @@ export default function Claim({
 
   const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
+      <Flex
+        align="center"
+        justify="space-between"
+        sx={{ borderBottom: `1px solid ${palette.Black}` }}
+        mb="xs"
+      >
+        <Text>Claim Details</Text>
+        <Text>DOWNLOAD ➔</Text>
+      </Flex>
       <JSONViewer json={JSON.stringify(claimCer?.credentialSubject?.claim)} />
     </Card>
   );
