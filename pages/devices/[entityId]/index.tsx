@@ -1,63 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { Text } from "@mantine/core";
 
-import { IBatch } from "@/types/certificates";
+import { useCookstove } from "@/context/cookstove";
 import useValueFromRouter from "@/utils/useValueFromRouter";
-
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {
-  fetchAndFillCollections,
-  fetchEntityByExternalIdAndFill,
-} from "@/redux/entityCollections/thunks";
-import {
-  selectCollectionAssetsCount,
-  selectOnlyCollection,
-  selectSelectedEntity,
-} from "@/redux/entityCollections/selectors";
-import { selectSelectedBatch } from "@/redux/batches/selectors";
+import { fetchEntityByExternalIdAndFill } from "@/redux/entityCollections/thunks";
+import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
+import CookstoveDashboard from "@/components/CookstoveDashboard/inidex";
+import getTotalMintedAmount from "@/helpers/transformData/getTotalMintedAmount";
 
 export default function DevicePageLayout() {
   const dispatch = useAppDispatch();
-  const [key, setKey] = useState<string | null>(null);
-  const batch = useAppSelector(selectSelectedBatch);
   const entity = useAppSelector(selectSelectedEntity);
-  const collection = useAppSelector(selectOnlyCollection);
-  const collectionAssetsCount = useAppSelector(selectCollectionAssetsCount);
 
   const entityExternalId = useValueFromRouter<string>("entityId");
-  const batchId = useValueFromRouter<IBatch["id"]>("batchId");
+  const { stove, fetchStove } = useCookstove();
 
   useEffect(() => {
-    if (!entityExternalId || !batchId) return;
+    if (!entityExternalId) return;
+    fetchStove(entityExternalId);
     dispatch(fetchEntityByExternalIdAndFill(entityExternalId));
-    dispatch(fetchAndFillCollections());
-  }, [dispatch, entityExternalId, batchId]);
+  }, [dispatch, stove.id, entityExternalId, fetchStove]);
 
-  useEffect(() => {
-    console.log(
-      [batch ? "🦍" : "", entity ? "🦧" : "", collection ? "🐒" : ""].join(""),
-      {
-        batch,
-        entity,
-        collection,
-      }
-    );
-  }, [batch, entity, collection]);
+  const totalMinted = getTotalMintedAmount(entity);
 
-  const entityProfile = entity?._profile;
-  const tokenIpfs = collection?._tokenIpfs;
-  const claimOut = batch?._claimVer?.outcome;
-  const claimVer = batch?._claimVer;
-  const deviceCredSubject = entity?._deviceCredential?.credentialSubject;
-  const supamoto = entity?._supamoto; // request disabled
-  const project = batch?._claimCer?._project;
-  const protocol = batch?._protocol;
-  const oracle = batch?._oracle;
-  const claimIssuerProfile = batch?._claimIssuer?._profile;
-  const verifiableCred = batch?._verifiableCred;
-  const evaluation = claimVer?.credentialSubject.evaluation;
-  const claimCer = batch?._claimCer;
+  if (!entityExternalId) return <Text>missing Entity External Id</Text>;
 
-  const batchProgress = entity?._token?.CARBON.tokens[batchId || ""]?.minted;
-
-  return <p>hello there, {entityExternalId}</p>;
+  return (
+    <CookstoveDashboard
+      id={entityExternalId}
+      stove={stove}
+      totalMinted={totalMinted}
+    />
+  );
 }
