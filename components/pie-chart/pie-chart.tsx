@@ -3,11 +3,11 @@ import cls from "classnames";
 import Image from "next/image";
 
 import circle from "@/assets/images/circle.png";
-import {  useState } from "react";
+import { useState } from "react";
 import Card from "@/components/card/card";
 import styles from "./pie-chart.module.scss";
 
-const data = [
+let data = [
   {
     title: "Claimable",
     value: 5160,
@@ -22,10 +22,15 @@ const data = [
   },
 ];
 
-type PieChartProps = {};
+type PieChartProps = { totalMinted?: number };
 
-function PieChart({}: PieChartProps) {
+function PieChart({ totalMinted }: PieChartProps) {
   const [active, setActive] = useState<number>(0);
+  if (totalMinted)
+    data = data.map((d) => ({
+      ...d,
+      value: totalMinted,
+    }));
 
   const activeSection = active !== null ? data[active] : null;
   const totalValue = data.reduce((prev, curr) => ({

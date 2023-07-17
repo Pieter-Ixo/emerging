@@ -8,7 +8,7 @@ export type ISettingsContext = {
 
 export type IMetadata = {
   versionId: string;
-  created: Date;
-  updated: Date;
+  created: string;
+  updated: string;
   deactivated: boolean;
 };

@@ -6,5 +6,5 @@ export default function useValueFromRouter<T extends string>(
   const router = useRouter();
   const value = router.query[name];
   if (typeof value !== "string") return undefined;
-  return value as unknown as T;
+  return value as T;
 }

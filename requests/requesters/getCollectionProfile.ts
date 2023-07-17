@@ -1,20 +1,9 @@
+import fillProfileLinkedData from "@/helpers/fillProfileLinkedData";
 import request from "@/requests/request";
 import { ICollection, ICollectionProfile } from "@/types/entityCollections";
 import getFullServiceEndpoint from "@/utils/getServiceEndpoint";
 
-function fillProfileLinkedData(
-  profile: ICollectionProfile
-): ICollectionProfile {
-  const contextItem = profile["@context"][1];
-  const web3 = typeof contextItem === "object" ? contextItem?.web3 : "";
-  return {
-    ...profile,
-    imageUrl: profile.image.replace("web3:", web3),
-    logoUrl: profile.logo.replace("web3:", web3),
-  };
-}
-
-export default async function getCollectionProfile(
+export default async function requestCollectionProfile(
   collection: ICollection
 ): Promise<ICollectionProfile | undefined> {
   const profileEndpointLastPart = collection.settings.Profile.serviceEndpoint;

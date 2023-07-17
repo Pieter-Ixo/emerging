@@ -39,6 +39,12 @@ export async function requestEntityByExternalID(
 
   return entity;
 }
+export async function requestEntityByID(id: string): Promise<IEntityExtended> {
+  const entity = await requestBlocksyncAPI<IEntity>(`/api/entity/byId/${id}`);
+  if (!entity) throw new Error("panica!");
+
+  return entity;
+}
 
 export async function requestBatches(): Promise<IBatch[] | undefined> {
   const url = "/api/token/name/CARBON";
@@ -54,4 +60,14 @@ export async function requestBatchesByEntityID(
   const { data, problem } = await blocksynkAPI.get<IBatch[]>(url);
   if (problem) throw problem;
   return data;
+}
+
+export async function requestBatchByID(
+  batchId: IBatch["id"]
+): Promise<IBatch | undefined> {
+  const url = `/api/token/id/${batchId}`;
+
+  const { data, problem } = await blocksynkAPI.get<IBatch>(url);
+  if (!problem && data) return data;
+  throw new Error("no batch for this id");
 }

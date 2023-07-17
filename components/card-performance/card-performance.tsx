@@ -3,16 +3,15 @@ import cls from "classnames";
 
 import Card from "@/components/card/card";
 import Info from "@/assets/icons/info.svg";
-import { sections, SECTIONS } from "@/types/stove";
+import { sections, SECTIONS, STOVE } from "@/types/stove";
 import Chart from "@/components/chart/chart";
-import { useCookstove } from "@/context/cookstove";
+
 import { hoursSaved, lifeYearsSaved } from "@/utils/supamoto";
 import styles from "./card-performance.module.scss";
 
-type EventsCardProps = {} & HTMLAttributes<HTMLDivElement>;
+type EventsCardProps = { stove: STOVE } & HTMLAttributes<HTMLDivElement>;
 
-function PerformanceCard({ className, ...other }: EventsCardProps) {
-  const { stove } = useCookstove();
+function PerformanceCard({ className, stove, ...other }: EventsCardProps) {
   const [selectedSection, setSection] = useState<SECTIONS>(SECTIONS.sessions);
   const section = sections[selectedSection];
 
@@ -30,7 +29,6 @@ function PerformanceCard({ className, ...other }: EventsCardProps) {
         return lifeYearsSaved(stove.pellets?.totalPelletsAmount!);
 
       default:
-        
     }
   }, [stove, section]);
 
@@ -71,6 +69,7 @@ function PerformanceCard({ className, ...other }: EventsCardProps) {
       </div>
 
       <Chart
+        stove={stove}
         dataType={section.dataType}
         // dataFormatter={section.dataFormatter}
         {...(section.dataFormatter

@@ -5,14 +5,18 @@ import {
   requestCollections,
   requestEntityByExternalID,
 } from "@/requests/blocksync";
-import getCollectionProfile from "@/helpers/getCollectionProfile";
-import getEntityProfile from "@/helpers/getEntityProfile";
-
+import { requestSupamotoCookingSummary } from "@/requests/supamoto";
+import requestCollectionProfile from "@/requests/requesters/getCollectionProfile";
+import getCollectionTags from "@/requests/requesters/getCollectionTags";
+import getCollectionTokenIpfs from "@/requests/requesters/getCollectionTokenIpfs";
+import requestEntityDeviceCredential from "@/requests/requesters/getEntityDeviceCredential";
+import requestEntityProfile from "@/requests/requesters/getEntityProfile";
+import requestEntityTags from "@/requests/requesters/getEntityTags";
+import requestEntityToken from "@/requests/requesters/getEntityToken";
 import {
   ICollectionEntities,
   IEntityExtended,
 } from "@/types/entityCollections";
-import getCollectionTags from "@/helpers/getCollectionTags";
 
 export const fetchAndFillCollections = createAsyncThunk(
   "entityCollections/fetchAndFillCollections",
@@ -21,12 +25,14 @@ export const fetchAndFillCollections = createAsyncThunk(
 
     const getCollectionProfilePromises = collectionsResponse?.map(
       async (entityCollection): Promise<ICollectionEntities> => {
-        const [profileData, tagData] = await Promise.all([
-          await getCollectionProfile(entityCollection.collection),
+        const [profileData, tagData, tokenIpfs] = await Promise.all([
+          await requestCollectionProfile(entityCollection.collection),
           await getCollectionTags(entityCollection.collection),
+          await getCollectionTokenIpfs(entityCollection.collection),
         ]);
         entityCollection.collection._profile = profileData;
         entityCollection.collection._tags = tagData;
+        entityCollection.collection._tokenIpfs = tokenIpfs;
         return entityCollection;
       }
     );
@@ -36,17 +42,40 @@ export const fetchAndFillCollections = createAsyncThunk(
   }
 );
 
-export const fetchCollectionOfEntity = createAsyncThunk(
-  "entityCollections/fetchCollectionOfEntity",
+export const fetchCollectionByEntity = createAsyncThunk(
+  "entityCollections/fetchCollectionByEntity",
   () => {}
 );
 
-export const fetchEntityByExterbalIdAndFill = createAsyncThunk(
-  "entityCollections/fetchEntityByExterbalIdAndFill",
+// TODO: Let's migrate this to this file: "@/helpers/getEntityProfile"
+export const fetchEntityByExternalIdAndFill = createAsyncThunk(
+  "entityCollections/fetchEntityByExternalIdAndFill",
   async (externalId: string): Promise<IEntityExtended> => {
     const entity = await requestEntityByExternalID(externalId);
-    const profile = await getEntityProfile(entity);
+    if (!entity) return entity;
+
+    const [
+      profile,
+      token,
+      deviceCredential,
+      tags,
+      // supamoto,
+      // supamotoCookingSummary,
+    ] = await Promise.all([
+      await requestEntityProfile(entity),
+      await requestEntityToken(entity),
+      await requestEntityDeviceCredential(entity),
+      await requestEntityTags(entity),
+      // await requestSupamoto(entity.externalId),
+      // await requestSupamotoCookingSummary(entity.externalId),
+    ]);
+
     entity._profile = profile;
+    entity._token = token;
+    entity._deviceCredential = deviceCredential;
+    entity._tags = tags;
+    // entity._supamoto = supamoto;
+    // entity._supamotoCookingSummary = supamotoCookingSummary;
 
     return entity;
   }

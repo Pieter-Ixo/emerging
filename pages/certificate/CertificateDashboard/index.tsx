@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchAllBatches } from "@/redux/batches/thunks";
 import {
   fetchAndFillCollections,
-  fetchEntityByExterbalIdAndFill,
+  fetchEntityByExternalIdAndFill,
 } from "@/redux/entityCollections/thunks";
 import { selectAllBatches } from "@/redux/batches/selectors";
 import { setSelectedBatch } from "@/redux/batches/slice";
@@ -21,12 +21,11 @@ export default function CertificateDashboard() {
   const dispatch = useAppDispatch();
   const batches = useAppSelector(selectAllBatches);
 
-  const assetExternalId =
-    useValueFromRouter<IEntity["externalId"]>("assetExternalId");
+  const assetExternalId = useValueFromRouter<string>("assetExternalId");
 
   useEffect(() => {
     if (!assetExternalId) return;
-    dispatch(fetchEntityByExterbalIdAndFill(assetExternalId));
+    dispatch(fetchEntityByExternalIdAndFill(assetExternalId));
     dispatch(fetchAndFillCollections());
     dispatch(fetchAllBatches());
   }, [dispatch, assetExternalId]);

@@ -1,5 +1,5 @@
 module.exports = {
-  "root": true,
+  root: true,
   extends: [
     "eslint:recommended",
     "airbnb",
@@ -41,19 +41,22 @@ module.exports = {
     "radix": 1,
     "no-return-assign": 1,
     "react/no-array-index-key": 1,
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }],
+    "react/jsx-filename-extension": [
+      1,
+      { extensions: [".js", ".jsx", ".tsx"] },
+    ],
     "import/extensions": [
       "error",
       "ignorePackages",
       {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-   ],
-   "react/require-default-props": 0,
-   "no-underscore-dangle":0
+        js: "never",
+        jsx: "never",
+        ts: "never",
+        tsx: "never",
+      },
+    ],
+    "react/require-default-props": 0,
+    "no-underscore-dangle": 0,
+    "react/jsx-no-constructed-context-values": 0,
   },
-
 };

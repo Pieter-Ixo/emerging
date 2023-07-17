@@ -21,6 +21,17 @@ export const selectCollections = createDraftSafeSelector(
     )
 );
 
+export const selectCollectionAssetsCount = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): number =>
+    state?.entityCollections[0]?.entities.length
+);
+export const selectOnlyCollection = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): ICollectionExtended =>
+    state.entityCollections[0]?.collection
+);
+
 export const selectIsEntityCollectionsLoading = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState) => state.isEntityCollectionsLoading

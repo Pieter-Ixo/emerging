@@ -1,10 +1,11 @@
 import React, { PropsWithChildren } from "react";
 import { useRouter } from "next/navigation";
-import { Box, Flex, Text, Image, Progress } from "@mantine/core";
+import { Box, Flex, Text, Image, Progress, CopyButton } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import Copy from "@/components/Dashboard/CollectionDashboard/cards/AssetsCard/icons/copy";
+import shortStr from "@/utils/shortStr";
 
 export function ArrowLeft() {
   const router = useRouter();
@@ -37,20 +38,31 @@ export function CardTitle({ children }: PropsWithChildren) {
   );
 }
 
-export function BatchIdentifier({ children }: PropsWithChildren) {
+export function BatchIdentifier({
+  name,
+  index,
+}: {
+  name?: string;
+  index?: string;
+}) {
   return (
-    <Text
-      fw={600}
-      color={palette.darkestBlue}
-      sx={{ fontSize: "13px", position: "relative" }}
-      align="center"
-    >
-      {children}
-      <Copy
-        fill={palette.fullBlue}
-        style={{ position: "absolute", top: "2px", marginLeft: "1em" }}
-      />
-    </Text>
+    <CopyButton value={`${name}/${index}`}>
+      {({ copied, copy }) => (
+        <Text
+          fw={600}
+          color={palette.fullBlue}
+          sx={{ fontSize: "13px", position: "relative" }}
+          align="center"
+          onClick={copy}
+        >
+          {`${name}/${shortStr(index, 25, 10)}`}
+          <Copy
+            fill={copied ? palette.brightBlue : palette.fullBlue}
+            style={{ position: "absolute", top: "2px", marginLeft: "1em" }}
+          />
+        </Text>
+      )}
+    </CopyButton>
   );
 }
 
@@ -83,14 +95,15 @@ export function AstroCarbonImage() {
 }
 
 export function OffsetProgres({
-  max,
-  value,
+  offset,
+  progress,
 }: {
-  max?: number | undefined;
-  value: number;
+  offset?: number;
+  progress?: number;
 }) {
-  const maxString = max?.toLocaleString?.();
-  const progresPercent = max ? (value / max) * 100 : 0;
+  const offsetString = offset?.toLocaleString?.() ?? 0;
+  const progressString = progress?.toLocaleString?.() ?? 0;
+  const progresPercent = !offset || !progress ? 0 : (progress / offset) * 100;
 
   return (
     <Flex direction="column">
@@ -100,7 +113,7 @@ export function OffsetProgres({
           fw={600}
           sx={{ fontFamily: "Quicksand", fontSize: "48px" }}
         >
-          {maxString ?? value}
+          {progressString}
         </Text>
 
         <Text
@@ -116,15 +129,16 @@ export function OffsetProgres({
       <Progress
         radius="xl"
         size={14}
+        value={progresPercent}
         sections={[{ value: progresPercent, color: palette.fullBlue }]}
         sx={{ minWidth: 300 }}
       />
 
       <Text c={palette.White} fw={400} sx={{ fontSize: 13 }}>
         <Text span c={palette.fullBlue} inherit>
-          {maxString || 0} CARBON
+          {offsetString} CARBON
         </Text>{" "}
-        / {value} CARBON offset ( 1 CARBON = 1 kgCO₂)
+        / {progressString} CARBON offset ( 1 CARBON = 1 kgCO₂)
       </Text>
     </Flex>
   );

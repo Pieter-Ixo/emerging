@@ -7,6 +7,8 @@
 import { IMetadata } from "./commonTypes";
 import { IProfileSettings } from "./settings";
 import { ITagsSettings } from "./tag";
+import { IDeviceCredentials } from "./deviceCredentials";
+import { ISupamoto, ISupamotoCookingSumary } from "../supamoto";
 
 export type IAccordedRight = {
   aid: number;
@@ -103,11 +105,10 @@ export type ICollection = {
   service: IService[];
   settings: ISettings;
 };
-
 export type IEntity = {
   id: string;
   type: string;
-  startDate: Date;
+  startDate: string;
   endDate: null;
   status: number;
   relayerNode: string;
@@ -115,7 +116,7 @@ export type IEntity = {
   entityVerified: boolean;
   metadata: IMetadata;
   accounts: IAccount[];
-  externalId: string;
+  externalId: string | null;
   owner: string;
   controller: string[];
   verificationMethod: IVerificationMethod[];
@@ -141,13 +142,56 @@ export type ICollectionProfile = IProfileSettings & {
 };
 export type ICollectionTags = ITagsSettings & {};
 
+export type ICollectionTokenIpfs = {
+  id: string;
+  type: string;
+  name: string;
+  tokenName: string;
+  decimals: number;
+  description: string;
+  image: string;
+  properties: {
+    denom: string;
+    icon: string;
+    maxSupply: string;
+  };
+};
+
 export type ICollectionExtended = ICollection & {
   _profile?: ICollectionProfile;
   _tags?: ICollectionTags;
+  _tokenIpfs?: ICollectionTokenIpfs;
+};
+
+export type ITokenOfTokenCarbon = {
+  collection: string;
+  amount: number;
+  minted: number;
+  retired: number;
+};
+
+export type ITokenCarbon = {
+  contractAddress: string;
+  description: string;
+  image: string;
+  tokens: { [key: string]: ITokenOfTokenCarbon };
+};
+
+export type ITokenCarbonExtended = ITokenCarbon & {
+  _totalMinted?: ITokenCarbon;
+};
+
+export type ITokenWhateverItMean = {
+  CARBON: ITokenCarbonExtended;
 };
 
 export type IEntityExtended = IEntity & {
   _profile?: IEntityProfile;
+  _token?: ITokenWhateverItMean;
+  _deviceCredential?: IDeviceCredentials;
+  _supamoto?: ISupamoto;
+  _supamotoCookingSummary?: ISupamotoCookingSumary;
+  _tags?: ICollectionTags;
 };
 
 export type ICollectionEntities = {

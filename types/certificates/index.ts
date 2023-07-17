@@ -1,3 +1,8 @@
+import { IEntityExtended } from "../entityCollections";
+import { IClaimCer } from "./claimCer";
+import { IClaimIssuer, IClaimVer } from "./claimVer";
+import { IVerifiableCred } from "./verifiableCred";
+
 export type ITokenData = {
   aid: number;
   uri: string;
@@ -29,9 +34,15 @@ export type IImpactAssetData = {
   performance?: string;
 };
 
-type ITokenBalance = unknown;
+export type ITokenBalance = unknown;
 
 export type IBatchDataFilled = IBatch & {
   _impactAsset?: IImpactAssetData;
   _tokenBalance?: ITokenBalance;
+  _claimVer?: IClaimVer;
+  _verifiableCred?: IVerifiableCred;
+  _claimIssuer?: IClaimIssuer;
+  _claimCer?: IClaimCer;
+  _protocol?: IEntityExtended;
+  _oracle?: IEntityExtended;
 };
