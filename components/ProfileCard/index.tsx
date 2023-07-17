@@ -8,7 +8,6 @@ import {
   Image,
   Avatar,
   Title,
-  Tooltip,
 } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
@@ -17,6 +16,7 @@ import {
   IEntityExtended,
 } from "@/types/entityCollections";
 import dateLocale from "@/utils/dateLocale";
+import getEntityTagsByCategory from "@/helpers/transformData/getEntityTagsByCategory";
 
 export default function ProfileCard({
   entity,
@@ -27,19 +27,10 @@ export default function ProfileCard({
   measure?: ReactNode;
   tags?: string[];
 }) {
-  let tags;
+  const tags = argumentTags || getEntityTagsByCategory(entity, "Asset Type");
 
-  if (!argumentTags) {
-    tags = entity?._tags?.entityTags.find(
-      (t) => t.category === "Asset Type"
-    )?.tags;
-  } else {
-    tags = argumentTags;
-  }
   const startDate = dateLocale(entity?.metadata.created);
   const price = entity?._profile?.metrics[0];
-
-  console.log("🎺", tags);
 
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>

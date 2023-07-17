@@ -2,6 +2,7 @@ import { Flex, Button } from "@mantine/core";
 
 import ProfileCard from "@/components/ProfileCard";
 import useDetailPortal from "@/hooks/useDetailPortal";
+import getEntityTagsByCategory from "@/helpers/transformData/getEntityTagsByCategory";
 
 import { FieldText } from "../styledComponents";
 import { ImpactVerificationProps } from "./props";
@@ -10,10 +11,8 @@ export default function Protocol({
   protocol,
 }: Partial<ImpactVerificationProps>) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("Protocol");
-  const tags = protocol?._tags?.entityTags.find(
-    (tg) => tg.category === "Asset Type"
-  )?.tags;
-  // @ts-ignore
+  const tags = getEntityTagsByCategory(protocol, "Asset Type");
+
   const PortalChild = <ProfileCard entity={protocol} tags={tags} />;
 
   return (

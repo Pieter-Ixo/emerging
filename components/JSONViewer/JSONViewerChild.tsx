@@ -51,14 +51,14 @@ function RowWithObj({
   label: string;
   depth: number;
 }) {
-  const [isFolded, setIsUnfolded] = useState<boolean>(true);
+  const [isFolded, setIsFolded] = useState<boolean>(true);
   return (
     <>
       <Row>
         <Flex align="center">
           <Button
             variant="subtle"
-            onClick={() => setIsUnfolded(!isFolded)}
+            onClick={() => setIsFolded(!isFolded)}
             px="0"
             w="1.5em"
             h="1em"

@@ -19,6 +19,7 @@ export default function Txt({
         whiteSpace: "nowrap",
         alignContent: "left",
       }}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     >
       {children}

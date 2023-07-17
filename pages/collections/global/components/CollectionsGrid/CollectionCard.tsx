@@ -3,7 +3,7 @@ import { Box, Text, Avatar, BackgroundImage, Title, Flex } from "@mantine/core";
 
 import styles from "@/styles/pages/collections/CollectionCard.module.scss";
 import { ICollectionExtended } from "@/types/entityCollections";
-import getCollectionSDGTagsFromFilled from "@/helpers/transformData/getCollectionSDGTagsFromFilled";
+import getEntityTagsByCategory from "@/helpers/transformData/getEntityTagsByCategory";
 
 import TagIcon from "./TagIcon";
 
@@ -15,7 +15,7 @@ export default function CollectionCard({ collection }: Props) {
 
   const { brand, name, imageUrl, logoUrl } = collection._profile;
 
-  const tags = getCollectionSDGTagsFromFilled(collection);
+  const tags = getEntityTagsByCategory(collection, "SDG") ?? [];
 
   return (
     <Box
