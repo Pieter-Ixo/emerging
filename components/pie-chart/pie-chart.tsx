@@ -7,38 +7,32 @@ import { useState } from "react";
 import Card from "@/components/card/card";
 import styles from "./pie-chart.module.scss";
 
-let data = [
-  {
-    title: "Claimable",
-    value: 5160,
-    color: "#5FA8EB",
-    text: "AVAILABLE CREDITS",
-  },
-  {
-    title: "Generated",
-    value: 5160,
-    color: "#2B94F5",
-    text: "CARBON CREDITS",
-  },
-];
+type PieChartProps = {
+  totalMinted: number;
+  totalTokenAmount: number;
+};
 
-type PieChartProps = { totalMinted?: number };
-
-function PieChart({ totalMinted }: PieChartProps) {
+function PieChart({ totalMinted, totalTokenAmount }: PieChartProps) {
   const [active, setActive] = useState<number>(0);
-  if (totalMinted)
-    data = data.map((d) => ({
-      ...d,
-      value: totalMinted,
-    }));
 
-  const activeSection = active !== null ? data[active] : null;
-  const totalValue = data.reduce((prev, curr) => ({
-    value: prev.value + curr.value,
-    text: "",
-    title: "",
-    color: "",
-  }));
+  const chartCnfig = [
+    {
+      title: "Claimable",
+      value: totalTokenAmount,
+      color: "#5FA8EB",
+      text: "AVAILABLE CREDITS",
+    },
+    {
+      title: "Generated",
+      value: totalMinted,
+      color: "#2B94F5",
+      text: "CARBON CREDITS",
+    },
+  ];
+
+  const totalValue = totalTokenAmount + totalMinted;
+
+  const activeSection = active !== null ? chartCnfig[active] : null;
 
   return (
     <div className={styles.pie}>
@@ -49,7 +43,7 @@ function PieChart({ totalMinted }: PieChartProps) {
             startAngle={270}
             animate
             onClick={(_, i) => setActive(i)}
-            data={data}
+            data={chartCnfig}
             segmentsStyle={{ cursor: "pointer" }}
             rounded
             paddingAngle={10}
@@ -65,7 +59,7 @@ function PieChart({ totalMinted }: PieChartProps) {
           style={{ color: activeSection?.color }}
         >
           <p className={styles.amount}>
-            {(activeSection?.value ?? totalValue.value).toLocaleString()}
+            {(activeSection?.value ?? totalValue).toLocaleString()}
           </p>
           <p className={styles.text}>
             {activeSection?.text ?? "CARBON CREDITS"}
@@ -74,7 +68,7 @@ function PieChart({ totalMinted }: PieChartProps) {
       </div>
 
       <div className={styles.labels}>
-        {data.map((d, i) => (
+        {chartCnfig.map((d, i) => (
           <Card
             className={cls(styles.label, { [styles.selected]: active == i })}
             onClick={() => setActive(i)}

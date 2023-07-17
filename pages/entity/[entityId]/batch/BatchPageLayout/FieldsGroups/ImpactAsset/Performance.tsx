@@ -11,6 +11,7 @@ import { ImpactAssetProps } from "./props";
 export default function Performance({
   entityExternalId,
   totalMinted,
+  totalTokenAmount,
 }: ImpactAssetProps) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("Performance");
   const { stove, fetchStove } = useCookstove();
@@ -28,6 +29,7 @@ export default function Performance({
           id={entityExternalId}
           stove={stove}
           totalMinted={totalMinted}
+          totalTokenAmount={totalTokenAmount}
         />
       )}
     </Card>

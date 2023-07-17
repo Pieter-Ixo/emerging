@@ -7,7 +7,9 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchEntityByExternalIdAndFill } from "@/redux/entityCollections/thunks";
 import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
 import CookstoveDashboard from "@/components/CookstoveDashboard/inidex";
-import getTotalMintedAmount from "@/helpers/transformData/getTotalMintedAmount";
+import getEntityTotalTokenAmount, {
+  getEntityTotalMintedAmount,
+} from "@/helpers/transformData/getTotalMintedAmount";
 
 export default function DevicePageLayout() {
   const dispatch = useAppDispatch();
@@ -22,7 +24,8 @@ export default function DevicePageLayout() {
     dispatch(fetchEntityByExternalIdAndFill(entityExternalId));
   }, [dispatch, stove.id, entityExternalId, fetchStove]);
 
-  const totalMinted = getTotalMintedAmount(entity);
+  const totalTokenAmount = getEntityTotalTokenAmount(entity);
+  const totalMinted = getEntityTotalMintedAmount(entity);
   console.log("🦧", entity);
 
   if (!entityExternalId) return <Text>missing Entity External Id</Text>;
@@ -31,6 +34,7 @@ export default function DevicePageLayout() {
     <CookstoveDashboard
       id={entityExternalId}
       stove={stove}
+      totalTokenAmount={totalTokenAmount}
       totalMinted={totalMinted}
     />
   );

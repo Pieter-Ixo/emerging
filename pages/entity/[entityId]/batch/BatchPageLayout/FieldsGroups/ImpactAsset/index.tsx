@@ -1,7 +1,9 @@
 import { Flex } from "@mantine/core";
 import shortStr from "@/utils/shortStr";
 import dateLocale from "@/utils/dateLocale";
-import getTotalMintedAmount from "@/helpers/transformData/getTotalMintedAmount";
+import getEntityTotalTokenAmount, {
+  getEntityTotalMintedAmount,
+} from "@/helpers/transformData/getTotalMintedAmount";
 
 import { FieldAnchor, FieldText, FieldsGroupTitle } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
@@ -20,7 +22,8 @@ export default function ImpactAsset({
   collection,
   batchProgress,
 }: ImpactAssetProps) {
-  const totalMinted = getTotalMintedAmount(entity);
+  const totalTokenAmount = getEntityTotalTokenAmount(entity);
+  const totalMinted = getEntityTotalMintedAmount(entity);
 
   return (
     <Flex direction="column">
@@ -55,6 +58,7 @@ export default function ImpactAsset({
         <Performance
           entityExternalId={entityExternalId}
           totalMinted={totalMinted}
+          totalTokenAmount={totalTokenAmount}
         />
         <Flex justify="space-between" align="center">
           <FieldText>Owned By</FieldText>

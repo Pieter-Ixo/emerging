@@ -1,6 +1,6 @@
 import { IEntityExtended } from "@/types/entityCollections";
 
-export default function getTotalMintedAmount(
+export default function getEntityTotalTokenAmount(
   entity?: IEntityExtended
 ): number | undefined {
   if (!entity) return undefined;
@@ -8,4 +8,14 @@ export default function getTotalMintedAmount(
   return Object.entries(
     entity?._token?.CARBON._totalMinted?.tokens ?? {}
   )?.[0]?.[1].amount;
+}
+
+export function getEntityTotalMintedAmount(
+  entity?: IEntityExtended
+): number | undefined {
+  if (!entity) return undefined;
+
+  return Object.entries(
+    entity?._token?.CARBON._totalMinted?.tokens ?? {}
+  )?.[0]?.[1].minted;
 }
