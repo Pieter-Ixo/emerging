@@ -23,6 +23,7 @@ export default function DevicePageLayout() {
   }, [dispatch, stove.id, entityExternalId, fetchStove]);
 
   const totalMinted = getTotalMintedAmount(entity);
+  console.log("🦧", entity);
 
   if (!entityExternalId) return <Text>missing Entity External Id</Text>;
 

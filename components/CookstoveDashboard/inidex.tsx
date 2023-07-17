@@ -22,74 +22,74 @@ interface Props {
 }
 
 export default function CookstoveDashboard({ id, stove, totalMinted }: Props) {
+  const isCookstoveLoading = stove.loading || !id;
+  const isSessionsAndPelletsFound = !!(stove.sessions && stove.pellets);
+
+  if (isCookstoveLoading)
+    return (
+      <BackgroundImage src="/images/background.jpg">
+        <Container maw="600px">
+          <h1 className={styles.title}>SUPAMOTO</h1>
+          <section className={utilsStyles.column}>
+            <div className={cls(utilsStyles.flex, utilsStyles.columnCenter)}>
+              <Loader size="60px" />
+              <p className={styles.emptyTitle}>LOADING</p>
+            </div>
+          </section>
+        </Container>
+      </BackgroundImage>
+    );
+
+  if (!isSessionsAndPelletsFound)
+    return (
+      <BackgroundImage src="/images/background.jpg">
+        <Container maw="600px">
+          <h1 className={styles.title}>SUPAMOTO</h1>
+          <section className={utilsStyles.column}>
+            <div className={cls(utilsStyles.flex, utilsStyles.columnCenter)}>
+              <Stove
+                height={80}
+                width={80}
+                className={styles.invertedImgStrokeColor}
+              />
+              <p className={styles.emptyTitle}>NO COOKSTOVE FOUND</p>
+            </div>
+          </section>
+        </Container>
+      </BackgroundImage>
+    );
+
   return (
     <BackgroundImage src="/images/background.jpg">
       <Container maw="600px">
-        {!stove.loading || !id ? (
-          stove.sessions && stove.pellets ? (
-            <>
-              <h1 className={styles.title}>SUPAMOTO #{id}</h1>
-              <section className={utilsStyles.column}>
-                <div className={cls(utilsStyles.flex)}>
-                  <CarbonClaimCard
-                    amount={totalMinted?.toLocaleString() || ""}
-                  />
-                  <PieChart totalMinted={totalMinted} />
-                  <PerformanceCard stove={stove} />
+        <h1 className={styles.title}>SUPAMOTO #{id}</h1>
+        <section className={utilsStyles.column}>
+          <div className={cls(utilsStyles.flex)}>
+            <CarbonClaimCard amount={totalMinted?.toLocaleString() || ""} />
+            <PieChart totalMinted={totalMinted} />
+            <PerformanceCard stove={stove} />
 
-                  <div className={styles.rowCards}>
-                    <Link href="#">
-                      <ImageTextCard
-                        Img={Household}
-                        text="Visit the household"
-                        vertical
-                      />
-                    </Link>
-                    <Link href="#">
-                      <ImageTextCard
-                        Img={Sprout}
-                        text="Explore the benefits of clean cooking"
-                        vertical
-                      />
-                    </Link>
-                  </div>
-                  <Link href="#">
-                    <ImageTextCard
-                      Img={Eye}
-                      text="My Carbon Credits Activity"
-                    />
-                  </Link>
-                </div>
-              </section>
-            </>
-          ) : (
-            <>
-              <h1 className={styles.title}>SUPAMOTO</h1>
-              <section className={utilsStyles.column}>
-                <div
-                  className={cls(utilsStyles.flex, utilsStyles.columnCenter)}
-                >
-                  <Stove
-                    height={80}
-                    width={80}
-                    className={styles.invertedImgStrokeColor}
-                  />
-                  <p className={styles.emptyTitle}>NO COOKSTOVE FOUND</p>
-                </div>
-              </section>
-            </>
-          )
-        ) : (
-          <>
-            <h1 className={styles.title}>SUPAMOTO</h1>
-            <section className={utilsStyles.column}>
-              <div className={cls(utilsStyles.flex, utilsStyles.columnCenter)}>
-                <Loader size="60px" />
-                <p className={styles.emptyTitle}>LOADING</p>
-              </div>
-            </section>
-          </>
-        )}
+            <div className={styles.rowCards}>
+              <Link href="#">
+                <ImageTextCard
+                  Img={Household}
+                  text="Visit the household"
+                  vertical
+                />
+              </Link>
+              <Link href="#">
+                <ImageTextCard
+                  Img={Sprout}
+                  text="Explore the benefits of clean cooking"
+                  vertical
+                />
+              </Link>
+            </div>
+            <Link href="#">
+              <ImageTextCard Img={Eye} text="My Carbon Credits Activity" />
+            </Link>
+          </div>
+        </section>
       </Container>
     </BackgroundImage>
   );

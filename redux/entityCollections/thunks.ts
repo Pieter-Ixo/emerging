@@ -5,7 +5,6 @@ import {
   requestCollections,
   requestEntityByExternalID,
 } from "@/requests/blocksync";
-import { requestSupamotoCookingSummary } from "@/requests/supamoto";
 import requestCollectionProfile from "@/requests/requesters/getCollectionProfile";
 import getCollectionTags from "@/requests/requesters/getCollectionTags";
 import getCollectionTokenIpfs from "@/requests/requesters/getCollectionTokenIpfs";
