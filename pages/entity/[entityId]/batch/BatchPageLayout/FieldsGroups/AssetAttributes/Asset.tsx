@@ -1,7 +1,8 @@
-import { Card, Flex, Button } from "@mantine/core";
+import { Card, Flex, Button, Text } from "@mantine/core";
 
 import JSONViewer from "@/components/JSONViewer";
 import useDetailPortal from "@/hooks/useDetailPortal";
+import { palette } from "@/theme/palette";
 
 import { FieldText } from "../styledComponents";
 import { AssetAttributesProps } from "./props";
@@ -14,6 +15,15 @@ export default function AssetName({
 
   const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
+      <Flex
+        align="center"
+        justify="space-between"
+        sx={{ borderBottom: `1px solid ${palette.Black}` }}
+        mb="xs"
+      >
+        <Text>Asset Credential Subject</Text>
+        <Text>DOWNLOAD ➔</Text>
+      </Flex>
       <JSONViewer json={JSON.stringify(deviceCredSubject)} />
     </Card>
   );

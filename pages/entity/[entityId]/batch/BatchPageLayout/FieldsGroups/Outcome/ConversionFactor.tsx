@@ -1,5 +1,6 @@
-import { Card, Flex, Button } from "@mantine/core";
+import { Card, Flex, Button, Text } from "@mantine/core";
 
+import { palette } from "@/theme/palette";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import { FieldText } from "../styledComponents";
 import { OutcomeProps } from "./props";
@@ -13,6 +14,15 @@ export default function ConversionFactor({
 
   const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
+      <Flex
+        align="center"
+        justify="space-between"
+        sx={{ borderBottom: `1px solid ${palette.Black}` }}
+        mb="xs"
+      >
+        <Text>Asset Credential Subject</Text>
+        <Text>DOWNLOAD ➔</Text>
+      </Flex>
       {verifiableCred?.data.map((item) => {
         const [key] = Object.keys(item);
         const datum = item[key];

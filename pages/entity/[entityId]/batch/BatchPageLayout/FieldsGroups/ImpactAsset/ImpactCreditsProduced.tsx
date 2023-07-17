@@ -1,7 +1,8 @@
-import { Button, Flex, Card } from "@mantine/core";
+import { Button, Flex, Card, Text } from "@mantine/core";
 
 import { ITokenCarbonExtended } from "@/types/entityCollections";
 import useDetailPortal from "@/hooks/useDetailPortal";
+import { palette } from "@/theme/palette";
 
 import { FieldText } from "../styledComponents";
 
@@ -18,6 +19,15 @@ export default function ImpactCreditsProduced({
   const tokensMap = tokens?.tokens;
   const PortalChild = (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
+      <Flex
+        align="center"
+        justify="space-between"
+        sx={{ borderBottom: `1px solid ${palette.Black}` }}
+        mb="xs"
+      >
+        <Text>Impact Credits Produced</Text>
+        <Text />
+      </Flex>
       {Object.entries(tokensMap ?? {}).map(([key, token]) => (
         <Flex direction="row" justify="space-between" key={key}>
           <FieldText>{key}</FieldText>
