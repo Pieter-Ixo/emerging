@@ -63,7 +63,7 @@ export default function BatchPageLayout() {
   const claimOut = batch?._claimVer?.outcome;
   const claimVer = batch?._claimVer;
   const deviceCredSubject = entity?._deviceCredential?.credentialSubject;
-  const supamoto = entity?._supamoto;
+  const supamoto = entity?._supamoto; // request disabled
   const project = batch?._claimCer?._project;
   const protocol = batch?._protocol;
   const oracle = batch?._oracle;
