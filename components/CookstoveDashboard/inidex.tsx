@@ -81,24 +81,18 @@ export default function CookstoveDashboard({
             <PerformanceCard stove={stove} />
 
             <div className={styles.rowCards}>
-              <Link href="#">
-                <ImageTextCard
-                  Img={Household}
-                  text="Visit the household"
-                  vertical
-                />
-              </Link>
-              <Link href="#">
-                <ImageTextCard
-                  Img={Sprout}
-                  text="Explore the benefits of clean cooking"
-                  vertical
-                />
-              </Link>
+              <ImageTextCard
+                Img={Household}
+                text="Visit the household"
+                vertical
+              />
+              <ImageTextCard
+                Img={Sprout}
+                text="Explore the benefits of clean cooking"
+                vertical
+              />
             </div>
-            <Link href="#">
-              <ImageTextCard Img={Eye} text="My Carbon Credits Activity" />
-            </Link>
+            <ImageTextCard Img={Eye} text="My Carbon Credits Activity" />
           </div>
         </section>
       </Container>

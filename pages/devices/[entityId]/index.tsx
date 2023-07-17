@@ -26,6 +26,7 @@ export default function DevicePageLayout() {
 
   const totalTokenAmount = getEntityTotalTokenAmount(entity);
   const totalMinted = getEntityTotalMintedAmount(entity);
+
   console.log("🦧", entity);
 
   if (!entityExternalId) return <Text>missing Entity External Id</Text>;

@@ -1,6 +1,8 @@
 import { HTMLAttributes, useMemo, useState } from "react";
+import { Button } from "@mantine/core";
 import cls from "classnames";
 
+import { palette } from "@/theme/palette";
 import Card from "@/components/card/card";
 import Info from "@/assets/icons/info.svg";
 import { sections, SECTIONS, STOVE } from "@/types/stove";
@@ -42,23 +44,31 @@ function PerformanceCard({ className, stove, ...other }: EventsCardProps) {
       </div>
 
       <div className={styles.sections}>
-        {Object.values(sections).map(({ id, Img, dataType }) =>
+        {Object.values(sections).map(({ id, Img }) =>
           // Temporary only use 2 sections till formulas for others in api
           [SECTIONS.sessions, SECTIONS.fuel].includes(id) ? (
-            <div
+            <Button
+              variant="subtle"
+              h="unset"
+              p={0}
               className={styles.section}
               key={id}
               onClick={() => setSection(id)}
+              styles={(theme) => ({
+                root: theme.fn.hover({
+                  backgroundColor: "transparent",
+                }),
+              })}
             >
               <div
                 className={cls(styles.circle, {
-                  [styles.selected]: id == selectedSection,
+                  [styles.selected]: id === selectedSection,
                 })}
               >
                 <Img width={32} height={32} />
               </div>
-              <p>{id.toUpperCase()}</p>
-            </div>
+              <p style={{ color: palette.Black }}>{id.toUpperCase()}</p>
+            </Button>
           ) : null
         )}
       </div>
