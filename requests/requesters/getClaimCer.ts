@@ -2,9 +2,9 @@ import request from "@/requests/request";
 import { IClaimCer, IFuelPurchase } from "@/types/certificates/claimCer";
 import { IClaimVer } from "@/types/certificates/claimVer";
 
-import { getEntityWithProfile } from "./getEntityProfile";
+import { requestEntityWithProfile } from "./getEntityProfile";
 
-export default async function getClaimCer(
+export default async function requestClaimCerFilled(
   claimVer: IClaimVer
 ): Promise<IClaimCer | undefined> {
   const claimCerId = claimVer?.outcome.linkedClaim.id.split(":")?.[1];
@@ -20,7 +20,7 @@ export default async function getClaimCer(
 
   const [fuelPurchase, project] = await Promise.all([
     request<IFuelPurchase>(`${cellnodeURL}${fuelPurchaseId}`),
-    getEntityWithProfile(projectEntityId),
+    requestEntityWithProfile(projectEntityId),
   ]);
 
   claimCer._fuelPurchase = fuelPurchase;

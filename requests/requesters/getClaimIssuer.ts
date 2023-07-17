@@ -1,9 +1,9 @@
 import { requestBlocksyncAPI } from "@/requests/blocksync";
 import { IClaimIssuer } from "@/types/certificates/claimVer";
 
-import getEntityProfile from "./getEntityProfile";
+import requestEntityProfile from "./getEntityProfile";
 
-export default async function getClaimIssuer(
+export default async function requestClaimIssuerFilled(
   claimIssuerId: string
 ): Promise<IClaimIssuer | undefined> {
   if (!claimIssuerId) return undefined;
@@ -12,7 +12,7 @@ export default async function getClaimIssuer(
   const claimIssuer = await requestBlocksyncAPI<IClaimIssuer>(claimIssuerUri);
   if (!claimIssuer) return undefined;
 
-  const claimIssuerProfile = await getEntityProfile(claimIssuer);
+  const claimIssuerProfile = await requestEntityProfile(claimIssuer);
   claimIssuer._profile = claimIssuerProfile;
   return claimIssuer;
 }

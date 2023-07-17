@@ -2,7 +2,7 @@ import request from "@/requests/request";
 import { IEntityExtended } from "@/types/entityCollections";
 import { IDeviceCredentials } from "@/types/entityCollections/deviceCredentials";
 
-export default async function getEntityDeviceCredential(
+export default async function requestEntityDeviceCredential(
   entity: IEntityExtended
 ): Promise<IDeviceCredentials | undefined> {
   const linkedResourse = entity.linkedResource.find(

@@ -4,7 +4,7 @@ import {
   ITokenWhateverItMean,
 } from "@/types/entityCollections";
 
-export default async function getEntityToken(
+export default async function requestEntityToken(
   entity: IEntityExtended
 ): Promise<ITokenWhateverItMean | undefined> {
   const tokenAddress = entity?.accounts.find(

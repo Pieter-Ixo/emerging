@@ -9,19 +9,17 @@ import {
   requestSupamoto,
   requestSupamotoCookingSummary,
 } from "@/requests/supamoto";
-
-import getCollectionProfile from "@/helpers/getCollectionProfile";
-import getCollectionTags from "@/helpers/getCollectionTags";
-import getCollectionTokenIpfs from "@/helpers/getCollectionTokenIpfs";
-import getEntityProfile from "@/helpers/getEntityProfile";
-
+import requestCollectionProfile from "@/requests/requesters/getCollectionProfile";
+import getCollectionTags from "@/requests/requesters/getCollectionTags";
+import getCollectionTokenIpfs from "@/requests/requesters/getCollectionTokenIpfs";
+import requestEntityDeviceCredential from "@/requests/requesters/getEntityDeviceCredential";
+import requestEntityProfile from "@/requests/requesters/getEntityProfile";
+import requestEntityTags from "@/requests/requesters/getEntityTags";
+import requestEntityToken from "@/requests/requesters/getEntityToken";
 import {
   ICollectionEntities,
   IEntityExtended,
 } from "@/types/entityCollections";
-import getEntityToken from "@/helpers/getEntityToken";
-import getEntityDeviceCredential from "@/helpers/getEntityDeviceCredential";
-import getEntityTags from "@/helpers/getEntityTags";
 
 export const fetchAndFillCollections = createAsyncThunk(
   "entityCollections/fetchAndFillCollections",
@@ -31,7 +29,7 @@ export const fetchAndFillCollections = createAsyncThunk(
     const getCollectionProfilePromises = collectionsResponse?.map(
       async (entityCollection): Promise<ICollectionEntities> => {
         const [profileData, tagData, tokenIpfs] = await Promise.all([
-          await getCollectionProfile(entityCollection.collection),
+          await requestCollectionProfile(entityCollection.collection),
           await getCollectionTags(entityCollection.collection),
           await getCollectionTokenIpfs(entityCollection.collection),
         ]);
@@ -67,12 +65,12 @@ export const fetchEntityByExternalIdAndFill = createAsyncThunk(
       supamotoCookingSummary,
       tags,
     ] = await Promise.all([
-      await getEntityProfile(entity),
-      await getEntityToken(entity),
-      await getEntityDeviceCredential(entity),
+      await requestEntityProfile(entity),
+      await requestEntityToken(entity),
+      await requestEntityDeviceCredential(entity),
       await requestSupamoto(entity.externalId),
       await requestSupamotoCookingSummary(entity.externalId),
-      await getEntityTags(entity),
+      await requestEntityTags(entity),
     ]);
 
     entity._profile = profile;

@@ -2,7 +2,7 @@ import request from "@/requests/request";
 import { ICollection, ICollectionTokenIpfs } from "@/types/entityCollections";
 import getFullServiceEndpoint from "@/utils/getServiceEndpoint";
 
-export default async function getCollectionProfile(
+export default async function requestCollectionProfile(
   collection: ICollection
 ): Promise<ICollectionTokenIpfs | undefined> {
   const tagsEndpointLastPart = collection.linkedResource.find(

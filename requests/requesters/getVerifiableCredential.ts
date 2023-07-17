@@ -2,7 +2,7 @@ import { IClaimVer } from "@/types/certificates/claimVer";
 import { IVerifiableCred } from "@/types/certificates/verifiableCred";
 import request from "@/requests/request";
 
-export default async function getVerifiableCredential(
+export default async function requestVerifiableCredential(
   claimVer: IClaimVer
 ): Promise<IVerifiableCred | undefined> {
   if (!claimVer) return undefined;

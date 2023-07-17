@@ -1,21 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import getClaimCer from "@/helpers/getClaimCer";
-import getClaimIssuer from "@/helpers/getClaimIssuer";
-import { getEntityWithProfile } from "@/helpers/getEntityProfile";
-import getVerifiableCredential from "@/helpers/getVerifiableCredential";
-import request from "@/requests/request";
-import { requestBatchByID, requestBatches } from "@/requests/blocksync";
+import { requestBatches, requestBatchByID } from "@/requests/blocksync";
+import requestClaimCerFilled from "@/requests/requesters/getClaimCer";
+import requestClaimIssuerFilled from "@/requests/requesters/getClaimIssuer";
+import requestClaimVer from "@/requests/requesters/getClaimVer";
+import { requestEntityWithProfile } from "@/requests/requesters/getEntityProfile";
+import requestVerifiableCredential from "@/requests/requesters/getVerifiableCredential";
 import { IBatch, IBatchDataFilled } from "@/types/certificates";
-import { IClaimVer } from "@/types/certificates/claimVer";
-
 import isURL from "@/utils/isStrUrl";
 
 // eslint-disable-next-line import/no-cycle
 import { AppDispatch } from "../store";
 import { fetchAndFillCollections } from "../entityCollections/thunks";
 
-// eslint-disable-next-line import/prefer-default-export
 export const fetchAllBatches = createAsyncThunk<
   IBatch[],
   void,
@@ -56,19 +53,19 @@ export const fetchBatchById = createAsyncThunk<
     const claimVerUri = batchesResponse.tokenData[0].uri;
 
     if (isURL(claimVerUri)) {
-      const claimVer = await request<IClaimVer>(
-        batchesResponse.tokenData[0].uri
-      );
+      const claimVer = await requestClaimVer(batchesResponse.tokenData[0].uri);
       filledBatch._claimVer = claimVer;
 
       if (claimVer) {
         const [claimCer, claimIssuer, verifiableCredential, protocol, oracle] =
           await Promise.all([
-            await getClaimCer(claimVer),
-            await getClaimIssuer(claimVer?.outcome.linkedClaim.issuer),
-            await getVerifiableCredential(claimVer),
-            await getEntityWithProfile(claimVer["@context"][1].protocol),
-            await getEntityWithProfile(claimVer.issuer.id),
+            await requestClaimCerFilled(claimVer),
+            await requestClaimIssuerFilled(
+              claimVer?.outcome.linkedClaim.issuer
+            ),
+            await requestVerifiableCredential(claimVer),
+            await requestEntityWithProfile(claimVer["@context"][1].protocol),
+            await requestEntityWithProfile(claimVer.issuer.id),
           ]);
 
         filledBatch._claimIssuer = claimIssuer;

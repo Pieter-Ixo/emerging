@@ -6,10 +6,10 @@ import {
   IEntityProfile,
 } from "@/types/entityCollections";
 import getFullServiceEndpoint from "@/utils/getServiceEndpoint";
-import fillProfileLinkedData from "./fillProfileLinkedData";
-import getEntityTags from "./getEntityTags";
+import fillProfileLinkedData from "@/helpers/fillProfileLinkedData";
+import requestEntityTags from "./getEntityTags";
 
-export default async function getEntityProfile(
+export default async function requestEntityProfile(
   entity: IEntityExtended
 ): Promise<IEntityProfile | undefined> {
   const profileEndpointLastPart = entity.settings.Profile.serviceEndpoint;
@@ -24,14 +24,15 @@ export default async function getEntityProfile(
   const profileFilled = fillProfileLinkedData(profile);
   return profileFilled;
 }
-export async function getEntityWithProfile(
+
+export async function requestEntityWithProfile(
   id: string
 ): Promise<IEntityExtended> {
   const entity = await requestEntityByID(id);
 
   const [profile, tags] = await Promise.all([
-    await getEntityProfile(entity),
-    await getEntityTags(entity),
+    await requestEntityProfile(entity),
+    await requestEntityTags(entity),
   ]);
 
   const profileFilled = fillProfileLinkedData(profile);

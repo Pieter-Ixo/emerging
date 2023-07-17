@@ -1,9 +1,9 @@
+import fillProfileLinkedData from "@/helpers/fillProfileLinkedData";
 import request from "@/requests/request";
 import { ICollection, ICollectionProfile } from "@/types/entityCollections";
 import getFullServiceEndpoint from "@/utils/getServiceEndpoint";
-import fillProfileLinkedData from "./fillProfileLinkedData";
 
-export default async function getCollectionProfile(
+export default async function requestCollectionProfile(
   collection: ICollection
 ): Promise<ICollectionProfile | undefined> {
   const profileEndpointLastPart = collection.settings.Profile.serviceEndpoint;
