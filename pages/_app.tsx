@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { MantineProvider } from "@mantine/core";
 import Head from "next/head";
 import { AppProps } from "next/app";
@@ -18,7 +18,7 @@ import Layout from "./_layout";
 
 const persistor = persistStore(store);
 
-function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps, router }: AppProps) {
   useEffect(() => {
     // @ts-ignore
     window.purge = persistor.purge;
@@ -45,7 +45,7 @@ function App({ Component, pageProps }: AppProps) {
               <ToastContainer />
               <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
-                  <Layout>
+                  <Layout pathname={router.pathname}>
                     <Component {...pageProps} />
                   </Layout>
                 </PersistGate>

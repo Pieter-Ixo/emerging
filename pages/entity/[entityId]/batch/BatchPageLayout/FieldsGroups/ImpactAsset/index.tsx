@@ -1,6 +1,7 @@
 import { Flex } from "@mantine/core";
 import shortStr from "@/utils/shortStr";
 import dateLocale from "@/utils/dateLocale";
+import getTotalMintedAmount from "@/helpers/transformData/getTotalMintedAmount";
 
 import { FieldAnchor, FieldText, FieldsGroupTitle } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
@@ -19,9 +20,7 @@ export default function ImpactAsset({
   collection,
   batchProgress,
 }: ImpactAssetProps) {
-  const totalMinted = Object.entries(
-    entity?._token?.CARBON._totalMinted?.tokens ?? {}
-  )?.[0]?.[1].amount;
+  const totalMinted = getTotalMintedAmount(entity);
 
   return (
     <Flex direction="column">
@@ -31,7 +30,7 @@ export default function ImpactAsset({
 
       <Flex direction="column" gap="md">
         <Identifier
-          retired={totalMinted / 2}
+          retired={totalMinted ? totalMinted / 2 : 0}
           claimable={Number(batchProgress) * 2}
           produced={totalMinted}
           entity={entity}
