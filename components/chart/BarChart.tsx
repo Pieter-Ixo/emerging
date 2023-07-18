@@ -1,24 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createChart } from "lightweight-charts";
 
-import { SECTIONS, STOVE_PERIODS, STOVE_SESSIONS_CONTENT } from "@/types/stove";
+import { SECTIONS, STOVE_PELLETS_CONTENT, STOVE_PERIODS } from "@/types/stove";
 import styles from "./chart.module.scss";
 import defaultChartConfig, { lineChartConfig } from "./config";
-import sessionsToChartData from "./sessionsToChartData";
+import pelletsToChartData from "./pelletsToChartData";
 
 export type CHART_DATA = { time: string; value: number }[];
 
 export type ChartProps = {
-  sessions: STOVE_SESSIONS_CONTENT[];
+  pellets: STOVE_PELLETS_CONTENT[];
 };
 
-export default function SessionsChart({ sessions }: ChartProps) {
+export default function BarChart({ pellets }: ChartProps) {
   const [data, setData] = useState<CHART_DATA>([]);
-  const [period, setPeriod] = useState<STOVE_PERIODS>(STOVE_PERIODS.monthly);
+  const [period, setPeriod] = useState<STOVE_PERIODS>(STOVE_PERIODS.all);
   const chartContainerRef = useRef<HTMLDivElement>(null);
 
   const getData = async (period: STOVE_PERIODS) => {
-    setData(sessionsToChartData(sessions, period));
+    setData(pelletsToChartData(pellets, period));
   };
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function SessionsChart({ sessions }: ChartProps) {
 
   return (
     <div className={styles.chartContainer}>
-      <div ref={chartContainerRef} key={SECTIONS.sessions} />
+      <div ref={chartContainerRef} key={SECTIONS.fuel} />
       {data.length < 1 ? <p className={styles.noData}>NO DATA</p> : null}
       <div className={styles.buttons}>
         {Object.values(STOVE_PERIODS).map((p) => (
