@@ -38,7 +38,7 @@ export const lifeYearsSaved = (totalPelletsPurchased: number) =>
 
 export const datesFromPeriod = (period: STOVE_PERIODS) => {
   const now = new Date();
-  let fromDate = new Date();
+  const fromDate = new Date();
   // to make offset by one in future as graphps is from current midnight (future) for past day
   now.setDate(now.getDate() + 1);
 

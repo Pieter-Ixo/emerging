@@ -7,11 +7,12 @@ import SproutPill from "@/assets/icons/sprout-pill.svg";
 
 import Card from "@/components/card/card";
 import Info from "@/assets/icons/info.svg";
-import { SECTIONS, STOVE, STOVE_DATA_TYPES } from "@/types/stove";
-import Chart from "@/components/chart/chart";
+import { SECTIONS, STOVE } from "@/types/stove";
 
 import styles from "./card-performance.module.scss";
 import TabButton from "./TabButton";
+import Barchart from "../chart/BarChart";
+import SessionsChart from "../chart/SessionsChart";
 
 type EventsCardProps = { stove: STOVE } & HTMLAttributes<HTMLDivElement>;
 
@@ -55,11 +56,10 @@ function PerformanceCard({ className, stove, ...other }: EventsCardProps) {
             <p className={styles.amount}>{stove.sessions?.totalElements}</p>
             <p>cooking sessions with renewable energy</p>
           </div>
-          <Chart
-            stove={stove}
-            dataType={STOVE_DATA_TYPES.cooking_sessions}
-            id={SECTIONS.sessions}
-          />
+
+          {stove.sessions?.content && (
+            <SessionsChart sessions={stove.sessions.content} />
+          )}
         </Tabs.Panel>
 
         <Tabs.Panel value={SECTIONS.fuel} pt="xs">
@@ -67,11 +67,9 @@ function PerformanceCard({ className, stove, ...other }: EventsCardProps) {
             <p className={styles.amount}>{stove.pellets?.totalPelletsAmount}</p>
             <p>kg pellets bought</p>
           </div>
-          <Chart
-            stove={stove}
-            dataType={STOVE_DATA_TYPES.pellets_purchased}
-            id={SECTIONS.fuel}
-          />
+          {stove.pellets?.content && (
+            <Barchart pellets={stove.pellets.content} />
+          )}
         </Tabs.Panel>
       </Tabs>
     </Card>
