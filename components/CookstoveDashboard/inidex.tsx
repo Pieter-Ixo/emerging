@@ -8,7 +8,6 @@ import Household from "@/assets/icons/household.svg";
 import Sprout from "@/assets/icons/sprout.svg";
 import Eye from "@/assets/icons/eye.svg";
 import Loader from "@/components/loader/loader";
-import Link from "next/link";
 import PieChart from "@/components/pie-chart/pie-chart";
 import CarbonClaimCard from "@/components/card-claim/card-claim";
 import ImageTextCard from "@/components/card-image-text/card-image-text";
@@ -92,7 +91,7 @@ export default function CookstoveDashboard({
                 vertical
               />
             </div>
-            <ImageTextCard Img={Eye} text="My Carbon Credits Activity" />
+            <ImageTextCard Img={Eye} text="Carbon Credit Transactions" />
           </div>
         </section>
       </Container>

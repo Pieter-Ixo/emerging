@@ -17,13 +17,13 @@ function PieChart({ totalMinted, totalTokenAmount }: PieChartProps) {
 
   const chartCnfig = [
     {
-      title: "Claimable",
+      title: "Credits",
       value: totalTokenAmount,
       color: "#5FA8EB",
       text: "AVAILABLE CREDITS",
     },
     {
-      title: "Generated",
+      title: "Credits Issued",
       value: totalMinted,
       color: "#2B94F5",
       text: "CARBON CREDITS",
