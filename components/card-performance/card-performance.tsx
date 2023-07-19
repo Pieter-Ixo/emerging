@@ -19,11 +19,6 @@ type EventsCardProps = { stove: STOVE } & HTMLAttributes<HTMLDivElement>;
 function PerformanceCard({ className, stove, ...other }: EventsCardProps) {
   const [activeTab, setActiveTab] = useState<SECTIONS>(SECTIONS.sessions);
 
-  // console.log("🍓", {
-  //   sessions: stove.sessions,
-  //   pellets: stove.pellets,
-  // });
-
   return (
     <Card className={cls(styles.performanceCard, className)} {...other}>
       <div className={styles.header}>
