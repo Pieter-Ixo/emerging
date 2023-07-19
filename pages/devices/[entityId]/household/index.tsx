@@ -53,7 +53,7 @@ export default function HouseholdPageLayout() {
           align="center"
           color={palette.White}
           weight={400}
-          mb="lg"
+          py="lg"
         >
           Supamoto #{entityExternalId}
         </Title>

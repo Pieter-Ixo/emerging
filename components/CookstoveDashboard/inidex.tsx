@@ -1,4 +1,4 @@
-import { BackgroundImage, Container } from "@mantine/core";
+import { BackgroundImage, Container, Title } from "@mantine/core";
 import Link from "next/link";
 import cls from "classnames";
 
@@ -14,6 +14,7 @@ import CarbonClaimCard from "@/components/card-claim/card-claim";
 import ImageTextCard from "@/components/card-image-text/card-image-text";
 import PerformanceCard from "@/components/card-performance/card-performance";
 import { STOVE } from "@/types/stove";
+import { palette } from "@/theme/palette";
 
 interface Props {
   entityExternalId: number | string;
@@ -68,7 +69,15 @@ export default function CookstoveDashboard({
   return (
     <BackgroundImage src="/images/background.jpg">
       <Container maw="600px">
-        <h1 className={styles.title}>SUPAMOTO #{entityExternalId}</h1>
+        <Title
+          order={1}
+          align="center"
+          color={palette.White}
+          weight={400}
+          py="lg"
+        >
+          Supamoto #{entityExternalId}
+        </Title>
         <section className={utilsStyles.column}>
           <div className={cls(utilsStyles.flex)}>
             <CarbonClaimCard
