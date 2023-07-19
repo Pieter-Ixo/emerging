@@ -12,13 +12,12 @@ import { useRouter } from "next/navigation";
 
 import { useCookstove } from "@/context/cookstove";
 import useValueFromRouter from "@/utils/useValueFromRouter";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { fetchEntityByExternalIdAndFill } from "@/redux/entityCollections/thunks";
-import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
+import { useAppDispatch } from "@/hooks/redux";
 import ImageTextCard from "@/components/card-image-text/card-image-text";
 import HouseholdSVG from "@/assets/icons/household.svg";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import { palette } from "@/theme/palette";
+import MapImage from "@/components/MapImage";
 
 const defaultPhotos = [
   "/images/DefaultHouseholdPhotos/default_01.jpg",
@@ -30,7 +29,6 @@ const defaultPhotos = [
 export default function HouseholdPageLayout() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const entity = useAppSelector(selectSelectedEntity);
 
   const entityExternalId = useValueFromRouter<string>("entityId");
   const { stove, fetchStove } = useCookstove();
@@ -38,10 +36,9 @@ export default function HouseholdPageLayout() {
   useEffect(() => {
     if (!entityExternalId) return;
     fetchStove(entityExternalId);
-    dispatch(fetchEntityByExternalIdAndFill(entityExternalId));
-  }, [dispatch, stove.id, entityExternalId, fetchStove]);
+  }, [dispatch, entityExternalId, fetchStove]);
 
-  console.log("🦧", entity);
+  console.log("🥝", stove);
 
   if (!entityExternalId) return <Text>missing Entity External Id</Text>;
 
@@ -75,6 +72,10 @@ export default function HouseholdPageLayout() {
           />
         </Box>
         <Stack p={0} mt="md">
+          <MapImage
+            latitude={stove.cookstove?.latitude}
+            longitude={stove.cookstove?.longitude}
+          />
           {defaultPhotos.map((photoHref) => (
             <Image
               radius="md"

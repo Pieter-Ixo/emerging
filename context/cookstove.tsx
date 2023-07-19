@@ -3,7 +3,6 @@ import {
   useState,
   HTMLAttributes,
   useContext,
-  useMemo,
   useCallback,
 } from "react";
 
@@ -30,18 +29,23 @@ export function CookstoveProvider({
       const { endDateISOString, startDateISOString } = datesFromPeriod(
         STOVE_PERIODS.all
       );
-      const [resSessions, resPellets] = await Promise.all([
+      const [resSessions, resPellets, resCookstove] = await Promise.all([
         fetch(
           `/api/cookstove/cooking-sessions/${id}?startDate=${startDateISOString}&endDate=${endDateISOString}&getAllForPeriod=true`
         ),
         fetch(
           `/api/cookstove/pellets-purchases/${id}?startDate=${startDateISOString}&endDate=${endDateISOString}&getAllForPeriod=true`
         ),
+        fetch(`/api/cookstove/${id}`),
       ]);
-      const [dataSessions, dataPellets] = await Promise.all([
+      const [dataSessions, dataPellets, cookstove] = await Promise.all([
         resSessions.json(),
         resPellets.json(),
+        resCookstove.json(),
       ]);
+
+      setStove((prevState) => ({ ...prevState, cookstove: cookstove?.data }));
+
       if (resSessions.status !== 200) throw dataSessions.error;
       if (resPellets.status !== 200) throw dataPellets.error;
       updateStoveSessions({
