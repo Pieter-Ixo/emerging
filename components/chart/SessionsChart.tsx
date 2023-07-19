@@ -63,7 +63,7 @@ export default function SessionsChart({ sessions }: ChartProps) {
 
   return (
     <div className={styles.chartContainer}>
-      <div ref={chartContainerRef} key={SECTIONS.sessions} />
+      <div ref={chartContainerRef} />
       {data.length < 1 ? <p className={styles.noData}>NO DATA</p> : null}
       <div className={styles.buttons}>
         {Object.values(STOVE_PERIODS).map((p) => (

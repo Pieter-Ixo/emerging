@@ -1,5 +1,5 @@
 import { HTMLAttributes, useState } from "react";
-import { Flex, Tabs } from "@mantine/core";
+import { Box, Flex, Tabs } from "@mantine/core";
 import cls from "classnames";
 
 import Pot from "@/assets/icons/pot.svg";
@@ -19,10 +19,10 @@ type EventsCardProps = { stove: STOVE } & HTMLAttributes<HTMLDivElement>;
 function PerformanceCard({ className, stove, ...other }: EventsCardProps) {
   const [activeTab, setActiveTab] = useState<SECTIONS>(SECTIONS.sessions);
 
-  console.log("🍓", {
-    sessions: stove.sessions,
-    pellets: stove.pellets,
-  });
+  // console.log("🍓", {
+  //   sessions: stove.sessions,
+  //   pellets: stove.pellets,
+  // });
 
   return (
     <Card className={cls(styles.performanceCard, className)} {...other}>
@@ -56,26 +56,32 @@ function PerformanceCard({ className, stove, ...other }: EventsCardProps) {
           />
         </Flex>
 
-        <Tabs.Panel value={SECTIONS.sessions} pt="xs">
-          <div className={styles.details}>
-            <p className={styles.amount}>{stove.sessions?.totalElements}</p>
-            <p>cooking sessions with renewable energy</p>
-          </div>
+        {activeTab === SECTIONS.sessions && (
+          <Box>
+            <div className={styles.details}>
+              <p className={styles.amount}>{stove.sessions?.totalElements}</p>
+              <p>cooking sessions with renewable energy</p>
+            </div>
 
-          {stove.sessions?.content && (
-            <SessionsChart sessions={stove.sessions.content} />
-          )}
-        </Tabs.Panel>
+            {stove.sessions?.content && (
+              <SessionsChart sessions={stove.sessions.content} />
+            )}
+          </Box>
+        )}
 
-        <Tabs.Panel value={SECTIONS.fuel} pt="xs">
-          <div className={styles.details}>
-            <p className={styles.amount}>{stove.pellets?.totalPelletsAmount}</p>
-            <p>kg pellets bought</p>
-          </div>
-          {stove.pellets?.content && (
-            <Barchart pellets={stove.pellets.content} />
-          )}
-        </Tabs.Panel>
+        {activeTab === SECTIONS.fuel && (
+          <Box pt="xs">
+            <div className={styles.details}>
+              <p className={styles.amount}>
+                {stove.pellets?.totalPelletsAmount}
+              </p>
+              <p>kg pellets bought</p>
+            </div>
+            {stove.pellets?.content && (
+              <Barchart pellets={stove.pellets.content} />
+            )}
+          </Box>
+        )}
       </Tabs>
     </Card>
   );

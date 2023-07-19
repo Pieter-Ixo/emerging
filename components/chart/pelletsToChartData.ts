@@ -30,7 +30,5 @@ export default function pelletsToChartData(
   period: STOVE_PERIODS = STOVE_PERIODS.all
 ): CHART_DATA {
   const sessionsInPeriod = getPelletsForPeriod(pellets, period);
-  console.log("🌽🌽", period, pellets, sessionsInPeriod);
-
   return sessionsInPeriod;
 }

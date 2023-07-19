@@ -63,7 +63,7 @@ export default function BarChart({ pellets }: ChartProps) {
 
   return (
     <div className={styles.chartContainer}>
-      <div ref={chartContainerRef} key={SECTIONS.fuel} />
+      <div ref={chartContainerRef} />
       {data.length < 1 ? <p className={styles.noData}>NO DATA</p> : null}
       <div className={styles.buttons}>
         {Object.values(STOVE_PERIODS).map((p) => (

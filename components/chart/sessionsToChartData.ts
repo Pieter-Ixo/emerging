@@ -47,7 +47,6 @@ export default function sessionsToChartData(
     },
     {} as ArrayElement<CHART_DATA>
   );
-  console.log("🎺🎺", period, finalSessions);
 
   return finalSessions;
 }
