@@ -1,4 +1,7 @@
-import { Image } from "@mantine/core";
+import { Flex, Image, Loader } from "@mantine/core";
+
+const MAPBOX_ACCESS_TOKEN =
+  "pk.eyJ1Ijoic2VyaGlpLXBlcmVob25jaHVrLXNpZ21hIiwiYSI6ImNsazlyMnRpNjBzbmYzZnJ0MmxqaHJsb3gifQ.2u6dhz1Yd5JJznYzLYKDjg";
 
 export default function MapImage({
   latitude,
@@ -7,7 +10,12 @@ export default function MapImage({
   latitude?: string | number;
   longitude?: string | number;
 }) {
-  if (!latitude && !longitude) return null;
+  if (!latitude && !longitude)
+    return (
+      <Flex w={600} h={300} align="center" justify="center">
+        <Loader />
+      </Flex>
+    );
 
   const geoObj = JSON.stringify({
     type: "Point",
@@ -15,10 +23,11 @@ export default function MapImage({
   });
   const geoJSON = encodeURIComponent(geoObj);
 
-  const url = `https://api.mapbox.com/styles/v1/mapbox/light-v10/static/geojson(${geoJSON})/${longitude},${latitude},3/600x400?access_token=pk.eyJ1IjoiZXhhbXBsZXMiLCJhIjoiY2p0MG01MXRqMW45cjQzb2R6b2ptc3J4MSJ9.zA2W0IkI0c6KaAhJfk9bWg`;
+  const url = `https://api.mapbox.com/styles/v1/mapbox/light-v10/static/geojson(${geoJSON})/${longitude},${latitude},3/600x300?access_token=${MAPBOX_ACCESS_TOKEN}`;
 
   return (
     <Image
+      h={300}
       radius="md"
       src={url}
       alt="map which shows where the cookstove is located"
