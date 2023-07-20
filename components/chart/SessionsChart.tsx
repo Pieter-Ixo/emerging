@@ -14,7 +14,7 @@ export type ChartProps = {
 
 export default function SessionsChart({ sessions }: ChartProps) {
   const [data, setData] = useState<CHART_DATA>([]);
-  const [period, setPeriod] = useState<STOVE_PERIODS>(STOVE_PERIODS.monthly);
+  const [period, setPeriod] = useState<STOVE_PERIODS>(STOVE_PERIODS.all);
   const chartContainerRef = useRef<HTMLDivElement>(null);
 
   const getData = async (period: STOVE_PERIODS) => {
