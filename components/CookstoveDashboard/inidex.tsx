@@ -1,34 +1,35 @@
-import { BackgroundImage, Box, Container } from "@mantine/core";
+import { BackgroundImage, Container, Title } from "@mantine/core";
+import Link from "next/link";
 import cls from "classnames";
 
 import utilsStyles from "@/styles/utils.module.scss";
 import styles from "@/styles/homePage.module.scss";
 import Stove from "@/assets/icons/stove.svg";
-import Household from "@/assets/icons/household.svg";
+import HouseholdSVG from "@/assets/icons/household.svg";
 import Sprout from "@/assets/icons/sprout.svg";
 import Eye from "@/assets/icons/eye.svg";
 import Loader from "@/components/loader/loader";
-import Link from "next/link";
 import PieChart from "@/components/pie-chart/pie-chart";
 import CarbonClaimCard from "@/components/card-claim/card-claim";
 import ImageTextCard from "@/components/card-image-text/card-image-text";
 import PerformanceCard from "@/components/card-performance/card-performance";
 import { STOVE } from "@/types/stove";
+import { palette } from "@/theme/palette";
 
 interface Props {
-  id: number | string;
+  entityExternalId: number | string;
   stove: STOVE;
   totalMinted?: number;
   totalTokenAmount?: number;
 }
 
 export default function CookstoveDashboard({
-  id,
+  entityExternalId,
   stove,
   totalMinted,
   totalTokenAmount,
 }: Props) {
-  const isCookstoveLoading = stove.loading || !id;
+  const isCookstoveLoading = stove.loading || !entityExternalId;
   const isSessionsAndPelletsFound = !!(stove.sessions && stove.pellets);
 
   if (isCookstoveLoading)
@@ -68,7 +69,15 @@ export default function CookstoveDashboard({
   return (
     <BackgroundImage src="/images/background.jpg">
       <Container maw="600px">
-        <h1 className={styles.title}>SUPAMOTO #{id}</h1>
+        <Title
+          order={1}
+          align="center"
+          color={palette.White}
+          weight={400}
+          py="lg"
+        >
+          Supamoto #{entityExternalId}
+        </Title>
         <section className={utilsStyles.column}>
           <div className={cls(utilsStyles.flex)}>
             <CarbonClaimCard
@@ -81,18 +90,25 @@ export default function CookstoveDashboard({
             <PerformanceCard stove={stove} />
 
             <div className={styles.rowCards}>
-              <ImageTextCard
-                Img={Household}
-                text="Visit the household"
-                vertical
-              />
+              <Link
+                href={{
+                  pathname: `/devices/[entityId]/household`,
+                  query: { entityId: entityExternalId },
+                }}
+              >
+                <ImageTextCard
+                  Img={HouseholdSVG}
+                  text="Visit the household"
+                  vertical
+                />
+              </Link>
               <ImageTextCard
                 Img={Sprout}
                 text="Explore the benefits of clean cooking"
                 vertical
               />
             </div>
-            <ImageTextCard Img={Eye} text="My Carbon Credits Activity" />
+            <ImageTextCard Img={Eye} text="Carbon Credit Transactions" />
           </div>
         </section>
       </Container>

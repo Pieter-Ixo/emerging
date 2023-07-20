@@ -26,7 +26,7 @@ export default function Performance({
     <Card shadow="sm" padding="0" radius="md" withBorder>
       {entityExternalId && (
         <CookstoveDashboard
-          id={entityExternalId}
+          entityExternalId={entityExternalId}
           stove={stove}
           totalMinted={totalMinted}
           totalTokenAmount={totalTokenAmount}

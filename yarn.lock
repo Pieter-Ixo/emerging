@@ -3671,15 +3671,10 @@ camelize@^1.0.0:
   resolved "https://registry.yarnpkg.com/camelize/-/camelize-1.0.1.tgz#89b7e16884056331a35d6b5ad064332c91daa6c3"
   integrity sha512-dU+Tx2fsypxTgtLoE36npi3UqcjSSMNYfkqgmoEhtZrraP5VWq0K7FkWVTYa8eMPtnU/G2txVsfdCJTn9uzpuQ==
 
-caniuse-lite@^1.0.30001406:
-  version "1.0.30001446"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001446.tgz#6d4ba828ab19f49f9bcd14a8430d30feebf1e0c5"
-  integrity sha512-fEoga4PrImGcwUUGEol/PoFCSBnSkA9drgdkxXkJLsUBOnJ8rs3zDv6ApqYXGQFOyMPsjh79naWhF4DAxbF8rw==
-
-caniuse-lite@^1.0.30001449:
-  version "1.0.30001486"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001486.tgz#56a08885228edf62cbe1ac8980f2b5dae159997e"
-  integrity sha512-uv7/gXuHi10Whlj0pp5q/tsK/32J2QSqVRKQhs2j8VsDCjgyruAh/eEXHF822VqO9yT6iZKw3nRwZRSPBE9OQg==
+caniuse-lite@^1.0.30001406, caniuse-lite@^1.0.30001449:
+  version "1.0.30001517"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001517.tgz"
+  integrity sha512-Vdhm5S11DaFVLlyiKu4hiUTkpZu+y1KA/rZZqVQfOD5YdDT/eQKlkt7NaE0WGOFgX32diqt9MiP9CAiFeRklaA==
 
 chalk@^2.0.0:
   version "2.4.2"

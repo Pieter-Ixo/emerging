@@ -20,13 +20,6 @@ function ProgressBar({ retired, claimable, produced }) {
   const claimablePercent = (claimable / progressBarTotal) * 100;
   const producedPercent = (produced / progressBarTotal) * 100;
 
-  console.log([
-    progressBarTotal,
-    { retired, retiredPercent },
-    { claimable, claimablePercent },
-    { produced, producedPercent },
-  ]);
-
   return (
     <>
       <Group align="end">

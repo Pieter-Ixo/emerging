@@ -1,38 +1,23 @@
-import { HTMLAttributes, useMemo, useState } from "react";
-import { Button } from "@mantine/core";
+import { HTMLAttributes, useState } from "react";
+import { Box, Flex, Tabs } from "@mantine/core";
 import cls from "classnames";
 
-import { palette } from "@/theme/palette";
+import Pot from "@/assets/icons/pot.svg";
+import SproutPill from "@/assets/icons/sprout-pill.svg";
+
 import Card from "@/components/card/card";
 import Info from "@/assets/icons/info.svg";
-import { sections, SECTIONS, STOVE } from "@/types/stove";
-import Chart from "@/components/chart/chart";
+import { SECTIONS, STOVE } from "@/types/stove";
 
-import { hoursSaved, lifeYearsSaved } from "@/utils/supamoto";
 import styles from "./card-performance.module.scss";
+import TabButton from "./TabButton";
+import Barchart from "../chart/BarChart";
+import SessionsChart from "../chart/SessionsChart";
 
 type EventsCardProps = { stove: STOVE } & HTMLAttributes<HTMLDivElement>;
 
 function PerformanceCard({ className, stove, ...other }: EventsCardProps) {
-  const [selectedSection, setSection] = useState<SECTIONS>(SECTIONS.sessions);
-  const section = sections[selectedSection];
-
-  const amount = useMemo(() => {
-    switch (section.id) {
-      case SECTIONS.sessions:
-        return stove.sessions?.totalElements;
-      case SECTIONS.fuel:
-        return stove.pellets?.totalPelletsAmount;
-      case SECTIONS.time:
-        return hoursSaved(stove.pellets?.totalPelletsAmount!);
-      case SECTIONS.costs:
-        return stove.pellets?.totalPelletsAmount;
-      case SECTIONS.health:
-        return lifeYearsSaved(stove.pellets?.totalPelletsAmount!);
-
-      default:
-    }
-  }, [stove, section]);
+  const [activeTab, setActiveTab] = useState<SECTIONS>(SECTIONS.sessions);
 
   return (
     <Card className={cls(styles.performanceCard, className)} {...other}>
@@ -43,50 +28,56 @@ function PerformanceCard({ className, stove, ...other }: EventsCardProps) {
         </div>
       </div>
 
-      <div className={styles.sections}>
-        {Object.values(sections).map(({ id, Img }) =>
-          // Temporary only use 2 sections till formulas for others in api
-          [SECTIONS.sessions, SECTIONS.fuel].includes(id) ? (
-            <Button
-              variant="subtle"
-              h="unset"
-              p={0}
-              className={styles.section}
-              key={id}
-              onClick={() => setSection(id)}
-              styles={(theme) => ({
-                root: theme.fn.hover({
-                  backgroundColor: "transparent",
-                }),
-              })}
-            >
-              <div
-                className={cls(styles.circle, {
-                  [styles.selected]: id === selectedSection,
-                })}
-              >
-                <Img width={32} height={32} />
-              </div>
-              <p style={{ color: palette.Black }}>{id.toUpperCase()}</p>
-            </Button>
-          ) : null
+      <Tabs
+        variant="pills"
+        value={activeTab}
+        // @ts-ignore
+        onTabChange={setActiveTab}
+        color="transparent"
+        width="100%"
+      >
+        <Flex direction="row" justify="space-evenly">
+          <TabButton
+            name={SECTIONS.sessions}
+            Icon={Pot}
+            onClick={() => setActiveTab(SECTIONS.sessions)}
+            isActive={SECTIONS.sessions === activeTab}
+          />
+          <TabButton
+            name={SECTIONS.fuel}
+            Icon={SproutPill}
+            onClick={() => setActiveTab(SECTIONS.fuel)}
+            isActive={SECTIONS.fuel === activeTab}
+          />
+        </Flex>
+
+        {activeTab === SECTIONS.sessions && (
+          <Box>
+            <div className={styles.details}>
+              <p className={styles.amount}>{stove.sessions?.totalElements}</p>
+              <p>cooking sessions with renewable energy</p>
+            </div>
+
+            {stove.sessions?.content && (
+              <SessionsChart sessions={stove.sessions.content} />
+            )}
+          </Box>
         )}
-      </div>
 
-      <div className={styles.details}>
-        <p className={styles.amount}>{amount}</p>
-        <p>{section.description}</p>
-      </div>
-
-      <Chart
-        stove={stove}
-        dataType={section.dataType}
-        // dataFormatter={section.dataFormatter}
-        {...(section.dataFormatter
-          ? [{ dateFormatter: section.dataFormatter }]
-          : [])}
-        id={section.id}
-      />
+        {activeTab === SECTIONS.fuel && (
+          <Box pt="xs">
+            <div className={styles.details}>
+              <p className={styles.amount}>
+                {stove.pellets?.totalPelletsAmount}
+              </p>
+              <p>kg pellets bought</p>
+            </div>
+            {stove.pellets?.content && (
+              <Barchart pellets={stove.pellets.content} />
+            )}
+          </Box>
+        )}
+      </Tabs>
     </Card>
   );
 }

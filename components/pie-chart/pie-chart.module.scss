@@ -10,23 +10,8 @@
 		flex: 1;
 
 		.pieChart {
+			position: relative;
 			z-index: 5;
-		}
-
-		.image {
-			padding: 10%;
-			margin: 3%;
-			position: absolute;
-			top: 0;
-			left: 0;
-			bottom: 2%;
-			z-index: -1;
-			border-radius: 50%;
-			background-color: var(--card-bg-color);
-
-			img {
-				z-index: 2;
-			}
 		}
 
 		.textContainer {

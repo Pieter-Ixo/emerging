@@ -33,7 +33,7 @@ export default function DevicePageLayout() {
 
   return (
     <CookstoveDashboard
-      id={entityExternalId}
+      entityExternalId={entityExternalId}
       stove={stove}
       totalTokenAmount={totalTokenAmount}
       totalMinted={totalMinted}

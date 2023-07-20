@@ -1,6 +1,14 @@
 import React, { PropsWithChildren } from "react";
 import { useRouter } from "next/navigation";
-import { Box, Flex, Text, Image, Progress, CopyButton } from "@mantine/core";
+import {
+  Box,
+  Flex,
+  Text,
+  Image,
+  Progress,
+  CopyButton,
+  ImageProps,
+} from "@mantine/core";
 
 import { palette } from "@/theme/palette";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
@@ -88,9 +96,16 @@ export function CardContainer({ children }: PropsWithChildren) {
   );
 }
 
-export function AstroCarbonImage() {
+export function AstroCarbonImage(props: ImageProps) {
   return (
-    <Image width={150} height={150} src="/images/carbon-logo-lg.svg" alt="" />
+    <Image
+      width={150}
+      height={150}
+      src="/images/carbon-logo-lg.svg"
+      alt=""
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...props}
+    />
   );
 }
 

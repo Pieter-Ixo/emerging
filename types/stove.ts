@@ -11,6 +11,7 @@ export type STOVE = {
   data?: STOVE_DATA;
   sessions?: STOVE_SESSIONS;
   pellets?: STOVE_PELLETS;
+  cookstove?: COOKSTOVE;
   loading?: boolean;
 };
 
@@ -120,3 +121,16 @@ export const sections: { [key in SECTIONS]: SECTION } = {
     dataFormatter: (v) => lifeYearsSaved(v),
   },
 };
+export interface COOKSTOVE {
+  deviceId: number;
+  model: string;
+  status: string;
+  country: string;
+  latitude: number;
+  longitude: number;
+  certificateCid: string;
+  registrationDateTime: Date;
+  customer: {
+    agreementPolicy: string;
+  };
+}

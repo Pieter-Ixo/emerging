@@ -1,9 +1,8 @@
+import { useState } from "react";
 import { PieChart as PieChartImport } from "react-minimal-pie-chart";
 import cls from "classnames";
-import Image from "next/image";
+import { Box, Image } from "@mantine/core";
 
-import circle from "@/assets/images/circle.png";
-import { useState } from "react";
 import Card from "@/components/card/card";
 import styles from "./pie-chart.module.scss";
 
@@ -17,13 +16,13 @@ function PieChart({ totalMinted, totalTokenAmount }: PieChartProps) {
 
   const chartCnfig = [
     {
-      title: "Claimable",
+      title: "Credits",
       value: totalTokenAmount,
       color: "#5FA8EB",
       text: "AVAILABLE CREDITS",
     },
     {
-      title: "Generated",
+      title: "Credits Issued",
       value: totalMinted,
       color: "#2B94F5",
       text: "CARBON CREDITS",
@@ -37,6 +36,15 @@ function PieChart({ totalMinted, totalTokenAmount }: PieChartProps) {
   return (
     <div className={styles.pie}>
       <div className={styles.pieChartContainer}>
+        <Box
+          bg="#ffffffa6"
+          pos="absolute"
+          top={0}
+          w="100%"
+          style={{ zIndex: 0, borderRadius: "50%" }}
+        >
+          <Image src="/images/carbon-logo-lg.svg" alt="" />
+        </Box>
         <div className={styles.pieChart}>
           <PieChartImport
             lineWidth={12}
@@ -44,14 +52,10 @@ function PieChart({ totalMinted, totalTokenAmount }: PieChartProps) {
             animate
             onClick={(_, i) => setActive(i)}
             data={chartCnfig}
-            segmentsStyle={{ cursor: "pointer" }}
+            segmentsStyle={{ cursor: "pointer", zIndex: 1 }}
             rounded
             paddingAngle={10}
           />
-        </div>
-
-        <div className={styles.image}>
-          <Image src={circle} alt="" />
         </div>
 
         <div
