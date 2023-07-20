@@ -38,8 +38,6 @@ export default function HouseholdPageLayout() {
     fetchStove(entityExternalId);
   }, [dispatch, entityExternalId, fetchStove]);
 
-  console.log("🥝", stove);
-
   if (!entityExternalId) return <Text>missing Entity External Id</Text>;
 
   return (

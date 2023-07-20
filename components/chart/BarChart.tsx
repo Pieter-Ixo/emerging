@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createChart } from "lightweight-charts";
 
-import { SECTIONS, STOVE_PELLETS_CONTENT, STOVE_PERIODS } from "@/types/stove";
+import { STOVE_PELLETS_CONTENT, STOVE_PERIODS } from "@/types/stove";
 import styles from "./chart.module.scss";
 import defaultChartConfig, { lineChartConfig } from "./config";
 import pelletsToChartData from "./pelletsToChartData";

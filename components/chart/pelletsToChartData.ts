@@ -19,7 +19,7 @@ function getPelletsForPeriod(
       );
     })
     .map((s) => ({
-      time: new Date(s.dateTime!).toISOString().split("T")[0],
+      time: s.dateTime!.split("T")[0],
       value: s.pelletsAmount!,
     }))
     .sort(dynamicSort("time"));
@@ -29,6 +29,18 @@ export default function pelletsToChartData(
   pellets: STOVE_PELLETS_CONTENT[] = [],
   period: STOVE_PERIODS = STOVE_PERIODS.all
 ): CHART_DATA {
-  const sessionsInPeriod = getPelletsForPeriod(pellets, period);
-  return sessionsInPeriod;
+  const pelletsInPeriod = getPelletsForPeriod(pellets, period);
+
+  const joinedPellets = pelletsInPeriod.reduce((acc, item, i) => {
+    if (i === 0) {
+      acc.push(item);
+    } else if (item.time === acc[i - 1]?.time) {
+      acc.at(-1)!.value += item.value;
+    } else {
+      acc.push(item);
+    }
+    return acc;
+  }, [] as CHART_DATA);
+
+  return joinedPellets;
 }
