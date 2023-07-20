@@ -4,16 +4,29 @@ import { Anchor, Center, Container, Flex, Popover, Text } from "@mantine/core";
 
 import TruckSVG from "@/assets/icons/truck.svg";
 import LeafSVG from "@/assets/icons/leaf.svg";
-import styles from "@/styles/pages/indexPage.module.scss";
+import { palette } from "@/theme/palette";
 
 // eslint-disable-next-line react/require-default-props
 function NavLink({ href, children }: { href?: string } & PropsWithChildren) {
   return (
-    <Text ta="center" mt={32} p={20} className={styles.AnchorContainer}>
-      <Anchor href={href} className={styles.Anchor} underline={false}>
+    <Container
+      ta="center"
+      mt={32}
+      p={20}
+      bg={palette.White}
+      sx={{ borderRadius: "16px" }}
+      w="300px"
+    >
+      <Anchor
+        href={href}
+        underline={false}
+        color={palette.Black}
+        size="32px"
+        lh="lg"
+      >
         {children}
       </Anchor>
-    </Text>
+    </Container>
   );
 }
 
@@ -45,12 +58,6 @@ export default function Home() {
           <Text>Asset Owner</Text>
         </NavLink>
       </Container>
-      {/* <Dialog opened size="lg" radius="md" position={{ top: 20, left: 20 }}>
-        <Alert color="red" title="Web Application is under development">
-          If you want to see the previous working UI version click{" "}
-          <Anchor href="/collections-dashboard">here</Anchor>.
-        </Alert>
-      </Dialog> */}
     </Center>
   );
 }
