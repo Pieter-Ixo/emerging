@@ -3,6 +3,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import {
   requestCollections,
+  requestCollectionsByOwnerAddress,
+  requestEntitiesByOwnerAddress,
   requestEntityByExternalID,
 } from "@/requests/blocksync";
 import requestCollectionProfile from "@/requests/requesters/getCollectionProfile";
@@ -24,6 +26,8 @@ export const fetchAndFillCollections = createAsyncThunk(
 
     const getCollectionProfilePromises = collectionsResponse?.map(
       async (entityCollection): Promise<ICollectionEntities> => {
+        // TODO: move it to helpers
+
         const [profileData, tagData, tokenIpfs] = await Promise.all([
           await requestCollectionProfile(entityCollection.collection),
           await getCollectionTags(entityCollection.collection),
@@ -41,9 +45,30 @@ export const fetchAndFillCollections = createAsyncThunk(
   }
 );
 
-export const fetchCollectionByEntity = createAsyncThunk(
-  "entityCollections/fetchCollectionByEntity",
-  () => {}
+export const fetchCollectionsByOwnerAddres = createAsyncThunk(
+  "entityCollections/fetchCollectionsByOwnerAddres",
+  async (owner: string) => {
+    const collectionsResponse = await requestCollectionsByOwnerAddress(owner);
+
+    const getCollectionProfilePromises = collectionsResponse?.map(
+      async (entityCollection): Promise<ICollectionEntities> => {
+        // TODO: move it to helpers
+
+        const [profileData, tagData, tokenIpfs] = await Promise.all([
+          await requestCollectionProfile(entityCollection.collection),
+          await getCollectionTags(entityCollection.collection),
+          await getCollectionTokenIpfs(entityCollection.collection),
+        ]);
+        entityCollection.collection._profile = profileData;
+        entityCollection.collection._tags = tagData;
+        entityCollection.collection._tokenIpfs = tokenIpfs;
+        return entityCollection;
+      }
+    );
+    const newCollections = await Promise.all(getCollectionProfilePromises);
+
+    return newCollections;
+  }
 );
 
 // TODO: Let's migrate this to this file: "@/helpers/getEntityProfile"
@@ -53,14 +78,7 @@ export const fetchEntityByExternalIdAndFill = createAsyncThunk(
     const entity = await requestEntityByExternalID(externalId);
     if (!entity) return entity;
 
-    const [
-      profile,
-      token,
-      deviceCredential,
-      tags,
-      // supamoto,
-      // supamotoCookingSummary,
-    ] = await Promise.all([
+    const [profile, token, deviceCredential, tags] = await Promise.all([
       await requestEntityProfile(entity),
       await requestEntityToken(entity),
       await requestEntityDeviceCredential(entity),
@@ -73,9 +91,15 @@ export const fetchEntityByExternalIdAndFill = createAsyncThunk(
     entity._token = token;
     entity._deviceCredential = deviceCredential;
     entity._tags = tags;
-    // entity._supamoto = supamoto;
-    // entity._supamotoCookingSummary = supamotoCookingSummary;
 
     return entity;
+  }
+);
+
+export const fetchEntitiesByOwnerAddressAndFill = createAsyncThunk(
+  "entityCollections/fetchEntitiesByOwnerAddressAndFill",
+  async (owner: string): Promise<IEntityExtended[]> => {
+    const entities = await requestEntitiesByOwnerAddress(owner);
+    return entities.filter((entity) => entity.type === "asset/device");
   }
 );

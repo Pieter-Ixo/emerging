@@ -1,4 +1,4 @@
-import { Container, Flex, Text, Title } from "@mantine/core";
+import { Container, Flex, Title } from "@mantine/core";
 
 import PortfolioIcon from "@/components/icons/portfolio-icon";
 import GlobalIcon from "@/components/icons/global-icon";
@@ -17,7 +17,6 @@ export default function Header() {
         <Title order={1} fw={300} size="40px">
           My Portfolio
         </Title>
-        <Text>🔴 disconnected</Text>
       </Flex>
     </Container>
   );

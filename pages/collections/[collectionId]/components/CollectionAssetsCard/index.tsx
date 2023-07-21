@@ -1,4 +1,5 @@
-import { mobileBreakpoint } from "@/constants/breakpoints";
+import { Suspense, useEffect, useState } from "react";
+import Head from "next/head";
 import {
   Card,
   Divider,
@@ -9,22 +10,26 @@ import {
   Table,
   Text,
 } from "@mantine/core";
-import { useViewportSize, useDisclosure } from "@mantine/hooks";
+import { useDisclosure } from "@mantine/hooks";
 
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setSelectedView } from "@/redux/userSlice";
-import { Suspense, useEffect, useState } from "react";
+import { setSelectedEntity } from "@/redux/entityCollections/slice";
+import { selectSelectedAssetExternalId } from "@/redux/entityCollections/selectors";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import CookstoveModal from "@/components/Modals/CookstoveModal";
-import Head from "next/head";
-import ArrowRight from "../NewsCard/icons/arrowRight";
+import { IEntity } from "@/types/entityCollections";
+
+import ArrowRight from "../CollectionNewsCard/icons/arrowRight";
 import DownArrow from "./icons/downArrow";
 import Loading from "./loading";
 
-function AssetsCard() {
+export default function CollectionAssetsCard() {
   const dispatch = useAppDispatch();
   const entities = useAppSelector(
-    (state) => state.entityCollection.entityCollections[0].entities
+    (state) => state.entityCollection.entityCollections[0]?.entities
   );
+  const selectedAssetExternalId = useAppSelector(selectSelectedAssetExternalId);
+
   const [entitiesData, setEntitiesData] = useState<any[]>([]);
   const heads = [
     { name: "Serial number", filterActive: false },
@@ -39,72 +44,70 @@ function AssetsCard() {
   });
   const [headers, setHeader] = useState(heads);
   const [opened, { open, close }] = useDisclosure(false);
-  const [selectedExternalId, setSelectedExternalId] = useState("");
 
-  const handleClickAssetRow = (id: string) => () => {
-    setSelectedExternalId(id);
+  const handleClickAssetRow = (entity: IEntity) => () => {
+    dispatch(setSelectedEntity(entity));
   };
 
   const rows = entitiesData?.map((entity) => {
-    if (entity.externalId !== "") {
-      return (
-        <tr
-          key={entity.id}
-          onClick={handleClickAssetRow(entity.externalId)}
-          style={{ cursor: "pointer" }}
-        >
-          <td
-            style={{
-              color: sortAssets.SerialNumber ? "#5FA8EB" : "black",
-            }}
-          >
-            {entity.externalId}
-          </td>
-          <td
-            style={{ color: sortAssets.CarbonClaimable ? "#5FA8EB" : "black" }}
-          >
-            {0}
-          </td>
-          <td style={{ color: sortAssets.CarbonIssued ? "#5FA8EB" : "black" }}>
-            {0}
-          </td>
-          {selectedExternalId === entity.externalId && (
-            <Modal.Root
-              opened={opened}
-              onClose={() => setSelectedExternalId("")}
-              radius={16}
-              size="md"
-              centered
-              scrollAreaComponent={ScrollArea.Autosize}
-            >
-              <Head>
-                <title>Supamoto Dashboard</title>
-                <meta name="description" content="Supamoto Dashboard" />
-              </Head>
+    if (entity.externalId === "") return null;
 
-              <Modal.Overlay />
-              <Modal.Content>
-                <Modal.Header style={{ height: 36 }}>
-                  <Modal.Title>Supamoto Dashboard</Modal.Title>
-                  <Modal.CloseButton />
-                </Modal.Header>
-                <Modal.Body style={{ padding: 0 }}>
-                  <CookstoveModal
-                    id={Number(selectedExternalId)}
-                    entity={entity}
-                  />
-                </Modal.Body>
-              </Modal.Content>
-            </Modal.Root>
-          )}
-        </tr>
-      );
-    }
+    const isSelectedRow = selectedAssetExternalId === entity.externalId;
+    return (
+      <tr
+        key={entity.id}
+        onClick={handleClickAssetRow(entity)}
+        style={{
+          cursor: "pointer",
+          backgroundColor: isSelectedRow ? "#F8F8F8" : "inherit",
+        }}
+      >
+        <td
+          style={{
+            color: sortAssets.SerialNumber ? "#5FA8EB" : "black",
+          }}
+        >
+          {entity.externalId}
+        </td>
+        <td style={{ color: sortAssets.CarbonClaimable ? "#5FA8EB" : "black" }}>
+          {0}
+        </td>
+        <td style={{ color: sortAssets.CarbonIssued ? "#5FA8EB" : "black" }}>
+          {0}
+        </td>
+        {isSelectedRow && (
+          <Modal.Root
+            opened={opened}
+            onClose={() => dispatch(setSelectedEntity(undefined))}
+            radius={16}
+            size="md"
+            centered
+            scrollAreaComponent={ScrollArea.Autosize}
+          >
+            <Head>
+              <title>Supamoto Dashboard</title>
+              <meta name="description" content="Supamoto Dashboard" />
+            </Head>
+
+            <Modal.Overlay />
+            <Modal.Content>
+              <Modal.Header style={{ height: 36 }}>
+                <Modal.Title>Supamoto Dashboard</Modal.Title>
+                <Modal.CloseButton />
+              </Modal.Header>
+              <Modal.Body style={{ padding: 0 }}>
+                <CookstoveModal
+                  id={Number(selectedAssetExternalId)}
+                  entity={entity}
+                />
+              </Modal.Body>
+            </Modal.Content>
+          </Modal.Root>
+        )}
+      </tr>
+    );
   });
 
-  const viewPortSize = useViewportSize();
-
-  // not working with actual data
   const handleFilterActive = (index: number) => {
     const copy = [...headers];
     const copyData = [...entitiesData];
@@ -113,21 +116,22 @@ function AssetsCard() {
     setHeader(copy);
     switch (item.name) {
       case "Serial number":
-        item.filterActive
-          ? setEntitiesData(
-              copyData?.sort(
-                (a, b) =>
-                  parseInt(a.alsoKnownAs.split(`#`)[1]) -
-                  parseInt(b.alsoKnownAs.split(`#`)[1])
-              )
+        if (item.filterActive)
+          setEntitiesData(
+            copyData?.sort(
+              (a, b) =>
+                parseInt(a.alsoKnownAs.split(`#`)[1]) -
+                parseInt(b.alsoKnownAs.split(`#`)[1])
             )
-          : setEntitiesData(
-              copyData?.sort(
-                (a, b) =>
-                  parseInt(b.alsoKnownAs.split(`#`)[1]) -
-                  parseInt(a.alsoKnownAs.split(`#`)[1])
-              )
-            );
+          );
+        else
+          setEntitiesData(
+            copyData?.sort(
+              (a, b) =>
+                parseInt(b.alsoKnownAs.split(`#`)[1]) -
+                parseInt(a.alsoKnownAs.split(`#`)[1])
+            )
+          );
         break;
 
       default:
@@ -142,13 +146,13 @@ function AssetsCard() {
   }, [entities]);
 
   useEffect(() => {
-    if (selectedExternalId) {
+    if (selectedAssetExternalId) {
       open();
     } else {
       close();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedExternalId]);
+  }, [selectedAssetExternalId]);
 
   return (
     <Card radius={16} style={{ padding: "1rem 2rem" }} h="100%">
@@ -183,15 +187,12 @@ function AssetsCard() {
         </Grid.Col>
       </Grid>
       <Divider mb="lg" color="#000000" />
-      <ScrollArea
-        h={viewPortSize.height >= mobileBreakpoint ? 425 : 328}
-        type="scroll"
-      >
+      <ScrollArea h={425} type="scroll">
         <Table
           highlightOnHover
           style={{
             alignSelf: "stretch",
-            width: viewPortSize.width >= mobileBreakpoint ? 390 : 243,
+            width: 390,
           }}
         >
           <thead>
@@ -212,8 +213,7 @@ function AssetsCard() {
                 }}
               >
                 <Text style={{ display: "flex" }}>
-                  Serial number{" "}
-                  {sortAssets.SerialNumber ? <DownArrow /> : <></>}
+                  Serial number {sortAssets.SerialNumber ? <DownArrow /> : null}
                 </Text>
               </th>
 
@@ -234,7 +234,7 @@ function AssetsCard() {
               >
                 <Text style={{ display: "flex" }}>
                   CARBON claimable{" "}
-                  {sortAssets.CarbonClaimable ? <DownArrow /> : <></>}
+                  {sortAssets.CarbonClaimable ? <DownArrow /> : null}
                 </Text>
               </th>
 
@@ -254,8 +254,7 @@ function AssetsCard() {
                 }}
               >
                 <Text style={{ display: "flex" }}>
-                  CARBON Issued{" "}
-                  {sortAssets.CarbonIssued ? <DownArrow /> : <></>}
+                  CARBON Issued {sortAssets.CarbonIssued ? <DownArrow /> : null}
                 </Text>
               </th>
             </tr>
@@ -268,5 +267,3 @@ function AssetsCard() {
     </Card>
   );
 }
-
-export default AssetsCard;
