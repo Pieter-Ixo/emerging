@@ -3,8 +3,10 @@ import { smallLaptopBreakpoint } from "@/constants/breakpoints";
 import { Center, Text } from "@mantine/core";
 import { PropsWithChildren } from "react";
 
-const devicesDashboardPathname = `/devices/[entityId]`;
-const notDesktopOnlyPathname = [devicesDashboardPathname];
+const notDesktopOnlyPathname = [
+  `/devices/[entityId]`,
+  "/collections/portfolio",
+];
 
 export default function Layout({
   children,
