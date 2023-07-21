@@ -22,7 +22,9 @@ import Loading from "./loading";
 
 function AssetsCard() {
   const dispatch = useAppDispatch();
-  const entities = useAppSelector((state) => state.entityCollection.entityCollections[0].entities);
+  const entities = useAppSelector(
+    (state) => state.entityCollection.entityCollections[0].entities
+  );
   const [entitiesData, setEntitiesData] = useState<any[]>([]);
   const heads = [
     { name: "Serial number", filterActive: false },
@@ -49,32 +51,8 @@ function AssetsCard() {
         <tr
           key={entity.id}
           onClick={handleClickAssetRow(entity.externalId)}
-          // onClick={() => {
-          //   setIsModal(true);
-          // }}
-          // onClick={() => {
-          //   console.log("onClick");
-          //   dispatch(
-          //     setSelectedExternalId({
-          //       deviceId: entity.alsoKnownAs,
-          //       externalId: entity.externalId,
-          //     })
-          //   );
-          //   dispatch(setSelectedView("singleAsset"));
-          // }}
           style={{ cursor: "pointer" }}
         >
-          {/* <Modal
-            opened={isModal}
-            onClose={() => {
-              setIsModal(false);
-            }}
-            centered={true}
-            radius={16}
-            size="lg"
-          >
-            <Cookstove id={entity.externalId} />
-          </Modal> */}
           <td
             style={{
               color: sortAssets.SerialNumber ? "#5FA8EB" : "black",
@@ -85,19 +63,40 @@ function AssetsCard() {
           <td
             style={{ color: sortAssets.CarbonClaimable ? "#5FA8EB" : "black" }}
           >
-            {
-              0
-              /* {entity.CARBONClaimable[0]?.balance
-              ? entity.CARBONClaimable[0]?.balance
-              : 0} */
-            }
+            {0}
           </td>
           <td style={{ color: sortAssets.CarbonIssued ? "#5FA8EB" : "black" }}>
-            {
-              0
-              /* {entity.CarbonIssued} */
-            }
+            {0}
           </td>
+          {selectedExternalId === entity.externalId && (
+            <Modal.Root
+              opened={opened}
+              onClose={() => setSelectedExternalId("")}
+              radius={16}
+              size="md"
+              centered
+              scrollAreaComponent={ScrollArea.Autosize}
+            >
+              <Head>
+                <title>Supamoto Dashboard</title>
+                <meta name="description" content="Supamoto Dashboard" />
+              </Head>
+
+              <Modal.Overlay />
+              <Modal.Content>
+                <Modal.Header style={{ height: 36 }}>
+                  <Modal.Title>Supamoto Dashboard</Modal.Title>
+                  <Modal.CloseButton />
+                </Modal.Header>
+                <Modal.Body style={{ padding: 0 }}>
+                  <CookstoveModal
+                    id={Number(selectedExternalId)}
+                    entity={entity}
+                  />
+                </Modal.Body>
+              </Modal.Content>
+            </Modal.Root>
+          )}
         </tr>
       );
     }
@@ -130,46 +129,6 @@ function AssetsCard() {
               )
             );
         break;
-      // case "CARBON claimable":
-      //   item.filterActive
-      //     ? setEntitiesData(
-      //       copyData.sort((a, b) => {
-      //         if (!a.CARBONClaimable[0]?.balance) {
-      //           return 0 - parseFloat(b.CARBONClaimable[0]?.balance);
-      //         } else {
-      //           return (
-      //             parseFloat(a.CARBONClaimable[0]?.balance) -
-      //             parseFloat(b.CARBONClaimable[0]?.balance)
-      //           );
-      //         }
-      //       })
-      //     )
-      //     : setEntitiesData(
-      //       copyData.sort(
-      //         (a, b) => 0 - parseFloat(a.CARBONClaimable[0]?.balance)
-      //       )
-      //     );
-      //   break;
-      // case "CARBON generated":
-      //   item.filterActive
-      //     ? setEntitiesData(
-      //       copyData.sort((a, b) => {
-      //         if (!a.CARBONClaimable[0]?.balance) {
-      //           return 0 - parseFloat(b.CARBONClaimable[0]?.balance);
-      //         } else {
-      //           return (
-      //             parseFloat(a.CARBONClaimable[0]?.balance) -
-      //             parseFloat(b.CARBONClaimable[0]?.balance)
-      //           );
-      //         }
-      //       })
-      //     )
-      //     : setEntitiesData(
-      //       copyData.sort(
-      //         (a, b) => 0 - parseFloat(a.CARBONClaimable[0]?.balance)
-      //       )
-      //     );
-      //   break;
 
       default:
         break;
@@ -192,149 +151,121 @@ function AssetsCard() {
   }, [selectedExternalId]);
 
   return (
-    <>
-      <Card radius={16} style={{ padding: "1rem 2rem" }} h="100%">
-        <Grid align="center" justify="space-between">
-          <Grid.Col span={6}>
+    <Card radius={16} style={{ padding: "1rem 2rem" }} h="100%">
+      <Grid align="center" justify="space-between">
+        <Grid.Col span={6}>
+          <Text
+            style={{
+              textAlign: "left",
+              fontWeight: "400",
+              fontSize: 16,
+            }}
+          >
+            ASSETS
+          </Text>
+        </Grid.Col>
+        <Grid.Col span="content">
+          <Group
+            onClick={() => dispatch(setSelectedView("fullAssets"))}
+            style={{ cursor: "pointer" }}
+          >
             <Text
               style={{
-                textAlign: "left",
+                textAlign: "right",
                 fontWeight: "400",
                 fontSize: 16,
               }}
             >
-              ASSETS
+              SEE ALL
             </Text>
-          </Grid.Col>
-          <Grid.Col span="content">
-            <Group
-              onClick={() => dispatch(setSelectedView("fullAssets"))}
-              style={{ cursor: "pointer" }}
-            >
-              <Text
+            <ArrowRight pathFill="#000" />
+          </Group>
+        </Grid.Col>
+      </Grid>
+      <Divider mb="lg" color="#000000" />
+      <ScrollArea
+        h={viewPortSize.height >= mobileBreakpoint ? 425 : 328}
+        type="scroll"
+      >
+        <Table
+          highlightOnHover
+          style={{
+            alignSelf: "stretch",
+            width: viewPortSize.width >= mobileBreakpoint ? 390 : 243,
+          }}
+        >
+          <thead>
+            <tr>
+              <th
                 style={{
-                  textAlign: "right",
-                  fontWeight: "400",
-                  fontSize: 16,
+                  cursor: "pointer",
+                  color: sortAssets.SerialNumber ? "#5FA8EB" : "black",
+                  width: 65,
+                }}
+                onClick={() => {
+                  handleFilterActive(0);
+                  setSortAssets((prevSorts) => ({
+                    SerialNumber: !prevSorts.SerialNumber,
+                    CarbonClaimable: false,
+                    CarbonIssued: false,
+                  }));
                 }}
               >
-                SEE ALL
-              </Text>
-              <ArrowRight pathFill="#000" />
-            </Group>
-          </Grid.Col>
-        </Grid>
-        <Divider mb="lg" color="#000000" />
-        <ScrollArea
-          h={viewPortSize.height >= mobileBreakpoint ? 425 : 328}
-          type="scroll"
-        >
-          <Table
-            highlightOnHover
-            style={{
-              alignSelf: "stretch",
-              width: viewPortSize.width >= mobileBreakpoint ? 390 : 243,
-            }}
-          >
-            <thead>
-              <tr>
-                <th
-                  style={{
-                    cursor: "pointer",
-                    color: sortAssets.SerialNumber ? "#5FA8EB" : "black",
-                    width: 65,
-                  }}
-                  onClick={() => {
-                    handleFilterActive(0);
-                    setSortAssets((prevSorts) => ({
-                        SerialNumber: !prevSorts.SerialNumber,
-                        CarbonClaimable: false,
-                        CarbonIssued: false,
-                      }));
-                  }}
-                >
-                  <Text style={{ display: "flex" }}>
-                    Serial number{" "}
-                    {sortAssets.SerialNumber ? <DownArrow /> : <></>}
-                  </Text>
-                </th>
+                <Text style={{ display: "flex" }}>
+                  Serial number{" "}
+                  {sortAssets.SerialNumber ? <DownArrow /> : <></>}
+                </Text>
+              </th>
 
-                <th
-                  style={{
-                    cursor: "pointer",
-                    color: sortAssets.CarbonClaimable ? "#5FA8EB" : "black",
-                    width: 65,
-                  }}
-                  onClick={() => {
-                    handleFilterActive(1);
-                    setSortAssets((prevSorts) => ({
-                        CarbonClaimable: !prevSorts.CarbonClaimable,
-                        SerialNumber: false,
-                        CarbonIssued: false,
-                      }));
-                  }}
-                >
-                  <Text style={{ display: "flex" }}>
-                    CARBON claimable{" "}
-                    {sortAssets.CarbonClaimable ? <DownArrow /> : <></>}
-                  </Text>
-                </th>
+              <th
+                style={{
+                  cursor: "pointer",
+                  color: sortAssets.CarbonClaimable ? "#5FA8EB" : "black",
+                  width: 65,
+                }}
+                onClick={() => {
+                  handleFilterActive(1);
+                  setSortAssets((prevSorts) => ({
+                    CarbonClaimable: !prevSorts.CarbonClaimable,
+                    SerialNumber: false,
+                    CarbonIssued: false,
+                  }));
+                }}
+              >
+                <Text style={{ display: "flex" }}>
+                  CARBON claimable{" "}
+                  {sortAssets.CarbonClaimable ? <DownArrow /> : <></>}
+                </Text>
+              </th>
 
-                <th
-                  style={{
-                    cursor: "pointer",
-                    color: sortAssets.CarbonIssued ? "#5FA8EB" : "black",
-                    width: 65,
-                  }}
-                  onClick={() => {
-                    handleFilterActive(2);
-                    setSortAssets((prevSorts) => ({
-                        CarbonIssued: !prevSorts.CarbonIssued,
-                        SerialNumber: false,
-                        CarbonClaimable: false,
-                      }));
-                  }}
-                >
-                  <Text style={{ display: "flex" }}>
-                    CARBON Issued{" "}
-                    {sortAssets.CarbonIssued ? <DownArrow /> : <></>}
-                  </Text>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <Suspense fallback={<Loading />}>{rows}</Suspense>
-            </tbody>
-          </Table>
-        </ScrollArea>
-      </Card>
-      {selectedExternalId && (
-        <Modal.Root
-          opened={opened}
-          onClose={() => setSelectedExternalId("")}
-          radius={16}
-          size="md"
-          centered
-          scrollAreaComponent={ScrollArea.Autosize}
-        >
-          <Head>
-            <title>Supamoto Dashboard</title>
-            <meta name="description" content="Supamoto Dashboard" />
-          </Head>
-
-          <Modal.Overlay />
-          <Modal.Content>
-            <Modal.Header style={{ height: 36 }}>
-              <Modal.Title>Supamoto Dashboard</Modal.Title>
-              <Modal.CloseButton />
-            </Modal.Header>
-            <Modal.Body style={{ padding: 0 }}>
-              <CookstoveModal id={Number(selectedExternalId)} />
-            </Modal.Body>
-          </Modal.Content>
-        </Modal.Root>
-      )}
-    </>
+              <th
+                style={{
+                  cursor: "pointer",
+                  color: sortAssets.CarbonIssued ? "#5FA8EB" : "black",
+                  width: 65,
+                }}
+                onClick={() => {
+                  handleFilterActive(2);
+                  setSortAssets((prevSorts) => ({
+                    CarbonIssued: !prevSorts.CarbonIssued,
+                    SerialNumber: false,
+                    CarbonClaimable: false,
+                  }));
+                }}
+              >
+                <Text style={{ display: "flex" }}>
+                  CARBON Issued{" "}
+                  {sortAssets.CarbonIssued ? <DownArrow /> : <></>}
+                </Text>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <Suspense fallback={<Loading />}>{rows}</Suspense>
+          </tbody>
+        </Table>
+      </ScrollArea>
+    </Card>
   );
 }
 
