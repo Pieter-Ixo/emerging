@@ -11,6 +11,7 @@ import {
   fetchCollectionsByOwnerAddres,
   fetchEntityByExternalIdAndFill,
   fetchEntitiesByOwnerAddressAndFill,
+  fillEntitiesForUserCollections,
 } from "./thunks";
 
 export type EntityCollectionState = {
@@ -83,6 +84,21 @@ const EntityCollectionSlice = createSlice({
       fetchEntitiesByOwnerAddressAndFill.fulfilled,
       (state, action) => {
         state.userEntityCollections[0].entities = action.payload;
+        state.isEntityLoading = false;
+      }
+    );
+    // fillEntitiesForUserCollections
+    builder.addCase(fillEntitiesForUserCollections.pending, (state) => {
+      state.isEntityLoading = true;
+    });
+    builder.addCase(
+      fillEntitiesForUserCollections.fulfilled,
+      (state, action) => {
+        const { filledEntities, collectionId } = action.payload;
+        const collectionIndex = state.userEntityCollections.findIndex(
+          (ec) => ec.collection.id === collectionId
+        );
+        state.userEntityCollections[collectionIndex].entities = filledEntities;
         state.isEntityLoading = false;
       }
     );

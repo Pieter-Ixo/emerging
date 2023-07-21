@@ -2,12 +2,16 @@ import { useContext, useEffect } from "react";
 import { Loader } from "@mantine/core";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { fetchCollectionsByOwnerAddres } from "@/redux/entityCollections/thunks";
+import {
+  fetchCollectionsByOwnerAddres,
+  fillEntitiesForUserCollections,
+} from "@/redux/entityCollections/thunks";
 import {
   selectIsEntityCollectionsLoading,
   selectUserEntityCollection,
 } from "@/redux/entityCollections/selectors";
 import { WalletContext } from "@/context/wallet";
+import { ICollectionEntities } from "@/types/entityCollections";
 
 import CollectionsLayout from "../components/Layout";
 import Header from "./components/Header";
@@ -25,6 +29,10 @@ export default function Collections() {
       dispatch(fetchCollectionsByOwnerAddres(userAddress));
     }
   }, [dispatch, userAddress]);
+
+  function fillEntities(entityCollection: ICollectionEntities) {
+    dispatch(fillEntitiesForUserCollections(entityCollection));
+  }
 
   return (
     <CollectionsLayout>

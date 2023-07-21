@@ -16,6 +16,8 @@ import requestEntityTags from "@/requests/requesters/getEntityTags";
 import requestEntityToken from "@/requests/requesters/getEntityToken";
 import {
   ICollectionEntities,
+  ICollectionExtended,
+  IEntity,
   IEntityExtended,
 } from "@/types/entityCollections";
 
@@ -93,6 +95,37 @@ export const fetchEntityByExternalIdAndFill = createAsyncThunk(
     entity._tags = tags;
 
     return entity;
+  }
+);
+export const fillEntitiesForUserCollections = createAsyncThunk(
+  "entityCollections/fillEntitiesForUserCollections",
+  async (
+    collectionEntities: ICollectionEntities
+  ): Promise<{ filledEntities: IEntityExtended[]; collectionId: string }> => {
+    const {
+      entities,
+      collection: { id: collectionId },
+    } = collectionEntities;
+
+    const entitiesPromises = entities.map(async (entity) => {
+      const [profile, token, deviceCredential, tags] = await Promise.all([
+        await requestEntityProfile(entity),
+        await requestEntityToken(entity),
+        await requestEntityDeviceCredential(entity),
+        await requestEntityTags(entity),
+      ]);
+
+      return {
+        ...entity,
+        _profile: profile,
+        _token: token,
+        _deviceCredential: deviceCredential,
+        _tags: tags,
+      };
+    });
+    const filledEntities = await Promise.all(entitiesPromises);
+
+    return { filledEntities, collectionId };
   }
 );
 
