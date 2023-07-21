@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { Loader } from "@mantine/core";
+import { Box, Container, Loader, Text } from "@mantine/core";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -13,8 +13,10 @@ import {
 import { WalletContext } from "@/context/wallet";
 import { ICollectionEntities } from "@/types/entityCollections";
 
+import { palette } from "@/theme/palette";
 import CollectionsLayout from "../components/Layout";
 import Header from "./components/Header";
+import CollectionsList from "./components/CollectionsList";
 
 export default function Collections() {
   const dispatch = useAppDispatch();
@@ -30,36 +32,35 @@ export default function Collections() {
     }
   }, [dispatch, userAddress]);
 
+  // TODO: Call fillEntities when card got selected (not sure)
+
   function fillEntities(entityCollection: ICollectionEntities) {
     dispatch(fillEntitiesForUserCollections(entityCollection));
   }
 
+  const isLoaderVisible = isLoading && <Loader />;
+
   return (
     <CollectionsLayout>
       <Header />
-      <p>my portfolio Collections</p>
-      {isLoading && <Loader />}
-      {userEntityCollections && (
-        <ul>
-          Collections:
-          {userEntityCollections.map(({ collection, entities }) => (
-            <li key={collection.alsoKnownAs}>
-              <p>
-                <b>Collection Name: {collection._profile?.brand}</b>
-              </p>
-              <p>Entities:</p>
-              <ul>
-                {entities &&
-                  entities.map((entity, i) => (
-                    <li key={entity.externalId}>
-                      {i}. {entity.externalId}
-                    </li>
-                  ))}
-              </ul>
-            </li>
-          ))}
-        </ul>
-      )}
+      <Container
+        fluid
+        bg="white"
+        py="xl"
+        px={0}
+        mx={0}
+        sx={{
+          borderRadius: 16,
+        }}
+      >
+        <Box mx="xl" sx={{ borderBottom: `1px solid ${palette.Black}` }}>
+          <Text>MY ASSETS</Text>
+        </Box>
+        {isLoaderVisible}
+        {userEntityCollections && (
+          <CollectionsList userEntityCollections={userEntityCollections} />
+        )}
+      </Container>
     </CollectionsLayout>
   );
 }

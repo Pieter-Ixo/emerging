@@ -12,7 +12,16 @@ function CollectionsLayout({ children }) {
 
       <Flex>
         <Nav />
-        <main style={{ width: "100%", background: "#FAFAFA" }}>{children}</main>
+        <main
+          style={{
+            width: "100%",
+            background: "#FAFAFA",
+            margin: "60px 34px",
+            overflow: "hidden",
+          }}
+        >
+          {children}
+        </main>
       </Flex>
     </>
   );

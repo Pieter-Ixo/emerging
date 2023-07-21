@@ -6,8 +6,8 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <Container fluid sx={{ width: "100%" }}>
-      <Flex align="center" gap={24} pl={32} p={16}>
+    <Container fluid mb="xl" sx={{ width: "100%" }}>
+      <Flex align="center" gap={24}>
         <Flex align="center" gap={16}>
           <Link href="/collections/global">
             <GlobalIcon />
