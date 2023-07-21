@@ -26,7 +26,7 @@ import Loading from "./loading";
 export default function CollectionAssetsCard() {
   const dispatch = useAppDispatch();
   const entities = useAppSelector(
-    (state) => state.entityCollection.entityCollections[0].entities
+    (state) => state.entityCollection.entityCollections[0]?.entities
   );
   const selectedAssetExternalId = useAppSelector(selectSelectedAssetExternalId);
 
@@ -54,31 +54,27 @@ export default function CollectionAssetsCard() {
 
     const isSelectedRow = selectedAssetExternalId === entity.externalId;
     return (
-      <>
-        <tr
-          key={entity.id}
-          onClick={handleClickAssetRow(entity)}
+      <tr
+        key={entity.id}
+        onClick={handleClickAssetRow(entity)}
+        style={{
+          cursor: "pointer",
+          backgroundColor: isSelectedRow ? "#F8F8F8" : "inherit",
+        }}
+      >
+        <td
           style={{
-            cursor: "pointer",
-            backgroundColor: isSelectedRow ? "#F8F8F8" : "inherit",
+            color: sortAssets.SerialNumber ? "#5FA8EB" : "black",
           }}
         >
-          <td
-            style={{
-              color: sortAssets.SerialNumber ? "#5FA8EB" : "black",
-            }}
-          >
-            {entity.externalId}
-          </td>
-          <td
-            style={{ color: sortAssets.CarbonClaimable ? "#5FA8EB" : "black" }}
-          >
-            {0}
-          </td>
-          <td style={{ color: sortAssets.CarbonIssued ? "#5FA8EB" : "black" }}>
-            {0}
-          </td>
-        </tr>
+          {entity.externalId}
+        </td>
+        <td style={{ color: sortAssets.CarbonClaimable ? "#5FA8EB" : "black" }}>
+          {0}
+        </td>
+        <td style={{ color: sortAssets.CarbonIssued ? "#5FA8EB" : "black" }}>
+          {0}
+        </td>
         {isSelectedRow && (
           <Modal.Root
             opened={opened}
@@ -108,7 +104,7 @@ export default function CollectionAssetsCard() {
             </Modal.Content>
           </Modal.Root>
         )}
-      </>
+      </tr>
     );
   });
 

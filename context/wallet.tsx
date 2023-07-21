@@ -37,9 +37,7 @@ const DEFAULT_WALLET: WALLET = {
   user: undefined,
 };
 
-export const WalletProvider = ({
-  children,
-}: HTMLAttributes<HTMLDivElement>) => {
+export function WalletProvider({ children }: HTMLAttributes<HTMLDivElement>) {
   const [wallet, setWallet] = useState<WALLET>(DEFAULT_WALLET);
   const [loaded, setLoaded] = useState<boolean>(false);
   const { chain, chainInfo, queryClient, updateChainId, updateChainNetwork } =
@@ -120,7 +118,8 @@ export const WalletProvider = ({
           EVENT_LISTENER_TYPE.keplr_keystorechange,
           updateKeplrWallet
         );
-    } else if (wallet.walletType === WALLET_TYPE.walletConnect) {
+    }
+    if (wallet.walletType === WALLET_TYPE.walletConnect) {
       window.removeEventListener(
         EVENT_LISTENER_TYPE.keplr_keystorechange,
         updateKeplrWallet
@@ -144,20 +143,21 @@ export const WalletProvider = ({
           logoutWallet
         );
       };
-    } else {
-      window.removeEventListener(
-        EVENT_LISTENER_TYPE.keplr_keystorechange,
-        updateKeplrWallet
-      );
-      window.removeEventListener(
-        EVENT_LISTENER_TYPE.wc_sessionupdate,
-        updateWalletConnectWallet
-      );
-      window.removeEventListener(
-        EVENT_LISTENER_TYPE.wc_sessiondelete,
-        logoutWallet
-      );
     }
+
+    window.removeEventListener(
+      EVENT_LISTENER_TYPE.keplr_keystorechange,
+      updateKeplrWallet
+    );
+    window.removeEventListener(
+      EVENT_LISTENER_TYPE.wc_sessionupdate,
+      updateWalletConnectWallet
+    );
+    window.removeEventListener(
+      EVENT_LISTENER_TYPE.wc_sessiondelete,
+      logoutWallet
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wallet.walletType, chain.chainId, chain.chainNetwork]);
 
   useEffect(() => {
@@ -196,4 +196,4 @@ export const WalletProvider = ({
       )}
     </WalletContext.Provider>
   );
-};
+}

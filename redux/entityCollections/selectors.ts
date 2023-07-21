@@ -1,6 +1,10 @@
 import { createDraftSafeSelector } from "@reduxjs/toolkit";
 
-import { ICollectionExtended, IEntity } from "@/types/entityCollections";
+import {
+  ICollectionEntities,
+  ICollectionExtended,
+  IEntity,
+} from "@/types/entityCollections";
 
 // eslint-disable-next-line import/no-cycle
 import { RootState } from "../store";
@@ -19,6 +23,12 @@ export const selectCollections = createDraftSafeSelector(
     state.entityCollections.map(
       (collectionWithEntites) => collectionWithEntites.collection
     )
+);
+
+export const selectUserEntityCollection = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): ICollectionEntities[] =>
+    state.userEntityCollections
 );
 
 export const selectCollectionAssetsCount = createDraftSafeSelector(

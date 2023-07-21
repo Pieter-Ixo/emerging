@@ -29,6 +29,17 @@ export async function requestCollections(): Promise<ICollectionEntities[]> {
   return entityCollections;
 }
 
+export async function requestCollectionsByOwnerAddress(
+  owner: string
+): Promise<ICollectionEntities[]> {
+  const entityCollections = await requestBlocksyncAPI<ICollectionEntities[]>(
+    `/api/entity/collectionsByOwnerAddress/${owner}`
+  );
+  if (!entityCollections) throw new Error("panica!");
+
+  return entityCollections;
+}
+
 export async function requestEntityByExternalID(
   externalId: string
 ): Promise<IEntityExtended> {
@@ -41,6 +52,16 @@ export async function requestEntityByExternalID(
 }
 export async function requestEntityByID(id: string): Promise<IEntityExtended> {
   const entity = await requestBlocksyncAPI<IEntity>(`/api/entity/byId/${id}`);
+  if (!entity) throw new Error("panica!");
+
+  return entity;
+}
+export async function requestEntitiesByOwnerAddress(
+  owner: string
+): Promise<IEntity[]> {
+  const entity = await requestBlocksyncAPI<IEntity[]>(
+    `/api/entity/byOwnerAddress/${owner}`
+  );
   if (!entity) throw new Error("panica!");
 
   return entity;

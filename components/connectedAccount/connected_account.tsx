@@ -1,19 +1,14 @@
+import { ActionIcon, Button, Card, Flex, Group, Text } from "@mantine/core";
+import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
+
+import shortStr from "@/utils/shortStr";
 import { WalletContext } from "@/context/wallet";
 import { useAppDispatch } from "@/hooks/redux";
 import { connectWallet, disconnectWallet } from "@/redux/userSlice";
 import { palette } from "@/theme/palette";
 import { WALLET_TYPE } from "@/types/wallet";
-import {
-  ActionIcon,
-  Avatar,
-  Button,
-  Card,
-  Flex,
-  Group,
-  Text,
-} from "@mantine/core";
-import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
+
 import DisconnectWallet from "./icons/disconnectWallet";
 import Wallet from "./icons/wallet";
 
@@ -22,34 +17,6 @@ function ConnectedAccount() {
   const router = useRouter();
   const { wallet, updateWalletType, logoutWallet } = useContext(WalletContext);
   const userAddress = wallet.user?.address;
-
-  const truncate = function (
-    fullStr: string | undefined,
-    strLen: number,
-    separator: string
-  ) {
-    try {
-      if (!fullStr) {
-        return;
-      }
-      if (fullStr.length <= strLen) return fullStr;
-
-      separator = separator || "...";
-
-      const sepLen = separator.length;
-        const charsToShow = strLen - sepLen;
-        const frontChars = Math.ceil(charsToShow / 2);
-        const backChars = Math.floor(charsToShow / 2);
-
-      return (
-        fullStr.substring(0, frontChars) +
-        separator +
-        fullStr.substring(fullStr.length - backChars)
-      );
-    } catch (e) {
-      return "";
-    }
-  };
 
   useEffect(() => {
     if (userAddress) {
@@ -78,7 +45,7 @@ function ConnectedAccount() {
             >
               <Wallet />
               <Text style={{ marginLeft: 10 }}>
-                {truncate(userAddress, 24, ".....") || ""}
+                {shortStr(userAddress, 24, 15, "...") || ""}
               </Text>
             </Text>
             <ActionIcon
@@ -95,39 +62,36 @@ function ConnectedAccount() {
         </Flex>
       </Card>
     );
-  } 
-    return (
-      <Card p="lg" radius={16} w="100%">
-        <Group position="apart">
-          <Text style={{ fontSize: 16, fontWeight: 300 }}>
-            Connect your Wallet to view your device data, assets and customer
-            details.
-          </Text>
-        </Group>
-        <div style={{ paddingTop: 30 }} />
+  }
+  return (
+    <Card p="lg" radius={16} w="100%">
+      <Group position="apart">
+        <Text style={{ fontSize: 16, fontWeight: 300 }}>
+          Connect your Wallet to view your device data, assets and customer
+          details.
+        </Text>
+      </Group>
+      <div style={{ paddingTop: 30 }} />
 
-        <Button
-          onClick={() => {
-            if (!wallet.user) {
-              // TODO: when to keplr, when to walletconnect
-              // updateWalletType(WALLET_TYPE.keplr);
-              updateWalletType(WALLET_TYPE.walletConnect);
-            } else {
-              router.push("/dashboard");
-            }
-          }}
-          w="99%"
-          radius={23}
-          leftIcon={<Wallet fill="#FFFFFF" />}
-          h={46}
-        >
-          <Text style={{ fontWeight: 500, fontSize: 16 }}>
-            Connect My Account
-          </Text>
-        </Button>
-      </Card>
-    );
-  
+      <Button
+        onClick={() => {
+          if (!wallet.user) {
+            // TODO: when to keplr, when to walletconnect
+            // updateWalletType(WALLET_TYPE.keplr);
+            updateWalletType(WALLET_TYPE.walletConnect);
+          } else {
+            router.push("/dashboard");
+          }
+        }}
+        w="99%"
+        radius={23}
+        leftIcon={<Wallet fill="#FFFFFF" />}
+        h={46}
+      >
+        Connect My Account
+      </Button>
+    </Card>
+  );
 }
 
 export default ConnectedAccount;
