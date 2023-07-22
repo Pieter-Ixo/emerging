@@ -32,7 +32,7 @@ export default function Collections() {
     }
   }, [dispatch, userAddress]);
 
-  // TODO: Call fillEntities when card got selected (not sure)
+  // TODO: Call fillEntities when the card got selected (I'm extremely confident in myself 😎)
 
   function fillEntities(entityCollection: ICollectionEntities) {
     dispatch(fillEntitiesForUserCollections(entityCollection));
@@ -49,9 +49,7 @@ export default function Collections() {
         py="xl"
         px={0}
         mx={0}
-        sx={{
-          borderRadius: 16,
-        }}
+        sx={{ borderRadius: 16 }}
       >
         <Box mx="xl" sx={{ borderBottom: `1px solid ${palette.Black}` }}>
           <Text>MY ASSETS</Text>

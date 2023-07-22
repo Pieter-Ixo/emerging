@@ -15,7 +15,7 @@ export default function CollectionsList({
   // TODO: handle which category is active, if one active,
   // make it inactive, and toggle another one
   
-  const [activeCardId, setActiveCardId] = useState("");
+  const [activeCardId, setActiveCardId] = useState<string | null>(null);
 
   const handleCard = (cardId: string) => {
     setIsCardActive((prevCard) => !prevCard);
