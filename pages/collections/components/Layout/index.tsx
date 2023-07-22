@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Flex } from "@mantine/core";
-
+import { palette } from "@/theme/palette";
 import Nav from "@/components/Navbar/navbar";
 
 function CollectionsLayout({ children }) {
@@ -15,7 +15,7 @@ function CollectionsLayout({ children }) {
         <main
           style={{
             width: "100%",
-            background: "#FAFAFA",
+            background: palette.Neutral50,
             margin: "60px 34px",
             overflow: "hidden",
           }}

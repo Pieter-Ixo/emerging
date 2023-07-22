@@ -5,8 +5,8 @@ import { ICollectionExtended } from "@/types/entityCollections";
 type CollectionsItemProps = {
   id: string;
   collection: ICollectionExtended;
-  entitiesLength: number;
-  isCardActive: boolean;
+  entitiesLength?: number;
+  activeCardId: string | null;
   toggleCard: Function;
 };
 
@@ -14,17 +14,19 @@ export default function CollectionsItem({
   id,
   collection,
   entitiesLength,
-  isCardActive,
+  activeCardId,
   toggleCard,
 }: CollectionsItemProps) {
-  const activeCardBg = () =>
-    isCardActive ? palette.fullBlue : palette.Neutral500;
+  const isCardActive = () => activeCardId === id;
 
-  const activeCardFont = () => (isCardActive ? palette.White : palette.Black);
+  const activeCardBg = () =>
+    isCardActive() ? palette.fullBlue : palette.Neutral100;
+
+  const activeCardFont = () => (isCardActive() ? palette.White : palette.Black);
 
   // TODO: emit active card id, and handle it inside collectionsList
   // (setCardActive exists, in case we want to add something, to handle entity section on open)
-  
+
   function setCardActive(cardId: string) {
     toggleCard(cardId);
   }
