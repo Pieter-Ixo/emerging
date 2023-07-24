@@ -43,7 +43,6 @@ function ImpactCreditsCard() {
   const userTotalAmount = useAppSelector(selectUserEntitiesTotalAmount);
   const userTotalLoading = useAppSelector(selectUserEntitiesTotalLoading);
   const entitiesAdminTotal = useAppSelector(selectEntitiesAdminTotal);
-  const totalOffset = (1412).toLocaleString();
 
   useEffect(() => {
     if (userAddress) dispatch(fetchUsersTokens(userAddress));
@@ -73,7 +72,7 @@ function ImpactCreditsCard() {
             <Flex align="flex-end">
               {userTotalLoading && <Loader />}
               <Text color={palette.fullBlue} size={56}>
-                {userTotalAmount?.toLocaleString()}
+                {userTotalAmount?.amount?.toLocaleString()}
               </Text>
               <Text color={palette.fullBlue} pb="md" ml="xs">
                 CARBON
@@ -110,7 +109,7 @@ function ImpactCreditsCard() {
           <>
             <Flex align="flex-end">
               <Text color={palette.greenFull} size={56}>
-                {totalOffset}
+                {userTotalAmount?.retired?.toLocaleString()}
               </Text>
               <Text color={palette.greenFull} pb="md" ml="xs">
                 CARBON offset
