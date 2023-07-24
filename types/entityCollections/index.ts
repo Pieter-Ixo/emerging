@@ -196,7 +196,7 @@ export type IEntityExtended = IEntity & {
 
 export type ICollectionEntities = {
   collection: ICollectionExtended;
-  entities: IEntity[];
+  entities: IEntityExtended[];
 };
 
 export type IApiEntityCollectionsResponse = ICollectionEntities[];

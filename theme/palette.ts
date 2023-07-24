@@ -1,5 +1,6 @@
 export const palette = {
   // Neutral
+  Neutral50: "#FAFAFA",
   Neutral100: "#F8F8F8",
   Neutral200: "#F1F1F1",
   Neutral500: "#D7D7D7",
