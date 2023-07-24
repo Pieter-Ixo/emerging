@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Flex } from "@mantine/core";
 import { palette } from "@/theme/palette";
-import Nav from "@/components/Navbar/navbar";
+// import Nav from "@/components/Navbar/navbar";
 
 function CollectionsLayout({ children }) {
   return (
@@ -11,7 +11,7 @@ function CollectionsLayout({ children }) {
       </Head>
 
       <Flex>
-        <Nav />
+        {/* <Nav /> */}
         <main
           style={{
             width: "100%",

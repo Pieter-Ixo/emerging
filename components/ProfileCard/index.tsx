@@ -29,8 +29,7 @@ export default function ProfileCard({
 }) {
   const tags = argumentTags || getEntityTagsByCategory(entity, "Asset Type");
 
-  const startDate = dateLocale(entity?.metadata.created);
-  const price = entity?._profile?.metrics[0];
+  const isTagEven = (index: number) => index % 2 === 0;
 
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -41,9 +40,13 @@ export default function ProfileCard({
       <Flex direction="row" justify="space-between" pt="xs">
         {tags && (
           <Group spacing="4px">
-            {tags.map((tag) =>
+            {tags.map((tag, index) =>
               tag ? (
-                <Badge key={tag} bg={palette.redDark} variant="filled">
+                <Badge
+                  key={tag}
+                  bg={isTagEven(index) ? palette.redDark : palette.orangeFull}
+                  variant="filled"
+                >
                   {tag}
                 </Badge>
               ) : null
@@ -56,20 +59,10 @@ export default function ProfileCard({
       <Title order={3} color="#01283B" fw={700} size="20px" lh="lg">
         {entity?._profile?.brand}
       </Title>
-      <Text color="dimmed" size="12px" lh="100%" mb="50px">
+      <Text color="dimmed" size="12px" lh="100%" mb="10px">
         {entity?._profile?.name}
       </Text>
       {measure || null}
-      <Flex mt="md" direction="row" justify="space-between">
-        <Text color="dimmed" size="12px" lh="100%">
-          {startDate}
-        </Text>
-        {price && (
-          <Text color="dimmed" size="12px" lh="100%">
-            {`${price?.prefix} ${price?.metric}`}
-          </Text>
-        )}
-      </Flex>
     </Card>
   );
 }

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import {
   ActionIcon,
+  Badge,
   Box,
   Container,
   Flex,
@@ -158,17 +159,37 @@ export default function Collections() {
                   entity={entity}
                   measure={
                     <Box>
+                      <Badge
+                        sx={{
+                          background: palette.activeBlue,
+                          textAlign: "center",
+                          textTransform: "none",
+                        }}
+                        fw="400"
+                        mb="xs"
+                        radius="md"
+                        variant="filled"
+                      >
+                        380 CARBON to issue
+                      </Badge>
                       <ProgressBar
-                        retired={entity._adminToken?.CARBON}
-                        claimable={222}
+                        retired={111}
                         produced={222}
+                        claimable={null}
                       />
-                      <Group spacing="4px" pt="xs">
-                        <Text>{123}</Text>
+                      <Flex gap={6} align="end" pt="xs">
+                        <Text
+                          c={palette.Black}
+                          fw={700}
+                          size="23px"
+                          sx={{ lineHeight: 1.1 }}
+                        >
+                          #{123}
+                        </Text>
                         <Text color="dimmed" size="12px">
                           of {123}
                         </Text>
-                      </Group>
+                      </Flex>
                     </Box>
                   }
                 />
