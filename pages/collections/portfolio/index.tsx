@@ -44,6 +44,8 @@ export default function Collections() {
   const userAddress =
     wallet.user?.address || "ixo1xwn45d6xhe3egcz3nqlfc2elpc3h6usy6yw3uk";
 
+  console.log("🧅", userEntityCollections);
+
   useEffect(() => {
     if (userAddress) {
       dispatch(fetchCollectionsByOwnerAddres(userAddress));
