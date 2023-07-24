@@ -1,24 +1,15 @@
 import { requestBlocksyncAPI } from "@/requests/blocksync";
-import {
-  IEntityExtended,
-  ITokenWhateverItMean,
-} from "@/types/entityCollections";
+import { ITokenWhateverItMean } from "@/types/entityCollections";
 
-export default async function requestEntityToken(
-  entity: IEntityExtended
+export default async function requestUsersToken(
+  tokenOwner: string
 ): Promise<ITokenWhateverItMean | undefined> {
-  const tokenAddress = entity?.accounts.find(
-    (acc) => acc.name === "admin"
-  )?.address;
-
-  if (!tokenAddress) throw new Error("Panica!");
-
   const [tokenData, tokenDataTotal] = await Promise.all([
     await requestBlocksyncAPI<ITokenWhateverItMean>(
-      `/api/token/byAddress/${tokenAddress}`
+      `/api/token/byAddress/${tokenOwner}`
     ),
     await requestBlocksyncAPI<ITokenWhateverItMean>(
-      `/api/token/totalByAddress/${tokenAddress}`
+      `/api/token/totalByAddress/${tokenOwner}`
     ),
   ]);
 

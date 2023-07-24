@@ -31,6 +31,29 @@ export const selectUserEntityCollection = createDraftSafeSelector(
     state.userEntityCollections
 );
 
+export const selectUserEntitiesTotal = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): EntityCollectionState["userTokens"] =>
+    state.userTokens
+);
+
+export const selectUserEntitiesTotalAmount = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): number | undefined => {
+    const totalTokensMap = state.userTokens?.CARBON._totalMinted?.tokens;
+    if (!totalTokensMap) return undefined;
+    const token = Object.values(totalTokensMap)?.[0] || {};
+    return token.amount;
+  }
+);
+
+export const selectUserEntitiesTotalLoading = createDraftSafeSelector(
+  selectEntityCollections,
+  (
+    state: EntityCollectionState
+  ): EntityCollectionState["isUserTokensLoading"] => state.isUserTokensLoading
+);
+
 export const selectCollectionAssetsCount = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState): number =>

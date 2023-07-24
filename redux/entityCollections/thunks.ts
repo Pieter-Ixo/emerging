@@ -13,12 +13,11 @@ import getCollectionTokenIpfs from "@/requests/requesters/getCollectionTokenIpfs
 import requestEntityDeviceCredential from "@/requests/requesters/getEntityDeviceCredential";
 import requestEntityProfile from "@/requests/requesters/getEntityProfile";
 import requestEntityTags from "@/requests/requesters/getEntityTags";
-import requestEntityToken from "@/requests/requesters/getEntityToken";
+import requestUsersToken from "@/requests/requesters/getEntityToken";
 import {
   ICollectionEntities,
-  ICollectionExtended,
-  IEntity,
   IEntityExtended,
+  ITokenWhateverItMean,
 } from "@/types/entityCollections";
 
 export const fetchAndFillCollections = createAsyncThunk(
@@ -79,10 +78,13 @@ export const fetchEntityByExternalIdAndFill = createAsyncThunk(
   async (externalId: string): Promise<IEntityExtended> => {
     const entity = await requestEntityByExternalID(externalId);
     if (!entity) return entity;
+    const entityOwner = entity.accounts.find(
+      (acc) => acc.name === "admin"
+    )?.address;
 
     const [profile, token, deviceCredential, tags] = await Promise.all([
       await requestEntityProfile(entity),
-      await requestEntityToken(entity),
+      entityOwner ? await requestUsersToken(entityOwner) : undefined,
       await requestEntityDeviceCredential(entity),
       await requestEntityTags(entity),
       // await requestSupamoto(entity.externalId),
@@ -108,9 +110,13 @@ export const fillEntitiesForUserCollections = createAsyncThunk(
     } = collectionEntities;
 
     const entitiesPromises = entities.map(async (entity) => {
+      const entityOwner = entity?.accounts.find(
+        (acc) => acc.name === "admin"
+      )?.address;
+
       const [profile, token, deviceCredential, tags] = await Promise.all([
         await requestEntityProfile(entity),
-        await requestEntityToken(entity),
+        entityOwner ? await requestUsersToken(entityOwner) : undefined,
         await requestEntityDeviceCredential(entity),
         await requestEntityTags(entity),
       ]);
@@ -134,5 +140,13 @@ export const fetchEntitiesByOwnerAddressAndFill = createAsyncThunk(
   async (owner: string): Promise<IEntityExtended[]> => {
     const entities = await requestEntitiesByOwnerAddress(owner);
     return entities.filter((entity) => entity.type === "asset/device");
+  }
+);
+
+export const fetchUsersTokens = createAsyncThunk(
+  "entityCollections/fetchUsersTokens",
+  async (entityOwner: string): Promise<ITokenWhateverItMean | undefined> => {
+    const tokenData = await requestUsersToken(entityOwner);
+    return tokenData;
   }
 );

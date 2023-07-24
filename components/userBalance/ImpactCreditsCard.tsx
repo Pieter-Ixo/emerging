@@ -1,7 +1,22 @@
-import { useState } from "react";
-import { Card, Flex, SegmentedControl, Stack, Text } from "@mantine/core";
+import { useContext, useEffect, useState } from "react";
+import {
+  Card,
+  Flex,
+  Loader,
+  SegmentedControl,
+  Stack,
+  Text,
+} from "@mantine/core";
 
 import { palette } from "@/theme/palette";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import {
+  selectUserEntitiesTotal,
+  selectUserEntitiesTotalAmount,
+  selectUserEntitiesTotalLoading,
+} from "@/redux/entityCollections/selectors";
+import { fetchUsersTokens } from "@/redux/entityCollections/thunks";
+import { WalletContext } from "@/context/wallet";
 
 import DownArrow from "./icons/downArrow";
 import ReceiveArrow from "./icons/receiveArrow";
@@ -16,10 +31,24 @@ import WithdrowCarbonButton from "./buttons/WithdrowCarbonButton";
 type CreditsTabName = "available" | "offset";
 
 function ImpactCreditsCard() {
+  const dispatch = useAppDispatch();
   const [creditsTabName, setCreditsTabName] =
     useState<CreditsTabName>("available");
+  const { wallet } = useContext(WalletContext);
+  const userAddress =
+    wallet.user?.address || "ixo1xwn45d6xhe3egcz3nqlfc2elpc3h6usy6yw3uk";
+
+  const userTotal = useAppSelector(selectUserEntitiesTotal);
+  const userTotalAmount = useAppSelector(selectUserEntitiesTotalAmount);
+  const userTotalLoading = useAppSelector(selectUserEntitiesTotalLoading);
   const totalClaimable = (3412).toLocaleString();
   const totalOffset = (1412).toLocaleString();
+
+  useEffect(() => {
+    if (userAddress) dispatch(fetchUsersTokens(userAddress));
+  }, [dispatch, userAddress]);
+
+  console.log("🐷", { userTotal });
 
   return (
     <Card p="lg" radius={16}>
@@ -43,8 +72,9 @@ function ImpactCreditsCard() {
         {creditsTabName === "available" && (
           <>
             <Flex align="flex-end">
+              {userTotalLoading && <Loader />}
               <Text color={palette.fullBlue} size={56}>
-                {totalClaimable}
+                {userTotalAmount?.toLocaleString()}
               </Text>
               <Text color={palette.fullBlue} pb="md" ml="xs">
                 CARBON

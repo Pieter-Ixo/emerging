@@ -5,6 +5,7 @@ import { HYDRATE } from "next-redux-wrapper";
 import {
   ICollectionEntities,
   IEntityExtended,
+  ITokenWhateverItMean,
 } from "@/types/entityCollections";
 import {
   fetchAndFillCollections,
@@ -12,6 +13,7 @@ import {
   fetchEntityByExternalIdAndFill,
   fetchEntitiesByOwnerAddressAndFill,
   fillEntitiesForUserCollections,
+  fetchUsersTokens,
 } from "./thunks";
 
 export type EntityCollectionState = {
@@ -20,6 +22,8 @@ export type EntityCollectionState = {
   isEntityLoading: boolean;
   selectedEntity: undefined | IEntityExtended;
   userEntityCollections: ICollectionEntities[];
+  userTokens: undefined | ITokenWhateverItMean;
+  isUserTokensLoading: boolean;
 };
 
 const initialState: EntityCollectionState = {
@@ -28,6 +32,8 @@ const initialState: EntityCollectionState = {
   isEntityLoading: false,
   selectedEntity: undefined,
   userEntityCollections: [],
+  userTokens: undefined,
+  isUserTokensLoading: false,
 };
 
 const EntityCollectionSlice = createSlice({
@@ -76,6 +82,7 @@ const EntityCollectionSlice = createSlice({
         state.isEntityLoading = false;
       }
     );
+
     // fetchEntityByOwnerAddressAndFill
     builder.addCase(fetchEntitiesByOwnerAddressAndFill.pending, (state) => {
       state.isEntityLoading = true;
@@ -87,6 +94,7 @@ const EntityCollectionSlice = createSlice({
         state.isEntityLoading = false;
       }
     );
+
     // fillEntitiesForUserCollections
     builder.addCase(fillEntitiesForUserCollections.pending, (state) => {
       state.isEntityLoading = true;
@@ -102,6 +110,15 @@ const EntityCollectionSlice = createSlice({
         state.isEntityLoading = false;
       }
     );
+
+    // fetchUsersTokens
+    builder.addCase(fetchUsersTokens.pending, (state) => {
+      state.isUserTokensLoading = true;
+    });
+    builder.addCase(fetchUsersTokens.fulfilled, (state, action) => {
+      state.userTokens = action.payload;
+      state.isUserTokensLoading = false;
+    });
 
     builder.addCase(HYDRATE, (state, action) => ({
       ...state,
