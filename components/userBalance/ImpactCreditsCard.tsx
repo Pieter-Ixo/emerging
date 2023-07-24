@@ -11,6 +11,7 @@ import {
 import { palette } from "@/theme/palette";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
+  selectUserEntitiesLength,
   selectUserEntitiesTotal,
   selectUserEntitiesTotalAmount,
   selectUserEntitiesTotalLoading,
@@ -39,6 +40,7 @@ function ImpactCreditsCard() {
     wallet.user?.address || "ixo1xwn45d6xhe3egcz3nqlfc2elpc3h6usy6yw3uk";
 
   const userTotal = useAppSelector(selectUserEntitiesTotal);
+  const userEntitiesLength = useAppSelector(selectUserEntitiesLength);
   const userTotalAmount = useAppSelector(selectUserEntitiesTotalAmount);
   const userTotalLoading = useAppSelector(selectUserEntitiesTotalLoading);
   const totalClaimable = (3412).toLocaleString();
@@ -82,12 +84,12 @@ function ImpactCreditsCard() {
             </Flex>
             <Stack spacing="xs">
               <IssueCarbonButton
-                totalClaimable={totalClaimable}
-                assetsLength={7}
+                totalClaimable={0}
+                assetsLength={userEntitiesLength}
               />
               <WithdrowCarbonButton
                 totalClaimable={totalClaimable}
-                assetsLength={7}
+                assetsLength={userEntitiesLength}
               />
 
               <Flex align="flex-end" justify="space-between">

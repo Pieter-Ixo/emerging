@@ -31,6 +31,15 @@ export const selectUserEntityCollection = createDraftSafeSelector(
     state.userEntityCollections
 );
 
+export const selectUserEntitiesLength = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): number =>
+    state.userEntityCollections.reduce(
+      (acc, { entities }) => acc + entities.length,
+      0
+    )
+);
+
 export const selectUserEntitiesTotal = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState): EntityCollectionState["userTokens"] =>
