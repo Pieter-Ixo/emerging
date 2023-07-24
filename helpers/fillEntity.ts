@@ -29,3 +29,16 @@ export default async function fillEntity(
 
   return filledEntity;
 }
+
+export async function fillEntityWithToken(
+  entity: IEntity
+): Promise<IEntityExtended> {
+  const entityOwner = entity.accounts.find(
+    (acc) => acc.name === "admin"
+  )?.address;
+  if (!entityOwner) return entity;
+
+  const adminToken = await requestUsersToken(entityOwner);
+
+  return { ...entity, _adminToken: adminToken };
+}

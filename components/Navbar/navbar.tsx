@@ -1,26 +1,44 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Box, Flex, Navbar } from "@mantine/core";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { palette } from "@/theme/palette";
-import { selectUserEntityCollections } from "@/redux/entityCollections/selectors";
+import {
+  selectUserEntityCollections,
+  selectUserEntityCollectionsIds,
+} from "@/redux/entityCollections/selectors";
 import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
 
 import ConnectedAccount from "../connectedAccount/connected_account";
 import ImpactCreditsCard from "../userBalance/ImpactCreditsCard";
 import HeaderLogo from "../Header_Logo/Index";
 
+function compareArrays(arr1: string[], arr2: string[]): boolean {
+  if (arr1.length !== arr2.length) return false;
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr2[i] !== arr1[i]) return false;
+  }
+  return true;
+}
+
 export default function Nav() {
+  const [idsList, setIdsList] = useState<string[]>([]);
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const userEntityCollections = useAppSelector(selectUserEntityCollections);
+  const userEntityCollectionsIds = useAppSelector(
+    selectUserEntityCollectionsIds
+  );
 
   useEffect(() => {
+    if (compareArrays(idsList, userEntityCollectionsIds)) return;
+    setIdsList(userEntityCollectionsIds);
+
     userEntityCollections.forEach((userEntityCollection) => {
       dispatch(fillEntitiesForUserCollections(userEntityCollection));
     });
-  }, [dispatch, userEntityCollections]);
+  }, [userEntityCollectionsIds]);
 
   return (
     <Navbar

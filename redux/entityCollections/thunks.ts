@@ -18,7 +18,7 @@ import fillEntity from "@/helpers/fillEntity";
 
 export const fetchAndFillCollections = createAsyncThunk(
   "entityCollections/fetchAndFillCollections",
-  async (): Promise<(ICollectionEntities | undefined)[]> => {
+  async (): Promise<ICollectionEntities[]> => {
     const collectionsResponse = await requestCollections();
 
     const getCollectionProfilePromises = collectionsResponse?.map(

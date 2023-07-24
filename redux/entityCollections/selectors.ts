@@ -41,6 +41,12 @@ export const selectUserEntityCollections = createDraftSafeSelector(
     state.userEntityCollections
 );
 
+export const selectUserEntityCollectionsIds = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): string[] =>
+    state.userEntityCollections.map((uec) => uec.collection.id)
+);
+
 export const selectUserEntitiesLength = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState): number =>
