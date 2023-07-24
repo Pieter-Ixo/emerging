@@ -11,8 +11,8 @@ import {
 import { palette } from "@/theme/palette";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
+  selectEntitiesAdminTotal,
   selectUserEntitiesLength,
-  selectUserEntitiesTotal,
   selectUserEntitiesTotalAmount,
   selectUserEntitiesTotalLoading,
 } from "@/redux/entityCollections/selectors";
@@ -37,20 +37,17 @@ function ImpactCreditsCard() {
     useState<CreditsTabName>("available");
   const { wallet } = useContext(WalletContext);
   const userAddress =
-    wallet.user?.address || "ixo1xwn45d6xhe3egcz3nqlfc2elpc3h6usy6yw3uk";
+    "ixo1xwn45d6xhe3egcz3nqlfc2elpc3h6usy6yw3uk" || wallet.user?.address;
 
-  const userTotal = useAppSelector(selectUserEntitiesTotal);
   const userEntitiesLength = useAppSelector(selectUserEntitiesLength);
   const userTotalAmount = useAppSelector(selectUserEntitiesTotalAmount);
   const userTotalLoading = useAppSelector(selectUserEntitiesTotalLoading);
-  const totalClaimable = (3412).toLocaleString();
+  const entitiesAdminTotal = useAppSelector(selectEntitiesAdminTotal);
   const totalOffset = (1412).toLocaleString();
 
   useEffect(() => {
     if (userAddress) dispatch(fetchUsersTokens(userAddress));
   }, [dispatch, userAddress]);
-
-  console.log("🐷", { userTotal });
 
   return (
     <Card p="lg" radius={16}>
@@ -88,7 +85,7 @@ function ImpactCreditsCard() {
                 assetsLength={userEntitiesLength}
               />
               <WithdrowCarbonButton
-                totalClaimable={totalClaimable}
+                totalClaimable={entitiesAdminTotal.toLocaleString()}
                 assetsLength={userEntitiesLength}
               />
 

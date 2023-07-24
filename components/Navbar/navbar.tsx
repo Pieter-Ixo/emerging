@@ -1,8 +1,11 @@
+import { useEffect } from "react";
 import Link from "next/link";
 import { Box, Flex, Navbar } from "@mantine/core";
 
-import { useAppSelector } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { palette } from "@/theme/palette";
+import { selectUserEntityCollections } from "@/redux/entityCollections/selectors";
+import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
 
 import ConnectedAccount from "../connectedAccount/connected_account";
 import ImpactCreditsCard from "../userBalance/ImpactCreditsCard";
@@ -10,6 +13,14 @@ import HeaderLogo from "../Header_Logo/Index";
 
 export default function Nav() {
   const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const userEntityCollections = useAppSelector(selectUserEntityCollections);
+
+  useEffect(() => {
+    userEntityCollections.forEach((userEntityCollection) => {
+      dispatch(fillEntitiesForUserCollections(userEntityCollection));
+    });
+  }, [dispatch, userEntityCollections]);
 
   return (
     <Navbar

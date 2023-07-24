@@ -18,7 +18,7 @@ import {
 } from "@/redux/entityCollections/thunks";
 import {
   selectIsEntityCollectionsLoading,
-  selectUserEntityCollection,
+  selectUserEntityCollections,
 } from "@/redux/entityCollections/selectors";
 import { WalletContext } from "@/context/wallet";
 import {
@@ -38,11 +38,11 @@ import CollectionsItem from "./components/CollectionsItem";
 
 export default function Collections() {
   const dispatch = useAppDispatch();
-  const userEntityCollections = useAppSelector(selectUserEntityCollection);
+  const userEntityCollections = useAppSelector(selectUserEntityCollections);
   const isLoading = useAppSelector(selectIsEntityCollectionsLoading);
   const { wallet } = useContext(WalletContext);
   const userAddress =
-    wallet.user?.address || "ixo1xwn45d6xhe3egcz3nqlfc2elpc3h6usy6yw3uk";
+    "ixo1xwn45d6xhe3egcz3nqlfc2elpc3h6usy6yw3uk" || wallet.user?.address;
 
   console.log("🧅", userEntityCollections);
 

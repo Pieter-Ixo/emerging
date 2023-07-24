@@ -82,7 +82,7 @@ export const fetchEntityByExternalIdAndFill = createAsyncThunk(
       (acc) => acc.name === "admin"
     )?.address;
 
-    const [profile, token, deviceCredential, tags] = await Promise.all([
+    const [profile, adminToken, deviceCredential, tags] = await Promise.all([
       await requestEntityProfile(entity),
       entityOwner ? await requestUsersToken(entityOwner) : undefined,
       await requestEntityDeviceCredential(entity),
@@ -92,7 +92,7 @@ export const fetchEntityByExternalIdAndFill = createAsyncThunk(
     ]);
 
     entity._profile = profile;
-    entity._token = token;
+    entity._adminToken = adminToken;
     entity._deviceCredential = deviceCredential;
     entity._tags = tags;
 
@@ -114,7 +114,7 @@ export const fillEntitiesForUserCollections = createAsyncThunk(
         (acc) => acc.name === "admin"
       )?.address;
 
-      const [profile, token, deviceCredential, tags] = await Promise.all([
+      const [profile, adminToken, deviceCredential, tags] = await Promise.all([
         await requestEntityProfile(entity),
         entityOwner ? await requestUsersToken(entityOwner) : undefined,
         await requestEntityDeviceCredential(entity),
@@ -124,7 +124,7 @@ export const fillEntitiesForUserCollections = createAsyncThunk(
       return {
         ...entity,
         _profile: profile,
-        _token: token,
+        _adminToken: adminToken,
         _deviceCredential: deviceCredential,
         _tags: tags,
       };

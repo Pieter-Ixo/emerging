@@ -25,7 +25,7 @@ export const selectCollections = createDraftSafeSelector(
     )
 );
 
-export const selectUserEntityCollection = createDraftSafeSelector(
+export const selectUserEntityCollections = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState): ICollectionEntities[] =>
     state.userEntityCollections
@@ -44,6 +44,28 @@ export const selectUserEntitiesTotal = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState): EntityCollectionState["userTokens"] =>
     state.userTokens
+);
+
+export const selectEntitiesAdminTotal = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): number => {
+    const collecitonsAmount = state.userEntityCollections.reduce(
+      (collectionAcc, { entities }) => {
+        const entitiesAmount = entities.reduce((entityAcc, entity) => {
+          const tokens = entity._adminToken?.CARBON._totalMinted?.tokens;
+          if (!tokens) return entityAcc;
+
+          const tokenAmount = Object.values(tokens)[0].amount;
+
+          return entityAcc + (tokenAmount || 0);
+        }, 0);
+        return collectionAcc + entitiesAmount;
+      },
+      0
+    );
+
+    return collecitonsAmount;
+  }
 );
 
 export const selectUserEntitiesTotalAmount = createDraftSafeSelector(
