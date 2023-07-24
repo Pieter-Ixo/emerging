@@ -58,17 +58,17 @@ export default function Collections() {
     }
   }, [dispatch, userAddress]);
 
-  const handleCard = async (cardId: string) => {
-    if (activeCardId === cardId) {
-      return setActiveCardId(null);
-    }
+  function onCollectionCardClick(collectionId: string) {
+    if (activeCardId === collectionId) {
+      setActiveCardId(null);
+    } else {
+      setActiveCardId(collectionId);
 
-    setActiveCardId(cardId);
-
-    if (activeEntityCollection) {
-      await dispatch(fillEntitiesForUserCollections(activeEntityCollection));
+      if (activeEntityCollection) {
+        dispatch(fillEntitiesForUserCollections(activeEntityCollection));
+      }
     }
-  };
+  }
 
   const isLoaderVisible = isLoading && <Loader />;
 
@@ -139,7 +139,7 @@ export default function Collections() {
               userEntityCollections.map(({ collection, entities }) => (
                 <Box
                   key={collection.id}
-                  onClick={() => handleCard(collection.id)}
+                  onClick={() => onCollectionCardClick(collection.id)}
                 >
                   <CollectionsItem
                     collection={collection}
