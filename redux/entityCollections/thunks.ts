@@ -109,6 +109,8 @@ export const fillEntitiesForUserCollections = createAsyncThunk(
       collection: { id: collectionId },
     } = collectionEntities;
 
+    console.log("Args: ", entities);
+
     const entitiesPromises = entities.map(async (entity) => {
       const entityOwner = entity?.accounts.find(
         (acc) => acc.name === "admin"
@@ -121,6 +123,7 @@ export const fillEntitiesForUserCollections = createAsyncThunk(
         await requestEntityTags(entity),
       ]);
 
+      console.log("Profile: ", profile);
       return {
         ...entity,
         _profile: profile,

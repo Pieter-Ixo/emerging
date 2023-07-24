@@ -3,39 +3,24 @@ import { palette } from "@/theme/palette";
 import { ICollectionExtended } from "@/types/entityCollections";
 
 type CollectionsItemProps = {
-  id: string;
   collection: ICollectionExtended;
   entitiesLength?: number;
-  activeCardId: string | null;
-  toggleCard: Function;
+  isActive: boolean;
 };
 
 export default function CollectionsItem({
-  id,
   collection,
   entitiesLength,
-  activeCardId,
-  toggleCard,
+  isActive,
 }: CollectionsItemProps) {
-  const isCardActive = () => activeCardId === id;
+  const activeCardBg = isActive ? palette.fullBlue : palette.Neutral100;
 
-  const activeCardBg = () =>
-    isCardActive() ? palette.fullBlue : palette.Neutral100;
-
-  const activeCardFont = () => (isCardActive() ? palette.White : palette.Black);
-
-  // TODO: emit active card id, and handle it inside collectionsList
-  // (setCardActive exists, in case we want to add something, to handle entity section on open)
-
-  function setCardActive(cardId: string) {
-    toggleCard(cardId);
-  }
+  const activeCardFont = isActive ? palette.White : palette.Black;
 
   return (
     <Card
-      onClick={() => setCardActive(id)}
       padding="none"
-      sx={{ fontSize: "", color: activeCardFont() }}
+      sx={{ fontSize: "", color: activeCardFont }}
       radius={16}
     >
       <Card.Section>
@@ -47,7 +32,7 @@ export default function CollectionsItem({
         />
       </Card.Section>
 
-      <Flex gap="md" justify="space-between" p={12} bg={activeCardBg()}>
+      <Flex gap="md" justify="space-between" p={12} bg={activeCardBg}>
         <Flex direction="column">
           <Text size="sm">{collection._profile?.brand}</Text>
           <Text size="sm">{collection._profile?.name}</Text>
@@ -60,7 +45,7 @@ export default function CollectionsItem({
               radius="md"
               variant="filled"
             >
-              {collection._profile?.location}
+              {collection._tokenIpfs?.properties.denom}
             </Badge>
           </Flex>
         </Flex>
