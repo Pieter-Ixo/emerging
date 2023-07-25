@@ -13,10 +13,21 @@ type Props = {
   name?: string;
   index?: string;
   offset?: number;
-  progress?: number;
+  amount?: number;
+  minted?: number;
+  retired?: number;
 };
 
-export default function BatchesItem({ name, index, offset, progress }: Props) {
+export default function BatchesItem({
+  name,
+  index,
+  offset,
+  minted,
+  amount,
+  retired,
+}: Props) {
+  const batchBackgroundImage = retired && amount === 0 && retired > 0 ? 0.4 : 1;
+
   return (
     <Flex
       direction="column"
@@ -28,6 +39,7 @@ export default function BatchesItem({ name, index, offset, progress }: Props) {
         position: "relative",
         backgroundImage: `url(/images/cert-bg.png)`,
         backgroundSize: "cover",
+        opacity: batchBackgroundImage,
         backgroundPosition: "center",
         maxHeight: 352,
         borderRadius: 16,
@@ -52,7 +64,7 @@ export default function BatchesItem({ name, index, offset, progress }: Props) {
 
       <Flex align="center" justify="space-between" gap={10}>
         <AstroBatchImage />
-        <BatchProgress offset={offset} progress={progress} />
+        <BatchProgress offset={offset} progress={minted} />
       </Flex>
 
       <Flex gap="sm" justify="center" align="center" direction="row">

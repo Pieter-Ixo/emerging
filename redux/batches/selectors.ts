@@ -18,6 +18,12 @@ export const selectAllBatches = createDraftSafeSelector(
     batchesState.batches
 );
 
+export const selectAddressBatches = createDraftSafeSelector(
+  selectBatchesState,
+  (batchesState: IBatchesState): IBatchesState["addressBatches"] | undefined =>
+    batchesState.addressBatches
+);
+
 export const selectSelectedBatch = createDraftSafeSelector(
   selectBatchesState,
   (

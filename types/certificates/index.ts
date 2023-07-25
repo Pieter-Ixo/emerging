@@ -21,6 +21,33 @@ export type IBatch = {
   tokenData: ITokenData[];
 };
 
+export type IAddressBatches = {
+  [key: string]: {
+    amount: number;
+    collection: string;
+    minted: number;
+    retired: number;
+  };
+};
+
+export type IAddressBatchResponse = {
+  CARBON: {
+    contractAddress: string;
+    description: string;
+    image: string;
+    tokens: IAddressBatches;
+  };
+};
+
+type IAddressBatchData = {
+  amount: number;
+  collection: string;
+  minted: number;
+  retired: number;
+};
+
+export type IAddressBatchesEntry = [string, IAddressBatchData];
+
 export type Batches = IBatch[];
 
 export type IImpactAssetData = {
