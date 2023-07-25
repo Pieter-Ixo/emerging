@@ -6,7 +6,6 @@ import {
   Container,
   Flex,
   Grid,
-  Group,
   Input,
   Loader,
   ScrollArea,
@@ -27,6 +26,7 @@ import { WalletContext } from "@/context/wallet";
 import { palette } from "@/theme/palette";
 import ProfileCard from "@/components/ProfileCard";
 import ProgressBar from "@/components/progress-bar/ProgressBar";
+import { getEntityTotalMintedAmount } from "@/helpers/transformData/getTotalMintedAmount";
 
 import CollectionsLayout from "../components/Layout";
 import Header from "./components/Header";
@@ -173,9 +173,16 @@ export default function Collections() {
                         380 CARBON to issue
                       </Badge>
                       <ProgressBar
-                        retired={111}
-                        produced={222}
-                        claimable={null}
+                        retired={(getEntityTotalMintedAmount(entity) || 0) / 2}
+                        // TODO: clarify where badge id is
+                        claimable={
+                          (Number(
+                            entity?._adminToken?.CARBON.tokens["123" || ""]
+                              ?.minted
+                          ) || 0) * 2
+                        }
+                        produced={getEntityTotalMintedAmount(entity)}
+                        isAssetView={false}
                       />
                       <Flex gap={6} align="end" pt="xs">
                         <Text
