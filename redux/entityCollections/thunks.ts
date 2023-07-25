@@ -99,8 +99,6 @@ export const fetchAdminTokens = createAsyncThunk(
   "entityCollections/fetchAdminTokens",
   async (adminAddress: string): Promise<ITokenWhateverItMean | undefined> => {
     const tokenData = await requestTokenByAddress(adminAddress);
-    console.log("🐼", { tokenData });
-
     return tokenData;
   }
 );

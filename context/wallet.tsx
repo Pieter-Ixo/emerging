@@ -47,7 +47,6 @@ export function WalletProvider({ children }: HTMLAttributes<HTMLDivElement>) {
     wallet?.user?.address
   );
   const walletKey = "wallet";
-  console.log({ wallet });
 
   const updateWallet = (newWallet: WALLET, override: boolean = false) => {
     if (override) {
