@@ -29,12 +29,11 @@ import FilterIcon from "./components/icons/FilterIcon";
 import TabsIcon from "./components/icons/TabsIcon";
 import CollectionsItem from "./components/CollectionsItem";
 import EntitiesList from "./components/EntitiesList";
+import Controls from "./components/Controls";
 
 export default function Collections() {
   const dispatch = useAppDispatch();
 
-  const [isCollectionActive, setCollectionActive] = useState(false);
-  const [isTabsActive, setTabsActive] = useState(false);
   const [activeCardId, setActiveCardId] = useState<string | undefined>(
     undefined
   );
@@ -88,59 +87,7 @@ export default function Collections() {
         <Box mb={28} sx={{ borderBottom: `1px solid ${palette.Black}` }}>
           <Text>MY ASSETS</Text>
         </Box>
-        <Flex gap={8}>
-          <Input
-            icon={<SearchIcon />}
-            placeholder="search"
-            size="md"
-            variant="filled"
-            radius="xl"
-          />
-          <ActionIcon
-            size="xl"
-            radius="xl"
-            color="dark"
-            variant="transparent"
-            sx={{
-              background: isCollectionActive
-                ? palette.fullBlue
-                : palette.Neutral200,
-            }}
-            onClick={() => setCollectionActive((prev) => !prev)}
-          >
-            <CollectionIcon
-              fill="transparent"
-              stroke={isCollectionActive ? palette.White : palette.Black}
-            />
-          </ActionIcon>
-          <ActionIcon
-            size="xl"
-            radius="xl"
-            color="dark"
-            variant="transparent"
-            sx={{
-              background: isTabsActive ? palette.fullBlue : palette.Neutral200,
-            }}
-            onClick={() => setTabsActive((prev) => !prev)}
-          >
-            <TabsIcon fill={isTabsActive ? palette.White : palette.Black} />
-          </ActionIcon>
-          <ActionIcon
-            size="xl"
-            radius="xl"
-            color="dark"
-            variant="transparent"
-            sx={{
-              width: 100,
-              background: palette.Neutral200,
-            }}
-          >
-            <Flex gap={10}>
-              <FilterIcon fill={palette.Black} />
-              <Text>Filter</Text>
-            </Flex>
-          </ActionIcon>
-        </Flex>
+        <Controls />
         <Carousel
           slideGap="md"
           loop
