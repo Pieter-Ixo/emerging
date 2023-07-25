@@ -92,3 +92,12 @@ export async function requestBatchByID(
   if (!problem && data) return data;
   throw new Error("no batch for this id");
 }
+export async function requestBatchesByAddress(
+  entityAdminAddress: string
+): Promise<IBatch[] | undefined> {
+  const url = `/api/token/byAddress/${entityAdminAddress}`;
+
+  const { data, problem } = await blocksynkAPI.get<IBatch[]>(url);
+  if (!problem && data) return data;
+  throw new Error("no batches for this admin address");
+}

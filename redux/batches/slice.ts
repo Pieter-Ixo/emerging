@@ -5,7 +5,7 @@ import { HYDRATE } from "next-redux-wrapper";
 import { IBatch, IBatchDataFilled } from "@/types/certificates";
 
 // eslint-disable-next-line import/no-cycle
-import { fetchAllBatches, fetchBatchById } from "./thunks";
+import { fetchAllBatches, fetchBatchById, fetchBatchesByAddress } from "./thunks";
 
 export type IBatchesState = {
   batches: IBatch[];
@@ -45,6 +45,15 @@ const BatchesSlice = createSlice({
     builder.addCase(fetchBatchById.fulfilled, (state, action) => {
       state.isBatchLoading = false;
       state.selectedBatchData = action.payload;
+    });
+
+    // fetchBatchesByAddress
+    builder.addCase(fetchBatchesByAddress.pending, (state) => {
+      state.isBatchLoading = true;
+    });
+    builder.addCase(fetchBatchesByAddress.fulfilled, (state, action) => {
+      state.isBatchLoading = false;
+      state.batches = action.payload;
     });
 
     builder.addCase(HYDRATE, (state, action) => ({

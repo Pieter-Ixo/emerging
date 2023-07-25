@@ -1,6 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { requestBatches, requestBatchByID } from "@/requests/blocksync";
+import {
+  requestBatches,
+  requestBatchByID,
+  requestBatchesByAddress,
+} from "@/requests/blocksync";
 import requestClaimCerFilled from "@/requests/requesters/getClaimCer";
 import requestClaimIssuerFilled from "@/requests/requesters/getClaimIssuer";
 import requestClaimVer from "@/requests/requesters/getClaimVer";
@@ -35,6 +39,19 @@ export const fetchBatchesForEntity = createAsyncThunk<
     const batchesResponse = await requestBatches();
     if (!batchesResponse) throw new Error("panica!");
 
+    return batchesResponse;
+  }
+);
+export const fetchBatchesByAddress = createAsyncThunk<
+  IBatch[],
+  string,
+  { dispatch: AppDispatch }
+>(
+  "batches/fetchBatchesByAddress",
+  async (adminAddress: string, { dispatch }): Promise<IBatch[]> => {
+    const batchesResponse = await requestBatchesByAddress(adminAddress);
+    if (!batchesResponse || !Array.isArray(batchesResponse))
+      throw new Error("panica!");
     return batchesResponse;
   }
 );
