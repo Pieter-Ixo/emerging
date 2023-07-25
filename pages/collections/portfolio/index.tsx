@@ -1,13 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  ActionIcon,
-  Box,
-  Container,
-  Flex,
-  Input,
-  Loader,
-  Text,
-} from "@mantine/core";
+import { Box, Container, Loader, Text } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
@@ -23,10 +15,6 @@ import { ICollectionEntities } from "@/types/entityCollections";
 
 import CollectionsLayout from "../components/Layout";
 import Header from "./components/Header";
-import SearchIcon from "./components/icons/SearchIcon";
-import CollectionIcon from "./components/icons/CollectionIcon";
-import FilterIcon from "./components/icons/FilterIcon";
-import TabsIcon from "./components/icons/TabsIcon";
 import CollectionsItem from "./components/CollectionsItem";
 import EntitiesList from "./components/EntitiesList";
 import Controls from "./components/Controls";
@@ -42,7 +30,9 @@ export default function Collections() {
 
   const entityCollections = useAppSelector(selectEntityCollections);
 
-  const isLoading = useAppSelector(selectIsEntityCollectionsLoading);
+  const isEntityCollectionsLoading = useAppSelector(
+    selectIsEntityCollectionsLoading
+  );
 
   const [activeEntityCollection, setActiveEntityCollection] = useState<
     ICollectionEntities | undefined
@@ -76,8 +66,6 @@ export default function Collections() {
     }
   }, [activeEntityCollection, dispatch]);
 
-  const isLoaderVisible = isLoading && <Loader />;
-
   const totalAssets = entityCollections?.entityCollections[0]?.entities.length;
 
   return (
@@ -109,7 +97,8 @@ export default function Collections() {
           ))}
         </Carousel>
         <Box mb={28} sx={{ borderBottom: `1px solid ${palette.Neutral500}` }} />
-        {isLoaderVisible}
+
+        {isEntityCollectionsLoading && <Loader />}
 
         <EntitiesList
           entities={activeEntityCollection?.entities}

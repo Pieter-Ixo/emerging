@@ -14,6 +14,7 @@ import isStringArraysEqual from "@/utils/isStringArraysEqual";
 import ConnectAccountButton from "../connectedAccount/connected_account";
 import ImpactCreditsCard from "../userBalance/ImpactCreditsCard";
 import HeaderLogo from "../Header_Logo/Index";
+import BatchesCard from "../userBalance/BatchesCard";
 
 export default function Nav() {
   const [idsList, setIdsList] = useState<string[]>([]);
@@ -64,6 +65,9 @@ export default function Nav() {
           <ImpactCreditsCard />
         </Navbar.Section>
       )}
+      <Navbar.Section p="xs">
+        <BatchesCard />
+      </Navbar.Section>
     </Navbar>
   );
 }

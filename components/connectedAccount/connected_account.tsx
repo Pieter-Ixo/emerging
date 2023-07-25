@@ -16,7 +16,7 @@ function ConnectAccountButton() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { wallet, updateWalletType, logoutWallet } = useContext(WalletContext);
-  const contextUserAddress = wallet.user?.address;
+  const contextUserAddress = wallet.user?.address; // && "ixo1xwn45d6xhe3egcz3nqlfc2elpc3h6usy6yw3uk";
   const userAddress = useAppSelector((state) => state.user.connectedWallet);
 
   useEffect(() => {
