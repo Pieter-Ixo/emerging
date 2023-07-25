@@ -47,6 +47,7 @@ export function WalletProvider({ children }: HTMLAttributes<HTMLDivElement>) {
     wallet?.user?.address
   );
   const walletKey = "wallet";
+  console.log({ wallet });
 
   const updateWallet = (newWallet: WALLET, override: boolean = false) => {
     if (override) {
@@ -99,26 +100,6 @@ export function WalletProvider({ children }: HTMLAttributes<HTMLDivElement>) {
 
   useEffect(() => {
     if (loaded && wallet.walletType) initializeWallets();
-    if (wallet.walletType === WALLET_TYPE.keplr) {
-      window.addEventListener(
-        EVENT_LISTENER_TYPE.wc_sessionupdate,
-        updateWalletConnectWallet
-      );
-      window.removeEventListener(
-        EVENT_LISTENER_TYPE.wc_sessiondelete,
-        logoutWallet
-      );
-      window.addEventListener(
-        EVENT_LISTENER_TYPE.keplr_keystorechange,
-        updateKeplrWallet
-      );
-
-      return () =>
-        window.removeEventListener(
-          EVENT_LISTENER_TYPE.keplr_keystorechange,
-          updateKeplrWallet
-        );
-    }
     if (wallet.walletType === WALLET_TYPE.walletConnect) {
       window.removeEventListener(
         EVENT_LISTENER_TYPE.keplr_keystorechange,

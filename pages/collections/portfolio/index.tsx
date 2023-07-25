@@ -49,8 +49,7 @@ export default function Collections() {
 
   const { wallet } = useContext(WalletContext);
 
-  const userAddress =
-    "ixo1xwn45d6xhe3egcz3nqlfc2elpc3h6usy6yw3uk" || wallet.user?.address;
+  const userAddress = wallet.user?.address;
 
   useEffect(() => {
     if (userAddress) {

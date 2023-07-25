@@ -36,8 +36,7 @@ function ImpactCreditsCard() {
   const [creditsTabName, setCreditsTabName] =
     useState<CreditsTabName>("available");
   const { wallet } = useContext(WalletContext);
-  const userAddress =
-    "ixo1xwn45d6xhe3egcz3nqlfc2elpc3h6usy6yw3uk" || wallet.user?.address;
+  const userAddress = wallet.user?.address;
 
   const userEntitiesLength = useAppSelector(selectUserEntitiesLength);
   const userTotalAmount = useAppSelector(selectUserEntitiesTotalAmount);

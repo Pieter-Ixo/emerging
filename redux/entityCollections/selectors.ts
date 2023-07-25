@@ -87,7 +87,7 @@ export const selectEntitiesAdminTotal = createDraftSafeSelector(
 export const selectUserEntitiesTotalAmount = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState): ITokenOfTokenCarbon | undefined => {
-    const totalTokensMap = state.userTokens?.CARBON._totalMinted?.tokens;
+    const totalTokensMap = state.userTokens?.CARBON?._totalMinted?.tokens;
     if (!totalTokensMap) return undefined;
     const token = Object.values(totalTokensMap)?.[0] || {};
     return token;

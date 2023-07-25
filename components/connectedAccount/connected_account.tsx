@@ -12,7 +12,7 @@ import { WALLET_TYPE } from "@/types/wallet";
 import DisconnectWallet from "./icons/disconnectWallet";
 import Wallet from "./icons/wallet";
 
-function ConnectedAccount() {
+function ConnectAccountButton() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { wallet, updateWalletType, logoutWallet } = useContext(WalletContext);
@@ -76,8 +76,6 @@ function ConnectedAccount() {
       <Button
         onClick={() => {
           if (!wallet.user) {
-            // TODO: when to keplr, when to walletconnect
-            // updateWalletType(WALLET_TYPE.keplr);
             updateWalletType(WALLET_TYPE.walletConnect);
           } else {
             router.push("/dashboard");
@@ -94,4 +92,4 @@ function ConnectedAccount() {
   );
 }
 
-export default ConnectedAccount;
+export default ConnectAccountButton;
