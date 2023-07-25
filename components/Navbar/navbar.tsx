@@ -11,13 +11,14 @@ import {
 import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
 import isStringArraysEqual from "@/utils/isStringArraysEqual";
 
-import ConnectedAccount from "../connectedAccount/connected_account";
+import ConnectAccountButton from "../connectedAccount/connected_account";
 import ImpactCreditsCard from "../userBalance/ImpactCreditsCard";
 import HeaderLogo from "../Header_Logo/Index";
+import BatchesCard from "../userBalance/BatchesCard";
 
 export default function Nav() {
   const [idsList, setIdsList] = useState<string[]>([]);
-  const user = useAppSelector((state) => state.user);
+  const userAddress = useAppSelector((state) => state.user.connectedWallet);
   const dispatch = useAppDispatch();
   const userEntityCollections = useAppSelector(selectUserEntityCollections);
   const userEntityCollectionsIds = useAppSelector(
@@ -25,7 +26,12 @@ export default function Nav() {
   );
 
   useEffect(() => {
-    if (isStringArraysEqual(idsList, userEntityCollectionsIds)) return;
+    if (
+      userEntityCollectionsIds.length === 0 ||
+      isStringArraysEqual(idsList, userEntityCollectionsIds)
+    ) {
+      return;
+    }
     setIdsList(userEntityCollectionsIds);
 
     userEntityCollections.forEach((userEntityCollection) => {
@@ -51,14 +57,17 @@ export default function Nav() {
       </Navbar.Section>
       <Box sx={{ width: "100%" }}>
         <Navbar.Section p="xs">
-          <ConnectedAccount />
+          <ConnectAccountButton />
         </Navbar.Section>
       </Box>
-      {user.walletConnected && (
+      {userAddress && (
         <Navbar.Section p="xs">
           <ImpactCreditsCard />
         </Navbar.Section>
       )}
+      <Navbar.Section p="xs">
+        <BatchesCard />
+      </Navbar.Section>
     </Navbar>
   );
 }

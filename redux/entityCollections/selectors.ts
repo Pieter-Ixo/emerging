@@ -56,10 +56,26 @@ export const selectUserEntitiesLength = createDraftSafeSelector(
     )
 );
 
-export const selectUserEntitiesTotal = createDraftSafeSelector(
+export const selectUserTokens = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState): EntityCollectionState["userTokens"] =>
     state.userTokens
+);
+
+export const selectUserTokensIsLoading = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): boolean => state.isEntityLoading
+);
+
+export const selectAdminTokens = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): EntityCollectionState["adminTokens"] =>
+    state.adminTokens
+);
+
+export const selectAdminTokensIsLoading = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): boolean => state.isAdminTokensLoading
 );
 
 export const selectEntitiesAdminTotal = createDraftSafeSelector(
@@ -87,7 +103,7 @@ export const selectEntitiesAdminTotal = createDraftSafeSelector(
 export const selectUserEntitiesTotalAmount = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState): ITokenOfTokenCarbon | undefined => {
-    const totalTokensMap = state.userTokens?.CARBON._totalMinted?.tokens;
+    const totalTokensMap = state.userTokens?.CARBON?._totalMinted?.tokens;
     if (!totalTokensMap) return undefined;
     const token = Object.values(totalTokensMap)?.[0] || {};
     return token;

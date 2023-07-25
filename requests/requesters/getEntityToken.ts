@@ -15,7 +15,18 @@ export default async function requestUsersToken(
 
   if (!tokenData) throw new Error("Panica!");
 
-  tokenData.CARBON._totalMinted = tokenDataTotal?.CARBON;
+  if (tokenData.CARBON && tokenDataTotal)
+    tokenData.CARBON._totalMinted = tokenDataTotal?.CARBON;
 
+  return tokenData;
+}
+
+export async function requestTokenByAddress(
+  tokenOwner: string
+): Promise<ITokenWhateverItMean> {
+  const tokenData = await requestBlocksyncAPI<ITokenWhateverItMean>(
+    `/api/token/byAddress/${tokenOwner}`
+  );
+  if (!tokenData) throw new Error("Panica!");
   return tokenData;
 }

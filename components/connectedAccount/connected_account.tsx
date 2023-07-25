@@ -4,7 +4,7 @@ import { useContext, useEffect } from "react";
 
 import shortStr from "@/utils/shortStr";
 import { WalletContext } from "@/context/wallet";
-import { useAppDispatch } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { connectWallet, disconnectWallet } from "@/redux/userSlice";
 import { palette } from "@/theme/palette";
 import { WALLET_TYPE } from "@/types/wallet";
@@ -12,18 +12,19 @@ import { WALLET_TYPE } from "@/types/wallet";
 import DisconnectWallet from "./icons/disconnectWallet";
 import Wallet from "./icons/wallet";
 
-function ConnectedAccount() {
+function ConnectAccountButton() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { wallet, updateWalletType, logoutWallet } = useContext(WalletContext);
-  const userAddress = wallet.user?.address;
+  const contextUserAddress = wallet.user?.address; // && "ixo1xwn45d6xhe3egcz3nqlfc2elpc3h6usy6yw3uk";
+  const userAddress = useAppSelector((state) => state.user.connectedWallet);
 
   useEffect(() => {
-    if (userAddress) {
-      dispatch(connectWallet());
+    if (contextUserAddress) {
+      dispatch(connectWallet(contextUserAddress));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userAddress]);
+  }, [contextUserAddress]);
 
   if (userAddress) {
     return (
@@ -76,8 +77,6 @@ function ConnectedAccount() {
       <Button
         onClick={() => {
           if (!wallet.user) {
-            // TODO: when to keplr, when to walletconnect
-            // updateWalletType(WALLET_TYPE.keplr);
             updateWalletType(WALLET_TYPE.walletConnect);
           } else {
             router.push("/dashboard");
@@ -94,4 +93,4 @@ function ConnectedAccount() {
   );
 }
 
-export default ConnectedAccount;
+export default ConnectAccountButton;

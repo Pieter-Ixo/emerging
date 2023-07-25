@@ -1,70 +1,61 @@
 import { palette } from "@/theme/palette";
-import { Box, Flex, Group, Progress, Text } from "@mantine/core";
+import { Flex, Group, Progress, Text } from "@mantine/core";
 
-export default function ProgressBar({ retired, claimable, produced }) {
-  if (Number.isNaN(Number(retired)) || Number.isNaN(Number(produced)))
-    return null;
+type ProgressBarProps = {
+  retired?: number;
+  claimable?: number;
+  produced?: number;
+};
 
-  const isClaimableArrived = claimable && !Number.isNaN(Number(claimable));
-
-  let claimablePercent = 0;
-  let progressBarTotal = 0;
-
-  progressBarTotal = retired + produced;
-
-  if (isClaimableArrived) {
-    progressBarTotal += claimable;
-    claimablePercent = (claimable / progressBarTotal) * 100;
-  }
-
-  const retiredPercent = (retired / progressBarTotal) * 100;
-  const producedPercent = (produced / progressBarTotal) * 100;
-
-  const progressSections = [
-    { value: retiredPercent, color: palette.greenFull },
-    { value: producedPercent, color: palette.Black },
-  ];
-
-  if (isClaimableArrived) {
-    progressSections.splice(1, 0, {
-      value: claimablePercent,
-      color: palette.fullBlue,
-    });
-  }
+export default function ProgressBar({
+  retired,
+  claimable,
+  produced,
+}: ProgressBarProps) {
+  const progressBarTotal = (retired || 0) + (claimable || 0) + (produced || 0);
+  const retiredPercent = ((retired || 0) / progressBarTotal) * 100;
+  const claimablePercent = ((claimable || 0) / progressBarTotal) * 100;
+  const producedPercent = ((produced || 0) / progressBarTotal) * 100;
 
   const showClaimable = claimable && `${claimable.toLocaleString()} claimable`;
 
   return (
     <>
       <Group align="end">
-        <Text size={isClaimableArrived ? "22px" : "12px"} fw="500" lts="1.1px">
+        <Text size={claimable ? "22px" : "12px"} fw="500" lts="1.1px">
           {produced}
         </Text>
         <Text size="12px" fw="300" lts="0.6px">
-          {isClaimableArrived ? "CARBON produced" : "CARBON Credits Available"}
+          {claimable ? "CARBON produced" : "CARBON Credits Available"}
         </Text>
       </Group>
 
       <Progress
-        size={isClaimableArrived ? "xl" : "md"}
-        sections={progressSections}
+        size={claimable ? "xl" : "md"}
+        sections={[
+          { value: retiredPercent, color: palette.greenFull },
+          { value: claimablePercent, color: palette.fullBlue },
+          { value: producedPercent, color: palette.Black },
+        ]}
       />
       <Group>
         <Flex>
           <Text size="12px" lts="0.6px" pr={5} color={palette.greenFull}>
-            {isClaimableArrived
-              ? `${retired.toLocaleString()} retired`
-              : `1200 Offset`}
+            {claimable
+              ? `${retired?.toLocaleString()} retired`
+              : `${retired?.toLocaleString()} Offset`}
           </Text>
-          {!isClaimableArrived && (
+          {!claimable && (
             <Text size="12px" lts="0.6px" color={palette.Black}>
               / 3800 Produced
             </Text>
           )}
         </Flex>
-        <Text size="12px" lts="0.6px" color={palette.fullBlue}>
-          {showClaimable}
-        </Text>
+        {claimable ? (
+          <Text size="12px" lts="0.6px" color={palette.fullBlue}>
+            {showClaimable}
+          </Text>
+        ) : null}
       </Group>
     </>
   );
