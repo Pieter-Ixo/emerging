@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ActionIcon,
   Box,
@@ -11,16 +11,12 @@ import {
 import { Carousel } from "@mantine/carousel";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {
-  fetchCollectionsByOwnerAddres,
-  fillEntitiesForUserCollections,
-} from "@/redux/entityCollections/thunks";
+import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
 import {
   selectEntityCollections,
   selectIsEntityCollectionsLoading,
   selectUserEntityCollections,
 } from "@/redux/entityCollections/selectors";
-import { WalletContext } from "@/context/wallet";
 
 import { palette } from "@/theme/palette";
 import { ICollectionEntities } from "@/types/entityCollections";
@@ -52,16 +48,6 @@ export default function Collections() {
   const [activeEntityCollection, setActiveEntityCollection] = useState<
     ICollectionEntities | undefined
   >();
-
-  const { wallet } = useContext(WalletContext);
-
-  const userAddress = wallet.user?.address;
-
-  useEffect(() => {
-    if (userAddress) {
-      dispatch(fetchCollectionsByOwnerAddres(userAddress));
-    }
-  }, [dispatch, userAddress]);
 
   function findActiveCollectionEntitiesById(collectionId: string) {
     return userEntityCollections.find(

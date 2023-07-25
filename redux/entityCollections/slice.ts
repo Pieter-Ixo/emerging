@@ -11,7 +11,6 @@ import {
   fetchAndFillCollections,
   fetchCollectionsByOwnerAddres,
   fetchEntityByExternalIdAndFill,
-  fetchEntitiesByOwnerAddressAndFill,
   fillEntitiesForUserCollections,
   fetchUsersTokens,
 } from "./thunks";
@@ -79,18 +78,6 @@ const EntityCollectionSlice = createSlice({
       fetchEntityByExternalIdAndFill.fulfilled,
       (state, action) => {
         state.selectedEntity = action.payload;
-        state.isEntityLoading = false;
-      }
-    );
-
-    // fetchEntityByOwnerAddressAndFill
-    builder.addCase(fetchEntitiesByOwnerAddressAndFill.pending, (state) => {
-      state.isEntityLoading = true;
-    });
-    builder.addCase(
-      fetchEntitiesByOwnerAddressAndFill.fulfilled,
-      (state, action) => {
-        state.userEntityCollections[0].entities = action.payload;
         state.isEntityLoading = false;
       }
     );

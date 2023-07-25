@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   Flex,
@@ -16,8 +16,10 @@ import {
   selectUserEntitiesTotalAmount,
   selectUserEntitiesTotalLoading,
 } from "@/redux/entityCollections/selectors";
-import { fetchUsersTokens } from "@/redux/entityCollections/thunks";
-import { WalletContext } from "@/context/wallet";
+import {
+  fetchCollectionsByOwnerAddres,
+  fetchUsersTokens,
+} from "@/redux/entityCollections/thunks";
 
 import DownArrow from "./icons/downArrow";
 import ReceiveArrow from "./icons/receiveArrow";
@@ -35,17 +37,19 @@ function ImpactCreditsCard() {
   const dispatch = useAppDispatch();
   const [creditsTabName, setCreditsTabName] =
     useState<CreditsTabName>("available");
-  const { wallet } = useContext(WalletContext);
-  const userAddress = wallet.user?.address;
 
+  const userAddress = useAppSelector((state) => state.user.connectedWallet);
   const userEntitiesLength = useAppSelector(selectUserEntitiesLength);
   const userTotalAmount = useAppSelector(selectUserEntitiesTotalAmount);
   const userTotalLoading = useAppSelector(selectUserEntitiesTotalLoading);
   const entitiesAdminTotal = useAppSelector(selectEntitiesAdminTotal);
 
   useEffect(() => {
-    if (userAddress) dispatch(fetchUsersTokens(userAddress));
-  }, [dispatch, userAddress]);
+    if (userAddress) {
+      dispatch(fetchUsersTokens(userAddress));
+      dispatch(fetchCollectionsByOwnerAddres(userAddress));
+    }
+  }, [userAddress]);
 
   return (
     <Card p="lg" radius={16}>
@@ -71,7 +75,7 @@ function ImpactCreditsCard() {
             <Flex align="flex-end">
               {userTotalLoading && <Loader />}
               <Text color={palette.fullBlue} size={56}>
-                {userTotalAmount?.amount?.toLocaleString()}
+                {(userTotalAmount?.amount || 0)?.toLocaleString()}
               </Text>
               <Text color={palette.fullBlue} pb="md" ml="xs">
                 CARBON

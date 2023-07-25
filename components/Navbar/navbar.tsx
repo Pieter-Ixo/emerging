@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Box, Flex, Navbar } from "@mantine/core";
 
@@ -10,7 +10,6 @@ import {
 } from "@/redux/entityCollections/selectors";
 import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
 import isStringArraysEqual from "@/utils/isStringArraysEqual";
-import { WalletContext } from "@/context/wallet";
 
 import ConnectAccountButton from "../connectedAccount/connected_account";
 import ImpactCreditsCard from "../userBalance/ImpactCreditsCard";
@@ -18,8 +17,7 @@ import HeaderLogo from "../Header_Logo/Index";
 
 export default function Nav() {
   const [idsList, setIdsList] = useState<string[]>([]);
-  const { wallet } = useContext(WalletContext);
-  const userAddress = wallet.user?.address;
+  const userAddress = useAppSelector((state) => state.user.connectedWallet);
   const dispatch = useAppDispatch();
   const userEntityCollections = useAppSelector(selectUserEntityCollections);
   const userEntityCollectionsIds = useAppSelector(

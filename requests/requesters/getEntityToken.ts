@@ -14,7 +14,6 @@ export default async function requestUsersToken(
   ]);
 
   if (!tokenData) throw new Error("Panica!");
-  console.log(tokenOwner);
 
   if (tokenData.CARBON && tokenDataTotal)
     tokenData.CARBON._totalMinted = tokenDataTotal?.CARBON;

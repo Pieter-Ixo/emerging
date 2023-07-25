@@ -86,14 +86,6 @@ export const fillEntitiesForUserCollections = createAsyncThunk(
   }
 );
 
-export const fetchEntitiesByOwnerAddressAndFill = createAsyncThunk(
-  "entityCollections/fetchEntitiesByOwnerAddressAndFill",
-  async (owner: string): Promise<IEntityExtended[]> => {
-    const entities = await requestEntitiesByOwnerAddress(owner);
-    return entities.filter((entity) => entity.type === "asset/device");
-  }
-);
-
 export const fetchUsersTokens = createAsyncThunk(
   "entityCollections/fetchUsersTokens",
   async (entityOwner: string): Promise<ITokenWhateverItMean | undefined> => {

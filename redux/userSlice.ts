@@ -11,6 +11,7 @@ export interface UserState {
   selectedAssetId: { deviceId: string; assetId: string };
   ClaimableCarbon: number;
   impactNavi: string;
+  connectedWallet: string | undefined;
 }
 
 const initialState: UserState = {
@@ -23,6 +24,7 @@ const initialState: UserState = {
   selectedAssetId: { deviceId: "", assetId: "" },
   ClaimableCarbon: 0,
   impactNavi: "Saved",
+  connectedWallet: undefined,
 };
 
 const UserSlice = createSlice({
@@ -51,11 +53,13 @@ const UserSlice = createSlice({
     decrement: (state) => {
       state.count -= 1;
     },
-    connectWallet: (state) => {
+    connectWallet: (state, action) => {
       state.walletConnected = true;
+      state.connectedWallet = action.payload as string;
     },
     disconnectWallet: (state) => {
       state.walletConnected = false;
+      state.connectedWallet = undefined;
     },
     toggleDashboard: (state) => {
       state.dashboardVisible = !state.dashboardVisible;
