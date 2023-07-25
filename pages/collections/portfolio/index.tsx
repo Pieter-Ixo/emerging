@@ -8,9 +8,10 @@ import {
   Grid,
   Input,
   Loader,
-  ScrollArea,
   Text,
 } from "@mantine/core";
+import { Carousel } from "@mantine/carousel";
+
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -133,23 +134,27 @@ export default function Collections() {
           </ActionIcon>
         </Flex>
         {isLoaderVisible}
-        <ScrollArea py={32} sx={{ width: "100%" }}>
-          <Flex align="center" gap={24}>
-            {userEntityCollections &&
-              userEntityCollections.map(({ collection, entities }) => (
-                <Box
-                  key={collection.id}
-                  onClick={() => onCollectionCardClick(collection.id)}
-                >
-                  <CollectionsItem
-                    collection={collection}
-                    isActive={collection.id === activeCardId}
-                    entitiesLength={entities.length}
-                  />
-                </Box>
-              ))}
-          </Flex>
-        </ScrollArea>
+        <Carousel
+          slideGap="md"
+          loop
+          slideSize="27.333333%"
+          py={20}
+          align="start"
+        >
+          {userEntityCollections &&
+            userEntityCollections.map(({ collection, entities }) => (
+              <Carousel.Slide
+                key={collection.id}
+                onClick={() => onCollectionCardClick(collection.id)}
+              >
+                <CollectionsItem
+                  collection={collection}
+                  isActive={collection.id === activeCardId}
+                  entitiesLength={entities.length}
+                />
+              </Carousel.Slide>
+            ))}
+        </Carousel>
         <Box mb={28} sx={{ borderBottom: `1px solid ${palette.Neutral500}` }} />
         <Grid gutter="lg">
           {activeEntityCollection?.entities &&
@@ -170,11 +175,10 @@ export default function Collections() {
                         radius="md"
                         variant="filled"
                       >
-                        380 CARBON to issue
+                        0 CARBON to issue
                       </Badge>
                       <ProgressBar
                         retired={(getEntityTotalMintedAmount(entity) || 0) / 2}
-                        // TODO: clarify where badge id is
                         claimable={
                           (Number(
                             entity?._adminToken?.CARBON.tokens["123" || ""]
@@ -191,10 +195,10 @@ export default function Collections() {
                           size="23px"
                           sx={{ lineHeight: 1.1 }}
                         >
-                          #{123}
+                          {entity.alsoKnownAs.replace("{id}", "")}
                         </Text>
                         <Text color="dimmed" size="12px">
-                          of {123}
+                          of {500}
                         </Text>
                       </Flex>
                     </Box>

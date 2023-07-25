@@ -24,12 +24,7 @@ export default function CollectionsItem({
       radius={16}
     >
       <Card.Section>
-        <Image
-          src={collection._profile?.imageUrl}
-          height={150}
-          width={240}
-          alt="Norway"
-        />
+        <Image src={collection._profile?.imageUrl} height={150} alt="Norway" />
       </Card.Section>
 
       <Flex gap="md" justify="space-between" p={12} bg={activeCardBg}>

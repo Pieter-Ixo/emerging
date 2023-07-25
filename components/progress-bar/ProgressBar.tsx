@@ -53,9 +53,11 @@ export default function ProgressBar({
             </Text>
           )}
         </Flex>
-        <Text size="12px" lts="0.6px" color={palette.fullBlue}>
-          {showClaimable}
-        </Text>
+        {isAssetView ? (
+          <Text size="12px" lts="0.6px" color={palette.fullBlue}>
+            {showClaimable}
+          </Text>
+        ) : null}
       </Group>
     </>
   );
