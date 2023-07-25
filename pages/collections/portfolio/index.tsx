@@ -1,11 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import {
   ActionIcon,
-  Badge,
   Box,
   Container,
   Flex,
-  Grid,
   Input,
   Loader,
   Text,
@@ -25,9 +23,6 @@ import {
 import { WalletContext } from "@/context/wallet";
 
 import { palette } from "@/theme/palette";
-import ProfileCard from "@/components/ProfileCard";
-import ProgressBar from "@/components/progress-bar/ProgressBar";
-import { getEntityTotalMintedAmount } from "@/helpers/transformData/getTotalMintedAmount";
 import { ICollectionEntities } from "@/types/entityCollections";
 
 import CollectionsLayout from "../components/Layout";
@@ -37,13 +32,16 @@ import CollectionIcon from "./components/icons/CollectionIcon";
 import FilterIcon from "./components/icons/FilterIcon";
 import TabsIcon from "./components/icons/TabsIcon";
 import CollectionsItem from "./components/CollectionsItem";
+import EntitiesList from "./components/EntitiesList";
 
 export default function Collections() {
   const dispatch = useAppDispatch();
 
   const [isCollectionActive, setCollectionActive] = useState(false);
   const [isTabsActive, setTabsActive] = useState(false);
-  const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  const [activeCardId, setActiveCardId] = useState<string | undefined>(
+    undefined
+  );
 
   const userEntityCollections = useAppSelector(selectUserEntityCollections);
 
@@ -75,14 +73,18 @@ export default function Collections() {
 
   function onCollectionCardClick(collectionId: string) {
     if (activeCardId === collectionId) {
-      setActiveCardId(null);
+      setActiveCardId(undefined);
       setActiveEntityCollection(undefined);
     } else {
       setActiveCardId(collectionId);
-
-      setActiveEntityCollection(findActiveCollectionEntitiesById(collectionId));
     }
   }
+
+  useEffect(() => {
+    if (activeCardId) {
+      setActiveEntityCollection(findActiveCollectionEntitiesById(activeCardId));
+    }
+  }, [activeCardId]);
 
   useEffect(() => {
     if (activeEntityCollection) {
@@ -92,7 +94,7 @@ export default function Collections() {
 
   const isLoaderVisible = isLoading && <Loader />;
 
-  const totalAssets = entityCollections.entityCollections[0].entities.length;
+  const totalAssets = entityCollections?.entityCollections[0]?.entities.length;
 
   return (
     <CollectionsLayout>
@@ -154,7 +156,6 @@ export default function Collections() {
             </Flex>
           </ActionIcon>
         </Flex>
-        {isLoaderVisible}
         <Carousel
           slideGap="md"
           loop
@@ -176,50 +177,12 @@ export default function Collections() {
           ))}
         </Carousel>
         <Box mb={28} sx={{ borderBottom: `1px solid ${palette.Neutral500}` }} />
-        <Grid gutter="lg">
-          {activeEntityCollection?.entities &&
-            activeEntityCollection.entities.map((entity) => (
-              <Grid.Col key={entity.id} span={4}>
-                <ProfileCard
-                  entity={entity}
-                  measure={
-                    <Box>
-                      <Badge
-                        sx={{
-                          background: palette.activeBlue,
-                          textAlign: "center",
-                          textTransform: "none",
-                        }}
-                        fw="400"
-                        mb="xs"
-                        radius="md"
-                        variant="filled"
-                      >
-                        0 CARBON to issue
-                      </Badge>
-                      <ProgressBar
-                        retired={(getEntityTotalMintedAmount(entity) || 0) / 2}
-                        produced={getEntityTotalMintedAmount(entity)}
-                      />
-                      <Flex gap={6} align="end" pt="xs">
-                        <Text
-                          c={palette.Black}
-                          fw={700}
-                          size="23px"
-                          sx={{ lineHeight: 1.1 }}
-                        >
-                          {entity.alsoKnownAs.replace("{id}", "")}
-                        </Text>
-                        <Text color="dimmed" size="12px">
-                          of {totalAssets ?? 500}
-                        </Text>
-                      </Flex>
-                    </Box>
-                  }
-                />
-              </Grid.Col>
-            ))}
-        </Grid>
+        {isLoaderVisible}
+
+        <EntitiesList
+          entities={activeEntityCollection?.entities}
+          totalAssets={totalAssets}
+        />
       </Container>
     </CollectionsLayout>
   );

@@ -12,9 +12,6 @@ export default function ProgressBar({
   claimable,
   produced,
 }: ProgressBarProps) {
-  if (Number.isNaN(Number(retired)) || Number.isNaN(Number(produced)))
-    return null;
-
   const progressBarTotal = (retired || 0) + (claimable || 0) + (produced || 0);
   const retiredPercent = ((retired || 0) / progressBarTotal) * 100;
   const claimablePercent = ((claimable || 0) / progressBarTotal) * 100;
