@@ -1,8 +1,6 @@
 import { Button, Flex, Text } from "@mantine/core";
 
-import {
-  BatchIdentifier,
-} from "@/components/CertificateLayoutComponents";
+import { BatchIdentifier } from "@/components/CertificateLayoutComponents";
 import { palette } from "@/theme/palette";
 import BatchButton from "../BatchButton";
 import Icon1 from "../../icons/Icon1";
@@ -49,12 +47,12 @@ export default function BatchesItem({ name, index, offset, progress }: Props) {
         >
           Verified Emission Reduction
         </Text>
-        <BatchIdentifier name={name} index={index} />
+        <BatchIdentifier name="CARBON" index={index} />
       </Flex>
 
       <Flex align="center" justify="space-between" gap={10}>
         <AstroBatchImage />
-        <BatchProgress progress={progress} />
+        <BatchProgress offset={offset} progress={progress} />
       </Flex>
 
       <Flex gap="sm" justify="center" align="center" direction="row">
