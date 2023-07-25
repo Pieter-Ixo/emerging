@@ -56,10 +56,26 @@ export const selectUserEntitiesLength = createDraftSafeSelector(
     )
 );
 
-export const selectUserEntitiesTotal = createDraftSafeSelector(
+export const selectUserTokens = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState): EntityCollectionState["userTokens"] =>
     state.userTokens
+);
+
+export const selectUserTokensIsLoading = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): boolean => state.isEntityLoading
+);
+
+export const selectAdminTokens = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): EntityCollectionState["adminTokens"] =>
+    state.adminTokens
+);
+
+export const selectAdminTokensIsLoading = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): boolean => state.isAdminTokensLoading
 );
 
 export const selectEntitiesAdminTotal = createDraftSafeSelector(

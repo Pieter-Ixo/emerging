@@ -13,6 +13,7 @@ import {
   fetchEntityByExternalIdAndFill,
   fillEntitiesForUserCollections,
   fetchUsersTokens,
+  fetchAdminTokens,
 } from "./thunks";
 
 export type EntityCollectionState = {
@@ -22,6 +23,8 @@ export type EntityCollectionState = {
   selectedEntity: undefined | IEntityExtended;
   userEntityCollections: ICollectionEntities[];
   userTokens: undefined | ITokenWhateverItMean;
+  adminTokens: undefined | ITokenWhateverItMean;
+  isAdminTokensLoading: boolean;
   isUserTokensLoading: boolean;
 };
 
@@ -32,6 +35,8 @@ const initialState: EntityCollectionState = {
   selectedEntity: undefined,
   userEntityCollections: [],
   userTokens: undefined,
+  adminTokens: undefined,
+  isAdminTokensLoading: false,
   isUserTokensLoading: false,
 };
 
@@ -105,6 +110,16 @@ const EntityCollectionSlice = createSlice({
     builder.addCase(fetchUsersTokens.fulfilled, (state, action) => {
       state.userTokens = action.payload;
       state.isUserTokensLoading = false;
+    });
+
+    // fetchAdminTokens
+    builder.addCase(fetchAdminTokens.pending, (state) => {
+      state.isAdminTokensLoading = true;
+    });
+    // eslint-disable-next-line no-undef
+    builder.addCase(fetchAdminTokens.fulfilled, (state, action) => {
+      state.adminTokens = action.payload;
+      state.isAdminTokensLoading = false;
     });
 
     builder.addCase(HYDRATE, (state, action) => ({

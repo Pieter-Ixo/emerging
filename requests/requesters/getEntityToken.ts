@@ -20,3 +20,13 @@ export default async function requestUsersToken(
 
   return tokenData;
 }
+
+export async function requestTokenByAddress(
+  tokenOwner: string
+): Promise<ITokenWhateverItMean> {
+  const tokenData = await requestBlocksyncAPI<ITokenWhateverItMean>(
+    `/api/token/byAddress/${tokenOwner}`
+  );
+  if (!tokenData) throw new Error("Panica!");
+  return tokenData;
+}

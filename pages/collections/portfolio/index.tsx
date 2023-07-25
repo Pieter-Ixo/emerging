@@ -3,7 +3,6 @@ import { Box, Container, Loader, Text } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
 import {
   selectEntityCollections,
   selectIsEntityCollectionsLoading,
@@ -20,8 +19,6 @@ import EntitiesList from "./components/EntitiesList";
 import Controls from "./components/Controls";
 
 export default function Collections() {
-  const dispatch = useAppDispatch();
-
   const [activeCardId, setActiveCardId] = useState<string | undefined>(
     undefined
   );
@@ -59,12 +56,6 @@ export default function Collections() {
       setActiveEntityCollection(findActiveCollectionEntitiesById(activeCardId));
     }
   }, [activeCardId]);
-
-  useEffect(() => {
-    if (activeEntityCollection) {
-      dispatch(fillEntitiesForUserCollections(activeEntityCollection));
-    }
-  }, [activeEntityCollection, dispatch]);
 
   const totalAssets = entityCollections?.entityCollections[0]?.entities.length;
 

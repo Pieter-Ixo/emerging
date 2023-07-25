@@ -7,7 +7,9 @@ import {
   requestEntitiesByOwnerAddress,
   requestEntityByExternalID,
 } from "@/requests/blocksync";
-import requestUsersToken from "@/requests/requesters/getEntityToken";
+import requestUsersToken, {
+  requestTokenByAddress,
+} from "@/requests/requesters/getEntityToken";
 import {
   ICollectionEntities,
   IEntityExtended,
@@ -90,6 +92,15 @@ export const fetchUsersTokens = createAsyncThunk(
   "entityCollections/fetchUsersTokens",
   async (entityOwner: string): Promise<ITokenWhateverItMean | undefined> => {
     const tokenData = await requestUsersToken(entityOwner);
+    return tokenData;
+  }
+);
+export const fetchAdminTokens = createAsyncThunk(
+  "entityCollections/fetchAdminTokens",
+  async (adminAddress: string): Promise<ITokenWhateverItMean | undefined> => {
+    const tokenData = await requestTokenByAddress(adminAddress);
+    console.log("🐼", { tokenData });
+
     return tokenData;
   }
 );
