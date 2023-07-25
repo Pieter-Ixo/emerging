@@ -9,18 +9,11 @@ import {
   selectUserEntityCollectionsIds,
 } from "@/redux/entityCollections/selectors";
 import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
+import isStringArraysEqual from "@/utils/isStringArraysEqual";
 
 import ConnectedAccount from "../connectedAccount/connected_account";
 import ImpactCreditsCard from "../userBalance/ImpactCreditsCard";
 import HeaderLogo from "../Header_Logo/Index";
-
-function compareArrays(arr1: string[], arr2: string[]): boolean {
-  if (arr1.length !== arr2.length) return false;
-  for (let i = 0; i < arr1.length; i++) {
-    if (arr2[i] !== arr1[i]) return false;
-  }
-  return true;
-}
 
 export default function Nav() {
   const [idsList, setIdsList] = useState<string[]>([]);
@@ -32,7 +25,7 @@ export default function Nav() {
   );
 
   useEffect(() => {
-    if (compareArrays(idsList, userEntityCollectionsIds)) return;
+    if (isStringArraysEqual(idsList, userEntityCollectionsIds)) return;
     setIdsList(userEntityCollectionsIds);
 
     userEntityCollections.forEach((userEntityCollection) => {
