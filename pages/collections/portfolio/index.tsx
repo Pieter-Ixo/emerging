@@ -12,13 +12,13 @@ import {
 } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 
-
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   fetchCollectionsByOwnerAddres,
   fillEntitiesForUserCollections,
 } from "@/redux/entityCollections/thunks";
 import {
+  selectEntityCollections,
   selectIsEntityCollectionsLoading,
   selectUserEntityCollections,
 } from "@/redux/entityCollections/selectors";
@@ -28,6 +28,7 @@ import { palette } from "@/theme/palette";
 import ProfileCard from "@/components/ProfileCard";
 import ProgressBar from "@/components/progress-bar/ProgressBar";
 import { getEntityTotalMintedAmount } from "@/helpers/transformData/getTotalMintedAmount";
+import { ICollectionEntities } from "@/types/entityCollections";
 
 import CollectionsLayout from "../components/Layout";
 import Header from "./components/Header";
@@ -45,8 +46,14 @@ export default function Collections() {
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
 
   const userEntityCollections = useAppSelector(selectUserEntityCollections);
+
+  const entityCollections = useAppSelector(selectEntityCollections);
+
   const isLoading = useAppSelector(selectIsEntityCollectionsLoading);
-  const activeEntityCollection = userEntityCollections[0];
+
+  const [activeEntityCollection, setActiveEntityCollection] = useState<
+    ICollectionEntities | undefined
+  >();
 
   const { wallet } = useContext(WalletContext);
 
@@ -59,19 +66,33 @@ export default function Collections() {
     }
   }, [dispatch, userAddress]);
 
+  function findActiveCollectionEntitiesById(collectionId: string) {
+    return userEntityCollections.find(
+      (collectionWithEntities: ICollectionEntities) =>
+        collectionWithEntities.collection.id === collectionId
+    );
+  }
+
   function onCollectionCardClick(collectionId: string) {
     if (activeCardId === collectionId) {
       setActiveCardId(null);
+      setActiveEntityCollection(undefined);
     } else {
       setActiveCardId(collectionId);
 
-      if (activeEntityCollection) {
-        dispatch(fillEntitiesForUserCollections(activeEntityCollection));
-      }
+      setActiveEntityCollection(findActiveCollectionEntitiesById(collectionId));
     }
   }
 
+  useEffect(() => {
+    if (activeEntityCollection) {
+      dispatch(fillEntitiesForUserCollections(activeEntityCollection));
+    }
+  }, [activeEntityCollection, dispatch]);
+
   const isLoaderVisible = isLoading && <Loader />;
+
+  const totalAssets = entityCollections.entityCollections[0].entities.length;
 
   return (
     <CollectionsLayout>
@@ -141,19 +162,18 @@ export default function Collections() {
           py={20}
           align="start"
         >
-          {userEntityCollections &&
-            userEntityCollections.map(({ collection, entities }) => (
-              <Carousel.Slide
-                key={collection.id}
-                onClick={() => onCollectionCardClick(collection.id)}
-              >
-                <CollectionsItem
-                  collection={collection}
-                  isActive={collection.id === activeCardId}
-                  entitiesLength={entities.length}
-                />
-              </Carousel.Slide>
-            ))}
+          {userEntityCollections?.map(({ collection, entities }) => (
+            <Carousel.Slide
+              key={collection.id}
+              onClick={() => onCollectionCardClick(collection.id)}
+            >
+              <CollectionsItem
+                collection={collection}
+                isActive={collection.id === activeCardId}
+                entitiesLength={entities.length}
+              />
+            </Carousel.Slide>
+          ))}
         </Carousel>
         <Box mb={28} sx={{ borderBottom: `1px solid ${palette.Neutral500}` }} />
         <Grid gutter="lg">
@@ -179,14 +199,7 @@ export default function Collections() {
                       </Badge>
                       <ProgressBar
                         retired={(getEntityTotalMintedAmount(entity) || 0) / 2}
-                        claimable={
-                          (Number(
-                            entity?._adminToken?.CARBON.tokens["123" || ""]
-                              ?.minted
-                          ) || 0) * 2
-                        }
                         produced={getEntityTotalMintedAmount(entity)}
-                        isAssetView={false}
                       />
                       <Flex gap={6} align="end" pt="xs">
                         <Text
@@ -198,7 +211,7 @@ export default function Collections() {
                           {entity.alsoKnownAs.replace("{id}", "")}
                         </Text>
                         <Text color="dimmed" size="12px">
-                          of {500}
+                          of {totalAssets ?? 500}
                         </Text>
                       </Flex>
                     </Box>

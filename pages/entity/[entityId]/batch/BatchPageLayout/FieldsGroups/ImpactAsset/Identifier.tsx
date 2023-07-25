@@ -30,7 +30,6 @@ export default function Identifier({
               retired={retired}
               claimable={claimable}
               produced={produced}
-              isAssetView
             />
             <Group spacing="4px" pt="xs">
               <Text>{label}</Text>
