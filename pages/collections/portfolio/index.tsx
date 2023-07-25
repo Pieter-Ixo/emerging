@@ -1,17 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import {
   ActionIcon,
-  Badge,
   Box,
   Container,
   Flex,
-  Grid,
-  Group,
   Input,
   Loader,
-  ScrollArea,
   Text,
 } from "@mantine/core";
+import { Carousel } from "@mantine/carousel";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -19,14 +16,14 @@ import {
   fillEntitiesForUserCollections,
 } from "@/redux/entityCollections/thunks";
 import {
+  selectEntityCollections,
   selectIsEntityCollectionsLoading,
   selectUserEntityCollections,
 } from "@/redux/entityCollections/selectors";
 import { WalletContext } from "@/context/wallet";
 
 import { palette } from "@/theme/palette";
-import ProfileCard from "@/components/ProfileCard";
-import ProgressBar from "@/components/progress-bar/ProgressBar";
+import { ICollectionEntities } from "@/types/entityCollections";
 
 import CollectionsLayout from "../components/Layout";
 import Header from "./components/Header";
@@ -35,17 +32,26 @@ import CollectionIcon from "./components/icons/CollectionIcon";
 import FilterIcon from "./components/icons/FilterIcon";
 import TabsIcon from "./components/icons/TabsIcon";
 import CollectionsItem from "./components/CollectionsItem";
+import EntitiesList from "./components/EntitiesList";
 
 export default function Collections() {
   const dispatch = useAppDispatch();
 
   const [isCollectionActive, setCollectionActive] = useState(false);
   const [isTabsActive, setTabsActive] = useState(false);
-  const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  const [activeCardId, setActiveCardId] = useState<string | undefined>(
+    undefined
+  );
 
   const userEntityCollections = useAppSelector(selectUserEntityCollections);
+
+  const entityCollections = useAppSelector(selectEntityCollections);
+
   const isLoading = useAppSelector(selectIsEntityCollectionsLoading);
-  const activeEntityCollection = userEntityCollections[0];
+
+  const [activeEntityCollection, setActiveEntityCollection] = useState<
+    ICollectionEntities | undefined
+  >();
 
   const { wallet } = useContext(WalletContext);
 
@@ -57,19 +63,37 @@ export default function Collections() {
     }
   }, [dispatch, userAddress]);
 
+  function findActiveCollectionEntitiesById(collectionId: string) {
+    return userEntityCollections.find(
+      (collectionWithEntities: ICollectionEntities) =>
+        collectionWithEntities.collection.id === collectionId
+    );
+  }
+
   function onCollectionCardClick(collectionId: string) {
     if (activeCardId === collectionId) {
-      setActiveCardId(null);
+      setActiveCardId(undefined);
+      setActiveEntityCollection(undefined);
     } else {
       setActiveCardId(collectionId);
-
-      if (activeEntityCollection) {
-        dispatch(fillEntitiesForUserCollections(activeEntityCollection));
-      }
     }
   }
 
+  useEffect(() => {
+    if (activeCardId) {
+      setActiveEntityCollection(findActiveCollectionEntitiesById(activeCardId));
+    }
+  }, [activeCardId]);
+
+  useEffect(() => {
+    if (activeEntityCollection) {
+      dispatch(fillEntitiesForUserCollections(activeEntityCollection));
+    }
+  }, [activeEntityCollection, dispatch]);
+
   const isLoaderVisible = isLoading && <Loader />;
+
+  const totalAssets = entityCollections?.entityCollections[0]?.entities.length;
 
   return (
     <CollectionsLayout>
@@ -131,70 +155,33 @@ export default function Collections() {
             </Flex>
           </ActionIcon>
         </Flex>
-        {isLoaderVisible}
-        <ScrollArea py={32} sx={{ width: "100%" }}>
-          <Flex align="center" gap={24}>
-            {userEntityCollections &&
-              userEntityCollections.map(({ collection, entities }) => (
-                <Box
-                  key={collection.id}
-                  onClick={() => onCollectionCardClick(collection.id)}
-                >
-                  <CollectionsItem
-                    collection={collection}
-                    isActive={collection.id === activeCardId}
-                    entitiesLength={entities.length}
-                  />
-                </Box>
-              ))}
-          </Flex>
-        </ScrollArea>
+        <Carousel
+          slideGap="md"
+          loop
+          slideSize="27.333333%"
+          py={20}
+          align="start"
+        >
+          {userEntityCollections?.map(({ collection, entities }) => (
+            <Carousel.Slide
+              key={collection.id}
+              onClick={() => onCollectionCardClick(collection.id)}
+            >
+              <CollectionsItem
+                collection={collection}
+                isActive={collection.id === activeCardId}
+                entitiesLength={entities.length}
+              />
+            </Carousel.Slide>
+          ))}
+        </Carousel>
         <Box mb={28} sx={{ borderBottom: `1px solid ${palette.Neutral500}` }} />
-        <Grid gutter="lg">
-          {activeEntityCollection?.entities &&
-            activeEntityCollection.entities.map((entity) => (
-              <Grid.Col key={entity.id} span={4}>
-                <ProfileCard
-                  entity={entity}
-                  measure={
-                    <Box>
-                      <Badge
-                        sx={{
-                          background: palette.activeBlue,
-                          textAlign: "center",
-                          textTransform: "none",
-                        }}
-                        fw="400"
-                        mb="xs"
-                        radius="md"
-                        variant="filled"
-                      >
-                        380 CARBON to issue
-                      </Badge>
-                      <ProgressBar
-                        retired={111}
-                        produced={222}
-                        claimable={null}
-                      />
-                      <Flex gap={6} align="end" pt="xs">
-                        <Text
-                          c={palette.Black}
-                          fw={700}
-                          size="23px"
-                          sx={{ lineHeight: 1.1 }}
-                        >
-                          #{123}
-                        </Text>
-                        <Text color="dimmed" size="12px">
-                          of {123}
-                        </Text>
-                      </Flex>
-                    </Box>
-                  }
-                />
-              </Grid.Col>
-            ))}
-        </Grid>
+        {isLoaderVisible}
+
+        <EntitiesList
+          entities={activeEntityCollection?.entities}
+          totalAssets={totalAssets}
+        />
       </Container>
     </CollectionsLayout>
   );
