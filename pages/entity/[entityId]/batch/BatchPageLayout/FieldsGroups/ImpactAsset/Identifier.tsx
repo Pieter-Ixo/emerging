@@ -1,54 +1,11 @@
-import { Button, Flex, Group, Text, Progress, Box } from "@mantine/core";
-
-import { palette } from "@/theme/palette";
+import { Button, Flex, Group, Text, Box } from "@mantine/core";
+import ProgressBar from "@/components/progress-bar/ProgressBar";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import ProfileCard from "@/components/ProfileCard";
+import dateLocale from "@/utils/dateLocale";
 
 import { FieldText } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
-
-function ProgressBar({ retired, claimable, produced }) {
-  if (
-    Number.isNaN(Number(retired)) ||
-    Number.isNaN(Number(claimable)) ||
-    Number.isNaN(Number(produced))
-  )
-    return null;
-
-  const progressBarTotal = retired + claimable + produced;
-  const retiredPercent = (retired / progressBarTotal) * 100;
-  const claimablePercent = (claimable / progressBarTotal) * 100;
-  const producedPercent = (produced / progressBarTotal) * 100;
-
-  return (
-    <>
-      <Group align="end">
-        <Text size="22px" fw="500" lts="1.1px">
-          {produced}
-        </Text>
-        <Text size="12px" fw="300" lts="0.6px">
-          CARBON produced
-        </Text>
-      </Group>
-      <Progress
-        size="xl"
-        sections={[
-          { value: retiredPercent, color: palette.greenFull },
-          { value: claimablePercent, color: palette.fullBlue },
-          { value: producedPercent, color: palette.Black },
-        ]}
-      />
-      <Group>
-        <Text size="12px" lts="0.6px" color={palette.greenFull}>
-          {retired.toLocaleString()} retired
-        </Text>
-        <Text size="12px" lts="0.6px" color={palette.fullBlue}>
-          {claimable.toLocaleString()} claimable
-        </Text>
-      </Group>
-    </>
-  );
-}
 
 export default function Identifier({
   entity,
@@ -60,23 +17,38 @@ export default function Identifier({
   const { isVisible, openPortal, closePortal } = useDetailPortal("Identifier");
   const label = entity?.alsoKnownAs.split("}")[1];
 
+  const startDate = dateLocale(entity?.metadata.created);
+  const price = entity?._profile?.metrics[0];
+
   const PortalChild = (
     <ProfileCard
       entity={entity}
       measure={
-        <Box>
-          <ProgressBar
-            retired={retired}
-            claimable={claimable}
-            produced={produced}
-          />
-          <Group spacing="4px" pt="xs">
-            <Text>{label}</Text>
-            <Text color="dimmed" size="12px">
-              of {collectionAssetsAmount}
+        <>
+          <Box mt="40px">
+            <ProgressBar
+              retired={retired}
+              claimable={claimable}
+              produced={produced}
+            />
+            <Group spacing="4px" pt="xs">
+              <Text>{label}</Text>
+              <Text color="dimmed" size="12px">
+                of {collectionAssetsAmount}
+              </Text>
+            </Group>
+          </Box>
+          <Flex mt="md" direction="row" justify="space-between">
+            <Text color="dimmed" size="12px" lh="100%">
+              {startDate}
             </Text>
-          </Group>
-        </Box>
+            {price && (
+              <Text color="dimmed" size="12px" lh="100%">
+                {`${price?.prefix} ${price?.metric}`}
+              </Text>
+            )}
+          </Flex>
+        </>
       }
     />
   );

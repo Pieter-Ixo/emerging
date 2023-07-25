@@ -10,6 +10,7 @@ export const palette = {
   // EmergingBlue
   brightBlue: "#AAD7FF",
   fullBlue: "#2B94F5",
+  activeBlue:"#03D0FB",
   darkerBlue: "#296DAB",
   darkestBlue: "#13263D",
   o1blue: "#007ABE",

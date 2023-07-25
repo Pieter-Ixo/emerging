@@ -6,7 +6,7 @@ export default function getEntityTotalTokenAmount(
   if (!entity) return undefined;
 
   return Object.entries(
-    entity?._token?.CARBON._totalMinted?.tokens ?? {}
+    entity?._adminToken?.CARBON._totalMinted?.tokens ?? {}
   )?.[0]?.[1].amount;
 }
 
@@ -16,6 +16,6 @@ export function getEntityTotalMintedAmount(
   if (!entity) return undefined;
 
   return Object.entries(
-    entity?._token?.CARBON._totalMinted?.tokens ?? {}
+    entity?._adminToken?.CARBON._totalMinted?.tokens ?? {}
   )?.[0]?.[1].minted;
 }

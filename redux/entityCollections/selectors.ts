@@ -4,6 +4,7 @@ import {
   ICollectionEntities,
   ICollectionExtended,
   IEntity,
+  ITokenOfTokenCarbon,
 } from "@/types/entityCollections";
 
 // eslint-disable-next-line import/no-cycle
@@ -25,10 +26,79 @@ export const selectCollections = createDraftSafeSelector(
     )
 );
 
-export const selectUserEntityCollection = createDraftSafeSelector(
+export const selectCollectionById = (
+  state: RootState,
+  collectionId: string | null
+): ICollectionEntities | undefined =>
+  state.entityCollection.userEntityCollections.find(
+    (collectionWithEntites) =>
+      collectionWithEntites.collection.id === collectionId
+  );
+
+export const selectUserEntityCollections = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState): ICollectionEntities[] =>
     state.userEntityCollections
+);
+
+export const selectUserEntityCollectionsIds = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): string[] =>
+    state.userEntityCollections.map((uec) => uec.collection.id)
+);
+
+export const selectUserEntitiesLength = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): number =>
+    state.userEntityCollections.reduce(
+      (acc, { entities }) => acc + entities.length,
+      0
+    )
+);
+
+export const selectUserEntitiesTotal = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): EntityCollectionState["userTokens"] =>
+    state.userTokens
+);
+
+export const selectEntitiesAdminTotal = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): number => {
+    const collecitonsAmount = state.userEntityCollections.reduce(
+      (collectionAcc, { entities }) => {
+        const entitiesAmount = entities.reduce((entityAcc, entity) => {
+          const tokens = entity._adminToken?.CARBON._totalMinted?.tokens;
+          if (!tokens) return entityAcc;
+
+          const tokenAmount = Object.values(tokens)[0].amount;
+
+          return entityAcc + (tokenAmount || 0);
+        }, 0);
+        return collectionAcc + entitiesAmount;
+      },
+      0
+    );
+
+    return collecitonsAmount;
+  }
+);
+
+export const selectUserEntitiesTotalAmount = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): ITokenOfTokenCarbon | undefined => {
+    const totalTokensMap = state.userTokens?.CARBON._totalMinted?.tokens;
+    if (!totalTokensMap) return undefined;
+    const token = Object.values(totalTokensMap)?.[0] || {};
+    return token;
+  }
+);
+
+export const selectUserEntitiesTotalLoading = createDraftSafeSelector(
+  selectEntityCollections,
+  (
+    state: EntityCollectionState
+  ): EntityCollectionState["isUserTokensLoading"] => state.isUserTokensLoading
 );
 
 export const selectCollectionAssetsCount = createDraftSafeSelector(
@@ -36,6 +106,7 @@ export const selectCollectionAssetsCount = createDraftSafeSelector(
   (state: EntityCollectionState): number =>
     state?.entityCollections[0]?.entities.length
 );
+
 export const selectOnlyCollection = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState): ICollectionExtended =>

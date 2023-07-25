@@ -21,7 +21,7 @@ export type IAccordedRight = {
 };
 
 export type IAccount = {
-  name: string;
+  name: string | "admin";
   address: string;
 };
 
@@ -187,7 +187,7 @@ export type ITokenWhateverItMean = {
 
 export type IEntityExtended = IEntity & {
   _profile?: IEntityProfile;
-  _token?: ITokenWhateverItMean;
+  _adminToken?: ITokenWhateverItMean;
   _deviceCredential?: IDeviceCredentials;
   _supamoto?: ISupamoto;
   _supamotoCookingSummary?: ISupamotoCookingSumary;

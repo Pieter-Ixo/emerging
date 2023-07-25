@@ -49,7 +49,7 @@ export default function ImpactAsset({
         />
         <ImpactCreditsProduced
           tokenTotal={totalMinted}
-          tokens={entity?._token?.CARBON}
+          tokens={entity?._adminToken?.CARBON}
         />
         <Flex justify="space-between" align="center">
           <FieldText>Credits Retired</FieldText>

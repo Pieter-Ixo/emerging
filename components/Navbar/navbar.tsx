@@ -1,15 +1,37 @@
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Box, Flex, Navbar } from "@mantine/core";
 
-import { useAppSelector } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { palette } from "@/theme/palette";
+import {
+  selectUserEntityCollections,
+  selectUserEntityCollectionsIds,
+} from "@/redux/entityCollections/selectors";
+import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
+import isStringArraysEqual from "@/utils/isStringArraysEqual";
 
 import ConnectedAccount from "../connectedAccount/connected_account";
 import ImpactCreditsCard from "../userBalance/ImpactCreditsCard";
 import HeaderLogo from "../Header_Logo/Index";
 
 export default function Nav() {
+  const [idsList, setIdsList] = useState<string[]>([]);
   const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const userEntityCollections = useAppSelector(selectUserEntityCollections);
+  const userEntityCollectionsIds = useAppSelector(
+    selectUserEntityCollectionsIds
+  );
+
+  useEffect(() => {
+    if (isStringArraysEqual(idsList, userEntityCollectionsIds)) return;
+    setIdsList(userEntityCollectionsIds);
+
+    userEntityCollections.forEach((userEntityCollection) => {
+      dispatch(fillEntitiesForUserCollections(userEntityCollection));
+    });
+  }, [userEntityCollectionsIds]);
 
   return (
     <Navbar

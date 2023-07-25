@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import {
   ActionIcon,
+  Badge,
   Box,
   Container,
   Flex,
   Grid,
+  Group,
   Input,
   Loader,
   ScrollArea,
@@ -18,16 +20,14 @@ import {
 } from "@/redux/entityCollections/thunks";
 import {
   selectIsEntityCollectionsLoading,
-  selectUserEntityCollection,
+  selectUserEntityCollections,
 } from "@/redux/entityCollections/selectors";
 import { WalletContext } from "@/context/wallet";
-import {
-  ICollectionEntities,
-  IEntityExtended,
-} from "@/types/entityCollections";
 
 import { palette } from "@/theme/palette";
-import Identifier from "@/pages/entity/[entityId]/batch/BatchPageLayout/FieldsGroups/ImpactAsset/Identifier";
+import ProfileCard from "@/components/ProfileCard";
+import ProgressBar from "@/components/progress-bar/ProgressBar";
+
 import CollectionsLayout from "../components/Layout";
 import Header from "./components/Header";
 import SearchIcon from "./components/icons/SearchIcon";
@@ -38,13 +38,19 @@ import CollectionsItem from "./components/CollectionsItem";
 
 export default function Collections() {
   const dispatch = useAppDispatch();
-  const userEntityCollections = useAppSelector(selectUserEntityCollection);
-  const isLoading = useAppSelector(selectIsEntityCollectionsLoading);
-  const { wallet } = useContext(WalletContext);
-  const userAddress =
-    wallet.user?.address || "ixo1xwn45d6xhe3egcz3nqlfc2elpc3h6usy6yw3uk";
 
-  console.log("🧅", userEntityCollections);
+  const [isCollectionActive, setCollectionActive] = useState(false);
+  const [isTabsActive, setTabsActive] = useState(false);
+  const [activeCardId, setActiveCardId] = useState<string | null>(null);
+
+  const userEntityCollections = useAppSelector(selectUserEntityCollections);
+  const isLoading = useAppSelector(selectIsEntityCollectionsLoading);
+  const activeEntityCollection = userEntityCollections[0];
+
+  const { wallet } = useContext(WalletContext);
+
+  const userAddress =
+    "ixo1xwn45d6xhe3egcz3nqlfc2elpc3h6usy6yw3uk" || wallet.user?.address;
 
   useEffect(() => {
     if (userAddress) {
@@ -52,44 +58,19 @@ export default function Collections() {
     }
   }, [dispatch, userAddress]);
 
-  function fillEntities(entityCollection: ICollectionEntities) {
-    dispatch(fillEntitiesForUserCollections(entityCollection));
+  function onCollectionCardClick(collectionId: string) {
+    if (activeCardId === collectionId) {
+      setActiveCardId(null);
+    } else {
+      setActiveCardId(collectionId);
+
+      if (activeEntityCollection) {
+        dispatch(fillEntitiesForUserCollections(activeEntityCollection));
+      }
+    }
   }
 
   const isLoaderVisible = isLoading && <Loader />;
-
-  const [isCollectionActive, setCollectionActive] = useState(false);
-  const [isTabsActive, setTabsActive] = useState(false);
-
-  const [activeCardId, setActiveCardId] = useState<string | null>(null);
-
-  const [selectedEntities, setSelectedEntities] = useState<
-    IEntityExtended[] | null
-  >(null);
-
-  function findSelectedCollectionEntities() {
-    const selectedCollection = userEntityCollections.find(
-      ({ collection }) => collection.id === activeCardId
-    );
-
-    if (selectedCollection) {
-      fillEntities(selectedCollection);
-    }
-
-    return selectedCollection ? selectedCollection.entities : null;
-  }
-
-  const handleCard = (cardId: string) => {
-    if (activeCardId === cardId) {
-      return setActiveCardId(null);
-    }
-    return setActiveCardId(cardId);
-  };
-
-  useEffect(() => {
-    setSelectedEntities(findSelectedCollectionEntities());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeCardId]);
 
   return (
     <CollectionsLayout>
@@ -156,25 +137,62 @@ export default function Collections() {
           <Flex align="center" gap={24}>
             {userEntityCollections &&
               userEntityCollections.map(({ collection, entities }) => (
-                <CollectionsItem
+                <Box
                   key={collection.id}
-                  id={collection.id}
-                  collection={collection}
-                  activeCardId={activeCardId}
-                  entitiesLength={entities.length}
-                  toggleCard={handleCard}
-                />
+                  onClick={() => onCollectionCardClick(collection.id)}
+                >
+                  <CollectionsItem
+                    collection={collection}
+                    isActive={collection.id === activeCardId}
+                    entitiesLength={entities.length}
+                  />
+                </Box>
               ))}
           </Flex>
         </ScrollArea>
         <Box mb={28} sx={{ borderBottom: `1px solid ${palette.Neutral500}` }} />
-        <Grid grow gutter="lg">
-          {selectedEntities &&
-            selectedEntities.map((entity) => (
+        <Grid gutter="lg">
+          {activeEntityCollection?.entities &&
+            activeEntityCollection.entities.map((entity) => (
               <Grid.Col key={entity.id} span={4}>
-                {/* TODO: clarify how to show single card, instead of
-                 identifier and portal */}
-                <Identifier entity={entity} />
+                <ProfileCard
+                  entity={entity}
+                  measure={
+                    <Box>
+                      <Badge
+                        sx={{
+                          background: palette.activeBlue,
+                          textAlign: "center",
+                          textTransform: "none",
+                        }}
+                        fw="400"
+                        mb="xs"
+                        radius="md"
+                        variant="filled"
+                      >
+                        380 CARBON to issue
+                      </Badge>
+                      <ProgressBar
+                        retired={111}
+                        produced={222}
+                        claimable={null}
+                      />
+                      <Flex gap={6} align="end" pt="xs">
+                        <Text
+                          c={palette.Black}
+                          fw={700}
+                          size="23px"
+                          sx={{ lineHeight: 1.1 }}
+                        >
+                          #{123}
+                        </Text>
+                        <Text color="dimmed" size="12px">
+                          of {123}
+                        </Text>
+                      </Flex>
+                    </Box>
+                  }
+                />
               </Grid.Col>
             ))}
         </Grid>

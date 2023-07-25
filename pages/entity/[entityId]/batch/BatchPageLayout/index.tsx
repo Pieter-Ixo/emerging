@@ -72,7 +72,7 @@ export default function BatchPageLayout() {
   const evaluation = claimVer?.credentialSubject.evaluation;
   const claimCer = batch?._claimCer;
 
-  const batchProgress = entity?._token?.CARBON.tokens[batchId || ""]?.minted;
+  const batchProgress = entity?._adminToken?.CARBON.tokens[batchId || ""]?.minted;
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
