@@ -55,8 +55,7 @@ export function BatchIdentifier({
   index?: string;
   isProgressComplete?: boolean;
 }) {
-  const indexTextColor =
-    isProgressComplete && isProgressComplete ? palette.Black : palette.fullBlue;
+  const indexTextColor = isProgressComplete ? palette.Black : palette.fullBlue;
 
   return (
     <CopyButton value={`${name}/${index}`}>
