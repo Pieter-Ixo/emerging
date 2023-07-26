@@ -22,15 +22,11 @@ function useAdminAddressFromRouter(): string {
 export default function Batches() {
   const dispatch = useAppDispatch();
   const adminAddress = useAdminAddressFromRouter();
-  const addressBatches = useAppSelector(selectAddressBatches);
+  const batchesEntries = useAppSelector(selectAddressBatches);
 
-  const [parsedBatches, setParsedBatches] = useState<
-    IAddressBatchesEntry[] | undefined
-  >();
+  const [parsedBatches, setParsedBatches] = useState<IAddressBatchesEntry[]>();
 
-  const parseAddressBatches = addressBatches
-    ? Object.entries(addressBatches)
-    : undefined;
+  const parseAddressBatches = batchesEntries && Object.entries(batchesEntries);
 
   useEffect(() => {
     if (adminAddress) {
@@ -45,14 +41,14 @@ export default function Batches() {
       <Box maw="70%">
         <Header />
         <Grid gutter="xl">
-          {parsedBatches?.map((betch) => (
-            <Grid.Col key={betch[0]} span={6}>
+          {parsedBatches?.map(([betchId, betchData]) => (
+            <Grid.Col key={betchId} span={6}>
               <BatchesItem
-                index={betch[0]}
-                amount={betch[1].amount}
-                retired={betch[1].retired}
-                minted={betch[1].minted}
-                offset={betch[1].amount}
+                index={betchId}
+                amount={betchData.amount}
+                retired={betchData.retired}
+                minted={betchData.minted}
+                offset={betchData.amount}
               />
             </Grid.Col>
           ))}
