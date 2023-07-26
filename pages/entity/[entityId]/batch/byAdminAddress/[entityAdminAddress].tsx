@@ -1,27 +1,20 @@
 import { useEffect, useState } from "react";
 import { Box, Grid } from "@mantine/core";
-import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchBatchesByAddress } from "@/redux/batches/thunks";
 import { selectAddressBatches } from "@/redux/batches/selectors";
-
+import useValueFromRouter from "@/utils/useValueFromRouter";
 import { IAddressBatchesEntry } from "@/types/certificates";
+
 import BatchesLayout from "../components/layout/BatchesLayout";
-import Header from "./components/Header";
-import BatchesItem from "./components/BatchesItem";
+import Header from "../components/Header";
+import BatchesItem from "../components/BatchesItem";
 
-function useAdminAddressFromRouter(): string {
-  const router = useRouter();
-  const { entityAdminAddress } = router.query;
-
-  if (typeof entityAdminAddress !== "string") return "";
-
-  return entityAdminAddress;
-}
 
 export default function Batches() {
   const dispatch = useAppDispatch();
-  const adminAddress = useAdminAddressFromRouter();
+  const adminAddress = useValueFromRouter("entityAdminAddress");
+  const entityId = useValueFromRouter("entityId");
   const batches = useAppSelector(selectAddressBatches);
 
   const [parsedBatches, setParsedBatches] = useState<IAddressBatchesEntry[]>();
@@ -53,6 +46,7 @@ export default function Batches() {
                 retired={betchData.retired}
                 minted={betchData.minted}
                 offset={betchData.amount}
+                entityId={entityId}
               />
             </Grid.Col>
           ))}

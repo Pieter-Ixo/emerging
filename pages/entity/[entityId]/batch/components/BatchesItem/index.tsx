@@ -2,10 +2,12 @@ import { Button, Flex, Text } from "@mantine/core";
 
 import { BatchIdentifier } from "@/components/CertificateLayoutComponents";
 import { palette } from "@/theme/palette";
+import { useRouter } from "next/router";
+import { MouseEvent } from "react";
 import BatchButton from "../BatchButton";
-import Icon1 from "../../icons/Icon1";
-import Icon2 from "../../icons/Icon2";
-import Icon3 from "../../icons/Icon3";
+import Icon1 from "../../byAdminAddress/icons/Icon1";
+import Icon2 from "../../byAdminAddress/icons/Icon2";
+import Icon3 from "../../byAdminAddress/icons/Icon3";
 import AstroBatchImage from "../AstroBatchImage";
 import BatchProgress from "../BatchProgress";
 
@@ -16,6 +18,7 @@ type Props = {
   amount?: number;
   minted?: number;
   retired?: number;
+  entityId?: string;
 };
 
 export default function BatchesItem({
@@ -25,11 +28,28 @@ export default function BatchesItem({
   minted,
   amount,
   retired,
+  entityId,
 }: Props) {
-  const batchBackgroundImage = retired && amount === 0 && retired > 0 ? 0.4 : 1;
+  const router = useRouter();
+
+  const batchBackgroundImage =
+    retired && amount === 0 && retired > 0
+      ? "url(/images/cert-bg--disabled.png)"
+      : "url(/images/cert-bg.png)";
+
+  const toSingleBatch = () => {
+    const redirectUrl = `/entity/${entityId}/batch/${index}`;
+
+    router.push(redirectUrl);
+  };
+
+  const onOffsetBtnClick = (e: MouseEvent<any>) => {
+    e.stopPropagation();
+  };
 
   return (
     <Flex
+      onClick={() => toSingleBatch()}
       direction="column"
       justify="center"
       gap={10}
@@ -37,12 +57,12 @@ export default function BatchesItem({
       px="2rem"
       sx={{
         position: "relative",
-        backgroundImage: `url(/images/cert-bg.png)`,
+        backgroundImage: batchBackgroundImage,
         backgroundSize: "cover",
-        opacity: batchBackgroundImage,
         backgroundPosition: "center",
         maxHeight: 352,
         borderRadius: 16,
+        cursor: "pointer",
       }}
     >
       <Flex direction="column" gap={10} justify="center">
@@ -77,7 +97,12 @@ export default function BatchesItem({
         <BatchButton>
           <Icon3 />
         </BatchButton>
-        <Button sx={{ flexGrow: 1 }} radius="xl" h={45}>
+        <Button
+          onClick={(e) => onOffsetBtnClick(e)}
+          sx={{ flexGrow: 1 }}
+          radius="xl"
+          h={45}
+        >
           Offset Batch
         </Button>
       </Flex>

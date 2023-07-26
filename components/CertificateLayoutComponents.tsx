@@ -59,9 +59,12 @@ export function BatchIdentifier({
         <Text
           fw={600}
           color={palette.fullBlue}
-          sx={{ fontSize: "13px", position: "relative" }}
+          sx={{ fontSize: "13px", position: "relative", cursor: "pointer" }}
           align="center"
-          onClick={copy}
+          onClick={(e) => {
+            e.stopPropagation();
+            copy();
+          }}
         >
           {`${name}/${shortStr(index, 25, 10)}`}
           <Copy
