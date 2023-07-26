@@ -10,7 +10,7 @@ import requestClaimIssuerFilled from "@/requests/requesters/getClaimIssuer";
 import requestClaimVer from "@/requests/requesters/getClaimVer";
 import { requestEntityWithProfile } from "@/requests/requesters/getEntityProfile";
 import requestVerifiableCredential from "@/requests/requesters/getVerifiableCredential";
-import { IBatch, IBatchDataFilled } from "@/types/certificates";
+import { IAddressBatchResponse, IBatch, IBatchDataFilled } from "@/types/certificates";
 import isURL from "@/utils/isStrUrl";
 
 // eslint-disable-next-line import/no-cycle
@@ -43,15 +43,17 @@ export const fetchBatchesForEntity = createAsyncThunk<
   }
 );
 export const fetchBatchesByAddress = createAsyncThunk<
-  IBatch[],
+  IAddressBatchResponse,
   string,
   { dispatch: AppDispatch }
 >(
   "batches/fetchBatchesByAddress",
-  async (adminAddress: string, { dispatch }): Promise<IBatch[]> => {
+  async (adminAddress: string, { dispatch }): Promise<IAddressBatchResponse> => {
     const batchesResponse = await requestBatchesByAddress(adminAddress);
-    if (!batchesResponse || !Array.isArray(batchesResponse))
+
+    if (!batchesResponse)
       throw new Error("panica!");
+      
     return batchesResponse;
   }
 );

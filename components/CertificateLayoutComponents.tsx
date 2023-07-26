@@ -109,6 +109,7 @@ export function AstroCarbonImage(props: ImageProps) {
   );
 }
 
+// TODO: replace with BatchProgress
 export function OffsetProgres({
   offset,
   progress,

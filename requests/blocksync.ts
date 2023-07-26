@@ -1,7 +1,7 @@
 import { create } from "apisauce";
 
 import { BlocksyncUrl } from "@/constants/chains";
-import { IBatch } from "@/types/certificates";
+import { IAddressBatchResponse, IBatch } from "@/types/certificates";
 import {
   IApiEntityCollectionsResponse,
   ICollectionEntities,
@@ -67,6 +67,7 @@ export async function requestEntitiesByOwnerAddress(
   return entity;
 }
 
+// TODO: rename requestAllBatches
 export async function requestBatches(): Promise<IBatch[] | undefined> {
   const url = "/api/token/name/CARBON";
   const { data, problem } = await blocksynkAPI.get<IBatch[]>(url);
@@ -94,10 +95,12 @@ export async function requestBatchByID(
 }
 export async function requestBatchesByAddress(
   entityAdminAddress: string
-): Promise<IBatch[] | undefined> {
+): Promise<IAddressBatchResponse | undefined> {
   const url = `/api/token/byAddress/${entityAdminAddress}`;
 
-  const { data, problem } = await blocksynkAPI.get<IBatch[]>(url);
+  const { data, problem } = await blocksynkAPI.get<IAddressBatchResponse>(url);
+
   if (!problem && data) return data;
+
   throw new Error("no batches for this admin address");
 }

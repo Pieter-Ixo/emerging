@@ -2,15 +2,18 @@ import { palette } from "@/theme/palette";
 import { Flex, Progress, Text } from "@mantine/core";
 
 export default function BatchProgress({
-  offset,
-  progress,
+  amount = 0,
+  minted = 0,
+  retired = 0,
 }: {
-  offset?: number;
-  progress?: number;
+  amount?: number;
+  minted?: number;
+  retired?: number;
 }) {
-  const offsetString = offset?.toLocaleString?.() ?? 0;
-  const progressString = progress?.toLocaleString?.() ?? 0;
-  const progresPercent = !offset || !progress ? 0 : (progress / offset) * 100;
+  const amountString = amount.toLocaleString();
+  const retiredString = retired.toLocaleString();
+  const mintedString = minted.toLocaleString();
+  const progresPercent = !retired || !minted ? 0 : (retired / minted) * 100;
 
   return (
     <Flex
@@ -25,7 +28,7 @@ export default function BatchProgress({
           fw={600}
           sx={{ fontFamily: "Quicksand", fontSize: "40px" }}
         >
-          {progressString}
+          {amountString}
         </Text>
 
         <Text
@@ -47,9 +50,9 @@ export default function BatchProgress({
 
       <Text c={palette.White} fw={400} sx={{ fontSize: 13 }}>
         <Text span c={palette.fullBlue} inherit>
-          {offsetString} CARBON
+          {retiredString} CARBON
         </Text>{" "}
-        / {progressString} CARBON offset
+        / {mintedString} CARBON offset
       </Text>
     </Flex>
   );

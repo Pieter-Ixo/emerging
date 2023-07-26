@@ -21,7 +21,12 @@ const persistor = persistStore(store);
 function App({ Component, pageProps, router }: AppProps) {
   useEffect(() => {
     // @ts-ignore
-    window.purge = persistor.purge;
+    window.purge = function () {
+      persistor.purge();
+      localStorage.clear();
+      // @ts-ignore
+      window.location.reload(true);
+    };
   }, []);
   return (
     <>
