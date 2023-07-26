@@ -46,7 +46,9 @@ export default function CollectionAssetsCard() {
   const [opened, { open, close }] = useDisclosure(false);
 
   const handleClickAssetRow = (entity: IEntity) => () => {
-    dispatch(setSelectedEntity(entity));
+    if (selectedAssetExternalId === entity.externalId)
+      dispatch(setSelectedEntity(undefined));
+    else dispatch(setSelectedEntity(entity));
   };
 
   const rows = entitiesData?.map((entity) => {
@@ -78,7 +80,10 @@ export default function CollectionAssetsCard() {
         {isSelectedRow && (
           <Modal.Root
             opened={opened}
-            onClose={() => dispatch(setSelectedEntity(undefined))}
+            onClose={() => {
+              dispatch(setSelectedEntity(undefined));
+              close();
+            }}
             radius={16}
             size="md"
             centered

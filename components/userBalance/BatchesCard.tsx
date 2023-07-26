@@ -1,28 +1,32 @@
 import Link from "next/link";
 import { useEffect } from "react";
-import { Card, Flex, Stack, Text } from "@mantine/core";
+import { Card, Flex, Loader, Stack, Text } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchAdminTokens } from "@/redux/entityCollections/thunks";
 import {
   selectAdminTokens,
-  selectUserEntityCollections,
+  selectAdminTokensIsLoading,
 } from "@/redux/entityCollections/selectors";
+import { IEntityExtended } from "@/types/entityCollections";
 
 import Generated from "../Dashboard/CollectionDashboard/cards/ImpactsCard/icons/generated";
 import { ImpactCreditsButtonBlue } from "./styled-buttons";
 
-export default function BatchesCard() {
+export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
   const dispatch = useAppDispatch();
-  const uec = useAppSelector(selectUserEntityCollections);
   const adminTokens = useAppSelector(selectAdminTokens);
-  const entityAdminAddress = uec?.[0]?.entities?.[0]?.accounts?.[0]?.address;
+  const isAdminTokensLoading = useAppSelector(selectAdminTokensIsLoading);
+
+  const entityAdminAddress = entity.accounts[0].address;
+  const entityExternalId = entity.externalId;
 
   useEffect(() => {
     if (entityAdminAddress) dispatch(fetchAdminTokens(entityAdminAddress));
   }, [entityAdminAddress]);
 
+  if (isAdminTokensLoading) return <Loader />;
   if (!adminTokens) return null;
   return (
     <Card p="lg" radius={16}>
@@ -38,7 +42,9 @@ export default function BatchesCard() {
           </Text>
         </Flex>
         <Stack spacing="xs">
-          <Link href={`/batches/${entityAdminAddress}`}>
+          <Link
+            href={`/entity/${entityExternalId}/batch/byAdminAddress/${entityAdminAddress}`}
+          >
             <ImpactCreditsButtonBlue
               leftIcon={<Generated fill={palette.White} />}
             >

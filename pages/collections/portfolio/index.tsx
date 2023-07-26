@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Box, Container, Loader, Text } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useAppSelector } from "@/hooks/redux";
 import {
   selectEntityCollections,
   selectIsEntityCollectionsLoading,
@@ -19,21 +19,15 @@ import EntitiesList from "./components/EntitiesList";
 import Controls from "./components/Controls";
 
 export default function Collections() {
-  const [activeCardId, setActiveCardId] = useState<string | undefined>(
-    undefined
-  );
+  const [activeCardId, setActiveCardId] = useState<string>();
+  const [activeEntityCollection, setActiveEntityCollection] =
+    useState<ICollectionEntities>();
 
   const userEntityCollections = useAppSelector(selectUserEntityCollections);
-
   const entityCollections = useAppSelector(selectEntityCollections);
-
   const isEntityCollectionsLoading = useAppSelector(
     selectIsEntityCollectionsLoading
   );
-
-  const [activeEntityCollection, setActiveEntityCollection] = useState<
-    ICollectionEntities | undefined
-  >();
 
   function findActiveCollectionEntitiesById(collectionId: string) {
     return userEntityCollections.find(
