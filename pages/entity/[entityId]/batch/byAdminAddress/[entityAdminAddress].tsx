@@ -7,21 +7,33 @@ import { selectAddressBatches } from "@/redux/batches/selectors";
 
 import { IAddressBatchesEntry } from "@/types/certificates";
 import BatchesLayout from "../components/layout/BatchesLayout";
-import Header from "./components/Header";
-import BatchesItem from "./components/BatchesItem";
+import Header from "../components/Header";
+import BatchesItem from "../components/BatchesItem";
 
-function useAdminAddressFromRouter(): string {
+type RouterQuery = {
+  adminAddress?: string;
+  entityId?: string;
+};
+
+function useAdminAddressFromRouter(): RouterQuery {
   const router = useRouter();
-  const { entityAdminAddress } = router.query;
+  const { entityAdminAddress, entityId } = router.query;
 
-  if (typeof entityAdminAddress !== "string") return "";
+  if (
+    typeof entityAdminAddress !== "string" &&
+    typeof entityAdminAddress !== "string"
+  )
+    return {};
 
-  return entityAdminAddress;
+  return {
+    adminAddress: entityAdminAddress as string,
+    entityId: entityId as string,
+  };
 }
 
 export default function Batches() {
   const dispatch = useAppDispatch();
-  const adminAddress = useAdminAddressFromRouter();
+  const { adminAddress, entityId } = useAdminAddressFromRouter();
   const batches = useAppSelector(selectAddressBatches);
 
   const [parsedBatches, setParsedBatches] = useState<IAddressBatchesEntry[]>();
@@ -53,6 +65,7 @@ export default function Batches() {
                 retired={betchData.retired}
                 minted={betchData.minted}
                 offset={betchData.amount}
+                entityId={entityId}
               />
             </Grid.Col>
           ))}
