@@ -53,11 +53,11 @@ export default function BatchProgress({
         radius="xl"
         size={14}
         value={progresPercent}
-        sections={[{ value: progresPercent, color: progressPalette }]}
+        sections={[{ value: progresPercent, color: progressColor }]}
       />
 
       <Text c={progressPaletteText} fw={400} sx={{ fontSize: 13 }}>
-        <Text span c={progressPalette} inherit>
+        <Text span c={progressColor} inherit>
           {retiredString} CARBON
         </Text>{" "}
         / {mintedString} CARBON offset
