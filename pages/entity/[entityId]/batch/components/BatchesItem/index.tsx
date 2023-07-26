@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from "@mantine/core";
+import { Button, Flex, Sx, Text } from "@mantine/core";
 
 import { BatchIdentifier } from "@/components/CertificateLayoutComponents";
 import { palette } from "@/theme/palette";
@@ -49,7 +49,7 @@ export default function BatchesItem({
 
   const isProgressComplete = retired === minted;
 
-  const buttonDisabled = isProgressComplete
+  const buttonStyles:Sx = isProgressComplete
     ? {
         cursor: "default",
         backgroundColor: palette.Neutral800,
@@ -113,7 +113,7 @@ export default function BatchesItem({
         </BatchButton>
         <Button
           onClick={(e) => onOffsetBtnClick(e)}
-          sx={{ flexGrow: 1, ...buttonDisabled }}
+          sx={{ flexGrow: 1, ...buttonStyles }}
           radius="xl"
           h={45}
         >
