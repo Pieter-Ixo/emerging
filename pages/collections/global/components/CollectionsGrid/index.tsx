@@ -22,7 +22,7 @@ export default function CollectionsGrid() {
   if (isLoading) return <Loader m="lg" />;
 
   return (
-    <Grid p="lg" gutter="lg">
+    <Grid p="xl" gutter="lg">
       {collections.map((collection) => (
         <Grid.Col span={6} key={`collection-${collection?.id}`}>
           <CollectionCard collection={collection} />

@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from "@mantine/core";
+import { Button, Flex, Sx, Text } from "@mantine/core";
 
 import { BatchIdentifier } from "@/components/CertificateLayoutComponents";
 import { palette } from "@/theme/palette";
@@ -47,6 +47,16 @@ export default function BatchesItem({
     e.stopPropagation();
   };
 
+  const isProgressComplete = retired === minted;
+
+  const buttonStyles:Sx = isProgressComplete
+    ? {
+        cursor: "default",
+        backgroundColor: palette.Neutral800,
+        ":hover": { backgroundColor: palette.Neutral800 },
+      }
+    : {};
+
   return (
     <Flex
       onClick={() => toSingleBatch()}
@@ -79,7 +89,11 @@ export default function BatchesItem({
         >
           Verified Emission Reduction
         </Text>
-        <BatchIdentifier name="CARBON" index={index} />
+        <BatchIdentifier
+          isProgressComplete={isProgressComplete}
+          name="CARBON"
+          index={index}
+        />
       </Flex>
 
       <Flex align="center" justify="space-between" gap={10}>
@@ -99,11 +113,11 @@ export default function BatchesItem({
         </BatchButton>
         <Button
           onClick={(e) => onOffsetBtnClick(e)}
-          sx={{ flexGrow: 1 }}
+          sx={{ flexGrow: 1, ...buttonStyles }}
           radius="xl"
           h={45}
         >
-          Offset Batch
+          {isProgressComplete ? "Fully Offset" : "Offset Batch"}
         </Button>
       </Flex>
     </Flex>

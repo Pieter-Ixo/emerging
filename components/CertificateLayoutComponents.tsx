@@ -49,16 +49,20 @@ export function CardTitle({ children }: PropsWithChildren) {
 export function BatchIdentifier({
   name,
   index,
+  isProgressComplete,
 }: {
   name?: string;
   index?: string;
+  isProgressComplete?: boolean;
 }) {
+  const indexTextColor = isProgressComplete ? palette.Black : palette.fullBlue;
+
   return (
     <CopyButton value={`${name}/${index}`}>
       {({ copied, copy }) => (
         <Text
           fw={600}
-          color={palette.fullBlue}
+          color={indexTextColor}
           sx={{ fontSize: "13px", position: "relative", cursor: "pointer" }}
           align="center"
           onClick={(e) => {
