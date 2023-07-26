@@ -64,7 +64,7 @@ export default function BatchesItem({
 
       <Flex align="center" justify="space-between" gap={10}>
         <AstroBatchImage />
-        <BatchProgress offset={offset} progress={minted} />
+        <BatchProgress retired={retired} amount={amount} minted={minted} />
       </Flex>
 
       <Flex gap="sm" justify="center" align="center" direction="row">
