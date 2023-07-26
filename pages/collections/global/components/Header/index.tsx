@@ -9,10 +9,12 @@ import FilterSettings from "@/assets/icons/filter-settings.svg";
 
 export default function Header() {
   return (
-    <Container fluid sx={{ width: "100%" }}>
-      <Flex align="center" gap={24} pl={32} p={16}>
+    <Container fluid sx={{ width: "100%" }} p={0}>
+      <Flex align="center" gap={24}>
         <Flex align="center" gap={16}>
-          <GlobalIcon selected />
+          <Link href="/collections/global">
+            <GlobalIcon selected />
+          </Link>
           <Link href="/collections/portfolio">
             <PortfolioIcon />
           </Link>
