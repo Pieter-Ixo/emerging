@@ -9,6 +9,7 @@ import { fetchAllBatches, fetchBatchById, fetchBatchesByAddress } from "./thunks
 
 export type IBatchesState = {
   batches: IBatch[];
+  // TODO: rename addressBatches map
   addressBatches: IAddressBatches;
   isBatchLoading: boolean;
   isBatchesLoading: boolean;

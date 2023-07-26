@@ -22,19 +22,23 @@ function useAdminAddressFromRouter(): string {
 export default function Batches() {
   const dispatch = useAppDispatch();
   const adminAddress = useAdminAddressFromRouter();
-  const batchesEntries = useAppSelector(selectAddressBatches);
+  const batches = useAppSelector(selectAddressBatches);
 
   const [parsedBatches, setParsedBatches] = useState<IAddressBatchesEntry[]>();
-
-  const parseAddressBatches = batchesEntries && Object.entries(batchesEntries);
 
   useEffect(() => {
     if (adminAddress) {
       dispatch(fetchBatchesByAddress(adminAddress));
-      setParsedBatches(parseAddressBatches);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adminAddress, dispatch]);
+
+  useEffect(() => {
+    if (batches) {
+      setParsedBatches(Object.entries(batches));
+    }
+  }, [batches]);
+
+  console.log("🐞💥🔫", { adminAddress, batches, parsedBatches });
 
   return (
     <BatchesLayout>
