@@ -10,7 +10,6 @@ import BatchesLayout from "../components/layout/BatchesLayout";
 import Header from "../components/Header";
 import BatchesItem from "../components/BatchesItem";
 
-
 export default function Batches() {
   const dispatch = useAppDispatch();
   const adminAddress = useValueFromRouter("entityAdminAddress");

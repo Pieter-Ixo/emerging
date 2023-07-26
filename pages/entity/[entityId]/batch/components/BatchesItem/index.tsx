@@ -47,6 +47,16 @@ export default function BatchesItem({
     e.stopPropagation();
   };
 
+  const isProgressComplete = retired === minted;
+
+  const buttonDisabled = isProgressComplete
+    ? {
+        cursor: "default",
+        backgroundColor: palette.Neutral800,
+        ":hover": { backgroundColor: palette.Neutral800 },
+      }
+    : {};
+
   return (
     <Flex
       onClick={() => toSingleBatch()}
@@ -79,7 +89,11 @@ export default function BatchesItem({
         >
           Verified Emission Reduction
         </Text>
-        <BatchIdentifier name="CARBON" index={index} />
+        <BatchIdentifier
+          isProgressComplete={isProgressComplete}
+          name="CARBON"
+          index={index}
+        />
       </Flex>
 
       <Flex align="center" justify="space-between" gap={10}>
@@ -99,11 +113,11 @@ export default function BatchesItem({
         </BatchButton>
         <Button
           onClick={(e) => onOffsetBtnClick(e)}
-          sx={{ flexGrow: 1 }}
+          sx={{ flexGrow: 1, ...buttonDisabled }}
           radius="xl"
           h={45}
         >
-          Offset Batch
+          {isProgressComplete ? "Fully Offset" : "Offset Batch"}
         </Button>
       </Flex>
     </Flex>

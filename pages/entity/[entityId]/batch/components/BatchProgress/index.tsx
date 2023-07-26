@@ -14,6 +14,14 @@ export default function BatchProgress({
   const retiredString = retired.toLocaleString();
   const mintedString = minted.toLocaleString();
   const progresPercent = !retired || !minted ? 0 : (retired / minted) * 100;
+  const isProgressComplete = retired === minted;
+  const progressPalette = isProgressComplete
+    ? palette.greenFull
+    : palette.fullBlue;
+
+  const progressPaletteText = isProgressComplete
+    ? palette.greenFull
+    : palette.White;
 
   return (
     <Flex
@@ -45,11 +53,11 @@ export default function BatchProgress({
         radius="xl"
         size={14}
         value={progresPercent}
-        sections={[{ value: progresPercent, color: palette.fullBlue }]}
+        sections={[{ value: progresPercent, color: progressPalette }]}
       />
 
-      <Text c={palette.White} fw={400} sx={{ fontSize: 13 }}>
-        <Text span c={palette.fullBlue} inherit>
+      <Text c={progressPaletteText} fw={400} sx={{ fontSize: 13 }}>
+        <Text span c={progressPalette} inherit>
           {retiredString} CARBON
         </Text>{" "}
         / {mintedString} CARBON offset
