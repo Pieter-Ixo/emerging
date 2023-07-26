@@ -1,5 +1,4 @@
 import { BackgroundImage, Container, Title } from "@mantine/core";
-import Link from "next/link";
 import cls from "classnames";
 
 import utilsStyles from "@/styles/utils.module.scss";
@@ -90,18 +89,13 @@ export default function CookstoveDashboard({
             <PerformanceCard stove={stove} />
 
             <div className={styles.rowCards}>
-              <Link
-                href={{
-                  pathname: `/devices/[entityId]/household`,
-                  query: { entityId: entityExternalId },
-                }}
-              >
+              <a href={`/devices/${entityExternalId}/household`}>
                 <ImageTextCard
                   Img={HouseholdSVG}
                   text="Visit the household"
                   vertical
                 />
-              </Link>
+              </a>
               <ImageTextCard
                 Img={Sprout}
                 text="Explore the benefits of clean cooking"

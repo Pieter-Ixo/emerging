@@ -72,7 +72,8 @@ export default function BatchPageLayout() {
   const evaluation = claimVer?.credentialSubject.evaluation;
   const claimCer = batch?._claimCer;
 
-  const batchProgress = entity?._adminToken?.CARBON.tokens[batchId || ""]?.minted;
+  const batchProgress =
+    entity?._adminToken?.CARBON.tokens[batchId || ""]?.minted;
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -96,7 +97,7 @@ export default function BatchPageLayout() {
           <Grid.Col span={8} order={1}>
             <HeaderCard
               name={batch?.name}
-              index={batch?.index}
+              index={batch?.id}
               progress={batchProgress}
             />
 

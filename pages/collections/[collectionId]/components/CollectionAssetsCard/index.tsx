@@ -23,6 +23,8 @@ import ArrowRight from "../CollectionNewsCard/icons/arrowRight";
 import DownArrow from "./icons/downArrow";
 import Loading from "./loading";
 
+
+// TODO: split component onto few smaller ones
 export default function CollectionAssetsCard() {
   const dispatch = useAppDispatch();
   const entities = useAppSelector(
@@ -51,6 +53,7 @@ export default function CollectionAssetsCard() {
     else dispatch(setSelectedEntity(entity));
   };
 
+  // TODO: move rows to separate component
   const rows = entitiesData?.map((entity) => {
     if (entity.externalId === "") return null;
 
@@ -158,6 +161,13 @@ export default function CollectionAssetsCard() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAssetExternalId]);
+
+  useEffect(
+    () => () => {
+      dispatch(setSelectedEntity(undefined));
+    },
+    []
+  );
 
   return (
     <Card radius={16} style={{ padding: "1rem 2rem" }} h="100%">
