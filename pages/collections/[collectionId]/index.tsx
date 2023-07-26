@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import CollectionAssetsCard from "./components/CollectionAssetsCard";
 import CollectionClimateImpactsCard from "./components/CollectionClimateImpactsCard";
 import CollectionNewsCard from "./components/CollectionNewsCard";
+import CollectionPerformanceCard from "./components/CollectionPerformanceCard";
 
 function useCollectionIdFromRouter(): ICollection["id"] | undefined {
   const router = useRouter();
@@ -31,6 +32,11 @@ export default function Collection() {
         <Grid.Col span={8}>
           <Stack spacing="lg">
             <CollectionClimateImpactsCard />
+            <CollectionPerformanceCard
+              sessions={undefined}
+              fuel={undefined}
+              stove={undefined}
+            />
           </Stack>
         </Grid.Col>
 
