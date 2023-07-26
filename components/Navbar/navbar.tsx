@@ -5,6 +5,7 @@ import { Box, Flex, Navbar } from "@mantine/core";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { palette } from "@/theme/palette";
 import {
+  selectSelectedEntity,
   selectUserEntityCollections,
   selectUserEntityCollectionsIds,
 } from "@/redux/entityCollections/selectors";
@@ -17,26 +18,27 @@ import HeaderLogo from "../Header_Logo/Index";
 import BatchesCard from "../userBalance/BatchesCard";
 
 export default function Nav() {
-  const [idsList, setIdsList] = useState<string[]>([]);
-  const userAddress = useAppSelector((state) => state.user.connectedWallet);
   const dispatch = useAppDispatch();
+  const userAddress = useAppSelector((state) => state.user.connectedWallet);
   const userEntityCollections = useAppSelector(selectUserEntityCollections);
+  const selectedEntity = useAppSelector(selectSelectedEntity);
   const userEntityCollectionsIds = useAppSelector(
     selectUserEntityCollectionsIds
   );
+  const [idsList, setIdsList] = useState<string[]>([]);
 
   useEffect(() => {
     if (
-      userEntityCollectionsIds.length === 0 ||
-      isStringArraysEqual(idsList, userEntityCollectionsIds)
+      // if userCollections are, and have changed
+      userEntityCollectionsIds.length &&
+      !isStringArraysEqual(idsList, userEntityCollectionsIds)
     ) {
-      return;
-    }
-    setIdsList(userEntityCollectionsIds);
+      setIdsList(userEntityCollectionsIds);
 
-    userEntityCollections.forEach((userEntityCollection) => {
-      dispatch(fillEntitiesForUserCollections(userEntityCollection));
-    });
+      userEntityCollections.forEach((userEntityCollection) => {
+        dispatch(fillEntitiesForUserCollections(userEntityCollection));
+      });
+    }
   }, [userEntityCollectionsIds]);
 
   return (
@@ -65,9 +67,11 @@ export default function Nav() {
           <ImpactCreditsCard />
         </Navbar.Section>
       )}
-      <Navbar.Section p="xs">
-        <BatchesCard />
-      </Navbar.Section>
+      {selectedEntity && (
+        <Navbar.Section p="xs">
+          <BatchesCard entity={selectedEntity} />
+        </Navbar.Section>
+      )}
     </Navbar>
   );
 }

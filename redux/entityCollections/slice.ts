@@ -46,7 +46,7 @@ const EntityCollectionSlice = createSlice({
   reducers: {
     setSelectedEntity: (
       state,
-      action: PayloadAction<EntityCollectionState["selectedEntity"]>
+      action: PayloadAction<IEntityExtended | undefined>
     ) => {
       state.selectedEntity = action.payload;
     },
