@@ -21,6 +21,7 @@ export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
 
   const entityAdminAddress = entity.accounts[0].address;
   const entityExternalId = entity.externalId;
+  const batchDashboardHref = `/entity/${entityExternalId}/batch/byAdminAddress/${entityAdminAddress}`;
 
   useEffect(() => {
     if (entityAdminAddress) dispatch(fetchAdminTokens(entityAdminAddress));
@@ -42,9 +43,7 @@ export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
           </Text>
         </Flex>
         <Stack spacing="xs">
-          <Link
-            href={`/entity/${entityExternalId}/batch/byAdminAddress/${entityAdminAddress}`}
-          >
+          <Link href={batchDashboardHref}>
             <ImpactCreditsButtonBlue
               leftIcon={<Generated fill={palette.White} />}
             >

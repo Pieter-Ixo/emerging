@@ -30,7 +30,7 @@ export default function Nav() {
   useEffect(() => {
     if (
       // if userCollections are, and have changed
-      userEntityCollectionsIds.length > 0 &&
+      userEntityCollectionsIds.length &&
       !isStringArraysEqual(idsList, userEntityCollectionsIds)
     ) {
       setIdsList(userEntityCollectionsIds);
