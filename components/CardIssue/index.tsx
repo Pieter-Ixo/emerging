@@ -28,7 +28,7 @@ function CarbonIssueCard({ amount = 0 }: CarbonIssueCardProps) {
       </Flex>
       <Flex justify="space-between" align="end">
         <Flex align="end" sx={{ color: palette.White }}>
-          <Text sx={{ lineHeight: 1 }} size={40}>
+          <Text lh={1} size={40}>
             {amount.toLocaleString()}
           </Text>
           <Text size={14}>CARBON</Text>
