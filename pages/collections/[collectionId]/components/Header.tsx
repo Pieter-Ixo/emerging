@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function PageHeader({
   collectionName = "Collection",
 }: {
-  collectionName?: string;
+  collectionName?: string | undefined;
 }) {
   return (
     <Container fluid sx={{ width: "100%" }}>
