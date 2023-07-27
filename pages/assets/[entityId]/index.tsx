@@ -9,6 +9,7 @@ import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
 import CookstoveDashboard from "@/components/CookstoveDashboard/inidex";
 import getEntityTotalTokenAmount, {
   getEntityTotalMintedAmount,
+  getEntityTotalRetiredAmount,
 } from "@/helpers/transformData/getTotalMintedAmount";
 
 export default function DevicePageLayout() {
@@ -26,6 +27,7 @@ export default function DevicePageLayout() {
 
   const totalTokenAmount = getEntityTotalTokenAmount(entity);
   const totalMinted = getEntityTotalMintedAmount(entity);
+  const totalOffset = getEntityTotalRetiredAmount(entity);
 
   console.log("🦧", entity);
 
@@ -37,6 +39,8 @@ export default function DevicePageLayout() {
       stove={stove}
       totalTokenAmount={totalTokenAmount}
       totalMinted={totalMinted}
+      totalOffset={500}
+      totalTransferred={400}
     />
   );
 }

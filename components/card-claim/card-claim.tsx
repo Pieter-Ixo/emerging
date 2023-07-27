@@ -7,33 +7,53 @@ import cardStyles from "../card/card.module.scss";
 
 type CarbonClaimCardProps = {
   amount: string;
+  claimType: "available" | "issue";
 } & HTMLAttributes<HTMLDivElement>;
 
 function CarbonClaimCard({
   amount,
+  claimType,
   className,
   children,
   ...other
 }: CarbonClaimCardProps) {
-  return (
-    <Card
-      className={cls(
+  const isAvailable = claimType === "available";
+  const isAvailableStyles = isAvailable
+    ? cls(
+        styles.carbonClaimCard,
+        cardStyles.invertedTextColor,
+        cardStyles.accentBgColorFull,
+
+        className
+      )
+    : cls(
         styles.carbonClaimCard,
         cardStyles.invertedTextColor,
         cardStyles.accentBgColor,
+
         className
-      )}
-      {...other}
-    >
+      );
+
+  const actionText = isAvailable ? "WITHDRAW" : "ISSUE";
+  const cardHint = isAvailable
+    ? "CARBON CREDITS AVAILABLE"
+    : "CARBON CREDITS TO ISSUE";
+
+  return (
+    <Card className={isAvailableStyles} {...other}>
       <div className={styles.textContainer}>
-        <p>CARBON CREDITS AVAILABLE TO CLAIM</p>
-        <p>Based on Carbon Emissions saved</p>
+        <p>{cardHint}</p>
+        {claimType === "issue" ? (
+          <p>Based on Verified Emission Reductions</p>
+        ) : null}
+      </div>
+      <div className={styles.bottomContainer}>
         <div className={cls(styles.amountContainer)}>
           <span className={styles.amount}>{amount}</span>
           CARBON
         </div>
+        <button>{actionText}</button>
       </div>
-      <button>CLAIM</button>
     </Card>
   );
 }

@@ -1,43 +1,51 @@
 .carbonClaimCard {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: space-between;
+  .textContainer {
+    display: flex;
+    flex-direction: column;
+    color: white;
 
-	.textContainer {
-		display: flex;
-		flex-direction: column;
-		color: white;
+    p {
+      margin: 0;
+      font-size: 0.7rem;
+    }
+  }
+  .amountContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    font-size: 0.9rem;
+    margin-top: 8px;
 
-		p {
-			margin: 0;
-			font-size: 0.7rem;
-		}
+    .amount {
+      font-size: 2.5rem;
+      margin-right: 4px;
+      line-height: 2.7rem;
+    }
+  }
+  .bottomContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
 
-		.amountContainer {
-			display: flex;
-			flex-direction: row;
-			align-items: baseline;
-			font-size: 0.9rem;
-			margin-top: 8px;
-
-			.amount {
-				font-size: 2.5rem;
-				margin-right: 4px;
-				line-height: 2.7rem;
-			}
-		}
-	}
-
-	button {
-		border-radius: 8px;
-		color: white;
-		border: 1px solid #a3d3ff;
-		background-color: #73bafc;
-		font-size: 1.5rem;
-		height: min-content;
-		padding: 8px 12px;
-		margin-left: 8px;
-		cursor: pointer;
-	}
+    color: white;
+    p {
+      margin: 0;
+      font-size: 0.7rem;
+    }
+  }
+  button {
+    border-radius: 8px;
+    color: white;
+    border: 1px solid #a3d3ff;
+    background-color: #73bafc;
+    font-size: 1.5rem;
+    height: min-content;
+    padding: 8px 12px;
+    margin-left: 8px;
+    cursor: pointer;
+  }
 }

@@ -9,9 +9,16 @@ import styles from "./pie-chart.module.scss";
 type PieChartProps = {
   totalMinted: number;
   totalTokenAmount: number;
+  totalOffset: number;
+  totalTransferred: number;
 };
 
-function PieChart({ totalMinted, totalTokenAmount }: PieChartProps) {
+function PieChart({
+  totalMinted,
+  totalTokenAmount,
+  totalOffset,
+  totalTransferred,
+}: PieChartProps) {
   const [active, setActive] = useState<number>(0);
 
   const chartCnfig = [
@@ -25,6 +32,18 @@ function PieChart({ totalMinted, totalTokenAmount }: PieChartProps) {
       title: "Credits Issued",
       value: totalMinted,
       color: "#2B94F5",
+      text: "CARBON CREDITS",
+    },
+    {
+      title: "Offset",
+      value: totalOffset,
+      color: "#73B556",
+      text: "CARBON CREDITS",
+    },
+    {
+      title: "Transferred",
+      value: totalTransferred,
+      color: "#E79903",
       text: "CARBON CREDITS",
     },
   ];

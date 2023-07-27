@@ -20,6 +20,8 @@ interface Props {
   stove: STOVE;
   totalMinted?: number;
   totalTokenAmount?: number;
+  totalOffset?: number;
+  totalTransferred?: number;
 }
 
 export default function CookstoveDashboard({
@@ -27,6 +29,8 @@ export default function CookstoveDashboard({
   stove,
   totalMinted,
   totalTokenAmount,
+  totalOffset,
+  totalTransferred,
 }: Props) {
   const isCookstoveLoading = stove.loading || !entityExternalId;
   const isSessionsAndPelletsFound = !!(stove.sessions && stove.pellets);
@@ -80,11 +84,18 @@ export default function CookstoveDashboard({
         <section className={utilsStyles.column}>
           <div className={cls(utilsStyles.flex)}>
             <CarbonClaimCard
+              claimType="issue"
               amount={(totalTokenAmount || 0).toLocaleString()}
+            />
+            <CarbonClaimCard
+              claimType="available"
+              amount={(totalMinted || 0).toLocaleString()}
             />
             <PieChart
               totalTokenAmount={totalTokenAmount || 0}
               totalMinted={totalMinted || 0}
+              totalOffset={totalOffset || 0}
+              totalTransferred={totalTransferred || 0}
             />
             <PerformanceCard stove={stove} />
 
