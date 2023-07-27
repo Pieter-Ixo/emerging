@@ -29,6 +29,8 @@ export default function DevicePageLayout() {
   const totalMinted = getEntityTotalMintedAmount(entity);
   const totalOffset = getEntityTotalRetiredAmount(entity);
 
+  const totalTransferred = (totalMinted || 0) - (totalTokenAmount || 0);
+
   console.log("🦧", entity);
 
   if (!entityExternalId) return <Text>missing Entity External Id</Text>;
@@ -39,8 +41,8 @@ export default function DevicePageLayout() {
       stove={stove}
       totalTokenAmount={totalTokenAmount}
       totalMinted={totalMinted}
-      totalOffset={500}
-      totalTransferred={400}
+      totalOffset={totalOffset}
+      totalTransferred={totalTransferred > 0 ? totalTransferred : 0}
     />
   );
 }

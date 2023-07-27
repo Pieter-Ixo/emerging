@@ -85,11 +85,11 @@ export default function CookstoveDashboard({
           <div className={cls(utilsStyles.flex)}>
             <CarbonClaimCard
               claimType="issue"
-              amount={(totalTokenAmount || 0).toLocaleString()}
+              amount={(totalMinted || 0).toLocaleString()}
             />
             <CarbonClaimCard
               claimType="available"
-              amount={(totalMinted || 0).toLocaleString()}
+              amount={(totalTokenAmount || 0).toLocaleString()}
             />
             <PieChart
               totalTokenAmount={totalTokenAmount || 0}

@@ -23,14 +23,14 @@ function PieChart({
 
   const chartCnfig = [
     {
-      title: "Credits",
-      value: totalTokenAmount,
+      title: "To issue",
+      value: totalMinted,
       color: "#5FA8EB",
       text: "AVAILABLE CREDITS",
     },
     {
-      title: "Credits Issued",
-      value: totalMinted,
+      title: "Available",
+      value: totalTokenAmount,
       color: "#2B94F5",
       text: "CARBON CREDITS",
     },
