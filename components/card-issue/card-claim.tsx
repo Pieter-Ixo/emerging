@@ -5,38 +5,38 @@ import Card from "@/components/card/card";
 import styles from "./card-claim.module.scss";
 import cardStyles from "../card/card.module.scss";
 
-type CarbonClaimCardProps = {
+type CarbonIssueCardProps = {
   amount: string;
 } & HTMLAttributes<HTMLDivElement>;
 
-function CarbonClaimCard({
+function CarbonIssueCard({
   amount,
   className,
   children,
   ...other
-}: CarbonClaimCardProps) {
+}: CarbonIssueCardProps) {
+
   return (
-    <Card
-      className={cls(
-        styles.carbonClaimCard,
-        cardStyles.invertedTextColor,
-        cardStyles.accentBgColorFull,
-        className
-      )}
-      {...other}
-    >
+    <Card className={cls(
+      styles.carbonClaimCard,
+      cardStyles.invertedTextColor,
+      cardStyles.accentBgColor,
+
+      className
+    )} {...other}>
       <div className={styles.textContainer}>
-        <p>CARBON CREDITS AVAILABLE</p>
+        <p>CARBON CREDITS TO ISSUE</p>
+        <p>Based on Verified Emission Reductions</p>
       </div>
       <div className={styles.bottomContainer}>
         <div className={cls(styles.amountContainer)}>
           <span className={styles.amount}>{amount}</span>
           CARBON
         </div>
-        <button>WITHDRAW</button>
+        <button>ISSUE</button>
       </div>
     </Card>
   );
 }
 
-export default CarbonClaimCard;
+export default CarbonIssueCard;

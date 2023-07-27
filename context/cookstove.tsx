@@ -44,10 +44,6 @@ export function CookstoveProvider({
         resCookstove.json(),
       ]);
 
-      console.log("Store data dataSessions: ", dataSessions);
-      console.log("Store data dataPallets: ", dataPellets);
-      console.log("Store data cookstove: ", cookstove);
-
       setStove((prevState) => ({ ...prevState, cookstove: cookstove?.data }));
 
       if (resSessions.status !== 200) throw dataSessions.error;

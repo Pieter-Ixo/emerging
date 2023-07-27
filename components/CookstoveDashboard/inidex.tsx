@@ -14,6 +14,7 @@ import ImageTextCard from "@/components/card-image-text/card-image-text";
 import PerformanceCard from "@/components/card-performance/card-performance";
 import { STOVE } from "@/types/stove";
 import { palette } from "@/theme/palette";
+import CarbonIssueCard from "../card-issue/card-claim";
 
 interface Props {
   entityExternalId: number | string;
@@ -83,12 +84,10 @@ export default function CookstoveDashboard({
         </Title>
         <section className={utilsStyles.column}>
           <div className={cls(utilsStyles.flex)}>
-            <CarbonClaimCard
-              claimType="issue"
+            <CarbonIssueCard
               amount={(totalMinted || 0).toLocaleString()}
             />
             <CarbonClaimCard
-              claimType="available"
               amount={(totalTokenAmount || 0).toLocaleString()}
             />
             <PieChart
