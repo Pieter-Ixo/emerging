@@ -22,7 +22,7 @@ import { IEntity } from "@/types/entityCollections";
 import ArrowRight from "../CollectionNewsCard/icons/arrowRight";
 import DownArrow from "./icons/downArrow";
 import Loading from "./loading";
-
+import PageBlock from "../PageBlock";
 
 // TODO: split component onto few smaller ones
 export default function CollectionAssetsCard() {
@@ -170,38 +170,15 @@ export default function CollectionAssetsCard() {
   );
 
   return (
-    <Card radius={16} style={{ padding: "1rem 2rem" }} h="100%">
-      <Grid align="center" justify="space-between">
-        <Grid.Col span={6}>
-          <Text
-            style={{
-              textAlign: "left",
-              fontWeight: "400",
-              fontSize: 16,
-            }}
-          >
-            ASSETS
-          </Text>
-        </Grid.Col>
-        <Grid.Col span="content">
-          <Group
-            onClick={() => dispatch(setSelectedView("fullAssets"))}
-            style={{ cursor: "pointer" }}
-          >
-            <Text
-              style={{
-                textAlign: "right",
-                fontWeight: "400",
-                fontSize: 16,
-              }}
-            >
-              SEE ALL
-            </Text>
-            <ArrowRight pathFill="#000" />
-          </Group>
-        </Grid.Col>
-      </Grid>
-      <Divider mb="lg" color="#000000" />
+    <PageBlock
+      title="ASSETS"
+      rightSide={
+        <Text>
+          SEE ALL
+          <ArrowRight pathFill="#000" />
+        </Text>
+      }
+    >
       <ScrollArea h={425} type="scroll">
         <Table
           highlightOnHover
@@ -279,6 +256,6 @@ export default function CollectionAssetsCard() {
           </tbody>
         </Table>
       </ScrollArea>
-    </Card>
+    </PageBlock>
   );
 }

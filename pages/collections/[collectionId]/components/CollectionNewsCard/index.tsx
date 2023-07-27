@@ -1,32 +1,20 @@
-import { Card, Text, Divider, Grid, Flex } from "@mantine/core";
+import { Text, Flex } from "@mantine/core";
 import Image from "next/image";
 
 import ArrowRight from "./icons/arrowRight";
+import PageBlock from "../PageBlock";
 
 export default function CollectionNewsCard() {
   return (
-    <Card radius={16} py="1rem" px="2rem" h="100%">
-      <Grid>
-        <Grid.Col span={6}>
-          <Text ta="left" fw={400} transform="uppercase">
-            News
-          </Text>
-        </Grid.Col>
-        <Grid.Col span={6}>
-          <Flex
-            justify="flex-end"
-            align="center"
-            gap={8}
-            sx={{ cursor: "pointer" }}
-          >
-            <Text ta="right" fw={400} size={16}>
-              SEE ALL
-            </Text>
-            <ArrowRight pathFill="#000000" />
-          </Flex>
-        </Grid.Col>
-      </Grid>
-      <Divider mb="lg" color="#000000" />
+    <PageBlock
+      title="NEWS"
+      rightSide={
+        <Text>
+          SEE ALL
+          <ArrowRight pathFill="#000" />
+        </Text>
+      }
+    >
       <Flex direction="column" gap={8}>
         <Image src="/IMG_3991.jpg" alt="" height={170} width={250} />
         <Text fw={500} size={12}>
@@ -34,6 +22,6 @@ export default function CollectionNewsCard() {
         </Text>
         <Text>The success story of African Emerging Households</Text>
       </Flex>
-    </Card>
+    </PageBlock>
   );
 }

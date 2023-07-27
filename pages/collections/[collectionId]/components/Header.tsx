@@ -4,7 +4,11 @@ import PortfolioIcon from "@/components/icons/portfolio-icon";
 import GlobalIcon from "@/components/icons/global-icon";
 import Link from "next/link";
 
-export default function Header() {
+export default function PageHeader({
+  collectionName,
+}: {
+  collectionName?: string;
+}) {
   return (
     <Container fluid sx={{ width: "100%" }}>
       <Flex align="center" gap={24} pl={32} p={16}>
@@ -18,7 +22,7 @@ export default function Header() {
           Collections
         </Title>
         <Title order={1} fw={300} size="40px">
-          Collections
+          {collectionName ?? "Collection"}
         </Title>
       </Flex>
     </Container>

@@ -6,7 +6,7 @@ import { useAppSelector } from "@/hooks/redux";
 import { selectCollections } from "@/redux/entityCollections/selectors";
 
 import CollectionsLayout from "../components/Layout";
-import Header from "./components/Header";
+import PageHeader from "./components/Header";
 import CollectionAssetsCard from "./components/CollectionAssetsCard";
 import CollectionClimateImpactsCard from "./components/CollectionClimateImpactsCard";
 import CollectionNewsCard from "./components/CollectionNewsCard";
@@ -27,16 +27,12 @@ export default function Collection() {
 
   return (
     <CollectionsLayout>
-      <Header />
+      <PageHeader collectionName={collections?.[0]._profile?.brand} />
       <Grid gutter="xl" sx={{ width: "100%", padding: 16, margin: 0 }}>
         <Grid.Col span={8}>
           <Stack spacing="lg">
             <CollectionClimateImpactsCard />
-            <CollectionPerformanceCard
-              sessions={undefined}
-              fuel={undefined}
-              stove={undefined}
-            />
+            <CollectionPerformanceCard />
           </Stack>
         </Grid.Col>
 
