@@ -12,6 +12,7 @@ function CarbonIssueCard({ amount = 0 }: CarbonIssueCardProps) {
       gap="lg"
       justify="space-between"
       mb="md"
+      mih={140}
       p="md"
       sx={{
         backgroundColor: palette.issueBlue,
