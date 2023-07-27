@@ -7,17 +7,17 @@ import Card from "@/components/card/card";
 import styles from "./pie-chart.module.scss";
 
 type PieChartProps = {
-  totalMinted: number;
-  totalTokenAmount: number;
-  totalOffset: number;
-  totalTransferred: number;
+  totalMinted?: number;
+  totalTokenAmount?: number;
+  totalOffset?: number;
+  totalTransferred?: number;
 };
 
 function PieChart({
-  totalMinted,
-  totalTokenAmount,
-  totalOffset,
-  totalTransferred,
+  totalMinted = 0,
+  totalTokenAmount = 0,
+  totalOffset = 0,
+  totalTransferred = 0,
 }: PieChartProps) {
   const [active, setActive] = useState<number>(0);
 

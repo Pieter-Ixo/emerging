@@ -2,10 +2,10 @@ import { Button, Flex, Text } from "@mantine/core";
 import { palette } from "@/theme/palette";
 
 type CarbonIssueCardProps = {
-  amount: string;
+  amount?: number;
 };
 
-function CarbonIssueCard({ amount }: CarbonIssueCardProps) {
+function CarbonIssueCard({ amount = 0 }: CarbonIssueCardProps) {
   return (
     <Flex
       direction="column"
@@ -28,7 +28,7 @@ function CarbonIssueCard({ amount }: CarbonIssueCardProps) {
       <Flex justify="space-between" align="end">
         <Flex align="end" sx={{ color: palette.White }}>
           <Text sx={{ lineHeight: 1 }} size={40}>
-            {amount}
+            {amount.toLocaleString()}
           </Text>
           <Text size={14}>CARBON</Text>
         </Flex>

@@ -84,15 +84,13 @@ export default function CookstoveDashboard({
         </Title>
         <section className={utilsStyles.column}>
           <div className={cls(utilsStyles.flex)}>
-            <CarbonIssueCard amount={(totalMinted || 0).toLocaleString()} />
-            <CarbonClaimCard
-              amount={(totalTokenAmount || 0).toLocaleString()}
-            />
+            <CarbonIssueCard amount={totalMinted} />
+            <CarbonClaimCard amount={totalTokenAmount} />
             <PieChart
-              totalTokenAmount={totalTokenAmount || 0}
-              totalMinted={totalMinted || 0}
-              totalOffset={totalOffset || 0}
-              totalTransferred={totalTransferred || 0}
+              totalTokenAmount={totalTokenAmount}
+              totalMinted={totalMinted}
+              totalOffset={totalOffset}
+              totalTransferred={totalTransferred}
             />
             <PerformanceCard stove={stove} />
 
