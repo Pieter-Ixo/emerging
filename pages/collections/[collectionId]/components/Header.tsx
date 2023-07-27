@@ -5,7 +5,7 @@ import GlobalIcon from "@/components/icons/global-icon";
 import Link from "next/link";
 
 export default function PageHeader({
-  collectionName,
+  collectionName = "Collection",
 }: {
   collectionName?: string;
 }) {
@@ -22,7 +22,7 @@ export default function PageHeader({
           Collections
         </Title>
         <Title order={1} fw={300} size="40px">
-          {collectionName ?? "Collection"}
+          {collectionName}
         </Title>
       </Flex>
     </Container>
