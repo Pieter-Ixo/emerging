@@ -1,41 +1,53 @@
-import { HTMLAttributes } from "react";
-import cls from "classnames";
-
-import Card from "@/components/card/card";
-import styles from "./card-claim.module.scss";
-import cardStyles from "../card/card.module.scss";
+import { Button, Flex, Text } from "@mantine/core";
+import { palette } from "@/theme/palette";
 
 type CarbonClaimCardProps = {
   amount: string;
-} & HTMLAttributes<HTMLDivElement>;
+};
 
-function CarbonClaimCard({
-  amount,
-  className,
-  children,
-  ...other
-}: CarbonClaimCardProps) {
+function CarbonClaimCard({ amount }: CarbonClaimCardProps) {
   return (
-    <Card
-      className={cls(
-        styles.carbonClaimCard,
-        cardStyles.invertedTextColor,
-        cardStyles.accentBgColorFull,
-        className
-      )}
-      {...other}
+    <Flex
+      direction="column"
+      gap="lg"
+      justify="space-between"
+      mb="md"
+      p="md"
+      sx={{
+        backgroundColor: palette.fullBlue,
+        borderRadius: 12,
+      }}
     >
-      <div className={styles.textContainer}>
-        <p>CARBON CREDITS AVAILABLE</p>
-      </div>
-      <div className={styles.bottomContainer}>
-        <div className={cls(styles.amountContainer)}>
-          <span className={styles.amount}>{amount}</span>
-          CARBON
-        </div>
-        <button>WITHDRAW</button>
-      </div>
-    </Card>
+      <Flex
+        direction="column"
+        sx={{ fontSize: "0.7rem", color: palette.White }}
+      >
+        <Text>CARBON CREDITS AVAILABLE</Text>
+      </Flex>
+      <Flex justify="space-between" align="end">
+        <Flex align="end" sx={{ color: palette.White }}>
+          <Text sx={{ lineHeight: 1 }} size={40}>
+            {amount}
+          </Text>
+          <Text size={14}>CARBON</Text>
+        </Flex>
+        <Button
+          sx={{
+            color: palette.White,
+            fontSize: 24,
+            fontWeight: 400,
+            backgroundColor: palette.whiteTransparent,
+            border: `1px solid ${palette.whiteTransparent}`,
+          }}
+          variant="outline"
+          radius="md"
+          size="lg"
+          uppercase
+        >
+          WITHDRAW
+        </Button>
+      </Flex>
+    </Flex>
   );
 }
 

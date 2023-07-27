@@ -84,9 +84,7 @@ export default function CookstoveDashboard({
         </Title>
         <section className={utilsStyles.column}>
           <div className={cls(utilsStyles.flex)}>
-            <CarbonIssueCard
-              amount={(totalMinted || 0).toLocaleString()}
-            />
+            <CarbonIssueCard amount={(totalMinted || 0).toLocaleString()} />
             <CarbonClaimCard
               amount={(totalTokenAmount || 0).toLocaleString()}
             />

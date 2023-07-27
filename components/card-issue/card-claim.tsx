@@ -1,41 +1,54 @@
-import { HTMLAttributes } from "react";
-import cls from "classnames";
-
-import Card from "@/components/card/card";
-import styles from "./card-claim.module.scss";
-import cardStyles from "../card/card.module.scss";
+import { Button, Flex, Text } from "@mantine/core";
+import { palette } from "@/theme/palette";
 
 type CarbonIssueCardProps = {
   amount: string;
-} & HTMLAttributes<HTMLDivElement>;
+};
 
-function CarbonIssueCard({
-  amount,
-  className,
-  children,
-  ...other
-}: CarbonIssueCardProps) {
-
+function CarbonIssueCard({ amount }: CarbonIssueCardProps) {
   return (
-    <Card className={cls(
-      styles.carbonClaimCard,
-      cardStyles.invertedTextColor,
-      cardStyles.accentBgColor,
-
-      className
-    )} {...other}>
-      <div className={styles.textContainer}>
-        <p>CARBON CREDITS TO ISSUE</p>
-        <p>Based on Verified Emission Reductions</p>
-      </div>
-      <div className={styles.bottomContainer}>
-        <div className={cls(styles.amountContainer)}>
-          <span className={styles.amount}>{amount}</span>
-          CARBON
-        </div>
-        <button>ISSUE</button>
-      </div>
-    </Card>
+    <Flex
+      direction="column"
+      gap="lg"
+      justify="space-between"
+      mb="md"
+      p="md"
+      sx={{
+        backgroundColor: palette.issueBlue,
+        borderRadius: 12,
+      }}
+    >
+      <Flex
+        direction="column"
+        sx={{ fontSize: "0.7rem", color: palette.White }}
+      >
+        <Text>CARBON CREDITS TO ISSUE</Text>
+        <Text>Based on Verified Emission Reductions</Text>
+      </Flex>
+      <Flex justify="space-between" align="end">
+        <Flex align="end" sx={{ color: palette.White }}>
+          <Text sx={{ lineHeight: 1 }} size={40}>
+            {amount}
+          </Text>
+          <Text size={14}>CARBON</Text>
+        </Flex>
+        <Button
+          sx={{
+            color: palette.White,
+            fontSize: 24,
+            fontWeight: 400,
+            backgroundColor: palette.whiteTransparent,
+            border: `1px solid ${palette.whiteTransparent}`,
+          }}
+          variant="outline"
+          radius="md"
+          size="lg"
+          uppercase
+        >
+          Issue
+        </Button>
+      </Flex>
+    </Flex>
   );
 }
 
