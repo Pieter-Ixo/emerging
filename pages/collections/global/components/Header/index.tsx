@@ -1,24 +1,14 @@
 import { Container, Flex, Text, TextInput, Title } from "@mantine/core";
 
-import PortfolioIcon from "@/components/icons/portfolio-icon";
-import GlobalIcon from "@/components/icons/global-icon";
-import Link from "next/link";
-
 import SearchGlass from "@/assets/icons/search-glass.svg";
 import FilterSettings from "@/assets/icons/filter-settings.svg";
+import HeaderControls from "@/components/HeaderControls";
 
 export default function Header() {
   return (
     <Container fluid sx={{ width: "100%" }} p={0}>
       <Flex align="center" gap={24}>
-        <Flex align="center" gap={16}>
-          <Link href="/collections/global">
-            <GlobalIcon selected />
-          </Link>
-          <Link href="/collections/portfolio">
-            <PortfolioIcon />
-          </Link>
-        </Flex>
+      <HeaderControls selectedLink="global"/>
         <Title order={1} fw={300} size="40px">
           Collections
         </Title>

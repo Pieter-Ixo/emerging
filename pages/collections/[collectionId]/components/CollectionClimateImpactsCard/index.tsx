@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Card, Text, Divider } from "@mantine/core";
+import { Text } from "@mantine/core";
+
+import PageBlock from "../PageBlock";
 import ImpactTabs, { ClimateImpactTab } from "./ImpactTabs";
 import ImpactCharts from "./ImpactCharts";
 
@@ -9,15 +11,9 @@ export default function CollectionClimateImpactsCard() {
   );
 
   return (
-    <Card radius={16} py="md" px="xl">
-      <Text ta="left" weight={400} size={16}>
-        CLIMATE IMPACTS
-      </Text>
-
-      <Divider mb="lg" color="#000000" />
-
+    <PageBlock title="CLIMATE IMPACTS" rightSide={<Text>SEE ALL</Text>}>
       <ImpactTabs activeTab={climateImpactTab} onSetTab={setClimateImpactTab} />
       <ImpactCharts activeTab={climateImpactTab} />
-    </Card>
+    </PageBlock>
   );
 }
