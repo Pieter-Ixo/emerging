@@ -3,7 +3,7 @@ import PageBlock from "../PageBlock";
 
 export default function CollectionPerformanceCard() {
   return (
-    <PageBlock title="ASSETS" rightSide={<Text>SEE ALL</Text>}>
+    <PageBlock title="COLLECTION PERFORMANCE" rightSide={<Text>SEE ALL</Text>}>
       <div id="graph" />
     </PageBlock>
   );
