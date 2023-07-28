@@ -33,6 +33,19 @@ const getRateColor = (activeTab: ClimateImpactTab, rate: number): string => {
   }
 };
 
+const getTabText = (activeTab: ClimateImpactTab): string => {
+  switch (activeTab) {
+    case ClimateImpactTab.SAVED:
+      return "kg CO₂ emissions saved";
+
+    case ClimateImpactTab.ISSUED:
+      return "CARBON issued";
+
+    default:
+      return "kg CO₂ offset";
+  }
+};
+
 const TREES_LENGTH = 10;
 const TREE_STEP = 100_000;
 
@@ -88,7 +101,7 @@ export default function ImpactsCharts({ activeTab, totalValue }: Props) {
           {(totalValue || 0).toLocaleString()}
         </Text>
         <Text color={palette.Black} pb={18} fs="normal" weight={300}>
-          kg CO₂ emissions saved
+          {getTabText(activeTab)}
         </Text>
       </Flex>
       <Ratings>
