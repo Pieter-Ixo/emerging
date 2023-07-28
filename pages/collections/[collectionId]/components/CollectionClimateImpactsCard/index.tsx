@@ -11,7 +11,7 @@ export default function CollectionClimateImpactsCard() {
   );
 
   return (
-    <PageBlock title="ASSETS" rightSide={<Text>SEE ALL</Text>}>
+    <PageBlock title="CLIMATE IMPACTS" rightSide={<Text>SEE ALL</Text>}>
       <ImpactTabs activeTab={climateImpactTab} onSetTab={setClimateImpactTab} />
       <ImpactCharts activeTab={climateImpactTab} />
     </PageBlock>
