@@ -4,6 +4,7 @@ import { BlocksyncUrl } from "@/constants/chains";
 import { IAddressBatchResponse, IBatch } from "@/types/certificates";
 import {
   IApiCollectionEntitiesTotal,
+  IApiCollectionEntitiesTotalRetired,
   IApiEntityCollectionsResponse,
   ICollectionEntities,
   IEntity,
@@ -114,6 +115,17 @@ export async function requestTotalCollectionEntitiesCarbon(
   const url = `/api/token/totalForCollection/${collectionId}`;
 
   const { data, problem } = await blocksynkAPI.get<IApiCollectionEntitiesTotal>(url);
+
+  if (!problem && data) return data;
+
+  throw new Error("no batches for this admin address");
+}
+
+export async function requestTotalCollectionEntitiesRetired(
+): Promise<IApiCollectionEntitiesTotalRetired | undefined> {
+  const url = "/api/tokenclass/name/CARBON"
+
+  const { data, problem } = await blocksynkAPI.get<IApiCollectionEntitiesTotalRetired>(url);
 
   if (!problem && data) return data;
 

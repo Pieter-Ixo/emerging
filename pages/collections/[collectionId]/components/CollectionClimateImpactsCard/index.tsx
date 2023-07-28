@@ -26,7 +26,7 @@ export default function CollectionClimateImpactsCard({
 
   const getActionType = (tabType: ClimateImpactTab) => {
     if (tabType === ClimateImpactTab.SAVED) {
-      return ActionType.Amount;
+      return ActionType.Minted;
     }
     if (tabType === ClimateImpactTab.ISSUED) {
       return ActionType.Minted;
@@ -38,15 +38,16 @@ export default function CollectionClimateImpactsCard({
     const currentActionType = getActionType(tabType);
 
     const total = totalCollectionEntitiesTokens.reduce(
-      (sum, token) => sum + token[currentActionType],
+      (sum, token) => sum + (token[currentActionType] || 0),
       0
     );
 
     switch (currentActionType) {
-      case ActionType.Amount:
-        setTotal(total);
-        break;
-        
+      // If amount appears in requirements 
+      // case ActionType.Amount:
+      //   setTotal(total);
+      //   break;
+
       case ActionType.Minted:
         setTotal(total);
         break;

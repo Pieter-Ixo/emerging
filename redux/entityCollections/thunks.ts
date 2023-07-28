@@ -6,12 +6,14 @@ import {
   requestCollectionsByOwnerAddress,
   requestEntityByExternalID,
   requestTotalCollectionEntitiesCarbon,
+  requestTotalCollectionEntitiesRetired,
 } from "@/requests/blocksync";
 import requestUsersToken, {
   requestTokenByAddress,
 } from "@/requests/requesters/getEntityToken";
 import {
   IApiCollectionEntitiesTotal,
+  IApiCollectionEntitiesTotalRetired,
   ICollectionEntities,
   IEntityExtended,
   ITokenWhateverItMean,
@@ -21,13 +23,29 @@ import fillEntity from "@/helpers/fillEntity";
 
 export const fetchTotalCollectionEntities = createAsyncThunk<any, string>(
   "entityCollections/fetchTotalCollectionEntities",
-  async (collectionId: string): Promise<IApiCollectionEntitiesTotal> => {
-    const batchesResponse = await requestTotalCollectionEntitiesCarbon(
+  async (collectionId: string): Promise<{totalEntities:IApiCollectionEntitiesTotal;totalRetired:IApiCollectionEntitiesTotalRetired}> => {
+    const totalEntitiesResponse = await requestTotalCollectionEntitiesCarbon(
       collectionId
     );
-    if (!batchesResponse) throw new Error("panica!");
+    const totalRetiredResponse = await requestTotalCollectionEntitiesRetired();
 
-    return batchesResponse;
+    if (!totalEntitiesResponse || !totalRetiredResponse)
+      throw new Error("panica!");
+
+    return {
+      totalEntities: totalEntitiesResponse,
+      totalRetired: totalRetiredResponse,
+    };
+  }
+);
+
+export const fetchTotalCollectionEntitiesRetired = createAsyncThunk<any>(
+  "entityCollections/fetchTotalCollectionEntitiesRetired",
+  async (): Promise<IApiCollectionEntitiesTotalRetired> => {
+    const totalRetiredResponse = await requestTotalCollectionEntitiesRetired();
+    if (!totalRetiredResponse) throw new Error("panica!");
+
+    return totalRetiredResponse;
   }
 );
 
