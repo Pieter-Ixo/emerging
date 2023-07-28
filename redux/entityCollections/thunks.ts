@@ -4,19 +4,32 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   requestCollections,
   requestCollectionsByOwnerAddress,
-  requestEntitiesByOwnerAddress,
   requestEntityByExternalID,
+  requestTotalCollectionEntitiesCarbon,
 } from "@/requests/blocksync";
 import requestUsersToken, {
   requestTokenByAddress,
 } from "@/requests/requesters/getEntityToken";
 import {
+  IApiCollectionEntitiesTotal,
   ICollectionEntities,
   IEntityExtended,
   ITokenWhateverItMean,
 } from "@/types/entityCollections";
 import fillCollection from "@/helpers/fillCollection";
 import fillEntity from "@/helpers/fillEntity";
+
+export const fetchTotalCollectionEntities = createAsyncThunk<any, string>(
+  "entityCollections/fetchTotalCollectionEntities",
+  async (collectionId: string): Promise<IApiCollectionEntitiesTotal> => {
+    const batchesResponse = await requestTotalCollectionEntitiesCarbon(
+      collectionId
+    );
+    if (!batchesResponse) throw new Error("panica!");
+
+    return batchesResponse;
+  }
+);
 
 export const fetchAndFillCollections = createAsyncThunk(
   "entityCollections/fetchAndFillCollections",

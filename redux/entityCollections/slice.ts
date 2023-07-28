@@ -1,12 +1,13 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
-
 import {
   ICollectionEntities,
   IEntityExtended,
   ITokenWhateverItMean,
+  IApiCollectionEntitiesTotal,
 } from "@/types/entityCollections";
+
 import {
   fetchAndFillCollections,
   fetchCollectionsByOwnerAddres,
@@ -14,6 +15,7 @@ import {
   fillEntitiesForUserCollections,
   fetchUsersTokens,
   fetchAdminTokens,
+  fetchTotalCollectionEntities,
 } from "./thunks";
 
 export type EntityCollectionState = {
@@ -24,6 +26,7 @@ export type EntityCollectionState = {
   userEntityCollections: ICollectionEntities[];
   userTokens: undefined | ITokenWhateverItMean;
   adminTokens: undefined | ITokenWhateverItMean;
+  totalCollectionEntities: IApiCollectionEntitiesTotal[];
   isAdminTokensLoading: boolean;
   isUserTokensLoading: boolean;
 };
@@ -36,6 +39,7 @@ const initialState: EntityCollectionState = {
   userEntityCollections: [],
   userTokens: undefined,
   adminTokens: undefined,
+  totalCollectionEntities: [],
   isAdminTokensLoading: false,
   isUserTokensLoading: false,
 };
@@ -119,6 +123,16 @@ const EntityCollectionSlice = createSlice({
     // eslint-disable-next-line no-undef
     builder.addCase(fetchAdminTokens.fulfilled, (state, action) => {
       state.adminTokens = action.payload;
+      state.isAdminTokensLoading = false;
+    });
+
+    // fetchTotalCollectionEntities
+    builder.addCase(fetchTotalCollectionEntities.pending, (state) => {
+      state.isAdminTokensLoading = true;
+    });
+    // eslint-disable-next-line no-undef
+    builder.addCase(fetchTotalCollectionEntities.fulfilled, (state, action) => {
+      state.totalCollectionEntities = action.payload;
       state.isAdminTokensLoading = false;
     });
 

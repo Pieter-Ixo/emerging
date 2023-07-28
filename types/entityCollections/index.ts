@@ -200,3 +200,25 @@ export type ICollectionEntities = {
 };
 
 export type IApiEntityCollectionsResponse = ICollectionEntities[];
+
+export interface ICollectionEntitiesToken {
+  amount: number;
+  minted: number;
+  retired: number;
+}
+
+interface ITokenDetails {
+  contractAddress: string;
+  description: string;
+  image: string;
+  tokens: {
+    [entityId: string]: ICollectionEntitiesToken
+  };
+}
+
+export interface IApiCollectionEntitiesTotal {
+  entity?: string;
+  tokens?: {
+    CARBON: ITokenDetails;
+  };
+}

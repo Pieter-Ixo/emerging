@@ -150,6 +150,21 @@ export const selectAllEntities = createDraftSafeSelector(
     entityCollectionsState.entityCollections?.[0]?.entities
 );
 
+export const selectTotalCollectionEntitiesToken = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.totalCollectionEntities.map((entity) => {
+      const token = entity.tokens?.CARBON?.tokens;
+      if (token) {
+        const key = Object.keys(token)[0];
+        const { amount, minted, retired } = token[key];
+
+        return { amount, minted, retired };
+      }
+      return { amount: 0, minted: 0, retired: 0 };
+    })
+);
+
 export const selectEntityByExternalId = (
   state: RootState,
   externalId: IEntity["externalId"]
