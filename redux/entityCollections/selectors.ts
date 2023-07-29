@@ -153,7 +153,7 @@ export const selectAllEntities = createDraftSafeSelector(
 export const selectTotalCollectionEntitiesToken = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState) => {
-    const totalAmountMinted = state.totalCollectionEntities.map(
+    const totalAmountMinted = state.totalCollectionEntities?.map(
       (entity, index) => {
         const token = entity.tokens?.CARBON?.tokens;
         if (token) {

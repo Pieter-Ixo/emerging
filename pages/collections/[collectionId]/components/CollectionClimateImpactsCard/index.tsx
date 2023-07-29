@@ -37,13 +37,13 @@ export default function CollectionClimateImpactsCard({
   const countTotal = (tabType: ClimateImpactTab) => {
     const currentActionType = getActionType(tabType);
 
-    const total = totalCollectionEntitiesTokens.reduce(
+    const total = totalCollectionEntitiesTokens?.reduce(
       (sum, token) => sum + (token[currentActionType] || 0),
       0
     );
 
     switch (currentActionType) {
-      // If amount appears in requirements 
+      // Code below will be in use if `Amount` will become a possible ActionType
       // case ActionType.Amount:
       //   setTotal(total);
       //   break;

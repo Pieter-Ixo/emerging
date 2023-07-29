@@ -1,5 +1,6 @@
 import { Text, Flex } from "@mantine/core";
 import { palette } from "@/theme/palette";
+import fillTreesProgress from "@/helpers/impactCharts/fillTreesProgress";
 
 import Ratings from "react-ratings-declarative";
 import { Suspense, useEffect, useState } from "react";
@@ -46,52 +47,14 @@ const getTabText = (activeTab: ClimateImpactTab): string => {
   }
 };
 
-const TREES_LENGTH = 10;
-const TREE_STEP = 100_000;
-
 export default function ImpactsCharts({ activeTab, totalValue }: Props) {
   const [treesOpacities, setTreesOpacities] = useState<number[]>([]);
 
   const accentColor = getAccentColor(activeTab);
 
-  const fillTreesOpacities = (): any[] => {
-    const resultArray = Array.from({ length: TREES_LENGTH }, () => 0);
-
-    let totalOpacity = totalValue;
-
-    const filledArray = resultArray.map(() => {
-      if (totalOpacity % TREE_STEP >= 0) {
-        const temp = totalOpacity;
-
-        totalOpacity -= TREE_STEP;
-
-        return temp;
-      }
-
-      return 0;
-    });
-
-    const opacitiesArray = filledArray.map((num) => {
-      switch (true) {
-        case num >= TREE_STEP:
-          return 1;
-        case num >= 75_000 && num < TREE_STEP:
-          return 0.75;
-        case num >= 50_000 && num < 75_000:
-          return 0.5;
-        case num > 0 && num < 50_000:
-          return 0.25;
-        default:
-          return 0;
-      }
-    });
-
-    return opacitiesArray;
-  };
-
   useEffect(() => {
-    const opacitiesArray = fillTreesOpacities();
-    setTreesOpacities(opacitiesArray);
+    const opacities: number[] = fillTreesProgress(totalValue);
+    setTreesOpacities(opacities);
   }, [totalValue]);
 
   return (
