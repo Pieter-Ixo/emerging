@@ -185,6 +185,15 @@ export const selectTotalCollectionEntitiesToken = createDraftSafeSelector(
   }
 );
 
+export const selectAllEntitiesExternalIds = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    // TODO: make selector return entiies for a given collection
+    entityCollectionsState.entityCollections?.[0]?.entities.map(
+      (entity) => entity.externalId
+    )
+);
+
 export const selectEntityByExternalId = (
   state: RootState,
   externalId: IEntity["externalId"]

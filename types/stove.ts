@@ -6,14 +6,17 @@ import Coins from "@/assets/icons/coins.svg";
 import HumanHeart from "@/assets/icons/human-heart.svg";
 import { hoursSaved, lifeYearsSaved } from "@/utils/supamoto";
 
+
 export type STOVE = {
   id?: string;
   data?: STOVE_DATA;
   sessions?: STOVE_SESSIONS;
   pellets?: STOVE_PELLETS;
   cookstove?: COOKSTOVE;
+  sessionsSummary?: MONTH_SESSIONS_TOTAL_MAP;
   loading?: boolean;
 };
+export type MONTH_SESSIONS_TOTAL_MAP = Record<string, number>;
 
 export type STOVE_DATA = {
   deviceId?: number;
@@ -31,6 +34,21 @@ export type STOVE_SESSIONS = {
   hasPreviousPage?: boolean;
   periodsFetched?: { [key in STOVE_PERIODS]: boolean };
   loading?: boolean;
+};
+
+export type STOVE_SESSIONS_CONTENT_SUMMARY = {
+  timestamp: string; // "2022-07",
+  count: {
+    avg: number; // 86.68;
+    total: number; // 83;
+  };
+  duration: {
+    avg: number; // 348109.02;
+    total: number; // 333828;
+  };
+};
+export type STOVES_SESSIONS_SUMMARY = {
+  content?: STOVE_SESSIONS_CONTENT_SUMMARY[];
 };
 
 export type STOVE_SESSIONS_CONTENT = {
