@@ -49,7 +49,7 @@ export default function BatchesItem({
 
   const isProgressComplete = retired === minted;
 
-  const buttonStyles:Sx = isProgressComplete
+  const buttonStyles: Sx = isProgressComplete
     ? {
         cursor: "default",
         backgroundColor: palette.Neutral800,

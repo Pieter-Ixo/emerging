@@ -38,7 +38,10 @@ export default function CookstoveDashboard({
 
   if (isCookstoveLoading)
     return (
-      <BackgroundImage src="/images/background.jpg">
+      <BackgroundImage
+        src="/images/background.jpg"
+        onClick={(e) => e.stopPropagation()}
+      >
         <Container maw="600px">
           <h1 className={styles.title}>SUPAMOTO</h1>
           <section className={utilsStyles.column}>
@@ -53,7 +56,10 @@ export default function CookstoveDashboard({
 
   if (!isSessionsAndPelletsFound)
     return (
-      <BackgroundImage src="/images/background.jpg">
+      <BackgroundImage
+        src="/images/background.jpg"
+        onClick={(e) => e.stopPropagation()}
+      >
         <Container maw="600px">
           <h1 className={styles.title}>SUPAMOTO</h1>
           <section className={utilsStyles.column}>
@@ -71,7 +77,10 @@ export default function CookstoveDashboard({
     );
 
   return (
-    <BackgroundImage src="/images/background.jpg">
+    <BackgroundImage
+      src="/images/background.jpg"
+      onClick={(e) => e.stopPropagation()}
+    >
       <Container maw="600px">
         <Title
           order={1}

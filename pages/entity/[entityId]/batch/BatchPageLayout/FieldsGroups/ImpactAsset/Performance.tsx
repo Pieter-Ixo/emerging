@@ -3,7 +3,7 @@ import { Button, Card, Flex } from "@mantine/core";
 
 import { useCookstove } from "@/context/cookstove";
 import useDetailPortal from "@/hooks/useDetailPortal";
-import CookstoveDashboard from "@/components/CookstoveDashboard/inidex";
+import CookstoveDashboard from "@/components/CookstoveDashboard";
 
 import { FieldText } from "../styledComponents";
 import { ImpactAssetProps } from "./props";

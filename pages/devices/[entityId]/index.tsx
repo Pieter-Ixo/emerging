@@ -6,7 +6,7 @@ import useValueFromRouter from "@/utils/useValueFromRouter";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchEntityByExternalIdAndFill } from "@/redux/entityCollections/thunks";
 import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
-import CookstoveDashboard from "@/components/CookstoveDashboard/inidex";
+import CookstoveDashboard from "@/components/CookstoveDashboard";
 import getEntityTotalTokenAmount, {
   getEntityTotalMintedAmount,
   getEntityTotalRetiredAmount,

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useState } from "react";
 import { PieChart as PieChartImport } from "react-minimal-pie-chart";
 import cls from "classnames";
 import { Box, Image } from "@mantine/core";
@@ -23,28 +23,25 @@ function PieChart({
 
   function toggleActiveSemiCircle(i: number) {
     if (i === 0 || i === 2) return null;
-    setActive(i);
+    return setActive(i);
   }
 
   const chartConfig = [
     {
       title: "To issue",
       // TODO: make unavailable to click
-      isDisabled: true,
       value: totalTokenAmount,
       color: "#5FA8EB",
       text: "AVAILABLE CREDITS",
     },
     {
       title: "Available",
-      isDisabled: false,
       value: totalTokenAmount,
       color: "#2B94F5",
       text: "CARBON CREDITS",
     },
     {
       // TODO: make unavailable to click
-      isDisabled: true,
       title: "Offset",
       // TODO: Change this when we'll have the way to fetch Transferred
       value: totalTokenAmount,
@@ -53,7 +50,6 @@ function PieChart({
     },
     {
       title: "Transferred",
-      isDisabled: false,
       value: totalTransferred,
       color: "#E79903",
       text: "CARBON CREDITS",
@@ -108,7 +104,7 @@ function PieChart({
         {chartConfig.map((semi, i) => (
           <Card
             className={cls(styles.label, { [styles.selected]: active === i })}
-            onClick={() => (semi.isDisabled ? () => {} : setActive(i))}
+            onClick={() => toggleActiveSemiCircle(i)}
             key={semi.title}
           >
             <div
