@@ -72,7 +72,7 @@ export default function CollectionClimateImpactsCard({
   }, [totalCollectionEntitiesTokens, climateImpactTab]);
 
   return (
-    <PageBlock title="CLIMATE IMPACTS" rightSide={<Text>SEE ALL</Text>}>
+    <PageBlock title="CLIMATE IMPACTS">
       <ImpactTabs activeTab={climateImpactTab} onSetTab={setClimateImpactTab} />
       {isEntitiesTotalTokensLoading ? (
         <Loader w="100%" mx="auto" />

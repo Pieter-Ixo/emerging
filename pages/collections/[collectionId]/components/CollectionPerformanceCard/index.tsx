@@ -21,7 +21,7 @@ export default function CollectionPerformanceCard() {
   }, []);
 
   return (
-    <PageBlock title="COLLECTION PERFORMANCE" rightSide={<Text>SEE ALL</Text>}>
+    <PageBlock title="COLLECTION PERFORMANCE">
       {sessionsSummary ? (
         <SessionsChart sessionsSummary={sessionsSummary} />
       ) : (
