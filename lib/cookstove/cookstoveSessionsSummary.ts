@@ -45,6 +45,9 @@ export async function getSessionsMonthTotal(
   headers
 ): Promise<MONTH_SESSIONS_TOTAL_MAP | undefined> {
   const promises = deviceIds.map(async (deviceId) => {
+    if (memoisedSummary[deviceId]) return;
+    memoisedSummary[deviceId] = {};
+
     const cookstoveSesstion = await getCookstoveSessionsSummary(
       deviceId,
       headers
@@ -52,12 +55,12 @@ export async function getSessionsMonthTotal(
 
     // TODO: avoid WET here`
     cookstoveSesstion?.content?.forEach((monthSummary) => {
-      if (memoisedSummary[monthSummary.timestamp] !== undefined) {
-        memoisedSummary[monthSummary.timestamp] += Number(
+      if (memoisedSummary[deviceId][monthSummary.timestamp] !== undefined) {
+        memoisedSummary[deviceId][monthSummary.timestamp] += Number(
           monthSummary.count.total
         );
       } else {
-        memoisedSummary[monthSummary.timestamp] = Number(
+        memoisedSummary[deviceId][monthSummary.timestamp] = Number(
           monthSummary.count.total
         );
       }

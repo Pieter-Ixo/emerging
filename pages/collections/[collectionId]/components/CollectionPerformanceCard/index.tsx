@@ -18,7 +18,7 @@ export default function CollectionPerformanceCard() {
   console.log("🐞", sessionsSummary);
 
   useEffect(() => {
-    fetchMonthSummary(entitesExternalIds.slice(0, 10));
+    fetchMonthSummary(entitesExternalIds);
   }, []);
 
   return (

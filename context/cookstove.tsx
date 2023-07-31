@@ -84,6 +84,8 @@ export function CookstoveProvider({
   const fetchMonthSummary = async (deviceIds: (number | string)[]) => {
     // TODO: apply convenient fetching approach
     // TODO: apply await synthax
+    console.log("🫎1", Date.now());
+
     const sessionsSummaryMap = await fetch(
       "/api/cookstove/cooking-sessions/summary",
       {
@@ -96,6 +98,7 @@ export function CookstoveProvider({
       .then((response) => response.data)
       .catch((err) => console.error(err));
 
+    console.log("🫎2", Date.now());
     if (sessionsSummaryMap)
       updateStove({ ...stove, sessionsSummary: sessionsSummaryMap });
   };

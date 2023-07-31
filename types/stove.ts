@@ -6,7 +6,6 @@ import Coins from "@/assets/icons/coins.svg";
 import HumanHeart from "@/assets/icons/human-heart.svg";
 import { hoursSaved, lifeYearsSaved } from "@/utils/supamoto";
 
-
 export type STOVE = {
   id?: string;
   data?: STOVE_DATA;
@@ -16,7 +15,7 @@ export type STOVE = {
   sessionsSummary?: MONTH_SESSIONS_TOTAL_MAP;
   loading?: boolean;
 };
-export type MONTH_SESSIONS_TOTAL_MAP = Record<string, number>;
+export type MONTH_SESSIONS_TOTAL_MAP = Record<string, Record<string, number>>;
 
 export type STOVE_DATA = {
   deviceId?: number;
