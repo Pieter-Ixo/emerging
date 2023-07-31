@@ -1,4 +1,4 @@
-import { Text,Image, Flex } from "@mantine/core";
+import { Text, Image, Flex } from "@mantine/core";
 
 import ArrowRight from "./icons/arrowRight";
 import PageBlock from "../PageBlock";
@@ -15,7 +15,12 @@ export default function CollectionNewsCard() {
       }
     >
       <Flex direction="column" gap={8}>
-        <Image src="/IMG_3991.jpg" alt="news story image" height={170} width={250} />
+        <Image
+          src="/IMG_3991.jpg"
+          alt="news story image"
+          height={170}
+          maw={250}
+        />
         <Text fw={500} size={12}>
           Nov 12 22
         </Text>
