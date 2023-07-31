@@ -45,8 +45,8 @@ function ConnectAccountButton() {
               }}
             >
               <Wallet />
-              <Text style={{ marginLeft: 10 }}>
-                {shortStr(userAddress, 24, 15, "...") || ""}
+              <Text maw="160px" style={{ marginLeft: 10, overflow: "clip" }}>
+                {shortStr(userAddress, 24, 15, "...") || "..."}
               </Text>
             </Text>
             <ActionIcon
