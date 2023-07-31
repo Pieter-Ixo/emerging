@@ -117,6 +117,13 @@ export const selectUserEntitiesTotalLoading = createDraftSafeSelector(
   ): EntityCollectionState["isUserTokensLoading"] => state.isUserTokensLoading
 );
 
+export const selectEntitiesTotalLoading = createDraftSafeSelector(
+  selectEntityCollections,
+  (
+    state: EntityCollectionState
+  ): EntityCollectionState["isEntitiesTotalTokensLoading"] => state.isEntitiesTotalTokensLoading
+);
+
 export const selectCollectionAssetsCount = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState): number =>

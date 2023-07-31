@@ -7,7 +7,6 @@ import {
   ITokenWhateverItMean,
   IApiCollectionEntitiesTotal,
   IApiCollectionEntitiesTotalRetired,
-  IApiCollectionEntitiesTotalExtended,
 } from "@/types/entityCollections";
 
 import {
@@ -34,6 +33,7 @@ export type EntityCollectionState = {
     | IApiCollectionEntitiesTotalRetired;
   isAdminTokensLoading: boolean;
   isUserTokensLoading: boolean;
+  isEntitiesTotalTokensLoading: boolean;
 };
 
 const initialState: EntityCollectionState = {
@@ -48,6 +48,7 @@ const initialState: EntityCollectionState = {
   totalCollectionEntitiesRetired: undefined,
   isAdminTokensLoading: false,
   isUserTokensLoading: false,
+  isEntitiesTotalTokensLoading: true,
 };
 
 const EntityCollectionSlice = createSlice({
@@ -132,12 +133,16 @@ const EntityCollectionSlice = createSlice({
       state.isAdminTokensLoading = false;
     });
 
-    // eslint-disable-next-line no-undef
     // fetchTotalCollectionEntities
+    builder.addCase(fetchTotalCollectionEntities.pending, (state) => {
+      state.isEntitiesTotalTokensLoading = true;
+    });
     builder.addCase(fetchTotalCollectionEntities.fulfilled, (state, action) => {
       // IApiCollectionEntitiesTotal & IApiCollectionEntitiesTotalRetired
       state.totalCollectionEntities = action.payload.totalEntities;
       state.totalCollectionEntitiesRetired = action.payload.totalRetired;
+
+      state.isEntitiesTotalTokensLoading = false;
     });
 
     builder.addCase(HYDRATE, (state, action) => ({
