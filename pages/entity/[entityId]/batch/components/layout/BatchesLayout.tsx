@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Flex } from "@mantine/core";
 import { palette } from "@/theme/palette";
 import Nav from "@/components/Navbar/navbar";
+import { initStyles } from "@/theme/initStyles";
 
 function BatchesLayout({ children }) {
   return (
@@ -16,7 +17,9 @@ function BatchesLayout({ children }) {
           style={{
             width: "100%",
             background: palette.Neutral50,
-            margin: "60px 34px",
+            // margin: "60px 34px",
+            marginTop: "60px",
+            marginLeft: initStyles.navWidth,
             overflow: "hidden",
           }}
         >

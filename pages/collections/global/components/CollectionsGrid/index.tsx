@@ -19,7 +19,7 @@ export default function CollectionsGrid() {
     dispatch(fetchAndFillCollections());
   }, [dispatch]);
 
-  if (isLoading) return <Loader m="lg" />;
+  if (isLoading) return <Loader m="lg" w="100%" mx="auto" />;
 
   return (
     <Grid py="xl" maw={900} gutter="lg">

@@ -41,7 +41,7 @@ export default function Collection() {
   return (
     <CollectionsLayout>
       <PageHeader collectionName={collections?.[0]?._profile?.brand} />
-      <Grid gutter="xl" sx={{ width: "100%", padding: 16, margin: 0 }}>
+      <Grid gutter="xl" p={0} sx={{ width: "100%", margin: 0 }}>
         <Grid.Col span={8}>
           <Stack spacing="lg">
             <CollectionClimateImpactsCard
