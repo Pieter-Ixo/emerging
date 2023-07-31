@@ -200,3 +200,54 @@ export type ICollectionEntities = {
 };
 
 export type IApiEntityCollectionsResponse = ICollectionEntities[];
+
+export interface ICollectionEntitiesToken {
+  amount: number;
+  minted: number;
+  retired?: number;
+}
+
+interface ITokenDetails {
+  contractAddress: string;
+  description: string;
+  image: string;
+  tokens: {
+    [entityId: string]: ICollectionEntitiesToken;
+  };
+}
+
+export interface IApiCollectionEntitiesTotal {
+  entity?: string;
+  tokens?: {
+    CARBON: ITokenDetails;
+  };
+}
+
+export interface IApiCollectionEntitiesTotalRetired {
+  contractAddress: string;
+  minter: string;
+  class: string;
+  name: string;
+  description: string;
+  image: string;
+  type: string;
+  cap: string;
+  supply: string;
+  paused: boolean;
+  stopped: boolean;
+  retired: {
+    aid: number;
+    id: string;
+    reason: string;
+    jurisdiction: string;
+    amount: string;
+    owner: string;
+    name: string;
+  }[];
+  cancelled: any[];
+}
+
+export interface IApiCollectionEntitiesTotalExtended {
+  totalEntities: IApiCollectionEntitiesTotal;
+  totalRetired: IApiCollectionEntitiesTotalRetired;
+}

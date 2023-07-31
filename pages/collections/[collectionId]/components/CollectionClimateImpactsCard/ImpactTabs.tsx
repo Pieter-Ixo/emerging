@@ -30,9 +30,8 @@ function ImpactTab({
   return (
     <Badge
       variant="filled"
-      w={150}
       h={46}
-      pl={0}
+      px={20}
       radius={23}
       style={{
         textTransform: "none",
@@ -44,7 +43,7 @@ function ImpactTab({
     >
       <Text
         size={16}
-        weight={500}
+        weight={400}
         color={isActive ? palette.White : palette.Black}
       >
         {children}

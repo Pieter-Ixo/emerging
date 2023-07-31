@@ -1,12 +1,15 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
-
 import {
   ICollectionEntities,
   IEntityExtended,
   ITokenWhateverItMean,
+  IApiCollectionEntitiesTotal,
+  IApiCollectionEntitiesTotalRetired,
+  IApiCollectionEntitiesTotalExtended,
 } from "@/types/entityCollections";
+
 import {
   fetchAndFillCollections,
   fetchCollectionsByOwnerAddres,
@@ -14,6 +17,7 @@ import {
   fillEntitiesForUserCollections,
   fetchUsersTokens,
   fetchAdminTokens,
+  fetchTotalCollectionEntities,
 } from "./thunks";
 
 export type EntityCollectionState = {
@@ -24,6 +28,10 @@ export type EntityCollectionState = {
   userEntityCollections: ICollectionEntities[];
   userTokens: undefined | ITokenWhateverItMean;
   adminTokens: undefined | ITokenWhateverItMean;
+  totalCollectionEntities: IApiCollectionEntitiesTotal[];
+  totalCollectionEntitiesRetired:
+    | undefined
+    | IApiCollectionEntitiesTotalRetired;
   isAdminTokensLoading: boolean;
   isUserTokensLoading: boolean;
 };
@@ -36,6 +44,8 @@ const initialState: EntityCollectionState = {
   userEntityCollections: [],
   userTokens: undefined,
   adminTokens: undefined,
+  totalCollectionEntities: [],
+  totalCollectionEntitiesRetired: undefined,
   isAdminTokensLoading: false,
   isUserTokensLoading: false,
 };
@@ -120,6 +130,14 @@ const EntityCollectionSlice = createSlice({
     builder.addCase(fetchAdminTokens.fulfilled, (state, action) => {
       state.adminTokens = action.payload;
       state.isAdminTokensLoading = false;
+    });
+
+    // eslint-disable-next-line no-undef
+    // fetchTotalCollectionEntities
+    builder.addCase(fetchTotalCollectionEntities.fulfilled, (state, action) => {
+      // IApiCollectionEntitiesTotal & IApiCollectionEntitiesTotalRetired
+      state.totalCollectionEntities = action.payload.totalEntities;
+      state.totalCollectionEntitiesRetired = action.payload.totalRetired;
     });
 
     builder.addCase(HYDRATE, (state, action) => ({

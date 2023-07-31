@@ -3,6 +3,8 @@ import { create } from "apisauce";
 import { BlocksyncUrl } from "@/constants/chains";
 import { IAddressBatchResponse, IBatch } from "@/types/certificates";
 import {
+  IApiCollectionEntitiesTotal,
+  IApiCollectionEntitiesTotalRetired,
   IApiEntityCollectionsResponse,
   ICollectionEntities,
   IEntity,
@@ -50,6 +52,7 @@ export async function requestEntityByExternalID(
 
   return entity;
 }
+
 export async function requestEntityByID(id: string): Promise<IEntityExtended> {
   const entity = await requestBlocksyncAPI<IEntity>(`/api/entity/byId/${id}`);
   if (!entity) throw new Error("panica!");
@@ -93,12 +96,36 @@ export async function requestBatchByID(
   if (!problem && data) return data;
   throw new Error("no batch for this id");
 }
+
 export async function requestBatchesByAddress(
   entityAdminAddress: string
 ): Promise<IAddressBatchResponse | undefined> {
   const url = `/api/token/byAddress/${entityAdminAddress}`;
 
   const { data, problem } = await blocksynkAPI.get<IAddressBatchResponse>(url);
+
+  if (!problem && data) return data;
+
+  throw new Error("no batches for this admin address");
+}
+
+export async function requestTotalCollectionEntitiesCarbon(
+  collectionId: string
+): Promise<IApiCollectionEntitiesTotal | undefined> {
+  const url = `/api/token/totalForCollection/${collectionId}`;
+
+  const { data, problem } = await blocksynkAPI.get<IApiCollectionEntitiesTotal>(url);
+
+  if (!problem && data) return data;
+
+  throw new Error("no batches for this admin address");
+}
+
+export async function requestTotalCollectionEntitiesRetired(
+): Promise<IApiCollectionEntitiesTotalRetired | undefined> {
+  const url = "/api/tokenclass/name/CARBON"
+
+  const { data, problem } = await blocksynkAPI.get<IApiCollectionEntitiesTotalRetired>(url);
 
   if (!problem && data) return data;
 

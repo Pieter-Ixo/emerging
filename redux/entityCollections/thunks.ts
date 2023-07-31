@@ -4,19 +4,50 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   requestCollections,
   requestCollectionsByOwnerAddress,
-  requestEntitiesByOwnerAddress,
   requestEntityByExternalID,
+  requestTotalCollectionEntitiesCarbon,
+  requestTotalCollectionEntitiesRetired,
 } from "@/requests/blocksync";
 import requestUsersToken, {
   requestTokenByAddress,
 } from "@/requests/requesters/getEntityToken";
 import {
+  IApiCollectionEntitiesTotal,
+  IApiCollectionEntitiesTotalRetired,
   ICollectionEntities,
   IEntityExtended,
   ITokenWhateverItMean,
 } from "@/types/entityCollections";
 import fillCollection from "@/helpers/fillCollection";
 import fillEntity from "@/helpers/fillEntity";
+
+export const fetchTotalCollectionEntities = createAsyncThunk<any, string>(
+  "entityCollections/fetchTotalCollectionEntities",
+  async (collectionId: string): Promise<{totalEntities:IApiCollectionEntitiesTotal;totalRetired:IApiCollectionEntitiesTotalRetired}> => {
+    const totalEntitiesResponse = await requestTotalCollectionEntitiesCarbon(
+      collectionId
+    );
+    const totalRetiredResponse = await requestTotalCollectionEntitiesRetired();
+
+    if (!totalEntitiesResponse || !totalRetiredResponse)
+      throw new Error("panica!");
+
+    return {
+      totalEntities: totalEntitiesResponse,
+      totalRetired: totalRetiredResponse,
+    };
+  }
+);
+
+export const fetchTotalCollectionEntitiesRetired = createAsyncThunk<any>(
+  "entityCollections/fetchTotalCollectionEntitiesRetired",
+  async (): Promise<IApiCollectionEntitiesTotalRetired> => {
+    const totalRetiredResponse = await requestTotalCollectionEntitiesRetired();
+    if (!totalRetiredResponse) throw new Error("panica!");
+
+    return totalRetiredResponse;
+  }
+);
 
 export const fetchAndFillCollections = createAsyncThunk(
   "entityCollections/fetchAndFillCollections",
