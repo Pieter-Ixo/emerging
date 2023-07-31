@@ -1,5 +1,5 @@
 const TREES_LENGTH = 10;
-const TREE_STEP = 100_000;
+const TREE_STEP = 200_000;
 
 export default function fillTreesProgress(totalTrees: number): number[] {
   const emptyTrees: number[] = Array.from({ length: TREES_LENGTH }, () => 0);
@@ -22,11 +22,11 @@ export default function fillTreesProgress(totalTrees: number): number[] {
     switch (true) {
       case num >= TREE_STEP:
         return 1;
-      case num >= 75_000 && num < TREE_STEP:
+      case num >= 150_000 && num < TREE_STEP:
         return 0.75;
-      case num >= 50_000 && num < 75_000:
+      case num >= 100_000 && num < 150_000:
         return 0.5;
-      case num > 0 && num < 50_000:
+      case num > 0 && num < 100_000:
         return 0.25;
       default:
         return 0;
