@@ -6,7 +6,7 @@ import { AxisOptions } from "react-charts";
 import { MONTH_SESSIONS_TOTAL_MAP } from "@/types/stove";
 import { palette } from "@/theme/palette";
 
-import { DataItem, summaryCalculateAll, summaryToChartData } from "./helpers";
+import { DataItem, summaryCalculateAll, summaryToChartData } from "../helpers";
 
 const Chart = dynamic(() => import("react-charts").then((mod) => mod.Chart), {
   ssr: false,

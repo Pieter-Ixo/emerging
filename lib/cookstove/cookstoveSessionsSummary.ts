@@ -5,25 +5,14 @@ import {
   STOVES_SESSIONS_SUMMARY,
 } from "@/types/stove";
 
-const now = new Date();
-// eslint-disable-next-line prefer-const
-let [month, day, year] = [
-  (now.getMonth() + 1).toString(),
-  now.getDate().toString(),
-  now.getFullYear(),
-];
-day = day.length === 1 ? `0${day}` : day;
-month = month.length === 1 ? `0${month}` : month;
-
-const defaultStartDate = `${year - 1}-${month}-${day}`;
-const defaultEndDate = `${year}-${month}-${day}`;
+import { defaultStartDate, defaultEndDate } from "./pleaseDeleteThisAsap";
 
 export async function getCookstoveSessionsSummary(
   deviceId: number,
   headers: {},
   startDate: string = defaultStartDate,
   endDate: string = defaultEndDate,
-  groupBy: "DAY" | "WEEK" | "MONTH" = "MONTH"
+  groupBy: "DAY" | "WEEK" | "MONTH" = "DAY"
 ): Promise<STOVES_SESSIONS_SUMMARY | undefined> {
   try {
     const res = await axios.get(

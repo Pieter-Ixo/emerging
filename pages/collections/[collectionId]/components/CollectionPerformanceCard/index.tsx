@@ -1,49 +1,69 @@
-import { useEffect } from "react";
-import { Flex, Loader, Text } from "@mantine/core";
+import { useState } from "react";
+import { Flex, Tabs } from "@mantine/core";
 
-import { useAppSelector } from "@/hooks/redux";
-import { useCookstove } from "@/context/cookstove";
-import { selectAllEntitiesExternalIds } from "@/redux/entityCollections/selectors";
 import { palette } from "@/theme/palette";
 
 import PageBlock from "../PageBlock";
-import SessionsChart from "./SessionsChart";
-import { calculateTotalSessions } from "./helpers";
+import { PerformanceTab } from "./PerformanceTabs";
+import CO2Saved from "../CollectionClimateImpactsCard/icons/CO2Saved";
+import CollectionUsage from "./CollectionUsage/intex";
+import CollectionFuel from "./CollectionFuel/intex";
+
+enum SECTIONS {
+  usage = "usage",
+  fuel = "fuel",
+}
 
 export default function CollectionPerformanceCard() {
-  const {
-    stove: { sessionsSummary },
-    fetchMonthSummary,
-  } = useCookstove();
-
-  const entitesExternalIds = useAppSelector(selectAllEntitiesExternalIds);
-
-  useEffect(() => {
-    fetchMonthSummary(entitesExternalIds);
-  }, []);
-
-  const totalValue = sessionsSummary
-    ? calculateTotalSessions(sessionsSummary)
-    : 0;
+  const [activeTab, setActiveTab] = useState<SECTIONS>(SECTIONS.usage);
 
   return (
     <PageBlock title="COLLECTION PERFORMANCE">
-      {sessionsSummary ? (
-        <>
-          <Flex pt={28} align="flex-end">
-            <Text size={56} color={palette.fullBlue} pr={10} fs="normal">
-              {totalValue.toLocaleString()}
-            </Text>
-            <Text color={palette.Black} pb={18} fs="normal" weight={300}>
-              clean cooking sessions with renewable energy
-            </Text>
-          </Flex>
-
-          <SessionsChart sessionsSummary={sessionsSummary} />
-        </>
-      ) : (
-        <Loader />
-      )}
+      <Tabs
+        variant="pills"
+        value={activeTab}
+        // @ts-ignore
+        onTabChange={setActiveTab}
+        color="transparent"
+        width="100%"
+      >
+        <Flex direction="row" justify="flex-start" gap="xl">
+          <PerformanceTab
+            // @ts-ignore
+            name={SECTIONS.usage as string}
+            activeBGColor={palette.fullBlue}
+            Icon={
+              <CO2Saved
+                fill={
+                  activeTab === SECTIONS.usage ? palette.White : palette.Black
+                }
+              />
+            }
+            onClick={() => setActiveTab(SECTIONS.usage)}
+            isActive={SECTIONS.usage === activeTab}
+          >
+            usage
+          </PerformanceTab>
+          <PerformanceTab
+            // @ts-ignore
+            name={SECTIONS.fuel as string}
+            activeBGColor={palette.fullBlue}
+            Icon={
+              <CO2Saved
+                fill={
+                  activeTab === SECTIONS.fuel ? palette.White : palette.Black
+                }
+              />
+            }
+            onClick={() => setActiveTab(SECTIONS.fuel)}
+            isActive={SECTIONS.fuel === activeTab}
+          >
+            fuel
+          </PerformanceTab>
+        </Flex>
+      </Tabs>
+      {SECTIONS.usage === activeTab && <CollectionUsage />}
+      {SECTIONS.fuel === activeTab && <CollectionFuel />}
     </PageBlock>
   );
 }
