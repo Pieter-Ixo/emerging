@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Flex } from "@mantine/core";
 import { palette } from "@/theme/palette";
 import Nav from "@/components/Navbar/navbar";
+import { initStyles } from "@/theme/initStyles";
 
 function CollectionsLayout({ children }) {
   return (
@@ -10,7 +11,7 @@ function CollectionsLayout({ children }) {
         <title>Emerging Collections</title>
       </Head>
 
-      <Flex>
+      <Flex ml={initStyles.navWidth}>
         <Nav />
         <main
           style={{

@@ -4,6 +4,7 @@ import { CollectionDashboard } from "@/components/Dashboard";
 import { fetchAllEntities } from "@/redux/collection/thunks";
 import Nav from "@/components/Navbar/navbar";
 import { Flex } from "@mantine/core";
+import { initStyles } from "@/theme/initStyles";
 
 export default function Home() {
   const dispatch = useAppDispatch();
@@ -15,7 +16,7 @@ export default function Home() {
   return (
     <Flex>
       <Nav />
-      <main style={{ width: "100%", background: "#FAFAFA" }}>
+      <main style={{ marginLeft:initStyles.navWidth, width: "100%", background: "#FAFAFA" }}>
         <CollectionDashboard />
       </main>
     </Flex>

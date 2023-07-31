@@ -83,7 +83,7 @@ export default function Collections() {
         </Carousel>
         <Box mb={28} sx={{ borderBottom: `1px solid ${palette.Neutral500}` }} />
 
-        {isEntityCollectionsLoading && <Loader />}
+        {isEntityCollectionsLoading && <Loader w="100%" mx="auto" />}
 
         <EntitiesList
           entities={activeEntityCollection?.entities}

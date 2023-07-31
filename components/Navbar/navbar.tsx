@@ -47,6 +47,7 @@ export default function Nav() {
       width={{ base: 360, sm: 360 }}
       h="100%"
       mih="100vh"
+      fixed
       bg={palette.Neutral200}
       withBorder={false}
     >

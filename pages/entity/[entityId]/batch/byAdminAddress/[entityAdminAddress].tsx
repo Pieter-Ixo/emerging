@@ -34,7 +34,7 @@ export default function Batches() {
 
   return (
     <BatchesLayout>
-      <Box maw="70%">
+      <Box maw="70%" pl={32}>
         <Header />
         <Grid gutter="xl">
           {parsedBatches?.map(([betchId, betchData]) => (

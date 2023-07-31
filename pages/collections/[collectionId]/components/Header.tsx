@@ -10,8 +10,8 @@ export default function PageHeader({
   collectionName?: string | undefined;
 }) {
   return (
-    <Container fluid sx={{ width: "100%" }}>
-      <Flex align="center" gap={24} pl={32} p={16}>
+    <Container fluid mb="xl" sx={{ width: "100%" }} p={0}>
+      <Flex align="center" gap={24}>
         <Flex align="center" gap={16}>
           <GlobalIcon selected />
           <Link href="/collections/portfolio">
