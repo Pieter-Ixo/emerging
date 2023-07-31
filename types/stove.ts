@@ -16,6 +16,11 @@ export type STOVE = {
   loading?: boolean;
 };
 export type MONTH_SESSIONS_TOTAL_MAP = Record<string, Record<string, number>>;
+export type MONTH_FUEL_TOTAL_MAP = Record<
+  string,
+  { total?: number; dayMap: Record<string, number | undefined> }
+>;
+// MONTH_FUEL_TOTAL_MAP = {deviceId: {total, dayMap: { day: kg }}}
 
 export type STOVE_DATA = {
   deviceId?: number;
