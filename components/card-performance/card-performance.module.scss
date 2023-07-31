@@ -1,73 +1,76 @@
 .performanceCard {
-	padding: 10px 15px 15px;
-	display: flex;
-	flex-direction: column;
-	font-size: 0.7rem;
+  padding: 10px 15px 15px;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.7rem;
 
-	.header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		border-bottom: 1px solid #ffffffaa;
-		font-weight: 500;
-		padding-bottom: 6px;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ffffffaa;
+    font-weight: 500;
+    padding-bottom: 6px;
 
-		p {
-			margin: 0;
-		}
+    p {
+      margin: 0;
+    }
+    .title {
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+    .button {
+      cursor: pointer;
+    }
+  }
 
-		.button {
-			cursor: pointer;
-		}
-	}
+  .sections {
+    display: flex;
+    // justify-content: space-between;
+    justify-content: space-around;
+    margin: 20px 0 8px;
 
-	.sections {
-		display: flex;
-		// justify-content: space-between;
-		justify-content: space-around;
-		margin: 20px 0 8px;
+    .section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-weight: 500;
 
-		.section {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			font-weight: 500;
+      p {
+        margin: 3px 0 0;
+      }
 
-			p {
-				margin: 3px 0 0;
-			}
+      .circle {
+        width: 46px;
+        height: 46px;
+        background: rgba(255, 255, 255, 0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
 
-			.circle {
-				width: 46px;
-				height: 46px;
-				background: rgba(255, 255, 255, 0.3);
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				border-radius: 50%;
+        &.selected {
+          background: #ffffff;
+        }
+      }
+    }
+  }
 
-				&.selected {
-					background: #ffffff;
-				}
-			}
-		}
-	}
+  .details {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    margin: 10px 0;
 
-	.details {
-		display: flex;
-		flex-direction: row;
-		align-items: baseline;
-		margin: 10px 0;
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
 
-		p {
-			margin: 0;
-			font-size: 0.9rem;
-		}
-
-		.amount {
-			font-size: 2.5rem;
-			margin-right: 6px;
-			line-height: 2.7rem;
-		}
-	}
+    .amount {
+      font-size: 2.5rem;
+      margin-right: 6px;
+      line-height: 2.7rem;
+    }
+  }
 }

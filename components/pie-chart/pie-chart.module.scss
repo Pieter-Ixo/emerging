@@ -1,69 +1,69 @@
 .pie {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	margin: 20px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 20px 0;
 
-	.pieChartContainer {
-		position: relative;
-		margin-right: 15px;
-		flex: 1;
+  .pieChartContainer {
+    position: relative;
+    margin-right: 15px;
+    flex: 1;
 
-		.pieChart {
-			position: relative;
-			z-index: 5;
-		}
+    .pieChart {
+      position: relative;
+      z-index: 5;
+    }
 
-		.textContainer {
-			position: absolute;
-			top: 0;
-			left: 0;
-			bottom: 0;
-			right: 0;
-			z-index: 3;
-			text-align: center;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
+    .textContainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 3;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
-			.amount {
-				font-size: 2.5rem;
-				line-height: 2.7rem;
-				margin: 0;
-				margin-top: 5px;
-			}
+      .amount {
+        font-size: 3.5rem;
+        line-height: 2.7rem;
+        margin: 0;
+        margin-top: 5px;
+      }
 
-			.text {
-				margin: 0;
-				margin-bottom: 5px;
-				font-weight: 500;
-				font-size: 0.8rem;
-			}
-		}
-	}
+      .text {
+        margin: 0;
+        margin-bottom: 5px;
+        font-weight: 800;
+        font-size: 1rem;
+      }
+    }
+  }
 
-	.labels {
-		flex: 1;
+  .labels {
+    flex: 1;
 
-		.selected {
-			background-color: #ffffff;
-		}
+    .selected {
+      background-color: #ffffff;
+    }
 
-		.label {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			padding: 6px 10px;
-			margin-bottom: 10px;
-			cursor: pointer;
+    .label {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 6px 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
 
-			.circle {
-				border-radius: 50%;
-				width: 22px;
-				height: 22px;
-				margin-right: 8px;
-			}
-		}
-	}
+      .circle {
+        border-radius: 50%;
+        width: 22px;
+        height: 22px;
+        margin-right: 8px;
+      }
+    }
+  }
 }

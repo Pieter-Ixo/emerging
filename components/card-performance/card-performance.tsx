@@ -22,7 +22,7 @@ function PerformanceCard({ className, stove, ...other }: EventsCardProps) {
   return (
     <Card className={cls(styles.performanceCard, className)} {...other}>
       <div className={styles.header}>
-        <p>MY SUPAMOTO PERFORMANCE</p>
+        <p className={styles.title}>MY SUPAMOTO PERFORMANCE</p>
         <div className={styles.button}>
           <Info width={18} height={18} />
         </div>
