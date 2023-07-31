@@ -7,24 +7,43 @@ import Card from "@/components/card/card";
 import styles from "./pie-chart.module.scss";
 
 type PieChartProps = {
-  totalMinted: number;
-  totalTokenAmount: number;
+  totalMinted?: number;
+  totalTokenAmount?: number;
+  totalOffset?: number;
+  totalTransferred?: number;
 };
 
-function PieChart({ totalMinted, totalTokenAmount }: PieChartProps) {
+function PieChart({
+  totalMinted = 0,
+  totalTokenAmount = 0,
+  totalOffset = 0,
+  totalTransferred = 0,
+}: PieChartProps) {
   const [active, setActive] = useState<number>(0);
 
   const chartCnfig = [
     {
-      title: "Credits",
-      value: totalTokenAmount,
+      title: "To issue",
+      value: totalMinted,
       color: "#5FA8EB",
       text: "AVAILABLE CREDITS",
     },
     {
-      title: "Credits Issued",
-      value: totalMinted,
+      title: "Available",
+      value: totalTokenAmount,
       color: "#2B94F5",
+      text: "CARBON CREDITS",
+    },
+    {
+      title: "Offset",
+      value: totalOffset,
+      color: "#73B556",
+      text: "CARBON CREDITS",
+    },
+    {
+      title: "Transferred",
+      value: totalTransferred,
+      color: "#E79903",
       text: "CARBON CREDITS",
     },
   ];
