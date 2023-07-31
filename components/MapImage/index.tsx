@@ -27,7 +27,7 @@ export default function MapImage({
 
   return (
     <Image
-      h={300}
+      mah={300}
       radius="md"
       src={url}
       alt="map which shows where the cookstove is located"

@@ -6,7 +6,7 @@ import getEntityTotalTokenAmount, {
 import { useCookstove } from "@/context/cookstove";
 import { IEntityExtended } from "@/types/entityCollections";
 
-import CookstoveDashboard from "../CookstoveDashboard/inidex";
+import CookstoveDashboard from "../CookstoveDashboard";
 
 interface Props {
   id: number | string;

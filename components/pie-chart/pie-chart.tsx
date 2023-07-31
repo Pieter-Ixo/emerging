@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useState } from "react";
 import { PieChart as PieChartImport } from "react-minimal-pie-chart";
 import cls from "classnames";
 import { Box, Image } from "@mantine/core";
@@ -19,12 +19,18 @@ function PieChart({
   totalOffset = 0,
   totalTransferred = 0,
 }: PieChartProps) {
-  const [active, setActive] = useState<number>(0);
+  const [active, setActive] = useState<number | null>(null);
 
-  const chartCnfig = [
+  function toggleActiveSemiCircle(i: number) {
+    if (i === 0 || i === 2) return null;
+    return setActive(i);
+  }
+
+  const chartConfig = [
     {
       title: "To issue",
-      value: totalMinted,
+      // TODO: make unavailable to click
+      value: totalTokenAmount,
       color: "#5FA8EB",
       text: "AVAILABLE CREDITS",
     },
@@ -35,8 +41,10 @@ function PieChart({
       text: "CARBON CREDITS",
     },
     {
+      // TODO: make unavailable to click
       title: "Offset",
-      value: totalOffset,
+      // TODO: Change this when we'll have the way to fetch Transferred
+      value: totalTokenAmount,
       color: "#73B556",
       text: "CARBON CREDITS",
     },
@@ -48,9 +56,7 @@ function PieChart({
     },
   ];
 
-  const totalValue = totalTokenAmount + totalMinted;
-
-  const activeSection = active !== null ? chartCnfig[active] : null;
+  const activeSection = active !== null ? chartConfig[active] : null;
 
   return (
     <div className={styles.pie}>
@@ -69,9 +75,13 @@ function PieChart({
             lineWidth={12}
             startAngle={270}
             animate
-            onClick={(_, i) => setActive(i)}
-            data={chartCnfig}
-            segmentsStyle={{ cursor: "pointer", zIndex: 1 }}
+            onClick={(_, i) => toggleActiveSemiCircle(i)}
+            data={chartConfig}
+            segmentsStyle={{
+              cursor: "pointer",
+              zIndex: 1,
+              backgroundColor: "black",
+            }}
             rounded
             paddingAngle={10}
           />
@@ -82,26 +92,26 @@ function PieChart({
           style={{ color: activeSection?.color }}
         >
           <p className={styles.amount}>
-            {(activeSection?.value ?? totalValue).toLocaleString()}
+            {(activeSection?.value ?? totalMinted).toLocaleString()}
           </p>
           <p className={styles.text}>
-            {activeSection?.text ?? "CARBON CREDITS"}
+            {activeSection?.text ?? "CARBON PRODUCED"}
           </p>
         </div>
       </div>
 
       <div className={styles.labels}>
-        {chartCnfig.map((d, i) => (
+        {chartConfig.map((semi, i) => (
           <Card
-            className={cls(styles.label, { [styles.selected]: active == i })}
-            onClick={() => setActive(i)}
-            key={d.title}
+            className={cls(styles.label, { [styles.selected]: active === i })}
+            onClick={() => toggleActiveSemiCircle(i)}
+            key={semi.title}
           >
             <div
               className={styles.circle}
-              style={{ backgroundColor: d.color }}
+              style={{ backgroundColor: semi.color }}
             />
-            {d.title}
+            {semi.title}
           </Card>
         ))}
       </div>
