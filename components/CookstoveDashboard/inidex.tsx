@@ -9,17 +9,20 @@ import Sprout from "@/assets/icons/sprout.svg";
 import Eye from "@/assets/icons/eye.svg";
 import Loader from "@/components/loader/loader";
 import PieChart from "@/components/pie-chart/pie-chart";
-import CarbonClaimCard from "@/components/card-claim/card-claim";
+import CarbonClaimCard from "@/components/CardClaim";
 import ImageTextCard from "@/components/card-image-text/card-image-text";
 import PerformanceCard from "@/components/card-performance/card-performance";
 import { STOVE } from "@/types/stove";
 import { palette } from "@/theme/palette";
+import CarbonIssueCard from "../CardIssue";
 
 interface Props {
   entityExternalId: number | string;
   stove: STOVE;
   totalMinted?: number;
   totalTokenAmount?: number;
+  totalOffset?: number;
+  totalTransferred?: number;
 }
 
 export default function CookstoveDashboard({
@@ -27,6 +30,8 @@ export default function CookstoveDashboard({
   stove,
   totalMinted,
   totalTokenAmount,
+  totalOffset,
+  totalTransferred,
 }: Props) {
   const isCookstoveLoading = stove.loading || !entityExternalId;
   const isSessionsAndPelletsFound = !!(stove.sessions && stove.pellets);
@@ -79,12 +84,13 @@ export default function CookstoveDashboard({
         </Title>
         <section className={utilsStyles.column}>
           <div className={cls(utilsStyles.flex)}>
-            <CarbonClaimCard
-              amount={(totalTokenAmount || 0).toLocaleString()}
-            />
+            <CarbonIssueCard amount={totalMinted} />
+            <CarbonClaimCard amount={totalTokenAmount} />
             <PieChart
-              totalTokenAmount={totalTokenAmount || 0}
-              totalMinted={totalMinted || 0}
+              totalTokenAmount={totalTokenAmount}
+              totalMinted={totalMinted}
+              totalOffset={totalOffset}
+              totalTransferred={totalTransferred}
             />
             <PerformanceCard stove={stove} />
 
