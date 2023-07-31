@@ -4,6 +4,7 @@ import { ITokenCarbonExtended } from "@/types/entityCollections";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import { palette } from "@/theme/palette";
 
+import Link from "next/link";
 import { FieldText } from "../styledComponents";
 
 export default function ImpactCreditsProduced({
@@ -30,7 +31,9 @@ export default function ImpactCreditsProduced({
       </Flex>
       {Object.entries(tokensMap ?? {}).map(([key, token]) => (
         <Flex direction="row" justify="space-between" key={key}>
-          <FieldText>{key}</FieldText>
+          <Link href={key}>
+            <FieldText>{key}</FieldText>
+          </Link>
           <FieldText>{token.minted}</FieldText>
         </Flex>
       ))}
