@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import { Text } from "@mantine/core";
+import { Loader, Text } from "@mantine/core";
 
 import { useAppSelector } from "@/hooks/redux";
 import { useCookstove } from "@/context/cookstove";
 import { selectAllEntitiesExternalIds } from "@/redux/entityCollections/selectors";
 
 import PageBlock from "../PageBlock";
+import SessionsChart from "./SessionsChart";
 
 export default function CollectionPerformanceCard() {
   const {
@@ -15,15 +16,17 @@ export default function CollectionPerformanceCard() {
 
   const entitesExternalIds = useAppSelector(selectAllEntitiesExternalIds);
 
-  console.log("🐞", sessionsSummary);
-
   useEffect(() => {
     fetchMonthSummary(entitesExternalIds);
   }, []);
 
   return (
     <PageBlock title="COLLECTION PERFORMANCE" rightSide={<Text>SEE ALL</Text>}>
-      <div id="graph" />
+      {sessionsSummary ? (
+        <SessionsChart sessionsSummary={sessionsSummary} />
+      ) : (
+        <Loader />
+      )}
     </PageBlock>
   );
 }
