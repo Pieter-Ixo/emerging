@@ -6,6 +6,7 @@ import { PropsWithChildren } from "react";
 const notDesktopOnlyPathname = [
   `/devices/[entityId]`,
   "/collections/portfolio",
+  "/devices/[entityId]/household",
 ];
 
 export default function Layout({
