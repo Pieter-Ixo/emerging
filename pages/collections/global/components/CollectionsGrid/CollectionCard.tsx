@@ -19,7 +19,9 @@ export default function CollectionCard({ collection }: Props) {
   return (
     <BackgroundImage
       src={imageUrl || ""}
+      sx={{ cursor: "pointer" }}
       p="md"
+      maw="400px"
       mih="260px"
       radius="lg"
       onClick={() => router.push(`/collections/${collection.id}`)}

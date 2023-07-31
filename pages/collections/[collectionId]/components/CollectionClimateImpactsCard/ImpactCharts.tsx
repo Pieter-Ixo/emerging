@@ -59,7 +59,7 @@ export default function ImpactsCharts({ activeTab, totalValue }: Props) {
 
   return (
     <Suspense fallback={<Loading />}>
-      <Flex pt={28} align="flex-end">
+      <Flex align="flex-end">
         <Text size={56} color={accentColor} pr={10} fs="normal">
           {(totalValue || 0).toLocaleString()}
         </Text>

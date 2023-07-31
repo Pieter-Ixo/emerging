@@ -59,7 +59,7 @@ type ImpactTabsProps = {
 
 export default function ImpactTabs({ activeTab, onSetTab }: ImpactTabsProps) {
   return (
-    <Group>
+    <Group pb={28}>
       <ImpactTab
         isActive={activeTab === ClimateImpactTab.SAVED}
         activeBGColor={palette.fullBlue}

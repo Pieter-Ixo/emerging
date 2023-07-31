@@ -1,14 +1,18 @@
 import { Text,  Flex, ActionIcon, Input } from "@mantine/core";
 import { palette } from "@/theme/palette";
+import { PortfolioViewMods } from "@/types/stove";
 import { useState } from "react";
+
 import CollectionIcon from "../icons/CollectionIcon";
 import SearchIcon from "../icons/SearchIcon";
 import FilterIcon from "../icons/FilterIcon";
 import TabsIcon from "../icons/TabsIcon";
 
 export default function Controls() {
-  const [isCollectionActive, setCollectionActive] = useState(false);
-  const [isTabsActive, setTabsActive] = useState(false);
+  const [viewMode, setViewMode] = useState(PortfolioViewMods.iconView);
+
+  const isListViewMode = viewMode === PortfolioViewMods.listView;
+  const isIconViewMode = viewMode === PortfolioViewMods.iconView;
 
   return (
     <Flex gap={8}>
@@ -25,15 +29,15 @@ export default function Controls() {
         color="dark"
         variant="transparent"
         sx={{
-          background: isCollectionActive
+          background: isIconViewMode
             ? palette.fullBlue
             : palette.Neutral200,
         }}
-        onClick={() => setCollectionActive((prev) => !prev)}
+        onClick={() => setViewMode(PortfolioViewMods.iconView)}
       >
         <CollectionIcon
           fill="transparent"
-          stroke={isCollectionActive ? palette.White : palette.Black}
+          stroke={isIconViewMode ? palette.White : palette.Black}
         />
       </ActionIcon>
       <ActionIcon
@@ -42,11 +46,11 @@ export default function Controls() {
         color="dark"
         variant="transparent"
         sx={{
-          background: isTabsActive ? palette.fullBlue : palette.Neutral200,
+          background: isListViewMode ? palette.fullBlue : palette.Neutral200,
         }}
-        onClick={() => setTabsActive((prev) => !prev)}
+        onClick={() => setViewMode(PortfolioViewMods.listView)}
       >
-        <TabsIcon fill={isTabsActive ? palette.White : palette.Black} />
+        <TabsIcon fill={isListViewMode ? palette.White : palette.Black} />
       </ActionIcon>
       <ActionIcon
         size="xl"

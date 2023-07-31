@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Text } from "@mantine/core";
+import { Loader, Text } from "@mantine/core";
 import { ICollectionEntitiesToken } from "@/types/entityCollections";
+import { useAppSelector } from "@/hooks/redux";
+import { selectEntitiesTotalLoading } from "@/redux/entityCollections/selectors";
 
 import PageBlock from "../PageBlock";
 import ImpactTabs, { ClimateImpactTab } from "./ImpactTabs";
@@ -19,6 +21,10 @@ type Props = {
 export default function CollectionClimateImpactsCard({
   totalCollectionEntitiesTokens,
 }: Props) {
+  const isEntitiesTotalTokensLoading = useAppSelector(
+    selectEntitiesTotalLoading
+  );
+
   const [climateImpactTab, setClimateImpactTab] = useState<ClimateImpactTab>(
     ClimateImpactTab.SAVED
   );
@@ -68,7 +74,11 @@ export default function CollectionClimateImpactsCard({
   return (
     <PageBlock title="CLIMATE IMPACTS" rightSide={<Text>SEE ALL</Text>}>
       <ImpactTabs activeTab={climateImpactTab} onSetTab={setClimateImpactTab} />
-      <ImpactCharts activeTab={climateImpactTab} totalValue={totalTabValue} />
+      {isEntitiesTotalTokensLoading ? (
+        <Loader w="100%" mx="auto" />
+      ) : (
+        <ImpactCharts activeTab={climateImpactTab} totalValue={totalTabValue} />
+      )}
     </PageBlock>
   );
 }
