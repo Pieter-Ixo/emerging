@@ -12,13 +12,13 @@ import SessionsChart from "./SessionsChart";
 export default function CollectionUsage() {
   const {
     stove: { sessionsSummary },
-    fetchMonthSummary,
+    fetchSessionsSummary,
   } = useCookstove();
 
   const entitesExternalIds = useAppSelector(selectAllEntitiesExternalIds);
 
   useEffect(() => {
-    fetchMonthSummary(entitesExternalIds);
+    fetchSessionsSummary(entitesExternalIds);
   }, []);
 
   const totalValue = sessionsSummary

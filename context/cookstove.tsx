@@ -15,7 +15,7 @@ export const CookstoveContext = createContext({
   updateStove: (newStove: STOVE, override?: boolean) => {},
   fetchSessions: async (period: STOVE_PERIODS) => {},
   fetchPellets: async (period: STOVE_PERIODS) => {},
-  fetchMonthSummary: async (ids: (string | number)[]) => {},
+  fetchSessionsSummary: async (ids: (string | number)[]) => {},
 });
 
 export function CookstoveProvider({
@@ -81,7 +81,7 @@ export function CookstoveProvider({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fetchMonthSummary = async (deviceIds: (number | string)[]) => {
+  const fetchSessionsSummary = async (deviceIds: (number | string)[]) => {
     // TODO: apply convenient fetching approach
     // TODO: apply await synthax
     console.log("🫎1", Date.now());
@@ -155,7 +155,7 @@ export function CookstoveProvider({
     updateStove,
     fetchSessions,
     fetchPellets,
-    fetchMonthSummary,
+    fetchSessionsSummary,
   };
 
   return (
