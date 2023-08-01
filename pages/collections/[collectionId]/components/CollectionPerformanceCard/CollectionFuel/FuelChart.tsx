@@ -35,7 +35,7 @@ export default function FuelChart({ fuelSummary }: Props) {
     <Box h="300px" id="fuel" key="fuel">
       <Chart
         options={{
-          data: [{ label: "count of the cooking sessions", data }],
+          data: [{ label: "kilograms sold at this day", data }],
           // @ts-ignore
           primaryAxis,
           // @ts-ignore
