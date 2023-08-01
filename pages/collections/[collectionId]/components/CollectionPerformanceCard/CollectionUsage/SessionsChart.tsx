@@ -32,10 +32,8 @@ export default function SessionsChart({ sessionsSummary }: Props) {
     []
   );
 
-  console.log("🏓", data);
-
   return (
-    <Box h="300px">
+    <Box h="300px" id="fuel" key="fuel">
       <Chart
         options={{
           data: [{ label: "count of the cooking sessions", data }],

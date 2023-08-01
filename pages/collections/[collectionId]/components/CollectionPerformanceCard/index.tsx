@@ -16,7 +16,7 @@ enum SECTIONS {
 }
 
 export default function CollectionPerformanceCard() {
-  const [activeTab, setActiveTab] = useState<SECTIONS>(SECTIONS.usage);
+  const [activeTab, setActiveTab] = useState<SECTIONS>(SECTIONS.fuel);
 
   return (
     <PageBlock title="COLLECTION PERFORMANCE">
@@ -58,7 +58,7 @@ export default function CollectionPerformanceCard() {
             }
             onClick={() => setActiveTab(SECTIONS.fuel)}
             isActive={SECTIONS.fuel === activeTab}
-            disabled
+            // disabled
           >
             fuel
           </PerformanceTab>

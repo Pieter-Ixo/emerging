@@ -24,16 +24,17 @@ export default function CollectionFuel() {
   const totalValue = fuelSummary ? calculateTotalFuel(fuelSummary) : 0;
 
   return fuelSummary ? (
-    <Flex pt={28} align="flex-end">
-      <Text size={56} color={palette.fullBlue} pr={10} fs="normal">
-        {totalValue.toLocaleString()}
-      </Text>
-      <Text color={palette.Black} pb={18} fs="normal" weight={300}>
-        kg pellets bought in last 2 months
-      </Text>
-
+    <>
+      <Flex pt={28} align="flex-end">
+        <Text size={56} color={palette.fullBlue} pr={10} fs="normal">
+          {totalValue.toLocaleString()}
+        </Text>
+        <Text color={palette.Black} pb={18} fs="normal" weight={300}>
+          kg pellets bought in last 2 months
+        </Text>
+      </Flex>
       <FuelChart fuelSummary={fuelSummary} />
-    </Flex>
+    </>
   ) : (
     <Loader />
   );
