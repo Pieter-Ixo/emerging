@@ -35,7 +35,10 @@ export type EntityCollectionState = {
   isUserTokensLoading: boolean;
   isEntitiesTotalTokensLoading: boolean;
 };
-// TODO:GOD store: add new slice and separate admin from user(ENTITY_ADMIN || CONNECTED_ACCOUNT)
+
+// TODO: GOD store: add new slice and separate admin from user(ENTITY_ADMIN || CONNECTED_ACCOUNT)
+// TODO: add rejected thunks state handling
+
 const initialState: EntityCollectionState = {
   entityCollections: [],
   isEntityCollectionsLoading: false,
@@ -113,6 +116,9 @@ const EntityCollectionSlice = createSlice({
         state.isEntityLoading = false;
       }
     );
+    builder.addCase(fillEntitiesForUserCollections.rejected, (state) => {
+      state.isEntityLoading = false;
+    });
 
     // fetchUsersTokens
     builder.addCase(fetchUsersTokens.pending, (state) => {
@@ -141,6 +147,9 @@ const EntityCollectionSlice = createSlice({
       // IApiCollectionEntitiesTotal & IApiCollectionEntitiesTotalRetired
       state.totalCollectionEntities = action.payload.totalEntities;
       state.totalCollectionEntitiesRetired = action.payload.totalRetired;
+      state.isEntitiesTotalTokensLoading = false;
+    });
+    builder.addCase(fetchTotalCollectionEntities.rejected, (state) => {
       state.isEntitiesTotalTokensLoading = false;
     });
 

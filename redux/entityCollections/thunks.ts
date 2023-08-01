@@ -119,6 +119,8 @@ export const fillEntitiesForUserCollections = createAsyncThunk(
     });
     const filledEntities = await Promise.all(entitiesPromises);
 
+    console.log("fillEntitiesForUserCollections::filledEntities: ",filledEntities);
+
     return { filledEntities, collectionId };
   }
 );
