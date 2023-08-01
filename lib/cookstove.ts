@@ -19,7 +19,7 @@ export const getCookstove = async (
 
 export const getCookstoveSessions = async (
   deviceId: number,
-  page: number,
+  page: number = 0,
   pageSize: number = 500,
   startDate: string,
   endDate: string,

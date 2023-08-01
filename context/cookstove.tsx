@@ -15,12 +15,19 @@ export const CookstoveContext = createContext({
   updateStove: (newStove: STOVE, override?: boolean) => {},
   fetchSessions: async (period: STOVE_PERIODS) => {},
   fetchPellets: async (period: STOVE_PERIODS) => {},
+  fetchSessionsSummary: async (ids: (string | number)[]) => {},
+  fetchFuelSummary: async (ids: (string | number)[]) => {},
 });
 
 export function CookstoveProvider({
   children,
 }: HTMLAttributes<HTMLDivElement>) {
   const [stove, setStove] = useState<STOVE>({});
+
+  const updateStove = (newStove: STOVE, override: boolean = false) => {
+    if (override) setStove(newStove);
+    else setStove((currentStove) => ({ ...currentStove, ...newStove }));
+  };
 
   const fetchStove = useCallback(async (id) => {
     if (!id) return;
@@ -75,14 +82,45 @@ export function CookstoveProvider({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const fetchSessionsSummary = async (deviceIds: (number | string)[]) => {
+    // TODO: apply convenient fetching approach
+    // TODO: apply await synthax
+    const sessionsSummaryMap = await fetch(
+      "/api/cookstove/cooking-sessions/summary",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ deviceIds }),
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => response.data)
+      .catch((err) => console.error(err));
+
+    if (sessionsSummaryMap)
+      updateStove({ ...stove, sessionsSummary: sessionsSummaryMap });
+  };
+  const fetchFuelSummary = async (deviceIds: (number | string)[]) => {
+    // TODO: apply convenient fetching approach
+    // TODO: apply await synthax
+    const fuelSummary = await fetch(
+      "/api/cookstove/pellets-purchases/summary",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ deviceIds }),
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => response.data)
+      .catch((err) => console.error(err));
+
+    if (fuelSummary) updateStove({ ...stove, fuelSummary });
+  };
+
   const fetchSessions = async (period: STOVE_PERIODS) => {};
 
   const fetchPellets = async (period: STOVE_PERIODS) => {};
-
-  const updateStove = (newStove: {}, override: boolean = false) => {
-    if (override) setStove(newStove);
-    else setStove((currentStove) => ({ ...currentStove, ...newStove }));
-  };
 
   const updateStoveData = (newStoveData: {}, override: boolean = false) => {
     if (override)
@@ -126,7 +164,15 @@ export function CookstoveProvider({
       }));
   };
 
-  const value = { stove, fetchStove, updateStove, fetchSessions, fetchPellets };
+  const value = {
+    stove,
+    fetchStove,
+    updateStove,
+    fetchSessions,
+    fetchPellets,
+    fetchSessionsSummary,
+    fetchFuelSummary,
+  };
 
   return (
     <CookstoveContext.Provider value={value}>

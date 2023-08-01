@@ -121,7 +121,8 @@ export const selectEntitiesTotalLoading = createDraftSafeSelector(
   selectEntityCollections,
   (
     state: EntityCollectionState
-  ): EntityCollectionState["isEntitiesTotalTokensLoading"] => state.isEntitiesTotalTokensLoading
+  ): EntityCollectionState["isEntitiesTotalTokensLoading"] =>
+    state.isEntitiesTotalTokensLoading
 );
 
 export const selectCollectionAssetsCount = createDraftSafeSelector(
@@ -183,6 +184,15 @@ export const selectTotalCollectionEntitiesToken = createDraftSafeSelector(
 
     return totalAmountMinted;
   }
+);
+
+export const selectAllEntitiesExternalIds = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    // TODO: make selector return entiies for a given collection
+    entityCollectionsState.entityCollections?.[0]?.entities
+      .filter((entity) => entity.type === "asset/device")
+      .map((entity) => entity.externalId)
 );
 
 export const selectEntityByExternalId = (
