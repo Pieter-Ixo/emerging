@@ -12,8 +12,10 @@ export enum ClimateImpactTab {
   ISSUED = "ISSUED",
   OFFSET = "OFFSET",
 }
-// TODO: this component taken from elsewhere. Refactor it to be able to work here and elsewhere
 
+// TODO: make this component properly support many props compositions
+// TODO: this component is basically a button with icon and a text. It should correspond this description and take any role not only a tab
+// TODO: this component taken from elsewhere. Refactor it to be able to work here and elsewhere
 type ImpactTabProps = PropsWithChildren & {
   isActive?: boolean;
   activeBGColor?: string;

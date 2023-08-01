@@ -1,6 +1,7 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
+// TODO: we shouldn't make a component for each SVG icon. Move all SVGs to assets/icons and make a component which work with all SVGs
 export default function CookstoveTimeIcon(
   props: { strokeColor: string } & SVGProps<SVGSVGElement>
 ) {
