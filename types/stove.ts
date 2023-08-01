@@ -13,8 +13,10 @@ export type STOVE = {
   pellets?: STOVE_PELLETS;
   cookstove?: COOKSTOVE;
   sessionsSummary?: MONTH_SESSIONS_TOTAL_MAP;
+  fuelSummary?: MONTH_FUEL_TOTAL_MAP;
   loading?: boolean;
 };
+
 export type MONTH_SESSIONS_TOTAL_MAP = Record<string, Record<string, number>>;
 export type MONTH_FUEL_TOTAL_MAP = Record<
   string,

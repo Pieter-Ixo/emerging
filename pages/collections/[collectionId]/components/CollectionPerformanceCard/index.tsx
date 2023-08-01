@@ -5,9 +5,10 @@ import { palette } from "@/theme/palette";
 
 import PageBlock from "../PageBlock";
 import { PerformanceTab } from "./PerformanceTabs";
-import CO2Saved from "../CollectionClimateImpactsCard/icons/CO2Saved";
 import CollectionUsage from "./CollectionUsage/intex";
 import CollectionFuel from "./CollectionFuel/intex";
+import CookstoveUsageIcon from "../CollectionClimateImpactsCard/icons/CookstoveUsageIcon";
+import CookstoveFuelIcon from "../CollectionClimateImpactsCard/icons/CookstoveFuelIcon";
 
 enum SECTIONS {
   usage = "usage",
@@ -33,8 +34,8 @@ export default function CollectionPerformanceCard() {
             name={SECTIONS.usage as string}
             activeBGColor={palette.fullBlue}
             Icon={
-              <CO2Saved
-                fill={
+              <CookstoveUsageIcon
+                strokeColor={
                   activeTab === SECTIONS.usage ? palette.White : palette.Black
                 }
               />
@@ -49,14 +50,15 @@ export default function CollectionPerformanceCard() {
             name={SECTIONS.fuel as string}
             activeBGColor={palette.fullBlue}
             Icon={
-              <CO2Saved
-                fill={
+              <CookstoveFuelIcon
+                strokeColor={
                   activeTab === SECTIONS.fuel ? palette.White : palette.Black
                 }
               />
             }
             onClick={() => setActiveTab(SECTIONS.fuel)}
             isActive={SECTIONS.fuel === activeTab}
+            disabled
           >
             fuel
           </PerformanceTab>

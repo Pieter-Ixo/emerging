@@ -16,6 +16,7 @@ export const CookstoveContext = createContext({
   fetchSessions: async (period: STOVE_PERIODS) => {},
   fetchPellets: async (period: STOVE_PERIODS) => {},
   fetchSessionsSummary: async (ids: (string | number)[]) => {},
+  fetchFuelSummary: async (ids: (string | number)[]) => {},
 });
 
 export function CookstoveProvider({
@@ -84,8 +85,6 @@ export function CookstoveProvider({
   const fetchSessionsSummary = async (deviceIds: (number | string)[]) => {
     // TODO: apply convenient fetching approach
     // TODO: apply await synthax
-    console.log("🫎1", Date.now());
-
     const sessionsSummaryMap = await fetch(
       "/api/cookstove/cooking-sessions/summary",
       {
@@ -98,9 +97,25 @@ export function CookstoveProvider({
       .then((response) => response.data)
       .catch((err) => console.error(err));
 
-    console.log("🫎2", Date.now());
     if (sessionsSummaryMap)
       updateStove({ ...stove, sessionsSummary: sessionsSummaryMap });
+  };
+  const fetchFuelSummary = async (deviceIds: (number | string)[]) => {
+    // TODO: apply convenient fetching approach
+    // TODO: apply await synthax
+    const fuelSummary = await fetch(
+      "/api/cookstove/pellets-purchases/summary",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ deviceIds }),
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => response.data)
+      .catch((err) => console.error(err));
+
+    if (fuelSummary) updateStove({ ...stove, fuelSummary });
   };
 
   const fetchSessions = async (period: STOVE_PERIODS) => {};
@@ -156,6 +171,7 @@ export function CookstoveProvider({
     fetchSessions,
     fetchPellets,
     fetchSessionsSummary,
+    fetchFuelSummary,
   };
 
   return (

@@ -17,6 +17,7 @@ type Props = {
 };
 
 export default function SessionsChart({ sessionsSummary }: Props) {
+  // TODO: do we need both functions below
   const summary = summaryCalculateAll(sessionsSummary);
   const data = summaryToChartData(summary);
   const primaryAxis = useMemo(
@@ -30,6 +31,8 @@ export default function SessionsChart({ sessionsSummary }: Props) {
     ],
     []
   );
+
+  console.log("🏓", data);
 
   return (
     <Box h="300px">

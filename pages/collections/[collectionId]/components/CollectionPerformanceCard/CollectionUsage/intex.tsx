@@ -32,7 +32,7 @@ export default function CollectionUsage() {
           {totalValue.toLocaleString()}
         </Text>
         <Text color={palette.Black} pb={18} fs="normal" weight={300}>
-          clean cooking sessions with renewable energy
+          clean cooking sessions with renewable energy during last 2 months
         </Text>
       </Flex>
 

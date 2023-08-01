@@ -19,6 +19,7 @@ type ImpactTabProps = PropsWithChildren & {
   activeBGColor: string;
   Icon: ReactNode;
   onClick: () => void;
+  disabled?: boolean;
 };
 
 export function PerformanceTab({
@@ -27,7 +28,12 @@ export function PerformanceTab({
   Icon,
   onClick,
   children,
+  disabled,
 }: ImpactTabProps) {
+  // eslint-disable-next-line no-nested-ternary
+  const color = disabled || !isActive ? "Grey" : activeBGColor;
+  console.log({ color, children });
+
   return (
     <Badge
       variant="filled"
@@ -36,11 +42,11 @@ export function PerformanceTab({
       radius={23}
       style={{
         textTransform: "none",
-        cursor: "pointer",
+        cursor: disabled ? "not-allowed" : "pointer",
       }}
-      color={isActive ? activeBGColor : "Grey"}
+      color={color}
       leftSection={<div style={{ paddingTop: 5, paddingRight: 5 }}>{Icon}</div>}
-      onClick={onClick}
+      onClick={disabled ? undefined : onClick}
     >
       <Text
         size={16}

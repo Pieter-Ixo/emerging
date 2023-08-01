@@ -3,22 +3,22 @@ import dynamic from "next/dynamic";
 import { Box } from "@mantine/core";
 import { AxisOptions } from "react-charts";
 
-import { MONTH_SESSIONS_TOTAL_MAP } from "@/types/stove";
+import { MONTH_FUEL_TOTAL_MAP } from "@/types/stove";
 import { palette } from "@/theme/palette";
 
-import { DataItem, summaryCalculateAll, summaryToChartData } from "../helpers";
+import { DataItem, fuelSummaryToChartData } from "../helpers";
 
 const Chart = dynamic(() => import("react-charts").then((mod) => mod.Chart), {
   ssr: false,
 });
 
 type Props = {
-  sessionsSummary: MONTH_SESSIONS_TOTAL_MAP;
+  fuelSummary: MONTH_FUEL_TOTAL_MAP;
 };
 
-export default function SessionsChart({ sessionsSummary }: Props) {
-  const summary = summaryCalculateAll(sessionsSummary);
-  const data = summaryToChartData(summary);
+export default function FuelChart({ fuelSummary }: Props) {
+  const data = fuelSummaryToChartData(fuelSummary);
+
   const primaryAxis = useMemo(
     (): AxisOptions<DataItem> => ({ getValue: (datum) => datum.month }),
     []
@@ -30,12 +30,13 @@ export default function SessionsChart({ sessionsSummary }: Props) {
     ],
     []
   );
+  console.log("🍊", data);
 
   return (
     <Box h="300px">
       <Chart
         options={{
-          data: [{ label: "count of the cooking sessions", data }],
+          data: [{ label: "kg sold", data }],
           // @ts-ignore
           primaryAxis,
           // @ts-ignore
