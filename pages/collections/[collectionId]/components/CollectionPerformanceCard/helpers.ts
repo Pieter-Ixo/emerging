@@ -64,3 +64,7 @@ export function calculateTotalFuel(summary: MONTH_FUEL_TOTAL_MAP): number {
     0
   );
 }
+
+export default function PagePlug() {
+  return null;
+}
