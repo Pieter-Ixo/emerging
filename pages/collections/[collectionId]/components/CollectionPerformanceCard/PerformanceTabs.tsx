@@ -30,9 +30,7 @@ export function PerformanceTab({
   children,
   disabled,
 }: ImpactTabProps) {
-  // eslint-disable-next-line no-nested-ternary
   const color = disabled || !isActive ? "Grey" : activeBGColor;
-  console.log({ color, children });
 
   return (
     <Badge
