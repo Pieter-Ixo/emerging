@@ -141,7 +141,6 @@ const EntityCollectionSlice = createSlice({
       // IApiCollectionEntitiesTotal & IApiCollectionEntitiesTotalRetired
       state.totalCollectionEntities = action.payload.totalEntities;
       state.totalCollectionEntitiesRetired = action.payload.totalRetired;
-
       state.isEntitiesTotalTokensLoading = false;
     });
 

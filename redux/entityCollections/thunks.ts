@@ -33,7 +33,6 @@ export const fetchTotalCollectionEntities = createAsyncThunk<any, string>(
       collectionId
     );
     const totalRetiredResponse = await requestTotalCollectionEntitiesRetired();
-
     if (!totalEntitiesResponse || !totalRetiredResponse)
       throw new Error("panica!");
 
