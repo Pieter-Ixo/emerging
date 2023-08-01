@@ -17,7 +17,7 @@ import { palette } from "@/theme/palette";
 import CarbonIssueCard from "../CardIssue";
 
 interface Props {
-  entityExternalId: number | string;
+  entityExternalId: string;
   stove: STOVE;
   totalMinted?: number;
   totalTokenAmount?: number;

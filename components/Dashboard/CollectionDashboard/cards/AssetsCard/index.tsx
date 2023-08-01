@@ -90,7 +90,7 @@ function AssetsCard() {
                 </Modal.Header>
                 <Modal.Body style={{ padding: 0 }}>
                   <CookstoveModal
-                    id={Number(selectedExternalId)}
+                    entityId={selectedExternalId}
                     entity={entity}
                   />
                 </Modal.Body>
