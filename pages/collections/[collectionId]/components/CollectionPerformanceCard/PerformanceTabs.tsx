@@ -15,10 +15,10 @@ export enum ClimateImpactTab {
 // TODO: this component taken from elsewhere. Refactor it to be able to work here and elsewhere
 
 type ImpactTabProps = PropsWithChildren & {
-  isActive: boolean;
-  activeBGColor: string;
+  isActive?: boolean;
+  activeBGColor?: string;
   Icon: ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   disabled?: boolean;
 };
 
