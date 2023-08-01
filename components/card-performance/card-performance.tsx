@@ -15,7 +15,7 @@ import Barchart from "../chart/BarChart";
 import SessionsChart from "../chart/SessionsChart";
 
 type EventsCardProps = { stove: STOVE } & HTMLAttributes<HTMLDivElement>;
-
+// TODO: use Mantine
 function PerformanceCard({ className, stove, ...other }: EventsCardProps) {
   const [activeTab, setActiveTab] = useState<SECTIONS>(SECTIONS.sessions);
 

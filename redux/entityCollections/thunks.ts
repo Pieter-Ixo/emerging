@@ -23,7 +23,12 @@ import fillEntity from "@/helpers/fillEntity";
 
 export const fetchTotalCollectionEntities = createAsyncThunk<any, string>(
   "entityCollections/fetchTotalCollectionEntities",
-  async (collectionId: string): Promise<{totalEntities:IApiCollectionEntitiesTotal;totalRetired:IApiCollectionEntitiesTotalRetired}> => {
+  async (
+    collectionId: string
+  ): Promise<{
+    totalEntities: IApiCollectionEntitiesTotal;
+    totalRetired: IApiCollectionEntitiesTotalRetired;
+  }> => {
     const totalEntitiesResponse = await requestTotalCollectionEntitiesCarbon(
       collectionId
     );

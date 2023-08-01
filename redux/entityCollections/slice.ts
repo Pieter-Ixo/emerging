@@ -35,7 +35,7 @@ export type EntityCollectionState = {
   isUserTokensLoading: boolean;
   isEntitiesTotalTokensLoading: boolean;
 };
-
+// TODO:GOD store: add new slice and separate admin from user(ENTITY_ADMIN || CONNECTED_ACCOUNT)
 const initialState: EntityCollectionState = {
   entityCollections: [],
   isEntityCollectionsLoading: false,
@@ -69,8 +69,8 @@ const EntityCollectionSlice = createSlice({
     });
 
     builder.addCase(fetchAndFillCollections.fulfilled, (state, action) => {
-      state.isEntityCollectionsLoading = false;
       state.entityCollections = action.payload;
+      state.isEntityCollectionsLoading = false;
     });
 
     // fetchCollectionsByOwnerAddres
@@ -81,8 +81,8 @@ const EntityCollectionSlice = createSlice({
     builder.addCase(
       fetchCollectionsByOwnerAddres.fulfilled,
       (state, action) => {
-        state.isEntityCollectionsLoading = false;
         state.userEntityCollections = action.payload;
+        state.isEntityCollectionsLoading = false;
       }
     );
 
