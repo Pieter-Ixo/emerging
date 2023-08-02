@@ -65,6 +65,7 @@ const EntityCollectionSlice = createSlice({
       state.selectedEntity = action.payload;
     },
   },
+  // TODO: it throws a warning `createSlice.extraReducers` is deprecated, and will be removed
   extraReducers(builder) {
     // fetchAndFillCollections
     builder.addCase(fetchAndFillCollections.pending, (state) => {

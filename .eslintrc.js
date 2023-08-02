@@ -59,5 +59,6 @@ module.exports = {
     "no-underscore-dangle": 0,
     "react/jsx-no-constructed-context-values": 0,
     "react-hooks/exhaustive-deps": 0,
+    "prefer-destructuring": 0,
   },
 };

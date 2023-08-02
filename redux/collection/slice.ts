@@ -31,6 +31,7 @@ const CollectionSlice = createSlice({
       state.completeLoad = action.payload;
     },
   },
+  // TODO: it throws a warning `createSlice.extraReducers` is deprecated, and will be removed
   extraReducers(builder) {
     builder.addCase(fetchAllEntities.fulfilled, (state, action) => {
       state.entities = action.payload;

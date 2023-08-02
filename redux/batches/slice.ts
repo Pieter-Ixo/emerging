@@ -39,6 +39,7 @@ const BatchesSlice = createSlice({
       state.selectedBatchData = action.payload;
     },
   },
+  // TODO: it throws a warning `createSlice.extraReducers` is deprecated, and will be removed
   extraReducers(builder) {
     // fetchAllBatches
     builder.addCase(fetchAllBatches.pending, (state) => {

@@ -8,8 +8,6 @@ export const DefaultChainNetwork = (process.env.NEXT_PUBLIC_CHAIN_NETWORK ||
 
 export const WalletConnectNamespace = "collect-merging";
 
-// export const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID ?? Object.keys(CHAINS)[1];
-
 export const BlocksyncUrls: { [network in CHAIN_NETWORK_TYPE]: string } = {
   mainnet: "https://blocksync.ixo.earth",
   testnet: "https://blocksync-pandora.ixo.earth",
