@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Box, Flex, Navbar } from "@mantine/core";
 
@@ -22,24 +22,34 @@ export default function Nav() {
   const userAddress = useAppSelector((state) => state.user.connectedWallet);
   const userEntityCollections = useAppSelector(selectUserEntityCollections);
   const selectedEntity = useAppSelector(selectSelectedEntity);
-  const userEntityCollectionsIds = useAppSelector(
-    selectUserEntityCollectionsIds
-  );
-  const [idsList, setIdsList] = useState<string[]>([]);
+  // const userEntityCollectionsIds = useAppSelector(
+  //   selectUserEntityCollectionsIds
+  // );
+  const isUserCollectionsFilled = useRef(false);
+  // const [idsList, setIdsList] = useState<string[]>([]);
 
   useEffect(() => {
-    if (
-      // if userCollections are, and have changed
-      userEntityCollectionsIds.length &&
-      !isStringArraysEqual(idsList, userEntityCollectionsIds)
-    ) {
-      setIdsList(userEntityCollectionsIds);
-
+    if (userAddress && !isUserCollectionsFilled.current) {
       userEntityCollections.forEach((userEntityCollection) => {
         dispatch(fillEntitiesForUserCollections(userEntityCollection));
       });
+      isUserCollectionsFilled.current = true;
     }
-  }, [userEntityCollectionsIds]);
+  }, [userAddress]);
+
+  // useEffect(() => {
+  //   if (
+  //     // if userCollections are, and have changed
+  //     userEntityCollectionsIds.length &&
+  //     !isStringArraysEqual(idsList, userEntityCollectionsIds)
+  //   ) {
+  //     setIdsList(userEntityCollectionsIds);
+
+  //     userEntityCollections.forEach((userEntityCollection) => {
+  //       dispatch(fillEntitiesForUserCollections(userEntityCollection));
+  //     });
+  //   }
+  // }, [userEntityCollectionsIds]);
 
   return (
     <Navbar
@@ -48,6 +58,7 @@ export default function Nav() {
       h="100%"
       mih="100vh"
       fixed
+      sx={{ overflowY: "scroll" }}
       bg={palette.Neutral200}
       withBorder={false}
     >

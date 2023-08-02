@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { PieChart as PieChartImport } from "react-minimal-pie-chart";
 import cls from "classnames";
 import { Box, Image } from "@mantine/core";
@@ -22,7 +22,6 @@ function PieChart({
   const [active, setActive] = useState<number | null>(null);
 
   function toggleActiveSemiCircle(i: number) {
-    if (i === 0 || i === 2) return null;
     return setActive(i);
   }
 
@@ -48,13 +47,14 @@ function PieChart({
     },
     {
       title: "Transferred",
-      value: totalTransferred,
+      value: totalTokenAmount,
       color: "#E79903",
       text: "CARBON CREDITS",
     },
   ];
 
   const activeSection = active !== null ? chartConfig[active] : null;
+
 
   return (
     <div className={styles.pie}>
@@ -97,7 +97,7 @@ function PieChart({
           </p>
         </div>
       </div>
-       {/* TODO: use Mantine */}
+      {/* TODO: use Mantine */}
 
       <div className={styles.labels}>
         {chartConfig.map((semi, i) => (
