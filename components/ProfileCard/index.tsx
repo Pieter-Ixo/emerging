@@ -32,14 +32,14 @@ export default function ProfileCard({
   const isTagEven = (index: number) => index % 2 === 0;
 
   return (
-    <Card shadow="sm" padding="lg" radius="md" withBorder>
+    <Card shadow="sm" padding="lg" radius="lg" withBorder w={277} mx={0}>
       <Card.Section>
         <Image src={entity?._profile?.imageUrl} height={160} alt="" />
       </Card.Section>
 
       <Flex direction="row" justify="space-between" pt="xs">
         {tags && (
-          <Group spacing="4px">
+          <Group spacing="4px" maw="60%">
             {tags.map((tag, index) =>
               tag ? (
                 <Badge
