@@ -55,6 +55,7 @@ function PieChart({
 
   const activeSection = active !== null ? chartConfig[active] : null;
 
+
   return (
     <div className={styles.pie}>
       <div className={styles.pieChartContainer}>

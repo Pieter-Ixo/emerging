@@ -7,7 +7,7 @@ type CarbonClaimCardProps = {
 };
 
 function CarbonClaimCard({ amount = 0 }: CarbonClaimCardProps) {
-  const matches = useMediaQuery("(min-width: 1440px)");
+  const fontMedia = useMediaQuery("(min-width: 1440px)");
 
   return (
     <Flex
@@ -26,8 +26,8 @@ function CarbonClaimCard({ amount = 0 }: CarbonClaimCardProps) {
         CARBON CREDITS AVAILABLE
       </Text>
       <Flex justify="space-between" align="end">
-        <Flex align="end" sx={{ color: palette.White }}>
-          <Text lh={1} size="2.2vw">
+        <Flex align="end" pr={10} sx={{ color: palette.White }}>
+          <Text lh={1} size={fontMedia ? 40 : 24}>
             {amount.toLocaleString()}
           </Text>
           <Text size={14}>CARBON</Text>
@@ -35,8 +35,8 @@ function CarbonClaimCard({ amount = 0 }: CarbonClaimCardProps) {
         <Button
           sx={{
             color: palette.White,
-            fontSize: matches ? "1.5vw" : "1.3vw",
-            width: matches ? "50%" : "60%",
+            fontSize: fontMedia ? "1.5rem" : "1.3rem",
+            width: fontMedia ? "50%" : "60%",
             fontWeight: 400,
             padding: 0,
             backgroundColor: palette.whiteTransparent,

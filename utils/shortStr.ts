@@ -6,7 +6,6 @@ export default function shortStr(
 ): string | undefined {
   if (!str) return str;
 
-
   const len = str.length;
   if (len <= threshold) return str;
 
