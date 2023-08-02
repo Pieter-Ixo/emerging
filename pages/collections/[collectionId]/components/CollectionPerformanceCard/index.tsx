@@ -9,6 +9,10 @@ import CollectionUsage from "./CollectionUsage/intex";
 import CollectionFuel from "./CollectionFuel/intex";
 import CookstoveUsageIcon from "../CollectionClimateImpactsCard/icons/CookstoveUsageIcon";
 import CookstoveFuelIcon from "../CollectionClimateImpactsCard/icons/CookstoveFuelIcon";
+import CookstoveCostsIcon from "../CollectionClimateImpactsCard/icons/CookstoveCostsIcon";
+import CookstoveHealthIcon from "../CollectionClimateImpactsCard/icons/CookstoveHealthIcon";
+import CookstoveLocationIcon from "../CollectionClimateImpactsCard/icons/CookstoveLocationIcon";
+import CookstoveTimeIcon from "../CollectionClimateImpactsCard/icons/CookstoveTimeIcon";
 
 enum SECTIONS {
   usage = "usage",
@@ -58,10 +62,25 @@ export default function CollectionPerformanceCard() {
             }
             onClick={() => setActiveTab(SECTIONS.fuel)}
             isActive={SECTIONS.fuel === activeTab}
-            // disabled
           >
             fuel
           </PerformanceTab>
+          <PerformanceTab
+            Icon={<CookstoveTimeIcon strokeColor={palette.Black} />}
+            disabled
+          />
+          <PerformanceTab
+            Icon={<CookstoveCostsIcon strokeColor={palette.Black} />}
+            disabled
+          />
+          <PerformanceTab
+            Icon={<CookstoveHealthIcon strokeColor={palette.Black} />}
+            disabled
+          />
+          <PerformanceTab
+            Icon={<CookstoveLocationIcon strokeColor={palette.Black} />}
+            disabled
+          />
         </Flex>
       </Tabs>
       {SECTIONS.usage === activeTab && <CollectionUsage />}
