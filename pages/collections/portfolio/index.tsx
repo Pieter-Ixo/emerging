@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Container, Loader, Text } from "@mantine/core";
+import { Box, Container, Loader, Text, Title } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 
 import { useAppSelector } from "@/hooks/redux";
@@ -11,12 +11,13 @@ import {
 
 import { palette } from "@/theme/palette";
 import { ICollectionEntities } from "@/types/entityCollections";
+import GlobalPortfolioSwitch from "@/components/HeaderControls";
 
 import CollectionsLayout from "../components/Layout";
-import Header from "./components/Header";
 import CollectionsItem from "./components/CollectionsItem";
 import EntitiesList from "./components/EntitiesList";
 import Controls from "./components/Controls";
+import PageHeader from "../components/PageHeader";
 
 export default function Collections() {
   const [activeCardId, setActiveCardId] = useState<string>();
@@ -55,8 +56,13 @@ export default function Collections() {
 
   return (
     <CollectionsLayout>
-      <Header />
-      <Container fluid bg="white" p="xl" mx={0} sx={{ borderRadius: 16 }}>
+      <PageHeader>
+        <GlobalPortfolioSwitch selectedLink="portfolio" />
+        <Title order={1} fw={300} size="40px">
+          My Portfolio
+        </Title>
+      </PageHeader>
+      <Container fluid bg="white" sx={{ borderRadius: 16 }} p="xl" m={0}>
         <Box mb={28} sx={{ borderBottom: `1px solid ${palette.Black}` }}>
           <Text>MY ASSETS</Text>
         </Box>
