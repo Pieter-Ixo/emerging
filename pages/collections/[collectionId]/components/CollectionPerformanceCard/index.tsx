@@ -20,7 +20,7 @@ enum SECTIONS {
 }
 
 export default function CollectionPerformanceCard() {
-  const [activeTab, setActiveTab] = useState<SECTIONS>(SECTIONS.fuel);
+  const [activeTab, setActiveTab] = useState<SECTIONS>(SECTIONS.usage);
 
   return (
     <PageBlock title="COLLECTION PERFORMANCE">
