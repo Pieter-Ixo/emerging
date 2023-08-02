@@ -46,13 +46,14 @@ export default function EntitiesList({
   );
 
   return (
-    <Grid gutter="lg">
+    <Grid justify="space-between">
       {entities?.map((entity) => {
         const isActive = activeAssetId === entity.externalId;
         return (
           <Grid.Col
             key={entity.id}
-            span={4}
+            span="content"
+            mb={20}
             sx={{
               outline: isActive ? `solid ${palette.activeBlue}` : undefined,
             }}
