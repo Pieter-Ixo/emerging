@@ -1,6 +1,14 @@
 import { PropsWithChildren } from "react";
 import HeaderLogo from "@/components/Header_Logo/Index";
-import { Anchor, Center, Container, Flex, Popover, Text } from "@mantine/core";
+import {
+  Anchor,
+  Box,
+  Center,
+  Container,
+  Flex,
+  Popover,
+  Text,
+} from "@mantine/core";
 
 import TruckSVG from "@/assets/icons/truck.svg";
 import LeafSVG from "@/assets/icons/leaf.svg";
@@ -9,24 +17,25 @@ import { palette } from "@/theme/palette";
 // eslint-disable-next-line react/require-default-props
 function NavLink({ href, children }: { href?: string } & PropsWithChildren) {
   return (
-    <Container
-      ta="center"
-      mt={32}
-      p={20}
-      bg={palette.White}
-      sx={{ borderRadius: "16px" }}
-      w="300px"
+    <Anchor
+      href={href}
+      underline={false}
+      color={palette.Black}
+      display="block"
+      size="32px"
+      mb={32}
+      lh="lg"
     >
-      <Anchor
-        href={href}
-        underline={false}
-        color={palette.Black}
-        size="32px"
-        lh="lg"
+      <Container
+        ta="center"
+        p={20}
+        bg={palette.White}
+        sx={{ borderRadius: "16px" }}
+        w="300px"
       >
         {children}
-      </Anchor>
-    </Container>
+      </Container>
+    </Anchor>
   );
 }
 
