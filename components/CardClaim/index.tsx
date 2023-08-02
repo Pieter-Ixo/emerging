@@ -1,11 +1,14 @@
 import { Button, Flex, Text } from "@mantine/core";
 import { palette } from "@/theme/palette";
+import { useMediaQuery } from "@mantine/hooks";
 
 type CarbonClaimCardProps = {
   amount?: number;
 };
 
 function CarbonClaimCard({ amount = 0 }: CarbonClaimCardProps) {
+  const matches = useMediaQuery("(min-width: 1440px)");
+
   return (
     <Flex
       direction="column"
@@ -24,7 +27,7 @@ function CarbonClaimCard({ amount = 0 }: CarbonClaimCardProps) {
       </Text>
       <Flex justify="space-between" align="end">
         <Flex align="end" sx={{ color: palette.White }}>
-          <Text lh={1} size={40}>
+          <Text lh={1} size="2.2vw">
             {amount.toLocaleString()}
           </Text>
           <Text size={14}>CARBON</Text>
@@ -32,8 +35,10 @@ function CarbonClaimCard({ amount = 0 }: CarbonClaimCardProps) {
         <Button
           sx={{
             color: palette.White,
-            fontSize: 24,
+            fontSize: matches ? "1.5vw" : "1.3vw",
+            width: matches ? "50%" : "60%",
             fontWeight: 400,
+            padding: 0,
             backgroundColor: palette.whiteTransparent,
             border: `1px solid ${palette.whiteTransparent}`,
           }}
