@@ -7,7 +7,7 @@ type CarbonIssueCardProps = {
 };
 
 function CarbonIssueCard({ amount = 0 }: CarbonIssueCardProps) {
-  const fontMedia = useMediaQuery("(min-width: 1440px)");
+  const isWideDesktopScreen = useMediaQuery("(min-width: 1440px)");
 
   return (
     <Flex
@@ -31,7 +31,7 @@ function CarbonIssueCard({ amount = 0 }: CarbonIssueCardProps) {
       </Flex>
       <Flex justify="space-between" align="end">
         <Flex align="end" sx={{ color: palette.White }}>
-          <Text lh={1} size={fontMedia ? 40 : 24}>
+          <Text lh={1} size={isWideDesktopScreen ? 40 : 24}>
             {amount.toLocaleString()}
           </Text>
           <Text size={14}>CARBON</Text>
@@ -39,8 +39,8 @@ function CarbonIssueCard({ amount = 0 }: CarbonIssueCardProps) {
         <Button
           sx={{
             color: palette.White,
-            fontSize: fontMedia ? "1.5rem" : "1.3rem",
-            width: fontMedia ? "50%" : "60%",
+            fontSize: isWideDesktopScreen ? "1.5rem" : "1.3rem",
+            width: isWideDesktopScreen ? "50%" : "60%",
             fontWeight: 400,
             padding: 0,
             backgroundColor: palette.whiteTransparent,

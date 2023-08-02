@@ -34,13 +34,9 @@ export default function Nav() {
         dispatch(fillEntitiesForUserCollections(userEntityCollection));
       });
       isUserCollectionsFilled.current = true;
-      console.log("Got into smthg");
     }
   }, [userAddress]);
 
-  useEffect(() => {
-    console.log("userEntityCollections: ", userEntityCollections);
-  });
   // useEffect(() => {
   //   if (
   //     // if userCollections are, and have changed
