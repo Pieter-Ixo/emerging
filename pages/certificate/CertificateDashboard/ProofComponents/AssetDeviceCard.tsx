@@ -17,7 +17,7 @@ interface Props {
   creadedDate: string;
   price: string;
 }
-
+// TODO: destructure props
 function AssetDeviceCard(props: Props) {
   return (
     <Flex

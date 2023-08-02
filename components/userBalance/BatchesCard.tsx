@@ -28,7 +28,8 @@ export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
   }, [entityAdminAddress]);
 
   if (isAdminTokensLoading) return <Loader />;
-  if (!adminTokens) return null;
+  if (!adminTokens || !Object.keys(adminTokens).length) return null;
+
   return (
     <Card p="lg" radius={16}>
       <Text weight={300}>Impact Credits</Text>

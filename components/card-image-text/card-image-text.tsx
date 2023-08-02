@@ -10,6 +10,7 @@ type ImageTextCardProps = {
 	vertical?: boolean;
 } & HTMLAttributes<HTMLDivElement>;
 
+// TODO: use Mantine
 function ImageTextCard({ text, Img, className, vertical = false, ...other }: ImageTextCardProps) {
 	return (
 		<Card className={cls(styles.imageTextCard, className, { [styles.vertical]: vertical })} {...other}>

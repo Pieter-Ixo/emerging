@@ -29,7 +29,6 @@ function PieChart({
   const chartConfig = [
     {
       title: "To issue",
-      // TODO: make unavailable to click
       value: totalTokenAmount,
       color: "#5FA8EB",
       text: "AVAILABLE CREDITS",
@@ -41,7 +40,6 @@ function PieChart({
       text: "CARBON CREDITS",
     },
     {
-      // TODO: make unavailable to click
       title: "Offset",
       // TODO: Change this when we'll have the way to fetch Transferred
       value: totalTokenAmount,
@@ -99,6 +97,7 @@ function PieChart({
           </p>
         </div>
       </div>
+       {/* TODO: use Mantine */}
 
       <div className={styles.labels}>
         {chartConfig.map((semi, i) => (

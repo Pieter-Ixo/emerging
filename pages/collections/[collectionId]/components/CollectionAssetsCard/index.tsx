@@ -105,7 +105,7 @@ export default function CollectionAssetsCard() {
               </Modal.Header>
               <Modal.Body style={{ padding: 0 }}>
                 <CookstoveModal
-                  id={Number(selectedAssetExternalId)}
+                  entityId={selectedAssetExternalId!}
                   entity={entity}
                 />
               </Modal.Body>

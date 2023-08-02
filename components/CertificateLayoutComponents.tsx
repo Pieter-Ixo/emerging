@@ -15,6 +15,7 @@ import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import Copy from "@/components/Dashboard/CollectionDashboard/cards/AssetsCard/icons/copy";
 import shortStr from "@/utils/shortStr";
 
+// TODO: move to components, make a folder
 export function ArrowLeft() {
   const router = useRouter();
 

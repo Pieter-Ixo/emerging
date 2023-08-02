@@ -9,6 +9,8 @@ import {
 import { STOVE, STOVE_PERIODS } from "@/types/stove";
 import { datesFromPeriod } from "@/utils/supamoto";
 
+// TODO: get rid of context, create new redux slice
+
 export const CookstoveContext = createContext({
   stove: {} as STOVE,
   fetchStove: (id: number | string) => {},
