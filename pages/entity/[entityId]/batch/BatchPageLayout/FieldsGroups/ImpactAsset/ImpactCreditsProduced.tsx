@@ -1,4 +1,4 @@
-import { Button, Flex, Card, Text } from "@mantine/core";
+import { Button, Flex, Card, Text, Anchor } from "@mantine/core";
 
 import { ITokenCarbonExtended } from "@/types/entityCollections";
 import useDetailPortal from "@/hooks/useDetailPortal";
@@ -32,7 +32,7 @@ export default function ImpactCreditsProduced({
       {Object.entries(tokensMap ?? {}).map(([key, token]) => (
         <Flex direction="row" justify="space-between" key={key}>
           <Link href={key}>
-            <FieldText>{key}</FieldText>
+            <Anchor size={13}>{key}</Anchor>
           </Link>
           <FieldText>{token.minted}</FieldText>
         </Flex>
