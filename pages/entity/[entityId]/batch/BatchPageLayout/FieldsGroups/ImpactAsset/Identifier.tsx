@@ -12,6 +12,7 @@ export default function Identifier({
   collectionAssetsAmount,
   retired,
   claimable,
+  totalTokenAmount,
   produced,
 }: ImpactAssetProps) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("Identifier");
@@ -25,10 +26,10 @@ export default function Identifier({
       entity={entity}
       measure={
         <>
-          <Box mt="40px">
+          <Box>
             <ProgressBar
+              totalTokenAmount={totalTokenAmount}
               retired={retired}
-              claimable={claimable}
               produced={produced}
             />
             <Group spacing="4px" pt="xs">

@@ -32,7 +32,15 @@ export default function ProfileCard({
   const isTagEven = (index: number) => index % 2 === 0;
 
   return (
-    <Card shadow="sm" padding="lg" radius="lg" withBorder w={277} mx={0}>
+    <Card
+      shadow="sm"
+      padding="lg"
+      radius="lg"
+      withBorder
+      w={277}
+      h={400}
+      mx={0}
+    >
       <Card.Section>
         <Image src={entity?._profile?.imageUrl} height={160} alt="" />
       </Card.Section>

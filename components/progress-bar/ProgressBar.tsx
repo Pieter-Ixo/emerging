@@ -5,12 +5,14 @@ type ProgressBarProps = {
   retired?: number;
   claimable?: number;
   produced?: number;
+  totalTokenAmount?: number;
 };
 
 export default function ProgressBar({
   retired,
   claimable,
   produced,
+  totalTokenAmount,
 }: ProgressBarProps) {
   const progressBarTotal = (retired || 0) + (claimable || 0) + (produced || 0);
   const retiredPercent = ((retired || 0) / progressBarTotal) * 100;
@@ -23,7 +25,7 @@ export default function ProgressBar({
     <>
       <Group align="end">
         <Text size={claimable ? "22px" : "12px"} fw="500" lts="1.1px">
-          {produced}
+          {totalTokenAmount || 0}
         </Text>
         <Text size="12px" fw="300" lts="0.6px">
           {claimable ? "CARBON produced" : "CARBON Credits Available"}
@@ -47,7 +49,7 @@ export default function ProgressBar({
           </Text>
           {!claimable && (
             <Text size="12px" lts="0.6px" color={palette.Black}>
-              / 3800 Produced
+              / {produced} Produced
             </Text>
           )}
         </Flex>

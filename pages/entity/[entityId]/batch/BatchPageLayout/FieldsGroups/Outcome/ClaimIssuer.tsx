@@ -20,12 +20,12 @@ export default function ClaimIssuer({ claimIssuer }: Partial<OutcomeProps>) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("ClaimIssuer");
 
   const PortalChild = (
-    <Card shadow="sm" padding="lg" radius="md" withBorder>
+    <Card shadow="sm" padding="lg" w={277} h={400} radius="md" withBorder>
       <Card.Section>
         <Image src={claimIssuer?.imageUrl} height={160} alt="" />
       </Card.Section>
 
-      <Flex direction="row" justify="space-between">
+      <Flex direction="row" pb={10} justify="space-between">
         <Group spacing="4px">
           <Badge bg={palette.redDark} variant="filled">
             Inventory
