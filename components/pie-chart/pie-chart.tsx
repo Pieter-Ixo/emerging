@@ -28,25 +28,25 @@ function PieChart({
   const chartConfig = [
     {
       title: "To issue",
-      value: 0,
+      value: 0 || 0.1,
       color: "#5FA8EB",
       text: "AVAILABLE CREDITS",
     },
     {
       title: "Available",
-      value: totalTokenAmount,
+      value: totalTokenAmount || 0.1,
       color: "#2B94F5",
       text: "CARBON CREDITS",
     },
     {
       title: "Offset",
-      value: totalOffset,
+      value: totalOffset || 0.1,
       color: "#73B556",
       text: "CARBON CREDITS",
     },
     {
       title: "Transferred",
-      value: totalMinted - totalTokenAmount,
+      value: totalMinted - totalTokenAmount || 0.1,
       color: "#E79903",
       text: "CARBON CREDITS",
     },
