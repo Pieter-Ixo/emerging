@@ -52,10 +52,6 @@ function PieChart({
     },
   ];
 
-  const chartConfigFilled = chartConfig.map((entry) =>
-    entry.value === 0 ? { ...entry, value: 0.1 } : entry
-  );
-
   const activeSection = active !== null ? chartConfig[active] : null;
 
   return (
@@ -76,7 +72,7 @@ function PieChart({
             startAngle={270}
             animate
             onClick={(_, i) => toggleActiveSemiCircle(i)}
-            data={chartConfigFilled}
+            data={chartConfig}
             segmentsStyle={{
               cursor: "pointer",
               zIndex: 1,
@@ -104,7 +100,7 @@ function PieChart({
       {/* TODO: use Mantine */}
 
       <div className={styles.labels}>
-        {chartConfigFilled.map((semi, i) => (
+        {chartConfig.map((semi, i) => (
           <Card
             className={cls(styles.label, { [styles.selected]: active === i })}
             onClick={() => toggleActiveSemiCircle(i)}
