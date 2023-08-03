@@ -5,9 +5,12 @@ import { AxisOptions } from "react-charts";
 import { palette } from "@/theme/palette";
 import { DataItem } from "./types";
 
-const Chart = dynamic(() => import("react-charts").then((mod) => mod.Chart), {
-  ssr: false,
-});
+const ReactChart = dynamic(
+  () => import("react-charts").then((mod) => mod.Chart),
+  {
+    ssr: false,
+  }
+);
 
 type ReactChartProps = {
   data: DataItem[];
@@ -16,7 +19,7 @@ type ReactChartProps = {
   min?: number;
 };
 
-export default function ReactChart({
+export default function Chart({
   data,
   chartType = "line",
   label,
@@ -37,7 +40,7 @@ export default function ReactChart({
   if (!data) return null;
   if (data.length === 0) return <>No data</>;
   return (
-    <Chart
+    <ReactChart
       options={{
         data: [{ label, data }],
         // @ts-ignore

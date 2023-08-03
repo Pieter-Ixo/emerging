@@ -7,7 +7,7 @@ import { useAppSelector } from "@/hooks/redux";
 import { selectAllEntitiesExternalIds } from "@/redux/entityCollections/selectors";
 
 import { calculateTotalFuel } from "../helpers";
-import FuelChart from "./FuelChart";
+import CollectionFuelChart from "../../../../../../components/Сhart/Instances/CollectionFuelChart";
 
 export default function CollectionFuel() {
   const {
@@ -33,7 +33,7 @@ export default function CollectionFuel() {
           kg pellets bought in last 2 months
         </Text>
       </Flex>
-      <FuelChart fuelSummary={fuelSummary} />
+      <CollectionFuelChart fuelSummary={fuelSummary} />
     </>
   ) : (
     <Loader />

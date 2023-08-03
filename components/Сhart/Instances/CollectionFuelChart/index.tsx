@@ -1,20 +1,20 @@
 import { Box } from "@mantine/core";
 
 import { MONTH_FUEL_TOTAL_MAP } from "@/types/stove";
-import ReactChart from "@/components/chart/ReactChart";
+import Chart from "@/components/Сhart";
 
-import { fuelSummaryToChartData } from "../helpers";
+import { fuelSummaryToChartData } from "../../../../pages/collections/[collectionId]/components/CollectionPerformanceCard/helpers";
 
 type Props = {
   fuelSummary: MONTH_FUEL_TOTAL_MAP;
 };
 
-export default function FuelChart({ fuelSummary }: Props) {
+export default function CollectionFuelChart({ fuelSummary }: Props) {
   const data = fuelSummaryToChartData(fuelSummary);
 
   return (
     <Box h="300px" id="fuel" key="fuel">
-      <ReactChart
+      <Chart
         data={data}
         chartType="line"
         min={0}

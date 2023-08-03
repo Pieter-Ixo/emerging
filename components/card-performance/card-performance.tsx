@@ -11,8 +11,8 @@ import { SECTIONS, STOVE } from "@/types/stove";
 
 import styles from "./card-performance.module.scss";
 import TabButton from "./TabButton";
-import Barchart from "../chart/BarChart";
-import SessionsChart from "../chart/SessionsChart";
+import AssetFuelChart from "../Сhart/Instances/AssetFuelChart";
+import AssetSessionsChart from "../Сhart/Instances/AssetSessionsChart";
 
 type EventsCardProps = { stove: STOVE } & HTMLAttributes<HTMLDivElement>;
 // TODO: use Mantine
@@ -59,7 +59,7 @@ function PerformanceCard({ className, stove, ...other }: EventsCardProps) {
             </div>
 
             {stove.sessions?.content && (
-              <SessionsChart sessions={stove.sessions.content} />
+              <AssetSessionsChart sessions={stove.sessions.content} />
             )}
           </Box>
         )}
@@ -73,7 +73,7 @@ function PerformanceCard({ className, stove, ...other }: EventsCardProps) {
               <p>kg pellets bought</p>
             </div>
             {stove.pellets?.content && (
-              <Barchart pellets={stove.pellets.content} />
+              <AssetFuelChart pellets={stove.pellets.content} />
             )}
           </Box>
         )}

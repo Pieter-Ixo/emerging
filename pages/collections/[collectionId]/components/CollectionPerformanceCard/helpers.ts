@@ -1,4 +1,4 @@
-import { DataItem } from "@/components/chart/types";
+import { DataItem } from "@/components/Сhart/types";
 import { MONTH_FUEL_TOTAL_MAP, MONTH_SESSIONS_TOTAL_MAP } from "@/types/stove";
 
 export function summaryCalculateAll(

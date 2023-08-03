@@ -2,7 +2,7 @@ import { STOVE_SESSIONS_CONTENT, STOVE_PERIODS } from "@/types/stove";
 import { dynamicSort } from "@/utils/general";
 import { datesFromPeriod } from "@/utils/supamoto";
 
-import { DataItem } from "./types";
+import { DataItem } from "../../types";
 
 function getSessionsForPeriod(
   sessions: STOVE_SESSIONS_CONTENT[],

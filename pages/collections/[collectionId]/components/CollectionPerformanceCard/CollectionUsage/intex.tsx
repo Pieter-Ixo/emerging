@@ -7,7 +7,7 @@ import { selectAllEntitiesExternalIds } from "@/redux/entityCollections/selector
 import { palette } from "@/theme/palette";
 
 import { calculateTotalSessions } from "../helpers";
-import SessionsChart from "./SessionsChart";
+import CollectionSessionsChart from "../../../../../../components/Сhart/Instances/CollectionSessionsChart";
 
 export default function CollectionUsage() {
   const {
@@ -36,7 +36,7 @@ export default function CollectionUsage() {
         </Text>
       </Flex>
 
-      <SessionsChart sessionsSummary={sessionsSummary} />
+      <CollectionSessionsChart sessionsSummary={sessionsSummary} />
     </>
   ) : (
     <Loader />

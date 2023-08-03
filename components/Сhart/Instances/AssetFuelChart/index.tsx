@@ -4,14 +4,14 @@ import { Box } from "@mantine/core";
 import { STOVE_PELLETS_CONTENT } from "@/types/stove";
 
 import pelletsToBarChartData from "./pelletsToChartData";
-import ReactChart from "./ReactChart";
-import { DataItem } from "./types";
+import Chart from "../..";
+import { DataItem } from "../../types";
 
 export type ChartProps = {
   pellets: STOVE_PELLETS_CONTENT[];
 };
 
-export default function BarChart({ pellets }: ChartProps) {
+export default function AssetFuelChart({ pellets }: ChartProps) {
   const [data, setData] = useState<DataItem[]>([]);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function BarChart({ pellets }: ChartProps) {
 
   return (
     <Box h="300px" id="fuel" key="fuel">
-      <ReactChart
+      <Chart
         data={data}
         chartType="bar"
         min={0}

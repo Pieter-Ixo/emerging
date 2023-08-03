@@ -3,8 +3,8 @@ import { Box } from "@mantine/core";
 
 import { STOVE_SESSIONS_CONTENT } from "@/types/stove";
 import sessionsToLineChartData from "./sessionsToChartData";
-import ReactChart from "./ReactChart";
-import { DataItem } from "./types";
+import Chart from "../..";
+import { DataItem } from "../../types";
 
 export type ChartProps = {
   sessions: STOVE_SESSIONS_CONTENT[];
@@ -19,7 +19,7 @@ export default function SessionsChart({ sessions }: ChartProps) {
 
   return (
     <Box h="300px" id="sessions" key="sessions">
-      <ReactChart
+      <Chart
         data={data}
         chartType="line"
         min={0}
