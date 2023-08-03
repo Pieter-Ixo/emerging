@@ -3,17 +3,22 @@ import { Button, Flex, Card, Text, Anchor } from "@mantine/core";
 import { ITokenCarbonExtended } from "@/types/entityCollections";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import { palette } from "@/theme/palette";
+import shortStr from "@/utils/shortStr";
 
 import Link from "next/link";
 import { FieldText } from "../styledComponents";
 
+type Props = {
+  tokenTotal?: number;
+  tokens?: ITokenCarbonExtended;
+  created?: string;
+};
+
 export default function ImpactCreditsProduced({
   tokenTotal,
   tokens,
-}: {
-  tokenTotal?: number;
-  tokens?: ITokenCarbonExtended;
-}) {
+  created,
+}: Props) {
   const { isVisible, openPortal, closePortal } = useDetailPortal(
     "ImpactCreditsProduced"
   );
@@ -30,11 +35,14 @@ export default function ImpactCreditsProduced({
         <Text />
       </Flex>
       {Object.entries(tokensMap ?? {}).map(([key, token]) => (
-        <Flex direction="row" justify="space-between" key={key}>
+        <Flex justify="space-between" key={key}>
           <Link href={key}>
-            <Anchor size={13}>{key}</Anchor>
+            <Anchor size={13}>{shortStr(key, 14, 5)}</Anchor>
           </Link>
-          <FieldText>{token.minted}</FieldText>
+          <Flex gap="sm">
+            <FieldText>{created}</FieldText>
+            <FieldText>{token.minted}</FieldText>
+          </Flex>
         </Flex>
       ))}
     </Card>
