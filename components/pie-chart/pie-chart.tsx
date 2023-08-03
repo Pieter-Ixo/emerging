@@ -28,33 +28,31 @@ function PieChart({
   const chartConfig = [
     {
       title: "To issue",
-      value: totalTokenAmount,
+      value: 0 || 0.1,
       color: "#5FA8EB",
       text: "AVAILABLE CREDITS",
     },
     {
       title: "Available",
-      value: totalTokenAmount,
+      value: totalTokenAmount || 0.1,
       color: "#2B94F5",
       text: "CARBON CREDITS",
     },
     {
       title: "Offset",
-      // TODO: Change this when we'll have the way to fetch Transferred
-      value: totalTokenAmount,
+      value: totalOffset || 0.1,
       color: "#73B556",
       text: "CARBON CREDITS",
     },
     {
       title: "Transferred",
-      value: totalTokenAmount,
+      value: totalMinted - totalTokenAmount || 0.1,
       color: "#E79903",
       text: "CARBON CREDITS",
     },
   ];
 
   const activeSection = active !== null ? chartConfig[active] : null;
-
 
   return (
     <div className={styles.pie}>
@@ -90,7 +88,9 @@ function PieChart({
           style={{ color: activeSection?.color }}
         >
           <p className={styles.amount}>
-            {(activeSection?.value ?? totalMinted).toLocaleString()}
+            {(activeSection?.value ?? totalMinted).toLocaleString() === "0,1"
+              ? "0"
+              : (activeSection?.value ?? totalMinted).toLocaleString()}
           </p>
           <p className={styles.text}>
             {activeSection?.text ?? "CARBON PRODUCED"}
