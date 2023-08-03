@@ -30,8 +30,6 @@ export default function Batches() {
     }
   }, [batches]);
 
-  console.log("🐞💥🔫", { adminAddress, batches, parsedBatches });
-
   return (
     <BatchesLayout>
       <Box maw="70%" pl={32}>
