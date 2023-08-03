@@ -80,6 +80,7 @@ export default function EntitiesList({
                   <ProgressBar
                     retired={(getEntityTotalMintedAmount(entity) || 0) / 2}
                     produced={getEntityTotalMintedAmount(entity)}
+                    totalTokenAmount={getEntityTotalMintedAmount(entity)}
                   />
                   <Flex gap={6} align="end" pt="xs">
                     <Text
