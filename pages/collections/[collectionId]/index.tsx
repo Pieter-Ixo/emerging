@@ -1,4 +1,4 @@
-import { Grid, Stack } from "@mantine/core";
+import { Grid, Stack, Title } from "@mantine/core";
 import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
@@ -12,9 +12,10 @@ import {
   fetchAndFillCollections,
   fetchTotalCollectionEntities,
 } from "@/redux/entityCollections/thunks";
+import GlobalPortfolioSwitch from "@/components/HeaderControls";
 
 import CollectionsLayout from "../components/Layout";
-import PageHeader from "./components/Header";
+import PageHeader from "../components/PageHeader";
 import CollectionAssetsCard from "./components/CollectionAssetsCard";
 import CollectionClimateImpactsCard from "./components/CollectionClimateImpactsCard";
 import CollectionNewsCard from "./components/CollectionNewsCard";
@@ -40,9 +41,18 @@ export default function Collection() {
 
   return (
     <CollectionsLayout>
-      <PageHeader collectionName={collections?.[0]?._profile?.brand} />
-      <Grid gutter="xl" p={0} sx={{ width: "100%", margin: 0 }}>
-        <Grid.Col span={8}>
+      <PageHeader>
+        <GlobalPortfolioSwitch selectedLink="global" />
+        <Title order={1} fw={300} size="40px" color="#9A9A9A">
+          Collections
+        </Title>
+        <Title order={1} fw={300} size="40px">
+          {collections?.[0]?._profile?.brand || "Collection"}
+        </Title>
+      </PageHeader>
+
+      <Grid gutter="xl" p={0} m={0} sx={{ width: "100%" }}>
+        <Grid.Col span={8} p={0}>
           <Stack spacing="lg">
             <CollectionClimateImpactsCard
               totalCollectionEntitiesTokens={totalCollectionEntitiesTokens}
@@ -51,7 +61,7 @@ export default function Collection() {
           </Stack>
         </Grid.Col>
 
-        <Grid.Col span={4}>
+        <Grid.Col span={4} p={0}>
           <Stack spacing="lg">
             <CollectionNewsCard />
             <CollectionAssetsCard />

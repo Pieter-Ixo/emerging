@@ -22,9 +22,9 @@ export default function CollectionsGrid() {
   if (isLoading) return <Loader m="lg" w="100%" mx="auto" />;
 
   return (
-    <Grid py="xl" maw={900} gutter="lg">
+    <Grid maw={900} gutter="lg" m={0} p={0}>
       {collections.map((collection) => (
-        <Grid.Col span={6} key={`collection-${collection?.id}`}>
+        <Grid.Col span={6} key={`collection-${collection?.id}`} p={0}>
           <CollectionCard collection={collection} />
         </Grid.Col>
       ))}
