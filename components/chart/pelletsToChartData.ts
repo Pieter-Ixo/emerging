@@ -1,6 +1,7 @@
 import { STOVE_PERIODS, STOVE_PELLETS_CONTENT } from "@/types/stove";
 import { dynamicSort } from "@/utils/general";
 import { datesFromPeriod } from "@/utils/supamoto";
+import { DataItem } from "@/pages/collections/[collectionId]/components/CollectionPerformanceCard/helpers";
 import { CHART_DATA } from "./chart";
 
 function getPelletsForPeriod(
@@ -43,4 +44,30 @@ export default function pelletsToChartData(
   }, [] as CHART_DATA);
 
   return joinedPellets;
+}
+
+export function pelletsToBarChartData(
+  pellets: STOVE_PELLETS_CONTENT[] = []
+): DataItem[] {
+  const pelletsMonthMap: Record<string, number> = {};
+
+  pellets.forEach(({ dateTime, pelletsAmount }) => {
+    if (dateTime === undefined) return;
+    if (pelletsAmount === undefined) return;
+
+    const month = dateTime.slice(0, 7) as string;
+    if (pelletsMonthMap[month] !== undefined) {
+      pelletsMonthMap[month] += pelletsAmount;
+    } else {
+      pelletsMonthMap[month] = pelletsAmount;
+    }
+  });
+
+  const dataItems: DataItem[] = Object.entries(pelletsMonthMap).map(
+    ([month, total]) => ({
+      month,
+      total,
+    })
+  );
+  return dataItems;
 }

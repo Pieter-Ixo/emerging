@@ -1,82 +1,65 @@
-import React, { useEffect, useRef, useState } from "react";
-import { createChart } from "lightweight-charts";
+import dynamic from "next/dynamic";
+import React, { useEffect, useMemo, useState } from "react";
+import { Box } from "@mantine/core";
+import { AxisOptions } from "react-charts";
 
-import { STOVE_PELLETS_CONTENT, STOVE_PERIODS } from "@/types/stove";
-import styles from "./chart.module.scss";
-import defaultChartConfig, { lineChartConfig } from "./config";
-import pelletsToChartData from "./pelletsToChartData";
+// TODO: this should not be imported from pages
+import { DataItem } from "@/pages/collections/[collectionId]/components/CollectionPerformanceCard/helpers";
+import { STOVE_PELLETS_CONTENT } from "@/types/stove";
+import { palette } from "@/theme/palette";
 
-export type CHART_DATA = { time: string; value: number }[];
+import { pelletsToBarChartData } from "./pelletsToChartData";
+
+const Chart = dynamic(() => import("react-charts").then((mod) => mod.Chart), {
+  ssr: false,
+});
 
 export type ChartProps = {
   pellets: STOVE_PELLETS_CONTENT[];
 };
 
 export default function BarChart({ pellets }: ChartProps) {
-  const [data, setData] = useState<CHART_DATA>([]);
-  const [period, setPeriod] = useState<STOVE_PERIODS>(STOVE_PERIODS.all);
-  const chartContainerRef = useRef<HTMLDivElement>(null);
-
-  const getData = async (period: STOVE_PERIODS) => {
-    setData(pelletsToChartData(pellets, period));
-  };
+  const [data, setData] = useState<DataItem[]>([]);
 
   useEffect(() => {
-    if (!window) return () => {};
+    setData(pelletsToBarChartData(pellets));
+  }, []);
 
-    // create chart canvas
-    const chart = createChart(chartContainerRef.current || "", {
-      width: chartContainerRef.current?.clientWidth,
-      ...defaultChartConfig,
-    });
-    chart.timeScale().fitContent();
+  const primaryAxis = useMemo(
+    (): AxisOptions<DataItem> => ({ getValue: (datum) => datum.month }),
+    []
+  );
 
-    // add graph series to the chart
-    const newSeries = chart.addAreaSeries(lineChartConfig);
-    newSeries?.setData(data);
-
-    // manage chart size & resize
-    const handleResize = () => {
-      chart?.applyOptions({ width: chartContainerRef?.current?.clientWidth });
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      chart.remove();
-    };
-  }, [data]);
-
-  useEffect(() => {
-    getData(period);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [period]);
-
-  const handlePeriodChange = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    period: STOVE_PERIODS
-  ) => {
-    event.stopPropagation();
-    setPeriod(period);
-  };
+  const secondaryAxes = useMemo(
+    (): AxisOptions<DataItem>[] => [
+      { getValue: (datum) => datum.total, elementType: "bar", min: 0 },
+    ],
+    []
+  );
 
   return (
-    <div className={styles.chartContainer}>
-      <div ref={chartContainerRef} />
-      {data.length < 1 ? <p className={styles.noData}>NO DATA</p> : null}
-      <div className={styles.buttons}>
-        {Object.values(STOVE_PERIODS).map((p) => (
-          <button
-            key={p}
-            onClick={(e) => handlePeriodChange(e, p)}
-            className={p === period ? styles.selected : undefined}
-            type="button"
-          >
-            {p}
-          </button>
-        ))}
-      </div>
-    </div>
+    <Box h="300px" id="fuel" key="fuel">
+      <Chart
+        options={{
+          data: [{ label: "kilograms sold at this month", data }],
+          // @ts-ignore
+          primaryAxis,
+          // @ts-ignore
+          secondaryAxes,
+
+          getSeriesStyle: () => ({
+            color: `url(#0)`,
+            opacity: 1,
+          }),
+          renderSVG: () => (
+            <defs>
+              <linearGradient id="0" x1="0" x2="0" y1="1" y2="0">
+                <stop offset="0%" stopColor={palette.fullBlue} />
+              </linearGradient>
+            </defs>
+          ),
+        }}
+      />
+    </Box>
   );
 }
