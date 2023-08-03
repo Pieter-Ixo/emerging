@@ -8,8 +8,9 @@ import { DataItem } from "@/pages/collections/[collectionId]/components/Collecti
 import { STOVE_PELLETS_CONTENT } from "@/types/stove";
 import { palette } from "@/theme/palette";
 
-import { pelletsToBarChartData } from "./pelletsToChartData";
+import pelletsToBarChartData from "./pelletsToChartData";
 
+// TODO: looking how we use Charts, we can move them all (4) to a separate component
 const Chart = dynamic(() => import("react-charts").then((mod) => mod.Chart), {
   ssr: false,
 });

@@ -1,82 +1,64 @@
-import React, { useEffect, useRef, useState } from "react";
-import { createChart } from "lightweight-charts";
+import dynamic from "next/dynamic";
+import { useEffect, useMemo, useState } from "react";
+import { Box } from "@mantine/core";
+import { AxisOptions } from "react-charts";
 
-import { STOVE_PERIODS, STOVE_SESSIONS_CONTENT } from "@/types/stove";
-import styles from "./chart.module.scss";
-import defaultChartConfig, { lineChartConfig } from "./config";
-import sessionsToChartData from "./sessionsToChartData";
+import { DataItem } from "@/pages/collections/[collectionId]/components/CollectionPerformanceCard/helpers";
+import { palette } from "@/theme/palette";
 
-export type CHART_DATA = { time: string; value: number }[];
+import { STOVE_SESSIONS_CONTENT } from "@/types/stove";
+import sessionsToLineChartData from "./sessionsToChartData";
+
+const Chart = dynamic(() => import("react-charts").then((mod) => mod.Chart), {
+  ssr: false,
+});
 
 export type ChartProps = {
   sessions: STOVE_SESSIONS_CONTENT[];
 };
 
 export default function SessionsChart({ sessions }: ChartProps) {
-  const [data, setData] = useState<CHART_DATA>([]);
-  const [period, setPeriod] = useState<STOVE_PERIODS>(STOVE_PERIODS.all);
-  const chartContainerRef = useRef<HTMLDivElement>(null);
-
-  const getData = async (period: STOVE_PERIODS) => {
-    setData(sessionsToChartData(sessions, period));
-  };
+  const [data, setData] = useState<DataItem[]>([]);
 
   useEffect(() => {
-    if (!window) return () => {};
+    setData(sessionsToLineChartData(sessions));
+  }, []);
 
-    // create chart canvas
-    const chart = createChart(chartContainerRef.current || "", {
-      width: chartContainerRef.current?.clientWidth,
-      ...defaultChartConfig,
-    });
-    chart.timeScale().fitContent();
+  const primaryAxis = useMemo(
+    (): AxisOptions<DataItem> => ({ getValue: (datum) => datum.month }),
+    []
+  );
 
-    // add graph series to the chart
-    const newSeries = chart.addAreaSeries(lineChartConfig);
-    newSeries?.setData(data);
-
-    // manage chart size & resize
-    const handleResize = () => {
-      chart?.applyOptions({ width: chartContainerRef?.current?.clientWidth });
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      chart.remove();
-    };
-  }, [data]);
-
-  useEffect(() => {
-    getData(period);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [period]);
-
-  const handlePeriodChange = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    period: STOVE_PERIODS
-  ) => {
-    event.stopPropagation();
-    setPeriod(period);
-  };
+  const secondaryAxes = useMemo(
+    (): AxisOptions<DataItem>[] => [
+      { getValue: (datum) => datum.total, elementType: "line", min: 0 },
+    ],
+    []
+  );
 
   return (
-    <div className={styles.chartContainer}>
-      <div ref={chartContainerRef} />
-      {data.length < 1 ? <p className={styles.noData}>NO DATA</p> : null}
-      <div className={styles.buttons}>
-        {Object.values(STOVE_PERIODS).map((p) => (
-          <button
-            key={p}
-            onClick={(e) => handlePeriodChange(e, p)}
-            className={p === period ? styles.selected : undefined}
-            type="button"
-          >
-            {p}
-          </button>
-        ))}
-      </div>
-    </div>
+    <Box h="300px" id="sessions" key="sessions">
+      <Chart
+        options={{
+          data: [{ label: "sessions at this month", data }],
+          // @ts-ignore
+          primaryAxis,
+          // @ts-ignore
+          secondaryAxes,
+
+          getSeriesStyle: () => ({
+            color: `url(#0)`,
+            opacity: 1,
+          }),
+          renderSVG: () => (
+            <defs>
+              <linearGradient id="0" x1="0" x2="0" y1="1" y2="0">
+                <stop offset="0%" stopColor={palette.fullBlue} />
+              </linearGradient>
+            </defs>
+          ),
+        }}
+      />
+    </Box>
   );
 }

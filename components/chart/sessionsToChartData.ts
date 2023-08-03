@@ -1,12 +1,13 @@
-import { ArrayElement } from "@/types/general";
+import { DataItem } from "@/pages/collections/[collectionId]/components/CollectionPerformanceCard/helpers";
 import { STOVE_SESSIONS_CONTENT, STOVE_PERIODS } from "@/types/stove";
 import { dynamicSort } from "@/utils/general";
 import { datesFromPeriod } from "@/utils/supamoto";
+
 import { CHART_DATA } from "./chart";
 
 function getSessionsForPeriod(
   sessions: STOVE_SESSIONS_CONTENT[],
-  period: STOVE_PERIODS
+  period: STOVE_PERIODS = STOVE_PERIODS.all
 ): CHART_DATA {
   const { endDate, startDate } = datesFromPeriod(period);
   const endDateMilliseconds = endDate.getTime();
@@ -26,27 +27,29 @@ function getSessionsForPeriod(
     .sort(dynamicSort("time"));
 }
 
-export default function sessionsToChartData(
-  sessions: STOVE_SESSIONS_CONTENT[] = [],
-  period: STOVE_PERIODS = STOVE_PERIODS.all
-): CHART_DATA {
-  const sessionsInPeriod = getSessionsForPeriod(sessions, period);
+export default function sessionsToLineChartData(
+  sessions: STOVE_SESSIONS_CONTENT[] = []
+): DataItem[] {
+  const sessionsInPeriod = getSessionsForPeriod(sessions);
 
-  const finalSessions: CHART_DATA = [];
+  const sessionsMonthMap: Record<string, number> = {};
 
-  sessionsInPeriod.reduce(
-    (previousSession, session, i): ArrayElement<CHART_DATA> => {
-      if (i === 0) return { ...session };
-      if (session.time === previousSession.time)
-        return {
-          ...previousSession,
-          value: previousSession.value + session.value,
-        };
-      finalSessions.push(previousSession);
-      return session;
-    },
-    {} as ArrayElement<CHART_DATA>
+  sessionsInPeriod.forEach(({ time, value }) => {
+    if (time === undefined) return;
+    if (value === undefined) return;
+
+    if (sessionsMonthMap[time] !== undefined) {
+      sessionsMonthMap[time] += value;
+    } else {
+      sessionsMonthMap[time] = value;
+    }
+  });
+
+  const dataItems: DataItem[] = Object.entries(sessionsMonthMap).map(
+    ([month, total]) => ({
+      month,
+      total,
+    })
   );
-
-  return finalSessions;
+  return dataItems;
 }
