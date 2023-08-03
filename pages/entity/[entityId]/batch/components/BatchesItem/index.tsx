@@ -10,7 +10,6 @@ import Icon2 from "../../byAdminAddress/icons/Icon2";
 import Icon3 from "../../byAdminAddress/icons/Icon3";
 import AstroBatchImage from "../AstroBatchImage";
 import BatchProgress from "../BatchProgress";
-import { isBatchHasProgress, isProgressComplete } from "./constants";
 
 type Props = {
   name?: string;
@@ -33,7 +32,11 @@ export default function BatchesItem({
 }: Props) {
   const router = useRouter();
 
-  const batchBackgroundImage = isBatchHasProgress(amount, retired)
+  const isProgressComplete = !!(minted && retired === minted);
+
+  const isBatchHasProgress = !!(amount === 0 && (retired || 0) > 0);
+
+  const batchBackgroundImage = isBatchHasProgress
     ? "url(/images/cert-bg--disabled.png)"
     : "url(/images/cert-bg.png)";
 
@@ -47,7 +50,7 @@ export default function BatchesItem({
     e.stopPropagation();
   };
 
-  const buttonStyles: Sx = isProgressComplete(minted, retired)
+  const buttonStyles: Sx = isProgressComplete
     ? {
         cursor: "default",
         backgroundColor: palette.Neutral800,
@@ -88,7 +91,7 @@ export default function BatchesItem({
           Verified Emission Reduction
         </Text>
         <BatchIdentifier
-          isProgressComplete={isProgressComplete(minted, retired)}
+          isProgressComplete={isProgressComplete}
           name="CARBON"
           index={index}
         />
@@ -115,7 +118,7 @@ export default function BatchesItem({
           radius="xl"
           h={45}
         >
-          {isProgressComplete(minted, retired) ? "Fully Offset" : "Offset Batch"}
+          {isProgressComplete ? "Fully Offset" : "Offset Batch"}
         </Button>
       </Flex>
     </Flex>
