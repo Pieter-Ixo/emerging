@@ -10,6 +10,7 @@ import Icon2 from "../../byAdminAddress/icons/Icon2";
 import Icon3 from "../../byAdminAddress/icons/Icon3";
 import AstroBatchImage from "../AstroBatchImage";
 import BatchProgress from "../BatchProgress";
+import { isBatchHasProgress, isProgressComplete } from "./constants";
 
 type Props = {
   name?: string;
@@ -32,10 +33,9 @@ export default function BatchesItem({
 }: Props) {
   const router = useRouter();
 
-  const batchBackgroundImage =
-    amount === 0 && (retired || 0) > 0
-      ? "url(/images/cert-bg--disabled.png)"
-      : "url(/images/cert-bg.png)";
+  const batchBackgroundImage = isBatchHasProgress(amount, retired)
+    ? "url(/images/cert-bg--disabled.png)"
+    : "url(/images/cert-bg.png)";
 
   const toSingleBatch = () => {
     const redirectUrl = `/entity/${entityId}/batch/${index}`;
@@ -47,9 +47,7 @@ export default function BatchesItem({
     e.stopPropagation();
   };
 
-  const isProgressComplete = !!(minted && retired === minted);
-  
-  const buttonStyles: Sx = isProgressComplete
+  const buttonStyles: Sx = isProgressComplete(minted, retired)
     ? {
         cursor: "default",
         backgroundColor: palette.Neutral800,
@@ -90,7 +88,7 @@ export default function BatchesItem({
           Verified Emission Reduction
         </Text>
         <BatchIdentifier
-          isProgressComplete={isProgressComplete}
+          isProgressComplete={isProgressComplete(minted, retired)}
           name="CARBON"
           index={index}
         />
@@ -117,7 +115,7 @@ export default function BatchesItem({
           radius="xl"
           h={45}
         >
-          {isProgressComplete ? "Fully Offset" : "Offset Batch"}
+          {isProgressComplete(minted, retired) ? "Fully Offset" : "Offset Batch"}
         </Button>
       </Flex>
     </Flex>
