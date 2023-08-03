@@ -49,6 +49,7 @@ export default function ImpactAsset({
         />
         <ImpactCreditsProduced
           tokenTotal={totalMinted}
+          created={dateLocale(entity?.metadata.created)}
           tokens={entity?._adminToken?.CARBON}
         />
         <Flex justify="space-between" align="center">
