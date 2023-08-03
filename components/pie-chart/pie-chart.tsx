@@ -28,7 +28,7 @@ function PieChart({
   const chartConfig = [
     {
       title: "To issue",
-      value: totalTokenAmount,
+      value: 0,
       color: "#5FA8EB",
       text: "AVAILABLE CREDITS",
     },
@@ -40,21 +40,23 @@ function PieChart({
     },
     {
       title: "Offset",
-      // TODO: Change this when we'll have the way to fetch Transferred
-      value: totalTokenAmount,
+      value: totalOffset,
       color: "#73B556",
       text: "CARBON CREDITS",
     },
     {
       title: "Transferred",
-      value: totalTokenAmount,
+      value: totalMinted - totalTokenAmount,
       color: "#E79903",
       text: "CARBON CREDITS",
     },
   ];
 
-  const activeSection = active !== null ? chartConfig[active] : null;
+  const chartConfigFilled = chartConfig.map((entry) =>
+    entry.value === 0 ? { ...entry, value: 0.1 } : entry
+  );
 
+  const activeSection = active !== null ? chartConfig[active] : null;
 
   return (
     <div className={styles.pie}>
@@ -74,7 +76,7 @@ function PieChart({
             startAngle={270}
             animate
             onClick={(_, i) => toggleActiveSemiCircle(i)}
-            data={chartConfig}
+            data={chartConfigFilled}
             segmentsStyle={{
               cursor: "pointer",
               zIndex: 1,
@@ -90,7 +92,9 @@ function PieChart({
           style={{ color: activeSection?.color }}
         >
           <p className={styles.amount}>
-            {(activeSection?.value ?? totalMinted).toLocaleString()}
+            {(activeSection?.value ?? totalMinted).toLocaleString() === "0,1"
+              ? "0"
+              : (activeSection?.value ?? totalMinted).toLocaleString()}
           </p>
           <p className={styles.text}>
             {activeSection?.text ?? "CARBON PRODUCED"}
@@ -100,7 +104,7 @@ function PieChart({
       {/* TODO: use Mantine */}
 
       <div className={styles.labels}>
-        {chartConfig.map((semi, i) => (
+        {chartConfigFilled.map((semi, i) => (
           <Card
             className={cls(styles.label, { [styles.selected]: active === i })}
             onClick={() => toggleActiveSemiCircle(i)}
