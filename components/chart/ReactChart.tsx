@@ -33,12 +33,6 @@ export default function ReactChart({
     ],
     []
   );
-  console.log("🎷", {
-    label,
-    "!data": !data,
-    "length === 0": data.length === 0,
-    data,
-  });
 
   if (!data) return null;
   if (data.length === 0) return <>No data</>;
