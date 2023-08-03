@@ -1,9 +1,9 @@
 import { palette } from "@/theme/palette";
 import { Card, Flex, Text } from "@mantine/core";
-import Link from "next/link";
+
 import React, { useMemo } from "react";
 import { IPropertiesModel } from ".";
-import JSONViewerCard from "./ProofComponents/JSONViewerCard";
+
 
 const DetailCard: React.FC<{ properties: IPropertiesModel }> = ({
   properties,
