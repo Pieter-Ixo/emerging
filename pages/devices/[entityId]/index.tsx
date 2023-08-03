@@ -32,16 +32,20 @@ export default function DevicePageLayout() {
 
   if (!entityExternalId) return <Text>missing Entity External Id</Text>;
 
-  const isOverZero = (num?: number) => (num || 0) > 0;
+  function moreOrEqualZero(num: number | undefined) {
+    if (num === undefined) return 0;
+    if (num < 0) return 0;
+    return num;
+  }
 
   return (
     <CookstoveDashboard
       entityExternalId={entityExternalId}
       stove={stove}
-      totalTokenAmount={isOverZero(totalTokenAmount) ? totalTokenAmount : 0}
-      totalMinted={isOverZero(totalMinted) ? totalMinted : 0}
-      totalOffset={isOverZero(totalOffset) ? totalOffset : 0}
-      totalTransferred={isOverZero(totalTransferred) ? totalTransferred : 0}
+      totalTokenAmount={moreOrEqualZero(totalTokenAmount)}
+      totalMinted={moreOrEqualZero(totalMinted)}
+      totalOffset={moreOrEqualZero(totalOffset)}
+      totalTransferred={moreOrEqualZero(totalTransferred)}
     />
   );
 }
