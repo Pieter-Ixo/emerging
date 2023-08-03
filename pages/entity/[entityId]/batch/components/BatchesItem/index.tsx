@@ -33,7 +33,7 @@ export default function BatchesItem({
   const router = useRouter();
 
   const batchBackgroundImage =
-    retired && amount === 0 && retired > 0
+    amount === 0 && (retired || 0) > 0
       ? "url(/images/cert-bg--disabled.png)"
       : "url(/images/cert-bg.png)";
 
@@ -47,8 +47,8 @@ export default function BatchesItem({
     e.stopPropagation();
   };
 
-  const isProgressComplete = retired === minted;
-
+  const isProgressComplete = !!(minted && retired === minted);
+  
   const buttonStyles: Sx = isProgressComplete
     ? {
         cursor: "default",

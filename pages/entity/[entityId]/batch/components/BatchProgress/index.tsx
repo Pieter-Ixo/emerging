@@ -14,7 +14,7 @@ export default function BatchProgress({
   const retiredString = retired.toLocaleString();
   const mintedString = minted.toLocaleString();
   const progresPercent = !retired || !minted ? 0 : (retired / minted) * 100;
-  const isProgressComplete = retired === minted;
+  const isProgressComplete = !!(minted && retired === minted);
   const progressColor = isProgressComplete
     ? palette.greenFull
     : palette.fullBlue;
