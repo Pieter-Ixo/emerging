@@ -46,7 +46,7 @@ export default function EntitiesList({
   );
 
   return (
-    <Grid justify="space-between">
+    <Grid gutter={24}>
       {entities?.map((entity) => {
         const isActive = activeAssetId === entity.externalId;
         return (
