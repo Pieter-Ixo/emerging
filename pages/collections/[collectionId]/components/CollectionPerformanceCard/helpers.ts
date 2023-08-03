@@ -1,6 +1,5 @@
+import { DataItem } from "@/components/chart/types";
 import { MONTH_FUEL_TOTAL_MAP, MONTH_SESSIONS_TOTAL_MAP } from "@/types/stove";
-
-export type DataItem = { month: string; total: number };
 
 export function summaryCalculateAll(
   sessionsSummary: MONTH_SESSIONS_TOTAL_MAP

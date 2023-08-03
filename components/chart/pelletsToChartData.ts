@@ -1,5 +1,5 @@
 import { STOVE_PELLETS_CONTENT } from "@/types/stove";
-import { DataItem } from "@/pages/collections/[collectionId]/components/CollectionPerformanceCard/helpers";
+import { DataItem } from "./types";
 
 export default function pelletsToBarChartData(
   pellets: STOVE_PELLETS_CONTENT[] = []

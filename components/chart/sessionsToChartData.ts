@@ -1,14 +1,13 @@
-import { DataItem } from "@/pages/collections/[collectionId]/components/CollectionPerformanceCard/helpers";
 import { STOVE_SESSIONS_CONTENT, STOVE_PERIODS } from "@/types/stove";
 import { dynamicSort } from "@/utils/general";
 import { datesFromPeriod } from "@/utils/supamoto";
 
-import { CHART_DATA } from "./chart";
+import { DataItem } from "./types";
 
 function getSessionsForPeriod(
   sessions: STOVE_SESSIONS_CONTENT[],
   period: STOVE_PERIODS = STOVE_PERIODS.all
-): CHART_DATA {
+): DataItem[] {
   const { endDate, startDate } = datesFromPeriod(period);
   const endDateMilliseconds = endDate.getTime();
   const startDateMilliseconds = startDate.getTime();
@@ -21,8 +20,8 @@ function getSessionsForPeriod(
       );
     })
     .map((s) => ({
-      time: s.startDateTime?.slice(0, 10) as string,
-      value: 1,
+      month: s.startDateTime?.slice(0, 10) as string,
+      total: 1,
     }))
     .sort(dynamicSort("time"));
 }
@@ -34,14 +33,14 @@ export default function sessionsToLineChartData(
 
   const sessionsMonthMap: Record<string, number> = {};
 
-  sessionsInPeriod.forEach(({ time, value }) => {
-    if (time === undefined) return;
-    if (value === undefined) return;
+  sessionsInPeriod.forEach(({ month, total }) => {
+    if (month === undefined) return;
+    if (total === undefined) return;
 
-    if (sessionsMonthMap[time] !== undefined) {
-      sessionsMonthMap[time] += value;
+    if (sessionsMonthMap[month] !== undefined) {
+      sessionsMonthMap[month] += total;
     } else {
-      sessionsMonthMap[time] = value;
+      sessionsMonthMap[month] = total;
     }
   });
 
