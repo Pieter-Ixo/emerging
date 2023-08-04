@@ -32,10 +32,13 @@ export default function BatchesItem({
 }: Props) {
   const router = useRouter();
 
-  const batchBackgroundImage =
-    retired && amount === 0 && retired > 0
-      ? "url(/images/cert-bg--disabled.png)"
-      : "url(/images/cert-bg.png)";
+  const isProgressComplete = !!(minted && retired === minted);
+
+  const isBatchHasProgress = !!(amount === 0 && (retired || 0) > 0);
+
+  const batchBackgroundImage = isBatchHasProgress
+    ? "url(/images/cert-bg--disabled.png)"
+    : "url(/images/cert-bg.png)";
 
   const toSingleBatch = () => {
     const redirectUrl = `/entity/${entityId}/batch/${index}`;
@@ -46,8 +49,6 @@ export default function BatchesItem({
   const onOffsetBtnClick = (e: MouseEvent<any>) => {
     e.stopPropagation();
   };
-
-  const isProgressComplete = retired === minted;
 
   const buttonStyles: Sx = isProgressComplete
     ? {
