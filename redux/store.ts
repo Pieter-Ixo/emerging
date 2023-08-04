@@ -23,7 +23,6 @@ const persistConfig = {
 
 export const rootReducer = combineReducers({
   user: UserSlice,
-  // collection: CollectionSlice, //TODO: delete this as soon as possible
   entityCollection: EntityCollectionSlice,
   batches: BatchesSlice,
 });
