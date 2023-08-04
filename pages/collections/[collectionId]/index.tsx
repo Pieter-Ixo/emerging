@@ -52,7 +52,7 @@ export default function Collection() {
       </PageHeader>
 
       <Grid gutter="xl" p={0} m={0} sx={{ width: "100%" }}>
-        <Grid.Col span={8} p={0}>
+        <Grid.Col span={8} p={0} pr={20}>
           <Stack spacing="lg">
             <CollectionClimateImpactsCard
               totalCollectionEntitiesTokens={totalCollectionEntitiesTokens}
