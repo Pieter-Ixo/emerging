@@ -6,6 +6,7 @@ import { isHttpUrl } from "@/utils/isStrUrl";
 import { Obj } from "./types";
 import Txt from "./Txt";
 import Dropdown from "./Dropdown.svg";
+import shortStr from "../../utils/shortStr";
 
 interface Props {
   obj: Obj;
@@ -25,20 +26,22 @@ function Row({ children }: PropsWithChildren) {
     </Flex>
   );
 }
-function RowWithText({ value, label }: { label: string; value: string }) {
+function RowWithText({ value, label }: { label?: string; value: string }) {
   if (isHttpUrl(value))
     return (
       <Row>
-        <Txt pr="lg">{label} </Txt>
+        {label && <Txt pr="lg">{label}</Txt>}
         <Anchor href={value} target="_blank" rel="noreferrer">
-          <Txt color="unset">{value}</Txt>
+          <Txt color="unset">
+            {value.length > 20 ? shortStr(String(value), 23, 0) : value}
+          </Txt>
         </Anchor>
       </Row>
     );
   return (
     <Row>
-      <Txt pr="lg">{label} </Txt>
-      <Txt>{value}</Txt>
+      {label && <Txt pr="lg">{label}</Txt>}
+      <Txt>{shortStr(String(value), 23, 0)}</Txt>
     </Row>
   );
 }
@@ -52,6 +55,7 @@ function RowWithObj({
   depth: number;
 }) {
   const [isFolded, setIsFolded] = useState<boolean>(true);
+
   return (
     <>
       <Row>
@@ -63,7 +67,11 @@ function RowWithObj({
             w="1.5em"
             h="1em"
           >
-            {isFolded ? <Dropdown /> : <Dropdown style={{transform: 'rotate(180deg)'}} />}
+            {isFolded ? (
+              <Dropdown />
+            ) : (
+              <Dropdown style={{ transform: "rotate(180deg)" }} />
+            )}
           </Button>
           <Txt pr="lg">{label}</Txt>
         </Flex>
@@ -87,6 +95,9 @@ export default function JSONViewerChild({ obj, depth = 0 }: Props) {
               depth={depth + 1}
             />
           );
+        }
+        if (Array.isArray(obj)) {
+          return <RowWithText key={`row-${key}`} value={value ?? ""} />;
         }
         return (
           <RowWithText key={`row-${key}`} label={key} value={value ?? ""} />
