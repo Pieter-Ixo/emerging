@@ -1,9 +1,9 @@
 import { Box } from "@mantine/core";
 
 import { MONTH_FUEL_TOTAL_MAP } from "@/types/stove";
-import Chart from "@/components/Сhart";
+import Chart from "@/components/Chart";
 
-import { fuelSummaryToChartData } from "../../../../pages/collections/[collectionId]/components/CollectionPerformanceCard/helpers";
+import fuelSummaryToChartData from "./fuelSummaryToChartData";
 
 type Props = {
   fuelSummary: MONTH_FUEL_TOTAL_MAP;

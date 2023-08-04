@@ -37,7 +37,7 @@ export default function sessionsToLineChartData(
     if (month === undefined) return;
     if (total === undefined) return;
 
-    if (sessionsMonthMap[month] !== undefined) {
+    if (!sessionsMonthMap[month]) {
       sessionsMonthMap[month] += total;
     } else {
       sessionsMonthMap[month] = total;

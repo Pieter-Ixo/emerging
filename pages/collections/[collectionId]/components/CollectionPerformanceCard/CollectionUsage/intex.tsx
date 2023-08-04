@@ -7,7 +7,7 @@ import { selectAllEntitiesExternalIds } from "@/redux/entityCollections/selector
 import { palette } from "@/theme/palette";
 
 import { calculateTotalSessions } from "../helpers";
-import CollectionSessionsChart from "../../../../../../components/Сhart/Instances/CollectionSessionsChart";
+import CollectionSessionsChart from "../../../../../../components/Chart/Instances/CollectionSessionsChart";
 
 export default function CollectionUsage() {
   const {

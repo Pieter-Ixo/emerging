@@ -10,8 +10,8 @@ export default function pelletsToBarChartData(
     if (dateTime === undefined) return;
     if (pelletsAmount === undefined) return;
 
-    const month = dateTime.slice(0, 7) as string;
-    if (pelletsMonthMap[month] !== undefined) {
+    const month = dateTime.slice(0, 7);
+    if (pelletsMonthMap[month]) {
       pelletsMonthMap[month] += pelletsAmount;
     } else {
       pelletsMonthMap[month] = pelletsAmount;

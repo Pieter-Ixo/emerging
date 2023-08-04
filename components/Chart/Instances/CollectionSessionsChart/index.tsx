@@ -1,21 +1,15 @@
 import { Box } from "@mantine/core";
 
-import Chart from "@/components/Сhart";
+import Chart from "@/components/Chart";
 import { MONTH_SESSIONS_TOTAL_MAP } from "@/types/stove";
-
-import {
-  summaryCalculateAll,
-  summaryToChartData,
-} from "../../../../pages/collections/[collectionId]/components/CollectionPerformanceCard/helpers";
+import { sessionsSummaryToChartData } from "./summaryChartData";
 
 type Props = {
   sessionsSummary: MONTH_SESSIONS_TOTAL_MAP;
 };
 
 export default function CollectionSessionsChart({ sessionsSummary }: Props) {
-  // TODO: do we need both functions below?
-  const summary = summaryCalculateAll(sessionsSummary);
-  const data = summaryToChartData(summary);
+  const data = sessionsSummaryToChartData(sessionsSummary);
 
   return (
     <Box h="300px" id="fuel" key="fuel">

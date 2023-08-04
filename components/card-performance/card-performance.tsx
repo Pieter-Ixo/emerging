@@ -11,8 +11,8 @@ import { SECTIONS, STOVE } from "@/types/stove";
 
 import styles from "./card-performance.module.scss";
 import TabButton from "./TabButton";
-import AssetFuelChart from "../Сhart/Instances/AssetFuelChart";
-import AssetSessionsChart from "../Сhart/Instances/AssetSessionsChart";
+import AssetFuelChart from "../Chart/Instances/AssetFuelChart";
+import AssetSessionsChart from "../Chart/Instances/AssetSessionsChart";
 
 type EventsCardProps = { stove: STOVE } & HTMLAttributes<HTMLDivElement>;
 // TODO: use Mantine

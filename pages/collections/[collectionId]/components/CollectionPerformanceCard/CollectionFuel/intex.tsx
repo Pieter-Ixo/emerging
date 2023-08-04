@@ -7,7 +7,7 @@ import { useAppSelector } from "@/hooks/redux";
 import { selectAllEntitiesExternalIds } from "@/redux/entityCollections/selectors";
 
 import { calculateTotalFuel } from "../helpers";
-import CollectionFuelChart from "../../../../../../components/Сhart/Instances/CollectionFuelChart";
+import CollectionFuelChart from "../../../../../../components/Chart/Instances/CollectionFuelChart";
 
 export default function CollectionFuel() {
   const {
