@@ -5,9 +5,9 @@ import { palette } from "@/theme/palette";
 import { useCookstove } from "@/context/cookstove";
 import { useAppSelector } from "@/hooks/redux";
 import { selectAllEntitiesExternalIds } from "@/redux/entityCollections/selectors";
+import CollectionFuelChart from "@/components/Chart/Instances/CollectionFuelChart";
 
 import { calculateTotalFuel } from "../helpers";
-import CollectionFuelChart from "../../../../../../components/Chart/Instances/CollectionFuelChart";
 
 export default function CollectionFuel() {
   const {

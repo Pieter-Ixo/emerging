@@ -12,8 +12,12 @@ export default function fuelSummaryToChartData(
     const monthEntries = Object.entries(device.dayMap);
     monthEntries.forEach(([month, purchase]) => {
       if (!month || purchase === undefined) return;
-      if (monthMap[month] === undefined) monthMap[month] = purchase;
-      else monthMap[month] += purchase;
+
+      if (monthMap[month]) {
+        monthMap[month] = purchase;
+      } else {
+        monthMap[month] += purchase;
+      }
     });
   });
 
