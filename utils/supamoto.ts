@@ -1,4 +1,3 @@
-import { CHART_DATA } from "@/components/chart/chart";
 import { ArrayElement } from "@/types/general";
 import {
   STOVE_PELLETS_CONTENT,
@@ -7,7 +6,8 @@ import {
 } from "@/types/stove";
 import { dynamicSort } from "./general";
 
-export const roundNumber = (num: number, scale: number) => {
+export type CHART_DATA = { time: string; value: number }[];
+const roundNumber = (num: number, scale: number) => {
   if (!("" + num).includes("e")) {
     return +(
       Math.round((num + "e+" + scale) as unknown as number) +
