@@ -28,19 +28,24 @@ export default function DevicePageLayout() {
   const totalTokenAmount = getEntityTotalTokenAmount(entity);
   const totalMinted = getEntityTotalMintedAmount(entity);
   const totalOffset = getEntityTotalRetiredAmount(entity);
-
   const totalTransferred = (totalMinted || 0) - (totalTokenAmount || 0);
 
   if (!entityExternalId) return <Text>missing Entity External Id</Text>;
+
+  function moreOrEqualZero(num: number | undefined) {
+    if (num === undefined) return 0;
+    if (num < 0) return 0;
+    return num;
+  }
 
   return (
     <CookstoveDashboard
       entityExternalId={entityExternalId}
       stove={stove}
-      totalTokenAmount={totalTokenAmount}
-      totalMinted={totalMinted}
-      totalOffset={totalOffset}
-      totalTransferred={totalTransferred > 0 ? totalTransferred : 0}
+      totalTokenAmount={moreOrEqualZero(totalTokenAmount)}
+      totalMinted={moreOrEqualZero(totalMinted)}
+      totalOffset={moreOrEqualZero(totalOffset)}
+      totalTransferred={moreOrEqualZero(totalTransferred)}
     />
   );
 }

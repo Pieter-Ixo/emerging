@@ -46,7 +46,7 @@ function PieChart({
     },
     {
       title: "Transferred",
-      value: totalMinted - totalTokenAmount || 0.1,
+      value: totalTransferred || 0.1,
       color: "#E79903",
       text: "CARBON CREDITS",
     },
