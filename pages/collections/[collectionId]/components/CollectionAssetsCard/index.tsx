@@ -1,9 +1,5 @@
 import { Suspense, useEffect, useState } from "react";
-import {
-  ScrollArea,
-  Table,
-  Text,
-} from "@mantine/core";
+import { ScrollArea, Table, Text } from "@mantine/core";
 
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { selectSelectedAssetExternalId } from "@/redux/entityCollections/selectors";
@@ -11,10 +7,10 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { IEntity, IEntityExtended } from "@/types/entityCollections";
 
 import ArrowRight from "../CollectionNewsCard/icons/arrowRight";
-import DownArrow from "./icons/downArrow";
 import Loading from "./loading";
 import PageBlock from "../PageBlock";
 import CollectionAssetRow from "./components/CollectionAssetRow";
+import CollectionAssetsHeadCell from "./components/CollectionAssetsHeadCell";
 
 // TODO: split component onto few smaller ones
 export default function CollectionAssetsCard() {
@@ -25,18 +21,12 @@ export default function CollectionAssetsCard() {
   const selectedAssetExternalId = useAppSelector(selectSelectedAssetExternalId);
 
   const [entitiesData, setEntitiesData] = useState<IEntityExtended[]>([]);
-  const heads = [
-    { name: "Serial number", filterActive: false },
-    { name: "CARBON claimable", filterActive: false },
-    { name: "CARBON Issued", filterActive: false },
-  ];
 
-  const [sortAssets, setSortAssets] = useState({
-    SerialNumber: false,
-    CarbonClaimable: false,
-    CarbonIssued: false,
-  });
-  const [headers, setHeader] = useState(heads);
+  const [sortAssets, setSortAssets] = useState([
+    { name: "Serial number", isActive: false },
+    { name: "CARBON claimable", isActive: false },
+    { name: "CARBON Issued", isActive: false },
+  ]);
 
   const handleClickAssetRow = (entity: IEntity) => () => {
     if (selectedAssetExternalId === entity.externalId)
@@ -44,33 +34,36 @@ export default function CollectionAssetsCard() {
     else dispatch(setSelectedEntity(entity));
   };
 
-
   const handleFilterActive = (index: number) => {
-    const copy = [...headers];
-    const copyData: IEntityExtended[] = [...entitiesData];
-    const item = copy[index];
+    setSortAssets((prevFilters) =>
+      prevFilters.map((filter, filterIndex) =>
+        filterIndex === index
+          ? { ...filter, isActive: !filter.isActive }
+          : { ...filter, isActive: false }
+      )
+    );
 
-    item.filterActive = !item.filterActive;
-
-    setHeader(copy);
-
-    switch (item.name) {
+    switch (sortAssets[index].name) {
       case "Serial number":
-        if (item.filterActive)
-          setEntitiesData(
-            copyData?.sort(
-              (a, b) =>
-                parseInt(a.alsoKnownAs.split(`#`)[1], 10) -
-                parseInt(b.alsoKnownAs.split(`#`)[1], 10)
-            )
+        if (sortAssets[index].isActive)
+          setEntitiesData((prevData) =>
+            prevData
+              ?.slice()
+              .sort(
+                (a, b) =>
+                  parseInt(a.alsoKnownAs.split(`#`)[1], 10) -
+                  parseInt(b.alsoKnownAs.split(`#`)[1], 10)
+              )
           );
         else
-          setEntitiesData(
-            copyData?.sort(
-              (a, b) =>
-                parseInt(b.alsoKnownAs.split(`#`)[1], 10) -
-                parseInt(a.alsoKnownAs.split(`#`)[1], 10)
-            )
+          setEntitiesData((prevData) =>
+            prevData
+              ?.slice()
+              .sort(
+                (a, b) =>
+                  parseInt(b.alsoKnownAs.split(`#`)[1], 10) -
+                  parseInt(a.alsoKnownAs.split(`#`)[1], 10)
+              )
           );
         break;
 
@@ -112,66 +105,21 @@ export default function CollectionAssetsCard() {
         >
           <thead>
             <tr>
-              <th
-                style={{
-                  cursor: "pointer",
-                  color: sortAssets.SerialNumber ? "#5FA8EB" : "black",
-                  width: 65,
-                }}
-                onClick={() => {
-                  handleFilterActive(0);
-                  setSortAssets((prevSorts) => ({
-                    SerialNumber: !prevSorts.SerialNumber,
-                    CarbonClaimable: false,
-                    CarbonIssued: false,
-                  }));
-                }}
-              >
-                <Text style={{ display: "flex" }}>
-                  Serial number {sortAssets.SerialNumber ? <DownArrow /> : null}
-                </Text>
-              </th>
-
-              <th
-                style={{
-                  cursor: "pointer",
-                  color: sortAssets.CarbonClaimable ? "#5FA8EB" : "black",
-                  width: 65,
-                }}
-                onClick={() => {
-                  handleFilterActive(1);
-                  setSortAssets((prevSorts) => ({
-                    CarbonClaimable: !prevSorts.CarbonClaimable,
-                    SerialNumber: false,
-                    CarbonIssued: false,
-                  }));
-                }}
-              >
-                <Text style={{ display: "flex" }}>
-                  CARBON claimable{" "}
-                  {sortAssets.CarbonClaimable ? <DownArrow /> : null}
-                </Text>
-              </th>
-
-              <th
-                style={{
-                  cursor: "pointer",
-                  color: sortAssets.CarbonIssued ? "#5FA8EB" : "black",
-                  width: 65,
-                }}
-                onClick={() => {
-                  handleFilterActive(2);
-                  setSortAssets((prevSorts) => ({
-                    CarbonIssued: !prevSorts.CarbonIssued,
-                    SerialNumber: false,
-                    CarbonClaimable: false,
-                  }));
-                }}
-              >
-                <Text style={{ display: "flex" }}>
-                  CARBON Issued {sortAssets.CarbonIssued ? <DownArrow /> : null}
-                </Text>
-              </th>
+              <CollectionAssetsHeadCell
+                name={sortAssets[0].name}
+                isFilterActive={sortAssets[0].isActive}
+                onClick={() => handleFilterActive(0)}
+              />
+              <CollectionAssetsHeadCell
+                name={sortAssets[1].name}
+                isFilterActive={sortAssets[1].isActive}
+                onClick={() => handleFilterActive(1)}
+              />
+              <CollectionAssetsHeadCell
+                name={sortAssets[2].name}
+                isFilterActive={sortAssets[2].isActive}
+                onClick={() => handleFilterActive(2)}
+              />
             </tr>
           </thead>
           <tbody>
