@@ -15,7 +15,7 @@ export default function Evidence({
   const evidenceString = evidence?.split(":")?.[1] || evidence;
 
   const PortalChild = (
-    <Card shadow="sm" padding="lg" radius="md" withBorder>
+    <Card maw="400px" shadow="sm" padding="lg" radius="md" withBorder>
       <Flex
         align="center"
         justify="space-between"
