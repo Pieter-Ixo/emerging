@@ -5,9 +5,9 @@ import { useAppSelector } from "@/hooks/redux";
 import { useCookstove } from "@/context/cookstove";
 import { selectAllEntitiesExternalIds } from "@/redux/entityCollections/selectors";
 import { palette } from "@/theme/palette";
+import CollectionSessionsChart from "@/components/Chart/Instances/CollectionSessionsChart";
 
 import { calculateTotalSessions } from "../helpers";
-import CollectionSessionsChart from "../../../../../../components/Сhart/Instances/CollectionSessionsChart";
 
 export default function CollectionUsage() {
   const {
