@@ -1,43 +1,9 @@
-import { PropsWithChildren } from "react";
 import HeaderLogo from "@/components/Header_Logo/Index";
-import {
-  Anchor,
-  Box,
-  Center,
-  Container,
-  Flex,
-  Popover,
-  Text,
-} from "@mantine/core";
+import { Center, Container, Flex, Popover, Text } from "@mantine/core";
 
 import TruckSVG from "@/assets/icons/truck.svg";
 import LeafSVG from "@/assets/icons/leaf.svg";
-import { palette } from "@/theme/palette";
-
-// eslint-disable-next-line react/require-default-props
-function NavLink({ href, children }: { href?: string } & PropsWithChildren) {
-  return (
-    <Anchor
-      href={href}
-      underline={false}
-      color={palette.Black}
-      display="block"
-      size="32px"
-      mb={32}
-      lh="lg"
-    >
-      <Container
-        ta="center"
-        p={20}
-        bg={palette.White}
-        sx={{ borderRadius: "16px" }}
-        w="300px"
-      >
-        {children}
-      </Container>
-    </Anchor>
-  );
-}
+import PageLink from "@/components/Pages/Index/PageLink";
 
 export default function Home() {
   return (
@@ -52,20 +18,20 @@ export default function Home() {
         <Popover width={200} position="bottom" withArrow shadow="md">
           <Popover.Target>
             <Container>
-              <NavLink>
+              <PageLink>
                 <TruckSVG aria-hidden width={70} height={70} alt="" />
                 <Text>Distributor</Text>
-              </NavLink>
+              </PageLink>
             </Container>
           </Popover.Target>
           <Popover.Dropdown>
             <Text size="sm">Distributor page is not available yet</Text>
           </Popover.Dropdown>
         </Popover>
-        <NavLink href="/collections">
+        <PageLink href="/collections">
           <LeafSVG aria-hidden width={70} height={70} alt="" />
           <Text>Asset Owner</Text>
-        </NavLink>
+        </PageLink>
       </Container>
     </Center>
   );
