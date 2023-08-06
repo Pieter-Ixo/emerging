@@ -1,19 +1,24 @@
 import { BackgroundImage, Container, Title } from "@mantine/core";
+// TODO: get rid of this loader. Use Mantine
+import LottieLight from "react-lottie-player/dist/LottiePlayerLight";
 import cls from "classnames";
 
-import utilsStyles from "@/styles/utils.module.scss";
-import styles from "@/styles/homePage.module.scss";
 import Stove from "@/assets/icons/stove.svg";
 import HouseholdSVG from "@/assets/icons/household.svg";
 import Sprout from "@/assets/icons/sprout.svg";
 import Eye from "@/assets/icons/eye.svg";
-import Loader from "@/components/loader/loader";
+import loader from "@/assets/lotties/loader.json";
+
 import PieChart from "@/components/pie-chart/pie-chart";
 import CarbonClaimCard from "@/components/Containers/CookstoveDashboard/CardClaim";
 import ImageTextCard from "@/components/card-image-text/card-image-text";
 import PerformanceCard from "@/components/card-performance/card-performance";
+
+import utilsStyles from "@/styles/utils.module.scss";
+import styles from "@/styles/homePage.module.scss";
 import { STOVE } from "@/types/stove";
 import { palette } from "@/theme/palette";
+
 import CarbonIssueCard from "./CardIssue";
 
 interface Props {
@@ -46,7 +51,13 @@ export default function CookstoveDashboard({
           <h1 className={styles.title}>SUPAMOTO</h1>
           <section className={utilsStyles.column}>
             <div className={cls(utilsStyles.flex, utilsStyles.columnCenter)}>
-              <Loader size="60px" />
+              <LottieLight
+                play
+                loop
+                animationData={loader}
+                speed={1}
+                style={{ height: "60px", width: "60px" }}
+              />
               <p className={styles.emptyTitle}>LOADING</p>
             </div>
           </section>
