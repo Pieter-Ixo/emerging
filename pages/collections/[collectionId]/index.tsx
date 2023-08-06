@@ -13,7 +13,7 @@ import {
   fetchTotalCollectionEntities,
 } from "@/redux/entityCollections/thunks";
 
-import GlobalPortfolioSwitch from "@/components/HeaderControls";
+import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 import CollectionClimateImpactsCard from "@/components/Pages/Collections/CollectionDashboard/CollectionClimateImpactsCard";
 import CollectionPerformanceCard from "@/components/Pages/Collections/CollectionDashboard/CollectionPerformanceCard";
 import CollectionAssetsCard from "@/components/Pages/Collections/CollectionDashboard/CollectionAssetsCard";

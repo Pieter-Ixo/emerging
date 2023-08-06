@@ -1,4 +1,4 @@
-import HeaderLogo from "@/components/Header_Logo/Index";
+import HeaderLogo from "@/components/Layout/Header_Logo/Index";
 import { Center, Container, Flex, Popover, Text } from "@mantine/core";
 
 import TruckSVG from "@/assets/icons/truck.svg";

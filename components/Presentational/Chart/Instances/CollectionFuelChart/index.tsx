@@ -1,7 +1,7 @@
 import { Box } from "@mantine/core";
 
 import { MONTH_FUEL_TOTAL_MAP } from "@/types/stove";
-import Chart from "@/components/Chart";
+import Chart from "@/components/Presentational/Chart";
 
 import fuelSummaryToChartData from "./fuelSummaryToChartData";
 

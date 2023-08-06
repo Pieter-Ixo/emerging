@@ -1,5 +1,5 @@
 import { Flex } from "@mantine/core";
-import Nav from "@/components/Navbar/navbar";
+import Nav from "@/components/Layout/Navbar/navbar";
 import { initStyles } from "@/theme/initStyles";
 import BatchPageLayout from "@/components/Pages/Batch";
 

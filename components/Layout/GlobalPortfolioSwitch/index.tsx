@@ -1,8 +1,8 @@
 import { Flex } from "@mantine/core";
-
 import Link from "next/link";
-import GlobalIcon from "../icons/global-icon";
-import PortfolioIcon from "../icons/portfolio-icon";
+
+import PortfolioIcon from "@/icons/portfolio-icon";
+import GlobalIcon from "@/icons/global-icon";
 
 type Props = {
   selectedLink: "global" | "portfolio";

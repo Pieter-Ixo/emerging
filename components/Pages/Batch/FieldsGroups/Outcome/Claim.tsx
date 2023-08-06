@@ -1,7 +1,7 @@
 import { Card, Flex, Button, Text } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
-import JSONViewer from "@/components/JSONViewer";
+import JSONViewer from "@/components/Presentational/JSONViewer";
 import useDetailPortal from "@/hooks/useDetailPortal";
 
 import { FieldText } from "../styledComponents";

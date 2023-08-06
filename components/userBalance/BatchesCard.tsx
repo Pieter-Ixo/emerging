@@ -10,8 +10,8 @@ import {
   selectAdminTokensIsLoading,
 } from "@/redux/entityCollections/selectors";
 import { IEntityExtended } from "@/types/entityCollections";
+import Generated from "@/icons/generated";
 
-import Generated from "../Dashboard/CollectionDashboard/cards/ImpactsCard/icons/generated";
 import { ImpactCreditsButtonBlue } from "./styled-buttons";
 
 export default function BatchesCard({ entity }: { entity: IEntityExtended }) {

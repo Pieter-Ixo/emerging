@@ -2,7 +2,7 @@ import { Modal, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
 import { palette } from "@/theme/palette";
-import Generated from "@/components/Dashboard/CollectionDashboard/cards/ImpactsCard/icons/generated";
+import Generated from "@/icons/generated";
 
 import { ImpactCreditsButtonBlue } from "../styled-buttons";
 

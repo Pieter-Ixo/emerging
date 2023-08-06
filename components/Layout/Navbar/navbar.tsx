@@ -10,10 +10,10 @@ import {
 } from "@/redux/entityCollections/selectors";
 import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
 
-import ConnectAccountButton from "../connectedAccount/connected_account";
-import ImpactCreditsCard from "../userBalance/ImpactCreditsCard";
+import ConnectAccountButton from "../../Containers/ConnectAccountButton/connected_account";
+import ImpactCreditsCard from "../../userBalance/ImpactCreditsCard";
 import HeaderLogo from "../Header_Logo/Index";
-import BatchesCard from "../userBalance/BatchesCard";
+import BatchesCard from "../../userBalance/BatchesCard";
 
 export default function Nav() {
   const dispatch = useAppDispatch();

@@ -1,6 +1,6 @@
 import { Title } from "@mantine/core";
 
-import GlobalPortfolioSwitch from "@/components/HeaderControls";
+import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 
 import CollectionsGrid from "@/components/Pages/Collections/Global/CollectionsGrid";
 import CollectionsLayout from "@/components/Pages/Collections/CollectionsLayout";

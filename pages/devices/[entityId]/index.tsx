@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchEntityByExternalIdAndFill } from "@/redux/entityCollections/thunks";
 import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
 
-import CookstoveDashboard from "@/components/CookstoveDashboard";
+import CookstoveDashboard from "@/components/Containers/CookstoveDashboard";
 
 export default function DevicePageLayout() {
   const dispatch = useAppDispatch();

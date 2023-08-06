@@ -6,7 +6,7 @@ import { isHttpUrl } from "@/utils/isStrUrl";
 import { Obj } from "./types";
 import Txt from "./Txt";
 import Dropdown from "./Dropdown.svg";
-import shortStr from "../../utils/shortStr";
+import shortStr from "../../../utils/shortStr";
 
 interface Props {
   obj: Obj;

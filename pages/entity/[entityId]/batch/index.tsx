@@ -1,5 +1,5 @@
 import { Flex } from "@mantine/core";
-import Nav from "@/components/Navbar/navbar";
+import Nav from "@/components/Layout/Navbar/navbar";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import { initStyles } from "@/theme/initStyles";
 

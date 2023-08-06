@@ -9,12 +9,12 @@ import Sprout from "@/assets/icons/sprout.svg";
 import Eye from "@/assets/icons/eye.svg";
 import Loader from "@/components/loader/loader";
 import PieChart from "@/components/pie-chart/pie-chart";
-import CarbonClaimCard from "@/components/CardClaim";
+import CarbonClaimCard from "@/components/Containers/CookstoveDashboard/CardClaim";
 import ImageTextCard from "@/components/card-image-text/card-image-text";
 import PerformanceCard from "@/components/card-performance/card-performance";
 import { STOVE } from "@/types/stove";
 import { palette } from "@/theme/palette";
-import CarbonIssueCard from "../CardIssue";
+import CarbonIssueCard from "./CardIssue";
 
 interface Props {
   entityExternalId: string;

@@ -5,7 +5,7 @@ import { useAppSelector } from "@/hooks/redux";
 import { useCookstove } from "@/context/cookstove";
 import { selectAllEntitiesExternalIds } from "@/redux/entityCollections/selectors";
 import { palette } from "@/theme/palette";
-import CollectionSessionsChart from "@/components/Chart/Instances/CollectionSessionsChart";
+import CollectionSessionsChart from "@/components/Presentational/Chart/Instances/CollectionSessionsChart";
 
 import { calculateTotalSessions } from "../helpers";
 

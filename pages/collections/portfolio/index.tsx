@@ -11,7 +11,7 @@ import {
 
 import { palette } from "@/theme/palette";
 import { ICollectionEntities } from "@/types/entityCollections";
-import GlobalPortfolioSwitch from "@/components/HeaderControls";
+import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 import CollectionsLayout from "@/components/Pages/Collections/CollectionsLayout";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
 

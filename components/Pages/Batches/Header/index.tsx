@@ -1,6 +1,6 @@
 import { Container, Flex, Title } from "@mantine/core";
 
-import GlobalPortfolioSwitch from "@/components/HeaderControls";
+import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 
 import BatchesControls from "../BatchesControls/BatchesControls";
 
