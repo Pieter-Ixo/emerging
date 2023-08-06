@@ -12,7 +12,8 @@ import PageBlock from "../PageBlock";
 import CollectionAssetRow from "./components/CollectionAssetRow";
 import CollectionAssetsHeadCell from "./components/CollectionAssetsHeadCell";
 
-// TODO: split component onto few smaller ones
+export type IActiveFilter = { name: string; isActive: boolean };
+
 export default function CollectionAssetsCard() {
   const dispatch = useAppDispatch();
   const entities = useAppSelector(
@@ -22,7 +23,7 @@ export default function CollectionAssetsCard() {
 
   const [entitiesData, setEntitiesData] = useState<IEntityExtended[]>([]);
 
-  const [sortAssets, setSortAssets] = useState([
+  const [activeFilters, setActiveFilters] = useState<IActiveFilter[]>([
     { name: "Serial number", isActive: false },
     { name: "CARBON claimable", isActive: false },
     { name: "CARBON Issued", isActive: false },
@@ -35,7 +36,7 @@ export default function CollectionAssetsCard() {
   };
 
   const handleFilterActive = (index: number) => {
-    setSortAssets((prevFilters) =>
+    setActiveFilters((prevFilters) =>
       prevFilters.map((filter, filterIndex) =>
         filterIndex === index
           ? { ...filter, isActive: !filter.isActive }
@@ -43,9 +44,11 @@ export default function CollectionAssetsCard() {
       )
     );
 
-    switch (sortAssets[index].name) {
+    // TODO: fill with claimable and issued data, after adding new ways of sorting according to the arrived values
+    // TODO: when data arrives remove the else block and simply resort the entity array
+    switch (activeFilters[index].name) {
       case "Serial number":
-        if (sortAssets[index].isActive)
+        if (activeFilters[index].isActive)
           setEntitiesData((prevData) =>
             prevData
               ?.slice()
@@ -106,18 +109,18 @@ export default function CollectionAssetsCard() {
           <thead>
             <tr>
               <CollectionAssetsHeadCell
-                name={sortAssets[0].name}
-                isFilterActive={sortAssets[0].isActive}
+                name={activeFilters[0].name}
+                isFilterActive={activeFilters[0].isActive}
                 onClick={() => handleFilterActive(0)}
               />
               <CollectionAssetsHeadCell
-                name={sortAssets[1].name}
-                isFilterActive={sortAssets[1].isActive}
+                name={activeFilters[1].name}
+                isFilterActive={activeFilters[1].isActive}
                 onClick={() => handleFilterActive(1)}
               />
               <CollectionAssetsHeadCell
-                name={sortAssets[2].name}
-                isFilterActive={sortAssets[2].isActive}
+                name={activeFilters[2].name}
+                isFilterActive={activeFilters[2].isActive}
                 onClick={() => handleFilterActive(2)}
               />
             </tr>
@@ -128,7 +131,7 @@ export default function CollectionAssetsCard() {
                 <CollectionAssetRow
                   entity={entity}
                   key={`row-${entity.externalId}`}
-                  sortAssets={sortAssets}
+                  activeFilters={activeFilters}
                   selectedAssetExternalId={selectedAssetExternalId}
                   handleClickAssetRow={handleClickAssetRow}
                 />
