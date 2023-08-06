@@ -20,6 +20,7 @@ import {
 } from "@/types/entityCollections";
 import fillCollection from "@/helpers/fillCollection";
 import fillEntity from "@/helpers/fillEntity";
+import type { RootState } from "../store";
 
 export const fetchTotalCollectionEntities = createAsyncThunk<any, string>(
   "entityCollections/fetchTotalCollectionEntities",
@@ -55,21 +56,33 @@ export const fetchTotalCollectionEntitiesRetired = createAsyncThunk<any>(
 
 export const fetchAndFillCollections = createAsyncThunk(
   "entityCollections/fetchAndFillCollections",
-  async (): Promise<ICollectionEntities[]> => {
-    const collectionsResponse = await requestCollections();
+  async (_, { getState }): Promise<ICollectionEntities[]> => {
+    
+    const state = getState() as RootState;
 
-    const getCollectionProfilePromises = collectionsResponse?.map(
-      async (entityCollection): Promise<ICollectionEntities> => {
-        const collection = await fillCollection(entityCollection.collection);
-        return {
-          ...entityCollection,
-          collection,
-        };
-      }
-    );
-    const newCollections = await Promise.all(getCollectionProfilePromises);
+    const isCollectionsAvailable =
+      !!state.entityCollection.entityCollections[0]?.collection;
 
-    return newCollections;
+    if (!isCollectionsAvailable) {
+      const collectionsResponse: ICollectionEntities[] =
+        await requestCollections();
+
+      const getCollectionProfilePromises = collectionsResponse?.map(
+        async (entityCollection): Promise<ICollectionEntities> => {
+          const collection = await fillCollection(entityCollection.collection);
+          return {
+            ...entityCollection,
+            collection,
+          };
+        }
+      );
+
+      const newCollections = await Promise.all(getCollectionProfilePromises);
+
+      return newCollections;
+    }
+
+    return state.entityCollection.entityCollections;
   }
 );
 
