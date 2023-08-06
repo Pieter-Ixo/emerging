@@ -2,7 +2,7 @@ import request from "@/requests/request";
 import { IClaimCer, IFuelPurchase } from "@/types/certificates/claimCer";
 import { IClaimVer } from "@/types/certificates/claimVer";
 
-import { requestEntityWithProfile } from "./getEntityProfile";
+import { requestEntityWithProfile } from "./requestEntityProfile";
 
 export default async function requestClaimCerFilled(
   claimVer: IClaimVer

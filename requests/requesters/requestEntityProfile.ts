@@ -7,7 +7,7 @@ import {
 } from "@/types/entityCollections";
 import getFullServiceEndpoint from "@/utils/getServiceEndpoint";
 import fillProfileLinkedData from "@/helpers/fillProfileLinkedData";
-import requestEntityTags from "./getEntityTags";
+import requestEntityTags from "./requestEntityTags";
 
 export default async function requestEntityProfile(
   entity: IEntityExtended

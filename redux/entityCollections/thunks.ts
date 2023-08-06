@@ -10,7 +10,7 @@ import {
 } from "@/requests/blocksync";
 import requestUsersToken, {
   requestTokenByAddress,
-} from "@/requests/requesters/getEntityToken";
+} from "@/requests/requesters/requestEntityToken";
 import {
   IApiCollectionEntitiesTotal,
   IApiCollectionEntitiesTotalRetired,

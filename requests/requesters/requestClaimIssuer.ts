@@ -1,7 +1,7 @@
 import { requestBlocksyncAPI } from "@/requests/blocksync";
 import { IClaimIssuer } from "@/types/certificates/claimVer";
 
-import requestEntityProfile from "./getEntityProfile";
+import requestEntityProfile from "./requestEntityProfile";
 
 export default async function requestClaimIssuerFilled(
   claimIssuerId: string
