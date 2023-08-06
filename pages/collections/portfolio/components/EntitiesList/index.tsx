@@ -1,22 +1,26 @@
 import { useEffect, useState } from "react";
-import { Text, Badge, Flex, Grid, Box } from "@mantine/core";
+import { Text, Badge, Flex, Grid, Box, Loader } from "@mantine/core";
 import { palette } from "@/theme/palette";
 
 import ProgressBar from "@/components/progress-bar/ProgressBar";
 import ProfileCard from "@/components/ProfileCard";
 
-import { IEntityExtended } from "@/types/entityCollections";
+import {
+  ICollectionEntities,
+  IEntityExtended,
+} from "@/types/entityCollections";
 import { getEntityTotalMintedAmount } from "@/helpers/transformData/getTotalMintedAmount";
 import { useAppDispatch } from "@/hooks/redux";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
+import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
 
 type EntitiesItemsProps = {
-  entities?: IEntityExtended[];
+  activeEntityCollection?: ICollectionEntities;
   totalAssets?: number;
 };
 
 export default function EntitiesList({
-  entities,
+  activeEntityCollection,
   totalAssets,
 }: EntitiesItemsProps) {
   const dispatch = useAppDispatch();
@@ -44,10 +48,20 @@ export default function EntitiesList({
     },
     []
   );
+  useEffect(() => {
+    const isEntitiesFilled = activeEntityCollection?.entities[0]._profile;
+
+    if (activeEntityCollection && !isEntitiesFilled) {
+      dispatch(fillEntitiesForUserCollections(activeEntityCollection));
+    }
+  }, [activeEntityCollection]);
+
+  if (activeEntityCollection && !activeEntityCollection?.entities[0]._profile)
+    return <Loader w="100%" mx="auto" />;
 
   return (
     <Grid gutter={24}>
-      {entities?.map((entity) => {
+      {activeEntityCollection?.entities?.map((entity) => {
         const isActive = activeAssetId === entity.externalId;
         return (
           <Grid.Col
