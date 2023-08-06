@@ -1,28 +1,20 @@
 import { Suspense, useEffect, useState } from "react";
-import Head from "next/head";
 import {
-  Card,
-  Divider,
-  Grid,
-  Group,
-  Modal,
   ScrollArea,
   Table,
   Text,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 
-import { setSelectedView } from "@/redux/userSlice";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { selectSelectedAssetExternalId } from "@/redux/entityCollections/selectors";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import CookstoveModal from "@/components/Modals/CookstoveModal";
-import { IEntity } from "@/types/entityCollections";
+import { IEntity, IEntityExtended } from "@/types/entityCollections";
 
 import ArrowRight from "../CollectionNewsCard/icons/arrowRight";
 import DownArrow from "./icons/downArrow";
 import Loading from "./loading";
 import PageBlock from "../PageBlock";
+import CollectionAssetRow from "./components/CollectionAssetRow";
 
 // TODO: split component onto few smaller ones
 export default function CollectionAssetsCard() {
@@ -32,7 +24,7 @@ export default function CollectionAssetsCard() {
   );
   const selectedAssetExternalId = useAppSelector(selectSelectedAssetExternalId);
 
-  const [entitiesData, setEntitiesData] = useState<any[]>([]);
+  const [entitiesData, setEntitiesData] = useState<IEntityExtended[]>([]);
   const heads = [
     { name: "Serial number", filterActive: false },
     { name: "CARBON claimable", filterActive: false },
@@ -45,7 +37,6 @@ export default function CollectionAssetsCard() {
     CarbonIssued: false,
   });
   const [headers, setHeader] = useState(heads);
-  const [opened, { open, close }] = useDisclosure(false);
 
   const handleClickAssetRow = (entity: IEntity) => () => {
     if (selectedAssetExternalId === entity.externalId)
@@ -53,91 +44,32 @@ export default function CollectionAssetsCard() {
     else dispatch(setSelectedEntity(entity));
   };
 
-  // TODO: move rows to separate component
-  const rows = entitiesData?.map((entity) => {
-    if (entity.externalId === "") return null;
-
-    const isSelectedRow = selectedAssetExternalId === entity.externalId;
-    return (
-      <tr
-        key={entity.id}
-        onClick={handleClickAssetRow(entity)}
-        style={{
-          cursor: "pointer",
-          backgroundColor: isSelectedRow ? "#F8F8F8" : "inherit",
-        }}
-      >
-        <td
-          style={{
-            color: sortAssets.SerialNumber ? "#5FA8EB" : "black",
-          }}
-        >
-          {entity.externalId}
-        </td>
-        <td style={{ color: sortAssets.CarbonClaimable ? "#5FA8EB" : "black" }}>
-          {0}
-        </td>
-        <td style={{ color: sortAssets.CarbonIssued ? "#5FA8EB" : "black" }}>
-          {0}
-        </td>
-        {isSelectedRow && (
-          <Modal.Root
-            opened={opened}
-            onClose={() => {
-              dispatch(setSelectedEntity(undefined));
-              close();
-            }}
-            radius={16}
-            size="md"
-            centered
-            scrollAreaComponent={ScrollArea.Autosize}
-          >
-            <Head>
-              <title>Supamoto Dashboard</title>
-              <meta name="description" content="Supamoto Dashboard" />
-            </Head>
-
-            <Modal.Overlay />
-            <Modal.Content>
-              <Modal.Header style={{ height: 36 }}>
-                <Modal.Title>Supamoto Dashboard</Modal.Title>
-                <Modal.CloseButton />
-              </Modal.Header>
-              <Modal.Body style={{ padding: 0 }}>
-                <CookstoveModal
-                  entityId={selectedAssetExternalId!}
-                  entity={entity}
-                />
-              </Modal.Body>
-            </Modal.Content>
-          </Modal.Root>
-        )}
-      </tr>
-    );
-  });
 
   const handleFilterActive = (index: number) => {
     const copy = [...headers];
-    const copyData = [...entitiesData];
+    const copyData: IEntityExtended[] = [...entitiesData];
     const item = copy[index];
+
     item.filterActive = !item.filterActive;
+
     setHeader(copy);
+
     switch (item.name) {
       case "Serial number":
         if (item.filterActive)
           setEntitiesData(
             copyData?.sort(
               (a, b) =>
-                parseInt(a.alsoKnownAs.split(`#`)[1]) -
-                parseInt(b.alsoKnownAs.split(`#`)[1])
+                parseInt(a.alsoKnownAs.split(`#`)[1], 10) -
+                parseInt(b.alsoKnownAs.split(`#`)[1], 10)
             )
           );
         else
           setEntitiesData(
             copyData?.sort(
               (a, b) =>
-                parseInt(b.alsoKnownAs.split(`#`)[1]) -
-                parseInt(a.alsoKnownAs.split(`#`)[1])
+                parseInt(b.alsoKnownAs.split(`#`)[1], 10) -
+                parseInt(a.alsoKnownAs.split(`#`)[1], 10)
             )
           );
         break;
@@ -152,15 +84,6 @@ export default function CollectionAssetsCard() {
       setEntitiesData(entities);
     }
   }, [entities]);
-
-  useEffect(() => {
-    if (selectedAssetExternalId) {
-      open();
-    } else {
-      close();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedAssetExternalId]);
 
   useEffect(
     () => () => {
@@ -252,7 +175,17 @@ export default function CollectionAssetsCard() {
             </tr>
           </thead>
           <tbody>
-            <Suspense fallback={<Loading />}>{rows}</Suspense>
+            <Suspense fallback={<Loading />}>
+              {entitiesData?.map((entity) => (
+                <CollectionAssetRow
+                  entity={entity}
+                  key={`row-${entity.externalId}`}
+                  sortAssets={sortAssets}
+                  selectedAssetExternalId={selectedAssetExternalId}
+                  handleClickAssetRow={handleClickAssetRow}
+                />
+              ))}
+            </Suspense>
           </tbody>
         </Table>
       </ScrollArea>
