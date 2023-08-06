@@ -76,7 +76,7 @@ const EntityCollectionSlice = createSlice({
       state.entityCollections = action.payload;
       state.isEntityCollectionsLoading = false;
     });
-    
+
     builder.addCase(fetchAndFillCollections.rejected, (state) => {
       state.isEntityCollectionsLoading = false;
     });

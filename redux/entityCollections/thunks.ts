@@ -20,6 +20,7 @@ import {
 } from "@/types/entityCollections";
 import fillCollection from "@/helpers/fillCollection";
 import fillEntity from "@/helpers/fillEntity";
+import type { RootState } from "../store";
 
 export const fetchTotalCollectionEntities = createAsyncThunk<any, string>(
   "entityCollections/fetchTotalCollectionEntities",
@@ -56,11 +57,11 @@ export const fetchTotalCollectionEntitiesRetired = createAsyncThunk<any>(
 export const fetchAndFillCollections = createAsyncThunk(
   "entityCollections/fetchAndFillCollections",
   async (_, { getState }): Promise<ICollectionEntities[]> => {
-    const state: any = getState();
+    
+    const state = getState() as RootState;
 
     const isCollectionsAvailable =
-      state.entityCollection.entityCollections.length &&
-      state.entityCollection.entityCollections[0].collection._profile;
+      !!state.entityCollection.entityCollections[0]?.collection;
 
     if (!isCollectionsAvailable) {
       const collectionsResponse: ICollectionEntities[] =
