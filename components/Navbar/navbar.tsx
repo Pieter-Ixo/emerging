@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { Box, Flex, Navbar } from "@mantine/core";
 
@@ -7,10 +7,8 @@ import { palette } from "@/theme/palette";
 import {
   selectSelectedEntity,
   selectUserEntityCollections,
-  selectUserEntityCollectionsIds,
 } from "@/redux/entityCollections/selectors";
 import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
-import isStringArraysEqual from "@/utils/isStringArraysEqual";
 
 import ConnectAccountButton from "../connectedAccount/connected_account";
 import ImpactCreditsCard from "../userBalance/ImpactCreditsCard";
