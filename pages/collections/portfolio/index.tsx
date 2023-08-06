@@ -12,12 +12,12 @@ import {
 import { palette } from "@/theme/palette";
 import { ICollectionEntities } from "@/types/entityCollections";
 import GlobalPortfolioSwitch from "@/components/HeaderControls";
+import CollectionsLayout from "@/components/Pages/Collections/CollectionsLayout";
+import PageHeader from "@/components/Pages/Collections/PageHeader";
 
-import CollectionsLayout from "../components/Layout";
-import CollectionsItem from "./components/CollectionsItem";
-import EntitiesList from "./components/EntitiesList";
-import Controls from "./components/Controls";
-import PageHeader from "../components/PageHeader";
+import CollectionsItem from "@/components/Pages/Collections/Portfolio/CollectionsItem";
+import Controls from "@/components/Pages/Collections/Portfolio/Controls";
+import EntitiesList from "@/components/Pages/Collections/Portfolio/EntitiesList";
 
 export default function Collections() {
   const [activeCardId, setActiveCardId] = useState<string>();

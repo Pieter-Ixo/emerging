@@ -2,11 +2,10 @@ import { Title } from "@mantine/core";
 
 import GlobalPortfolioSwitch from "@/components/HeaderControls";
 
-import CollectionsLayout from "../components/Layout";
-import PageHeader from "../components/PageHeader";
-
-import CollectionsGrid from "./components/CollectionsGrid";
-import CollectionListFilteringControls from "./components/CollectionListFilteringControls";
+import CollectionsGrid from "@/components/Pages/Collections/Global/CollectionsGrid";
+import CollectionsLayout from "@/components/Pages/Collections/CollectionsLayout";
+import PageHeader from "@/components/Pages/Collections/PageHeader";
+import CollectionListFilteringControls from "@/components/Pages/Collections/Global/CollectionListFilteringControls";
 
 export default function Collections() {
   return (

@@ -1,12 +1,12 @@
-import { Text,  Flex, ActionIcon, Input } from "@mantine/core";
+import { Text, Flex, ActionIcon, Input } from "@mantine/core";
 import { palette } from "@/theme/palette";
 import { PortfolioViewMods } from "@/types/stove";
 import { useState } from "react";
 
-import CollectionIcon from "../icons/CollectionIcon";
-import SearchIcon from "../icons/SearchIcon";
-import FilterIcon from "../icons/FilterIcon";
-import TabsIcon from "../icons/TabsIcon";
+import SearchIcon from "@/icons/collections/SearchIcon";
+import CollectionIcon from "@/icons/collections/CollectionIcon";
+import TabsIcon from "@/icons/collections/TabsIcon";
+import FilterIcon from "@/icons/collections/FilterIcon";
 
 export default function Controls() {
   const [viewMode, setViewMode] = useState(PortfolioViewMods.iconView);
@@ -16,7 +16,7 @@ export default function Controls() {
 
   return (
     <Flex gap={8}>
-    <Input
+      <Input
         icon={<SearchIcon />}
         placeholder="search"
         size="md"
@@ -29,9 +29,7 @@ export default function Controls() {
         color="dark"
         variant="transparent"
         sx={{
-          background: isIconViewMode
-            ? palette.fullBlue
-            : palette.Neutral200,
+          background: isIconViewMode ? palette.fullBlue : palette.Neutral200,
         }}
         onClick={() => setViewMode(PortfolioViewMods.iconView)}
       >

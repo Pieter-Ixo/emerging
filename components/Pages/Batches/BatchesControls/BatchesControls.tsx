@@ -1,9 +1,11 @@
-import { Text, Flex, ActionIcon } from "@mantine/core";
-import { palette } from "@/theme/palette";
 import { useState } from "react";
-import CollectionIcon from "@/pages/collections/portfolio/components/icons/CollectionIcon";
+import { Text, Flex, ActionIcon } from "@mantine/core";
+
+import { palette } from "@/theme/palette";
+
 import TabsIcon from "@/icons/batches/TabsIcon";
 import FilterIcon from "@/icons/batches/FilterIcon";
+import CollectionIcon from "../../../../icons/collections/CollectionIcon";
 
 export default function BatchesControls() {
   const [isCollectionActive, setCollectionActive] = useState(false);
