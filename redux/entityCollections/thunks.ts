@@ -55,21 +55,33 @@ export const fetchTotalCollectionEntitiesRetired = createAsyncThunk<any>(
 
 export const fetchAndFillCollections = createAsyncThunk(
   "entityCollections/fetchAndFillCollections",
-  async (): Promise<ICollectionEntities[]> => {
-    const collectionsResponse = await requestCollections();
+  async (_, { getState }): Promise<ICollectionEntities[]> => {
+    const state: any = getState();
 
-    const getCollectionProfilePromises = collectionsResponse?.map(
-      async (entityCollection): Promise<ICollectionEntities> => {
-        const collection = await fillCollection(entityCollection.collection);
-        return {
-          ...entityCollection,
-          collection,
-        };
-      }
-    );
-    const newCollections = await Promise.all(getCollectionProfilePromises);
+    const isCollectionsAvailable =
+      state.entityCollection.entityCollections.length &&
+      state.entityCollection.entityCollections[0].collection._profile;
 
-    return newCollections;
+    if (!isCollectionsAvailable) {
+      const collectionsResponse: ICollectionEntities[] =
+        await requestCollections();
+
+      const getCollectionProfilePromises = collectionsResponse?.map(
+        async (entityCollection): Promise<ICollectionEntities> => {
+          const collection = await fillCollection(entityCollection.collection);
+          return {
+            ...entityCollection,
+            collection,
+          };
+        }
+      );
+
+      const newCollections = await Promise.all(getCollectionProfilePromises);
+
+      return newCollections;
+    }
+
+    return state.entityCollection.entityCollections;
   }
 );
 
