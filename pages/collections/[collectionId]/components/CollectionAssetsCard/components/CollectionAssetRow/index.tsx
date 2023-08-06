@@ -7,18 +7,19 @@ import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import Head from "next/head";
 import React, { useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
+import type { IActiveFilter } from "../..";
 
 type Props = {
   handleClickAssetRow: Function;
   entity: IEntityExtended;
-  sortAssets: any;
+  activeFilters: IActiveFilter[];
   selectedAssetExternalId?: string;
 };
 
 function CollectionAssetRow({
   handleClickAssetRow,
   entity,
-  sortAssets,
+  activeFilters,
   selectedAssetExternalId,
 }: Props) {
   const dispatch = useAppDispatch();
@@ -47,15 +48,23 @@ function CollectionAssetRow({
     >
       <td
         style={{
-          color: sortAssets.SerialNumber ? "#5FA8EB" : "black",
+          color: activeFilters[0].isActive ? "#5FA8EB" : "black",
         }}
       >
         {entity.externalId}
       </td>
-      <td style={{ color: sortAssets.CarbonClaimable ? "#5FA8EB" : "black" }}>
+      <td
+        style={{
+          color: activeFilters[1].isActive ? "#5FA8EB" : "black",
+        }}
+      >
         {0}
       </td>
-      <td style={{ color: sortAssets.CarbonIssued ? "#5FA8EB" : "black" }}>
+      <td
+        style={{
+          color: activeFilters[2].isActive ? "#5FA8EB" : "black",
+        }}
+      >
         {0}
       </td>
       {isSelectedRow && (
