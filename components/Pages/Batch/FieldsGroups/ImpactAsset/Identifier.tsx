@@ -1,7 +1,7 @@
 import { Button, Flex, Group, Text, Box } from "@mantine/core";
-import ProgressBar from "@/components/progress-bar/ProgressBar";
+import ProgressBar from "@/components/Presentational/ProgressBar";
 import useDetailPortal from "@/hooks/useDetailPortal";
-import ProfileCard from "@/components/ProfileCard";
+import ProfileCard from "@/components/Containers/ProfileCard";
 import dateLocale from "@/utils/dateLocale";
 
 import { FieldText } from "../styledComponents";

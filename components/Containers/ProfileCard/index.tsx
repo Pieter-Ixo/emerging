@@ -15,7 +15,6 @@ import {
   ICollectionExtended,
   IEntityExtended,
 } from "@/types/entityCollections";
-import dateLocale from "@/utils/dateLocale";
 import getEntityTagsByCategory from "@/helpers/transformData/getEntityTagsByCategory";
 
 export default function ProfileCard({

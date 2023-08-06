@@ -4,7 +4,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { palette } from "@/theme/palette";
 import Generated from "@/icons/generated";
 
-import { ImpactCreditsButtonBlue } from "../styled-buttons";
+import { ImpactCreditsButtonBlue } from "../StyledButtons";
 
 type Props = {
   totalClaimable: number | string;

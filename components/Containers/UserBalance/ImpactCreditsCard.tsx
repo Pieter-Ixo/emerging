@@ -21,13 +21,14 @@ import {
   fetchUsersTokens,
 } from "@/redux/entityCollections/thunks";
 
-import DownArrow from "./icons/downArrow";
-import ReceiveArrow from "./icons/receiveArrow";
-import SendArrow from "./icons/sendArrow";
+import DownArrow from "@/icons/downArrow";
+import ReceiveArrow from "@/icons/receiveArrow";
+import SendArrow from "@/icons/sendArrow";
+
 import {
   ImpactCreditsButtonBlue,
   ImpactCreditsButtonGrey,
-} from "./styled-buttons";
+} from "./StyledButtons";
 import IssueCarbonButton from "./buttons/IssueCarbonButton";
 import WithdrowCarbonButton from "./buttons/WithdrowCarbonButton";
 

@@ -1,6 +1,6 @@
 import { Flex, Button } from "@mantine/core";
 
-import ProfileCard from "@/components/ProfileCard";
+import ProfileCard from "@/components/Containers/ProfileCard";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import getEntityTagsByCategory from "@/helpers/transformData/getEntityTagsByCategory";
 

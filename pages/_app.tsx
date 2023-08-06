@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
-import { ToastContainer } from "@/components/toast/toast";
+import { ToastContainer } from "@/components/Toast/toast";
 import { ChainProvider } from "@/context/chain";
 import { WalletProvider } from "@/context/wallet";
 import { CookstoveProvider } from "@/context/cookstove";

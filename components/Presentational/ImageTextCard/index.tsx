@@ -1,7 +1,7 @@
 import { ElementType, HTMLAttributes } from 'react';
 import cls from 'classnames';
 
-import Card from '@/components/card/card';
+import Card from '@/components/Presentational/DELETE_THIS_card/card';
 import styles from './card-image-text.module.scss';
 
 type ImageTextCardProps = {
@@ -10,6 +10,7 @@ type ImageTextCardProps = {
 	vertical?: boolean;
 } & HTMLAttributes<HTMLDivElement>;
 
+// TODO: find appropriate place for this file
 // TODO: use Mantine
 function ImageTextCard({ text, Img, className, vertical = false, ...other }: ImageTextCardProps) {
 	return (

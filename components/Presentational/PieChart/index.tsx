@@ -3,7 +3,7 @@ import { PieChart as PieChartImport } from "react-minimal-pie-chart";
 import cls from "classnames";
 import { Box, Image } from "@mantine/core";
 
-import Card from "@/components/card/card";
+import Card from "@/components/Presentational/DELETE_THIS_card/card";
 import styles from "./pie-chart.module.scss";
 
 type PieChartProps = {

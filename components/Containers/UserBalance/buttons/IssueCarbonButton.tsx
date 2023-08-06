@@ -3,8 +3,8 @@ import { useDisclosure } from "@mantine/hooks";
 
 import { palette } from "@/theme/palette";
 
-import DownArrow from "../icons/downArrow";
-import { ImpactCreditsButtonBlue } from "../styled-buttons";
+import DownArrow from "../../../../icons/downArrow";
+import { ImpactCreditsButtonBlue } from "../StyledButtons";
 
 type Props = {
   totalClaimable: number | string;

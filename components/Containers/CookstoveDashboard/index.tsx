@@ -9,10 +9,10 @@ import Sprout from "@/assets/icons/sprout.svg";
 import Eye from "@/assets/icons/eye.svg";
 import loader from "@/assets/lotties/loader.json";
 
-import PieChart from "@/components/pie-chart/pie-chart";
+import PieChart from "@/components/Presentational/PieChart";
 import CarbonClaimCard from "@/components/Containers/CookstoveDashboard/CardClaim";
-import ImageTextCard from "@/components/card-image-text/card-image-text";
-import PerformanceCard from "@/components/card-performance/card-performance";
+import ImageTextCard from "@/components/Presentational/ImageTextCard";
+import PerformanceCard from "@/components/Containers/CookstoveDashboard/PerformanceCard";
 
 import utilsStyles from "@/styles/utils.module.scss";
 import styles from "@/styles/homePage.module.scss";

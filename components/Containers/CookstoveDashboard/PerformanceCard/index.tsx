@@ -5,14 +5,14 @@ import cls from "classnames";
 import Pot from "@/assets/icons/pot.svg";
 import SproutPill from "@/assets/icons/sprout-pill.svg";
 
-import Card from "@/components/card/card";
+import Card from "@/components/Presentational/DELETE_THIS_card/card";
 import Info from "@/assets/icons/info.svg";
 import { SECTIONS, STOVE } from "@/types/stove";
 
 import styles from "./card-performance.module.scss";
 import TabButton from "./TabButton";
-import AssetFuelChart from "../Presentational/Chart/Instances/AssetFuelChart";
-import AssetSessionsChart from "../Presentational/Chart/Instances/AssetSessionsChart";
+import AssetFuelChart from "../../../Presentational/Chart/Instances/AssetFuelChart";
+import AssetSessionsChart from "../../../Presentational/Chart/Instances/AssetSessionsChart";
 
 type EventsCardProps = { stove: STOVE } & HTMLAttributes<HTMLDivElement>;
 // TODO: use Mantine

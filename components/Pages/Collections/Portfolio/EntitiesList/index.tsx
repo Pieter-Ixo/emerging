@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Text, Badge, Flex, Grid, Box, Loader } from "@mantine/core";
 import { palette } from "@/theme/palette";
 
-import ProgressBar from "@/components/progress-bar/ProgressBar";
-import ProfileCard from "@/components/ProfileCard";
+import ProgressBar from "@/components/Presentational/ProgressBar";
+import ProfileCard from "@/components/Containers/ProfileCard";
 
 import {
   ICollectionEntities,

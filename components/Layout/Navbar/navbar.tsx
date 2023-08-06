@@ -11,9 +11,9 @@ import {
 import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
 
 import ConnectAccountButton from "../../Containers/ConnectAccountButton/connected_account";
-import ImpactCreditsCard from "../../userBalance/ImpactCreditsCard";
+import ImpactCreditsCard from "../../Containers/UserBalance/ImpactCreditsCard";
 import HeaderLogo from "../Header_Logo/Index";
-import BatchesCard from "../../userBalance/BatchesCard";
+import BatchesCard from "../../Containers/UserBalance/BatchesCard";
 
 export default function Nav() {
   const dispatch = useAppDispatch();

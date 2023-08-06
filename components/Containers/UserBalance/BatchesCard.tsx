@@ -12,7 +12,7 @@ import {
 import { IEntityExtended } from "@/types/entityCollections";
 import Generated from "@/icons/generated";
 
-import { ImpactCreditsButtonBlue } from "./styled-buttons";
+import { ImpactCreditsButtonBlue } from "./StyledButtons";
 
 export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
   const dispatch = useAppDispatch();
