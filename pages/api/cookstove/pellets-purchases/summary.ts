@@ -4,7 +4,6 @@ import { MONTH_FUEL_TOTAL_MAP } from "@/types/stove";
 
 import { getFuelMonthTotal } from "@/lib/cookstove/cookstoveFuelSummary";
 
-// TODO: move this elsewhere
 const authBasic =
   process.env.SUPAMOTO_AUTH_HEADER ??
   Buffer.from(

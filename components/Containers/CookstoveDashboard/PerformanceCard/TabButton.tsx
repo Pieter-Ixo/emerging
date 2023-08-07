@@ -1,7 +1,7 @@
 import { ElementType } from "react";
 import { Text, Box, Flex, UnstyledButton } from "@mantine/core";
 
-// TODO: remove scss
+// FIXME: EMERGING-140 remove scss
 import styles from "./card-performance.module.scss";
 
 export default function TabButton({

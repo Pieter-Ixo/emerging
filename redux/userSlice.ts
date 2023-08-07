@@ -77,8 +77,7 @@ const UserSlice = createSlice({
       state.impactNavi = action.payload;
     },
   },
-  // TODO: it throws a warning `createSlice.extraReducers` is deprecated, and will be removed
-  // Special reducer for hydrating the state. Special case for next-redux-wrapper
+  // FIXME: EMERGING-147: it throws a warning `createSlice.extraReducers` is deprecated, and will be removed
   extraReducers: {
     [HYDRATE]: (state, action) => ({
       ...state,

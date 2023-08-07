@@ -17,13 +17,11 @@ import { getFeeDenom, TOKEN_ASSET } from "./currency";
 import { DELEGATION, UNBONDING_DELEGATION } from "@/types/validators";
 import { sumArray } from "./misc";
 
-// TODO: add address regex validations
 export const shortenAddress = (address: string) =>
   (address?.length && address.length > 19
     ? address.slice(0, 12).concat("...").concat(address.slice(-7))
     : address) ?? "";
 
-// TODO: provide denom as 5th param to only group for the denom
 export const groupWalletAssets = (
   balances: CURRENCY_TOKEN[],
   delegations: DELEGATION[],

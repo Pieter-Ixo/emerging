@@ -36,7 +36,7 @@ export type EntityCollectionState = {
   isEntitiesTotalTokensLoading: boolean;
 };
 
-// TODO: GOD store: add new slice and separate admin from user(ENTITY_ADMIN || CONNECTED_ACCOUNT)
+// TODO: GOD store: add new slices for GLOBAL COLLECTIONS and for USER's COLLECTIONS
 // TODO: add rejected thunks state handling
 
 const initialState: EntityCollectionState = {
@@ -65,7 +65,7 @@ const EntityCollectionSlice = createSlice({
       state.selectedEntity = action.payload;
     },
   },
-  // TODO: it throws a warning `createSlice.extraReducers` is deprecated, and will be removed
+  // FIXME: EMERGING-147: it throws a warning `createSlice.extraReducers` is deprecated, and will be removed
   extraReducers(builder) {
     // fetchAndFillCollections
     builder.addCase(fetchAndFillCollections.pending, (state) => {
