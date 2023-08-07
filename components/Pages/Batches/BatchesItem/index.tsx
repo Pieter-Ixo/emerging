@@ -2,12 +2,13 @@ import { MouseEvent } from "react";
 import { useRouter } from "next/router";
 import { Button, Flex, Sx, Text } from "@mantine/core";
 
-import { BatchIdentifier } from "@/components/CertificateLayoutComponents";
 import { palette } from "@/theme/palette";
 
 import Icon1 from "@/icons/batches/Icon1";
 import Icon2 from "@/icons/batches/Icon2";
 import Icon3 from "@/icons/batches/Icon3";
+
+import BatchIdentifier from "@/components/Containers/BatchIdentifier";
 
 import BatchButton from "../BatchButton";
 import AstroBatchImage from "../AstroBatchImage";
