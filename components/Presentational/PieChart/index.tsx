@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PieChart as PieChartImport } from "react-minimal-pie-chart";
-import { Box, Flex, Image, Text } from "@mantine/core";
+import { Box, Button, Flex, Image, Text } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
 import { useMediaQuery } from "@mantine/hooks";
@@ -90,21 +90,21 @@ function PieChart({
           pos="absolute"
           top={0}
           left={0}
-          bottom={0}
           right={0}
-          ta="center"
+          bottom={0}
           style={{ color: activeSection?.color }}
         >
           <Text
             size={isWideDesktopScreen ? 50 : 24}
             mb={5}
+            ta="center"
             lh={isWideDesktopScreen ? "2.7rem" : "1.3rem"}
           >
             {(activeSection?.value ?? totalMinted).toLocaleString() === "0,1"
               ? "0"
               : (activeSection?.value ?? totalMinted).toLocaleString()}
           </Text>
-          <Text size={isWideDesktopScreen ? 16 : 12} fw={800}>
+          <Text size={isWideDesktopScreen ? 16 : 12} ta="center" fw={800}>
             {activeSection?.text ?? "CARBON PRODUCED"}
           </Text>
         </Flex>
@@ -116,14 +116,15 @@ function PieChart({
         }}
       >
         {chartConfig.map((semi, i) => (
-          <Flex
-            align="center"
+          <Button
             py={6}
+            variant="default"
             px={10}
             mb={10}
+            display="flex"
+            radius={12}
             sx={{
-              cursor: "pointer",
-              borderRadius: 12,
+              alignItems: "center",
             }}
             bg={
               active === i ? palette.White : palette.whiteTransparentSecondary
@@ -131,17 +132,20 @@ function PieChart({
             onClick={() => toggleActiveSemiCircle(i)}
             key={semi.title}
           >
-            <Box
+            <Text
               bg={semi.color}
               w={22}
+              ta="start"
               h={22}
               mr={8}
               sx={{
                 borderRadius: "50%",
               }}
             />
-            {semi.title}
-          </Flex>
+            <Text color="black" fw={300}>
+              {semi.title}
+            </Text>
+          </Button>
         ))}
       </Flex>
     </Flex>
