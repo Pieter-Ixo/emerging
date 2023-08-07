@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { PieChart as PieChartImport } from "react-minimal-pie-chart";
-import { Box, Flex, Image } from "@mantine/core";
+import { Box, Flex, Image, Text } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
-import styles from "./pie-chart.module.scss";
+import { useMediaQuery } from "@mantine/hooks";
 
 type PieChartProps = {
   totalMinted?: number;
@@ -53,9 +53,11 @@ function PieChart({
 
   const activeSection = active !== null ? chartConfig[active] : null;
 
+  const isWideDesktopScreen = useMediaQuery("(min-width: 1440px)");
+
   return (
-    <div className={styles.pie}>
-      <div className={styles.pieChartContainer}>
+    <Flex align="center" my={20} mx={0}>
+      <Box pos="relative" mr={15} sx={{ flex: 1 }}>
         <Box
           bg="#ffffffa6"
           pos="absolute"
@@ -65,7 +67,7 @@ function PieChart({
         >
           <Image src="/images/carbon-logo-lg.svg" alt="" />
         </Box>
-        <div className={styles.pieChart}>
+        <Box pos="relative" sx={{ zIndex: 5 }}>
           <PieChartImport
             lineWidth={12}
             startAngle={270}
@@ -80,24 +82,33 @@ function PieChart({
             rounded
             paddingAngle={10}
           />
-        </div>
+        </Box>
 
-        <div
-          className={styles.textContainer}
+        <Flex
+          direction="column"
+          justify="center"
+          pos="absolute"
+          top={0}
+          left={0}
+          bottom={0}
+          right={0}
+          ta="center"
           style={{ color: activeSection?.color }}
         >
-          <p className={styles.amount}>
+          <Text
+            size={isWideDesktopScreen ? 50 : 24}
+            mb={5}
+            lh={isWideDesktopScreen ? "2.7rem" : "1.3rem"}
+          >
             {(activeSection?.value ?? totalMinted).toLocaleString() === "0,1"
               ? "0"
               : (activeSection?.value ?? totalMinted).toLocaleString()}
-          </p>
-          <p className={styles.text}>
+          </Text>
+          <Text size={isWideDesktopScreen ? 16 : 12} fw={800}>
             {activeSection?.text ?? "CARBON PRODUCED"}
-          </p>
-        </div>
-      </div>
-      {/* TODO: use Mantine */}
-
+          </Text>
+        </Flex>
+      </Box>
       <Flex
         direction="column"
         sx={{
@@ -133,7 +144,7 @@ function PieChart({
           </Flex>
         ))}
       </Flex>
-    </div>
+    </Flex>
   );
 }
 
