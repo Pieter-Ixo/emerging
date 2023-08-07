@@ -1,5 +1,4 @@
 import { ActionIcon, Button, Card, Flex, Group, Text } from "@mantine/core";
-import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 
 import shortStr from "@/utils/shortStr";
@@ -9,12 +8,11 @@ import { connectWallet, disconnectWallet } from "@/redux/userSlice";
 import { palette } from "@/theme/palette";
 import { WALLET_TYPE } from "@/types/wallet";
 
-import DisconnectWallet from "./icons/disconnectWallet";
-import Wallet from "./icons/wallet";
+import Wallet from "@/icons/wallet";
+import DisconnectWallet from "@/icons/disconnectWallet";
 
 function ConnectAccountButton() {
   const dispatch = useAppDispatch();
-  const router = useRouter();
   const { wallet, updateWalletType, logoutWallet } = useContext(WalletContext);
   const contextUserAddress = wallet.user?.address; // && "ixo1xwn45d6xhe3egcz3nqlfc2elpc3h6usy6yw3uk";
   const userAddress = useAppSelector((state) => state.user.connectedWallet);
@@ -76,11 +74,7 @@ function ConnectAccountButton() {
 
       <Button
         onClick={() => {
-          if (!wallet.user) {
-            updateWalletType(WALLET_TYPE.walletConnect);
-          } else {
-            router.push("/dashboard");
-          }
+          if (!wallet.user) updateWalletType(WALLET_TYPE.walletConnect);
         }}
         w="99%"
         radius={23}

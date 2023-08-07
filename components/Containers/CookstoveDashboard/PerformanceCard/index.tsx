@@ -3,7 +3,6 @@ import { Box, Flex, Tabs, Text } from "@mantine/core";
 
 import Pot from "@/assets/icons/pot.svg";
 import SproutPill from "@/assets/icons/sprout-pill.svg";
-import Info from "@/assets/icons/info.svg";
 import { SECTIONS, STOVE } from "@/types/stove";
 import { palette } from "@/theme/palette";
 
@@ -30,13 +29,6 @@ function PerformanceCard({ stove }: Props) {
         <Text fw={800} size="0.8rem">
           MY SUPAMOTO PERFORMANCE
         </Text>
-        <Box
-          sx={{
-            cursor: "pointer",
-          }}
-        >
-          <Info width={18} height={18} />
-        </Box>
       </Flex>
 
       <Tabs
