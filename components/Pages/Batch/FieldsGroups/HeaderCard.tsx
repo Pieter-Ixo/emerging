@@ -1,14 +1,13 @@
 import { Flex } from "@mantine/core";
 
-import {
-  CardContainer,
-  ArrowLeft,
-  CardTitle,
-  BatchIdentifier,
-  AstroCarbonImage,
-  OffsetProgres,
-  TagForSomethingIDunnoWhat,
-} from "@/components/CertificateLayoutComponents";
+import ArrowBack from "@/components/Layout/ArrowBack";
+import BatchIdentifier from "@/components/Containers/BatchIdentifier";
+
+import CardTitle from "../CardTitle";
+import CardContainer from "../CardContainer";
+import OffsetProgres from "../OffsetProgres";
+import AstroCarbonImage from "../AstroCarbonImage";
+import TagForSomethingIDunnoWhat from "../TagForSomethingIDunnoWhat";
 
 type Props = {
   name?: string;
@@ -19,7 +18,7 @@ type Props = {
 export default function HeaderCard({ name, index, offset, progress }: Props) {
   return (
     <CardContainer>
-      <ArrowLeft />
+      <ArrowBack />
       <Flex direction="column" gap={10} justify="center">
         <CardTitle>Verified Emission Reduction</CardTitle>
         <BatchIdentifier name={name} index={index} />
