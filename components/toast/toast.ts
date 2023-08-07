@@ -1,10 +1,6 @@
-import { toast, ToastContainer as Toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 // FIXME: EMERGING-143 remove it and use Manitne
-
-export function ToastContainer() {
-  return <Toast autoClose={3000} hideProgressBar limit={5} />;
-}
 
 export const infoToast = (message: string): void => {
   toast.info(message, {

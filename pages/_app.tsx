@@ -5,6 +5,7 @@ import { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import { ToastContainer } from "react-toastify";
 
 import mantineTheme from "@/helpers/mantine/theme";
 import { ChainProvider } from "@/context/chain";
@@ -12,9 +13,8 @@ import { WalletProvider } from "@/context/wallet";
 import { CookstoveProvider } from "@/context/cookstove";
 import { store } from "@/redux/store";
 
+// import { ToastContainer } from "@/components/Toast/toast";
 import "@/styles/globals.scss";
-// eslint-disable-next-line import/no-unresolved
-import { ToastContainer } from "@/components/Toast/toast";
 import Layout from "./_layout";
 
 const persistor = persistStore(store);
@@ -48,7 +48,7 @@ function App({ Component, pageProps, router }: AppProps) {
         <ChainProvider>
           <WalletProvider>
             <CookstoveProvider>
-              <ToastContainer />
+              <ToastContainer autoClose={3000} hideProgressBar limit={5} />
               <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
                   <Layout pathname={router.pathname}>
