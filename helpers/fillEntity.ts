@@ -1,7 +1,7 @@
-import requestEntityDeviceCredential from "@/requests/requesters/getEntityDeviceCredential";
-import requestEntityProfile from "@/requests/requesters/getEntityProfile";
-import requestEntityTags from "@/requests/requesters/getEntityTags";
-import requestUsersToken from "@/requests/requesters/getEntityToken";
+import requestEntityDeviceCredential from "@/requests/requesters/requestEntityDeviceCredential";
+import requestEntityProfile from "@/requests/requesters/requestEntityProfile";
+import requestEntityTags from "@/requests/requesters/requestEntityTags";
+import requestUsersToken from "@/requests/requesters/requestEntityToken";
 import { IEntity, IEntityExtended } from "@/types/entityCollections";
 
 export default async function fillEntity(

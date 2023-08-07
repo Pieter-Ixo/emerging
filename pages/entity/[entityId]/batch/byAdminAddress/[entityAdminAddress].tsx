@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Box, Grid } from "@mantine/core";
+
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchBatchesByAddress } from "@/redux/batches/thunks";
 import { selectAddressBatches } from "@/redux/batches/selectors";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import { IAddressBatchesEntry } from "@/types/certificates";
-
-import BatchesLayout from "../components/layout/BatchesLayout";
-import Header from "../components/Header";
-import BatchesItem from "../components/BatchesItem";
+import BatchesLayout from "@/components/Pages/Batches/layout/BatchesLayout";
+import BatchesPageHeader from "@/components/Pages/Batches/Header";
+import BatchesItem from "@/components/Pages/Batches/BatchesItem";
 
 export default function Batches() {
   const dispatch = useAppDispatch();
@@ -33,7 +33,7 @@ export default function Batches() {
   return (
     <BatchesLayout>
       <Box maw="70%" pl={32}>
-        <Header />
+        <BatchesPageHeader />
         <Grid gutter="xl">
           {parsedBatches?.map(([betchId, betchData]) => (
             <Grid.Col key={betchId} span={6}>

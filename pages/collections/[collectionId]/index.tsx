@@ -12,14 +12,14 @@ import {
   fetchAndFillCollections,
   fetchTotalCollectionEntities,
 } from "@/redux/entityCollections/thunks";
-import GlobalPortfolioSwitch from "@/components/HeaderControls";
 
-import CollectionsLayout from "../components/Layout";
-import PageHeader from "../components/PageHeader";
-import CollectionAssetsCard from "./components/CollectionAssetsCard";
-import CollectionClimateImpactsCard from "./components/CollectionClimateImpactsCard";
-import CollectionNewsCard from "./components/CollectionNewsCard";
-import CollectionPerformanceCard from "./components/CollectionPerformanceCard";
+import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
+import CollectionClimateImpactsCard from "@/components/Pages/Collections/CollectionDashboard/CollectionClimateImpactsCard";
+import CollectionPerformanceCard from "@/components/Pages/Collections/CollectionDashboard/CollectionPerformanceCard";
+import CollectionAssetsCard from "@/components/Pages/Collections/CollectionDashboard/CollectionAssetsCard";
+import CollectionNewsCard from "@/components/Pages/Collections/CollectionDashboard/CollectionNewsCard";
+import CollectionsLayout from "@/components/Pages/Collections/CollectionsLayout";
+import PageHeader from "@/components/Pages/Collections/PageHeader";
 
 export default function Collection() {
   const collectionId = useValueFromRouter("collectionId");
