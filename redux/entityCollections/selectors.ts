@@ -142,11 +142,6 @@ export const selectIsEntityCollectionsLoading = createDraftSafeSelector(
   (state: EntityCollectionState) => state.isEntityCollectionsLoading
 );
 
-export const selectSelectedAssetExternalId = createDraftSafeSelector(
-  selectEntityCollections,
-  (state: EntityCollectionState) => state.selectedEntity?.externalId
-);
-
 export const selectSelectedEntity = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState) => state.selectedEntity

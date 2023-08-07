@@ -2,7 +2,6 @@ import { Suspense, useEffect, useState } from "react";
 import { ScrollArea, Table, Text } from "@mantine/core";
 
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
-import { selectSelectedAssetExternalId } from "@/redux/entityCollections/selectors";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { IEntity, IEntityExtended } from "@/types/entityCollections";
 
@@ -19,7 +18,7 @@ export default function CollectionAssetsCard() {
   const entities = useAppSelector(
     (state) => state.entityCollection.entityCollections[0]?.entities
   );
-  const selectedAssetExternalId = useAppSelector(selectSelectedAssetExternalId);
+  const [selectedAssetExternalId, setSelectedAssetExternalId] = useState("");
 
   const [entitiesData, setEntitiesData] = useState<IEntityExtended[]>([]);
 
@@ -32,7 +31,10 @@ export default function CollectionAssetsCard() {
   const handleClickAssetRow = (entity: IEntity) => () => {
     if (selectedAssetExternalId === entity.externalId)
       dispatch(setSelectedEntity(undefined));
-    else dispatch(setSelectedEntity(entity));
+    else {
+      dispatch(setSelectedEntity(entity));
+      setSelectedAssetExternalId(entity.externalId);
+    }
   };
 
   const handleFilterActive = (index: number) => {
