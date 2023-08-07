@@ -14,29 +14,27 @@ type Props = {
   handleClickAssetRow: Function;
   entity: IEntityExtended;
   activeFilters: IActiveFilter[];
-  selectedAssetExternalId?: string;
+  isAssetRowActive: Boolean;
 };
 
 function CollectionAssetRow({
   handleClickAssetRow,
   entity,
   activeFilters,
-  selectedAssetExternalId,
+  isAssetRowActive,
 }: Props) {
   const dispatch = useAppDispatch();
-
-  const isSelectedRow = selectedAssetExternalId === entity.externalId;
 
   const [opened, { open, close }] = useDisclosure(false);
 
   useEffect(() => {
-    if (selectedAssetExternalId) {
+    if (isAssetRowActive) {
       open();
     } else {
       close();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedAssetExternalId]);
+  }, [isAssetRowActive]);
 
   return (
     <tr
@@ -44,7 +42,7 @@ function CollectionAssetRow({
       onClick={handleClickAssetRow(entity)}
       style={{
         cursor: "pointer",
-        backgroundColor: isSelectedRow ? "#F8F8F8" : "inherit",
+        backgroundColor: isAssetRowActive ? "#F8F8F8" : "inherit",
       }}
     >
       <td
@@ -68,7 +66,7 @@ function CollectionAssetRow({
       >
         {0}
       </td>
-      {isSelectedRow && (
+      {isAssetRowActive && (
         <Modal.Root
           opened={opened}
           onClose={() => {
@@ -92,10 +90,7 @@ function CollectionAssetRow({
               <Modal.CloseButton />
             </Modal.Header>
             <Modal.Body style={{ padding: 0 }}>
-              <CookstoveModal
-                entityId={selectedAssetExternalId!}
-                entity={entity}
-              />
+              <CookstoveModal entityId={entity.externalId} entity={entity} />
             </Modal.Body>
           </Modal.Content>
         </Modal.Root>

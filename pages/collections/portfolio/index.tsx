@@ -47,10 +47,11 @@ export default function Collections() {
       )
     );
 
-    // We need 2 dependencies here because when activeCardId is chosen, the find function will be called,
-    // then we pass activeCollection to EntitiesList. Inside EntitiesList, the useEffect activates
-    // fillUserCollectionEntities, and after userEntityCollection is filled, we need to call find again
-    // so that now activeCollection will be re-rendered and set to the filled collection instead of the previous one.
+    /** We need 2 dependencies here because when activeCardId is chosen, the find function will be called,
+     * then we pass activeCollection to EntitiesList. Inside EntitiesList, the useEffect activates
+     * fillUserCollectionEntities, and after userEntityCollection is filled, we need to call find again
+     * so that now activeCollection will be re-rendered and set to the filled collection instead of the previous one.
+     */
   }, [activeCardId, userEntityCollections]);
 
   const totalAssets = entityCollections?.entityCollections[0]?.entities.length;
