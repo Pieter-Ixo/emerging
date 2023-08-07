@@ -19,7 +19,6 @@ export default function CollectionAssetsCard() {
     (state) => state.entityCollection.entityCollections[0]?.entities
   );
   const [selectedAssetExternalId, setSelectedAssetExternalId] = useState("");
-  // const selectedAssetExternalId = useAppSelector(selectSelectedAssetExternalId);
 
   const [entitiesData, setEntitiesData] = useState<IEntityExtended[]>([]);
 
@@ -30,7 +29,6 @@ export default function CollectionAssetsCard() {
   ]);
 
   const handleClickAssetRow = (entity: IEntity) => () => {
-    // console.log(selectedAssetExternalId);
     if (selectedAssetExternalId === entity.externalId)
       dispatch(setSelectedEntity(undefined));
     else {
