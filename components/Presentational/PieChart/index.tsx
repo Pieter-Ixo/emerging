@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { PieChart as PieChartImport } from "react-minimal-pie-chart";
-import cls from "classnames";
-import { Box, Image } from "@mantine/core";
+import { Box, Flex, Image } from "@mantine/core";
 
-import Card from "@/components/Presentational/DELETE_THIS_card/card";
+import { palette } from "@/theme/palette";
 import styles from "./pie-chart.module.scss";
 
 type PieChartProps = {
@@ -99,21 +98,41 @@ function PieChart({
       </div>
       {/* TODO: use Mantine */}
 
-      <div className={styles.labels}>
+      <Flex
+        direction="column"
+        sx={{
+          flex: 1,
+        }}
+      >
         {chartConfig.map((semi, i) => (
-          <Card
-            className={cls(styles.label, { [styles.selected]: active === i })}
+          <Flex
+            align="center"
+            py={6}
+            px={10}
+            mb={10}
+            sx={{
+              cursor: "pointer",
+              borderRadius: 12,
+            }}
+            bg={
+              active === i ? palette.White : palette.whiteTransparentSecondary
+            }
             onClick={() => toggleActiveSemiCircle(i)}
             key={semi.title}
           >
-            <div
-              className={styles.circle}
-              style={{ backgroundColor: semi.color }}
+            <Box
+              bg={semi.color}
+              w={22}
+              h={22}
+              mr={8}
+              sx={{
+                borderRadius: "50%",
+              }}
             />
             {semi.title}
-          </Card>
+          </Flex>
         ))}
-      </div>
+      </Flex>
     </div>
   );
 }

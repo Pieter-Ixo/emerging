@@ -102,7 +102,10 @@ export default function CookstoveDashboard({
         >
           Supamoto #{entityExternalId}
         </Title>
-        <section className={utilsStyles.column}>
+        <section
+          className={utilsStyles.column}
+          style={{ paddingBottom: "28px" }}
+        >
           <div className={cls(utilsStyles.flex)}>
             <CarbonIssueCard amount={0} />
             <CarbonClaimCard amount={totalTokenAmount} />
@@ -128,6 +131,7 @@ export default function CookstoveDashboard({
                 vertical
               />
             </div>
+
             <ImageTextCard Img={Eye} text="Carbon Credit Transactions" />
           </div>
         </section>

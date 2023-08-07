@@ -26,7 +26,15 @@ function PerformanceCard({ stove }: Props) {
         backgroundColor: palette.whiteTransparentSecondary,
       }}
     >
-      <Flex justify="space-between" align="center" pb={6}>
+      <Flex
+        sx={{
+          borderBottom: "3px solid white",
+        }}
+        justify="space-between"
+        align="center"
+        pb={6}
+        mb={24}
+      >
         <Text fw={800} size="0.8rem">
           MY SUPAMOTO PERFORMANCE
         </Text>
