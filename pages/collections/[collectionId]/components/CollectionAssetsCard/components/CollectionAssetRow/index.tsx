@@ -1,40 +1,41 @@
-import { useEffect } from "react";
-import { Modal, ScrollArea } from "@mantine/core";
-import Head from "next/head";
-import { useDisclosure } from "@mantine/hooks";
-
-import { IEntityExtended } from "@/types/entityCollections";
-import { setSelectedEntity } from "@/redux/entityCollections/slice";
-import { useAppDispatch } from "@/hooks/redux";
 import CookstoveModal from "@/components/Modals/CookstoveModal";
+import { useAppDispatch } from "@/hooks/redux";
+import { IEntityExtended } from "@/types/entityCollections";
+import { Modal, ScrollArea } from "@mantine/core";
+import { setSelectedEntity } from "@/redux/entityCollections/slice";
 
+import Head from "next/head";
+import React, { useEffect } from "react";
+import { useDisclosure } from "@mantine/hooks";
 import type { IActiveFilter } from "../..";
 
 type Props = {
   handleClickAssetRow: Function;
   entity: IEntityExtended;
   activeFilters: IActiveFilter[];
-  isAssetRowActive: Boolean;
+  selectedAssetExternalId?: string;
 };
 
 function CollectionAssetRow({
   handleClickAssetRow,
   entity,
   activeFilters,
-  isAssetRowActive,
+  selectedAssetExternalId,
 }: Props) {
   const dispatch = useAppDispatch();
+
+  const isSelectedRow = selectedAssetExternalId === entity.externalId;
 
   const [opened, { open, close }] = useDisclosure(false);
 
   useEffect(() => {
-    if (isAssetRowActive) {
+    if (selectedAssetExternalId) {
       open();
     } else {
       close();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAssetRowActive]);
+  }, [selectedAssetExternalId]);
 
   return (
     <tr
@@ -42,7 +43,7 @@ function CollectionAssetRow({
       onClick={handleClickAssetRow(entity)}
       style={{
         cursor: "pointer",
-        backgroundColor: isAssetRowActive ? "#F8F8F8" : "inherit",
+        backgroundColor: isSelectedRow ? "#F8F8F8" : "inherit",
       }}
     >
       <td
@@ -66,7 +67,7 @@ function CollectionAssetRow({
       >
         {0}
       </td>
-      {isAssetRowActive && (
+      {isSelectedRow && (
         <Modal.Root
           opened={opened}
           onClose={() => {
@@ -90,7 +91,10 @@ function CollectionAssetRow({
               <Modal.CloseButton />
             </Modal.Header>
             <Modal.Body style={{ padding: 0 }}>
-              <CookstoveModal entityId={entity.externalId} entity={entity} />
+              <CookstoveModal
+                entityId={selectedAssetExternalId!}
+                entity={entity}
+              />
             </Modal.Body>
           </Modal.Content>
         </Modal.Root>

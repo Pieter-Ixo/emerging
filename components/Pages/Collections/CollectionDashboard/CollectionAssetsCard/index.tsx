@@ -132,7 +132,9 @@ export default function CollectionAssetsCard() {
                   entity={entity}
                   key={`row-${entity.externalId}`}
                   activeFilters={activeFilters}
-                  selectedAssetExternalId={selectedAssetExternalId}
+                  isAssetRowActive={
+                    selectedAssetExternalId === entity.externalId
+                  }
                   handleClickAssetRow={handleClickAssetRow}
                 />
               ))}
