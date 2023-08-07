@@ -77,6 +77,10 @@ const EntityCollectionSlice = createSlice({
       state.isEntityCollectionsLoading = false;
     });
 
+    builder.addCase(fetchAndFillCollections.rejected, (state) => {
+      state.isEntityCollectionsLoading = false;
+    });
+
     // fetchCollectionsByOwnerAddres
     builder.addCase(fetchCollectionsByOwnerAddres.pending, (state) => {
       state.isEntityCollectionsLoading = true;

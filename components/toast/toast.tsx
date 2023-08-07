@@ -1,4 +1,6 @@
-import { toast, ToastContainer as Toast } from 'react-toastify';
+import { toast, ToastContainer as Toast } from "react-toastify";
+
+// TODO: remove it and use Manitne
 
 export function ToastContainer() {
   return <Toast autoClose={3000} hideProgressBar limit={5} />;
@@ -6,24 +8,24 @@ export function ToastContainer() {
 
 export const infoToast = (message: string): void => {
   toast.info(message, {
-    className: 'infoToast',
+    className: "infoToast",
   });
 };
 
 export const successToast = (message: string): void => {
   toast.success(message, {
-    className: 'successToast',
+    className: "successToast",
   });
 };
 
 export const errorToast = (message: string): void => {
   toast.error(message, {
-    className: 'errorToast',
+    className: "errorToast",
   });
 };
 
 export const warningToast = (message: string): void => {
   toast.warning(message, {
-    className: 'warningToast',
+    className: "warningToast",
   });
 };

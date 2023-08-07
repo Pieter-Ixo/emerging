@@ -5,11 +5,11 @@ import {
   requestBatchByID,
   requestBatchesByAddress,
 } from "@/requests/blocksync";
-import requestClaimCerFilled from "@/requests/requesters/getClaimCer";
-import requestClaimIssuerFilled from "@/requests/requesters/getClaimIssuer";
-import requestClaimVer from "@/requests/requesters/getClaimVer";
-import { requestEntityWithProfile } from "@/requests/requesters/getEntityProfile";
-import requestVerifiableCredential from "@/requests/requesters/getVerifiableCredential";
+import requestClaimCerFilled from "@/requests/requesters/requestClaimCer";
+import requestClaimIssuerFilled from "@/requests/requesters/requestClaimIssuer";
+import requestClaimVer from "@/requests/requesters/requestClaimVer";
+import { requestEntityWithProfile } from "@/requests/requesters/requestEntityProfile";
+import requestVerifiableCredential from "@/requests/requesters/requestVerifiableCredential";
 import { IAddressBatchResponse, IBatch, IBatchDataFilled } from "@/types/certificates";
 import isURL from "@/utils/isStrUrl";
 

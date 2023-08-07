@@ -9,7 +9,7 @@ import { IEntityExtended } from "@/types/entityCollections";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchEntityByExternalIdAndFill } from "@/redux/entityCollections/thunks";
 import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
-import CookstoveDashboard from "../CookstoveDashboard";
+import CookstoveDashboard from "../Containers/CookstoveDashboard";
 
 interface Props {
   entityId: string;

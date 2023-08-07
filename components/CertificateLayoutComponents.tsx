@@ -12,7 +12,7 @@ import {
 
 import { palette } from "@/theme/palette";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
-import Copy from "@/components/Dashboard/CollectionDashboard/cards/AssetsCard/icons/copy";
+import Copy from "@/icons/copy";
 import shortStr from "@/utils/shortStr";
 
 // TODO: move to components, make a folder

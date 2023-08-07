@@ -1,6 +1,6 @@
-import requestCollectionProfile from "@/requests/requesters/getCollectionProfile";
-import getCollectionTags from "@/requests/requesters/getCollectionTags";
-import getCollectionTokenIpfs from "@/requests/requesters/getCollectionTokenIpfs";
+import requestCollectionProfile from "@/requests/requesters/requestCollectionProfile";
+import getCollectionTags from "@/requests/requesters/requestCollectionTags";
+import getCollectionTokenIpfs from "@/requests/requesters/requestCollectionTokenIpfs";
 import { ICollection, ICollectionExtended } from "@/types/entityCollections";
 
 export default async function fillCollection(

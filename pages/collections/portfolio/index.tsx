@@ -11,13 +11,13 @@ import {
 
 import { palette } from "@/theme/palette";
 import { ICollectionEntities } from "@/types/entityCollections";
-import GlobalPortfolioSwitch from "@/components/HeaderControls";
+import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
+import CollectionsLayout from "@/components/Pages/Collections/CollectionsLayout";
+import PageHeader from "@/components/Pages/Collections/PageHeader";
 
-import CollectionsLayout from "../components/Layout";
-import CollectionsItem from "./components/CollectionsItem";
-import EntitiesList from "./components/EntitiesList";
-import Controls from "./components/Controls";
-import PageHeader from "../components/PageHeader";
+import CollectionsItem from "@/components/Pages/Collections/Portfolio/CollectionsItem";
+import Controls from "@/components/Pages/Collections/Portfolio/Controls";
+import EntitiesList from "@/components/Pages/Collections/Portfolio/EntitiesList";
 
 export default function Collections() {
   const [activeCardId, setActiveCardId] = useState<string>();
@@ -30,13 +30,6 @@ export default function Collections() {
     selectIsEntityCollectionsLoading
   );
 
-  function findActiveCollectionEntitiesById(collectionId: string) {
-    return userEntityCollections.find(
-      (collectionWithEntities: ICollectionEntities) =>
-        collectionWithEntities.collection.id === collectionId
-    );
-  }
-
   function onCollectionCardClick(collectionId: string) {
     if (activeCardId === collectionId) {
       setActiveCardId(undefined);
@@ -47,10 +40,18 @@ export default function Collections() {
   }
 
   useEffect(() => {
-    if (activeCardId) {
-      setActiveEntityCollection(findActiveCollectionEntitiesById(activeCardId));
-    }
-  }, [activeCardId]);
+    setActiveEntityCollection(
+      userEntityCollections.find(
+        (collectionWithEntities: ICollectionEntities) =>
+          collectionWithEntities.collection.id === activeCardId
+      )
+    );
+
+    // We need 2 dependencies here because when activeCardId is chosen, the find function will be called,
+    // then we pass activeCollection to EntitiesList. Inside EntitiesList, the useEffect activates
+    // fillUserCollectionEntities, and after userEntityCollection is filled, we need to call find again
+    // so that now activeCollection will be re-rendered and set to the filled collection instead of the previous one.
+  }, [activeCardId, userEntityCollections]);
 
   const totalAssets = entityCollections?.entityCollections[0]?.entities.length;
 
@@ -83,12 +84,14 @@ export default function Collections() {
         </Carousel>
         <Box mb={28} sx={{ borderBottom: `1px solid ${palette.Neutral500}` }} />
 
-        {isEntityCollectionsLoading && <Loader w="100%" mx="auto" />}
-
-        <EntitiesList
-          entities={activeEntityCollection?.entities}
-          totalAssets={totalAssets}
-        />
+        {isEntityCollectionsLoading ? (
+          <Loader w="100%" mx="auto" />
+        ) : (
+          <EntitiesList
+            activeEntityCollection={activeEntityCollection}
+            totalAssets={totalAssets}
+          />
+        )}
       </Container>
     </CollectionsLayout>
   );

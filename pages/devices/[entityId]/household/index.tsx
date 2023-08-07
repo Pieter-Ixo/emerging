@@ -13,11 +13,11 @@ import { useRouter } from "next/navigation";
 import { useCookstove } from "@/context/cookstove";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import { useAppDispatch } from "@/hooks/redux";
-import ImageTextCard from "@/components/card-image-text/card-image-text";
+import ImageTextCard from "@/components/Presentational/ImageTextCard";
 import HouseholdSVG from "@/assets/icons/household.svg";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import { palette } from "@/theme/palette";
-import MapImage from "@/components/MapImage";
+import MapImage from "@/components/Presentational/MapImage";
 
 const defaultPhotos = [
   "/images/DefaultHouseholdPhotos/default_01.jpg",

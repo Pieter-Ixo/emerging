@@ -1,16 +1,19 @@
 import { useEffect } from "react";
 import { Text } from "@mantine/core";
 
-import { useCookstove } from "@/context/cookstove";
-import useValueFromRouter from "@/utils/useValueFromRouter";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { fetchEntityByExternalIdAndFill } from "@/redux/entityCollections/thunks";
-import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
-import CookstoveDashboard from "@/components/CookstoveDashboard";
 import getEntityTotalTokenAmount, {
   getEntityTotalMintedAmount,
   getEntityTotalRetiredAmount,
 } from "@/helpers/transformData/getTotalMintedAmount";
+import useValueFromRouter from "@/utils/useValueFromRouter";
+import moreOrEqualZero from "@/utils/moreOrEqualZero";
+import { useCookstove } from "@/context/cookstove";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+
+import { fetchEntityByExternalIdAndFill } from "@/redux/entityCollections/thunks";
+import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
+
+import CookstoveDashboard from "@/components/Containers/CookstoveDashboard";
 
 export default function DevicePageLayout() {
   const dispatch = useAppDispatch();
@@ -31,12 +34,6 @@ export default function DevicePageLayout() {
   const totalTransferred = (totalMinted || 0) - (totalTokenAmount || 0);
 
   if (!entityExternalId) return <Text>missing Entity External Id</Text>;
-
-  function moreOrEqualZero(num: number | undefined) {
-    if (num === undefined) return 0;
-    if (num < 0) return 0;
-    return num;
-  }
 
   return (
     <CookstoveDashboard
