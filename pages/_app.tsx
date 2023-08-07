@@ -13,7 +13,6 @@ import { WalletProvider } from "@/context/wallet";
 import { CookstoveProvider } from "@/context/cookstove";
 import { store } from "@/redux/store";
 
-// import { ToastContainer } from "@/components/Toast/toast";
 import "@/styles/globals.scss";
 import Layout from "./_layout";
 
