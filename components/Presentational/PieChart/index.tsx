@@ -97,7 +97,7 @@ function PieChart({
           </p>
         </div>
       </div>
-      {/* TODO: use Mantine */}
+      {/* FIXME: EMERGING-140 use Mantine */}
 
       <div className={styles.labels}>
         {chartConfig.map((semi, i) => (

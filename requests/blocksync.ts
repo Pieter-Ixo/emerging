@@ -70,7 +70,6 @@ export async function requestEntitiesByOwnerAddress(
   return entity;
 }
 
-// TODO: rename requestAllBatches
 export async function requestBatches(): Promise<IBatch[] | undefined> {
   const url = "/api/token/name/CARBON";
   const { data, problem } = await blocksynkAPI.get<IBatch[]>(url);
@@ -114,18 +113,22 @@ export async function requestTotalCollectionEntitiesCarbon(
 ): Promise<IApiCollectionEntitiesTotal | undefined> {
   const url = `/api/token/totalForCollection/${collectionId}`;
 
-  const { data, problem } = await blocksynkAPI.get<IApiCollectionEntitiesTotal>(url);
+  const { data, problem } = await blocksynkAPI.get<IApiCollectionEntitiesTotal>(
+    url
+  );
 
   if (!problem && data) return data;
 
   throw new Error("no batches for this admin address");
 }
 
-export async function requestTotalCollectionEntitiesRetired(
-): Promise<IApiCollectionEntitiesTotalRetired | undefined> {
-  const url = "/api/tokenclass/name/CARBON"
+export async function requestTotalCollectionEntitiesRetired(): Promise<
+  IApiCollectionEntitiesTotalRetired | undefined
+> {
+  const url = "/api/tokenclass/name/CARBON";
 
-  const { data, problem } = await blocksynkAPI.get<IApiCollectionEntitiesTotalRetired>(url);
+  const { data, problem } =
+    await blocksynkAPI.get<IApiCollectionEntitiesTotalRetired>(url);
 
   if (!problem && data) return data;
 

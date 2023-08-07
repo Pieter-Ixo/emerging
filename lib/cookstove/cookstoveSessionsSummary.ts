@@ -26,7 +26,7 @@ export async function getCookstoveSessionsSummary(
     throw error;
   }
 }
-
+// FIXME: EMERGING-126 fill memo on the app start, and refresh it once per day
 const memoisedSummary: MONTH_SESSIONS_TOTAL_MAP = {};
 
 export async function getSessionsMonthTotal(
@@ -42,7 +42,6 @@ export async function getSessionsMonthTotal(
       headers
     );
 
-    // TODO: avoid WET here`
     cookstoveSesstion?.content?.forEach((monthSummary) => {
       if (memoisedSummary[deviceId][monthSummary.timestamp] !== undefined) {
         memoisedSummary[deviceId][monthSummary.timestamp] += Number(

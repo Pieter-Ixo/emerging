@@ -3,7 +3,7 @@ import cls from "classnames";
 
 import styles from "./card.module.scss";
 
-// TODO: remove from the app (use mantine card)
+// FIXME: EMERGING-140: remove from the app (use mantine card)
 
 type CardProps = {} & HTMLAttributes<HTMLDivElement>;
 function Card({ children, className, ...other }: CardProps) {
