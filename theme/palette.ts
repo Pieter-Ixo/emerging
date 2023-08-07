@@ -25,6 +25,7 @@ export const palette = {
   greenBright: "#AAE38F",
   // Transparents
   whiteTransparent: "rgba(255, 255, 255, 0.30)",
+  whiteTransparentSecondary: "rgba(255, 255, 255, 0.65)",
 };
 
 export const shadow = {
