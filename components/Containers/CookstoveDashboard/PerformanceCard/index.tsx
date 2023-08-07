@@ -1,32 +1,43 @@
-import { HTMLAttributes, useState } from "react";
-import { Box, Flex, Tabs } from "@mantine/core";
-import cls from "classnames";
+import { useState } from "react";
+import { Box, Flex, Tabs, Text } from "@mantine/core";
 
 import Pot from "@/assets/icons/pot.svg";
 import SproutPill from "@/assets/icons/sprout-pill.svg";
-
-import Card from "@/components/Presentational/DELETE_THIS_card/card";
 import Info from "@/assets/icons/info.svg";
 import { SECTIONS, STOVE } from "@/types/stove";
+import { palette } from "@/theme/palette";
 
-import styles from "./card-performance.module.scss";
 import TabButton from "./TabButton";
 import AssetFuelChart from "../../../Presentational/Chart/Instances/AssetFuelChart";
 import AssetSessionsChart from "../../../Presentational/Chart/Instances/AssetSessionsChart";
 
-type EventsCardProps = { stove: STOVE } & HTMLAttributes<HTMLDivElement>;
-// TODO: use Mantine
-function PerformanceCard({ className, stove, ...other }: EventsCardProps) {
+type Props = { stove: STOVE };
+function PerformanceCard({ stove }: Props) {
   const [activeTab, setActiveTab] = useState<SECTIONS>(SECTIONS.sessions);
 
   return (
-    <Card className={cls(styles.performanceCard, className)} {...other}>
-      <div className={styles.header}>
-        <p className={styles.title}>MY SUPAMOTO PERFORMANCE</p>
-        <div className={styles.button}>
+    <Flex
+      direction="column"
+      mb={28}
+      sx={{
+        fontSize: "0.7rem",
+        padding: "10px 15px 15px",
+        borderRadius: "12px",
+        backgroundColor: palette.whiteTransparentSecondary,
+      }}
+    >
+      <Flex justify="space-between" align="center" pb={6}>
+        <Text fw={800} size="0.8rem">
+          MY SUPAMOTO PERFORMANCE
+        </Text>
+        <Box
+          sx={{
+            cursor: "pointer",
+          }}
+        >
           <Info width={18} height={18} />
-        </div>
-      </div>
+        </Box>
+      </Flex>
 
       <Tabs
         variant="pills"
@@ -53,10 +64,12 @@ function PerformanceCard({ className, stove, ...other }: EventsCardProps) {
 
         {activeTab === SECTIONS.sessions && (
           <Box>
-            <div className={styles.details}>
-              <p className={styles.amount}>{stove.sessions?.totalElements}</p>
-              <p>cooking sessions with renewable energy</p>
-            </div>
+            <Flex my={10} align="baseline">
+              <Text size="2.5rem" mr={6} lh="2.7rem">
+                {stove.sessions?.totalElements}
+              </Text>
+              <Text size="0.9rem">cooking sessions with renewable energy</Text>
+            </Flex>
 
             {stove.sessions?.content && (
               <AssetSessionsChart sessions={stove.sessions.content} />
@@ -66,19 +79,19 @@ function PerformanceCard({ className, stove, ...other }: EventsCardProps) {
 
         {activeTab === SECTIONS.fuel && (
           <Box pt="xs">
-            <div className={styles.details}>
-              <p className={styles.amount}>
+            <Flex my={10} align="baseline">
+              <Text size="2.5rem" mr={6} lh="2.7rem">
                 {stove.pellets?.totalPelletsAmount}
-              </p>
-              <p>kg pellets bought</p>
-            </div>
+              </Text>
+              <Text size="0.9rem">kg pellets bought</Text>
+            </Flex>
             {stove.pellets?.content && (
               <AssetFuelChart pellets={stove.pellets.content} />
             )}
           </Box>
         )}
       </Tabs>
-    </Card>
+    </Flex>
   );
 }
 
