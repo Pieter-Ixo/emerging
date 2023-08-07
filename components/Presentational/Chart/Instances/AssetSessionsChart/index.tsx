@@ -23,7 +23,7 @@ export default function SessionsChart({ sessions }: ChartProps) {
         data={data}
         chartType="line"
         min={0}
-        label="sessions at this month"
+        label="sessions at this day"
       />
     </Box>
   );

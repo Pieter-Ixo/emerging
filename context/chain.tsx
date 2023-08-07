@@ -35,6 +35,7 @@ const DEFAULT_CHAIN: CHAIN_STATE_TYPE = {
   chainLoading: true,
 };
 
+// FIXME: EMERGING-146: get rid of context, create new redux slice
 export const ChainContext = createContext({
   chain: DEFAULT_CHAIN as CHAIN_STATE_TYPE,
   chainInfo: {} as KEPLR_CHAIN_INFO_TYPE | undefined,

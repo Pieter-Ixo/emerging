@@ -17,7 +17,7 @@ import {
 
 export type IBatchesState = {
   batches: IBatch[];
-  // TODO: rename addressBatches map
+  // TODO: improve naming for addressBatches
   addressBatches: IAddressBatches;
   isBatchLoading: boolean;
   isBatchesLoading: boolean;
@@ -39,7 +39,7 @@ const BatchesSlice = createSlice({
       state.selectedBatchData = action.payload;
     },
   },
-  // TODO: it throws a warning `createSlice.extraReducers` is deprecated, and will be removed
+  // FIXME: EMERGING-147: it throws a warning `createSlice.extraReducers` is deprecated, and will be removed
   extraReducers(builder) {
     // fetchAllBatches
     builder.addCase(fetchAllBatches.pending, (state) => {

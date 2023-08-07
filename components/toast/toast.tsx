@@ -1,6 +1,6 @@
 import { toast, ToastContainer as Toast } from "react-toastify";
 
-// TODO: remove it and use Manitne
+// FIXME: EMERGING-143 remove it and use Manitne
 
 export function ToastContainer() {
   return <Toast autoClose={3000} hideProgressBar limit={5} />;

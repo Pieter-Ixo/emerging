@@ -180,7 +180,6 @@ export const queryDelegatorUnbondingDelegations = async (
         validatorAddress: unbondingDelegation.validatorAddress,
         entries: unbondingDelegation.entries.map((entry) => ({
           completionTime: Number(entry.completionTime?.seconds?.low ?? 0),
-          // balance: Number(entry.balance ?? 0), // TODO: add staking token/CURRENCY_TOKEN here
           balance: {
             amount: entry.balance ?? "0",
             denom: stakeCurrency.coinMinimalDenom,

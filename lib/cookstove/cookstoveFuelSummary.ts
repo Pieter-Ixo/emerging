@@ -23,6 +23,7 @@ export async function getCookstoveFuelSummary(
   }
 }
 
+// FIXME: EMERGING-126 fill memo on the app start, and refresh it once per day
 const memoisedSummary: MONTH_FUEL_TOTAL_MAP = {
   /**
     deviceID: {
@@ -50,7 +51,6 @@ export async function getFuelMonthTotal(
       dayMap: {},
     };
 
-    // TODO: can we avoid WET here?
     pelletsPurchases?.content?.forEach((purchase) => {
       if (!purchase?.dateTime || purchase.pelletsAmount === undefined) return;
       const purchaseDate = purchase.dateTime.split("T")[0];

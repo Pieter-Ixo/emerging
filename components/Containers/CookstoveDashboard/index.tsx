@@ -1,5 +1,5 @@
 import { BackgroundImage, Container, Title } from "@mantine/core";
-// TODO: get rid of this loader. Use Mantine
+// FIXME: EMERGING-140 get rid of this loader. Use Mantine
 import LottieLight from "react-lottie-player/dist/LottiePlayerLight";
 import cls from "classnames";
 

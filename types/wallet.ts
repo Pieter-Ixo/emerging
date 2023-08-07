@@ -65,7 +65,7 @@ export type WALLET_UNBONDING = {
 };
 
 export type TOKEN_BALANCE = {
-  denom: string; // TODO: remove denom
+  denom: string;
   available: number;
   staked: number;
   undelegating: number;

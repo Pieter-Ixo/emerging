@@ -22,6 +22,7 @@ import { KEPLR_CHAIN_INFO_TYPE } from "@/types/chain";
 import { WALLET, WALLET_TYPE } from "@/types/wallet";
 import { ChainContext } from "./chain";
 
+// FIXME: EMERGING-146: get rid of context, create new redux slice
 export const WalletContext = createContext({
   wallet: {} as WALLET,
   updateWalletType: (newWalletType: WALLET_TYPE) => {},

@@ -6,14 +6,15 @@ import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
-import { ToastContainer } from "@/components/Toast/toast";
+import mantineTheme from "@/helpers/mantine/theme";
 import { ChainProvider } from "@/context/chain";
 import { WalletProvider } from "@/context/wallet";
 import { CookstoveProvider } from "@/context/cookstove";
 import { store } from "@/redux/store";
 
 import "@/styles/globals.scss";
-import mantineTheme from "@/helpers/mantine/theme";
+// eslint-disable-next-line import/no-unresolved
+import { ToastContainer } from "@/components/Toast/toast";
 import Layout from "./_layout";
 
 const persistor = persistStore(store);

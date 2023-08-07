@@ -47,7 +47,8 @@ export default function Collection() {
           Collections
         </Title>
         <Title order={1} fw={300} size="40px">
-          {collections?.[0]?._profile?.brand || "Collection"}
+          {`${collections?.[0]?._profile?.brand} ${collections?.[0]?._profile?.name}` ||
+            "Collection"}
         </Title>
       </PageHeader>
 

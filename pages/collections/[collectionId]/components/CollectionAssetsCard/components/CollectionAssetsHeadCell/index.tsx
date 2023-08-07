@@ -1,6 +1,6 @@
 import { Text } from "@mantine/core";
-import React, { MouseEventHandler } from "react";
-import DownArrow from "../../icons/downArrow";
+import { MouseEventHandler } from "react";
+import DownArrow from "@/icons/downArrow";
 
 type Props = {
   name: string;

@@ -9,7 +9,7 @@ import {
 import { STOVE, STOVE_PERIODS } from "@/types/stove";
 import { datesFromPeriod } from "@/utils/supamoto";
 
-// TODO: get rid of context, create new redux slice
+// FIXME: EMERGING-146: get rid of context, create new redux slice
 
 export const CookstoveContext = createContext({
   stove: {} as STOVE,
@@ -85,8 +85,7 @@ export function CookstoveProvider({
   }, []);
 
   const fetchSessionsSummary = async (deviceIds: (number | string)[]) => {
-    // TODO: apply convenient fetching approach
-    // TODO: apply await synthax
+    // FIXME: EMERGING-146: apply convenient fetching approach & await synthax
     const sessionsSummaryMap = await fetch(
       "/api/cookstove/cooking-sessions/summary",
       {
@@ -103,8 +102,7 @@ export function CookstoveProvider({
       updateStove({ ...stove, sessionsSummary: sessionsSummaryMap });
   };
   const fetchFuelSummary = async (deviceIds: (number | string)[]) => {
-    // TODO: apply convenient fetching approach
-    // TODO: apply await synthax
+    // FIXME: EMERGING-146: apply convenient fetching approach & await synthax
     const fuelSummary = await fetch(
       "/api/cookstove/pellets-purchases/summary",
       {
