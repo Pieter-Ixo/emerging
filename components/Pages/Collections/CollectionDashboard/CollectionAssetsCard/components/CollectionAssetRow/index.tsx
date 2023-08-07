@@ -1,12 +1,13 @@
-import CookstoveModal from "@/components/Modals/CookstoveModal";
-import { useAppDispatch } from "@/hooks/redux";
-import { IEntityExtended } from "@/types/entityCollections";
+import { useEffect } from "react";
 import { Modal, ScrollArea } from "@mantine/core";
-import { setSelectedEntity } from "@/redux/entityCollections/slice";
-
 import Head from "next/head";
-import React, { useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
+
+import { IEntityExtended } from "@/types/entityCollections";
+import { setSelectedEntity } from "@/redux/entityCollections/slice";
+import { useAppDispatch } from "@/hooks/redux";
+import CookstoveModal from "@/components/Modals/CookstoveModal";
+
 import type { IActiveFilter } from "../..";
 
 type Props = {
