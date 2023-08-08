@@ -1,7 +1,6 @@
 import { getOpera as getJamboOpera } from "@ixo/jambo-wallet-sdk";
 import { ChainInfo } from "@keplr-wallet/types";
 
-import * as Toast from "@/components/Toast/toast";
 import { TRX_FEE_OPTION, TRX_MSG } from "@/types/transactions";
 import { USER } from "@/types/user";
 
@@ -73,7 +72,7 @@ export const operaBroadCastMessage = async (
 
     return result.transactionHash;
   } catch (e) {
-    Toast.errorToast(`Transaction Failed`);
+    console.error(`Transaction Failed`);
     return null;
   }
 };
