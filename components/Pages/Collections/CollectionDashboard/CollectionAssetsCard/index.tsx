@@ -10,8 +10,7 @@ import Loading from "./loading";
 import PageBlock from "../PageBlock";
 import CollectionAssetRow from "./components/CollectionAssetRow";
 import CollectionAssetsHeadCell from "./components/CollectionAssetsHeadCell";
-
-export type IAssetFilter = { name: string; isActive: boolean };
+import { IAssetFilter } from "./types";
 
 export default function CollectionAssetsCard() {
   const dispatch = useAppDispatch();
@@ -83,12 +82,9 @@ export default function CollectionAssetsCard() {
     }
   }, [entities]);
 
-  useEffect(
-    () => () => {
-      dispatch(setSelectedEntity(undefined));
-    },
-    []
-  );
+  useEffect(() => {
+    dispatch(setSelectedEntity(undefined));
+  }, []);
 
   return (
     <PageBlock

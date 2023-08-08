@@ -8,8 +8,7 @@ import { IEntityExtended } from "@/types/entityCollections";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { useAppDispatch } from "@/hooks/redux";
 import CookstoveModal from "@/components/Modals/CookstoveModal";
-
-import { IAssetFilter } from "../..";
+import { IAssetFilter } from "../../types";
 
 type Props = {
   handleClickAssetRow: Function;
