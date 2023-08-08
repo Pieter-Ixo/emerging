@@ -3,6 +3,7 @@ import { Modal, ScrollArea } from "@mantine/core";
 import Head from "next/head";
 import { useDisclosure } from "@mantine/hooks";
 
+import { palette } from "@/theme/palette";
 import { IEntityExtended } from "@/types/entityCollections";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { useAppDispatch } from "@/hooks/redux";
@@ -47,21 +48,21 @@ function CollectionAssetRow({
     >
       <td
         style={{
-          color: activeFilters[0].isActive ? "#5FA8EB" : "black",
+          color: activeFilters[0].isActive ? palette.lightBlue : "black",
         }}
       >
         {entity.externalId}
       </td>
       <td
         style={{
-          color: activeFilters[1].isActive ? "#5FA8EB" : "black",
+          color: activeFilters[1].isActive ? palette.lightBlue : "black",
         }}
       >
         {0}
       </td>
       <td
         style={{
-          color: activeFilters[2].isActive ? "#5FA8EB" : "black",
+          color: activeFilters[2].isActive ? palette.lightBlue : "black",
         }}
       >
         {0}

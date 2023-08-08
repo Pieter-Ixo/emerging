@@ -28,7 +28,7 @@ function PieChart({
     {
       title: "To issue",
       value: 0 || 0.1,
-      color: "#5FA8EB",
+      color: palette.lightBlue,
       text: "AVAILABLE CREDITS",
     },
     {
