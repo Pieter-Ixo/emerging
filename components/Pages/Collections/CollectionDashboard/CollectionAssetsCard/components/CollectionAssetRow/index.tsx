@@ -3,11 +3,11 @@ import { Modal, ScrollArea } from "@mantine/core";
 import Head from "next/head";
 import { useDisclosure } from "@mantine/hooks";
 
-import { palette } from "@/theme/palette";
 import { IEntityExtended } from "@/types/entityCollections";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { useAppDispatch } from "@/hooks/redux";
 import CookstoveModal from "@/components/Modals/CookstoveModal";
+
 import { IAssetFilter } from "../../types";
 import TableCell from "../TableCell";
 
@@ -19,7 +19,7 @@ type Props = {
 };
 
 export default function CollectionAssetRow({
-  selectAsset: handleClickAssetRow,
+  selectAsset,
   entity,
   activeFilters,
   isAssetRowActive,
@@ -43,14 +43,7 @@ export default function CollectionAssetRow({
   }, [isAssetRowActive]);
 
   return (
-    <tr
-      key={entity.id}
-      onClick={handleClickAssetRow(entity)}
-      style={{
-        cursor: "pointer",
-        backgroundColor: isAssetRowActive ? "#F8F8F8" : "inherit",
-      }}
-    >
+    <tr key={entity.id} onClick={selectAsset(entity)}>
       <TableCell isActive={activeFilters[0].isActive}>
         {entity.externalId}
       </TableCell>
