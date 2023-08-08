@@ -8,7 +8,11 @@ import CollectionIcon from "@/icons/collections/CollectionIcon";
 import TabsIcon from "@/icons/collections/TabsIcon";
 import FilterIcon from "@/icons/collections/FilterIcon";
 
-export default function Controls() {
+type Props = {
+  isSearchVisible?: boolean;
+};
+
+export default function Controls({ isSearchVisible = true }: Props) {
   const [viewMode, setViewMode] = useState(PortfolioViewMods.iconView);
 
   const isListViewMode = viewMode === PortfolioViewMods.listView;
@@ -16,13 +20,15 @@ export default function Controls() {
 
   return (
     <Flex gap={8}>
-      <Input
-        icon={<SearchIcon />}
-        placeholder="search"
-        size="md"
-        variant="filled"
-        radius="xl"
-      />
+      {isSearchVisible && (
+        <Input
+          icon={<SearchIcon />}
+          placeholder="search"
+          size="md"
+          variant="filled"
+          radius="xl"
+        />
+      )}
       <ActionIcon
         size="xl"
         radius="xl"

@@ -2,7 +2,7 @@ import { Container, Flex, Title } from "@mantine/core";
 
 import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 
-import BatchesControls from "../BatchesControls/BatchesControls";
+import Controls from "../../Collections/Portfolio/Controls";
 
 export default function BatchesPageHeader() {
   return (
@@ -12,7 +12,7 @@ export default function BatchesPageHeader() {
         <Title order={1} fw={300} size="40px">
           Carbon Certificates
         </Title>
-        <BatchesControls />
+        <Controls isSearchVisible={false} />
       </Flex>
     </Container>
   );
