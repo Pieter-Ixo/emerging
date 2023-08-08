@@ -29,7 +29,7 @@ export default function CollectionAssetsCard() {
     { name: "CARBON Issued", isActive: false },
   ]);
 
-  const handleClickAssetRow = (entity: IEntity) => () => {
+  const selectAsset = (entity: IEntity) => () => {
     if (selectedAssetExternalId === entity.externalId)
       dispatch(setSelectedEntity(undefined));
     else {
@@ -134,7 +134,7 @@ export default function CollectionAssetsCard() {
                   isAssetRowActive={
                     selectedAssetExternalId === entity.externalId
                   }
-                  handleClickAssetRow={handleClickAssetRow}
+                  selectAsset={selectAsset}
                 />
               ))}
             </Suspense>
