@@ -16,7 +16,7 @@ import AppLayout from "@/components/Layout/AppLayout";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
 
 import CollectionsItem from "@/components/Pages/Collections/Portfolio/CollectionsItem";
-import Controls from "@/components/Pages/Collections/Portfolio/Controls";
+import Controls from "@/components/Containers/Controls";
 import EntitiesList from "@/components/Pages/Collections/Portfolio/EntitiesList";
 
 export default function Collections() {

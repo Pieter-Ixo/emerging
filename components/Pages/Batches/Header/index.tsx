@@ -2,7 +2,7 @@ import { Container, Flex, Title } from "@mantine/core";
 
 import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 
-import Controls from "../../Collections/Portfolio/Controls";
+import Controls from "../../../Containers/Controls";
 
 export default function BatchesPageHeader() {
   return (
