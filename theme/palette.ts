@@ -11,9 +11,10 @@ export const palette = {
   brightBlue: "#AAD7FF",
   secondaryBlue: "#73BBFE",
   fullBlue: "#2B94F5",
-  activeBlue:"#03D0FB",
+  activeBlue: "#03D0FB",
   darkerBlue: "#296DAB",
   darkestBlue: "#13263D",
+  lightBlue: "#5FA8EB",
   o1blue: "#007ABE",
   // Highlights
   redBright: "#F9909E",
