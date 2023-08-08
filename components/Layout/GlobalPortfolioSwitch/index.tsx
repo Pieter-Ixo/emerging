@@ -3,10 +3,26 @@ import Link from "next/link";
 
 import PortfolioIcon from "@/icons/portfolio-icon";
 import GlobalIcon from "@/icons/global-icon";
+import { useAppSelector } from "@/hooks/redux";
 
 type Props = {
   selectedLink: "global" | "portfolio";
 };
+
+function PortfolioLink({ isSelected }: { isSelected: boolean }) {
+  const userAddress = useAppSelector((state) => state.user.connectedWallet);
+  if (!userAddress)
+    return (
+      <Link href="/collections/portfolio" style={{ pointerEvents: "none" }}>
+        <PortfolioIcon status="disabled" />
+      </Link>
+    );
+  return (
+    <Link href="/collections/portfolio">
+      <PortfolioIcon status={isSelected ? "selected" : "notSelected"} />
+    </Link>
+  );
+}
 
 export default function GlobalPortfolioSwitch({
   selectedLink = "global",
@@ -19,9 +35,7 @@ export default function GlobalPortfolioSwitch({
       <Link href="/collections/global">
         <GlobalIcon selected={isGlobalSelected} />
       </Link>
-      <Link href="/collections/portfolio">
-        <PortfolioIcon selected={isPortfolioSelected} />
-      </Link>
+      <PortfolioLink isSelected={isPortfolioSelected} />
     </Flex>
   );
 }

@@ -20,7 +20,6 @@ function ImageTextCard({ text, Img, vertical = false }: ImageTextCardProps) {
       sx={{
         borderRadius: 12,
       }}
-      mb={28}
     >
       <Img width={45} height={45} />
       <Flex

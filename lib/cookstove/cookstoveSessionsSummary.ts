@@ -33,7 +33,7 @@ export async function getSessionsMonthTotal(
   deviceIds: number[],
   headers
 ): Promise<MONTH_SESSIONS_TOTAL_MAP | undefined> {
-  const promises = deviceIds.map(async (deviceId) => {
+  const promises = deviceIds?.map(async (deviceId) => {
     if (memoisedSummary[deviceId]) return;
     memoisedSummary[deviceId] = {};
 
