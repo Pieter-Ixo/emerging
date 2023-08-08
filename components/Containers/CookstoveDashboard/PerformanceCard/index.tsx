@@ -34,7 +34,7 @@ function PerformanceCard({ stove }: Props) {
         pb={6}
         mb={24}
       >
-        <Text fw={800} size="0.8rem">
+        <Text fw={500} size="0.8rem">
           MY SUPAMOTO PERFORMANCE
         </Text>
       </Flex>

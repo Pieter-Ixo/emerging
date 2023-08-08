@@ -104,7 +104,7 @@ function PieChart({
               ? "0"
               : (activeSection?.value ?? totalMinted).toLocaleString()}
           </Text>
-          <Text size={isWideDesktopScreen ? 16 : 12} ta="center" fw={800}>
+          <Text size={isWideDesktopScreen ? 16 : 12} ta="center" fw={500}>
             {activeSection?.text ?? "CARBON PRODUCED"}
           </Text>
         </Flex>
