@@ -11,7 +11,7 @@ import PageBlock from "../PageBlock";
 import CollectionAssetRow from "./components/CollectionAssetRow";
 import CollectionAssetsHeadCell from "./components/CollectionAssetsHeadCell";
 
-export type IActiveFilter = { name: string; isActive: boolean };
+export type IAssetFilter = { name: string; isActive: boolean };
 
 export default function CollectionAssetsCard() {
   const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ export default function CollectionAssetsCard() {
 
   const [entitiesData, setEntitiesData] = useState<IEntityExtended[]>([]);
 
-  const [activeFilters, setActiveFilters] = useState<IActiveFilter[]>([
+  const [activeFilters, setActiveFilters] = useState<IAssetFilter[]>([
     { name: "Serial number", isActive: false },
     { name: "CARBON claimable", isActive: false },
     { name: "CARBON Issued", isActive: false },

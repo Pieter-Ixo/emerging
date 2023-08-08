@@ -9,12 +9,12 @@ import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { useAppDispatch } from "@/hooks/redux";
 import CookstoveModal from "@/components/Modals/CookstoveModal";
 
-import type { IActiveFilter } from "../..";
+import { IAssetFilter } from "../..";
 
 type Props = {
   handleClickAssetRow: Function;
   entity: IEntityExtended;
-  activeFilters: IActiveFilter[];
+  activeFilters: IAssetFilter[];
   isAssetRowActive: Boolean;
 };
 

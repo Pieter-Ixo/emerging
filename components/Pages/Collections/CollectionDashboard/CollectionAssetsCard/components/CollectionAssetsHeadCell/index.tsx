@@ -2,8 +2,7 @@ import { Text } from "@mantine/core";
 import { MouseEventHandler } from "react";
 
 import { palette } from "@/theme/palette";
-
-import DownArrow from "../../icons/downArrow";
+import DownArrow from "@/icons/downArrow";
 
 type Props = {
   name: string;
