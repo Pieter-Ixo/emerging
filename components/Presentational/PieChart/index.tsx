@@ -28,7 +28,7 @@ function PieChart({
     {
       title: "To issue",
       value: 0 || 0.1,
-      color: "#5FA8EB",
+      color: palette.lightBlue,
       text: "AVAILABLE CREDITS",
     },
     {
@@ -104,7 +104,7 @@ function PieChart({
               ? "0"
               : (activeSection?.value ?? totalMinted).toLocaleString()}
           </Text>
-          <Text size={isWideDesktopScreen ? 16 : 12} ta="center" fw={800}>
+          <Text size={isWideDesktopScreen ? 16 : 12} ta="center" fw={500}>
             {activeSection?.text ?? "CARBON PRODUCED"}
           </Text>
         </Flex>

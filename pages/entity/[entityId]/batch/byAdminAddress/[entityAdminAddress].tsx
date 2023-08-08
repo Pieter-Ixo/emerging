@@ -6,9 +6,9 @@ import { fetchBatchesByAddress } from "@/redux/batches/thunks";
 import { selectAddressBatches } from "@/redux/batches/selectors";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import { IAddressBatchesEntry } from "@/types/certificates";
-import BatchesLayout from "@/components/Pages/Batches/layout/BatchesLayout";
 import BatchesPageHeader from "@/components/Pages/Batches/Header";
 import BatchesItem from "@/components/Pages/Batches/BatchesItem";
+import AppLayout from "@/components/Layout/AppLayout";
 
 export default function Batches() {
   const dispatch = useAppDispatch();
@@ -31,8 +31,8 @@ export default function Batches() {
   }, [batches]);
 
   return (
-    <BatchesLayout>
-      <Box maw="70%" pl={32}>
+    <AppLayout title="Carbon Certificates">
+      <Box maw="70%">
         <BatchesPageHeader />
         <Grid gutter="xl">
           {parsedBatches?.map(([betchId, betchData]) => (
@@ -49,6 +49,6 @@ export default function Batches() {
           ))}
         </Grid>
       </Box>
-    </BatchesLayout>
+    </AppLayout>
   );
 }

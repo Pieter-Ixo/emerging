@@ -1,11 +1,12 @@
 import Head from "next/head";
 import { useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
+import { Modal, ScrollArea } from "@mantine/core";
 
+import { palette } from "@/theme/palette";
 import CookstoveModal from "@/components/Modals/CookstoveModal";
 import { useAppDispatch } from "@/hooks/redux";
 import { IEntityExtended } from "@/types/entityCollections";
-import { Modal, ScrollArea } from "@mantine/core";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { IActiveFilter } from "@/components/Pages/Collections/CollectionDashboard/CollectionAssetsCard";
 
@@ -48,21 +49,21 @@ function CollectionAssetRow({
     >
       <td
         style={{
-          color: activeFilters[0].isActive ? "#5FA8EB" : "black",
+          color: activeFilters[0].isActive ? palette.lightBlue : "black",
         }}
       >
         {entity.externalId}
       </td>
       <td
         style={{
-          color: activeFilters[1].isActive ? "#5FA8EB" : "black",
+          color: activeFilters[1].isActive ? palette.lightBlue : "black",
         }}
       >
         {0}
       </td>
       <td
         style={{
-          color: activeFilters[2].isActive ? "#5FA8EB" : "black",
+          color: activeFilters[2].isActive ? palette.lightBlue : "black",
         }}
       >
         {0}

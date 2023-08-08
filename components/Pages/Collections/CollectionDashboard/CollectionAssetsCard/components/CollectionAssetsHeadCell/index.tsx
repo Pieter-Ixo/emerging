@@ -1,5 +1,8 @@
 import { Text } from "@mantine/core";
-import React, { MouseEventHandler } from "react";
+import { MouseEventHandler } from "react";
+
+import { palette } from "@/theme/palette";
+
 import DownArrow from "../../icons/downArrow";
 
 type Props = {
@@ -14,12 +17,12 @@ function CollectionAssetsHeadCell({ isFilterActive, name, onClick }: Props) {
       onClick={onClick}
       style={{
         cursor: "pointer",
-        color: isFilterActive ? "#5FA8EB" : "black",
+        color: isFilterActive ? palette.lightBlue : "black",
         width: 65,
       }}
     >
       <Text style={{ display: "flex" }}>
-        {`${name} `} {isFilterActive ? <DownArrow /> : null}
+        {`${name} ${isFilterActive ? <DownArrow /> : ""}`}
       </Text>
     </th>
   );

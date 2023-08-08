@@ -12,11 +12,11 @@ import {
 import { palette } from "@/theme/palette";
 import { ICollectionEntities } from "@/types/entityCollections";
 import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
-import CollectionsLayout from "@/components/Pages/Collections/CollectionsLayout";
+import AppLayout from "@/components/Layout/AppLayout";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
 
 import CollectionsItem from "@/components/Pages/Collections/Portfolio/CollectionsItem";
-import Controls from "@/components/Pages/Collections/Portfolio/Controls";
+import Controls from "@/components/Containers/Controls";
 import EntitiesList from "@/components/Pages/Collections/Portfolio/EntitiesList";
 
 export default function Collections() {
@@ -57,7 +57,7 @@ export default function Collections() {
   const totalAssets = entityCollections?.entityCollections[0]?.entities.length;
 
   return (
-    <CollectionsLayout>
+    <AppLayout title="Emergency Portfolio">
       <PageHeader>
         <GlobalPortfolioSwitch selectedLink="portfolio" />
         <Title order={1} fw={300} size="40px">
@@ -94,6 +94,6 @@ export default function Collections() {
           />
         )}
       </Container>
-    </CollectionsLayout>
+    </AppLayout>
   );
 }

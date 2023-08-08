@@ -78,17 +78,7 @@ export default function BatchPageLayout() {
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <DetailPortalContext.Provider value={{ key, setKey }}>
-      <Container fluid w="100%" h="100%" p="2em">
-        <Title
-          order={1}
-          size="40px"
-          fw={300}
-          color={palette.Neutral800}
-          mb="1.45em"
-        >
-          CARBON Certificate
-        </Title>
-
+      <Container p={0} fluid w="100%" h="100%">
         <Grid gutter="xl">
           <Grid.Col span={4} order={2}>
             {/* The component below serves as a portal target, so it should render before main grid below */}

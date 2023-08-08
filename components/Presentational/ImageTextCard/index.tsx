@@ -15,6 +15,7 @@ function ImageTextCard({ text, Img, vertical = false }: ImageTextCardProps) {
     <Flex
       bg={palette.whiteTransparentSecondary}
       p={15}
+      h="100%"
       direction={vertical ? "column" : "row"}
       align="center"
       sx={{
