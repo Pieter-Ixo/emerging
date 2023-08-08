@@ -18,7 +18,7 @@ import CollectionClimateImpactsCard from "@/components/Pages/Collections/Collect
 import CollectionPerformanceCard from "@/components/Pages/Collections/CollectionDashboard/CollectionPerformanceCard";
 import CollectionAssetsCard from "@/components/Pages/Collections/CollectionDashboard/CollectionAssetsCard";
 import CollectionNewsCard from "@/components/Pages/Collections/CollectionDashboard/CollectionNewsCard";
-import CollectionsLayout from "@/components/Pages/Collections/CollectionsLayout";
+import AppLayout from "@/components/Layout/AppLayout";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
 
 export default function Collection() {
@@ -40,7 +40,7 @@ export default function Collection() {
   }, []);
 
   return (
-    <CollectionsLayout>
+    <AppLayout title="Emerging Collections">
       <PageHeader>
         <GlobalPortfolioSwitch selectedLink="global" />
         <Title order={1} fw={300} size="40px" color="#9A9A9A">
@@ -69,6 +69,6 @@ export default function Collection() {
           </Stack>
         </Grid.Col>
       </Grid>
-    </CollectionsLayout>
+    </AppLayout>
   );
 }

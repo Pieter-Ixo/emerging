@@ -1,3 +1,3 @@
 export const initStyles = {
-  navWidth: "360px",
+  navWidth: "0",
 };

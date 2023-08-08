@@ -1,30 +1,29 @@
 import Head from "next/head";
-import { Flex } from "@mantine/core";
+import { AppShell, Flex } from "@mantine/core";
 import { palette } from "@/theme/palette";
 import Nav from "@/components/Layout/Navbar/navbar";
 import { initStyles } from "@/theme/initStyles";
 
-function CollectionsLayout({ children }) {
+function AppLayout({ title, children }) {
   return (
-    <>
+    <AppShell padding="md" navbar={<Nav />}>
       <Head>
-        <title>Emerging Collections</title>
+        <title>{title}</title>
       </Head>
 
       <Flex ml={initStyles.navWidth}>
-        <Nav />
         <main
           style={{
             width: "100%",
             background: palette.Neutral50,
-            margin: "60px 34px",
+            margin: "34px",
             overflow: "hidden",
           }}
         >
           {children}
         </main>
       </Flex>
-    </>
+    </AppShell>
   );
 }
-export default CollectionsLayout;
+export default AppLayout;
