@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { AppShell, Flex } from "@mantine/core";
+import { AppShell, Box, Flex } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 
 import { palette } from "@/theme/palette";
@@ -22,16 +22,16 @@ function AppLayout({ title, children }) {
       </Head>
 
       <Flex ml={initStyles.navWidth}>
-        <main
+        <Box
+          w="100%"
+          bg={palette.Neutral50}
+          m={34}
           style={{
-            width: "100%",
-            background: palette.Neutral50,
-            margin: "34px",
             overflow: "hidden",
           }}
         >
           {children}
-        </main>
+        </Box>
       </Flex>
     </AppShell>
   );

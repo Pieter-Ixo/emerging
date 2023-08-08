@@ -83,7 +83,7 @@ function CollectionAssetRow({
             <meta name="description" content="Supamoto Dashboard" />
           </Head>
 
-          <Modal.Overlay />
+          <Modal.Overlay zIndex={2} />
           <Modal.Content>
             <Modal.Header style={{ height: 36 }}>
               <Modal.Title>Supamoto Dashboard</Modal.Title>
