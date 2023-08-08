@@ -147,6 +147,11 @@ export const selectSelectedEntity = createDraftSafeSelector(
   (state: EntityCollectionState) => state.selectedEntity
 );
 
+export const selectSelectedEntityExternalId = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState) => state.selectedEntity?.externalId
+);
+
 export const selectAllEntities = createDraftSafeSelector(
   selectEntityCollections,
   (entityCollectionsState: EntityCollectionState) =>

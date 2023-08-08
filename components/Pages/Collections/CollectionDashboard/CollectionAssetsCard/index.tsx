@@ -4,6 +4,7 @@ import { ScrollArea, Table, Text } from "@mantine/core";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { IEntity, IEntityExtended } from "@/types/entityCollections";
+import { selectSelectedEntityExternalId } from "@/redux/entityCollections/selectors";
 
 import ArrowRight from "../CollectionNewsCard/icons/arrowRight";
 import Loading from "./loading";
@@ -17,8 +18,9 @@ export default function CollectionAssetsCard() {
   const entities = useAppSelector(
     (state) => state.entityCollection.entityCollections[0]?.entities
   );
-  const [selectedAssetExternalId, setSelectedAssetExternalId] = useState("");
-
+  const selectedAssetExternalId = useAppSelector(
+    selectSelectedEntityExternalId
+  );
   const [entitiesData, setEntitiesData] = useState<IEntityExtended[]>([]);
 
   const [activeFilters, setActiveFilters] = useState<IAssetFilter[]>([
@@ -32,7 +34,6 @@ export default function CollectionAssetsCard() {
       dispatch(setSelectedEntity(undefined));
     else {
       dispatch(setSelectedEntity(entity));
-      setSelectedAssetExternalId(entity.externalId);
     }
   };
 
