@@ -67,7 +67,7 @@ export default function CookstoveDashboard({
       </BackgroundImage>
     );
 
-  if (isSessionsAndPelletsFound)
+  if (!isSessionsAndPelletsFound)
     return (
       <BackgroundImage
         src="/images/background.jpg"

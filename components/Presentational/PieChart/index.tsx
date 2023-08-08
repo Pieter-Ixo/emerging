@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PieChart as PieChartImport } from "react-minimal-pie-chart";
-import { Box, Button, Flex, Image, Text } from "@mantine/core";
+import { Box, Button, ColorSwatch, Flex, Image, Text } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
 import { useMediaQuery } from "@mantine/hooks";
@@ -111,6 +111,7 @@ function PieChart({
       </Box>
       <Flex
         direction="column"
+        gap={8}
         sx={{
           flex: 1,
         }}
@@ -120,7 +121,6 @@ function PieChart({
             py={6}
             variant="default"
             px={10}
-            mb={10}
             display="flex"
             radius={12}
             sx={{
@@ -132,16 +132,7 @@ function PieChart({
             onClick={() => toggleActiveSemiCircle(i)}
             key={semi.title}
           >
-            <Text
-              bg={semi.color}
-              w={22}
-              ta="start"
-              h={22}
-              mr={8}
-              sx={{
-                borderRadius: "50%",
-              }}
-            />
+            <ColorSwatch w={22} h={22} mr={8} color={semi.color} />
             <Text color="black" fw={300}>
               {semi.title}
             </Text>
