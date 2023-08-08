@@ -1,9 +1,11 @@
 import { Flex } from "@mantine/core";
 import Link from "next/link";
+import { useMediaQuery } from "@mantine/hooks";
+import { useAppSelector } from "@/hooks/redux";
 
 import PortfolioIcon from "@/icons/portfolio-icon";
 import GlobalIcon from "@/icons/global-icon";
-import { useAppSelector } from "@/hooks/redux";
+import WalletNavIcon from "@/icons/wallet-nav-icon";
 
 type Props = {
   selectedLink: "global" | "portfolio";
@@ -30,8 +32,11 @@ export default function GlobalPortfolioSwitch({
   const isGlobalSelected = selectedLink === "global";
   const isPortfolioSelected = selectedLink === "portfolio";
 
+  const isScreenWiderThanMobile = useMediaQuery("(min-width: 768px)");
+
   return (
     <Flex align="center" gap={16}>
+      {!isScreenWiderThanMobile && <WalletNavIcon />}
       <Link href="/collections/global">
         <GlobalIcon selected={isGlobalSelected} />
       </Link>
