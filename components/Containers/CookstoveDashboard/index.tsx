@@ -47,21 +47,18 @@ export default function CookstoveDashboard({
     return (
       <BackgroundImage
         src="/images/background.jpg"
-        pt={30}
         h="100vh"
         onClick={(e) => e.stopPropagation()}
       >
-        <Container maw="600px">
-          <Title ta="center" size={35} lts={1} color={palette.White} mb={15}>
+        <Container maw="600px" py="lg">
+          <Title ta="center" size={35} lts={1} color={palette.White} mb="lg">
             SUPAMOTO
           </Title>
-          <Flex direction="column">
-            <Flex align="center" direction="column">
-              <Loader />
-              <Text lts={2} mx={20} my={20} size={30}>
-                LOADING
-              </Text>
-            </Flex>
+          <Flex align="center" direction="column">
+            <Loader />
+            <Text lts={2} mt="lg" size={30}>
+              LOADING
+            </Text>
           </Flex>
         </Container>
       </BackgroundImage>
@@ -71,21 +68,18 @@ export default function CookstoveDashboard({
     return (
       <BackgroundImage
         src="/images/background.jpg"
-        pt={30}
         h="100vh"
         onClick={(e) => e.stopPropagation()}
       >
-        <Container maw="600px">
-          <Title ta="center" size={35} lts={1} color={palette.White} mb={15}>
+        <Container maw="600px" py="lg">
+          <Title ta="center" size={35} lts={1} color={palette.White} mb="lg">
             SUPAMOTO
           </Title>
-          <Flex direction="column">
-            <Flex align="center" direction="column">
-              <Stove height={80} width={80} />
-              <Text lts={2} mx={20} my={20} size={30}>
-                NO COOKSTOVE FOUND
-              </Text>
-            </Flex>
+          <Flex align="center" direction="column">
+            <Stove height={80} width={80} />
+            <Text lts={2} mt="lg" size={30}>
+              NO COOKSTOVE FOUND
+            </Text>
           </Flex>
         </Container>
       </BackgroundImage>
@@ -96,17 +90,17 @@ export default function CookstoveDashboard({
       src="/images/background.jpg"
       onClick={(e) => e.stopPropagation()}
     >
-      <Container maw="600px">
+      <Container maw="600px" py="lg">
         <Title
           order={1}
+          mb="md"
           align="center"
           color={palette.White}
           weight={400}
-          py="lg"
         >
           Supamoto #{entityExternalId}
         </Title>
-        <Flex direction="column" pb={28}>
+        <Flex direction="column">
           <CarbonIssueCard amount={0} />
           <CarbonClaimCard amount={totalTokenAmount} />
           <PieChart
@@ -117,7 +111,7 @@ export default function CookstoveDashboard({
           />
           <PerformanceCard stove={stove} />
 
-          <Flex mb={25} gap={25}>
+          <Flex mb="xl" gap="xl">
             <Box w="100%">
               <Link href={`/devices/${entityExternalId}/household`}>
                 <ImageTextCard

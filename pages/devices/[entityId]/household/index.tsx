@@ -42,13 +42,13 @@ export default function HouseholdPageLayout() {
 
   return (
     <BackgroundImage src="/images/background.jpg">
-      <Container maw="600px" mih="100vh" p="sm">
+      <Container maw="600px" mih="100vh" py="lg">
         <Title
           order={1}
           align="center"
           color={palette.White}
           weight={400}
-          py="lg"
+          pb="lg"
         >
           Supamoto #{entityExternalId}
         </Title>

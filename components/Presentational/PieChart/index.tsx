@@ -59,7 +59,7 @@ function PieChart({
     <Flex align="center" my={20} mx={0}>
       <Box pos="relative" mr={15} sx={{ flex: 1 }}>
         <Box
-          bg="#ffffffa6"
+          bg={palette.whiteTransparentSecondary}
           pos="absolute"
           top={0}
           w="100%"
@@ -118,11 +118,10 @@ function PieChart({
       >
         {chartConfig.map((semi, i) => (
           <Button
-            py={6}
             variant="default"
-            px={10}
+            px="sm"
             display="flex"
-            radius={12}
+            radius="lg"
             sx={{
               alignItems: "center",
             }}
