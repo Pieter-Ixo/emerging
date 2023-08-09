@@ -8,13 +8,13 @@ import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { useAppDispatch } from "@/hooks/redux";
 import CookstoveModal from "@/components/Modals/CookstoveModal";
 
-import { IAssetFilter } from "../../types";
+import { IAssetColumnSorter } from "../../types";
 import TableCell from "../TableCell";
 
 type Props = {
   selectAsset: Function;
   entity: IEntityExtended;
-  activeFilters: IAssetFilter[];
+  activeFilters: IAssetColumnSorter[];
   isAssetRowActive: Boolean;
 };
 

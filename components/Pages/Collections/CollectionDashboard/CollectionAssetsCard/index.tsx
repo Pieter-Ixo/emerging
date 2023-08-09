@@ -3,14 +3,21 @@ import { ScrollArea, Table, Text } from "@mantine/core";
 
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { IEntity } from "@/types/entityCollections";
+import { IEntity, IEntityExtended } from "@/types/entityCollections";
 import { selectSelectedEntityExternalId } from "@/redux/entityCollections/selectors";
+import { sortAssetsByAlsoKnownAs } from "@/helpers/collectionAsset/sortByAlsoKnownAs";
 
 import ArrowRight from "../CollectionNewsCard/icons/arrowRight";
 import PageBlock from "../PageBlock";
 import CollectionAssetsHeadCell from "./components/CollectionAssetsHeadCell";
-import CollectionAssetRowList from "./components/CollectionAssetRowList";
-import { IAssetSortFilter } from "./types";
+import CollectionAssetsTBody from "./components/CollectionAssetsTBody";
+import { IAssetColumnSorter } from "./types";
+
+const defaultColumnSorterState = [
+  { name: "Serial number", isActive: false },
+  { name: "CARBON claimable", isActive: false },
+  { name: "CARBON Issued", isActive: false },
+];
 
 export default function CollectionAssetsCard() {
   const dispatch = useAppDispatch();
@@ -18,14 +25,17 @@ export default function CollectionAssetsCard() {
   const selectedAssetExternalId = useAppSelector(
     selectSelectedEntityExternalId
   );
+  // TODO: make a redux selector
+  const collectionEntities = useAppSelector(
+    (state) => state.entityCollection.entityCollections[0]?.entities
+  );
 
-  const [activeSortFilters, setActiveSortFilters] = useState<IAssetSortFilter[]>([
-    { name: "Serial number", isActive: false },
-    { name: "CARBON claimable", isActive: false },
-    { name: "CARBON Issued", isActive: false },
-  ]);
+  const [sortedEntities, setSortedEntities] = useState<IEntityExtended[]>([]);
+  const [columnSorters, setActiveColumnSorters] = useState<
+    IAssetColumnSorter[]
+  >(defaultColumnSorterState);
 
-  const [assetSortFilterIndex, setAssetFilterIndex] = useState<
+  const [columnSorterIndex, setColumnSorterIndex] = useState<
     number | undefined
   >();
 
@@ -37,20 +47,47 @@ export default function CollectionAssetsCard() {
     }
   };
 
-  const handleActiveSortFilter = (index: number) => {
-    setActiveSortFilters((prevFilters) =>
-      prevFilters.map((filter, filterIndex) =>
-        filterIndex === index
-          ? { ...filter, isActive: !filter.isActive }
-          : { ...filter, isActive: false }
+  function handleColumnClick(clickedColumnIndex: number) {
+    setActiveColumnSorters((columns) =>
+      columns.map((column, columnIndex) =>
+        clickedColumnIndex === columnIndex
+          ? { ...column, isActive: !column.isActive }
+          : { ...column, isActive: false }
+
       )
     );
-    setAssetFilterIndex(index);
-  };
+    setColumnSorterIndex(clickedColumnIndex);
+  }
 
   useEffect(() => {
     dispatch(setSelectedEntity(undefined));
+    return () => {
+      dispatch(setSelectedEntity(undefined));
+    };
   }, []);
+
+  useEffect(() => {
+    if (Array.isArray(collectionEntities)) {
+      setSortedEntities(collectionEntities);
+    }
+  }, [collectionEntities]);
+
+  useEffect(() => {
+    if (columnSorterIndex !== undefined && sortedEntities.length)
+      switch (columnSorters[columnSorterIndex].name) {
+        case "Serial number":
+          if (columnSorters[columnSorterIndex].isActive)
+            setSortedEntities((assets) => sortAssetsByAlsoKnownAs(assets));
+          else
+            setSortedEntities((assets) =>
+              sortAssetsByAlsoKnownAs(assets, false)
+            );
+          break;
+
+        default:
+          break;
+      }
+  }, [columnSorters]);
 
   return (
     <PageBlock
@@ -73,29 +110,27 @@ export default function CollectionAssetsCard() {
           <thead>
             <tr>
               <CollectionAssetsHeadCell
-                name={activeSortFilters[0].name}
-                isFilterActive={activeSortFilters[0].isActive}
-                onClick={() => handleActiveSortFilter(0)}
+                name={columnSorters[0].name}
+                isColumnActive={columnSorters[0].isActive}
+                onClick={() => handleColumnClick(0)}
               />
               <CollectionAssetsHeadCell
-                name={activeSortFilters[1].name}
-                isFilterActive={activeSortFilters[1].isActive}
-                onClick={() => handleActiveSortFilter(1)}
+                name={columnSorters[1].name}
+                isColumnActive={columnSorters[1].isActive}
+                onClick={() => handleColumnClick(1)}
               />
               <CollectionAssetsHeadCell
-                name={activeSortFilters[2].name}
-                isFilterActive={activeSortFilters[2].isActive}
-                onClick={() => handleActiveSortFilter(2)}
+                name={columnSorters[2].name}
+                isColumnActive={columnSorters[2].isActive}
+                onClick={() => handleColumnClick(2)}
               />
             </tr>
           </thead>
-          <tbody>
-            <CollectionAssetRowList
-              assetSortFilters={activeSortFilters}
-              onAssetClick={selectAsset}
-              sortFilterIndex={assetSortFilterIndex}
-            />
-          </tbody>
+          <CollectionAssetsTBody
+            assetFilters={columnSorters}
+            onAssetClick={selectAsset}
+            sortedAssets={sortedEntities}
+          />
         </Table>
       </ScrollArea>
     </PageBlock>
