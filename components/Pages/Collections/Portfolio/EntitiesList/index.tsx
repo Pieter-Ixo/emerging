@@ -49,14 +49,14 @@ export default function EntitiesList({
     []
   );
   useEffect(() => {
-    const isEntitiesFilled = activeEntityCollection?.entities[0]._profile;
+    const isEntitiesFilled = activeEntityCollection?.entities[0]?._profile;
 
     if (activeEntityCollection && !isEntitiesFilled) {
       dispatch(fillEntitiesForUserCollections(activeEntityCollection));
     }
   }, [activeEntityCollection]);
 
-  if (activeEntityCollection && !activeEntityCollection?.entities[0]._profile)
+  if (activeEntityCollection && !activeEntityCollection?.entities[0]?._profile)
     return <Loader w="100%" mx="auto" />;
 
   return (
