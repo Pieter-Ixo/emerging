@@ -5,6 +5,7 @@ import { useCookstove } from "@/context/cookstove";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import CookstoveDashboard from "@/components/Containers/CookstoveDashboard";
 
+import moreOrEqualZero from "@/utils/moreOrEqualZero";
 import { FieldText } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
 
@@ -12,6 +13,8 @@ export default function Performance({
   entityExternalId,
   totalMinted,
   totalTokenAmount,
+  totalOffset,
+  totalTransfarable,
 }: ImpactAssetProps) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("Performance");
   const { stove, fetchStove } = useCookstove();
@@ -28,8 +31,10 @@ export default function Performance({
         <CookstoveDashboard
           entityExternalId={entityExternalId}
           stove={stove}
-          totalMinted={totalMinted}
-          totalTokenAmount={totalTokenAmount}
+          totalTokenAmount={moreOrEqualZero(totalTokenAmount)}
+          totalMinted={moreOrEqualZero(totalMinted)}
+          totalOffset={moreOrEqualZero(totalOffset)}
+          totalTransferred={moreOrEqualZero(totalTransfarable)}
         />
       )}
     </Card>

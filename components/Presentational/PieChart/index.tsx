@@ -100,7 +100,7 @@ function PieChart({
             ta="center"
             lh={isWideDesktopScreen ? "25px" : "14px"}
           >
-            {(activeSection?.value ?? totalMinted).toLocaleString() === "0,1"
+            {(activeSection?.value ?? totalMinted) < 1
               ? "0"
               : (activeSection?.value ?? totalMinted).toLocaleString()}
           </Text>

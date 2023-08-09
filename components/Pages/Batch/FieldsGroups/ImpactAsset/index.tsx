@@ -2,7 +2,8 @@ import { Flex } from "@mantine/core";
 import shortStr from "@/utils/shortStr";
 import dateLocale from "@/utils/dateLocale";
 import getEntityTotalTokenAmount, {
-  getEntityTotalMintedAmount, getEntityTotalRetiredAmount,
+  getEntityTotalMintedAmount,
+  getEntityTotalRetiredAmount,
 } from "@/helpers/transformData/getTotalMintedAmount";
 
 import { FieldAnchor, FieldText, FieldsGroupTitle } from "../styledComponents";
@@ -25,6 +26,7 @@ export default function ImpactAsset({
   const totalTokenAmount = getEntityTotalTokenAmount(entity);
   const totalMinted = getEntityTotalMintedAmount(entity);
   const totalRetired = getEntityTotalRetiredAmount(entity);
+  const totalTransferred = (totalMinted || 0) - (totalTokenAmount || 0);
 
   return (
     <Flex direction="column">
@@ -62,6 +64,8 @@ export default function ImpactAsset({
           entityExternalId={entityExternalId}
           totalMinted={totalMinted}
           totalTokenAmount={totalTokenAmount}
+          totalOffset={totalRetired}
+          totalTransfarable={totalTransferred}
         />
         <Flex justify="space-between" align="center">
           <FieldText>Owned By</FieldText>
