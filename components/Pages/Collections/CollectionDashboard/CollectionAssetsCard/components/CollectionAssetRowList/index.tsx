@@ -7,6 +7,10 @@ import {
   selectIsEntityCollectionsLoading,
   selectSelectedEntityExternalId,
 } from "@/redux/entityCollections/selectors";
+import {
+  sortByAlsoKnownAsAscending,
+  sortByAlsoKnownAsDescending,
+} from "@/helpers/collectionAsset/sortByAlsoKnownAs";
 
 import CollectionAssetRow from "../CollectionAssetRow";
 import { IAssetFilter } from "../../types";
@@ -44,28 +48,14 @@ function CollectionAssetRowList({
   useEffect(() => {
     // TODO: fill with claimable and issued data, after adding new ways of sorting according to the arrived values
     // TODO: when data arrives remove the else block and simply resort the entity array
-    if (filterIndex !== undefined)
+    if (filterIndex !== undefined && entitiesData.length)
       switch (assetFilters[filterIndex].name) {
         case "Serial number":
           if (assetFilters[filterIndex].isActive)
-            setEntitiesData((prevData) =>
-              prevData
-                ?.slice()
-                .sort(
-                  (a, b) =>
-                    parseInt(a.alsoKnownAs.split(`#`)[1], 10) -
-                    parseInt(b.alsoKnownAs.split(`#`)[1], 10)
-                )
-            );
+            setEntitiesData((prevData) => sortByAlsoKnownAsAscending(prevData));
           else
             setEntitiesData((prevData) =>
-              prevData
-                ?.slice()
-                .sort(
-                  (a, b) =>
-                    parseInt(b.alsoKnownAs.split(`#`)[1], 10) -
-                    parseInt(a.alsoKnownAs.split(`#`)[1], 10)
-                )
+              sortByAlsoKnownAsDescending(prevData)
             );
           break;
 
