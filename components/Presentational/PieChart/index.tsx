@@ -95,16 +95,16 @@ function PieChart({
           style={{ color: activeSection?.color }}
         >
           <Text
-            size={isWideDesktopScreen ? 50 : 24}
+            size={isWideDesktopScreen ? "36px" : "24px"}
             mb={5}
             ta="center"
-            lh={isWideDesktopScreen ? "2.7rem" : "1.3rem"}
+            lh={isWideDesktopScreen ? "25px" : "14px"}
           >
             {(activeSection?.value ?? totalMinted).toLocaleString() === "0,1"
               ? "0"
               : (activeSection?.value ?? totalMinted).toLocaleString()}
           </Text>
-          <Text size={isWideDesktopScreen ? 16 : 12} ta="center" fw={500}>
+          <Text size={isWideDesktopScreen ? 13 : 10} ta="center" fw={500}>
             {activeSection?.text ?? "CARBON PRODUCED"}
           </Text>
         </Flex>
