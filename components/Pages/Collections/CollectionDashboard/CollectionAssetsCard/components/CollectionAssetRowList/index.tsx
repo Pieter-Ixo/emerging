@@ -46,7 +46,7 @@ function CollectionAssetRowList({
   }, [entities]);
 
   useEffect(() => {
-    // TODO: fill with claimable and issued data, after adding new ways of sorting according to the arrived values
+    // FIXME: EMERGING-127 fill with claimable and issued data, after adding new ways of sorting according to the arrived values
     // TODO: when data arrives remove the else block and simply resort the entity array
     if (filterIndex !== undefined && entitiesData.length)
       switch (assetFilters[filterIndex].name) {
