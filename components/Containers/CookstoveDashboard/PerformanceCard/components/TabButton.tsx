@@ -1,9 +1,6 @@
 import { ElementType } from "react";
 import { Text, Box, Flex, UnstyledButton } from "@mantine/core";
 
-// FIXME: EMERGING-140 remove scss
-import styles from "./card-performance.module.scss";
-
 export default function TabButton({
   name,
   isActive,
@@ -16,13 +13,7 @@ export default function TabButton({
   Icon: ElementType;
 }) {
   return (
-    <UnstyledButton
-      variant="subtle"
-      h="unset"
-      p={0}
-      className={styles.section}
-      onClick={onClick}
-    >
+    <UnstyledButton variant="subtle" h="unset" p={0} onClick={onClick}>
       <Flex direction="column" align="center">
         <Box
           color="none"
