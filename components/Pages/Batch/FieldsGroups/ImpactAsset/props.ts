@@ -17,6 +17,8 @@ export type ImpactAssetProps = {
   collection?: ICollectionExtended;
   totalMinted?: number;
   totalTokenAmount?: number;
+  totalOffset?: number;
+  totalTransfarable?: number;
   retired?: number;
   claimable?: number;
   produced?: number;
