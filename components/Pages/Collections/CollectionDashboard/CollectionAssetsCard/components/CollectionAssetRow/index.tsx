@@ -3,23 +3,23 @@ import { Modal, ScrollArea } from "@mantine/core";
 import Head from "next/head";
 import { useDisclosure } from "@mantine/hooks";
 
-import { palette } from "@/theme/palette";
 import { IEntityExtended } from "@/types/entityCollections";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { useAppDispatch } from "@/hooks/redux";
 import CookstoveModal from "@/components/Modals/CookstoveModal";
 
-import type { IActiveFilter } from "../..";
+import { IAssetFilter } from "../../types";
+import TableCell from "../TableCell";
 
 type Props = {
-  handleClickAssetRow: Function;
+  selectAsset: Function;
   entity: IEntityExtended;
-  activeFilters: IActiveFilter[];
+  activeFilters: IAssetFilter[];
   isAssetRowActive: Boolean;
 };
 
-function CollectionAssetRow({
-  handleClickAssetRow,
+export default function CollectionAssetRow({
+  selectAsset,
   entity,
   activeFilters,
   isAssetRowActive,
@@ -27,6 +27,11 @@ function CollectionAssetRow({
   const dispatch = useAppDispatch();
 
   const [opened, { open, close }] = useDisclosure(false);
+
+  const unselectAsset = () => {
+    dispatch(setSelectedEntity(undefined));
+    close();
+  };
 
   useEffect(() => {
     if (isAssetRowActive) {
@@ -38,42 +43,17 @@ function CollectionAssetRow({
   }, [isAssetRowActive]);
 
   return (
-    <tr
-      key={entity.id}
-      onClick={handleClickAssetRow(entity)}
-      style={{
-        cursor: "pointer",
-        backgroundColor: isAssetRowActive ? "#F8F8F8" : "inherit",
-      }}
-    >
-      <td
-        style={{
-          color: activeFilters[0].isActive ? palette.lightBlue : "black",
-        }}
-      >
+    <tr key={entity.id} onClick={selectAsset(entity)}>
+      <TableCell isActive={activeFilters[0].isActive}>
         {entity.externalId}
-      </td>
-      <td
-        style={{
-          color: activeFilters[1].isActive ? palette.lightBlue : "black",
-        }}
-      >
-        {0}
-      </td>
-      <td
-        style={{
-          color: activeFilters[2].isActive ? palette.lightBlue : "black",
-        }}
-      >
-        {0}
-      </td>
+      </TableCell>
+      <TableCell isActive={activeFilters[1].isActive}>{0}</TableCell>
+      <TableCell isActive={activeFilters[2].isActive}>{0}</TableCell>
+
       {isAssetRowActive && (
         <Modal.Root
           opened={opened}
-          onClose={() => {
-            dispatch(setSelectedEntity(undefined));
-            close();
-          }}
+          onClose={unselectAsset}
           radius={16}
           size="md"
           centered
@@ -99,5 +79,3 @@ function CollectionAssetRow({
     </tr>
   );
 }
-
-export default CollectionAssetRow;

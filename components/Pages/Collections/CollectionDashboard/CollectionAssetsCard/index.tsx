@@ -4,36 +4,36 @@ import { ScrollArea, Table, Text } from "@mantine/core";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { IEntity, IEntityExtended } from "@/types/entityCollections";
+import { selectSelectedEntityExternalId } from "@/redux/entityCollections/selectors";
 
 import ArrowRight from "../CollectionNewsCard/icons/arrowRight";
 import Loading from "./loading";
 import PageBlock from "../PageBlock";
 import CollectionAssetRow from "./components/CollectionAssetRow";
 import CollectionAssetsHeadCell from "./components/CollectionAssetsHeadCell";
-
-export type IActiveFilter = { name: string; isActive: boolean };
+import { IAssetFilter } from "./types";
 
 export default function CollectionAssetsCard() {
   const dispatch = useAppDispatch();
   const entities = useAppSelector(
     (state) => state.entityCollection.entityCollections[0]?.entities
   );
-  const [selectedAssetExternalId, setSelectedAssetExternalId] = useState("");
-
+  const selectedAssetExternalId = useAppSelector(
+    selectSelectedEntityExternalId
+  );
   const [entitiesData, setEntitiesData] = useState<IEntityExtended[]>([]);
 
-  const [activeFilters, setActiveFilters] = useState<IActiveFilter[]>([
+  const [activeFilters, setActiveFilters] = useState<IAssetFilter[]>([
     { name: "Serial number", isActive: false },
     { name: "CARBON claimable", isActive: false },
     { name: "CARBON Issued", isActive: false },
   ]);
 
-  const handleClickAssetRow = (entity: IEntity) => () => {
+  const selectAsset = (entity: IEntity) => () => {
     if (selectedAssetExternalId === entity.externalId)
       dispatch(setSelectedEntity(undefined));
     else {
       dispatch(setSelectedEntity(entity));
-      setSelectedAssetExternalId(entity.externalId);
     }
   };
 
@@ -83,12 +83,9 @@ export default function CollectionAssetsCard() {
     }
   }, [entities]);
 
-  useEffect(
-    () => () => {
-      dispatch(setSelectedEntity(undefined));
-    },
-    []
-  );
+  useEffect(() => {
+    dispatch(setSelectedEntity(undefined));
+  }, []);
 
   return (
     <PageBlock
@@ -137,7 +134,7 @@ export default function CollectionAssetsCard() {
                   isAssetRowActive={
                     selectedAssetExternalId === entity.externalId
                   }
-                  handleClickAssetRow={handleClickAssetRow}
+                  selectAsset={selectAsset}
                 />
               ))}
             </Suspense>
