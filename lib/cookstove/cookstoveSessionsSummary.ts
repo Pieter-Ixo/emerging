@@ -6,6 +6,7 @@ import {
 } from "@/types/stove";
 
 import { defaultStartDate, defaultEndDate } from "./pleaseDeleteThisAsap";
+import sessionsSummaryMOCK from "./sessionsSummaryMOCK";
 
 export async function getCookstoveSessionsSummary(
   deviceId: number,
@@ -27,12 +28,14 @@ export async function getCookstoveSessionsSummary(
   }
 }
 // FIXME: EMERGING-126 fill memo on the app start, and refresh it once per day
-const memoisedSummary: MONTH_SESSIONS_TOTAL_MAP = {};
+const memoisedSummary: MONTH_SESSIONS_TOTAL_MAP =
+  structuredClone(sessionsSummaryMOCK);
 
 export async function getSessionsMonthTotal(
   deviceIds: number[],
   headers
 ): Promise<MONTH_SESSIONS_TOTAL_MAP | undefined> {
+  if (!deviceIds) return {};
   const promises = deviceIds?.map(async (deviceId) => {
     if (memoisedSummary[deviceId]) return;
     memoisedSummary[deviceId] = {};
