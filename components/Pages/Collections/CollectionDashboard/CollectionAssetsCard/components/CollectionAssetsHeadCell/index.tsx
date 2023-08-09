@@ -6,24 +6,24 @@ import DownArrow from "@/icons/downArrow";
 
 type Props = {
   name: string;
-  isFilterActive: boolean;
+  isColumnActive: boolean;
   onClick: MouseEventHandler<any>;
 };
 
-function CollectionAssetsHeadCell({ isFilterActive, name, onClick }: Props) {
+function CollectionAssetsHeadCell({ isColumnActive, name, onClick }: Props) {
   return (
     <th
       onClick={onClick}
       style={{
         cursor: "pointer",
-        color: isFilterActive ? palette.lightBlue : "black",
+        color: isColumnActive ? palette.lightBlue : "black",
         width: 85,
         padding: "0 0 5px 0",
       }}
     >
       <Text style={{ display: "flex" }}>
         {`${name}`}
-        {isFilterActive && <DownArrow fill={palette.lightBlue} />}
+        {isColumnActive && <DownArrow fill={palette.lightBlue} />}
       </Text>
     </th>
   );
