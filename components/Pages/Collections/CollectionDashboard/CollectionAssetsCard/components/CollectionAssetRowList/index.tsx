@@ -13,18 +13,18 @@ import {
 } from "@/helpers/collectionAsset/sortByAlsoKnownAs";
 
 import CollectionAssetRow from "../CollectionAssetRow";
-import { IAssetFilter } from "../../types";
+import { IAssetSortFilter } from "../../types";
 
 type Props = {
-  assetFilters: IAssetFilter[];
-  filterIndex?: number;
+  assetSortFilters: IAssetSortFilter[];
+  sortFilterIndex?: number;
   onAssetClick: Function;
 };
 
 function CollectionAssetRowList({
-  assetFilters,
+  assetSortFilters,
   onAssetClick,
-  filterIndex,
+  sortFilterIndex,
 }: Props) {
   const entities = useAppSelector(
     (state) => state.entityCollection.entityCollections[0]?.entities
@@ -48,10 +48,10 @@ function CollectionAssetRowList({
   useEffect(() => {
     // FIXME: EMERGING-127 fill with claimable and issued data, after adding new ways of sorting according to the arrived values
     // TODO: when data arrives remove the else block and simply resort the entity array
-    if (filterIndex !== undefined && entitiesData.length)
-      switch (assetFilters[filterIndex].name) {
+    if (sortFilterIndex !== undefined && entitiesData.length)
+      switch (assetSortFilters[sortFilterIndex].name) {
         case "Serial number":
-          if (assetFilters[filterIndex].isActive)
+          if (assetSortFilters[sortFilterIndex].isActive)
             setEntitiesData((prevData) => sortByAlsoKnownAsAscending(prevData));
           else
             setEntitiesData((prevData) =>
@@ -62,7 +62,7 @@ function CollectionAssetRowList({
         default:
           break;
       }
-  }, [assetFilters]);
+  }, [assetSortFilters]);
 
   if (isEntityCollectionsLoading)
     return (
@@ -80,7 +80,7 @@ function CollectionAssetRowList({
         <CollectionAssetRow
           entity={entity}
           key={`row-${entity.externalId}`}
-          activeFilters={assetFilters}
+          activeFilters={assetSortFilters}
           isAssetRowActive={selectedAssetExternalId === entity.externalId}
           selectAsset={onAssetClick}
         />

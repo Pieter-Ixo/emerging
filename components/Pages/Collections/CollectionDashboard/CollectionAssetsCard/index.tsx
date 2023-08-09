@@ -10,7 +10,7 @@ import ArrowRight from "../CollectionNewsCard/icons/arrowRight";
 import PageBlock from "../PageBlock";
 import CollectionAssetsHeadCell from "./components/CollectionAssetsHeadCell";
 import CollectionAssetRowList from "./components/CollectionAssetRowList";
-import { IAssetFilter } from "./types";
+import { IAssetSortFilter } from "./types";
 
 export default function CollectionAssetsCard() {
   const dispatch = useAppDispatch();
@@ -19,13 +19,13 @@ export default function CollectionAssetsCard() {
     selectSelectedEntityExternalId
   );
 
-  const [activeFilters, setActiveFilters] = useState<IAssetFilter[]>([
+  const [activeSortFilters, setActiveSortFilters] = useState<IAssetSortFilter[]>([
     { name: "Serial number", isActive: false },
     { name: "CARBON claimable", isActive: false },
     { name: "CARBON Issued", isActive: false },
   ]);
 
-  const [assetFilterIndex, setAssetFilterIndex] = useState<
+  const [assetSortFilterIndex, setAssetFilterIndex] = useState<
     number | undefined
   >();
 
@@ -37,8 +37,8 @@ export default function CollectionAssetsCard() {
     }
   };
 
-  const handleFilterActive = (index: number) => {
-    setActiveFilters((prevFilters) =>
+  const handleActiveSortFilter = (index: number) => {
+    setActiveSortFilters((prevFilters) =>
       prevFilters.map((filter, filterIndex) =>
         filterIndex === index
           ? { ...filter, isActive: !filter.isActive }
@@ -73,27 +73,27 @@ export default function CollectionAssetsCard() {
           <thead>
             <tr>
               <CollectionAssetsHeadCell
-                name={activeFilters[0].name}
-                isFilterActive={activeFilters[0].isActive}
-                onClick={() => handleFilterActive(0)}
+                name={activeSortFilters[0].name}
+                isFilterActive={activeSortFilters[0].isActive}
+                onClick={() => handleActiveSortFilter(0)}
               />
               <CollectionAssetsHeadCell
-                name={activeFilters[1].name}
-                isFilterActive={activeFilters[1].isActive}
-                onClick={() => handleFilterActive(1)}
+                name={activeSortFilters[1].name}
+                isFilterActive={activeSortFilters[1].isActive}
+                onClick={() => handleActiveSortFilter(1)}
               />
               <CollectionAssetsHeadCell
-                name={activeFilters[2].name}
-                isFilterActive={activeFilters[2].isActive}
-                onClick={() => handleFilterActive(2)}
+                name={activeSortFilters[2].name}
+                isFilterActive={activeSortFilters[2].isActive}
+                onClick={() => handleActiveSortFilter(2)}
               />
             </tr>
           </thead>
           <tbody>
             <CollectionAssetRowList
-              assetFilters={activeFilters}
+              assetSortFilters={activeSortFilters}
               onAssetClick={selectAsset}
-              filterIndex={assetFilterIndex}
+              sortFilterIndex={assetSortFilterIndex}
             />
           </tbody>
         </Table>
