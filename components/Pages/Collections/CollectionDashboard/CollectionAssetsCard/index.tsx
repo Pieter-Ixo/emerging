@@ -1,33 +1,33 @@
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ScrollArea, Table, Text } from "@mantine/core";
 
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { IEntity, IEntityExtended } from "@/types/entityCollections";
+import { IEntity } from "@/types/entityCollections";
 import { selectSelectedEntityExternalId } from "@/redux/entityCollections/selectors";
 
 import ArrowRight from "../CollectionNewsCard/icons/arrowRight";
-import Loading from "./loading";
 import PageBlock from "../PageBlock";
-import CollectionAssetRow from "./components/CollectionAssetRow";
 import CollectionAssetsHeadCell from "./components/CollectionAssetsHeadCell";
+import CollectionAssetRowList from "./components/CollectionAssetRowList";
 import { IAssetFilter } from "./types";
 
 export default function CollectionAssetsCard() {
   const dispatch = useAppDispatch();
-  const entities = useAppSelector(
-    (state) => state.entityCollection.entityCollections[0]?.entities
-  );
+
   const selectedAssetExternalId = useAppSelector(
     selectSelectedEntityExternalId
   );
-  const [entitiesData, setEntitiesData] = useState<IEntityExtended[]>([]);
 
   const [activeFilters, setActiveFilters] = useState<IAssetFilter[]>([
     { name: "Serial number", isActive: false },
     { name: "CARBON claimable", isActive: false },
     { name: "CARBON Issued", isActive: false },
   ]);
+
+  const [assetFilterIndex, setAssetFilterIndex] = useState<
+    number | undefined
+  >();
 
   const selectAsset = (entity: IEntity) => () => {
     if (selectedAssetExternalId === entity.externalId)
@@ -45,43 +45,8 @@ export default function CollectionAssetsCard() {
           : { ...filter, isActive: false }
       )
     );
-
-    // TODO: fill with claimable and issued data, after adding new ways of sorting according to the arrived values
-    // TODO: when data arrives remove the else block and simply resort the entity array
-    switch (activeFilters[index].name) {
-      case "Serial number":
-        if (activeFilters[index].isActive)
-          setEntitiesData((prevData) =>
-            prevData
-              ?.slice()
-              .sort(
-                (a, b) =>
-                  parseInt(a.alsoKnownAs.split(`#`)[1], 10) -
-                  parseInt(b.alsoKnownAs.split(`#`)[1], 10)
-              )
-          );
-        else
-          setEntitiesData((prevData) =>
-            prevData
-              ?.slice()
-              .sort(
-                (a, b) =>
-                  parseInt(b.alsoKnownAs.split(`#`)[1], 10) -
-                  parseInt(a.alsoKnownAs.split(`#`)[1], 10)
-              )
-          );
-        break;
-
-      default:
-        break;
-    }
+    setAssetFilterIndex(index);
   };
-
-  useEffect(() => {
-    if (Array.isArray(entities)) {
-      setEntitiesData(entities);
-    }
-  }, [entities]);
 
   useEffect(() => {
     dispatch(setSelectedEntity(undefined));
@@ -125,19 +90,11 @@ export default function CollectionAssetsCard() {
             </tr>
           </thead>
           <tbody>
-            <Suspense fallback={<Loading />}>
-              {entitiesData?.map((entity) => (
-                <CollectionAssetRow
-                  entity={entity}
-                  key={`row-${entity.externalId}`}
-                  activeFilters={activeFilters}
-                  isAssetRowActive={
-                    selectedAssetExternalId === entity.externalId
-                  }
-                  selectAsset={selectAsset}
-                />
-              ))}
-            </Suspense>
+            <CollectionAssetRowList
+              assetFilters={activeFilters}
+              onAssetClick={selectAsset}
+              filterIndex={assetFilterIndex}
+            />
           </tbody>
         </Table>
       </ScrollArea>

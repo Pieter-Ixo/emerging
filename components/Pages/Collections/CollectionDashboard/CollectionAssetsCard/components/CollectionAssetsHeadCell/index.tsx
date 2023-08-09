@@ -17,11 +17,13 @@ function CollectionAssetsHeadCell({ isFilterActive, name, onClick }: Props) {
       style={{
         cursor: "pointer",
         color: isFilterActive ? palette.lightBlue : "black",
-        width: 65,
+        width: 85,
+        padding: "0 0 5px 0",
       }}
     >
       <Text style={{ display: "flex" }}>
-        {`${name} ${isFilterActive ? <DownArrow /> : ""}`}
+        {`${name}`}
+        {isFilterActive && <DownArrow fill={palette.lightBlue} />}
       </Text>
     </th>
   );

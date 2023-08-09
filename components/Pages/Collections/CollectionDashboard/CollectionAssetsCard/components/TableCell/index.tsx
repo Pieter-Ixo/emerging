@@ -10,6 +10,7 @@ export default function TableCell({
       style={{
         color: isActive ? palette.lightBlue : palette.Black,
         cursor: "pointer",
+        paddingLeft: 2,
         backgroundColor: isActive ? "#F8F8F8" : "inherit",
       }}
     >

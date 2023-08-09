@@ -94,6 +94,10 @@ const EntityCollectionSlice = createSlice({
       }
     );
 
+    builder.addCase(fetchCollectionsByOwnerAddres.rejected, (state) => {
+      state.isEntityCollectionsLoading = false;
+    });
+
     // fetchEntityByExternalIdAndFill
     builder.addCase(fetchEntityByExternalIdAndFill.pending, (state) => {
       state.isEntityLoading = true;
