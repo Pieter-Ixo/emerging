@@ -16,7 +16,7 @@ export default function CollectionFuelChart({ fuelSummary }: Props) {
     <Box h="300px" id="fuel" key="fuel">
       <Chart
         data={data}
-        chartType="line"
+        chartType="bar"
         min={0}
         label="kilograms sold at this day"
       />

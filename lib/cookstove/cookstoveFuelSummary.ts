@@ -3,6 +3,7 @@ import axios from "axios";
 import { MONTH_FUEL_TOTAL_MAP, STOVE_PELLETS } from "@/types/stove";
 
 import { defaultStartDate, defaultEndDate } from "./pleaseDeleteThisAsap";
+import fuelSummaryMOCK from "./fuelSummaryMock";
 
 export async function getCookstoveFuelSummary(
   deviceId: number,
@@ -24,17 +25,7 @@ export async function getCookstoveFuelSummary(
 }
 
 // FIXME: EMERGING-126 fill memo on the app start, and refresh it once per day
-const memoisedSummary: MONTH_FUEL_TOTAL_MAP = {
-  /**
-    deviceID: {
-      total: 130,
-      dayMap: {
-        "2023-05-09": 30,
-        "2023-05-30": 20,
-      }
-    }
-   */
-};
+const memoisedSummary: MONTH_FUEL_TOTAL_MAP = structuredClone(fuelSummaryMOCK);
 
 export async function getFuelMonthTotal(
   deviceIds: number[],

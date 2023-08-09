@@ -2,7 +2,7 @@ import { Box } from "@mantine/core";
 
 import Chart from "@/components/Presentational/Chart";
 import { MONTH_SESSIONS_TOTAL_MAP } from "@/types/stove";
-import { sessionsSummaryToChartData } from "./summaryChartData";
+import sessionsSummaryToChartData from "./summaryChartData";
 
 type Props = {
   sessionsSummary: MONTH_SESSIONS_TOTAL_MAP;
