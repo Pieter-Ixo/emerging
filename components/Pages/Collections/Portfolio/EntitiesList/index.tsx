@@ -1,18 +1,20 @@
-import { useEffect, useState } from "react";
-import { Text, Badge, Flex, Grid, Box, Loader } from "@mantine/core";
+import { useEffect } from "react";
+import { Text, Badge, Flex, Grid, Box } from "@mantine/core";
 import { palette } from "@/theme/palette";
 
 import ProgressBar from "@/components/Presentational/ProgressBar";
 import ProfileCard from "@/components/Containers/ProfileCard";
+
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { setSelectedEntity } from "@/redux/entityCollections/slice";
+import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
+import { selectSelectedEntityExternalId } from "@/redux/entityCollections/selectors";
 
 import {
   ICollectionEntities,
   IEntityExtended,
 } from "@/types/entityCollections";
 import { getEntityTotalMintedAmount } from "@/helpers/transformData/getTotalMintedAmount";
-import { useAppDispatch } from "@/hooks/redux";
-import { setSelectedEntity } from "@/redux/entityCollections/slice";
-import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
 
 type EntitiesItemsProps = {
   activeEntityCollection?: ICollectionEntities;
@@ -24,30 +26,30 @@ export default function EntitiesList({
   totalAssets,
 }: EntitiesItemsProps) {
   const dispatch = useAppDispatch();
-  const [activeAssetId, setActiveAssetId] = useState<string>();
+
+  const selectedAssetExternalId = useAppSelector(
+    selectSelectedEntityExternalId
+  );
 
   function selectAsset(entity: IEntityExtended) {
-    setActiveAssetId(entity.externalId);
     dispatch(setSelectedEntity(entity));
   }
 
   function deselectAsset() {
     dispatch(setSelectedEntity(undefined));
-    setActiveAssetId(undefined);
   }
 
   function handleAssetClick(entity: IEntityExtended) {
-    if (activeAssetId === undefined) selectAsset(entity);
-    else if (activeAssetId === entity.externalId) deselectAsset();
-    else if (activeAssetId !== entity.externalId) selectAsset(entity);
+    if (selectedAssetExternalId === undefined) selectAsset(entity);
+    else if (selectedAssetExternalId === entity.externalId) deselectAsset();
+    else if (selectedAssetExternalId !== entity.externalId) selectAsset(entity);
   }
 
-  useEffect(
-    () => () => {
-      deselectAsset();
-    },
-    []
-  );
+  useEffect(() => {
+    deselectAsset();
+    return () => deselectAsset();
+  }, []);
+
   useEffect(() => {
     const isEntitiesFilled = activeEntityCollection?.entities[0]?._profile;
 
@@ -56,13 +58,15 @@ export default function EntitiesList({
     }
   }, [activeEntityCollection]);
 
-  if (activeEntityCollection && !activeEntityCollection?.entities[0]?._profile)
-    return <Loader w="100%" mx="auto" />;
-
+  if (
+    Array.isArray(activeEntityCollection?.entities) &&
+    activeEntityCollection?.entities.length === 0
+  )
+    return <Text>No Assets</Text>;
   return (
     <Grid gutter={24}>
       {activeEntityCollection?.entities?.map((entity) => {
-        const isActive = activeAssetId === entity.externalId;
+        const isActive = selectedAssetExternalId === entity.externalId;
         return (
           <Grid.Col
             key={entity.id}
