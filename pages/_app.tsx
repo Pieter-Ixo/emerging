@@ -5,7 +5,6 @@ import { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-import { ToastContainer } from "react-toastify";
 
 import mantineTheme from "@/helpers/mantine/theme";
 import { ChainProvider } from "@/context/chain";
@@ -21,7 +20,7 @@ const persistor = persistStore(store);
 function App({ Component, pageProps, router }: AppProps) {
   useEffect(() => {
     // @ts-ignore
-    window.purge = function () {
+    window.purge = function purge() {
       persistor.purge();
       localStorage.clear();
       // @ts-ignore
@@ -47,7 +46,6 @@ function App({ Component, pageProps, router }: AppProps) {
         <ChainProvider>
           <WalletProvider>
             <CookstoveProvider>
-              <ToastContainer autoClose={3000} hideProgressBar limit={5} />
               <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
                   <Layout pathname={router.pathname}>
