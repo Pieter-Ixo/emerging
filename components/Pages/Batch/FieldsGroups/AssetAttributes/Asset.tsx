@@ -1,4 +1,4 @@
-import { Card, Flex, Button, Text, Box } from "@mantine/core";
+import { Card, Flex, Button, Text } from "@mantine/core";
 
 import JSONViewer from "@/components/Presentational/JSONViewer";
 import useDetailPortal from "@/hooks/useDetailPortal";
@@ -15,7 +15,7 @@ export default function AssetName({
   const { isVisible, openPortal, closePortal } = useDetailPortal("AssetName");
 
   const PortalChild = (
-    <Box w={322}>
+    <>
       <Card shadow="sm" padding="lg" radius="md" withBorder>
         <Flex
           align="center"
@@ -31,9 +31,9 @@ export default function AssetName({
       <Button
         color="yellow"
         mt={40}
+        w="100%"
         mb={16}
         h={46}
-        w="100%"
         radius="xl"
         leftIcon={<VerifyIcon />}
       >
@@ -46,7 +46,7 @@ export default function AssetName({
           Download
         </Text>
       </Button>
-    </Box>
+    </>
   );
 
   return (

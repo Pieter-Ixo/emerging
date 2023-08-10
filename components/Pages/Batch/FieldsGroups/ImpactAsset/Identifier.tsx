@@ -1,4 +1,4 @@
-import { Button, Flex, Group, Text, Box } from "@mantine/core";
+import { Box, Button, Flex, Group, Text } from "@mantine/core";
 import ProgressBar from "@/components/Presentational/ProgressBar";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import ProfileCard from "@/components/Containers/ProfileCard";
@@ -23,7 +23,7 @@ export default function Identifier({
   const price = entity?._profile?.metrics[0];
 
   const PortalChild = (
-    <Box w={277}>
+    <>
       <ProfileCard
         entity={entity}
         measure={
@@ -54,12 +54,12 @@ export default function Identifier({
           </>
         }
       />
-      <Button mt={40} h={46} w="100%" radius="xl" leftIcon={<VerifyIcon />}>
+      <Button w={277} mt={40} h={46} radius="xl" leftIcon={<VerifyIcon />}>
         <Text fw={400} size={16}>
           Verify
         </Text>
       </Button>
-    </Box>
+    </>
   );
 
   return (

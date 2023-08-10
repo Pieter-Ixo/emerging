@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text } from "@mantine/core";
+import { Button, Flex, Text } from "@mantine/core";
 
 import ProfileCard from "@/components/Containers/ProfileCard";
 import useDetailPortal from "@/hooks/useDetailPortal";
@@ -14,7 +14,7 @@ export default function Collection({
   const { isVisible, openPortal, closePortal } = useDetailPortal("Collection");
 
   const PortalChild = (
-    <Box w={277}>
+    <>
       <ProfileCard
         entity={collection}
         measure={
@@ -23,12 +23,12 @@ export default function Collection({
           )
         }
       />
-      <Button mt={40} h={46} w="100%" radius="xl" leftIcon={<VerifyIcon />}>
+      <Button w={277} mt={40} h={46} radius="xl" leftIcon={<VerifyIcon />}>
         <Text fw={400} size={16}>
           Verify
         </Text>
       </Button>
-    </Box>
+    </>
   );
 
   return (
