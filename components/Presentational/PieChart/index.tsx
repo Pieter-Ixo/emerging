@@ -53,7 +53,21 @@ function PieChart({
 
   const activeSection = active !== null ? chartConfig[active] : null;
 
-  const isWideDesktopScreen = useMediaQuery("(min-width: 1440px)");
+  const isDesktopScreen = useMediaQuery("(min-width: 1680px)");
+
+  let sectionTitleFs;
+  let sectionValueFs;
+  let sectionLh;
+
+  if (isDesktopScreen) {
+    sectionTitleFs = "32px";
+    sectionValueFs = "15px";
+    sectionLh = "25px";
+  } else {
+    sectionTitleFs = "24px";
+    sectionValueFs = "10px";
+    sectionLh = "20px";
+  }
 
   return (
     <Flex align="center" my={20} mx={0}>
@@ -94,17 +108,12 @@ function PieChart({
           bottom={0}
           style={{ color: activeSection?.color }}
         >
-          <Text
-            size={isWideDesktopScreen ? "36px" : "24px"}
-            mb={5}
-            ta="center"
-            lh={isWideDesktopScreen ? "25px" : "14px"}
-          >
+          <Text size={sectionTitleFs} mb={5} ta="center" lh={sectionLh}>
             {activeSection && activeSection?.value < 1
               ? "0"
               : (activeSection?.value ?? totalMinted).toLocaleString()}
           </Text>
-          <Text size={isWideDesktopScreen ? 13 : 10} ta="center" fw={500}>
+          <Text size={sectionValueFs} ta="center" fw={500}>
             {activeSection?.text ?? "CARBON PRODUCED"}
           </Text>
         </Flex>

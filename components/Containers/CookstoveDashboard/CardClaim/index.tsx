@@ -7,8 +7,21 @@ type CarbonClaimCardProps = {
 };
 
 function CarbonClaimCard({ amount = 0 }: CarbonClaimCardProps) {
-  const isWideDesktopScreen = useMediaQuery("(min-width: 1440px)");
+  const isDesktopScreen = useMediaQuery("(min-width: 1680px)");
 
+  let amountFs;
+  let withdrawBtnW;
+  let withdrawBtnFs;
+
+  if (isDesktopScreen) {
+    amountFs = "32px";
+    withdrawBtnW = "50%";
+    withdrawBtnFs = "24px";
+  } else {
+    amountFs = "24px";
+    withdrawBtnW = "60%";
+    withdrawBtnFs = "20px";
+  }
   return (
     <Flex
       direction="column"
@@ -27,7 +40,7 @@ function CarbonClaimCard({ amount = 0 }: CarbonClaimCardProps) {
       </Text>
       <Flex justify="space-between" align="end">
         <Flex align="end" pr={10} sx={{ color: palette.White }}>
-          <Text lh={1} size={isWideDesktopScreen ? 40 : 24}>
+          <Text lh={1} size={amountFs}>
             {amount.toLocaleString()}
           </Text>
           <Text size={14}>CARBON</Text>
@@ -35,8 +48,8 @@ function CarbonClaimCard({ amount = 0 }: CarbonClaimCardProps) {
         <Button
           sx={{
             color: palette.White,
-            fontSize: isWideDesktopScreen ? "1.5rem" : "1.3rem",
-            width: isWideDesktopScreen ? "50%" : "60%",
+            fontSize: withdrawBtnFs,
+            width: withdrawBtnW,
             fontWeight: 400,
             padding: 0,
             backgroundColor: palette.whiteTransparent,
