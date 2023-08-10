@@ -3,9 +3,10 @@ import Link from "next/link";
 import { useMediaQuery } from "@mantine/hooks";
 import { useAppSelector } from "@/hooks/redux";
 
-import PortfolioIcon from "@/icons/portfolio-icon";
-import GlobalIcon from "@/icons/global-icon";
 import WalletNavIcon from "@/icons/wallet-nav-icon";
+import PortfolioIcon from "@/assets/icons/portfolio.svg";
+import GlobalIcon from "@/assets/icons/global.svg";
+import BaseIcon from "@/icons";
 
 type Props = {
   selectedLink: "global" | "portfolio";
@@ -16,12 +17,25 @@ function PortfolioLink({ isSelected }: { isSelected: boolean }) {
   if (!userAddress)
     return (
       <Link href="/collections/portfolio" style={{ pointerEvents: "none" }}>
-        <PortfolioIcon status="disabled" />
+        <BaseIcon
+          Icon={PortfolioIcon}
+          width={24}
+          height={24}
+          status="disabled"
+          isBgCircle
+        />
       </Link>
     );
   return (
     <Link href="/collections/portfolio">
-      <PortfolioIcon status={isSelected ? "selected" : "notSelected"} />
+      <BaseIcon
+        Icon={PortfolioIcon}
+        width={24}
+        height={24}
+        isCursor
+        isBgCircle
+        status={isSelected ? "selected" : "notSelected"}
+      />
     </Link>
   );
 }
@@ -38,7 +52,16 @@ export default function GlobalPortfolioSwitch({
     <Flex align="center" gap={16}>
       {!isScreenWiderThanMobile && <WalletNavIcon />}
       <Link href="/collections/global">
-        <GlobalIcon selected={isGlobalSelected} />
+        <BaseIcon
+          Icon={GlobalIcon}
+          width={24}
+          isCursor
+          height={25}
+          status={isGlobalSelected ? "selected" : "notSelected"}
+          isBgCircle
+        />
+
+        {/* <GlobalIcon selected={isGlobalSelected} /> */}
       </Link>
       <PortfolioLink isSelected={isPortfolioSelected} />
     </Flex>
