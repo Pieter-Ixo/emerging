@@ -32,11 +32,13 @@ export default function GlobalPortfolioSwitch({
   const isGlobalSelected = selectedLink === "global";
   const isPortfolioSelected = selectedLink === "portfolio";
 
-  const isScreenWiderThanMobile = useMediaQuery("(min-width: 768px)");
+  // TODO: Use when a mobile view is required
+  // const isScreenWiderThanMobile = useMediaQuery("(min-width: 768px)");
 
   return (
     <Flex align="center" gap={16}>
-      {!isScreenWiderThanMobile && <WalletNavIcon />}
+      {/* TODO: Use when a mobile view is required */}
+      {/* {!isScreenWiderThanMobile && <WalletNavIcon />} */}
       <Link href="/collections/global">
         <GlobalIcon selected={isGlobalSelected} />
       </Link>
