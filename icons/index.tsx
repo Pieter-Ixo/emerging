@@ -1,16 +1,11 @@
 import { palette } from "@/theme/palette";
+import { BaseIconProps, IconProp } from "@/types/icons/baseIcon";
 import { Box } from "@mantine/core";
-import { ElementType, SVGProps, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 type Status = "selected" | "notSelected" | "disabled";
-type IconProp = { stroke: string; fill: string; bgColor: string };
 
 const initialTheme: Record<Status, IconProp> = {
-  disabled: {
-    stroke: palette.Neutral800,
-    fill: palette.Neutral500,
-    bgColor: palette.White,
-  },
   selected: {
     stroke: palette.White,
     fill: palette.White,
@@ -21,37 +16,35 @@ const initialTheme: Record<Status, IconProp> = {
     fill: palette.Black,
     bgColor: palette.White,
   },
-};
-
-type Props = SVGProps<SVGSVGElement> & {
-  status: Status;
-  Icon: ElementType;
-  isStroke?: boolean;
-  isCursor?: boolean;
-  isBgCircle?: boolean;
+  disabled: {
+    stroke: palette.Neutral800,
+    fill: palette.Neutral500,
+    bgColor: palette.White,
+  },
 };
 
 function BaseIcon({
   status,
   Icon,
-  isCursor = false,
+  theme = initialTheme,
+  isPointer = false,
   isStroke = false,
-  isBgCircle = false,
+  variant = "default",
   ...svgProps
-}: Props) {
+}: BaseIconProps) {
   const [selectedTheme, setSelectedTheme] = useState<any>(
     initialTheme.notSelected
   );
 
   useEffect(() => {
-    setSelectedTheme(initialTheme[status]);
-  }, [status]);
+    setSelectedTheme({ ...initialTheme[status], ...theme[status] });
+  }, [status, theme]);
 
-  if (!isBgCircle) {
+  if (variant === "default") {
     return (
       <Icon
         style={{
-          cursor: isCursor ? "pointer" : "default",
+          cursor: isPointer ? "pointer" : "default",
         }}
         fill={selectedTheme.fill}
         stroke={isStroke ? selectedTheme.stroke : "none"}
@@ -69,12 +62,12 @@ function BaseIcon({
         borderRadius: "50%",
         position: "relative",
         backgroundColor: selectedTheme.bgColor,
-        cursor: isCursor ? "pointer" : "default",
+        cursor: isPointer ? "pointer" : "default",
       }}
     >
       <Icon
         style={{
-          cursor: isCursor ? "pointer" : "default",
+          cursor: isPointer ? "pointer" : "default",
           transform: "translate(-50%, -50%)",
           position: "absolute",
           top: "50%",
