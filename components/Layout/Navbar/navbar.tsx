@@ -20,11 +20,7 @@ export default function Nav() {
   const userAddress = useAppSelector((state) => state.user.connectedWallet);
   const userEntityCollections = useAppSelector(selectUserEntityCollections);
   const selectedEntity = useAppSelector(selectSelectedEntity);
-  // const userEntityCollectionsIds = useAppSelector(
-  //   selectUserEntityCollectionsIds
-  // );
   const isUserCollectionsFilled = useRef(false);
-  // const [idsList, setIdsList] = useState<string[]>([]);
 
   useEffect(() => {
     if (userAddress && !isUserCollectionsFilled.current) {
@@ -34,20 +30,6 @@ export default function Nav() {
       isUserCollectionsFilled.current = true;
     }
   }, [userAddress]);
-
-  // useEffect(() => {
-  //   if (
-  //     // if userCollections are, and have changed
-  //     userEntityCollectionsIds.length &&
-  //     !isStringArraysEqual(idsList, userEntityCollectionsIds)
-  //   ) {
-  //     setIdsList(userEntityCollectionsIds);
-
-  //     userEntityCollections.forEach((userEntityCollection) => {
-  //       dispatch(fillEntitiesForUserCollections(userEntityCollection));
-  //     });
-  //   }
-  // }, [userEntityCollectionsIds]);
 
   return (
     <Navbar
