@@ -3,9 +3,9 @@ import { BaseIconProps, IconProp } from "@/types/icons/baseIcon";
 import { Box } from "@mantine/core";
 import { useEffect, useState } from "react";
 
-type Status = "selected" | "notSelected" | "disabled";
+export type IconStatus = "selected" | "notSelected" | "disabled";
 
-const initialTheme: Record<Status, IconProp> = {
+const initialTheme: Record<IconStatus, IconProp> = {
   selected: {
     stroke: palette.White,
     fill: palette.White,

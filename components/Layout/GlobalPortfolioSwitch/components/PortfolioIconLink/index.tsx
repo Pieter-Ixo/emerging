@@ -1,9 +1,9 @@
-import BaseIcon from "@/icons";
+import BaseIcon, { IconStatus } from "@/icons";
 import Link from "next/link";
 import PortfolioIcon from "@/assets/icons/portfolio.svg";
 
 type Props = {
-  status: "selected" | "notSelected" | "disabled";
+  status: IconStatus;
 };
 function PortfolioIconLink({ status }: Props) {
   const isLinkDisabled = status === "disabled";
