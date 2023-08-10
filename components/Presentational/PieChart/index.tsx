@@ -1,9 +1,16 @@
 import { useState } from "react";
 import { PieChart as PieChartImport } from "react-minimal-pie-chart";
-import { Box, Button, ColorSwatch, Flex, Image, Text } from "@mantine/core";
+import {
+  Box,
+  Button,
+  ColorSwatch,
+  Flex,
+  Image,
+  MediaQuery,
+  Text,
+} from "@mantine/core";
 
 import { palette } from "@/theme/palette";
-import { useMediaQuery } from "@mantine/hooks";
 
 type PieChartProps = {
   totalMinted?: number;
@@ -56,22 +63,6 @@ function PieChart({
 
   const activeSection = active !== null ? chartConfig[active] : null;
 
-  const isDesktopScreen = useMediaQuery("(min-width: 1680px)");
-
-  let sectionTitleFs;
-  let sectionValueFs;
-  let sectionLh;
-
-  if (isDesktopScreen) {
-    sectionTitleFs = "32px";
-    sectionValueFs = "15px";
-    sectionLh = "25px";
-  } else {
-    sectionTitleFs = "24px";
-    sectionValueFs = "10px";
-    sectionLh = "20px";
-  }
-
   return (
     <Flex align="center" my={20} mx={0}>
       <Box pos="relative" mr={15} sx={{ flex: 1 }}>
@@ -111,14 +102,22 @@ function PieChart({
           bottom={0}
           style={{ color: activeSection?.color }}
         >
-          <Text size={sectionTitleFs} mb={5} ta="center" lh={sectionLh}>
-            {activeSection && activeSection?.value < 1
-              ? "0"
-              : (activeSection?.value ?? totalMinted).toLocaleString()}
-          </Text>
-          <Text size={sectionValueFs} ta="center" fw={500}>
-            {activeSection?.text ?? "CARBON PRODUCED"}
-          </Text>
+          <MediaQuery
+            smallerThan="xl"
+            styles={{ fontSize: 20, lineHeight: "20px" }}
+          >
+            <Text size={28} mb={5} ta="center" lh="25px">
+              {activeSection && activeSection?.value < 1
+                ? "0"
+                : (activeSection?.value ?? totalMinted).toLocaleString()}
+            </Text>
+          </MediaQuery>
+
+          <MediaQuery smallerThan="xl" styles={{ fontSize: 8 }}>
+            <Text size={13} ta="center" fw={500}>
+              {activeSection?.text ?? "CARBON PRODUCED"}
+            </Text>
+          </MediaQuery>
         </Flex>
       </Box>
       <Flex
