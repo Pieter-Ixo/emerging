@@ -1,5 +1,4 @@
 import { ChainNetwork } from "@ixo/impactxclient-sdk/types/custom_queries/chain.types";
-import cls from "classnames";
 import {
   HTMLAttributes,
   createContext,
@@ -8,7 +7,6 @@ import {
   useState,
 } from "react";
 
-import utilsStyles from "@/styles/utils.module.scss";
 import { EVENT_LISTENER_TYPE } from "@/constants/events";
 import useWalletData from "@/hooks/useWalletData";
 import {
@@ -20,6 +18,7 @@ import { queryAllBalances } from "@/utils/query";
 import { initializeWallet } from "@/utils/wallets";
 import { KEPLR_CHAIN_INFO_TYPE } from "@/types/chain";
 import { WALLET, WALLET_TYPE } from "@/types/wallet";
+import { Flex, Loader } from "@mantine/core";
 import { ChainContext } from "./chain";
 
 // FIXME: EMERGING-146: get rid of context, create new redux slice
@@ -168,10 +167,17 @@ export function WalletProvider({ children }: HTMLAttributes<HTMLDivElement>) {
   return (
     <WalletContext.Provider value={value}>
       {!loaded ? (
-        <main className={cls(utilsStyles.main, utilsStyles.columnCenter)}>
-          <div className={utilsStyles.spacer3} />
-          {/* <Loader size={30} /> */}
-        </main>
+        <Flex
+          direction="column"
+          justify="center"
+          align="center"
+          p="1rem"
+          h="100%"
+          w="100%"
+          mih="100vh"
+        >
+          <Loader size={40} />
+        </Flex>
       ) : (
         children
       )}
