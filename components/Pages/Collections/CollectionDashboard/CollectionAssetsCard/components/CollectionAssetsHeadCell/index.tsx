@@ -16,7 +16,7 @@ function CollectionAssetsHeadCell({ isColumnActive, name, onClick }: Props) {
       onClick={onClick}
       style={{
         cursor: "pointer",
-        color: isColumnActive ? palette.lightBlue : "black",
+        color: isColumnActive ? palette.lightBlue : palette.Black,
         width: 85,
         padding: "0 0 5px 0",
       }}

@@ -4,7 +4,6 @@ import { IEntityExtended } from "@/types/entityCollections";
 import { useAppSelector } from "@/hooks/redux";
 import {
   selectIsEntityCollectionsLoading,
-  selectSelectedEntityExternalId,
 } from "@/redux/entityCollections/selectors";
 
 import CollectionAssetRow from "../CollectionAssetRow";
@@ -21,9 +20,6 @@ function CollectionAssetsTBody({
   onAssetClick,
   sortedAssets,
 }: Props) {
-  const selectedAssetExternalId = useAppSelector(
-    selectSelectedEntityExternalId
-  );
   const isEntityCollectionsLoading = useAppSelector(
     selectIsEntityCollectionsLoading
   );
@@ -46,7 +42,6 @@ function CollectionAssetsTBody({
           entity={entity}
           key={`row-${entity.externalId}`}
           activeFilters={assetFilters}
-          isAssetRowActive={selectedAssetExternalId === entity.externalId}
           selectAsset={onAssetClick}
         />
       ))}

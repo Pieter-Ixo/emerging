@@ -12,6 +12,7 @@ import PageBlock from "../PageBlock";
 import CollectionAssetsHeadCell from "./components/CollectionAssetsHeadCell";
 import CollectionAssetsTBody from "./components/CollectionAssetsTBody";
 import { IAssetColumnSorter } from "./types";
+import CollectionAssetModal from "./components/CollectionAssetModal";
 
 const defaultColumnSorterState = [
   { name: "Serial number", isActive: false },
@@ -133,6 +134,7 @@ export default function CollectionAssetsCard() {
           />
         </Table>
       </ScrollArea>
+      <CollectionAssetModal/>
     </PageBlock>
   );
 }
