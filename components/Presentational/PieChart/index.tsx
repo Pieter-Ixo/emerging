@@ -55,12 +55,10 @@ function PieChart({
   ];
 
   function toggleActiveSemiCircle(i: number) {
-    if (chartConfig[i].value < 1) {
-      return;
+    if (chartConfig[i].value !== 0.1) {
+      setActive(i);
     }
-    setActive(i);
   }
-
   const activeSection = active !== null ? chartConfig[active] : null;
 
   return (
