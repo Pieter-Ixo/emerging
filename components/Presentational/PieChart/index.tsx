@@ -20,10 +20,6 @@ function PieChart({
 }: PieChartProps) {
   const [active, setActive] = useState<number | null>(null);
 
-  function toggleActiveSemiCircle(i: number) {
-    return setActive(i);
-  }
-
   const chartConfig = [
     {
       title: "To issue",
@@ -50,6 +46,13 @@ function PieChart({
       text: "CARBON CREDITS",
     },
   ];
+
+  function toggleActiveSemiCircle(i: number) {
+    if (chartConfig[i].value < 1) {
+      return;
+    }
+    setActive(i);
+  }
 
   const activeSection = active !== null ? chartConfig[active] : null;
 
@@ -130,6 +133,7 @@ function PieChart({
             variant="default"
             px="sm"
             display="flex"
+            disabled={semi.value < 1}
             radius="lg"
             sx={{
               alignItems: "center",
