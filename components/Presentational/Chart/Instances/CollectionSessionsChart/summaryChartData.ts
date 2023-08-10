@@ -1,7 +1,7 @@
 import { DataItem } from "@/components/Presentational/Chart/types";
 import { MONTH_SESSIONS_TOTAL_MAP } from "@/types/stove";
 
-export function sessionsSummaryToChartData(
+export default function sessionsSummaryToChartData(
   sessionsSummary: MONTH_SESSIONS_TOTAL_MAP
 ): DataItem[] {
   const sessionsMap = Object.values(sessionsSummary).reduce(

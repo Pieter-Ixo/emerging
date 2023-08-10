@@ -6,7 +6,7 @@ import SproutPill from "@/assets/icons/sprout-pill.svg";
 import { SECTIONS, STOVE } from "@/types/stove";
 import { palette } from "@/theme/palette";
 
-import TabButton from "./TabButton";
+import TabButton from "./components/TabButton";
 import AssetFuelChart from "../../../Presentational/Chart/Instances/AssetFuelChart";
 import AssetSessionsChart from "../../../Presentational/Chart/Instances/AssetSessionsChart";
 

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 import getEntityTotalTokenAmount, {
   getEntityTotalMintedAmount,
+  getEntityTotalRetiredAmount,
 } from "@/helpers/transformData/getTotalMintedAmount";
 import { useCookstove } from "@/context/cookstove";
 import { IEntityExtended } from "@/types/entityCollections";
@@ -10,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchEntityByExternalIdAndFill } from "@/redux/entityCollections/thunks";
 import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
 import CookstoveDashboard from "../Containers/CookstoveDashboard";
+import moreOrEqualZero from "../../utils/moreOrEqualZero";
 
 interface Props {
   entityId: string;
@@ -32,10 +34,17 @@ export default function CookstoveModal({ entityId, entity }: Props) {
     dispatch(fetchEntityByExternalIdAndFill(entityId));
   }, [entityId]);
 
+  const totalMinted = getEntityTotalMintedAmount(selectedEntity);
+  const totalTokenAmount = getEntityTotalTokenAmount(selectedEntity);
+  const totalOffset = getEntityTotalRetiredAmount(entity);
+  const totalTransferred = (totalMinted || 0) - (totalTokenAmount || 0);
+
   return (
     <CookstoveDashboard
-      totalMinted={getEntityTotalMintedAmount(selectedEntity)}
-      totalTokenAmount={getEntityTotalTokenAmount(selectedEntity)}
+      totalMinted={moreOrEqualZero(totalMinted)}
+      totalTokenAmount={moreOrEqualZero(totalTokenAmount)}
+      totalOffset={moreOrEqualZero(totalOffset)}
+      totalTransferred={moreOrEqualZero(totalTransferred)}
       entityExternalId={entityId}
       stove={stove}
     />

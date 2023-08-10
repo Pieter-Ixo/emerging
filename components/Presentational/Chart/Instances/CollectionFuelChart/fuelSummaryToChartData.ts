@@ -13,10 +13,10 @@ export default function fuelSummaryToChartData(
     monthEntries.forEach(([month, purchase]) => {
       if (!month || purchase === undefined) return;
 
-      if (monthMap[month]) {
-        monthMap[month] = purchase;
-      } else {
+      if (typeof monthMap[month] === "number") {
         monthMap[month] += purchase;
+      } else {
+        monthMap[month] = purchase;
       }
     });
   });
