@@ -9,7 +9,7 @@ import {
 import { STOVE, STOVE_PERIODS } from "@/types/stove";
 import { datesFromPeriod } from "@/utils/supamoto";
 import sessionsSummaryMOCK from "@/lib/cookstove/sessionsSummaryMOCK";
-import fuelSummaryMOCK from "@/lib/cookstove/fuelSummaryMock";
+import fuelSummaryMOCK from "@/lib/cookstove/fuelSummaryMOCK";
 
 // FIXME: EMERGING-146: get rid of context, create new redux slice
 

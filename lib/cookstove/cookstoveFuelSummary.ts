@@ -3,7 +3,7 @@ import axios from "axios";
 import { MONTH_FUEL_TOTAL_MAP, STOVE_PELLETS } from "@/types/stove";
 
 import { defaultStartDate, defaultEndDate } from "./pleaseDeleteThisAsap";
-import fuelSummaryMOCK from "./fuelSummaryMock";
+import fuelSummaryMOCK from "./fuelSummaryMOCK";
 
 export async function getCookstoveFuelSummary(
   deviceId: number,
