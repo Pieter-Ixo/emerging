@@ -1,1 +1,1 @@
-export type IAssetFilter = { name: string; isActive: boolean };
+export type IAssetColumnSorter = { name: string; isActive: boolean };
