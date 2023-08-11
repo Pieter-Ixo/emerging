@@ -40,8 +40,8 @@ export default function BatchesItem({
   const isBatchHasProgress = !!(amount === 0 && (retired || 0) > 0);
 
   const batchBackgroundImage = isBatchHasProgress
-    ? "url(/images/cert-bg--disabled.png)"
-    : "url(/images/cert-bg.png)";
+    ? "url(/images/bg/certificate-bg--disabled.png)"
+    : "url(/images/bg/certificate-bg.png)";
 
   const toSingleBatch = () => {
     const redirectUrl = `/entity/${entityId}/batch/${index}`;
