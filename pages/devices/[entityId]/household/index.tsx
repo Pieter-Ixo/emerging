@@ -44,7 +44,7 @@ export default function HouseholdPageLayout() {
     <BackgroundImage src="/images/background.jpg">
       <Container maw="600px" mih="100vh" py="lg">
         <Title
-          order={1}
+          order={2}
           align="center"
           color={palette.White}
           weight={400}

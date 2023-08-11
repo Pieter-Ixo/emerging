@@ -92,7 +92,7 @@ export default function CookstoveDashboard({
     >
       <Container maw="600px" py="lg">
         <Title
-          order={1}
+          order={2}
           mb="md"
           align="center"
           color={palette.White}

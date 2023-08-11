@@ -3,10 +3,19 @@ import { MantineThemeOverride } from "@mantine/core";
 const mantineTheme: MantineThemeOverride = {
   fontFamily: "RobotoCondensed",
   fontSizes: {
-    sm: "12px",
+    xs: "12px",
+    sm: "14px",
     md: "16px",
     lg: "40px",
     xl: "56px",
+  },
+  headings: {
+    sizes: {
+      h1: { fontSize: "56px" },
+      h2: { fontSize: "40px" },
+      h3: { fontSize: "32px" },
+      h4: { fontSize: "24px" },
+    },
   },
   colors: {
     FullBlue: [

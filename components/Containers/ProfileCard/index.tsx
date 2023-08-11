@@ -54,7 +54,7 @@ export default function ProfileCard({
                   bg={isTagEven(index) ? palette.redDark : palette.orangeFull}
                   variant="filled"
                 >
-                  {tag}
+                  <Text size="xs">{tag}</Text>
                 </Badge>
               ) : null
             )}
@@ -63,10 +63,10 @@ export default function ProfileCard({
         <Avatar src={entity?._profile?.logoUrl} alt="" radius="xl" />
       </Flex>
 
-      <Title order={3} color="#01283B" fw={700} size="20px" lh="lg">
+      <Title order={4} color="#01283B" fw={500} lh="lg">
         {entity?._profile?.brand}
       </Title>
-      <Text color="dimmed" size="12px" lh="100%" mb="10px">
+      <Text color="dimmed" size="xs" lh="100%" mb="10px">
         {entity?._profile?.name}
       </Text>
       {measure || null}

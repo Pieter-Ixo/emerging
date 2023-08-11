@@ -60,13 +60,13 @@ export default function Collections() {
     <AppLayout title="Emergency Portfolio">
       <PageHeader>
         <GlobalPortfolioSwitch selectedLink="portfolio" />
-        <Title order={1} fw={300} size="lg">
+        <Title order={2} fw={300}>
           My Portfolio
         </Title>
       </PageHeader>
       <Container fluid bg="white" sx={{ borderRadius: 16 }} p="xl" m={0}>
         <Box mb={28} sx={{ borderBottom: `1px solid ${palette.Black}` }}>
-          <Text>MY ASSETS</Text>
+          <Text size="md">MY ASSETS</Text>
         </Box>
         <Controls />
         <Carousel slideGap="xl" loop slideSize="270px" py={20} align="start">

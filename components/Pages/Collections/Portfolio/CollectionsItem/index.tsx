@@ -18,11 +18,7 @@ export default function CollectionsItem({
   const activeCardFont = isActive ? palette.White : palette.Black;
 
   return (
-    <Card
-      padding="none"
-      sx={{ fontSize: "", color: activeCardFont }}
-      radius={16}
-    >
+    <Card padding="none" sx={{ color: activeCardFont }} radius={16}>
       <Card.Section>
         <Image
           src={collection._profile?.imageUrl}
@@ -42,10 +38,11 @@ export default function CollectionsItem({
             <Badge
               sx={{ background: palette.greenFull }}
               radius="md"
-              size="md"
               variant="filled"
             >
-              {collection._tokenIpfs?.properties.denom}
+              <Text size="md" fw={500}>
+                {collection._tokenIpfs?.properties.denom}
+              </Text>
             </Badge>
           </Flex>
         </Flex>

@@ -12,7 +12,7 @@ export default function Collections() {
     <AppLayout title="Emerging Collections">
       <PageHeader>
         <GlobalPortfolioSwitch selectedLink="global" />
-        <Title order={1} fw={300} size="40px">
+        <Title order={2} fw={300}>
           Collections
         </Title>
         <CollectionListFilteringControls />
