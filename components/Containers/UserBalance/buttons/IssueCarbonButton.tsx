@@ -3,7 +3,9 @@ import { useDisclosure } from "@mantine/hooks";
 
 import { palette } from "@/theme/palette";
 
-import DownArrow from "../../../../icons/downArrow";
+import DownArrow from "@/assets/icons/down-arrow.svg";
+import BaseIcon from "@/components/Presentational/BaseIcon";
+
 import { ImpactCreditsButtonBlue } from "../StyledButtons";
 
 type Props = {
@@ -20,7 +22,15 @@ export default function IssueCarbonButton({
   return (
     <>
       <ImpactCreditsButtonBlue
-        leftIcon={<DownArrow fill={palette.White} />}
+        leftIcon={
+          <BaseIcon
+            isPointer
+            width={24}
+            height={24}
+            fill={palette.White}
+            Icon={DownArrow}
+          />
+        }
         onClick={() => open()}
       >
         {totalClaimable} CARBON to isssue

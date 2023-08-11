@@ -2,7 +2,8 @@ import { Text } from "@mantine/core";
 import { MouseEventHandler } from "react";
 
 import { palette } from "@/theme/palette";
-import DownArrow from "@/icons/downArrow";
+import DownArrow from "@/assets/icons/down-arrow.svg";
+import BaseIcon from "@/components/Presentational/BaseIcon";
 
 type Props = {
   name: string;
@@ -23,7 +24,15 @@ function CollectionAssetsHeadCell({ isColumnActive, name, onClick }: Props) {
     >
       <Text style={{ display: "flex" }}>
         {`${name}`}
-        {isColumnActive && <DownArrow fill={palette.lightBlue} />}
+        {isColumnActive && (
+          <BaseIcon
+            Icon={DownArrow}
+            width={24}
+            isPointer
+            height={24}
+            fill={palette.lightBlue}
+          />
+        )}
       </Text>
     </th>
   );

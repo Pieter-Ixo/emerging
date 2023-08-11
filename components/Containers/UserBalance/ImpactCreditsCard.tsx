@@ -21,9 +21,10 @@ import {
   fetchUsersTokens,
 } from "@/redux/entityCollections/thunks";
 
-import DownArrow from "@/icons/downArrow";
-import ReceiveArrow from "@/icons/receiveArrow";
-import SendArrow from "@/icons/sendArrow";
+import BaseIcon from "@/components/Presentational/BaseIcon";
+import DownArrow from "@/assets/icons/down-arrow.svg";
+import ReceiveArrow from "@/assets/icons/receive-arrow.svg";
+import SendArrow from "@/assets/icons/send-arrow.svg";
 
 import {
   ImpactCreditsButtonBlue,
@@ -95,13 +96,17 @@ function ImpactCreditsCard() {
               <Flex align="flex-end" justify="space-between">
                 <ImpactCreditsButtonGrey
                   onClick={() => {}}
-                  leftIcon={<SendArrow />}
+                  leftIcon={
+                    <BaseIcon Icon={SendArrow} width={24} height={24} />
+                  }
                 >
                   Send
                 </ImpactCreditsButtonGrey>
                 <ImpactCreditsButtonGrey
                   onClick={() => {}}
-                  leftIcon={<ReceiveArrow />}
+                  leftIcon={
+                    <BaseIcon width={24} height={24} Icon={ReceiveArrow} />
+                  }
                 >
                   Receive
                 </ImpactCreditsButtonGrey>
@@ -121,7 +126,15 @@ function ImpactCreditsCard() {
             </Flex>
             <Stack spacing="xs">
               <ImpactCreditsButtonBlue
-                leftIcon={<DownArrow fill={palette.White} />}
+                leftIcon={
+                  <BaseIcon
+                    isPointer
+                    width={24}
+                    height={24}
+                    fill={palette.White}
+                    Icon={DownArrow}
+                  />
+                }
                 bg={palette.greenFull}
                 styles={{
                   root: {

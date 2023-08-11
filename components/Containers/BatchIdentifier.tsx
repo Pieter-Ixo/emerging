@@ -1,8 +1,9 @@
 import { Text, CopyButton } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
-import Copy from "@/icons/copy";
 import shortStr from "@/utils/shortStr";
+import BaseIcon from "@/components/Presentational/BaseIcon";
+import Copy from "@/assets/icons/copy.svg";
 
 export default function BatchIdentifier({
   name,
@@ -29,9 +30,16 @@ export default function BatchIdentifier({
           }}
         >
           {`${name}/${shortStr(index, 25, 10)}`}
-          <Copy
-            fill={copied ? palette.brightBlue : palette.fullBlue}
+          <BaseIcon
+            Icon={Copy}
+            width="18"
+            height="19"
             style={{ position: "absolute", top: "2px", marginLeft: "1em" }}
+            theme={{
+              notSelected: {
+                fill: copied ? palette.brightBlue : palette.fullBlue,
+              },
+            }}
           />
         </Text>
       )}

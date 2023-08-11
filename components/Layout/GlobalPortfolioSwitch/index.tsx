@@ -1,30 +1,13 @@
 import { Flex } from "@mantine/core";
-import Link from "next/link";
-import { useMediaQuery } from "@mantine/hooks";
-import { useAppSelector } from "@/hooks/redux";
+// import { useMediaQuery } from "@mantine/hooks";
 
-import PortfolioIcon from "@/icons/portfolio-icon";
-import GlobalIcon from "@/icons/global-icon";
-import WalletNavIcon from "@/icons/wallet-nav-icon";
+// import WalletNavIcon from "@/icons/wallet-nav-icon";
+import GlobalIconLink from "./components/GlobalIconLink";
+import PortfolioIconLink from "./components/PortfolioIconLink";
 
 type Props = {
   selectedLink: "global" | "portfolio";
 };
-
-function PortfolioLink({ isSelected }: { isSelected: boolean }) {
-  const userAddress = useAppSelector((state) => state.user.connectedWallet);
-  if (!userAddress)
-    return (
-      <Link href="/collections/portfolio" style={{ pointerEvents: "none" }}>
-        <PortfolioIcon status="disabled" />
-      </Link>
-    );
-  return (
-    <Link href="/collections/portfolio">
-      <PortfolioIcon status={isSelected ? "selected" : "notSelected"} />
-    </Link>
-  );
-}
 
 export default function GlobalPortfolioSwitch({
   selectedLink = "global",
@@ -32,17 +15,13 @@ export default function GlobalPortfolioSwitch({
   const isGlobalSelected = selectedLink === "global";
   const isPortfolioSelected = selectedLink === "portfolio";
 
-  // Use when a mobile view is required
   // const isScreenWiderThanMobile = useMediaQuery("(min-width: 768px)");
 
   return (
     <Flex align="center" gap={16}>
-      {/* Use when a mobile view is required */}
       {/* {!isScreenWiderThanMobile && <WalletNavIcon />} */}
-      <Link href="/collections/global">
-        <GlobalIcon selected={isGlobalSelected} />
-      </Link>
-      <PortfolioLink isSelected={isPortfolioSelected} />
+      <GlobalIconLink isSelected={isGlobalSelected} />
+      <PortfolioIconLink isSelected={isPortfolioSelected} />
     </Flex>
   );
 }

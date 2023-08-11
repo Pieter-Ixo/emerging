@@ -2,7 +2,8 @@ import { Modal, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
 import { palette } from "@/theme/palette";
-import Generated from "@/icons/generated";
+import BaseIcon from "@/components/Presentational/BaseIcon";
+import Generated from "@/assets/icons/generated.svg";
 
 import { ImpactCreditsButtonBlue } from "../StyledButtons";
 
@@ -20,7 +21,14 @@ export default function WithdrowCarbonButton({
   return (
     <>
       <ImpactCreditsButtonBlue
-        leftIcon={<Generated fill={palette.White} />}
+        leftIcon={
+          <BaseIcon
+            Icon={Generated}
+            width={25}
+            height={24}
+            fill={palette.White}
+          />
+        }
         onClick={() => open()}
       >
         {totalClaimable} CARBON to withdrow

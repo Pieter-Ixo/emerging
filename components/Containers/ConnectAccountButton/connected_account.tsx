@@ -8,8 +8,9 @@ import { connectWallet, disconnectWallet } from "@/redux/userSlice";
 import { palette } from "@/theme/palette";
 import { WALLET_TYPE } from "@/types/wallet";
 
-import WalletIcon from "@/icons/wallet";
-import DisconnectWalletIcon from "@/icons/disconnectWallet";
+import BaseIcon from "@/components/Presentational/BaseIcon";
+import Wallet from "@/assets/icons/wallet.svg";
+import DisconnectWallet from "@/assets/icons/disconnect-wallet.svg";
 
 function ConnectAccountButton() {
   const dispatch = useAppDispatch();
@@ -40,7 +41,7 @@ function ConnectAccountButton() {
                 backgroundColor: palette.Neutral200,
               }}
             >
-              <WalletIcon />
+              <BaseIcon width={18} height={18} Icon={Wallet} />
               <Text ml="sm" style={{ overflow: "clip" }}>
                 {shortStr(userAddress, 21, 10, "...") || "..."}
               </Text>
@@ -54,7 +55,14 @@ function ConnectAccountButton() {
                 logoutWallet();
               }}
             >
-              <DisconnectWalletIcon />
+              <BaseIcon
+                width={46}
+                variant="circle"
+                isPointer
+                height={46}
+                status="selected"
+                Icon={DisconnectWallet}
+              />
             </ActionIcon>
           </Flex>
         </Flex>
@@ -77,7 +85,15 @@ function ConnectAccountButton() {
         }}
         w="99%"
         radius={23}
-        leftIcon={<WalletIcon fill="#FFFFFF" />}
+        leftIcon={
+          <BaseIcon
+            width={18}
+            height={18}
+            isPointer
+            Icon={Wallet}
+            fill={palette.White}
+          />
+        }
         h={46}
       >
         Connect My Account
