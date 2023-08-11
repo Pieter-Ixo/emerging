@@ -18,13 +18,14 @@ export default async function requestClaimCerFilled(
 
   const projectEntityId = claimCer?.credentialSubject.claim.project.id;
 
-  const [fuelPurchase, project] = await Promise.all([
+  const [fuelPurchase, project] = await Promise.allSettled([
     request<IFuelPurchase>(`${cellnodeURL}${fuelPurchaseId}`),
     requestEntityWithProfile(projectEntityId),
   ]);
 
-  claimCer._fuelPurchase = fuelPurchase;
-  claimCer._project = project;
+  if (fuelPurchase.status === "fulfilled")
+    claimCer._fuelPurchase = fuelPurchase.value;
+  if (project.status === "fulfilled") claimCer._project = project.value;
 
   return claimCer;
 }
