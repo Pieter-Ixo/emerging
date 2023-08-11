@@ -121,8 +121,14 @@ function ImpactCreditsCard() {
             </Flex>
             <Stack spacing="xs">
               <ImpactCreditsButtonBlue
-                leftIcon={<DownArrow />}
+                leftIcon={<DownArrow fill={palette.White} />}
                 bg={palette.greenFull}
+                styles={{
+                  root: {
+                    backgroundColor: palette.greenFull,
+                    ":hover": { backgroundColor: palette.greenDarker },
+                  },
+                }}
               >
                 offset my footprint
               </ImpactCreditsButtonBlue>

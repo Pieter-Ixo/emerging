@@ -8,13 +8,13 @@ import { connectWallet, disconnectWallet } from "@/redux/userSlice";
 import { palette } from "@/theme/palette";
 import { WALLET_TYPE } from "@/types/wallet";
 
-import Wallet from "@/icons/wallet";
-import DisconnectWallet from "@/icons/disconnectWallet";
+import WalletIcon from "@/icons/wallet";
+import DisconnectWalletIcon from "@/icons/disconnectWallet";
 
 function ConnectAccountButton() {
   const dispatch = useAppDispatch();
   const { wallet, updateWalletType, logoutWallet } = useContext(WalletContext);
-  const contextUserAddress = wallet.user?.address; // && "ixo1xwn45d6xhe3egcz3nqlfc2elpc3h6usy6yw3uk";
+  const contextUserAddress = wallet.user?.address;
   const userAddress = useAppSelector((state) => state.user.connectedWallet);
 
   useEffect(() => {
@@ -29,33 +29,32 @@ function ConnectAccountButton() {
       <Card p="lg" radius={16}>
         <Flex direction="column" gap={30}>
           <Text>Connected Account</Text>
-          <Flex align="center" gap={8} sx={{ width: "100%" }}>
-            <Text
+          <Flex align="center" justify="space-between" gap={8}>
+            <Flex
+              justify="space-around"
+              align="center"
+              px="xs"
               style={{
                 borderRadius: 23,
                 height: 46,
                 backgroundColor: palette.Neutral200,
-                display: "flex",
-                justifyContent: "space-around",
-                alignItems: "center",
-                paddingLeft: 15,
-                paddingRight: 15,
               }}
             >
-              <Wallet />
-              <Text style={{ marginLeft: 10, overflow: "clip" }}>
+              <WalletIcon />
+              <Text ml="sm" style={{ overflow: "clip" }}>
                 {shortStr(userAddress, 21, 10, "...") || "..."}
               </Text>
-            </Text>
+            </Flex>
             <ActionIcon
               variant="transparent"
-              w="100%"
+              w="50px"
+              h="50px"
               onClick={() => {
                 dispatch(disconnectWallet());
                 logoutWallet();
               }}
             >
-              <DisconnectWallet />
+              <DisconnectWalletIcon />
             </ActionIcon>
           </Flex>
         </Flex>
@@ -78,7 +77,7 @@ function ConnectAccountButton() {
         }}
         w="99%"
         radius={23}
-        leftIcon={<Wallet fill="#FFFFFF" />}
+        leftIcon={<WalletIcon fill="#FFFFFF" />}
         h={46}
       >
         Connect My Account

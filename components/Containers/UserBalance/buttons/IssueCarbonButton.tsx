@@ -19,7 +19,10 @@ export default function IssueCarbonButton({
 
   return (
     <>
-      <ImpactCreditsButtonBlue leftIcon={<DownArrow />} onClick={() => open()}>
+      <ImpactCreditsButtonBlue
+        leftIcon={<DownArrow fill={palette.White} />}
+        onClick={() => open()}
+      >
         {totalClaimable} CARBON to isssue
       </ImpactCreditsButtonBlue>
       <Modal
