@@ -47,6 +47,7 @@ function CarbonIssueCard({ amount = 0 }: CarbonIssueCardProps) {
               border: `1px solid ${palette.whiteTransparent}`,
             }}
             variant="outline"
+            disabled={amount === 0}
             radius="md"
             size="lg"
             uppercase
