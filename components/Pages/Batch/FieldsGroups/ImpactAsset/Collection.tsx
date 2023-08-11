@@ -3,7 +3,7 @@ import { Button, Flex, Text } from "@mantine/core";
 import ProfileCard from "@/components/Containers/ProfileCard";
 import useDetailPortal from "@/hooks/useDetailPortal";
 
-import VerifyIcon from "@/icons/batches/VerifyIcon";
+import VerifyIcon from "@/assets/icons/VerifyIcon";
 import { FieldText } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
 

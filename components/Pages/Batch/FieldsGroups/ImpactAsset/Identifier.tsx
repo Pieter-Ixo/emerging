@@ -4,7 +4,7 @@ import useDetailPortal from "@/hooks/useDetailPortal";
 import ProfileCard from "@/components/Containers/ProfileCard";
 import dateLocale from "@/utils/dateLocale";
 
-import VerifyIcon from "@/icons/batches/VerifyIcon";
+import VerifyIcon from "@/assets/icons/VerifyIcon";
 import { FieldText } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
 

@@ -4,7 +4,7 @@ import JSONViewer from "@/components/Presentational/JSONViewer";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import { palette } from "@/theme/palette";
 
-import VerifyIcon from "@/icons/batches/VerifyIcon";
+import VerifyIcon from "@/assets/icons/VerifyIcon";
 import { FieldText } from "../styledComponents";
 import { AssetAttributesProps } from "./props";
 
