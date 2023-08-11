@@ -30,32 +30,32 @@ function PieChart({
   const chartConfig = [
     {
       title: "To issue",
-      value: 0 || 0.1,
+      value: 0,
       color: palette.lightBlue,
       text: "AVAILABLE CREDITS",
     },
     {
       title: "Available",
-      value: totalTokenAmount || 0.1,
+      value: totalTokenAmount,
       color: "#2B94F5",
       text: "CARBON CREDITS",
     },
     {
       title: "Offset",
-      value: totalOffset || 0.1,
+      value: totalOffset,
       color: "#73B556",
       text: "CARBON CREDITS",
     },
     {
       title: "Transferred",
-      value: totalTransferred || 0.1,
+      value: totalTransferred,
       color: "#E79903",
       text: "CARBON CREDITS",
     },
   ];
 
   function toggleActiveSemiCircle(i: number) {
-    if (chartConfig[i].value !== 0.1) {
+    if (chartConfig[i].value !== 0) {
       setActive(i);
     }
   }
@@ -79,7 +79,11 @@ function PieChart({
             startAngle={270}
             animate
             onClick={(_, i) => toggleActiveSemiCircle(i)}
-            data={chartConfig}
+            data={chartConfig.map((semi) =>
+              semi.value === 0
+                ? { ...semi, value: 0.1 }
+                : { ...semi, value: semi.value }
+            )}
             segmentsStyle={{
               cursor: "pointer",
               zIndex: 1,
@@ -105,7 +109,7 @@ function PieChart({
             styles={{ fontSize: 20, lineHeight: "20px" }}
           >
             <Text size={28} mb={5} ta="center" lh="25px">
-              {activeSection && activeSection?.value < 1
+              {activeSection && activeSection?.value === 0
                 ? "0"
                 : (activeSection?.value ?? totalMinted).toLocaleString()}
             </Text>
@@ -130,7 +134,7 @@ function PieChart({
             variant="default"
             px="sm"
             display="flex"
-            disabled={semi.value < 1}
+            disabled={semi.value === 0}
             radius="lg"
             sx={{
               alignItems: "center",
