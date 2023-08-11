@@ -18,7 +18,7 @@ import { queryAllBalances } from "@/utils/query";
 import { initializeWallet } from "@/utils/wallets";
 import { KEPLR_CHAIN_INFO_TYPE } from "@/types/chain";
 import { WALLET, WALLET_TYPE } from "@/types/wallet";
-import { Flex, Loader } from "@mantine/core";
+import { Center, Loader } from "@mantine/core";
 import { ChainContext } from "./chain";
 
 // FIXME: EMERGING-146: get rid of context, create new redux slice
@@ -166,18 +166,10 @@ export function WalletProvider({ children }: HTMLAttributes<HTMLDivElement>) {
 
   return (
     <WalletContext.Provider value={value}>
-      {!loaded ? (
-        <Flex
-          direction="column"
-          justify="center"
-          align="center"
-          p="1rem"
-          h="100%"
-          w="100%"
-          mih="100vh"
-        >
+      {loaded ? (
+        <Center mih="100vh">
           <Loader size={40} />
-        </Flex>
+        </Center>
       ) : (
         children
       )}
