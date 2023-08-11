@@ -1,7 +1,7 @@
 import { Flex } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
+// import { useMediaQuery } from "@mantine/hooks";
 
-import WalletNavIcon from "@/icons/wallet-nav-icon";
+// import WalletNavIcon from "@/icons/wallet-nav-icon";
 import GlobalIconLink from "./components/GlobalIconLink";
 import PortfolioIconLink from "./components/PortfolioIconLink";
 
@@ -15,11 +15,11 @@ export default function GlobalPortfolioSwitch({
   const isGlobalSelected = selectedLink === "global";
   const isPortfolioSelected = selectedLink === "portfolio";
 
-  const isScreenWiderThanMobile = useMediaQuery("(min-width: 768px)");
+  // const isScreenWiderThanMobile = useMediaQuery("(min-width: 768px)");
 
   return (
     <Flex align="center" gap={16}>
-      {!isScreenWiderThanMobile && <WalletNavIcon />}
+      {/* {!isScreenWiderThanMobile && <WalletNavIcon />} */}
       <GlobalIconLink isSelected={isGlobalSelected} />
       <PortfolioIconLink isSelected={isPortfolioSelected} />
     </Flex>

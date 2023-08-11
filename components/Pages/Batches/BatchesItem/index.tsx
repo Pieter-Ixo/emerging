@@ -4,9 +4,10 @@ import { Button, Flex, Sx, Text } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
 
-import Icon1 from "@/icons/batches/Icon1";
-import Icon2 from "@/icons/batches/Icon2";
-import Icon3 from "@/icons/batches/Icon3";
+import BaseIcon from "@/components/Presentational/BaseIcon";
+import Batch1 from "@/assets/icons/batch-1.svg";
+import Batch2 from "@/assets/icons/batch-2.svg";
+import Batch3 from "@/assets/icons/batch-3.svg";
 
 import BatchIdentifier from "@/components/Containers/BatchIdentifier";
 
@@ -107,13 +108,13 @@ export default function BatchesItem({
 
       <Flex gap="sm" justify="center" align="center" direction="row">
         <BatchButton>
-          <Icon1 />
+          <BaseIcon fill={palette.White} width={24} height={25} Icon={Batch1} />
         </BatchButton>
         <BatchButton>
-          <Icon2 />
+          <BaseIcon fill={palette.White} width={24} height={25} Icon={Batch2} />
         </BatchButton>
         <BatchButton>
-          <Icon3 />
+          <BaseIcon fill={palette.White} width={24} height={25} Icon={Batch3} />
         </BatchButton>
         <Button
           onClick={(e) => onOffsetBtnClick(e)}

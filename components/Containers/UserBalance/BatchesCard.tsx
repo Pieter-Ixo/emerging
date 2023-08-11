@@ -10,7 +10,8 @@ import {
   selectAdminTokensIsLoading,
 } from "@/redux/entityCollections/selectors";
 import { IEntityExtended } from "@/types/entityCollections";
-import Generated from "@/icons/generated";
+import Generated from "@/assets/icons/generated.svg";
+import BaseIcon from "@/components/Presentational/BaseIcon";
 
 import { ImpactCreditsButtonBlue } from "./StyledButtons";
 
@@ -46,7 +47,14 @@ export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
         <Stack spacing="xs">
           <Link href={batchDashboardHref}>
             <ImpactCreditsButtonBlue
-              leftIcon={<Generated fill={palette.White} />}
+              leftIcon={
+                <BaseIcon
+                  Icon={Generated}
+                  width={25}
+                  height={24}
+                  fill={palette.White}
+                />
+              }
             >
               Explore
             </ImpactCreditsButtonBlue>

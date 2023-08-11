@@ -24,7 +24,7 @@ const initialTheme: Record<IconStatus, IconProp> = {
 };
 
 function BaseIcon({
-  status,
+  status = "notSelected",
   Icon,
   theme = initialTheme,
   isPointer = false,

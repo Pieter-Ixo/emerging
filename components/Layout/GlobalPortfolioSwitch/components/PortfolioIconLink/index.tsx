@@ -1,4 +1,4 @@
-import BaseIcon from "@/icons";
+import BaseIcon from "@/components/Presentational/BaseIcon";
 import Link from "next/link";
 import PortfolioIcon from "@/assets/icons/portfolio.svg";
 import { useAppSelector } from "@/hooks/redux";
@@ -6,7 +6,7 @@ import { useAppSelector } from "@/hooks/redux";
 type Props = {
   isSelected: boolean;
 };
-function PortfolioIconLink({ isSelected }: Props) {
+export default function PortfolioIconLink({ isSelected }: Props) {
   const status = isSelected ? "selected" : "notSelected";
 
   const userAddress = useAppSelector((state) => state.user.connectedWallet);
@@ -37,5 +37,3 @@ function PortfolioIconLink({ isSelected }: Props) {
     </Link>
   );
 }
-
-export default PortfolioIconLink;

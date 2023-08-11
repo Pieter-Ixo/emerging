@@ -1,13 +1,13 @@
 import Link from "next/link";
 
-import BaseIcon from "@/icons";
+import BaseIcon from "@/components/Presentational/BaseIcon";
 import GlobalIcon from "@/assets/icons/global.svg";
 
 type Props = {
   isSelected: boolean;
-  };
+};
 
-function GlobalIconLink({ isSelected }: Props) {
+export default function GlobalIconLink({ isSelected }: Props) {
   const status = isSelected ? "selected" : "notSelected";
 
   return (
@@ -23,5 +23,3 @@ function GlobalIconLink({ isSelected }: Props) {
     </Link>
   );
 }
-
-export default GlobalIconLink;

@@ -6,7 +6,7 @@ export type IconProp = { stroke?: string; fill?: string; bgColor?: string };
 export type IconVariant = "circle" | "default";
 
 export type BaseIconProps = SVGProps<SVGSVGElement> & {
-  status: Status;
+  status?: Status;
   Icon: ElementType;
   theme?: {
     selected?: IconProp;
