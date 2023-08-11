@@ -55,9 +55,7 @@ function PieChart({
   ];
 
   function toggleActiveSemiCircle(i: number) {
-    if (chartConfig[i].value !== 0) {
-      setActive(i);
-    }
+    setActive(i);
   }
   const activeSection = active !== null ? chartConfig[active] : null;
 
@@ -134,7 +132,6 @@ function PieChart({
             variant="default"
             px="sm"
             display="flex"
-            disabled={semi.value === 0}
             radius="lg"
             sx={{
               alignItems: "center",
