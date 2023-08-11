@@ -1,13 +1,15 @@
 import Link from "next/link";
 
-import BaseIcon, { IconStatus } from "@/icons";
+import BaseIcon from "@/icons";
 import GlobalIcon from "@/assets/icons/global.svg";
 
 type Props = {
-    status: IconStatus;
+  isSelected: boolean;
   };
 
-function GlobalIconLink({ status }: Props) {
+function GlobalIconLink({ isSelected }: Props) {
+  const status = isSelected ? "selected" : "notSelected";
+
   return (
     <Link href="/collections/global">
       <BaseIcon

@@ -1,11 +1,9 @@
 import { Flex } from "@mantine/core";
-import Link from "next/link";
 import { useMediaQuery } from "@mantine/hooks";
 
 import WalletNavIcon from "@/icons/wallet-nav-icon";
-import GlobalIcon from "@/assets/icons/global.svg";
-import BaseIcon from "@/icons";
-import PortfolioLink from "./components/PortfolioLink";
+import GlobalIconLink from "./components/GlobalIconLink";
+import PortfolioIconLink from "./components/PortfolioIconLink";
 
 type Props = {
   selectedLink: "global" | "portfolio";
@@ -22,17 +20,8 @@ export default function GlobalPortfolioSwitch({
   return (
     <Flex align="center" gap={16}>
       {!isScreenWiderThanMobile && <WalletNavIcon />}
-      <Link href="/collections/global">
-        <BaseIcon
-          Icon={GlobalIcon}
-          width={24}
-          isPointer
-          height={25}
-          status={isGlobalSelected ? "selected" : "notSelected"}
-          variant="circle"
-        />
-      </Link>
-      <PortfolioLink isSelected={isPortfolioSelected} />
+      <GlobalIconLink isSelected={isGlobalSelected} />
+      <PortfolioIconLink isSelected={isPortfolioSelected} />
     </Flex>
   );
 }
