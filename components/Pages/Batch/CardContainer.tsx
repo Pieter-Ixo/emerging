@@ -11,7 +11,7 @@ export default function CardContainer({ children }: PropsWithChildren) {
       px="2rem"
       sx={{
         position: "relative",
-        backgroundImage: `url(/images/cert-bg.png)`,
+        backgroundImage: `url(/images/bg/certificate-bg.png)`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         height: 400,

@@ -4,6 +4,7 @@ import JSONViewer from "@/components/Presentational/JSONViewer";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import { palette } from "@/theme/palette";
 
+import VerifyIcon from "@/assets/icons/VerifyIcon";
 import { FieldText } from "../styledComponents";
 import { AssetAttributesProps } from "./props";
 
@@ -14,18 +15,38 @@ export default function AssetName({
   const { isVisible, openPortal, closePortal } = useDetailPortal("AssetName");
 
   const PortalChild = (
-    <Card shadow="sm" padding="lg" radius="md" withBorder>
-      <Flex
-        align="center"
-        justify="space-between"
-        sx={{ borderBottom: `1px solid ${palette.Black}` }}
-        mb="xs"
+    <>
+      <Card shadow="sm" padding="lg" radius="md" withBorder>
+        <Flex
+          align="center"
+          justify="space-between"
+          sx={{ borderBottom: `1px solid ${palette.Black}` }}
+          mb="xs"
+        >
+          <Text>Asset Credential Subject</Text>
+          <Text>DOWNLOAD ➔</Text>
+        </Flex>
+        <JSONViewer json={JSON.stringify(deviceCredSubject)} />
+      </Card>
+      <Button
+        color="yellow"
+        mt={40}
+        w="100%"
+        mb={16}
+        h={46}
+        radius="xl"
+        leftIcon={<VerifyIcon />}
       >
-        <Text>Asset Credential Subject</Text>
-        <Text>DOWNLOAD ➔</Text>
-      </Flex>
-      <JSONViewer json={JSON.stringify(deviceCredSubject)} />
-    </Card>
+        <Text fw={400} size={16}>
+          Unverified
+        </Text>
+      </Button>
+      <Button h={46} w="100%" radius="xl" leftIcon={<VerifyIcon />}>
+        <Text fw={400} size={16}>
+          Download
+        </Text>
+      </Button>
+    </>
   );
 
   return (

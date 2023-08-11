@@ -1,9 +1,16 @@
 import { useState } from "react";
 import { PieChart as PieChartImport } from "react-minimal-pie-chart";
-import { Box, Button, ColorSwatch, Flex, Image, Text } from "@mantine/core";
+import {
+  Box,
+  Button,
+  ColorSwatch,
+  Flex,
+  Image,
+  MediaQuery,
+  Text,
+} from "@mantine/core";
 
 import { palette } from "@/theme/palette";
-import { useMediaQuery } from "@mantine/hooks";
 
 type PieChartProps = {
   totalMinted?: number;
@@ -20,40 +27,39 @@ function PieChart({
 }: PieChartProps) {
   const [active, setActive] = useState<number | null>(null);
 
-  function toggleActiveSemiCircle(i: number) {
-    return setActive(i);
-  }
-
   const chartConfig = [
     {
       title: "To issue",
-      value: 0 || 0.1,
+      value: 0,
       color: palette.lightBlue,
       text: "AVAILABLE CREDITS",
     },
     {
       title: "Available",
-      value: totalTokenAmount || 0.1,
+      value: totalTokenAmount,
       color: "#2B94F5",
       text: "CARBON CREDITS",
     },
     {
       title: "Offset",
-      value: totalOffset || 0.1,
+      value: totalOffset,
       color: "#73B556",
       text: "CARBON CREDITS",
     },
     {
       title: "Transferred",
-      value: totalTransferred || 0.1,
+      value: totalTransferred,
       color: "#E79903",
       text: "CARBON CREDITS",
     },
   ];
 
+  function toggleActiveSemiCircle(i: number) {
+    if (chartConfig[i].value !== 0) {
+      setActive(i);
+    }
+  }
   const activeSection = active !== null ? chartConfig[active] : null;
-
-  const isWideDesktopScreen = useMediaQuery("(min-width: 1440px)");
 
   return (
     <Flex align="center" my={20} mx={0}>
@@ -73,7 +79,11 @@ function PieChart({
             startAngle={270}
             animate
             onClick={(_, i) => toggleActiveSemiCircle(i)}
-            data={chartConfig}
+            data={chartConfig.map((semi) =>
+              semi.value === 0
+                ? { ...semi, value: 0.1 }
+                : { ...semi, value: semi.value }
+            )}
             segmentsStyle={{
               cursor: "pointer",
               zIndex: 1,
@@ -94,19 +104,22 @@ function PieChart({
           bottom={0}
           style={{ color: activeSection?.color }}
         >
-          <Text
-            size={isWideDesktopScreen ? "36px" : "24px"}
-            mb={5}
-            ta="center"
-            lh={isWideDesktopScreen ? "25px" : "14px"}
+          <MediaQuery
+            smallerThan="xl"
+            styles={{ fontSize: 20, lineHeight: "20px" }}
           >
-            {activeSection && activeSection?.value < 1
-              ? "0"
-              : (activeSection?.value ?? totalMinted).toLocaleString()}
-          </Text>
-          <Text size={isWideDesktopScreen ? 13 : 10} ta="center" fw={500}>
-            {activeSection?.text ?? "CARBON PRODUCED"}
-          </Text>
+            <Text size={28} mb={5} ta="center" lh="25px">
+              {activeSection && activeSection?.value === 0
+                ? "0"
+                : (activeSection?.value ?? totalMinted).toLocaleString()}
+            </Text>
+          </MediaQuery>
+
+          <MediaQuery smallerThan="xl" styles={{ fontSize: 8 }}>
+            <Text size={13} ta="center" fw={500}>
+              {activeSection?.text ?? "CARBON PRODUCED"}
+            </Text>
+          </MediaQuery>
         </Flex>
       </Box>
       <Flex
@@ -121,6 +134,7 @@ function PieChart({
             variant="default"
             px="sm"
             display="flex"
+            disabled={semi.value === 0}
             radius="lg"
             sx={{
               alignItems: "center",

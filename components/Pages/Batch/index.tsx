@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Container, Grid, Title } from "@mantine/core";
+import { Container, Grid } from "@mantine/core";
 
-import { palette } from "@/theme/palette";
 import { IBatch } from "@/types/certificates";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import DetailPortalContext from "@/context/detailPortalContext";

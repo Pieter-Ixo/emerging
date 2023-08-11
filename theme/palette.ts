@@ -23,6 +23,7 @@ export const palette = {
   orangeFull: "#ED9526",
   orangeBright: "#FDC681",
   greenFull: "#61B43A",
+  greenDarker: "#47822b",
   greenBright: "#AAE38F",
   // Transparents
   whiteTransparent: "rgba(255, 255, 255, 0.30)",
