@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Text, Badge, Flex, Grid, Box } from "@mantine/core";
+import { Text, Badge, Flex, Grid, Box, Title } from "@mantine/core";
 import { palette } from "@/theme/palette";
 
 import ProgressBar from "@/components/Presentational/ProgressBar";
@@ -93,7 +93,7 @@ export default function EntitiesList({
                     radius="md"
                     variant="filled"
                   >
-                    0 CARBON to issue
+                    <Text size="xs">0 CARBON to issue</Text>
                   </Badge>
                   <ProgressBar
                     retired={(getEntityTotalMintedAmount(entity) || 0) / 2}
@@ -101,15 +101,15 @@ export default function EntitiesList({
                     totalTokenAmount={getEntityTotalMintedAmount(entity)}
                   />
                   <Flex gap={6} align="end" pt="xs">
-                    <Text
+                    <Title
+                      order={4}
                       c={palette.Black}
                       fw={700}
-                      size="23px"
                       sx={{ lineHeight: 1.1 }}
                     >
                       {entity.alsoKnownAs.replace("{id}", "")}
-                    </Text>
-                    <Text color="dimmed" size="12px">
+                    </Title>
+                    <Text color="dimmed" size="xs">
                       of {totalAssets ?? 500}
                     </Text>
                   </Flex>

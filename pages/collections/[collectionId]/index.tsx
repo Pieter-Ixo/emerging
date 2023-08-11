@@ -43,10 +43,10 @@ export default function Collection() {
     <AppLayout title="Emerging Collections">
       <PageHeader>
         <GlobalPortfolioSwitch selectedLink="global" />
-        <Title order={1} fw={300} size="40px" color="#9A9A9A">
+        <Title order={2} fw={300} color="#9A9A9A">
           Collections
         </Title>
-        <Title order={1} fw={300} size="40px">
+        <Title order={2} fw={300}>
           {`${collections?.[0]?._profile?.brand} ${collections?.[0]?._profile?.name}` ||
             "Collection"}
         </Title>

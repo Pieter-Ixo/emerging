@@ -21,7 +21,7 @@ export default function CollectionNewsCard() {
           height={170}
           maw={250}
         />
-        <Text fw={500} size={12}>
+        <Text fw={800} size="xs">
           Nov 12 22
         </Text>
         <Text>The success story of African Emerging Households</Text>

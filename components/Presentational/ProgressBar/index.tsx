@@ -27,7 +27,7 @@ export default function ProgressBar({
         <Text size={claimable ? "22px" : "12px"} fw="500" lts="1.1px">
           {totalTokenAmount || 0}
         </Text>
-        <Text size="12px" fw="300" lts="0.6px">
+        <Text size="xs" fw="300" lts="0.6px">
           {claimable ? "CARBON produced" : "CARBON Credits Available"}
         </Text>
       </Group>
@@ -42,19 +42,19 @@ export default function ProgressBar({
       />
       <Group>
         <Flex>
-          <Text size="12px" lts="0.6px" pr={5} color={palette.greenFull}>
+          <Text size="xs" lts="0.6px" pr={5} color={palette.greenFull}>
             {claimable
               ? `${retired?.toLocaleString()} retired`
               : `${retired?.toLocaleString()} Offset`}
           </Text>
           {!claimable && (
-            <Text size="12px" lts="0.6px" color={palette.Black}>
+            <Text size="xs" lts="0.6px" color={palette.Black}>
               / {produced} Produced
             </Text>
           )}
         </Flex>
         {claimable ? (
-          <Text size="12px" lts="0.6px" color={palette.fullBlue}>
+          <Text size="xs" lts="0.6px" color={palette.fullBlue}>
             {showClaimable}
           </Text>
         ) : null}

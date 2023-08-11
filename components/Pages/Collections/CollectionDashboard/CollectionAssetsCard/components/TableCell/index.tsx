@@ -1,5 +1,6 @@
 import { PropsWithChildren } from "react";
 import { palette } from "@/theme/palette";
+import { Text } from "@mantine/core";
 
 export default function TableCell({
   children,
@@ -14,7 +15,7 @@ export default function TableCell({
         backgroundColor: isActive ? "#F8F8F8" : "inherit",
       }}
     >
-      {children}
+      <Text size="md">{children}</Text>
     </td>
   );
 }

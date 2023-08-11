@@ -37,7 +37,7 @@ export default function ClaimIssuer({ claimIssuer }: Partial<OutcomeProps>) {
         <Avatar src={claimIssuer?.logoUrl} alt="" />
       </Flex>
 
-      <Title order={3} color="#01283B" fw={700} size="20px" lh="lg">
+      <Title order={4} color="#01283B" fw={700} size="20px" lh="lg">
         {claimIssuer?.name}
       </Title>
       <Text color="dimmed" size="12px" lh="100%">

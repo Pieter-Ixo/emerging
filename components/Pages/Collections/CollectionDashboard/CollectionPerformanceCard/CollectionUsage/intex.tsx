@@ -28,10 +28,10 @@ export default function CollectionUsage() {
   return sessionsSummary ? (
     <>
       <Flex pt={28} align="flex-end">
-        <Text size={56} color={palette.fullBlue} pr={10} fs="normal">
+        <Text size="xl" color={palette.fullBlue} pr={10} fs="normal">
           {totalValue.toLocaleString()}
         </Text>
-        <Text color={palette.Black} pb={18} fs="normal" weight={300}>
+        <Text size="md" color={palette.Black} pb={18} fs="normal" weight={300}>
           clean cooking sessions with renewable energy during last 2 months
         </Text>
       </Flex>

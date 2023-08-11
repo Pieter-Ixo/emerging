@@ -9,7 +9,7 @@ export default function BatchPage() {
     <AppLayout title="Carbon Certificate">
       <PageHeader>
         <GlobalPortfolioSwitch selectedLink="portfolio" />
-        <Title order={1} fw={300} size="40px">
+        <Title order={2} fw={300}>
           Carbon certificate
         </Title>
       </PageHeader>

@@ -35,7 +35,7 @@ export default function CollectionCard({ collection }: Props) {
         <Flex justify="space-between" align="flex-end">
           <Box>
             <Title
-              order={3}
+              order={4}
               c="white"
               weight={700}
               size="24px"

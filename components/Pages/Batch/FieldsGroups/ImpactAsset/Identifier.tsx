@@ -36,17 +36,17 @@ export default function Identifier({
               />
               <Group spacing="4px" pt="xs">
                 <Text>{label}</Text>
-                <Text color="dimmed" size="12px">
+                <Text color="dimmed" size="xs">
                   of {collectionAssetsAmount}
                 </Text>
               </Group>
             </Box>
             <Flex mt="md" direction="row" justify="space-between">
-              <Text color="dimmed" size="12px" lh="100%">
+              <Text color="dimmed" size="xs" lh="100%">
                 {startDate}
               </Text>
               {price && (
-                <Text color="dimmed" size="12px" lh="100%">
+                <Text color="dimmed" size="xs" lh="100%">
                   {`${price?.prefix} ${price?.metric}`}
                 </Text>
               )}
@@ -55,7 +55,7 @@ export default function Identifier({
         }
       />
       <Button w={277} mt={40} h={46} radius="xl" leftIcon={<VerifyIcon />}>
-        <Text fw={400} size={16}>
+        <Text fw={400} size="md">
           Verify
         </Text>
       </Button>
