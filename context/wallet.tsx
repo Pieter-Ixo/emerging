@@ -166,7 +166,7 @@ export function WalletProvider({ children }: HTMLAttributes<HTMLDivElement>) {
 
   return (
     <WalletContext.Provider value={value}>
-      {loaded ? (
+      {!loaded ? (
         <Center mih="100vh">
           <Loader size={40} />
         </Center>
