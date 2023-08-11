@@ -9,7 +9,7 @@ export default function PageBlock({ title, children, rightSide }: Props) {
   return (
     <Card radius={16} h="100%" px="lg" py="md">
       <Flex justify="space-between">
-        <Text ta="left" fw={400} transform="uppercase">
+        <Text size="md" ta="left" fw={400} transform="uppercase">
           {title}
         </Text>
         {rightSide}

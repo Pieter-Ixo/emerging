@@ -60,10 +60,10 @@ export default function ImpactsCharts({ activeTab, totalValue }: Props) {
   return (
     <Suspense fallback={<Loading />}>
       <Flex align="flex-end">
-        <Text size={56} color={accentColor} pr={10} fs="normal">
+        <Text size="xl" color={accentColor} pr={10} fs="normal">
           {(totalValue || 0).toLocaleString()}
         </Text>
-        <Text color={palette.Black} pb={18} fs="normal" weight={300}>
+        <Text size="md" color={palette.Black} pb={18} fs="normal" weight={300}>
           {getTabText(activeTab)}
         </Text>
       </Flex>

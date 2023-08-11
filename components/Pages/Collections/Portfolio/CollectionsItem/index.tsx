@@ -24,20 +24,25 @@ export default function CollectionsItem({
       radius={16}
     >
       <Card.Section>
-        <Image src={collection._profile?.imageUrl} height={150} alt="Collection's asset item" />
+        <Image
+          src={collection._profile?.imageUrl}
+          height={150}
+          alt="Collection's asset item"
+        />
       </Card.Section>
 
       <Flex gap="md" justify="space-between" p={12} bg={activeCardBg}>
         <Flex direction="column">
-          <Text size="sm">{collection._profile?.brand}</Text>
-          <Text size="sm">{collection._profile?.name}</Text>
+          <Text size="md">{collection._profile?.brand}</Text>
+          <Text size="md">{collection._profile?.name}</Text>
         </Flex>
         <Flex align="end">
           <Flex align="center" gap={8}>
-            <Text size="sm">{entitiesLength}</Text>
+            <Text size="md">{entitiesLength}</Text>
             <Badge
               sx={{ background: palette.greenFull }}
               radius="md"
+              size="md"
               variant="filled"
             >
               {collection._tokenIpfs?.properties.denom}
