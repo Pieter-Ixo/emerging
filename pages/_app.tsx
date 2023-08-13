@@ -37,7 +37,8 @@ function App({ Component, pageProps, router }: AppProps) {
         <style jsx global>{`
           @font-face {
             font-family: "RobotoCondensed";
-            src: url("/fonts/RobotoCondensed-Regular.ttf");
+            src: url("/fonts/RobotoCondensed-Regular.ttf"), local(Arial),
+              local(Helvetica);
             font-weight: regular;
             font-style: normal;
             font-display: swap;
