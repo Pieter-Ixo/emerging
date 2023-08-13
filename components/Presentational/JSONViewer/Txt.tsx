@@ -6,7 +6,6 @@ import { palette } from "@/theme/palette";
 const Txt = forwardRef<any, PropsWithChildren<TextProps>>((props, ref) => (
   <Text
     color={palette.darkestBlue}
-    ff="RobotoCondensed"
     size="13px"
     lh="200%"
     lts="1.3px"
