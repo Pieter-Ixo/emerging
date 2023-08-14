@@ -21,8 +21,8 @@ import {
 import fillCollection from "@/helpers/fillCollection";
 import fillEntity from "@/helpers/fillEntity";
 import { INewsPostsResponse } from "@/types/news";
-import request from "@/requests/request";
 
+import requestLastNewsPost from "@/requests/requesters/requestNews";
 import type { RootState } from "../store";
 
 export const fetchTotalCollectionEntities = createAsyncThunk<any, string>(
@@ -138,14 +138,9 @@ export const fillEntitiesForUserCollections = createAsyncThunk(
   }
 );
 
-export const fetchInitialNewsPost = createAsyncThunk(
-  "entityCollections/fetchInitialNewsPost",
-  async (): Promise<INewsPostsResponse | undefined> =>
-    request<INewsPostsResponse>(
-      `https://ixoworld.ghost.io/ghost/api/v3/content/posts?key=${
-        process.env.NEXT_PUBLIC_GHOST_CONTENT_API_KEY
-      }&limit=${1}&fields=title,feature_image,published_at`
-    )
+export const fetchLastNewsPost = createAsyncThunk(
+  "entityCollections/fetchLastNewsPost",
+  async (): Promise<INewsPostsResponse | undefined> => requestLastNewsPost()
 );
 
 export const fetchUsersTokens = createAsyncThunk(

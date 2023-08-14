@@ -18,7 +18,7 @@ import {
   fetchUsersTokens,
   fetchAdminTokens,
   fetchTotalCollectionEntities,
-  fetchInitialNewsPost,
+  fetchLastNewsPost,
 } from "./thunks";
 
 export type EntityCollectionState = {
@@ -36,9 +36,9 @@ export type EntityCollectionState = {
   isAdminTokensLoading: boolean;
   isUserTokensLoading: boolean;
   isEntitiesTotalTokensLoading: boolean;
-  initialNewsPost: INewsPostsResponse | undefined;
-  initialNewsPostError: string | undefined;
-  isInitialNewsPostLoading: boolean;
+  lastNewsPost: INewsPostsResponse | undefined;
+  lastNewsPostError: string | undefined;
+  isLastNewsPostLoading: boolean;
 };
 
 // TODO: GOD store: add new slices for GLOBAL COLLECTIONS and for USER's COLLECTIONS
@@ -57,9 +57,9 @@ const initialState: EntityCollectionState = {
   isAdminTokensLoading: false,
   isUserTokensLoading: false,
   isEntitiesTotalTokensLoading: true,
-  initialNewsPost: undefined,
-  initialNewsPostError: "",
-  isInitialNewsPostLoading: true,
+  lastNewsPost: undefined,
+  lastNewsPostError: "",
+  isLastNewsPostLoading: true,
 };
 
 const EntityCollectionSlice = createSlice({
@@ -171,16 +171,16 @@ const EntityCollectionSlice = createSlice({
     });
 
     // fetchInitialNewsPost
-    builder.addCase(fetchInitialNewsPost.pending, (state) => {
-      state.isInitialNewsPostLoading = true;
+    builder.addCase(fetchLastNewsPost.pending, (state) => {
+      state.isLastNewsPostLoading = true;
     });
-    builder.addCase(fetchInitialNewsPost.fulfilled, (state, action) => {
-      state.initialNewsPost = action.payload;
-      state.isInitialNewsPostLoading = false;
+    builder.addCase(fetchLastNewsPost.fulfilled, (state, action) => {
+      state.lastNewsPost = action.payload;
+      state.isLastNewsPostLoading = false;
     });
-    builder.addCase(fetchInitialNewsPost.rejected, (state) => {
-      state.initialNewsPostError = "An error occurred while fetching data.";
-      state.isInitialNewsPostLoading = false;
+    builder.addCase(fetchLastNewsPost.rejected, (state) => {
+      state.lastNewsPostError = "An error occurred while fetching data.";
+      state.isLastNewsPostLoading = false;
     });
 
     builder.addCase(HYDRATE, (state, action) => ({

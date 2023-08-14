@@ -203,19 +203,19 @@ export const selectEntityByExternalId = (
   return entities?.find((entity) => entity.externalId === externalId);
 };
 
-export const selectInitialNewsPost = createDraftSafeSelector(
+export const selectLastNewsPost = createDraftSafeSelector(
   selectEntityCollections,
   (entityCollectionsState: EntityCollectionState) =>
-    entityCollectionsState.initialNewsPost
+    entityCollectionsState.lastNewsPost
 );
 
-export const selectInitialNewsPostError = createDraftSafeSelector(
+export const selectLastNewsPostError = createDraftSafeSelector(
   selectEntityCollections,
   (entityCollectionsState: EntityCollectionState) =>
-    entityCollectionsState.initialNewsPostError
+    entityCollectionsState.lastNewsPostError
 );
-export const selectInitialNewsPostLoading = createDraftSafeSelector(
+export const selectLastNewsPostLoading = createDraftSafeSelector(
   selectEntityCollections,
   (entityCollectionsState: EntityCollectionState) =>
-    entityCollectionsState.isInitialNewsPostLoading
+    entityCollectionsState.isLastNewsPostLoading
 );
