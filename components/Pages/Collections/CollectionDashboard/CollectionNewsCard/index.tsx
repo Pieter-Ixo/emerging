@@ -4,12 +4,12 @@ import { useEffect } from "react";
 
 import dateToDayMonthYear from "@/utils/dates/dateTo";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { fetchLastNewsPost } from "@/redux/entityCollections/thunks";
 import {
-  selectInitialNewsPost,
-  selectInitialNewsPostError,
-  selectInitialNewsPostLoading,
+  selectLastNewsPost,
+  selectLastNewsPostError,
+  selectLastNewsPostLoading,
 } from "@/redux/entityCollections/selectors";
-import { fetchInitialNewsPost } from "@/redux/entityCollections/thunks";
 
 import { palette } from "@/theme/palette";
 import useValueFromRouter from "@/utils/useValueFromRouter";
@@ -17,17 +17,17 @@ import ArrowRight from "./icons/arrowRight";
 import PageBlock from "../PageBlock";
 
 export default function CollectionNewsCard() {
-  const initialNewsPost = useAppSelector(selectInitialNewsPost);
-  const initialNewsPostError = useAppSelector(selectInitialNewsPostError);
-  const isInitialNewsPostLoading = useAppSelector(selectInitialNewsPostLoading);
+  const lastNewsPost = useAppSelector(selectLastNewsPost);
+  const lastNewsPostError = useAppSelector(selectLastNewsPostError);
+  const isLastNewsPostLoading = useAppSelector(selectLastNewsPostLoading);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchInitialNewsPost());
+    dispatch(fetchLastNewsPost());
   }, []);
 
-  const isPostExists = initialNewsPost?.posts?.length;
+  const isPostExists = lastNewsPost?.posts?.length;
 
   const collectionId = useValueFromRouter("collectionId");
 
@@ -45,26 +45,26 @@ export default function CollectionNewsCard() {
         </Anchor>
       }
     >
-      {isInitialNewsPostLoading ? (
+      {isLastNewsPostLoading ? (
         <Center mih={267} pb={40}>
           <Loader />
         </Center>
       ) : isPostExists ? (
         <Flex mih={267} direction="column" gap={8}>
           <Image
-            src={initialNewsPost?.posts[0]?.feature_image}
+            src={lastNewsPost?.posts[0]?.feature_image}
             alt="news story image"
             height={170}
           />
           <Text fw={800} size="sm">
-            {dateToDayMonthYear(initialNewsPost?.posts[0]?.published_at)}
+            {dateToDayMonthYear(lastNewsPost?.posts[0]?.published_at)}
           </Text>
-          <Text size="md">{initialNewsPost?.posts[0]?.title}</Text>
+          <Text size="md">{lastNewsPost?.posts[0]?.title}</Text>
         </Flex>
       ) : (
         <Center mih={267} pb={40}>
           <Text size="sm" color="red">
-            {initialNewsPostError}
+            {lastNewsPostError}
           </Text>
         </Center>
       )}
