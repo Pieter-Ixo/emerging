@@ -12,8 +12,10 @@ import {
 } from "@/redux/entityCollections/selectors";
 
 import { palette } from "@/theme/palette";
+import BaseIcon from "@/components/Presentational/BaseIcon";
 import useValueFromRouter from "@/utils/useValueFromRouter";
-import ArrowRight from "./icons/arrowRight";
+import ArrowRight from "@/assets/icons/arrow-right.svg";
+
 import PageBlock from "../PageBlock";
 import PageBlockCentralized from "./components/PageBlockCenter";
 
@@ -49,7 +51,6 @@ export default function CollectionNewsCard() {
     );
   }
 
-
   return (
     <PageBlock
       title="NEWS"
@@ -59,8 +60,10 @@ export default function CollectionNewsCard() {
           underline={false}
           color={palette.Black}
         >
-          SEE ALL
-          <ArrowRight pathFill="#000" />
+          <Flex>
+            <Text size="md">SEE ALL</Text>
+            <BaseIcon width={24} height={25} isPointer Icon={ArrowRight} />
+          </Flex>
         </Anchor>
       }
     >

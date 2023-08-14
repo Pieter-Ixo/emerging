@@ -219,3 +219,18 @@ export const selectLastNewsPostLoading = createDraftSafeSelector(
   (entityCollectionsState: EntityCollectionState) =>
     entityCollectionsState.isLastNewsPostLoading
 );
+export const selectIsNewsPostsLoading = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.isNewsPostsLoading
+);
+export const selectNewsPosts = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.newsPosts
+);
+export const selectNewsPostsError = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.newsPostsError
+);

@@ -1,14 +1,21 @@
-import React, { PropsWithChildren } from "react";
-import { Anchor, Center } from "@mantine/core";
+import React from "react";
+import { Anchor, Center, Flex, Text } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
+import BaseIcon from "@/components/Presentational/BaseIcon";
+import ArrowRight from "@/assets/icons/arrow-right.svg";
+
 import PageBlock from "../../../PageBlock";
-import ArrowRight from "../../icons/arrowRight";
+
+type Props = {
+  children?: React.ReactNode;
+  collectionId?: string;
+};
 
 export default function PageBlockCentralized({
   children,
   collectionId,
-}: PropsWithChildren & { collectionId: string | undefined }) {
+}: Props) {
   return (
     <PageBlock
       title="NEWS"
@@ -19,8 +26,10 @@ export default function PageBlockCentralized({
             underline={false}
             color={palette.Black}
           >
-            SEE ALL
-            <ArrowRight pathFill="#000" />
+            <Flex>
+              <Text size="md">SEE ALL</Text>
+              <BaseIcon width={24} height={25} isPointer Icon={ArrowRight} />
+            </Flex>
           </Anchor>
         ) : null
       }
