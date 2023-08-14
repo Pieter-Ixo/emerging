@@ -1,5 +1,4 @@
-/* eslint-disable no-nested-ternary */
-import { Text, Image, Flex, Loader, Center } from "@mantine/core";
+import { Text, Image, Flex, Loader } from "@mantine/core";
 import { useEffect } from "react";
 
 import dateToDayMonthYear from "@/utils/dates/dateTo";
@@ -13,6 +12,7 @@ import {
 
 import ArrowRight from "./icons/arrowRight";
 import PageBlock from "../PageBlock";
+import PageBlockCentralized from "./components/PageBlockCenter";
 
 export default function CollectionNewsCard() {
   const lastNewsPost = useAppSelector(selectLastNewsPost);
@@ -27,6 +27,23 @@ export default function CollectionNewsCard() {
 
   const isPostExists = lastNewsPost?.posts?.length;
 
+  if (isLastNewsPostLoading) {
+    return (
+      <PageBlockCentralized>
+        <Loader />
+      </PageBlockCentralized>
+    );
+  }
+  if (!isPostExists) {
+    return (
+      <PageBlockCentralized>
+        <Text size="sm" color="red">
+          {lastNewsPostError}
+        </Text>
+      </PageBlockCentralized>
+    );
+  }
+
   return (
     <PageBlock
       title="NEWS"
@@ -37,29 +54,17 @@ export default function CollectionNewsCard() {
         </Text>
       }
     >
-      {isLastNewsPostLoading ? (
-        <Center mih={267} pb={40}>
-          <Loader />
-        </Center>
-      ) : isPostExists ? (
-        <Flex mih={267} direction="column" gap={8}>
-          <Image
-            src={lastNewsPost?.posts[0]?.feature_image}
-            alt="news story image"
-            height={170}
-          />
-          <Text fw={800} size="sm">
-            {dateToDayMonthYear(lastNewsPost?.posts[0]?.published_at)}
-          </Text>
-          <Text size="md">{lastNewsPost?.posts[0]?.title}</Text>
-        </Flex>
-      ) : (
-        <Center mih={267} pb={40}>
-          <Text size="sm" color="red">
-            {lastNewsPostError}
-          </Text>
-        </Center>
-      )}
+      <Flex mih={267} direction="column" gap={8}>
+        <Image
+          src={lastNewsPost?.posts[0]?.feature_image}
+          alt="news story image"
+          height={170}
+        />
+        <Text fw={800} size="sm">
+          {dateToDayMonthYear(lastNewsPost?.posts[0]?.published_at)}
+        </Text>
+        <Text size="md">{lastNewsPost?.posts[0]?.title}</Text>
+      </Flex>
     </PageBlock>
   );
 }
