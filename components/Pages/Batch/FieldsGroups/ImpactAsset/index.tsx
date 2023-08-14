@@ -1,6 +1,6 @@
 import { Flex } from "@mantine/core";
 import shortStr from "@/utils/shortStr";
-import dateLocale from "@/utils/dateLocale";
+import dateLocale from "@/utils/dates/dateLocale";
 import getEntityTotalTokenAmount, {
   getEntityTotalMintedAmount,
   getEntityTotalRetiredAmount,
