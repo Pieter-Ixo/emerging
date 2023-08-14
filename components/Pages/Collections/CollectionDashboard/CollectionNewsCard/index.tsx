@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import { Text, Image, Flex, Loader, Center } from "@mantine/core";
+import { Text, Image, Flex, Loader, Center, Anchor } from "@mantine/core";
 import { useEffect } from "react";
 
 import dateToDayMonthYear from "@/utils/dates/dateTo";
@@ -11,6 +11,8 @@ import {
 } from "@/redux/entityCollections/selectors";
 import { fetchInitialNewsPost } from "@/redux/entityCollections/thunks";
 
+import { palette } from "@/theme/palette";
+import useValueFromRouter from "@/utils/useValueFromRouter";
 import ArrowRight from "./icons/arrowRight";
 import PageBlock from "../PageBlock";
 
@@ -27,14 +29,20 @@ export default function CollectionNewsCard() {
 
   const isPostExists = initialNewsPost?.posts?.length;
 
+  const collectionId = useValueFromRouter("collectionId");
+
   return (
     <PageBlock
       title="NEWS"
       rightSide={
-        <Text>
+        <Anchor
+          href={`/collections/${collectionId}/news`}
+          underline={false}
+          color={palette.Black}
+        >
           SEE ALL
           <ArrowRight pathFill="#000" />
-        </Text>
+        </Anchor>
       }
     >
       {isInitialNewsPostLoading ? (

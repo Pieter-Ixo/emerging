@@ -48,8 +48,9 @@ export default function Collection() {
           Collections
         </Title>
         <Title order={2} fw={300}>
-          {`${collections?.[0]?._profile?.brand} ${collections?.[0]?._profile?.name}` ||
-            "Collection"}
+          {collections?.length
+            ? `${collections?.[0]?._profile?.brand} ${collections?.[0]?._profile?.name}`
+            : "Collection"}
         </Title>
       </PageHeader>
 
