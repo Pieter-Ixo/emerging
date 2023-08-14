@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { Text, Image, Flex, Loader, Center } from "@mantine/core";
 import { useEffect, useState } from "react";
 
@@ -11,7 +12,15 @@ export default function CollectionNewsCard() {
   const [initialNewsPost, setInitialNewsPost] = useState<
     INewsPostsResponse | undefined
   >();
+  const [initialNewsPostError, setInitialNewsPostError] = useState<
+    string | undefined
+  >();
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  const defaultErrorMessage = "An error occurred while fetching data.";
+
+  // eslint-disable-next-line consistent-return
   async function getFirstNewsPost() {
     try {
       const newsFirstPostResponse = await fetch(
@@ -19,16 +28,25 @@ export default function CollectionNewsCard() {
       );
       const newsFirstPostData = await newsFirstPostResponse.json();
 
+      if (newsFirstPostData.message) {
+        return setInitialNewsPostError(newsFirstPostData.message);
+      }
+
       setInitialNewsPost(newsFirstPostData);
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
+      setInitialNewsPostError(defaultErrorMessage);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   useEffect(() => {
     getFirstNewsPost();
   }, []);
+
+  const isPostExists =
+    initialNewsPost && initialNewsPost?.posts && initialNewsPost.posts.length;
+
   return (
     <PageBlock
       title="NEWS"
@@ -39,21 +57,27 @@ export default function CollectionNewsCard() {
         </Text>
       }
     >
-      {initialNewsPost ? (
+      {isLoading ? (
+        <Center mih={267} pb={40}>
+          <Loader />
+        </Center>
+      ) : isPostExists ? (
         <Flex mih={267} direction="column" gap={8}>
           <Image
-            src={initialNewsPost?.posts[0].feature_image}
+            src={initialNewsPost?.posts[0]?.feature_image}
             alt="news story image"
             height={170}
           />
           <Text fw={800} size="sm">
-            {dateToDayMonthYear(initialNewsPost?.posts[0].published_at)}
+            {dateToDayMonthYear(initialNewsPost?.posts[0]?.published_at)}
           </Text>
-          <Text size="md">{initialNewsPost?.posts[0].title}</Text>
+          <Text size="md">{initialNewsPost?.posts[0]?.title}</Text>
         </Flex>
       ) : (
         <Center mih={267} pb={40}>
-          <Loader />
+          <Text size="sm" color="red">
+            {initialNewsPostError || defaultErrorMessage}
+          </Text>
         </Center>
       )}
     </PageBlock>

@@ -26,8 +26,9 @@ export default async function handler(
 
       if (problem || !data) {
         // eslint-disable-next-line no-console
-        console.error("error", problem);
-        return problem;
+        return res
+          .status(500)
+          .json({ statusCode: 500, message: "Data not found" });
       }
       // @ts-ignore
       return res.status(200).json(data);
