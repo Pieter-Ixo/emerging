@@ -1,4 +1,4 @@
-import { Text, Image, Flex, Loader } from "@mantine/core";
+import { Text, Image, Flex, Loader, Center, Anchor } from "@mantine/core";
 import { useEffect } from "react";
 
 import dateToDayMonthYear from "@/utils/dates/dateTo";
@@ -10,6 +10,8 @@ import {
   selectLastNewsPostLoading,
 } from "@/redux/entityCollections/selectors";
 
+import { palette } from "@/theme/palette";
+import useValueFromRouter from "@/utils/useValueFromRouter";
 import ArrowRight from "./icons/arrowRight";
 import PageBlock from "../PageBlock";
 import PageBlockCentralized from "./components/PageBlockCenter";
@@ -18,6 +20,7 @@ export default function CollectionNewsCard() {
   const lastNewsPost = useAppSelector(selectLastNewsPost);
   const lastNewsPostError = useAppSelector(selectLastNewsPostError);
   const isLastNewsPostLoading = useAppSelector(selectLastNewsPostLoading);
+  const collectionId = useValueFromRouter("collectionId");
 
   const dispatch = useAppDispatch();
 
@@ -44,14 +47,19 @@ export default function CollectionNewsCard() {
     );
   }
 
+
   return (
     <PageBlock
       title="NEWS"
       rightSide={
-        <Text>
+        <Anchor
+          href={`/collections/${collectionId}/news`}
+          underline={false}
+          color={palette.Black}
+        >
           SEE ALL
           <ArrowRight pathFill="#000" />
-        </Text>
+        </Anchor>
       }
     >
       <Flex mih={267} direction="column" gap={8}>
