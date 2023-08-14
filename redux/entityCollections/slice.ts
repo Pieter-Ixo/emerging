@@ -9,7 +9,7 @@ import {
   IApiCollectionEntitiesTotalRetired,
 } from "@/types/entityCollections";
 
-import { INewsPostsResponse } from "@/types/news";
+import { INewsPostsResponse, INewsPostsResponseExtended } from "@/types/news";
 import {
   fetchAndFillCollections,
   fetchCollectionsByOwnerAddres,
@@ -19,6 +19,7 @@ import {
   fetchAdminTokens,
   fetchTotalCollectionEntities,
   fetchLastNewsPost,
+  fetchNewsPosts,
 } from "./thunks";
 
 export type EntityCollectionState = {
@@ -39,6 +40,9 @@ export type EntityCollectionState = {
   lastNewsPost: INewsPostsResponse | undefined;
   lastNewsPostError: string | undefined;
   isLastNewsPostLoading: boolean;
+  newsPosts: INewsPostsResponseExtended | undefined;
+  newsPostsError: string | undefined;
+  isNewsPostsLoading: boolean;
 };
 
 // TODO: GOD store: add new slices for GLOBAL COLLECTIONS and for USER's COLLECTIONS
@@ -60,6 +64,9 @@ const initialState: EntityCollectionState = {
   lastNewsPost: undefined,
   lastNewsPostError: "",
   isLastNewsPostLoading: true,
+  newsPosts:  undefined,
+  newsPostsError:  undefined,
+  isNewsPostsLoading: true,
 };
 
 const EntityCollectionSlice = createSlice({
@@ -181,6 +188,19 @@ const EntityCollectionSlice = createSlice({
     builder.addCase(fetchLastNewsPost.rejected, (state) => {
       state.lastNewsPostError = "An error occurred while fetching data.";
       state.isLastNewsPostLoading = false;
+    });
+
+    // fetchNewsPosts
+    builder.addCase(fetchNewsPosts.pending, (state) => {
+      state.isNewsPostsLoading = true;
+    });
+    builder.addCase(fetchNewsPosts.fulfilled, (state, action) => {
+      state.newsPosts = action.payload;
+      state.isNewsPostsLoading = false;
+    });
+    builder.addCase(fetchNewsPosts.rejected, (state) => {
+      state.newsPostsError = "An error occurred while fetching data.";
+      state.isNewsPostsLoading = false;
     });
 
     builder.addCase(HYDRATE, (state, action) => ({

@@ -11,7 +11,11 @@ interface INewsPost {
   title: string;
   feature_image: string;
   published_at: string;
+}
+
+interface INewsPostExtended extends INewsPost {
   excerpt: string;
+  id: string;
 }
 
 export interface INewsPostsResponse {
@@ -19,4 +23,7 @@ export interface INewsPostsResponse {
   meta: {
     pagination: INewsPagination;
   };
+}
+export interface INewsPostsResponseExtended extends INewsPostsResponse {
+  posts: INewsPostExtended[];
 }
