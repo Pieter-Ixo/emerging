@@ -1,3 +1,4 @@
+// date format: 1 Jul 2023
 export default function dateToDayMonthYear(date: string) {
   const parsedDate = new Date(date);
   const months = [

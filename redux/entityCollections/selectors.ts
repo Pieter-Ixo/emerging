@@ -202,3 +202,20 @@ export const selectEntityByExternalId = (
   const entities = selectAllEntities(state);
   return entities?.find((entity) => entity.externalId === externalId);
 };
+
+export const selectInitialNewsPost = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.initialNewsPost
+);
+
+export const selectInitialNewsPostError = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.initialNewsPostError
+);
+export const selectInitialNewsPostLoading = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.isInitialNewsPostLoading
+);
