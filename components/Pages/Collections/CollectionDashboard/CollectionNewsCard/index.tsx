@@ -1,6 +1,6 @@
-import { Text, Image, Flex, Loader, Anchor } from "@mantine/core";
-
+import { Text, Image, Flex, Loader, Center } from "@mantine/core";
 import { useEffect } from "react";
+import Link from "next/link";
 
 import dateToDayMonthYear from "@/utils/dates/dateTo";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
@@ -10,14 +10,12 @@ import {
   selectLastNewsPostError,
   selectLastNewsPostLoading,
 } from "@/redux/entityCollections/selectors";
-
 import { palette } from "@/theme/palette";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import ArrowRight from "@/assets/icons/arrow-right.svg";
 
 import PageBlock from "../PageBlock";
-import PageBlockCentralized from "./components/PageBlockCenter";
 
 export default function CollectionNewsCard() {
   const lastNewsPost = useAppSelector(selectLastNewsPost);
@@ -35,18 +33,22 @@ export default function CollectionNewsCard() {
 
   if (isLastNewsPostLoading) {
     return (
-      <PageBlockCentralized collectionId={collectionId}>
-        <Loader />
-      </PageBlockCentralized>
+      <PageBlock title="NEWS">
+        <Center mih={267} pb={40}>
+          <Loader />
+        </Center>
+      </PageBlock>
     );
   }
   if (!isPostExists) {
     return (
-      <PageBlockCentralized collectionId={collectionId}>
-        <Text size="sm" color="red">
-          {lastNewsPostError}
-        </Text>
-      </PageBlockCentralized>
+      <PageBlock title="NEWS">
+        <Center mih={267} pb={40}>
+          <Text size="sm" color="red">
+            {lastNewsPostError}
+          </Text>
+        </Center>
+      </PageBlock>
     );
   }
 
@@ -54,16 +56,17 @@ export default function CollectionNewsCard() {
     <PageBlock
       title="NEWS"
       rightSide={
-        <Anchor
-          href={`/collections/${collectionId}/news`}
-          underline={false}
-          color={palette.Black}
-        >
-          <Flex>
-            <Text size="md">SEE ALL</Text>
-            <BaseIcon width={24} height={25} isPointer Icon={ArrowRight} />
-          </Flex>
-        </Anchor>
+        collectionId ? (
+          <Link
+            href={`/collections/${collectionId}/news`}
+            color={palette.Black}
+          >
+            <Flex>
+              <Text size="md">SEE ALL</Text>
+              <BaseIcon width={24} height={25} isPointer Icon={ArrowRight} />
+            </Flex>
+          </Link>
+        ) : null
       }
     >
       <Flex mih={267} direction="column" gap={8}>

@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useIntersection } from "@mantine/hooks";
-import { Anchor, Center, Loader, Title } from "@mantine/core";
+import { Center, Loader, Title } from "@mantine/core";
+import Link from "next/link";
 
 import AppLayout from "@/components/Layout/AppLayout";
 import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 import PageBlock from "@/components/Pages/Collections/CollectionDashboard/PageBlock";
-import NewsPost from "@/components/Pages/Collections/News/NewsPost";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
@@ -13,7 +13,6 @@ import {
   selectCollectionById,
   selectIsNewsPostsLoading,
   selectNewsPosts,
-  selectNewsPostsError,
   selectNewsPostsPagination,
 } from "@/redux/entityCollections/selectors";
 import {
@@ -23,8 +22,7 @@ import {
 import { palette } from "@/theme/palette";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import ArrowLeft from "@/assets/icons/arrow-left.svg";
-import NewsError from "@/components/Pages/Collections/News/NewsError";
-
+import NewsPosts from "@/components/Pages/Collections/News/NewsPosts";
 
 export default function News() {
   const collectionId = useValueFromRouter("collectionId");
@@ -35,7 +33,6 @@ export default function News() {
 
   const newsPosts = useAppSelector(selectNewsPosts);
   const newsPostsPagination = useAppSelector(selectNewsPostsPagination);
-  const isNewsPostsLoading = useAppSelector(selectIsNewsPostsLoading);
 
   const paginationContainerRef = useRef<HTMLDivElement | null>(null);
   const { ref, entry } = useIntersection({
@@ -55,11 +52,7 @@ export default function News() {
     if (!newsPosts?.length) dispatch(fetchNewsPosts(1));
   }, []);
 
-  const newsPostsError = useAppSelector(selectNewsPostsError);
-
-  if (newsPostsError) {
-    return <NewsError collection={collection} />;
-  }
+  const isNewsPostsLoading = useAppSelector(selectIsNewsPostsLoading);
 
   return (
     <AppLayout title="Collection News">
@@ -78,25 +71,13 @@ export default function News() {
         title="News"
         rightSide={
           collectionId ? (
-            <Anchor
-              href={`/collections/${collectionId}`}
-              underline={false}
-              color={palette.Black}
-            >
+            <Link href={`/collections/${collectionId}`} color={palette.Black}>
               <BaseIcon isPointer Icon={ArrowLeft} />
-            </Anchor>
+            </Link>
           ) : null
         }
       >
-        {newsPosts?.map((post) => (
-          <NewsPost
-            imageUrl={post?.feature_image}
-            date={post?.published_at}
-            key={post?.id}
-            title={post?.title}
-            description={post?.excerpt}
-          />
-        ))}
+        <NewsPosts newsPosts={newsPosts} />
         <Center ref={ref} h={100}>
           {entry?.isIntersecting && isNewsPostsLoading ? <Loader /> : null}
         </Center>
