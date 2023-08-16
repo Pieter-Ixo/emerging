@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { Anchor, Center, Loader, Title } from "@mantine/core";
+import { Center, Loader, Title } from "@mantine/core";
+import Link from "next/link";
 
 import AppLayout from "@/components/Layout/AppLayout";
 import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
@@ -61,13 +62,9 @@ export default function News() {
         title="News"
         rightSide={
           collectionId ? (
-            <Anchor
-              href={`/collections/${collectionId}`}
-              underline={false}
-              color={palette.Black}
-            >
+            <Link href={`/collections/${collectionId}`} color={palette.Black}>
               <BaseIcon isPointer Icon={ArrowLeft} />
-            </Anchor>
+            </Link>
           ) : null
         }
       >

@@ -1,5 +1,6 @@
-import { Text, Image, Flex, Loader, Center, Anchor } from "@mantine/core";
+import { Text, Image, Flex, Loader } from "@mantine/core";
 import { useEffect } from "react";
+import Link from "next/link";
 
 import dateToDayMonthYear from "@/utils/dates/dateTo";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
@@ -16,7 +17,7 @@ import useValueFromRouter from "@/utils/useValueFromRouter";
 import ArrowRight from "@/assets/icons/arrow-right.svg";
 
 import PageBlock from "../PageBlock";
-import PageBlockCentralized from "./components/PageBlockCenter";
+import NewsPageBlock from "./components/NewsPageBlock";
 
 export default function CollectionNewsCard() {
   const lastNewsPost = useAppSelector(selectLastNewsPost);
@@ -34,18 +35,18 @@ export default function CollectionNewsCard() {
 
   if (isLastNewsPostLoading) {
     return (
-      <PageBlockCentralized>
+      <NewsPageBlock>
         <Loader />
-      </PageBlockCentralized>
+      </NewsPageBlock>
     );
   }
   if (!isPostExists) {
     return (
-      <PageBlockCentralized>
+      <NewsPageBlock>
         <Text size="sm" color="red">
           {lastNewsPostError}
         </Text>
-      </PageBlockCentralized>
+      </NewsPageBlock>
     );
   }
 
@@ -53,16 +54,17 @@ export default function CollectionNewsCard() {
     <PageBlock
       title="NEWS"
       rightSide={
-        <Anchor
-          href={`/collections/${collectionId}/news`}
-          underline={false}
-          color={palette.Black}
-        >
-          <Flex>
-            <Text size="md">SEE ALL</Text>
-            <BaseIcon width={24} height={25} isPointer Icon={ArrowRight} />
-          </Flex>
-        </Anchor>
+        collectionId ? (
+          <Link
+            href={`/collections/${collectionId}/news`}
+            color={palette.Black}
+          >
+            <Flex>
+              <Text size="md">SEE ALL</Text>
+              <BaseIcon width={24} height={25} isPointer Icon={ArrowRight} />
+            </Flex>
+          </Link>
+        ) : null
       }
     >
       <Flex mih={267} direction="column" gap={8}>
