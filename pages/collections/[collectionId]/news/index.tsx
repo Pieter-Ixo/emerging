@@ -7,7 +7,7 @@ import PageHeader from "@/components/Pages/Collections/PageHeader";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
-  selectCollections,
+  selectCollectionById,
   selectIsNewsPostsLoading,
   selectNewsPosts,
   selectNewsPostsError,
@@ -20,11 +20,14 @@ import { palette } from "@/theme/palette";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import { Anchor, Center, Loader, Title } from "@mantine/core";
 import ArrowLeft from "@/assets/icons/arrow-left.svg";
-import NewsErrorBoundary from "@/components/Pages/Collections/News/ErrorBoundary";
+import NewsError from "@/components/Pages/Collections/News/NewsError";
 
 export default function News() {
+  const collectionId = useValueFromRouter("collectionId");
   const dispatch = useAppDispatch();
-  const collections = useAppSelector(selectCollections);
+  const collection = useAppSelector((state) =>
+    selectCollectionById(state, collectionId)
+  );
 
   const newsPosts = useAppSelector(selectNewsPosts);
   const isNewsPostsLoading = useAppSelector(selectIsNewsPostsLoading);
@@ -34,11 +37,10 @@ export default function News() {
     dispatch(fetchNewsPosts());
   }, []);
 
-  const collectionId = useValueFromRouter("collectionId");
   const newsPostsError = useAppSelector(selectNewsPostsError);
 
   if (newsPostsError) {
-    return <NewsErrorBoundary collections={collections} />;
+    return <NewsError collection={collection} />;
   }
 
   return (
@@ -49,8 +51,8 @@ export default function News() {
           Collections
         </Title>
         <Title order={2} fw={300}>
-          {collections?.length
-            ? `${collections?.[0]?._profile?.brand} ${collections?.[0]?._profile?.name}`
+          {collection
+            ? `${collection?._profile?.brand} ${collection?._profile?.name}`
             : "Collection"}
         </Title>
       </PageHeader>
