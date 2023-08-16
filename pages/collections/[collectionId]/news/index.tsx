@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { Anchor, Center, Loader, Title } from "@mantine/core";
+
 import AppLayout from "@/components/Layout/AppLayout";
 import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 import PageBlock from "@/components/Pages/Collections/CollectionDashboard/PageBlock";
@@ -18,7 +20,6 @@ import {
 } from "@/redux/entityCollections/thunks";
 import { palette } from "@/theme/palette";
 import useValueFromRouter from "@/utils/useValueFromRouter";
-import { Anchor, Center, Loader, Title } from "@mantine/core";
 import ArrowLeft from "@/assets/icons/arrow-left.svg";
 import NewsError from "@/components/Pages/Collections/News/NewsError";
 

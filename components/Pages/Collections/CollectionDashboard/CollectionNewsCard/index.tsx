@@ -23,6 +23,7 @@ export default function CollectionNewsCard() {
   const lastNewsPost = useAppSelector(selectLastNewsPost);
   const lastNewsPostError = useAppSelector(selectLastNewsPostError);
   const isLastNewsPostLoading = useAppSelector(selectLastNewsPostLoading);
+  const collectionId = useValueFromRouter("collectionId");
 
   const dispatch = useAppDispatch();
 
@@ -31,8 +32,6 @@ export default function CollectionNewsCard() {
   }, []);
 
   const isPostExists = lastNewsPost?.posts?.length;
-
-  const collectionId = useValueFromRouter("collectionId");
 
   if (isLastNewsPostLoading) {
     return (
