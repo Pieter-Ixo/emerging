@@ -1,9 +1,49 @@
-import { Text, Image, Flex } from "@mantine/core";
+import { Text, Image, Flex, Loader } from "@mantine/core";
+import { useEffect } from "react";
+
+import dateToDayMonthYear from "@/utils/dates/dateTo";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { fetchLastNewsPost } from "@/redux/entityCollections/thunks";
+import {
+  selectLastNewsPost,
+  selectLastNewsPostError,
+  selectLastNewsPostLoading,
+} from "@/redux/entityCollections/selectors";
 
 import ArrowRight from "./icons/arrowRight";
 import PageBlock from "../PageBlock";
+import PageBlockCentralized from "./components/PageBlockCenter";
 
 export default function CollectionNewsCard() {
+  const lastNewsPost = useAppSelector(selectLastNewsPost);
+  const lastNewsPostError = useAppSelector(selectLastNewsPostError);
+  const isLastNewsPostLoading = useAppSelector(selectLastNewsPostLoading);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchLastNewsPost());
+  }, []);
+
+  const isPostExists = lastNewsPost?.posts?.length;
+
+  if (isLastNewsPostLoading) {
+    return (
+      <PageBlockCentralized>
+        <Loader />
+      </PageBlockCentralized>
+    );
+  }
+  if (!isPostExists) {
+    return (
+      <PageBlockCentralized>
+        <Text size="sm" color="red">
+          {lastNewsPostError}
+        </Text>
+      </PageBlockCentralized>
+    );
+  }
+
   return (
     <PageBlock
       title="NEWS"
@@ -14,17 +54,16 @@ export default function CollectionNewsCard() {
         </Text>
       }
     >
-      <Flex direction="column" gap={8}>
+      <Flex mih={267} direction="column" gap={8}>
         <Image
-          src="/IMG_3991.jpg"
+          src={lastNewsPost?.posts[0]?.feature_image}
           alt="news story image"
           height={170}
-          maw={250}
         />
-        <Text fw={800} size="xs">
-          Nov 12 22
+        <Text fw={800} size="sm">
+          {dateToDayMonthYear(lastNewsPost?.posts[0]?.published_at)}
         </Text>
-        <Text>The success story of African Emerging Households</Text>
+        <Text size="md">{lastNewsPost?.posts[0]?.title}</Text>
       </Flex>
     </PageBlock>
   );

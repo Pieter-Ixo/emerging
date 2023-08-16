@@ -25,6 +25,7 @@ export default function Collection() {
   const collectionId = useValueFromRouter("collectionId");
   const dispatch = useAppDispatch();
   const collections = useAppSelector(selectCollections);
+
   const totalCollectionEntitiesTokens = useAppSelector(
     selectTotalCollectionEntitiesToken
   );
