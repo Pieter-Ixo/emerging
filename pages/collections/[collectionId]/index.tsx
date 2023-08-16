@@ -40,6 +40,11 @@ export default function Collection() {
     dispatch(fetchAndFillCollections());
   }, []);
 
+  const collectionTitle =
+    collections?.[0]?._profile?.brand || collections?.[0]?._profile?.name
+      ? `${collections?.[0]?._profile?.brand} ${collections?.[0]?._profile?.name}`
+      : "Collection";
+
   return (
     <AppLayout title="Emerging Collections">
       <PageHeader>
@@ -48,8 +53,7 @@ export default function Collection() {
           Collections
         </Title>
         <Title order={2} fw={300}>
-          {`${collections?.[0]?._profile?.brand} ${collections?.[0]?._profile?.name}` ||
-            "Collection"}
+          {collectionTitle}
         </Title>
       </PageHeader>
 

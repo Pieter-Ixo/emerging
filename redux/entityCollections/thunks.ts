@@ -57,15 +57,16 @@ export const fetchTotalCollectionEntitiesRetired = createAsyncThunk<any>(
   }
 );
 
+// TODO: make this request by id
 export const fetchAndFillCollections = createAsyncThunk(
   "entityCollections/fetchAndFillCollections",
   async (_, { getState }): Promise<ICollectionEntities[]> => {
     const state = getState() as RootState;
 
-    const isCollectionsAvailable =
+    const isCollectionsFetched =
       !!state.entityCollection.entityCollections[0]?.collection;
 
-    if (!isCollectionsAvailable) {
+    if (!isCollectionsFetched) {
       const collectionsResponse: ICollectionEntities[] =
         await requestCollections();
 

@@ -23,10 +23,10 @@ export default function CollectionUsage() {
   );
 
   useEffect(() => {
-    if (entitesExternalIds) {
+    if (entitesExternalIds?.length) {
       fetchSessionsSummary(entitesExternalIds);
     }
-  }, [entitesExternalIds]);
+  }, [entitesExternalIds?.length]);
 
   return sessionsSummary ? (
     <>

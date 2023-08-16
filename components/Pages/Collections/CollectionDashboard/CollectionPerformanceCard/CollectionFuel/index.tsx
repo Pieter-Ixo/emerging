@@ -18,8 +18,8 @@ export default function CollectionFuel() {
   const entitesExternalIds = useAppSelector(selectAllEntitiesExternalIds);
 
   useEffect(() => {
-    fetchFuelSummary(entitesExternalIds);
-  }, []);
+    if (entitesExternalIds?.length) fetchFuelSummary(entitesExternalIds);
+  }, [entitesExternalIds?.length]);
 
   const totalValue = fuelSummary ? calculateTotalFuel(fuelSummary) : 0;
 
