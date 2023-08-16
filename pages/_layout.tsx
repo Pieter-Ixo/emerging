@@ -1,7 +1,8 @@
-import { useViewportSize } from "@mantine/hooks";
-import { smallLaptopBreakpoint } from "@/constants/breakpoints";
-import { Center, Text } from "@mantine/core";
 import { PropsWithChildren } from "react";
+import { useViewportSize } from "@mantine/hooks";
+import { Center, Text } from "@mantine/core";
+
+import { smallLaptopBreakpoint } from "@/constants/breakpoints";
 
 const notDesktopOnlyPathname = [
   `/devices/[entityId]`,
