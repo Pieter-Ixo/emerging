@@ -19,6 +19,7 @@ const persistor = persistStore(store);
 
 function App({ Component, pageProps, router }: AppProps) {
   useEffect(() => {
+    // window.purge is a DevTool to clear all cache and local storage that contains persisted Redux Store..
     // @ts-ignore
     window.purge = function purge() {
       persistor.purge();
@@ -34,15 +35,6 @@ function App({ Component, pageProps, router }: AppProps) {
       </Head>
 
       <MantineProvider withGlobalStyles withNormalizeCSS theme={mantineTheme}>
-        <style jsx global>{`
-          @font-face {
-            font-family: "RobotoCondensed";
-            src: url("/fonts/RobotoCondensed-Regular.ttf");
-            font-weight: regular;
-            font-style: normal;
-            font-display: swap;
-          }
-        `}</style>
         <ChainProvider>
           <WalletProvider>
             <CookstoveProvider>

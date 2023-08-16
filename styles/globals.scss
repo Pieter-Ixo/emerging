@@ -105,6 +105,17 @@ a {
   font-Style: 'normal';
 }
 
+@font-face {
+  font-family: "RobotoCondensed";
+  src: local("RobotoCondensed"), url("../public/fonts/RobotoCondensed-Regular.ttf"),
+    local(Roboto),
+    local(Helvetica),
+    local(Arial);
+  font-weight: regular;
+  font-style: normal;
+  font-display: "block";
+}
+
 
 /* tab comp */
 
@@ -231,6 +242,6 @@ img {
 }
 
 
-svg .axes > g:nth-child(1) .tickLabel:nth-child(2n) {
+svg .axes>g:nth-child(1) .tickLabel:nth-child(2n) {
   fill: transparent !important
 }

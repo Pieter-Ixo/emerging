@@ -8,7 +8,7 @@ export default class _Document extends Document {
 
   render() {
     return (
-      <Html>
+      <Html style={{ fontFamily: "sans-serif" }}>
         <Head />
         <body style={{ overflowY: "hidden" }}>
           <Main />
