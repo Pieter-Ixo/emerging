@@ -227,7 +227,7 @@ export const selectIsNewsPostsLoading = createDraftSafeSelector(
 export const selectNewsPosts = createDraftSafeSelector(
   selectEntityCollections,
   (entityCollectionsState: EntityCollectionState) =>
-    entityCollectionsState.newsPosts
+    entityCollectionsState.newsPosts?.posts
 );
 export const selectNewsPostsError = createDraftSafeSelector(
   selectEntityCollections,

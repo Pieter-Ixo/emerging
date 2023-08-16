@@ -1,19 +1,16 @@
-import React, { useEffect } from "react";
-import { Center, Loader, Title } from "@mantine/core";
+import { useEffect } from "react";
+import { Title } from "@mantine/core";
 import Link from "next/link";
 
 import AppLayout from "@/components/Layout/AppLayout";
 import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 import PageBlock from "@/components/Pages/Collections/CollectionDashboard/PageBlock";
-import NewsPost from "@/components/Pages/Collections/News/NewsPost";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   selectCollectionById,
-  selectIsNewsPostsLoading,
   selectNewsPosts,
-  selectNewsPostsError,
 } from "@/redux/entityCollections/selectors";
 import {
   fetchAndFillCollections,
@@ -22,7 +19,7 @@ import {
 import { palette } from "@/theme/palette";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import ArrowLeft from "@/assets/icons/arrow-left.svg";
-import NewsError from "@/components/Pages/Collections/News/NewsError";
+import NewsPosts from "@/components/Pages/Collections/News/NewsPosts";
 
 export default function News() {
   const collectionId = useValueFromRouter("collectionId");
@@ -32,18 +29,11 @@ export default function News() {
   );
 
   const newsPosts = useAppSelector(selectNewsPosts);
-  const isNewsPostsLoading = useAppSelector(selectIsNewsPostsLoading);
 
   useEffect(() => {
     dispatch(fetchAndFillCollections());
     dispatch(fetchNewsPosts());
   }, []);
-
-  const newsPostsError = useAppSelector(selectNewsPostsError);
-
-  if (newsPostsError) {
-    return <NewsError collection={collection} />;
-  }
 
   return (
     <AppLayout title="Collection News">
@@ -68,21 +58,7 @@ export default function News() {
           ) : null
         }
       >
-        {isNewsPostsLoading ? (
-          <Center py="xl">
-            <Loader />
-          </Center>
-        ) : (
-          newsPosts?.posts.map((post) => (
-            <NewsPost
-              imageUrl={post?.feature_image}
-              date={post?.published_at}
-              key={post?.id}
-              title={post?.title}
-              description={post?.excerpt}
-            />
-          ))
-        )}
+        <NewsPosts newsPosts={newsPosts} />
       </PageBlock>
     </AppLayout>
   );

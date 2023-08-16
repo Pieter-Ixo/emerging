@@ -13,7 +13,7 @@ interface INewsPost {
   published_at: string;
 }
 
-interface INewsPostExtended extends INewsPost {
+export interface INewsPostExtended extends INewsPost {
   excerpt: string;
   id: string;
 }

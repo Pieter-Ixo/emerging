@@ -1,4 +1,4 @@
-import { Text, Image, Flex, Loader } from "@mantine/core";
+import { Text, Image, Flex, Loader, Center } from "@mantine/core";
 import { useEffect } from "react";
 import Link from "next/link";
 
@@ -10,14 +10,12 @@ import {
   selectLastNewsPostError,
   selectLastNewsPostLoading,
 } from "@/redux/entityCollections/selectors";
-
 import { palette } from "@/theme/palette";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import ArrowRight from "@/assets/icons/arrow-right.svg";
 
 import PageBlock from "../PageBlock";
-import NewsPageBlock from "./components/NewsPageBlock";
 
 export default function CollectionNewsCard() {
   const lastNewsPost = useAppSelector(selectLastNewsPost);
@@ -35,18 +33,22 @@ export default function CollectionNewsCard() {
 
   if (isLastNewsPostLoading) {
     return (
-      <NewsPageBlock>
-        <Loader />
-      </NewsPageBlock>
+      <PageBlock title="NEWS">
+        <Center mih={267} pb={40}>
+          <Loader />
+        </Center>
+      </PageBlock>
     );
   }
   if (!isPostExists) {
     return (
-      <NewsPageBlock>
-        <Text size="sm" color="red">
-          {lastNewsPostError}
-        </Text>
-      </NewsPageBlock>
+      <PageBlock title="NEWS">
+        <Center mih={267} pb={40}>
+          <Text size="sm" color="red">
+            {lastNewsPostError}
+          </Text>
+        </Center>
+      </PageBlock>
     );
   }
 
