@@ -64,8 +64,8 @@ const initialState: EntityCollectionState = {
   lastNewsPost: undefined,
   lastNewsPostError: "",
   isLastNewsPostLoading: true,
-  newsPosts:  undefined,
-  newsPostsError:  undefined,
+  newsPosts: undefined,
+  newsPostsError: undefined,
   isNewsPostsLoading: true,
 };
 
@@ -195,7 +195,14 @@ const EntityCollectionSlice = createSlice({
       state.isNewsPostsLoading = true;
     });
     builder.addCase(fetchNewsPosts.fulfilled, (state, action) => {
-      state.newsPosts = action.payload;
+      state.newsPosts = {
+        posts: [
+          ...(state.newsPosts?.posts || []),
+          ...(action.payload?.posts || []),
+        ],
+        meta: action.payload?.meta,
+      };
+
       state.isNewsPostsLoading = false;
     });
     builder.addCase(fetchNewsPosts.rejected, (state) => {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import AppLayout from "@/components/Layout/AppLayout";
 import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 import PageBlock from "@/components/Pages/Collections/CollectionDashboard/PageBlock";
@@ -11,6 +11,7 @@ import {
   selectIsNewsPostsLoading,
   selectNewsPosts,
   selectNewsPostsError,
+  selectNewsPostsPagination,
 } from "@/redux/entityCollections/selectors";
 import {
   fetchAndFillCollections,
@@ -21,17 +22,32 @@ import useValueFromRouter from "@/utils/useValueFromRouter";
 import { Anchor, Center, Loader, Title } from "@mantine/core";
 import ArrowLeft from "@/assets/icons/arrow-left.svg";
 import NewsErrorBoundary from "@/components/Pages/Collections/News/ErrorBoundary";
+import { useIntersection } from "@mantine/hooks";
 
 export default function News() {
   const dispatch = useAppDispatch();
   const collections = useAppSelector(selectCollections);
 
   const newsPosts = useAppSelector(selectNewsPosts);
+  const newsPostsPagination = useAppSelector(selectNewsPostsPagination);
   const isNewsPostsLoading = useAppSelector(selectIsNewsPostsLoading);
+
+  const paginationContainerRef = useRef<HTMLDivElement | null>(null);
+  const { ref, entry } = useIntersection({
+    root: paginationContainerRef.current,
+    threshold: 1,
+  });
+
+  useEffect(() => {
+    const isNotFirstRequest =
+      newsPostsPagination?.next && newsPostsPagination?.next !== 1;
+    if (entry?.isIntersecting && isNotFirstRequest)
+      dispatch(fetchNewsPosts(newsPostsPagination?.next));
+  }, [entry]);
 
   useEffect(() => {
     dispatch(fetchAndFillCollections());
-    dispatch(fetchNewsPosts());
+    if (!newsPosts?.length) dispatch(fetchNewsPosts(1));
   }, []);
 
   const collectionId = useValueFromRouter("collectionId");
@@ -68,21 +84,18 @@ export default function News() {
           ) : null
         }
       >
-        {isNewsPostsLoading ? (
-          <Center py="xl">
-            <Loader />
-          </Center>
-        ) : (
-          newsPosts?.posts.map((post) => (
-            <NewsPost
-              imageUrl={post?.feature_image}
-              date={post?.published_at}
-              key={post?.id}
-              title={post?.title}
-              description={post?.excerpt}
-            />
-          ))
-        )}
+        {newsPosts?.map((post) => (
+          <NewsPost
+            imageUrl={post?.feature_image}
+            date={post?.published_at}
+            key={post?.id}
+            title={post?.title}
+            description={post?.excerpt}
+          />
+        ))}
+        <Center ref={ref} h={100}>
+          {entry?.isIntersecting && isNewsPostsLoading ? <Loader /> : null}
+        </Center>
       </PageBlock>
     </AppLayout>
   );

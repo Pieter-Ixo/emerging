@@ -148,8 +148,9 @@ export const fetchLastNewsPost = createAsyncThunk(
 
 export const fetchNewsPosts = createAsyncThunk(
   "entityCollections/fetchNewsPosts",
-  async (): Promise<INewsPostsResponseExtended | undefined> =>
-    requestNewsPosts()
+  async (
+    page: number | null | undefined
+  ): Promise<INewsPostsResponseExtended | undefined> => requestNewsPosts(page)
 );
 
 export const fetchUsersTokens = createAsyncThunk(
