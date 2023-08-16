@@ -34,10 +34,10 @@ export default function ImpactCreditsProduced({
         <Text>Impact Credits Produced</Text>
         <Text />
       </Flex>
-      {Object.entries(tokensMap ?? {}).map(([key, token]) => (
-        <Flex justify="space-between" key={key}>
-          <Link href={key}>
-            <Anchor size={13}>{shortStr(key, 14, 5)}</Anchor>
+      {Object.entries(tokensMap ?? {}).map(([batchId, token]) => (
+        <Flex justify="space-between" key={batchId}>
+          <Link href={batchId}>
+            <Anchor size={13}>{shortStr(batchId, 14, 5)}</Anchor>
           </Link>
           <Flex gap="sm">
             <FieldText>{created}</FieldText>
