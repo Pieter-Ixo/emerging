@@ -28,12 +28,12 @@ export const selectCollections = createDraftSafeSelector(
 
 export const selectCollectionById = (
   state: RootState,
-  collectionId: string | null
-): ICollectionEntities | undefined =>
-  state.entityCollection.userEntityCollections.find(
+  collectionId: string | undefined
+): ICollectionExtended | undefined =>
+  state.entityCollection.entityCollections.find(
     (collectionWithEntites) =>
       collectionWithEntites.collection.id === collectionId
-  );
+  )?.collection;
 
 export const selectUserEntityCollections = createDraftSafeSelector(
   selectEntityCollections,
