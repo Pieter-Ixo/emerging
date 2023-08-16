@@ -5,6 +5,7 @@ import HumanClock from "@/assets/icons/human-clock.svg";
 import Coins from "@/assets/icons/coins.svg";
 import HumanHeart from "@/assets/icons/human-heart.svg";
 import { hoursSaved, lifeYearsSaved } from "@/utils/supamoto";
+import { ChartDataItem } from "@/components/Presentational/Chart/types";
 
 export type STOVE = {
   id?: string;
@@ -12,12 +13,12 @@ export type STOVE = {
   sessions?: STOVE_SESSIONS;
   pellets?: STOVE_PELLETS;
   cookstove?: COOKSTOVE;
-  sessionsSummary?: MONTH_SESSIONS_TOTAL_MAP;
+  sessionsSummary?: ChartDataItem[];
   fuelSummary?: MONTH_FUEL_TOTAL_MAP;
   loading?: boolean;
 };
 
-export type MONTH_SESSIONS_TOTAL_MAP = Record<string, Record<string, number>>;
+export type MONTH_SESSIONS_TOTAL_MAP = Record<string, number>;
 export type MONTH_FUEL_TOTAL_MAP = Record<
   string,
   { total?: number; dayMap: Record<string, number | undefined> }

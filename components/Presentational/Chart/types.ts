@@ -1,1 +1,1 @@
-export type DataItem = { month: string; total: number };
+export type ChartDataItem = { month: string; total: number };

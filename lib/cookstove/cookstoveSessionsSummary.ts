@@ -1,62 +1,49 @@
 import axios from "axios";
 
-import {
-  MONTH_SESSIONS_TOTAL_MAP,
-  STOVES_SESSIONS_SUMMARY,
-} from "@/types/stove";
+import { STOVES_SESSIONS_SUMMARY } from "@/types/stove";
+import { ChartDataItem } from "@/components/Presentational/Chart/types";
 
 import { defaultStartDate, defaultEndDate } from "./pleaseDeleteThisAsap";
-import sessionsSummaryMOCK from "./sessionsSummaryMOCK";
 
 export async function getCookstoveSessionsSummary(
-  deviceId: number,
+  deviceIds: number[],
   headers: {},
   startDate: string = defaultStartDate,
   endDate: string = defaultEndDate,
   groupBy: "DAY" | "WEEK" | "MONTH" = "DAY"
 ): Promise<STOVES_SESSIONS_SUMMARY | undefined> {
-  try {
-    const res = await axios.get(
-      `https://api.supamoto.app/api/v2/stoves/${deviceId}/sessions/cooking/summary?startDate=${startDate}&endDate=${endDate}&groupBy=${groupBy}`,
-      { headers }
-    );
+  const res = await axios.post(
+    `https://api.supamoto.app/api/v2/stoves/sessions/cooking/summary?startDate=${startDate}&endDate=${endDate}&groupBy=${groupBy}`,
+    { deviceIds },
+    { headers }
+  );
 
-    return res.data;
-  } catch (error) {
-    console.error("Error fetching Cookstove Sessions: ", error);
-    throw error;
-  }
+  return res.data;
 }
-// FIXME: EMERGING-126 fill memo on the app start, and refresh it once per day
-const memoisedSummary: MONTH_SESSIONS_TOTAL_MAP =
-  structuredClone(sessionsSummaryMOCK);
 
 export async function getSessionsMonthTotal(
   deviceIds: number[],
   headers
-): Promise<MONTH_SESSIONS_TOTAL_MAP | undefined> {
-  if (!deviceIds) return {};
-  const promises = deviceIds?.map(async (deviceId) => {
-    if (memoisedSummary[deviceId]) return;
-    memoisedSummary[deviceId] = {};
-
-    const cookstoveSesstion = await getCookstoveSessionsSummary(
-      deviceId,
+): Promise<ChartDataItem[] | undefined> {
+  try {
+    const cookstoveSessionSummary = await getCookstoveSessionsSummary(
+      deviceIds,
       headers
     );
 
-    cookstoveSesstion?.content?.forEach((monthSummary) => {
-      if (memoisedSummary[deviceId][monthSummary.timestamp] !== undefined) {
-        memoisedSummary[deviceId][monthSummary.timestamp] += Number(
-          monthSummary.count.total
-        );
-      } else {
-        memoisedSummary[deviceId][monthSummary.timestamp] = Number(
-          monthSummary.count.total
-        );
-      }
-    });
-  });
-  await Promise.allSettled(promises);
-  return memoisedSummary;
+    if (!cookstoveSessionSummary?.content) return undefined;
+
+    const cookstoveSessionSummaryMap: ChartDataItem[] =
+      cookstoveSessionSummary.content.map(
+        ({ timestamp, count: { total } }) => ({
+          month: timestamp,
+          total,
+        })
+      );
+
+    return cookstoveSessionSummaryMap;
+  } catch (error) {
+    console.error("Error fetching Cookstove Sessions: ", error);
+    return undefined;
+  }
 }

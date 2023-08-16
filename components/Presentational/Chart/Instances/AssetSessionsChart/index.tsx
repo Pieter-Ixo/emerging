@@ -4,14 +4,14 @@ import { Box } from "@mantine/core";
 import { STOVE_SESSIONS_CONTENT } from "@/types/stove";
 import sessionsToLineChartData from "./sessionsToChartData";
 import Chart from "../..";
-import { DataItem } from "../../types";
+import { ChartDataItem } from "../../types";
 
 export type ChartProps = {
   sessions: STOVE_SESSIONS_CONTENT[];
 };
 
 export default function SessionsChart({ sessions }: ChartProps) {
-  const [data, setData] = useState<DataItem[]>([]);
+  const [data, setData] = useState<ChartDataItem[]>([]);
 
   useEffect(() => {
     setData(sessionsToLineChartData(sessions));
