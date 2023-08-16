@@ -30,7 +30,7 @@ export default function CollectionFuel() {
     <>
       <Flex pt={28} align="flex-end">
         <Text size={56} color={palette.fullBlue} pr={10} fs="normal">
-          {totalValue?.toLocaleString() || <Loader />}
+          {totalValue?.toLocaleString() || 0}
         </Text>
         <Text color={palette.Black} pb={18} fs="normal" weight={300}>
           kg pellets bought in last 2 months

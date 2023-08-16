@@ -32,7 +32,7 @@ export default function CollectionUsage() {
     <>
       <Flex pt={28} align="flex-end">
         <Text size="xl" color={palette.fullBlue} pr={10} fs="normal">
-          {totalValue?.toLocaleString() || <Loader />}
+          {totalValue?.toLocaleString() || 0}
         </Text>
         <Text size="md" color={palette.Black} pb={18} fs="normal" weight={300}>
           clean cooking sessions with renewable energy during last 2 months
