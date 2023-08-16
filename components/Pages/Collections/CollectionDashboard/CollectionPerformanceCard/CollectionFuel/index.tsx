@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Flex, Loader, Text } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
@@ -18,16 +18,19 @@ export default function CollectionFuel() {
   const entitesExternalIds = useAppSelector(selectAllEntitiesExternalIds);
 
   useEffect(() => {
-    fetchFuelSummary(entitesExternalIds);
-  }, []);
+    if (entitesExternalIds?.length) fetchFuelSummary(entitesExternalIds);
+  }, [entitesExternalIds?.length]);
 
-  const totalValue = fuelSummary ? calculateTotalFuel(fuelSummary) : 0;
+  const totalValue = useMemo(
+    () => fuelSummary && calculateTotalFuel(fuelSummary),
+    [fuelSummary]
+  );
 
   return fuelSummary ? (
     <>
       <Flex pt={28} align="flex-end">
         <Text size={56} color={palette.fullBlue} pr={10} fs="normal">
-          {totalValue.toLocaleString()}
+          {totalValue?.toLocaleString() || 0}
         </Text>
         <Text color={palette.Black} pb={18} fs="normal" weight={300}>
           kg pellets bought in last 2 months

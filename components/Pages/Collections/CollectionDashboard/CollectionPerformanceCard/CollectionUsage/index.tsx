@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Flex, Loader, Text } from "@mantine/core";
 
 import { useAppSelector } from "@/hooks/redux";
@@ -17,19 +17,22 @@ export default function CollectionUsage() {
 
   const entitesExternalIds = useAppSelector(selectAllEntitiesExternalIds);
 
-  useEffect(() => {
-    fetchSessionsSummary(entitesExternalIds);
-  }, []);
+  const totalValue = useMemo(
+    () => sessionsSummary && calculateTotalSessions(sessionsSummary),
+    [sessionsSummary]
+  );
 
-  const totalValue = sessionsSummary
-    ? calculateTotalSessions(sessionsSummary)
-    : 0;
+  useEffect(() => {
+    if (entitesExternalIds?.length) {
+      fetchSessionsSummary(entitesExternalIds);
+    }
+  }, [entitesExternalIds?.length]);
 
   return sessionsSummary ? (
     <>
       <Flex pt={28} align="flex-end">
         <Text size="xl" color={palette.fullBlue} pr={10} fs="normal">
-          {totalValue.toLocaleString()}
+          {totalValue?.toLocaleString() || 0}
         </Text>
         <Text size="md" color={palette.Black} pb={18} fs="normal" weight={300}>
           clean cooking sessions with renewable energy during last 2 months

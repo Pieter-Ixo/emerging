@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { AxisOptions } from "react-charts";
 
 import { palette } from "@/theme/palette";
-import { DataItem } from "./types";
+import { ChartDataItem } from "./types";
 
 const ReactChart = dynamic(
   () => import("react-charts").then((mod) => mod.Chart),
@@ -13,7 +13,7 @@ const ReactChart = dynamic(
 );
 
 type ReactChartProps = {
-  data: DataItem[];
+  data: ChartDataItem[];
   chartType: "bar" | "line";
   label: string;
   min?: number;
@@ -26,12 +26,12 @@ export default function Chart({
   min,
 }: ReactChartProps) {
   const primaryAxis = useMemo(
-    (): AxisOptions<DataItem> => ({ getValue: (datum) => datum.month }),
+    (): AxisOptions<ChartDataItem> => ({ getValue: (datum) => datum.month }),
     []
   );
 
   const secondaryAxes = useMemo(
-    (): AxisOptions<DataItem>[] => [
+    (): AxisOptions<ChartDataItem>[] => [
       { getValue: (datum) => datum.total, elementType: chartType, min },
     ],
     []

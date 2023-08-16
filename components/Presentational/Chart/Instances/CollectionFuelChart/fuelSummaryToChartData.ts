@@ -1,10 +1,10 @@
 import { MONTH_FUEL_TOTAL_MAP } from "@/types/stove";
 
-import { DataItem } from "../../types";
+import { ChartDataItem } from "../../types";
 
 export default function fuelSummaryToChartData(
   summary: MONTH_FUEL_TOTAL_MAP
-): DataItem[] {
+): ChartDataItem[] {
   const deviceData = Object.values(summary);
   const monthMap: Record<string, number> = {};
 
@@ -21,7 +21,7 @@ export default function fuelSummaryToChartData(
     });
   });
 
-  const data: DataItem[] = [];
+  const data: ChartDataItem[] = [];
   Object.entries(monthMap).forEach(([month, total]) =>
     data.push({ month, total })
   );

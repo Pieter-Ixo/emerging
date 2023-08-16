@@ -5,8 +5,8 @@ import { palette } from "@/theme/palette";
 
 import PageBlock from "../PageBlock";
 import { PerformanceTab } from "./PerformanceTabs";
-import CollectionUsage from "./CollectionUsage/intex";
-import CollectionFuel from "./CollectionFuel/intex";
+import CollectionUsage from "./CollectionUsage";
+import CollectionFuel from "./CollectionFuel";
 import CookstoveUsageIcon from "../CollectionClimateImpactsCard/icons/CookstoveUsageIcon";
 import CookstoveFuelIcon from "../CollectionClimateImpactsCard/icons/CookstoveFuelIcon";
 import CookstoveCostsIcon from "../CollectionClimateImpactsCard/icons/CookstoveCostsIcon";
