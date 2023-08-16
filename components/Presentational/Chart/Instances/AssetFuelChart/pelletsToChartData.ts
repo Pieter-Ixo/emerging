@@ -1,9 +1,9 @@
 import { STOVE_PELLETS_CONTENT } from "@/types/stove";
-import { DataItem } from "../../types";
+import { ChartDataItem } from "../../types";
 
 export default function pelletsToBarChartData(
   pellets: STOVE_PELLETS_CONTENT[] = []
-): DataItem[] {
+): ChartDataItem[] {
   const pelletsMonthMap: Record<string, number> = {};
 
   pellets.forEach(({ dateTime, pelletsAmount }) => {
@@ -18,7 +18,7 @@ export default function pelletsToBarChartData(
     }
   });
 
-  const dataItems: DataItem[] = Object.entries(pelletsMonthMap).map(
+  const dataItems: ChartDataItem[] = Object.entries(pelletsMonthMap).map(
     ([month, total]) => ({
       month,
       total,

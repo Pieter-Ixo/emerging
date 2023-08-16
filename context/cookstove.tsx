@@ -8,8 +8,8 @@ import {
 
 import { STOVE, STOVE_PERIODS } from "@/types/stove";
 import { datesFromPeriod } from "@/utils/supamoto";
-import sessionsSummaryMOCK from "@/lib/cookstove/sessionsSummaryMOCK";
 import fuelSummaryMOCK from "@/lib/cookstove/fuelSummaryMOCK";
+import { ChartDataItem } from "@/components/Presentational/Chart/types";
 
 // FIXME: EMERGING-146: get rid of context, create new redux slice
 
@@ -87,25 +87,27 @@ export function CookstoveProvider({
   }, []);
 
   const fetchSessionsSummary = async (deviceIds: (number | string)[]) => {
-    updateStove({ ...stove, sessionsSummary: sessionsSummaryMOCK });
-
-    // FIXME: EMERGING-155 Supamoto Summary Charts use Real Data. Means reenable code below.
     // FIXME: EMERGING-146: apply convenient fetching approach & await synthax
-    // const sessionsSummaryMap = await fetch(
-    //   "/api/cookstove/cooking-sessions/summary",
-    //   {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({ deviceIds }),
-    //   }
-    // )
-    //   .then((response) => response.json())
-    //   .then((response) => response.data)
-    //   .catch((err) => console.error(err));
+    try {
+      const sessionsSummaryMap = await fetch(
+        "/api/cookstove/cooking-sessions/summary",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ deviceIds }),
+        }
+      );
 
-    // if (sessionsSummaryMap)
-    //   updateStove({ ...stove, sessionsSummary: sessionsSummaryMap });
+      const { data } = (await sessionsSummaryMap.json()) as {
+        data: ChartDataItem[];
+      };
+
+      if (data) updateStove({ ...stove, sessionsSummary: data });
+    } catch (error) {
+      console.error("Error fetching Cookstove Sessions: ", error);
+    }
   };
+
   const fetchFuelSummary = async (deviceIds: (number | string)[]) => {
     updateStove({ ...stove, fuelSummary: fuelSummaryMOCK });
 

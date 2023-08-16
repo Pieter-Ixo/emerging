@@ -1,5 +1,6 @@
-import { useIntersection } from "@mantine/hooks";
 import React, { useEffect, useRef } from "react";
+import { useIntersection } from "@mantine/hooks";
+import { Anchor, Center, Loader, Title } from "@mantine/core";
 
 import AppLayout from "@/components/Layout/AppLayout";
 import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
@@ -21,7 +22,6 @@ import {
 } from "@/redux/entityCollections/thunks";
 import { palette } from "@/theme/palette";
 import useValueFromRouter from "@/utils/useValueFromRouter";
-import { Anchor, Center, Loader, Title } from "@mantine/core";
 import ArrowLeft from "@/assets/icons/arrow-left.svg";
 import NewsError from "@/components/Pages/Collections/News/NewsError";
 
