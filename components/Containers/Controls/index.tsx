@@ -23,13 +23,19 @@ export default function Controls({ isSearchVisible = true }: Props) {
   return (
     <Flex gap={8}>
       {isSearchVisible && (
-        <Input
-          icon={<BaseIcon width={24} height={25} Icon={SearchIcon} />}
-          placeholder="search"
-          size="md"
-          variant="filled"
-          radius="xl"
-        />
+        <Tooltip label="This functionality is under development" withArrow>
+          <Input
+            icon={<BaseIcon width={24} height={25} Icon={SearchIcon} />}
+            placeholder="search"
+            size="md"
+            sx={{
+              caretColor: "transparent",
+            }}
+            // variant="filled"
+            variant="unstyled"
+            radius="xl"
+          />
+        </Tooltip>
       )}
       <Tooltip label="This functionality is under development" withArrow>
         <Button
