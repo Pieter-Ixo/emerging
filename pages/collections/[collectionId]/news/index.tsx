@@ -1,5 +1,6 @@
-import { useEffect } from "react";
-import { Title } from "@mantine/core";
+import { useEffect, useRef } from "react";
+import { useIntersection } from "@mantine/hooks";
+import { Center, Loader, Title } from "@mantine/core";
 import Link from "next/link";
 
 import AppLayout from "@/components/Layout/AppLayout";
@@ -10,7 +11,9 @@ import BaseIcon from "@/components/Presentational/BaseIcon";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   selectCollectionById,
+  selectIsNewsPostsLoading,
   selectNewsPosts,
+  selectNewsPostsPagination,
 } from "@/redux/entityCollections/selectors";
 import {
   fetchAndFillCollections,
@@ -29,11 +32,27 @@ export default function News() {
   );
 
   const newsPosts = useAppSelector(selectNewsPosts);
+  const newsPostsPagination = useAppSelector(selectNewsPostsPagination);
+
+  const paginationContainerRef = useRef<HTMLDivElement | null>(null);
+  const { ref, entry } = useIntersection({
+    root: paginationContainerRef.current,
+    threshold: 1,
+  });
+
+  useEffect(() => {
+    const isNotFirstRequest =
+      newsPostsPagination?.next && newsPostsPagination?.next !== 1;
+    if (entry?.isIntersecting && isNotFirstRequest)
+      dispatch(fetchNewsPosts(newsPostsPagination?.next));
+  }, [entry]);
 
   useEffect(() => {
     dispatch(fetchAndFillCollections());
-    dispatch(fetchNewsPosts());
+    if (!newsPosts?.length) dispatch(fetchNewsPosts(1));
   }, []);
+
+  const isNewsPostsLoading = useAppSelector(selectIsNewsPostsLoading);
 
   return (
     <AppLayout title="Collection News">
@@ -59,6 +78,9 @@ export default function News() {
         }
       >
         <NewsPosts newsPosts={newsPosts} />
+        <Center ref={ref} h={100}>
+          {entry?.isIntersecting && isNewsPostsLoading ? <Loader /> : null}
+        </Center>
       </PageBlock>
     </AppLayout>
   );

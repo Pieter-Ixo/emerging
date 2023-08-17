@@ -229,6 +229,13 @@ export const selectNewsPosts = createDraftSafeSelector(
   (entityCollectionsState: EntityCollectionState) =>
     entityCollectionsState.newsPosts?.posts
 );
+
+export const selectNewsPostsPagination = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.newsPosts?.meta?.pagination
+);
+
 export const selectNewsPostsError = createDraftSafeSelector(
   selectEntityCollections,
   (entityCollectionsState: EntityCollectionState) =>

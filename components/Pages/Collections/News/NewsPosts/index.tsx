@@ -1,11 +1,8 @@
-import { Center, Loader, Text } from "@mantine/core";
+import { Text } from "@mantine/core";
 
 import NewsPost from "@/components/Pages/Collections/News/NewsPost";
 import { useAppSelector } from "@/hooks/redux";
-import {
-  selectIsNewsPostsLoading,
-  selectNewsPostsError,
-} from "@/redux/entityCollections/selectors";
+import { selectNewsPostsError } from "@/redux/entityCollections/selectors";
 import { palette } from "@/theme/palette";
 import { INewsPostExtended } from "@/types/news";
 
@@ -15,15 +12,6 @@ type Props = {
 
 export default function NewsPosts({ newsPosts }: Props) {
   const newsPostsError = useAppSelector(selectNewsPostsError);
-  const isNewsPostsLoading = useAppSelector(selectIsNewsPostsLoading);
-
-  if (isNewsPostsLoading) {
-    return (
-      <Center py="xl">
-        <Loader />
-      </Center>
-    );
-  }
 
   if (newsPostsError) {
     return (
@@ -35,8 +23,7 @@ export default function NewsPosts({ newsPosts }: Props) {
 
   return (
     <div>
-      {!isNewsPostsLoading &&
-        !newsPostsError &&
+      {!newsPostsError &&
         newsPosts?.length &&
         newsPosts?.map((post) => (
           <NewsPost

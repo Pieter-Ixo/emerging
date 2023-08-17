@@ -20,8 +20,8 @@ export interface INewsPostExtended extends INewsPost {
 
 export interface INewsPostsResponse {
   posts: INewsPost[];
-  meta: {
-    pagination: INewsPagination;
+  meta?: {
+    pagination: INewsPagination | undefined;
   };
 }
 export interface INewsPostsResponseExtended extends INewsPostsResponse {
