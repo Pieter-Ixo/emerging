@@ -66,8 +66,8 @@ export type STOVE_SESSIONS_CONTENT = {
 };
 
 export type STOVE_PELLETS = {
-  content?: STOVE_PELLETS_CONTENT[];
-  totalPages?: number;
+  content: STOVE_PELLETS_CONTENT[];
+  totalPages: number;
   totalElements?: number;
   totalPelletsAmount?: number;
   hasNextPage?: boolean;
