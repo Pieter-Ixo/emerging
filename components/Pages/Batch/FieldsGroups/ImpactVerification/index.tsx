@@ -18,7 +18,7 @@ export default function ImpactVerification({
       </FieldsGroupTitle>
 
       <Flex direction="column" gap="md">
-        <Protocol protocol={protocol} />
+          <Protocol protocol={protocol} />
         {attributes?.map((attr) => (
           <Flex key={attr.key} justify="space-between" align="center">
             <FieldText>{attr.key}</FieldText>

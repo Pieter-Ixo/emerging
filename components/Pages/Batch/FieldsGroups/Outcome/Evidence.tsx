@@ -1,8 +1,10 @@
 import { Text, Card, Flex, Button } from "@mantine/core";
+import Link from "next/link";
 
 import JSONViewer from "@/components/Presentational/JSONViewer";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import { palette } from "@/theme/palette";
+import jsonToJsonld from "@/utils/files/jsonToJsonld";
 
 import { FieldText } from "../styledComponents";
 import { OutcomeProps } from "./props";
@@ -23,7 +25,12 @@ export default function Evidence({
         mb="xs"
       >
         <Text>Evidence Details</Text>
-        <Text>DOWNLOAD ➔</Text>
+        <Link
+          href={jsonToJsonld(fuelPurchase)}
+          download={`fuelPurchase-${fuelPurchase?.id}.jsonld`}
+        >
+          <Text>DOWNLOAD ➔</Text>
+        </Link>
       </Flex>
       <JSONViewer json={JSON.stringify(fuelPurchase)} />
     </Card>

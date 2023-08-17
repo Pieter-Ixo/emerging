@@ -50,6 +50,7 @@ export default function ImpactAsset({
         <Metadata
           created={dateLocale(entity?.metadata.created)}
           metadata={entity?.metadata}
+          entity={entity}
         />
         <ImpactCreditsProduced
           tokenTotal={totalMinted}
