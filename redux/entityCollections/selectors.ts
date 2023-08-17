@@ -28,12 +28,12 @@ export const selectCollections = createDraftSafeSelector(
 
 export const selectCollectionById = (
   state: RootState,
-  collectionId: string | null
-): ICollectionEntities | undefined =>
-  state.entityCollection.userEntityCollections.find(
+  collectionId: string | undefined
+): ICollectionExtended | undefined =>
+  state.entityCollection.entityCollections.find(
     (collectionWithEntites) =>
       collectionWithEntites.collection.id === collectionId
-  );
+  )?.collection;
 
 export const selectUserEntityCollections = createDraftSafeSelector(
   selectEntityCollections,
@@ -218,4 +218,19 @@ export const selectLastNewsPostLoading = createDraftSafeSelector(
   selectEntityCollections,
   (entityCollectionsState: EntityCollectionState) =>
     entityCollectionsState.isLastNewsPostLoading
+);
+export const selectIsNewsPostsLoading = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.isNewsPostsLoading
+);
+export const selectNewsPosts = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.newsPosts?.posts
+);
+export const selectNewsPostsError = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.newsPostsError
 );

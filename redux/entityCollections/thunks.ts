@@ -20,9 +20,12 @@ import {
 } from "@/types/entityCollections";
 import fillCollection from "@/helpers/fillCollection";
 import fillEntity from "@/helpers/fillEntity";
-import { INewsPostsResponse } from "@/types/news";
+import { INewsPostsResponse, INewsPostsResponseExtended } from "@/types/news";
 
-import requestLastNewsPost from "@/requests/requesters/requestNews";
+import {
+  requestLastNewsPost,
+  requestNewsPosts,
+} from "@/requests/requesters/requestNews";
 import type { RootState } from "../store";
 
 export const fetchTotalCollectionEntities = createAsyncThunk<any, string>(
@@ -142,6 +145,12 @@ export const fillEntitiesForUserCollections = createAsyncThunk(
 export const fetchLastNewsPost = createAsyncThunk(
   "entityCollections/fetchLastNewsPost",
   async (): Promise<INewsPostsResponse | undefined> => requestLastNewsPost()
+);
+
+export const fetchNewsPosts = createAsyncThunk(
+  "entityCollections/fetchNewsPosts",
+  async (): Promise<INewsPostsResponseExtended | undefined> =>
+    requestNewsPosts()
 );
 
 export const fetchUsersTokens = createAsyncThunk(
