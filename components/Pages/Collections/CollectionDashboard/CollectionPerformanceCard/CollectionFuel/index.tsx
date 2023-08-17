@@ -16,15 +16,16 @@ export default function CollectionFuel() {
   } = useCookstove();
 
   const entitesExternalIds = useAppSelector(selectAllEntitiesExternalIds);
-
-  useEffect(() => {
-    if (entitesExternalIds?.length) fetchFuelSummary(entitesExternalIds);
-  }, [entitesExternalIds?.length]);
-
+  
   const totalValue = useMemo(
     () => fuelSummary && calculateTotalFuel(fuelSummary),
     [fuelSummary]
   );
+  
+  useEffect(() => {
+    if (entitesExternalIds?.length) fetchFuelSummary(entitesExternalIds);
+  }, [entitesExternalIds?.length]);
+
 
   return fuelSummary ? (
     <>

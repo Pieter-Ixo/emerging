@@ -14,7 +14,7 @@ export type STOVE = {
   pellets?: STOVE_PELLETS;
   cookstove?: COOKSTOVE;
   sessionsSummary?: ChartDataItem[];
-  fuelSummary?: MONTH_FUEL_TOTAL_MAP;
+  fuelSummary?: ChartDataItem[];
   loading?: boolean;
 };
 
@@ -78,9 +78,12 @@ export type STOVE_PELLETS = {
 
 export type STOVE_PELLETS_CONTENT = {
   id?: number;
+  transactionId: string;
+  amount: number;
+  currency: string;
   pelletsAmount?: number;
   pelletsAmountUnits?: string;
-  dateTime?: string;
+  dateTime: string;
 };
 
 export enum STOVE_DATA_TYPES {
