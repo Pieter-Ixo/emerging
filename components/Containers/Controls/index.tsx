@@ -11,9 +11,13 @@ import FilterIcon from "@/assets/icons/filter.svg";
 
 type Props = {
   isSearchVisible?: boolean;
+  isViewsModsVisible?: boolean;
 };
 
-export default function Controls({ isSearchVisible = true }: Props) {
+export default function Controls({
+  isSearchVisible = true,
+  isViewsModsVisible = true,
+}: Props) {
   const [viewMode, setViewMode] = useState(PortfolioViewMods.iconView);
 
   const isListViewMode = viewMode === PortfolioViewMods.listView;
@@ -30,53 +34,57 @@ export default function Controls({ isSearchVisible = true }: Props) {
           radius="xl"
         />
       )}
-      <Button
-        variant="unstyled"
-        px={0}
-        h="100%"
-        onClick={() => setViewMode(PortfolioViewMods.iconView)}
-      >
-        <BaseIcon
-          fill="transparent"
-          isPointer
-          isStroke
-          variant="circle"
-          status={isIconViewMode ? "selected" : "notSelected"}
-          theme={{
-            notSelected: {
-              bgColor: palette.Neutral200,
-              stroke: palette.Black,
-            },
-            selected: {
-              stroke: palette.White,
-            },
-          }}
-          width={24}
-          height={25}
-          Icon={CollectionIcon}
-        />
-      </Button>
-      <Button
-        variant="unstyled"
-        px={0}
-        h="100%"
-        onClick={() => setViewMode(PortfolioViewMods.listView)}
-      >
-        <BaseIcon
-          isPointer
-          Icon={TabsIcon}
-          width={24}
-          status={isListViewMode ? "selected" : "notSelected"}
-          variant="circle"
-          height={25}
-          fill={isListViewMode ? palette.White : palette.Black}
-          theme={{
-            notSelected: {
-              bgColor: palette.Neutral200,
-            },
-          }}
-        />
-      </Button>
+      {isViewsModsVisible && (
+        <Button
+          variant="unstyled"
+          px={0}
+          h="100%"
+          onClick={() => setViewMode(PortfolioViewMods.iconView)}
+        >
+          <BaseIcon
+            fill="transparent"
+            isPointer
+            isStroke
+            variant="circle"
+            status={isIconViewMode ? "selected" : "notSelected"}
+            theme={{
+              notSelected: {
+                bgColor: palette.Neutral200,
+                stroke: palette.Black,
+              },
+              selected: {
+                stroke: palette.White,
+              },
+            }}
+            width={24}
+            height={25}
+            Icon={CollectionIcon}
+          />
+        </Button>
+      )}
+      {isViewsModsVisible && (
+        <Button
+          variant="unstyled"
+          px={0}
+          h="100%"
+          onClick={() => setViewMode(PortfolioViewMods.listView)}
+        >
+          <BaseIcon
+            isPointer
+            Icon={TabsIcon}
+            width={24}
+            status={isListViewMode ? "selected" : "notSelected"}
+            variant="circle"
+            height={25}
+            fill={isListViewMode ? palette.White : palette.Black}
+            theme={{
+              notSelected: {
+                bgColor: palette.Neutral200,
+              },
+            }}
+          />
+        </Button>
+      )}
       <Button
         h={44}
         variant="unstyled"

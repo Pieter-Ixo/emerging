@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
-import { ScrollArea, Table, Text } from "@mantine/core";
+import Link from "next/link";
+import { Flex, ScrollArea, Table, Text } from "@mantine/core";
 
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { IEntity, IEntityExtended } from "@/types/entityCollections";
 import { selectSelectedEntityExternalId } from "@/redux/entityCollections/selectors";
 import { sortAssetsByAlsoKnownAs } from "@/helpers/collectionAsset/sortByAlsoKnownAs";
+import { palette } from "@/theme/palette";
+import BaseIcon from "@/components/Presentational/BaseIcon";
+import useValueFromRouter from "@/utils/useValueFromRouter";
+import ArrowRight from "@/assets/icons/arrow-right.svg";
 
-import ArrowRight from "../CollectionNewsCard/icons/arrowRight";
 import PageBlock from "../PageBlock";
 import CollectionAssetsHeadCell from "./components/CollectionAssetsHeadCell";
 import CollectionAssetsTBody from "./components/CollectionAssetsTBody";
@@ -22,6 +26,7 @@ const defaultColumnSorterState = [
 
 export default function CollectionAssetsCard() {
   const dispatch = useAppDispatch();
+  const collectionId = useValueFromRouter("collectionId");
 
   const selectedAssetExternalId = useAppSelector(
     selectSelectedEntityExternalId
@@ -54,7 +59,6 @@ export default function CollectionAssetsCard() {
         clickedColumnIndex === columnIndex
           ? { ...column, isActive: !column.isActive }
           : { ...column, isActive: false }
-
       )
     );
     setColumnSorterIndex(clickedColumnIndex);
@@ -94,10 +98,15 @@ export default function CollectionAssetsCard() {
     <PageBlock
       title="ASSETS"
       rightSide={
-        <Text>
-          SEE ALL
-          <ArrowRight pathFill="#000" />
-        </Text>
+        <Link
+          href={`/collections/${collectionId}/assets`}
+          color={palette.Black}
+        >
+          <Flex>
+            <Text size="md">SEE ALL</Text>
+            <BaseIcon width={24} height={25} isPointer Icon={ArrowRight} />
+          </Flex>
+        </Link>
       }
     >
       <ScrollArea h={425} type="scroll">
@@ -134,7 +143,7 @@ export default function CollectionAssetsCard() {
           />
         </Table>
       </ScrollArea>
-      <CollectionAssetModal/>
+      <CollectionAssetModal />
     </PageBlock>
   );
 }
