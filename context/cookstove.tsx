@@ -109,23 +109,21 @@ export function CookstoveProvider({
   };
 
   const fetchFuelSummary = async (deviceIds: (number | string)[]) => {
-    updateStove({ ...stove, fuelSummary: fuelSummaryMOCK });
+    try {
+      const fuelSummaryMap = await fetch(
+        "/api/cookstove/pellets-purchases/summary",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ deviceIds }),
+        }
+      );
+      const { data } = (await fuelSummaryMap.json()) as { data: any };
 
-    // FIXME: EMERGING-155 Supamoto Summary Charts use Real Data. Means reenable code below.
-    // FIXME: EMERGING-146: apply convenient fetching approach & await synthax
-    // const fuelSummary = await fetch(
-    //   "/api/cookstove/pellets-purchases/summary",
-    //   {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({ deviceIds }),
-    //   }
-    // )
-    //   .then((response) => response.json())
-    //   .then((response) => response.data)
-    //   .catch((err) => console.error(err));
-
-    // if (fuelSummary) updateStove({ ...stove, fuelSummary });
+      if (data) updateStove({ ...stove, fuelSummary: data });
+    } catch (error) {
+      console.error("Error fetching Cookstove fuelSummary: ", error);
+    }
   };
 
   const fetchSessions = async (period: STOVE_PERIODS) => {};

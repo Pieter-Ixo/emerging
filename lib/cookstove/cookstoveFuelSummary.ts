@@ -1,62 +1,69 @@
 import axios from "axios";
 
-import { MONTH_FUEL_TOTAL_MAP, STOVE_PELLETS } from "@/types/stove";
+import { STOVE_PELLETS } from "@/types/stove";
 
+import { ChartDataItem } from "@/components/Presentational/Chart/types";
 import { defaultStartDate, defaultEndDate } from "./pleaseDeleteThisAsap";
-import fuelSummaryMOCK from "./fuelSummaryMOCK";
 
 export async function getCookstoveFuelSummary(
-  deviceId: number,
+  deviceIds: number[],
   headers: {},
+  page: number = 0,
+  pageSize: number = 500,
   startDate: string = defaultStartDate,
   endDate: string = defaultEndDate
 ): Promise<STOVE_PELLETS | undefined> {
-  try {
-    const res = await axios.get(
-      `https://api.supamoto.app/api/v2/stoves/${deviceId}/pellets/purchases?startDate=${startDate}&endDate=${endDate}`,
-      { headers }
-    );
+  const res = await axios.post<STOVE_PELLETS>(
+    `https://api.supamoto.app/api/v2/stoves/pellets/purchases?page=${page}&pageSize=${pageSize}&startDate=${startDate}&endDate=${endDate}`,
+    { deviceIds },
+    { headers }
+  );
 
-    return res.data;
-  } catch (error) {
-    console.error("Error fetching Cookstove Sessions: ", error);
-    throw error;
-  }
+  return res.data;
 }
-
-// FIXME: EMERGING-126 fill memo on the app start, and refresh it once per day
-const memoisedSummary: MONTH_FUEL_TOTAL_MAP = structuredClone(fuelSummaryMOCK);
 
 export async function getFuelMonthTotal(
   deviceIds: number[],
   headers
-): Promise<MONTH_FUEL_TOTAL_MAP | undefined> {
-  const promises = deviceIds.map(async (deviceId) => {
-    if (!deviceId || memoisedSummary[deviceId]) return;
+): Promise<ChartDataItem[] | undefined> {
+  try {
+    const pelletsPurchases = await getCookstoveFuelSummary(deviceIds, headers);
+    
+    if (pelletsPurchases && pelletsPurchases.totalPages > 1) {
+      const promises: Promise<STOVE_PELLETS | undefined>[] = [];
 
-    const pelletsPurchases = await getCookstoveFuelSummary(deviceId, headers);
-    if (!pelletsPurchases) return;
+      for (let i = 1; i < pelletsPurchases.totalPages; i += 1) {
+        promises.push(getCookstoveFuelSummary(deviceIds, headers, i));
+      }
 
-    memoisedSummary[deviceId] = {
-      total: pelletsPurchases.totalPelletsAmount,
-      dayMap: {},
-    };
+      const nextPelletsPurchasesList = await Promise.all(promises);
+      nextPelletsPurchasesList.forEach((nextPelletsPurchases) => {
+        pelletsPurchases.content.push(...(nextPelletsPurchases?.content || []));
+      });
+    }
 
-    pelletsPurchases?.content?.forEach((purchase) => {
-      if (!purchase?.dateTime || purchase.pelletsAmount === undefined) return;
-      const purchaseDate = purchase.dateTime.split("T")[0];
+    if (!pelletsPurchases?.content) return undefined;
 
-      if (typeof memoisedSummary[deviceId].dayMap[purchaseDate] === "number")
-        // @ts-ignore
-        memoisedSummary[deviceId].dayMap[purchaseDate] += Number(
-          purchase.pelletsAmount
-        );
-      else
-        memoisedSummary[deviceId].dayMap[purchaseDate] = Number(
-          purchase.pelletsAmount
-        );
+    const pelletsPurchasesMap: ChartDataItem[] = [];
+
+    pelletsPurchases.content.forEach(({ dateTime, amount }) => {
+      const purchaseDate = dateTime.split("T")[0];
+      const existingItem = pelletsPurchasesMap.find(
+        (item) => item.month === purchaseDate
+      );
+      if (existingItem) {
+        existingItem.total += amount;
+      } else {
+        pelletsPurchasesMap.push({
+          month: purchaseDate,
+          total: amount,
+        });
+      }
     });
-  });
-  await Promise.allSettled(promises);
-  return memoisedSummary;
+
+    return pelletsPurchasesMap;
+  } catch (error) {
+    console.error("Error fetching Cookstove Fuel Summary: ", error);
+    return undefined;
+  }
 }
