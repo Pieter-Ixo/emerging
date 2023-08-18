@@ -80,7 +80,7 @@ export type IVerificationMethod = {
 export type ICollection = {
   id: string;
   type: string;
-  startDate: Date;
+  startDate: string;
   endDate: null;
   status: number;
   relayerNode: string;
@@ -253,4 +253,3 @@ export interface IApiCollectionEntitiesTotalExtended {
 }
 
 export type IAssetColumnSorter = { name: string; isActive: boolean };
-

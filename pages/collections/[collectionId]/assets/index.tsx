@@ -1,4 +1,4 @@
-import { Box, Title } from "@mantine/core";
+import { Flex, Text, Title } from "@mantine/core";
 import { useEffect } from "react";
 import Link from "next/link";
 
@@ -22,10 +22,12 @@ export default function Assets() {
   const collection = useAppSelector((state) =>
     selectCollectionById(state, collectionId)
   );
-
   useEffect(() => {
     dispatch(fetchAndFillCollections());
   }, []);
+
+  const collectionDateYear = collection?.startDate.split("-")[0];
+  const collectionTitle = `${collection?._profile?.brand} - ${collection?._profile?.name} ${collectionDateYear}`;
 
   return (
     <AppLayout title="Collection News">
@@ -50,9 +52,12 @@ export default function Assets() {
           ) : null
         }
       >
-        <Box pb={32}>
+        <Flex direction="column" gap={32} pb={16}>
           <Controls isViewsModsVisible={false} />
-        </Box>
+          <Text size="sm" color={palette.Neutral500}>
+            {collectionTitle}
+          </Text>
+        </Flex>
         <AssetsTable />
       </PageBlock>
     </AppLayout>
