@@ -20,6 +20,7 @@ export type OutcomeProps = {
   fuelPurchase?: IFuelPurchase;
   result?: IResult;
   claimIssuer?: IClaimIssuer["_profile"];
+  claimIssuerId?: string;
 };
 
 export default function PagePlug() {

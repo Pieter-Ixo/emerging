@@ -17,11 +17,14 @@ import useDetailPortal from "@/hooks/useDetailPortal";
 import { FieldText } from "../styledComponents";
 import { OutcomeProps } from "./props";
 
-export default function ClaimIssuer({ claimIssuer }: Partial<OutcomeProps>) {
+export default function ClaimIssuer({
+  claimIssuer,
+  claimIssuerId,
+}: Partial<OutcomeProps>) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("ClaimIssuer");
 
   const PortalChild = (
-    <Link href="https://launchpad.ixo.world/entity/did:ixo:entity:a1fcead81eab2f1158a726597d872413/overview">
+    <Link href={`https://launchpad.ixo.world/entity/${claimIssuerId}/overview`}>
       <Card shadow="sm" padding="lg" w={277} h={400} radius="md" withBorder>
         <Card.Section>
           <Image src={claimIssuer?.imageUrl} height={160} alt="" />

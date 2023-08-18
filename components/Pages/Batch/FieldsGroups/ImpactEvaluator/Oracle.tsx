@@ -12,7 +12,9 @@ export default function Oracle({ oracle }: Partial<OracleVerificationProps>) {
   const tag = oracle?._tags?.entityTags[0].tags;
 
   const PortalChild = (
-    <Link href="https://marketplace.emerging.eco/entity/did:ixo:entity:7889238a0a6a68554f65f5c7da96f13b/overview">
+    <Link
+      href={`https://marketplace.emerging.eco/entity/${oracle?.id}/overview`}
+    >
       <ProfileCard entity={oracle} tags={tag} />
     </Link>
   );

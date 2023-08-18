@@ -59,7 +59,10 @@ export default function Outcome({
           <FieldText>Result</FieldText>
           <FieldText>{resultString}</FieldText>
         </Flex>
-        <ClaimIssuer claimIssuer={claimIssuer} />
+        <ClaimIssuer
+          claimIssuer={claimIssuer}
+          claimIssuerId={claimCer?.issuer.id}
+        />
       </Flex>
     </Flex>
   );
