@@ -4,9 +4,9 @@ import { Flex, ScrollArea, Table, Text } from "@mantine/core";
 
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { IEntity, IEntityExtended } from "@/types/entityCollections";
+import { IAssetColumnSorter, IEntity, IEntityExtended } from "@/types/entityCollections";
 import { selectSelectedEntityExternalId } from "@/redux/entityCollections/selectors";
-import { sortAssetsByAlsoKnownAs } from "@/helpers/collectionAsset/sortByAlsoKnownAs";
+import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExternalId";
 import { palette } from "@/theme/palette";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import useValueFromRouter from "@/utils/useValueFromRouter";
@@ -15,7 +15,6 @@ import ArrowRight from "@/assets/icons/arrow-right.svg";
 import PageBlock from "../PageBlock";
 import CollectionAssetsHeadCell from "./components/CollectionAssetsHeadCell";
 import CollectionAssetsTBody from "./components/CollectionAssetsTBody";
-import { IAssetColumnSorter } from "./types";
 import CollectionAssetModal from "./components/CollectionAssetModal";
 
 const defaultColumnSorterState = [
@@ -82,10 +81,10 @@ export default function CollectionAssetsCard() {
       switch (columnSorters[columnSorterIndex].name) {
         case "Serial number":
           if (columnSorters[columnSorterIndex].isActive)
-            setSortedEntities((assets) => sortAssetsByAlsoKnownAs(assets));
+            setSortedEntities((assets) => sortAssetsByExternalId(assets));
           else
             setSortedEntities((assets) =>
-              sortAssetsByAlsoKnownAs(assets, false)
+              sortAssetsByExternalId(assets, false)
             );
           break;
 

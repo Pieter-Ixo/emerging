@@ -251,3 +251,6 @@ export interface IApiCollectionEntitiesTotalExtended {
   totalEntities: IApiCollectionEntitiesTotal;
   totalRetired: IApiCollectionEntitiesTotalRetired;
 }
+
+export type IAssetColumnSorter = { name: string; isActive: boolean };
+

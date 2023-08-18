@@ -1,9 +1,8 @@
-import { IEntityExtended } from "@/types/entityCollections";
+import { IAssetColumnSorter, IEntityExtended } from "@/types/entityCollections";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import StarIcon from "@/assets/icons/star.svg";
 
 import { palette } from "@/theme/palette";
-import { IAssetColumnSorter } from "../../../CollectionDashboard/CollectionAssetsCard/types";
 import AssetsTableCell from "../AssetsTableCell";
 
 type Props = {

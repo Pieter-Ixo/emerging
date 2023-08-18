@@ -1,7 +1,6 @@
-import { IEntityExtended } from "@/types/entityCollections";
+import { IAssetColumnSorter, IEntityExtended } from "@/types/entityCollections";
 
 import AssetsTableRow from "../AssetsTableRow";
-import { IAssetColumnSorter } from "../../../CollectionDashboard/CollectionAssetsCard/types";
 
 type Props = {
   sortedEntities: IEntityExtended[] | undefined;

@@ -17,15 +17,16 @@ import Controls from "@/components/Containers/Controls";
 import AssetsTable from "@/components/Pages/Collections/CollectionAssets";
 
 export default function Assets() {
-  const collectionId = useValueFromRouter("collectionId");
-
   const dispatch = useAppDispatch();
+  const collectionId = useValueFromRouter("collectionId");
   const collection = useAppSelector((state) =>
     selectCollectionById(state, collectionId)
   );
+
   useEffect(() => {
     dispatch(fetchAndFillCollections());
   }, []);
+
   return (
     <AppLayout title="Collection News">
       <PageHeader>
