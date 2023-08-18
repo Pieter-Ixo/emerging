@@ -12,6 +12,8 @@ import BaseIcon from "@/components/Presentational/BaseIcon";
 import Wallet from "@/assets/icons/wallet.svg";
 import DisconnectWallet from "@/assets/icons/disconnect-wallet.svg";
 
+import OwnerSwitch from "./components/OwnerSwitch";
+
 function ConnectAccountButton() {
   const dispatch = useAppDispatch();
   const { wallet, updateWalletType, logoutWallet } = useContext(WalletContext);
@@ -65,6 +67,7 @@ function ConnectAccountButton() {
               />
             </ActionIcon>
           </Flex>
+          <OwnerSwitch />
         </Flex>
       </Card>
     );
