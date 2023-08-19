@@ -94,7 +94,6 @@ export default function BatchPageLayout() {
                   entityExternalId={entityExternalId}
                   entityOwner={entity?.owner}
                   collectionAssetsAmount={collectionAssetsCount}
-                  batchProgress={batchProgress}
                 />
               </Grid.Col>
               <Grid.Col span={6}>

@@ -21,7 +21,6 @@ export default function ImpactAsset({
   collectionAssetsAmount,
   entity,
   collection,
-  batchProgress,
 }: ImpactAssetProps) {
   const totalTokenAmount = getEntityTotalTokenAmount(entity);
   const totalMinted = getEntityTotalMintedAmount(entity);
@@ -37,7 +36,6 @@ export default function ImpactAsset({
       <Flex direction="column" gap="md">
         <Identifier
           retired={totalRetired}
-          claimable={Number(batchProgress) * 2}
           produced={totalMinted}
           totalTokenAmount={totalTokenAmount}
           entity={entity}

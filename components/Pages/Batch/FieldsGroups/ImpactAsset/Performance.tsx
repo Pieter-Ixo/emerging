@@ -1,13 +1,17 @@
 import { useEffect } from "react";
+import dynamic from "next/dynamic";
 import { Button, Card, Flex } from "@mantine/core";
 
 import { useCookstove } from "@/context/cookstove";
 import useDetailPortal from "@/hooks/useDetailPortal";
-import CookstoveDashboard from "@/components/Containers/CookstoveDashboard";
-
 import moreOrEqualZero from "@/utils/moreOrEqualZero";
+
 import { FieldText } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
+
+const CookstoveDashboard = dynamic(
+  () => import("@/components/Containers/CookstoveDashboard")
+);
 
 export default function Performance({
   entityExternalId,
