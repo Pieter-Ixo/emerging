@@ -4,13 +4,16 @@ import { Flex, ScrollArea, Table, Text } from "@mantine/core";
 
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { IAssetColumnSorter, IEntity, IEntityExtended } from "@/types/entityCollections";
+import {
+  IAssetColumnSorter,
+  IEntity,
+  IEntityExtended,
+} from "@/types/entityCollections";
 import { selectSelectedEntityExternalId } from "@/redux/entityCollections/selectors";
 import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExternalId";
 import { palette } from "@/theme/palette";
-import BaseIcon from "@/components/Presentational/BaseIcon";
 import useValueFromRouter from "@/utils/useValueFromRouter";
-import ArrowRight from "@/assets/icons/arrow-right.svg";
+import ArrowRightIcon from "@/components/Icons/ArrowRightIcon";
 
 import PageBlock from "../PageBlock";
 import CollectionAssetsHeadCell from "./components/CollectionAssetsHeadCell";
@@ -103,7 +106,7 @@ export default function CollectionAssetsCard() {
         >
           <Flex>
             <Text size="md">SEE ALL</Text>
-            <BaseIcon width={24} height={25} isPointer Icon={ArrowRight} />
+            <ArrowRightIcon />
           </Flex>
         </Link>
       }

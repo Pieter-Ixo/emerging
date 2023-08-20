@@ -11,10 +11,9 @@ import { selectCollectionById } from "@/redux/entityCollections/selectors";
 import { fetchAndFillCollections } from "@/redux/entityCollections/thunks";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import { palette } from "@/theme/palette";
-import ArrowLeft from "@/assets/icons/arrow-left.svg";
-import BaseIcon from "@/components/Presentational/BaseIcon";
-import Controls from "@/components/Containers/Controls";
 import AssetsTable from "@/components/Pages/Collections/CollectionAssets";
+import AssetsControls from "@/components/Pages/Collections/CollectionAssets/components/AssetsControls";
+import ArrowLeftIcon from "@/components/Icons/ArrowLeftIcon";
 
 export default function Assets() {
   const dispatch = useAppDispatch();
@@ -47,13 +46,13 @@ export default function Assets() {
         rightSide={
           collectionId ? (
             <Link href={`/collections/${collectionId}`} color={palette.Black}>
-              <BaseIcon isPointer Icon={ArrowLeft} />
+              <ArrowLeftIcon />
             </Link>
           ) : null
         }
       >
         <Flex direction="column" gap={32} pb={16}>
-          <Controls isViewsModsVisible={false} />
+          <AssetsControls />
           <Text size="sm" color={palette.Neutral500}>
             {collectionTitle}
           </Text>

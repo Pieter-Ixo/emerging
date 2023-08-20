@@ -11,12 +11,10 @@ import FilterIcon from "@/assets/icons/filter.svg";
 
 type Props = {
   isSearchVisible?: boolean;
-  isViewsModsVisible?: boolean;
 };
 
 export default function Controls({
   isSearchVisible = true,
-  isViewsModsVisible = true,
 }: Props) {
   const [viewMode, setViewMode] = useState(PortfolioViewMods.iconView);
 
@@ -34,7 +32,6 @@ export default function Controls({
           radius="xl"
         />
       )}
-      {isViewsModsVisible && (
         <Button
           variant="unstyled"
           px={0}
@@ -61,8 +58,6 @@ export default function Controls({
             Icon={CollectionIcon}
           />
         </Button>
-      )}
-      {isViewsModsVisible && (
         <Button
           variant="unstyled"
           px={0}
@@ -84,7 +79,6 @@ export default function Controls({
             }}
           />
         </Button>
-      )}
       <Button
         h={44}
         variant="unstyled"
