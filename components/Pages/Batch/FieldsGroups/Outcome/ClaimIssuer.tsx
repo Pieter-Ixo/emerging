@@ -18,16 +18,18 @@ import { FieldText } from "../styledComponents";
 import { OutcomeProps } from "./props";
 
 export default function ClaimIssuer({
-  claimIssuer,
-  claimIssuerId,
+  claimIssuerProfile,
+  claimIssuerProfileId,
 }: Partial<OutcomeProps>) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("ClaimIssuer");
 
   const PortalChild = (
-    <Link href={`https://launchpad.ixo.world/entity/${claimIssuerId}/overview`}>
+    <Link
+      href={`https://launchpad.ixo.world/entity/${claimIssuerProfileId}/overview`}
+    >
       <Card shadow="sm" padding="lg" w={277} h={400} radius="md" withBorder>
         <Card.Section>
-          <Image src={claimIssuer?.imageUrl} height={160} alt="" />
+          <Image src={claimIssuerProfile?.imageUrl} height={160} alt="" />
         </Card.Section>
 
         <Flex direction="row" pb={10} justify="space-between">
@@ -39,14 +41,14 @@ export default function ClaimIssuer({
               CARBON
             </Badge>
           </Group>
-          <Avatar src={claimIssuer?.logoUrl} alt="" />
+          <Avatar src={claimIssuerProfile?.logoUrl} alt="" />
         </Flex>
 
         <Title order={4} color="#01283B" fw={700} size="20px" lh="lg">
-          {claimIssuer?.name}
+          {claimIssuerProfile?.name}
         </Title>
         <Text color="dimmed" size="12px" lh="100%">
-          {claimIssuer?.description}
+          {claimIssuerProfile?.description}
         </Text>
       </Card>
     </Link>
@@ -61,7 +63,7 @@ export default function ClaimIssuer({
         onClick={() => (isVisible ? closePortal() : openPortal(PortalChild))}
         variant={isVisible ? "outline" : "subtle"}
       >
-        {claimIssuer?.name}
+        {claimIssuerProfile?.name}
       </Button>
     </Flex>
   );
