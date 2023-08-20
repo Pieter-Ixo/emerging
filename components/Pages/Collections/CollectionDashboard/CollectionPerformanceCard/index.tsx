@@ -13,10 +13,12 @@ import CookstoveCostsIcon from "../CollectionClimateImpactsCard/icons/CookstoveC
 import CookstoveHealthIcon from "../CollectionClimateImpactsCard/icons/CookstoveHealthIcon";
 import CookstoveLocationIcon from "../CollectionClimateImpactsCard/icons/CookstoveLocationIcon";
 import CookstoveTimeIcon from "../CollectionClimateImpactsCard/icons/CookstoveTimeIcon";
+import CollectionTime from "./CollectionTime";
 
 enum SECTIONS {
   usage = "usage",
   fuel = "fuel",
+  time = "time",
 }
 
 export default function CollectionPerformanceCard() {
@@ -38,16 +40,12 @@ export default function CollectionPerformanceCard() {
             name={SECTIONS.usage as string}
             activeBGColor={palette.fullBlue}
             Icon={
-              <CookstoveUsageIcon
-                strokeColor={
-                  activeTab === SECTIONS.usage ? palette.White : palette.Black
-                }
-              />
+              <CookstoveUsageIcon isActive={SECTIONS.usage === activeTab} />
             }
             onClick={() => setActiveTab(SECTIONS.usage)}
             isActive={SECTIONS.usage === activeTab}
           >
-            usage
+            Usage
           </PerformanceTab>
           <PerformanceTab
             // @ts-ignore
@@ -63,28 +61,35 @@ export default function CollectionPerformanceCard() {
             onClick={() => setActiveTab(SECTIONS.fuel)}
             isActive={SECTIONS.fuel === activeTab}
           >
-            fuel
+            Fuel
           </PerformanceTab>
           <PerformanceTab
-            Icon={<CookstoveTimeIcon strokeColor={palette.Black} />}
+            // @ts-ignore
+            name={SECTIONS.time as string}
+            activeBGColor={palette.fullBlue}
+            Icon={<CookstoveTimeIcon isActive={activeTab === SECTIONS.time} />}
+            onClick={() => setActiveTab(SECTIONS.time)}
+            isActive={SECTIONS.time === activeTab}
+          >
+            Time
+          </PerformanceTab>
+          <PerformanceTab
+            Icon={<CookstoveCostsIcon isActive={false} />}
             disabled
           />
           <PerformanceTab
-            Icon={<CookstoveCostsIcon strokeColor={palette.Black} />}
+            Icon={<CookstoveHealthIcon isActive={false} />}
             disabled
           />
           <PerformanceTab
-            Icon={<CookstoveHealthIcon strokeColor={palette.Black} />}
-            disabled
-          />
-          <PerformanceTab
-            Icon={<CookstoveLocationIcon strokeColor={palette.Black} />}
+            Icon={<CookstoveLocationIcon isActive={false} />}
             disabled
           />
         </Flex>
       </Tabs>
       {SECTIONS.usage === activeTab && <CollectionUsage />}
       {SECTIONS.fuel === activeTab && <CollectionFuel />}
+      {SECTIONS.time === activeTab && <CollectionTime />}
     </PageBlock>
   );
 }
