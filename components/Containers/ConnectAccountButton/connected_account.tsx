@@ -1,5 +1,5 @@
-import { ActionIcon, Button, Card, Flex, Group, Text } from "@mantine/core";
 import { useContext, useEffect } from "react";
+import { ActionIcon, Button, Card, Flex, Group, Text } from "@mantine/core";
 
 import shortStr from "@/utils/shortStr";
 import { WalletContext } from "@/context/wallet";
@@ -12,7 +12,7 @@ import BaseIcon from "@/components/Presentational/BaseIcon";
 import Wallet from "@/assets/icons/wallet.svg";
 import DisconnectWallet from "@/assets/icons/disconnect-wallet.svg";
 
-import OwnerSwitch from "./components/OwnerSwitch";
+import AssetDistributorSwitch from "./components/AssetDistributorSwitch";
 
 function ConnectAccountButton() {
   const dispatch = useAppDispatch();
@@ -67,7 +67,7 @@ function ConnectAccountButton() {
               />
             </ActionIcon>
           </Flex>
-          <OwnerSwitch />
+          <AssetDistributorSwitch />
         </Flex>
       </Card>
     );
