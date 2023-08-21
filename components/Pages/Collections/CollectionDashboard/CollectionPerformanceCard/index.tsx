@@ -86,7 +86,9 @@ export default function CollectionPerformanceCard() {
           <PerformanceTab
             Icon={<CookstoveHealthIcon isActive={false} />}
             disabled
-          />
+          >
+            Health
+          </PerformanceTab>
           <PerformanceTab
             // @ts-ignore
             name={SECTIONS.location as string}
