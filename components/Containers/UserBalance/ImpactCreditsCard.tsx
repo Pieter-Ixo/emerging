@@ -65,11 +65,13 @@ function ImpactCreditsCard() {
             { label: "available", value: "available" },
             { label: "offset", value: "offset" },
           ]}
-          color={creditsTabName === "available" ? "FullBlue.3" : "GreenFull.3"}
-          w={272}
+          color={
+            creditsTabName === "available"
+              ? palette.fullBlue
+              : palette.greenFull
+          }
           mt="xl"
-          style={{ borderRadius: 23 }}
-          radius={20}
+          radius={23}
         />
 
         {creditsTabName === "available" && (
