@@ -122,11 +122,13 @@ export default function CookstoveDashboard({
               </Link>
             </Box>
             <Box w="100%">
-              <ImageTextCard
-                Img={Sprout}
-                text="Explore the benefits of clean cooking"
-                vertical
-              />
+              <Link href="https://cleancooking.org/the-value-of-clean-cooking/">
+                <ImageTextCard
+                  Img={Sprout}
+                  text="Explore the benefits of clean cooking"
+                  vertical
+                />
+              </Link>
             </Box>
           </Flex>
 
