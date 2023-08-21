@@ -18,7 +18,7 @@ export default function Home() {
         <Popover width={200} position="bottom" withArrow shadow="md">
           <Popover.Target>
             <Container>
-              <PageLink>
+              <PageLink href="">
                 <TruckSVG aria-hidden width={70} height={70} alt="" />
                 <Title order={3} fw={300}>
                   Distributor

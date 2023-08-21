@@ -12,7 +12,6 @@ export default function Identifier({
   entity,
   collectionAssetsAmount,
   retired,
-  claimable,
   totalTokenAmount,
   produced,
 }: ImpactAssetProps) {

@@ -1,5 +1,6 @@
 import { PropsWithChildren, useState } from "react";
 import { Flex, Button, Anchor, Tooltip } from "@mantine/core";
+import Link from "next/link";
 
 import { isHttpUrl } from "@/utils/isStrUrl";
 
@@ -31,15 +32,23 @@ function RowWithText({ value, label }: { label?: string; value: string }) {
     return (
       <Row>
         {label && <Txt pr="lg">{label}</Txt>}
-        <Anchor href={value} target="_blank" rel="noreferrer">
-          {value.length > 20 ? (
-            <Tooltip label={value}>
-              <Txt color="unset">{shortStr(String(value), 23, 0)}</Txt>
-            </Tooltip>
-          ) : (
-            <Txt>{}</Txt>
-          )}
-        </Anchor>
+        <Link
+          href={value}
+          target="_blank"
+          rel="noreferrer"
+          passHref
+          legacyBehavior
+        >
+          <Anchor>
+            {value.length > 20 ? (
+              <Tooltip label={value}>
+                <Txt color="unset">{shortStr(String(value), 23, 0)}</Txt>
+              </Tooltip>
+            ) : (
+              <Txt>{}</Txt>
+            )}
+          </Anchor>
+        </Link>
       </Row>
     );
   return (

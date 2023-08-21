@@ -58,17 +58,13 @@ export default function BatchPageLayout() {
   }, [batch, entity, collection]);
 
   const entityProfile = entity?._profile;
-  const tokenIpfs = collection?._tokenIpfs;
   const claimOut = batch?._claimVer?.outcome;
-  const claimVer = batch?._claimVer;
   const deviceCredSubject = entity?._deviceCredential?.credentialSubject;
-  const supamoto = entity?._supamoto; // request disabled
   const project = batch?._claimCer?._project;
   const protocol = batch?._protocol;
   const oracle = batch?._oracle;
   const claimIssuerProfile = batch?._claimIssuer?._profile;
   const verifiableCred = batch?._verifiableCred;
-  const evaluation = claimVer?.credentialSubject.evaluation;
   const claimCer = batch?._claimCer;
 
   const batchProgress =
@@ -98,7 +94,6 @@ export default function BatchPageLayout() {
                   entityExternalId={entityExternalId}
                   entityOwner={entity?.owner}
                   collectionAssetsAmount={collectionAssetsCount}
-                  batchProgress={batchProgress}
                 />
               </Grid.Col>
               <Grid.Col span={6}>

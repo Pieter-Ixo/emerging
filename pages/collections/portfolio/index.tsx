@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box, Container, Loader, Text, Title } from "@mantine/core";
+import dynamic from "next/dynamic";
 import { Carousel } from "@mantine/carousel";
 
 import { useAppSelector } from "@/hooks/redux";
@@ -15,9 +16,14 @@ import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 import AppLayout from "@/components/Layout/AppLayout";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
 
-import CollectionsItem from "@/components/Pages/Collections/Portfolio/CollectionsItem";
 import Controls from "@/components/Containers/Controls";
-import EntitiesList from "@/components/Pages/Collections/Portfolio/EntitiesList";
+
+const CollectionsItem = dynamic(
+  () => import("@/components/Pages/Collections/Portfolio/CollectionsItem")
+);
+const EntitiesList = dynamic(
+  () => import("@/components/Pages/Collections/Portfolio/EntitiesList")
+);
 
 export default function Collections() {
   const [activeCardId, setActiveCardId] = useState<string>();

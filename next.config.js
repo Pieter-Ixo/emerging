@@ -27,8 +27,8 @@ const nextConfig = {
   }
 };
 
-const withTM = require('next-transpile-modules')(['lightweight-charts', 'fancy-canvas']);
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
 
-module.exports = withTM(nextConfig);
-
-
+module.exports = withBundleAnalyzer(nextConfig)

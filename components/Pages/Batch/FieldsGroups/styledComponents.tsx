@@ -1,6 +1,7 @@
 import { Text, Flex, Image, Anchor, AnchorProps } from "@mantine/core";
 import { palette } from "@/theme/palette";
 import { PropsWithChildren } from "react";
+import Link from "next/link";
 
 export function FieldText({ children }: PropsWithChildren) {
   return (
@@ -11,16 +12,16 @@ export function FieldText({ children }: PropsWithChildren) {
 }
 export function FieldAnchor({
   children,
+  href,
+  target,
   ...props
 }: AnchorProps & { href: string; target?: "_blank" | undefined }) {
   return (
-    <Anchor
-      fw={400}
-      sx={{ fontSize: 13 }}
-      {...props}
-    >
-      {children}
-    </Anchor>
+    <Link href={href} target={target} passHref legacyBehavior>
+      <Anchor fw={400} sx={{ fontSize: 13 }} {...props}>
+        {children}
+      </Anchor>
+    </Link>
   );
 }
 
