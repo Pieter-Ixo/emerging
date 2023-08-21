@@ -32,7 +32,13 @@ function RowWithText({ value, label }: { label?: string; value: string }) {
     return (
       <Row>
         {label && <Txt pr="lg">{label}</Txt>}
-        <Link href={value} target="_blank" rel="noreferrer">
+        <Link
+          href={value}
+          target="_blank"
+          rel="noreferrer"
+          passHref
+          legacyBehavior
+        >
           <Anchor>
             {value.length > 20 ? (
               <Tooltip label={value}>

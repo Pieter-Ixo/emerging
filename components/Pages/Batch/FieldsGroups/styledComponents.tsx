@@ -17,7 +17,7 @@ export function FieldAnchor({
   ...props
 }: AnchorProps & { href: string; target?: "_blank" | undefined }) {
   return (
-    <Link href={href} target={target}>
+    <Link href={href} target={target} passHref legacyBehavior>
       <Anchor fw={400} sx={{ fontSize: 13 }} {...props}>
         {children}
       </Anchor>

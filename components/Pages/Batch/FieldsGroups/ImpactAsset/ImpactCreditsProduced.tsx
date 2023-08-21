@@ -36,7 +36,7 @@ export default function ImpactCreditsProduced({
       </Flex>
       {Object.entries(tokensMap ?? {}).map(([batchId, token]) => (
         <Flex justify="space-between" key={batchId}>
-          <Link href={batchId}>
+          <Link href={batchId} passHref legacyBehavior>
             <Anchor size={13}>{shortStr(batchId, 14, 5)}</Anchor>
           </Link>
           <Flex gap="sm">
