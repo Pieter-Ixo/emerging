@@ -9,15 +9,16 @@ export default function BatchButton({ children }: PropsWithChildren) {
   return (
     <Button
       radius="xl"
-      onClick={(e) => onBtnClick(e)}
       miw={45}
       h={45}
       p={0}
       sx={{
         backgroundColor: palette.whiteTransparent,
         cursor: "default",
+        "&[data-disabled]": { backgroundColor: palette.whiteTransparent },
         ":hover": { backgroundColor: palette.whiteTransparent },
       }}
+      disabled
     >
       {children}
     </Button>

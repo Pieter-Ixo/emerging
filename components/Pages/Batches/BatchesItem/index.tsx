@@ -119,6 +119,7 @@ export default function BatchesItem({
         <Button
           onClick={(e) => onOffsetBtnClick(e)}
           sx={{ flexGrow: 1, ...buttonStyles }}
+          disabled
           radius="xl"
           h={45}
         >

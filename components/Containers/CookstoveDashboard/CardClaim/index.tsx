@@ -44,7 +44,7 @@ function CarbonClaimCard({ amount = 0 }: CarbonClaimCardProps) {
               border: `1px solid ${palette.whiteTransparent}`,
             }}
             variant="outline"
-            disabled={amount === 0}
+            disabled
             radius="md"
             size="lg"
             uppercase
