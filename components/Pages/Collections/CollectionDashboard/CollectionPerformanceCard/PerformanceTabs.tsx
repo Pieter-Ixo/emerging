@@ -25,7 +25,7 @@ type ImpactTabProps = PropsWithChildren & {
 };
 
 export function PerformanceTab({
-  isActive,
+  isActive = false,
   activeBGColor,
   Icon,
   onClick,
@@ -38,14 +38,22 @@ export function PerformanceTab({
     <Badge
       variant="filled"
       h={46}
-      px={20}
+      px={isActive ? 20 : 10}
       radius={23}
-      style={{
+      sx={{
+        margin: 0,
         textTransform: "none",
         cursor: disabled ? "not-allowed" : "pointer",
+        span: {
+          marginRight: 0,
+        },
       }}
       color={color}
-      leftSection={<div style={{ paddingTop: 5, paddingRight: 5 }}>{Icon}</div>}
+      leftSection={
+        <div style={{ paddingTop: 5, paddingRight: isActive ? 10 : 0 }}>
+          {Icon}
+        </div>
+      }
       onClick={disabled ? undefined : onClick}
     >
       <Text
@@ -53,7 +61,7 @@ export function PerformanceTab({
         weight={400}
         color={isActive ? palette.White : palette.Black}
       >
-        {children}
+        {isActive && children}
       </Text>
     </Badge>
   );

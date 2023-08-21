@@ -10,8 +10,9 @@ export default function CookstoveUsageIcon({ isActive }: Props) {
     <BaseIcon
       status={isActive ? "selected" : "notSelected"}
       isPointer
-      width={19}
-      height={23}
+      isStroke
+      width={24}
+      height={25}
       Icon={CookstoveUsageRawIcon}
     />
   );
