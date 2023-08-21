@@ -19,7 +19,8 @@ export type OutcomeProps = {
   evidence?: string;
   fuelPurchase?: IFuelPurchase;
   result?: IResult;
-  claimIssuer?: IClaimIssuer["_profile"];
+  claimIssuerProfile?: IClaimIssuer["_profile"];
+  claimIssuerProfileId?: string;
 };
 
 export default function PagePlug() {
