@@ -13,7 +13,8 @@ import { selectSelectedEntityExternalId } from "@/redux/entityCollections/select
 import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExternalId";
 import { palette } from "@/theme/palette";
 import useValueFromRouter from "@/utils/useValueFromRouter";
-import ArrowRightIcon from "@/components/Icons/ArrowRightIcon";
+import ArrowRightIcon from "@/assets/icons/arrow-right.svg";
+import BaseIcon from "@/components/Presentational/BaseIcon";
 
 import PageBlock from "../PageBlock";
 import CollectionAssetsHeadCell from "./components/CollectionAssetsHeadCell";
@@ -106,7 +107,7 @@ export default function CollectionAssetsCard() {
         >
           <Flex>
             <Text size="md">SEE ALL</Text>
-            <ArrowRightIcon />
+            <BaseIcon width={24} height={25} isPointer Icon={ArrowRightIcon} />;
           </Flex>
         </Link>
       }

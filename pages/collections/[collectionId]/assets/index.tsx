@@ -13,7 +13,8 @@ import useValueFromRouter from "@/utils/useValueFromRouter";
 import { palette } from "@/theme/palette";
 import AssetsTable from "@/components/Pages/Collections/CollectionAssets";
 import AssetsControls from "@/components/Pages/Collections/CollectionAssets/components/AssetsControls";
-import ArrowLeftIcon from "@/components/Icons/ArrowLeftIcon";
+import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
+import BaseIcon from "@/components/Presentational/BaseIcon";
 
 export default function Assets() {
   const dispatch = useAppDispatch();
@@ -46,7 +47,7 @@ export default function Assets() {
         rightSide={
           collectionId ? (
             <Link href={`/collections/${collectionId}`} color={palette.Black}>
-              <ArrowLeftIcon />
+              <BaseIcon isPointer Icon={ArrowLeftIcon} />;
             </Link>
           ) : null
         }

@@ -31,7 +31,7 @@ export default function AssetsTableHeadCell({
         size="sm"
         style={{ display: "flex" }}
       >
-        <Text pr={5}>{`${name}`}</Text>
+        <Text pr={5}>{name}</Text>
         {isColumnActive && (
           <BaseIcon
             Icon={SorterActive}
