@@ -6,9 +6,8 @@ import {
   useCallback,
 } from "react";
 
-import { STOVE, STOVE_PERIODS } from "@/types/stove";
+import { STOVE, STOVE_PELLETS, STOVE_PERIODS } from "@/types/stove";
 import { datesFromPeriod } from "@/utils/supamoto";
-import fuelSummaryMOCK from "@/lib/cookstove/fuelSummaryMOCK";
 import { ChartDataItem } from "@/components/Presentational/Chart/types";
 
 // FIXME: EMERGING-146: get rid of context, create new redux slice
@@ -157,7 +156,7 @@ export function CookstoveProvider({
   };
 
   const updateStovePellets = (
-    newStovePellets: {},
+    newStovePellets: STOVE_PELLETS,
     override: boolean = false
   ) => {
     if (override)

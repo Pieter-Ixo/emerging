@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import dynamic from "next/dynamic";
 
 import getEntityTotalTokenAmount, {
   getEntityTotalMintedAmount,
@@ -10,8 +11,11 @@ import { IEntityExtended } from "@/types/entityCollections";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchEntityByExternalIdAndFill } from "@/redux/entityCollections/thunks";
 import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
-import CookstoveDashboard from "../Containers/CookstoveDashboard";
 import moreOrEqualZero from "../../utils/moreOrEqualZero";
+
+const CookstoveDashboard = dynamic(
+  () => import("../Containers/CookstoveDashboard")
+);
 
 interface Props {
   entityId: string;
