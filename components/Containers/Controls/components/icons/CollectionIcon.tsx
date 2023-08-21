@@ -1,6 +1,6 @@
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import { palette } from "@/theme/palette";
-import Icon from "@/assets/icons/collection.svg";
+import CollectionRawIcon from "@/assets/icons/collection.svg";
 
 export default function CollectionIcon() {
   return (
@@ -23,7 +23,7 @@ export default function CollectionIcon() {
       }}
       width={24}
       height={25}
-      Icon={Icon}
+      Icon={CollectionRawIcon}
     />
   );
 }
