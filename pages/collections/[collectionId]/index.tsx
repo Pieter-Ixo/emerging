@@ -19,6 +19,7 @@ import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 import AppLayout from "@/components/Layout/AppLayout";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
 import { palette } from "@/theme/palette";
+import Link from "next/link";
 
 const CollectionClimateImpactsCard = dynamic(
   () =>
@@ -73,9 +74,11 @@ export default function Collection() {
     <AppLayout title="Emerging Collections">
       <PageHeader>
         <GlobalPortfolioSwitch selectedLink="global" />
-        <Title order={2} fw={300} color={palette.Neutral800}>
-          Collections
-        </Title>
+        <Link href="/collections">
+          <Title order={2} fw={300} color={palette.Neutral800}>
+            Collections
+          </Title>
+        </Link>
         <Title order={2} fw={300}>
           {collectionTitle}
         </Title>
