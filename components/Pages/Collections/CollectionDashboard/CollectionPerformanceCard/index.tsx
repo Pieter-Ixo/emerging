@@ -38,7 +38,7 @@ export default function CollectionPerformanceCard() {
         color="transparent"
         width="100%"
       >
-        <Flex direction="row" justify="flex-start" gap="xl">
+        <Flex direction="row" justify="flex-start" gap="sm">
           <PerformanceTab
             // @ts-ignore
             name={SECTIONS.usage as string}
