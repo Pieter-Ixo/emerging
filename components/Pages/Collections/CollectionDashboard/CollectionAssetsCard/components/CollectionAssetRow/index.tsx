@@ -1,6 +1,5 @@
-import { IEntityExtended } from "@/types/entityCollections";
+import { IAssetColumnSorter, IEntityExtended } from "@/types/entityCollections";
 
-import { IAssetColumnSorter } from "../../types";
 import TableCell from "../TableCell";
 
 type Props = {
