@@ -20,6 +20,7 @@ import CollectionAssetsCard from "@/components/Pages/Collections/CollectionDashb
 import CollectionNewsCard from "@/components/Pages/Collections/CollectionDashboard/CollectionNewsCard";
 import AppLayout from "@/components/Layout/AppLayout";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
+import { palette } from "@/theme/palette";
 
 export default function Collection() {
   const collectionId = useValueFromRouter("collectionId");
@@ -49,7 +50,7 @@ export default function Collection() {
     <AppLayout title="Emerging Collections">
       <PageHeader>
         <GlobalPortfolioSwitch selectedLink="global" />
-        <Title order={2} fw={300} color="#9A9A9A">
+        <Title order={2} fw={300} color={palette.Neutral800}>
           Collections
         </Title>
         <Title order={2} fw={300}>

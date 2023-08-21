@@ -58,7 +58,7 @@ export default function News() {
     <AppLayout title="Collection News">
       <PageHeader>
         <GlobalPortfolioSwitch selectedLink="global" />
-        <Title order={2} fw={300} color="#9A9A9A">
+        <Title order={2} fw={300} color={palette.Neutral800}>
           Collections
         </Title>
         <Title order={2} fw={300}>
