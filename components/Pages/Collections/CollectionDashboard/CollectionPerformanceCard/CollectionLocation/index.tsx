@@ -13,7 +13,7 @@ export default function CollectionLocation() {
   return collection?._profile?.location ? (
     <iframe
       title="Collection geolocation"
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d423812.3292600542!2d18.3264235053273!3d-33.914529073531575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc500f8826eed7%3A0x687fe1fc2828aa87!2sCape%20Town%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1692631487951!5m2!1sen!2sus"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d124413.19081668447!2d28.631971899999996!3d-12.97746645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x196cb4e3a782fdc7%3A0x540fdfe500034f23!2z0J3QtNC-0LvQsCwg0JfQsNC80LHQuNGP!5e0!3m2!1sru!2spl!4v1692637240792!5m2!1sru!2spl"
       style={{
         width: "100%",
         height: 287,
