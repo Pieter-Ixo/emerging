@@ -19,7 +19,7 @@ export default function Outcome({
   evidence,
   fuelPurchase,
   result,
-  claimIssuer,
+  claimIssuerProfile,
 }: OutcomeProps) {
   const quantityType = quantity?.type[1]?.split(":")?.[1] || quantity?.type[1];
   const quantityTypeWithSpaces = splitCamelCase(quantityType || "").join(" ");
@@ -59,7 +59,10 @@ export default function Outcome({
           <FieldText>Result</FieldText>
           <FieldText>{resultString}</FieldText>
         </Flex>
-        <ClaimIssuer claimIssuer={claimIssuer} />
+        <ClaimIssuer
+          claimIssuerProfile={claimIssuerProfile}
+          claimIssuerProfileId={claimCer?.issuer.id}
+        />
       </Flex>
     </Flex>
   );

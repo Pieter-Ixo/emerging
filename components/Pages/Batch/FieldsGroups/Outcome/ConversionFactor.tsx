@@ -1,7 +1,10 @@
 import { Card, Flex, Button, Text } from "@mantine/core";
+import Link from "next/link";
 
 import { palette } from "@/theme/palette";
 import useDetailPortal from "@/hooks/useDetailPortal";
+import jsonToJsonld from "@/utils/files/jsonToJsonld";
+
 import { FieldText } from "../styledComponents";
 import { OutcomeProps } from "./props";
 
@@ -21,7 +24,12 @@ export default function ConversionFactor({
         mb="xs"
       >
         <Text>Asset Credential Subject</Text>
-        <Text>DOWNLOAD ➔</Text>
+        <Link
+          href={jsonToJsonld(verifiableCred)}
+          download={`verifiableCred-${verifiableCred?.id}.jsonld`}
+        >
+          <Text>DOWNLOAD ➔</Text>
+        </Link>
       </Flex>
       {verifiableCred?.data.map((item) => {
         const [key] = Object.keys(item);

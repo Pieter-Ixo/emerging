@@ -1,8 +1,10 @@
 import { Card, Flex, Button, Text } from "@mantine/core";
+import Link from "next/link";
 
 import JSONViewer from "@/components/Presentational/JSONViewer";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import { palette } from "@/theme/palette";
+import jsonToJsonld from "@/utils/files/jsonToJsonld";
 
 import VerifyIcon from "@/assets/icons/VerifyIcon";
 import { FieldText } from "../styledComponents";
@@ -24,7 +26,12 @@ export default function AssetName({
           mb="xs"
         >
           <Text>Asset Credential Subject</Text>
-          <Text>DOWNLOAD ➔</Text>
+          <Link
+            href={jsonToJsonld(deviceCredSubject)}
+            download={`deviceCredSubject-${deviceCredSubject?.id}.jsonld`}
+          >
+            <Text>DOWNLOAD ➔</Text>
+          </Link>
         </Flex>
         <JSONViewer json={JSON.stringify(deviceCredSubject)} />
       </Card>
