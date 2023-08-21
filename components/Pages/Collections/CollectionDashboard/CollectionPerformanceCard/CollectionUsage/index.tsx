@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { Flex, Loader, Text } from "@mantine/core";
+import { Center, Flex, Loader, Text } from "@mantine/core";
 
 import { useAppSelector } from "@/hooks/redux";
 import { useCookstove } from "@/context/cookstove";
@@ -42,6 +42,8 @@ export default function CollectionUsage() {
       <CollectionSessionsChart sessionsSummary={sessionsSummary} />
     </>
   ) : (
-    <Loader />
+    <Center py="xl">
+      <Loader />
+    </Center>
   );
 }

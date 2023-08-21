@@ -14,11 +14,13 @@ import CookstoveHealthIcon from "../CollectionClimateImpactsCard/icons/Cookstove
 import CookstoveLocationIcon from "../CollectionClimateImpactsCard/icons/CookstoveLocationIcon";
 import CookstoveTimeIcon from "../CollectionClimateImpactsCard/icons/CookstoveTimeIcon";
 import CollectionTime from "./CollectionTime";
+import CollectionCosts from "./CollectionCosts";
 
 enum SECTIONS {
   usage = "usage",
   fuel = "fuel",
   time = "time",
+  costs = "costs",
 }
 
 export default function CollectionPerformanceCard() {
@@ -74,9 +76,17 @@ export default function CollectionPerformanceCard() {
             Time
           </PerformanceTab>
           <PerformanceTab
-            Icon={<CookstoveCostsIcon isActive={false} />}
-            disabled
-          />
+            // @ts-ignore
+            name={SECTIONS.costs as string}
+            activeBGColor={palette.fullBlue}
+            onClick={() => setActiveTab(SECTIONS.costs)}
+            Icon={
+              <CookstoveCostsIcon isActive={activeTab === SECTIONS.costs} />
+            }
+            isActive={SECTIONS.costs === activeTab}
+          >
+            Costs
+          </PerformanceTab>
           <PerformanceTab
             Icon={<CookstoveHealthIcon isActive={false} />}
             disabled
@@ -90,6 +100,7 @@ export default function CollectionPerformanceCard() {
       {SECTIONS.usage === activeTab && <CollectionUsage />}
       {SECTIONS.fuel === activeTab && <CollectionFuel />}
       {SECTIONS.time === activeTab && <CollectionTime />}
+      {SECTIONS.costs === activeTab && <CollectionCosts />}
     </PageBlock>
   );
 }

@@ -10,6 +10,7 @@ export default function CookstoveCostsIcon({ isActive }: Props) {
     <BaseIcon
       height={25}
       width={24}
+      isPointer
       status={isActive ? "selected" : "notSelected"}
       Icon={Icon}
     />
