@@ -7,7 +7,7 @@ export function calculateTotalCosts(summary: ChartDataItem[]): number {
 export function calculateCosts(summary: ChartDataItem[]): ChartDataItem[] {
   return summary.map(({ total, month }) => ({
     month,
-    total: total * 1.26 - total,
+    total: total * 0.26,
   }));
 }
 
@@ -20,7 +20,7 @@ export function calculateSessionsSavedTime(
 ): ChartDataItem[] {
   return summary.map(({ total, month }) => ({
     month,
-    total: (total * 1.25 - total) * 60,
+    total: total * 15,
   }));
 }
 

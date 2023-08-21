@@ -1,5 +1,5 @@
 import BaseIcon from "@/components/Presentational/BaseIcon";
-import Icon from "@/assets/icons/cookstove-usage.svg";
+import CookstoveUsageRawIcon from "@/assets/icons/cookstove-usage.svg";
 
 type Props = {
   isActive: boolean;
@@ -12,7 +12,7 @@ export default function CookstoveUsageIcon({ isActive }: Props) {
       isPointer
       width={19}
       height={23}
-      Icon={Icon}
+      Icon={CookstoveUsageRawIcon}
     />
   );
 }

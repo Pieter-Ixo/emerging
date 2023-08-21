@@ -1,5 +1,5 @@
 import BaseIcon from "@/components/Presentational/BaseIcon";
-import Icon from "@/assets/icons/cookstove-costs.svg";
+import CookstoveCostsRawIcon from "@/assets/icons/cookstove-costs.svg";
 
 type Props = {
   isActive: boolean;
@@ -12,7 +12,7 @@ export default function CookstoveCostsIcon({ isActive }: Props) {
       width={24}
       isPointer
       status={isActive ? "selected" : "notSelected"}
-      Icon={Icon}
+      Icon={CookstoveCostsRawIcon}
     />
   );
 }

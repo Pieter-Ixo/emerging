@@ -53,13 +53,7 @@ export default function CollectionPerformanceCard() {
             // @ts-ignore
             name={SECTIONS.fuel as string}
             activeBGColor={palette.fullBlue}
-            Icon={
-              <CookstoveFuelIcon
-                strokeColor={
-                  activeTab === SECTIONS.fuel ? palette.White : palette.Black
-                }
-              />
-            }
+            Icon={<CookstoveFuelIcon isActive={activeTab === SECTIONS.fuel} />}
             onClick={() => setActiveTab(SECTIONS.fuel)}
             isActive={SECTIONS.fuel === activeTab}
           >
