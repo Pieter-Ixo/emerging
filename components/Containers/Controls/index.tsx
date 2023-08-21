@@ -34,6 +34,7 @@ export default function Controls({ isSearchVisible = true }: Props) {
           />
         </Tooltip>
       )}
+
       <Tooltip label="This functionality is under development" withArrow>
         <span>
           <Button

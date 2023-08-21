@@ -14,19 +14,15 @@ export default function sortObjectsBy<T extends Record<string, any>>(
   return sortedObjects;
 }
 
-export function sortAssetsByAlsoKnownAs(
+export function sortAssetsByExternalId(
   objects: IEntityExtended[],
   acsending: boolean = true
 ): IEntityExtended[] {
   const clone = structuredClone(objects);
   const sortedObjects = clone.sort(
     acsending
-      ? (a, b) =>
-          parseInt(a.alsoKnownAs.split(`#`)[1], 10) -
-          parseInt(b.alsoKnownAs.split(`#`)[1], 10)
-      : (a, b) =>
-          parseInt(b.alsoKnownAs.split(`#`)[1], 10) -
-          parseInt(a.alsoKnownAs.split(`#`)[1], 10)
+      ? (a, b) => parseInt(a.externalId, 10) - parseInt(b.externalId, 10)
+      : (a, b) => parseInt(b.externalId, 10) - parseInt(a.externalId, 10)
   );
   return sortedObjects;
 }

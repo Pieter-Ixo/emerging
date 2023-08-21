@@ -5,13 +5,7 @@ import {
 
 export type ImpactAssetProps = {
   entityExternalId?: string;
-  collectionName?: string;
-  collectionImage?: string;
-  collectionLogo?: string;
-  entityTotalMinted?: number | string;
   entityOwner?: string;
-  collectionProfileDescription?: string;
-  collectionProfileName?: string;
   collectionAssetsAmount?: number;
   entity?: IEntityExtended;
   collection?: ICollectionExtended;
@@ -22,7 +16,6 @@ export type ImpactAssetProps = {
   retired?: number;
   claimable?: number;
   produced?: number;
-  batchProgress?: number;
 };
 
 export default function PagePlug() {

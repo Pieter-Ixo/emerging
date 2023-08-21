@@ -1,4 +1,5 @@
 import { Grid, Stack, Title } from "@mantine/core";
+import dynamic from "next/dynamic";
 import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
@@ -14,12 +15,35 @@ import {
 } from "@/redux/entityCollections/thunks";
 
 import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
-import CollectionClimateImpactsCard from "@/components/Pages/Collections/CollectionDashboard/CollectionClimateImpactsCard";
-import CollectionPerformanceCard from "@/components/Pages/Collections/CollectionDashboard/CollectionPerformanceCard";
-import CollectionAssetsCard from "@/components/Pages/Collections/CollectionDashboard/CollectionAssetsCard";
-import CollectionNewsCard from "@/components/Pages/Collections/CollectionDashboard/CollectionNewsCard";
+
 import AppLayout from "@/components/Layout/AppLayout";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
+import { palette } from "@/theme/palette";
+
+const CollectionClimateImpactsCard = dynamic(
+  () =>
+    import(
+      "@/components/Pages/Collections/CollectionDashboard/CollectionClimateImpactsCard"
+    )
+);
+const CollectionAssetsCard = dynamic(
+  () =>
+    import(
+      "@/components/Pages/Collections/CollectionDashboard/CollectionAssetsCard"
+    )
+);
+const CollectionNewsCard = dynamic(
+  () =>
+    import(
+      "@/components/Pages/Collections/CollectionDashboard/CollectionNewsCard"
+    )
+);
+const CollectionPerformanceCard = dynamic(
+  () =>
+    import(
+      "@/components/Pages/Collections/CollectionDashboard/CollectionPerformanceCard"
+    )
+);
 
 export default function Collection() {
   const collectionId = useValueFromRouter("collectionId");
@@ -49,7 +73,7 @@ export default function Collection() {
     <AppLayout title="Emerging Collections">
       <PageHeader>
         <GlobalPortfolioSwitch selectedLink="global" />
-        <Title order={2} fw={300} color="#9A9A9A">
+        <Title order={2} fw={300} color={palette.Neutral800}>
           Collections
         </Title>
         <Title order={2} fw={300}>

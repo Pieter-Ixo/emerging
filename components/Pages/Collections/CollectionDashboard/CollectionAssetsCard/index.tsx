@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
-import { ScrollArea, Table, Text } from "@mantine/core";
+import Link from "next/link";
+import { Flex, ScrollArea, Table, Text } from "@mantine/core";
 
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { IEntity, IEntityExtended } from "@/types/entityCollections";
+import {
+  IAssetColumnSorter,
+  IEntity,
+  IEntityExtended,
+} from "@/types/entityCollections";
 import { selectSelectedEntityExternalId } from "@/redux/entityCollections/selectors";
-import { sortAssetsByAlsoKnownAs } from "@/helpers/collectionAsset/sortByAlsoKnownAs";
+import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExternalId";
+import { palette } from "@/theme/palette";
+import useValueFromRouter from "@/utils/useValueFromRouter";
+import ArrowRightIcon from "@/assets/icons/arrow-right.svg";
+import BaseIcon from "@/components/Presentational/BaseIcon";
 
-import ArrowRight from "../CollectionNewsCard/icons/arrowRight";
 import PageBlock from "../PageBlock";
 import CollectionAssetsHeadCell from "./components/CollectionAssetsHeadCell";
 import CollectionAssetsTBody from "./components/CollectionAssetsTBody";
-import { IAssetColumnSorter } from "./types";
 import CollectionAssetModal from "./components/CollectionAssetModal";
 
 const defaultColumnSorterState = [
@@ -22,6 +29,7 @@ const defaultColumnSorterState = [
 
 export default function CollectionAssetsCard() {
   const dispatch = useAppDispatch();
+  const collectionId = useValueFromRouter("collectionId");
 
   const selectedAssetExternalId = useAppSelector(
     selectSelectedEntityExternalId
@@ -54,7 +62,6 @@ export default function CollectionAssetsCard() {
         clickedColumnIndex === columnIndex
           ? { ...column, isActive: !column.isActive }
           : { ...column, isActive: false }
-
       )
     );
     setColumnSorterIndex(clickedColumnIndex);
@@ -78,10 +85,10 @@ export default function CollectionAssetsCard() {
       switch (columnSorters[columnSorterIndex].name) {
         case "Serial number":
           if (columnSorters[columnSorterIndex].isActive)
-            setSortedEntities((assets) => sortAssetsByAlsoKnownAs(assets));
+            setSortedEntities((assets) => sortAssetsByExternalId(assets));
           else
             setSortedEntities((assets) =>
-              sortAssetsByAlsoKnownAs(assets, false)
+              sortAssetsByExternalId(assets, false)
             );
           break;
 
@@ -94,10 +101,15 @@ export default function CollectionAssetsCard() {
     <PageBlock
       title="ASSETS"
       rightSide={
-        <Text>
-          SEE ALL
-          <ArrowRight pathFill="#000" />
-        </Text>
+        <Link
+          href={`/collections/${collectionId}/assets`}
+          color={palette.Black}
+        >
+          <Flex>
+            <Text size="md">SEE ALL</Text>
+            <BaseIcon width={24} height={25} isPointer Icon={ArrowRightIcon} />;
+          </Flex>
+        </Link>
       }
     >
       <ScrollArea h={425} type="scroll">
@@ -134,7 +146,7 @@ export default function CollectionAssetsCard() {
           />
         </Table>
       </ScrollArea>
-      <CollectionAssetModal/>
+      <CollectionAssetModal />
     </PageBlock>
   );
 }
