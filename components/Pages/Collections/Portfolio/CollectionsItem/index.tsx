@@ -1,6 +1,15 @@
-import { Card, Text, Badge, Image, Flex } from "@mantine/core";
+import { Card, Text, Badge, Image, Flex, Center, Loader } from "@mantine/core";
+import { useEffect } from "react";
+
 import { palette } from "@/theme/palette";
 import { ICollectionExtended } from "@/types/entityCollections";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { fetchCollectionTokenIpfs } from "@/redux/entityCollections/thunks";
+import {
+  selectCollectionTokenIpfsError,
+  selectCollectionsTokensIpfs,
+  selectCollectionsTokensIpfsLoading,
+} from "@/redux/entityCollections/selectors";
 
 type CollectionsItemProps = {
   collection: ICollectionExtended;
@@ -13,9 +22,43 @@ export default function CollectionsItem({
   entitiesLength,
   isActive,
 }: CollectionsItemProps) {
+  const dispatch = useAppDispatch();
+
+  const collectionTokenIpfs = useAppSelector((state) =>
+    selectCollectionsTokensIpfs(state, collection.id)
+  );
+  const collectionTokenIpfsError = useAppSelector(
+    selectCollectionTokenIpfsError
+  );
+  const collectionTokenIpfsLoading = useAppSelector(
+    selectCollectionsTokensIpfsLoading
+  );
+
+  useEffect(() => {
+    if (!collection._tokenIpfs) dispatch(fetchCollectionTokenIpfs(collection));
+  }, [collection.id]);
+
   const activeCardBg = isActive ? palette.fullBlue : palette.Neutral100;
 
   const activeCardFont = isActive ? palette.White : palette.Black;
+
+  if (collectionTokenIpfsLoading) {
+    return (
+      <Center w="100%" mih={223}>
+        <Loader />
+      </Center>
+    );
+  }
+  
+  if (collectionTokenIpfsError) {
+    return (
+      <Center w="100%" mih={223}>
+        <Text size="md" color={palette.redFull}>
+          {collectionTokenIpfsError}
+        </Text>
+      </Center>
+    );
+  }
 
   return (
     <Card padding="none" sx={{ color: activeCardFont }} radius={16}>
@@ -41,7 +84,7 @@ export default function CollectionsItem({
               variant="filled"
             >
               <Text size="md" fw={500}>
-                {collection._tokenIpfs?.properties.denom}
+                {collectionTokenIpfs?.properties.denom}
               </Text>
             </Badge>
           </Flex>

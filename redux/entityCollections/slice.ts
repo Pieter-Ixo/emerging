@@ -7,6 +7,7 @@ import {
   ITokenWhateverItMean,
   IApiCollectionEntitiesTotal,
   IApiCollectionEntitiesTotalRetired,
+  ICollectionTokenIpfs,
 } from "@/types/entityCollections";
 
 import { INewsPostsResponse, INewsPostsResponseExtended } from "@/types/news";
@@ -20,6 +21,7 @@ import {
   fetchTotalCollectionEntities,
   fetchLastNewsPost,
   fetchNewsPosts,
+  fetchCollectionTokenIpfs,
 } from "./thunks";
 
 export type EntityCollectionState = {
@@ -37,12 +39,18 @@ export type EntityCollectionState = {
   isAdminTokensLoading: boolean;
   isUserTokensLoading: boolean;
   isEntitiesTotalTokensLoading: boolean;
+
   lastNewsPost: INewsPostsResponse | undefined;
   lastNewsPostError: string | undefined;
   isLastNewsPostLoading: boolean;
+
   newsPosts: INewsPostsResponseExtended | undefined;
   newsPostsError: string | undefined;
   isNewsPostsLoading: boolean;
+
+  collectionsTokensIpfs: ICollectionTokenIpfs[];
+  collectionsTokensIpfsLoading: boolean;
+  collectionTokenIpfsError: string | undefined;
 };
 
 // TODO: GOD store: add new slices for GLOBAL COLLECTIONS and for USER's COLLECTIONS
@@ -61,12 +69,18 @@ const initialState: EntityCollectionState = {
   isAdminTokensLoading: false,
   isUserTokensLoading: false,
   isEntitiesTotalTokensLoading: true,
+
   lastNewsPost: undefined,
   lastNewsPostError: "",
   isLastNewsPostLoading: true,
+
   newsPosts: undefined,
   newsPostsError: undefined,
   isNewsPostsLoading: true,
+
+  collectionsTokensIpfs: [],
+  collectionsTokensIpfsLoading: true,
+  collectionTokenIpfsError: undefined,
 };
 
 const EntityCollectionSlice = createSlice({
@@ -208,6 +222,26 @@ const EntityCollectionSlice = createSlice({
     builder.addCase(fetchNewsPosts.rejected, (state) => {
       state.newsPostsError = "An error occurred while fetching data.";
       state.isNewsPostsLoading = false;
+    });
+
+    // fetchCollectionTokenIpfs
+    builder.addCase(fetchCollectionTokenIpfs.pending, (state) => {
+      state.collectionsTokensIpfsLoading = true;
+    });
+    builder.addCase(fetchCollectionTokenIpfs.fulfilled, (state, action) => {
+      const collectionIndex = state.entityCollections.findIndex(
+        (collectionWithEntities) =>
+          collectionWithEntities.collection.id === action.payload?.collectionId
+      );
+
+      state.entityCollections[collectionIndex].collection._tokenIpfs =
+        action.payload?.collectionTokenIpfs;
+
+      state.collectionsTokensIpfsLoading = false;
+    });
+    builder.addCase(fetchCollectionTokenIpfs.rejected, (state) => {
+      state.collectionTokenIpfsError = "An error occurred while fetching data.";
+      state.collectionsTokensIpfsLoading = false;
     });
 
     builder.addCase(HYDRATE, (state, action) => ({
