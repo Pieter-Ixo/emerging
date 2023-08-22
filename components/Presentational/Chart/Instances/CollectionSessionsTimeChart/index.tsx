@@ -5,7 +5,7 @@ import Chart from "@/components/Presentational/Chart";
 import { ChartDataItem } from "../../types";
 
 type Props = {
-  sessionsSavedTime?: ChartDataItem[];
+  sessionsSavedTime: ChartDataItem[];
 };
 
 export default function CollectionSessionsTimeChart({

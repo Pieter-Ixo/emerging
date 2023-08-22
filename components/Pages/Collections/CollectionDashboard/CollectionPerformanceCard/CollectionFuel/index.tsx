@@ -16,18 +16,25 @@ export default function CollectionFuel() {
   } = useCookstove();
 
   const entitesExternalIds = useAppSelector(selectAllEntitiesExternalIds);
-  
+
   const totalValue = useMemo(
     () => fuelSummary && calculateTotalFuel(fuelSummary),
     [fuelSummary]
   );
-  
+
   useEffect(() => {
     if (entitesExternalIds?.length) fetchFuelSummary(entitesExternalIds);
   }, [entitesExternalIds?.length]);
 
+  if (!fuelSummary) {
+    return (
+      <Center py="xl">
+        <Loader />
+      </Center>
+    );
+  }
 
-  return fuelSummary ? (
+  return (
     <>
       <Flex pt={28} align="flex-end">
         <Text size={56} color={palette.fullBlue} pr={10} fs="normal">
@@ -39,9 +46,5 @@ export default function CollectionFuel() {
       </Flex>
       <CollectionFuelChart fuelSummary={fuelSummary} />
     </>
-  ) : (
-    <Center py="xl">
-    <Loader />
-  </Center>
   );
 }

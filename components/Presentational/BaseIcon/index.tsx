@@ -48,7 +48,7 @@ function BaseIcon({
         }}
         fill={selectedTheme.fill}
         stroke={isStroke ? selectedTheme.stroke : "none"}
-        strokeWidth={isStroke ? 1.25 : 0}
+        strokeWidth={1.25}
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...svgProps}
       />

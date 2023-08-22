@@ -1,21 +1,23 @@
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { Flex, Tabs } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
 
 import PageBlock from "../PageBlock";
 import { PerformanceTab } from "./PerformanceTabs";
-import CollectionUsage from "./CollectionUsage";
-import CollectionFuel from "./CollectionFuel";
 import CookstoveUsageIcon from "../CollectionClimateImpactsCard/icons/CookstoveUsageIcon";
 import CookstoveFuelIcon from "../CollectionClimateImpactsCard/icons/CookstoveFuelIcon";
 import CookstoveCostsIcon from "../CollectionClimateImpactsCard/icons/CookstoveCostsIcon";
 import CookstoveHealthIcon from "../CollectionClimateImpactsCard/icons/CookstoveHealthIcon";
 import CookstoveLocationIcon from "../CollectionClimateImpactsCard/icons/CookstoveLocationIcon";
 import CookstoveTimeIcon from "../CollectionClimateImpactsCard/icons/CookstoveTimeIcon";
-import CollectionTime from "./CollectionTime";
-import CollectionCosts from "./CollectionCosts";
-import CollectionLocation from "./CollectionLocation";
+
+const CollectionUsage = dynamic(() => import("./CollectionUsage"));
+const CollectionFuel = dynamic(() => import("./CollectionFuel"));
+const CollectionTime = dynamic(() => import("./CollectionTime"));
+const CollectionCosts = dynamic(() => import("./CollectionCosts"));
+const CollectionLocation = dynamic(() => import("./CollectionLocation"));
 
 enum SECTIONS {
   usage = "usage",

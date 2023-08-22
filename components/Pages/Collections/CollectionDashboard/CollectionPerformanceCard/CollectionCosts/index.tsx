@@ -31,7 +31,15 @@ export default function CollectionCosts() {
     if (entitesExternalIds?.length) fetchFuelSummary(entitesExternalIds);
   }, [entitesExternalIds?.length]);
 
-  return costsSummary ? (
+  if (!costsSummary) {
+    return (
+      <Center py="xl">
+        <Loader />
+      </Center>
+    );
+  }
+
+  return (
     <>
       <Flex pt={28} align="flex-end">
         <Text size={56} color={palette.fullBlue} pr={10} fs="normal">
@@ -43,9 +51,5 @@ export default function CollectionCosts() {
       </Flex>
       <CollectionCostsChart costsSummary={costsSummary} />
     </>
-  ) : (
-    <Center py="xl">
-      <Loader />
-    </Center>
   );
 }

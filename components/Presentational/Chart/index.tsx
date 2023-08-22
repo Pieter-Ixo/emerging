@@ -13,7 +13,7 @@ const ReactChart = dynamic(
 );
 
 type ReactChartProps = {
-  data?: ChartDataItem[];
+  data: ChartDataItem[];
   chartType: "bar" | "line";
   label: string;
   min?: number;

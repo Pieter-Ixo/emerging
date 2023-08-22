@@ -28,7 +28,15 @@ export default function CollectionUsage() {
     }
   }, [entitesExternalIds?.length]);
 
-  return sessionsSummary ? (
+  if (!sessionsSummary) {
+    return (
+      <Center py="xl">
+        <Loader />
+      </Center>
+    );
+  }
+
+  return (
     <>
       <Flex pt={28} align="flex-end">
         <Text size="xl" color={palette.fullBlue} pr={10} fs="normal">
@@ -41,9 +49,5 @@ export default function CollectionUsage() {
 
       <CollectionSessionsChart sessionsSummary={sessionsSummary} />
     </>
-  ) : (
-    <Center py="xl">
-      <Loader />
-    </Center>
   );
 }
