@@ -1,14 +1,5 @@
 import { ReactNode } from "react";
-import {
-  Badge,
-  Card,
-  Flex,
-  Group,
-  Text,
-  Image,
-  Avatar,
-  Title,
-} from "@mantine/core";
+import { Badge, Card, Flex, Group, Text, Image, Title } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
 import {
@@ -46,7 +37,7 @@ export default function ProfileCard({
 
       <Flex direction="row" justify="space-between" pt="xs">
         {tags && (
-          <Group spacing="4px" maw="60%">
+          <Group mb="xs" spacing="4px">
             {tags.map((tag, index) =>
               tag ? (
                 <Badge
@@ -60,7 +51,6 @@ export default function ProfileCard({
             )}
           </Group>
         )}
-        <Avatar src={entity?._profile?.logoUrl} alt="" radius="xl" />
       </Flex>
 
       <Title order={4} color="#01283B" fw={500} lh="lg">
