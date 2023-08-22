@@ -206,7 +206,7 @@ export const selectEntityByExternalId = (
 export const selectLastNewsPost = createDraftSafeSelector(
   selectEntityCollections,
   (entityCollectionsState: EntityCollectionState) =>
-    entityCollectionsState.lastNewsPost
+    entityCollectionsState.lastNewsPost?.posts[0]
 );
 
 export const selectLastNewsPostError = createDraftSafeSelector(

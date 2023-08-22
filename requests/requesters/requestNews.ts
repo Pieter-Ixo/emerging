@@ -7,7 +7,7 @@ export async function requestLastNewsPost(): Promise<
   INewsPostsResponse | undefined
 > {
   return request<INewsPostsResponse>(
-    `https://ixoworld.ghost.io/ghost/api/v3/content/posts?key=${API_KEY}&limit=${1}&fields=title,feature_image,published_at`
+    `https://ixoworld.ghost.io/ghost/api/v3/content/posts?key=${API_KEY}&limit=${1}&fields=title,feature_image,published_at,url`
   );
 }
 export async function requestNewsPosts(
@@ -15,7 +15,6 @@ export async function requestNewsPosts(
   limit: number = 3
 ): Promise<INewsPostsResponseExtended | undefined> {
   return request<INewsPostsResponseExtended>(
-    `https://ixoworld.ghost.io/ghost/api/v3/content/posts?key=${API_KEY}&limit=${limit}&page=${page}&fields=title,feature_image,published_at,excerpt,id`
-
+    `https://ixoworld.ghost.io/ghost/api/v3/content/posts?key=${API_KEY}&limit=${limit}&page=${page}&fields=title,feature_image,published_at,excerpt,id,url`
   );
 }
