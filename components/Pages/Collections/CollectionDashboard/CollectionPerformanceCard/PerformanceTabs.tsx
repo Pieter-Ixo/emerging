@@ -57,13 +57,11 @@ export function PerformanceTab({
         }
         onClick={disabled ? undefined : onClick}
       >
-        <Text
-          size={16}
-          weight={400}
-          color={isActive ? palette.White : palette.Black}
-        >
-          {isActive && children}
-        </Text>
+        {isActive && (
+          <Text size={16} weight={400} color={palette.White}>
+            {children}
+          </Text>
+        )}
       </Badge>
     </Tooltip>
   );

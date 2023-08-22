@@ -7,7 +7,7 @@ import { useAppSelector } from "@/hooks/redux";
 import { selectAllEntitiesExternalIds } from "@/redux/entityCollections/selectors";
 import CollectionCostsChart from "@/components/Presentational/Chart/Instances/CollectionCostsChart";
 
-import { calculateDollars, calculateTotalDollars } from "../helpers";
+import { calculateSavedDollars, calculateTotalSavedDollars } from "../helpers";
 
 export default function CollectionCosts() {
   const {
@@ -18,12 +18,12 @@ export default function CollectionCosts() {
   const entitesExternalIds = useAppSelector(selectAllEntitiesExternalIds);
 
   const costsSummary = useMemo(
-    () => fuelSummary && calculateDollars(fuelSummary),
+    () => fuelSummary && calculateSavedDollars(fuelSummary),
     [fuelSummary]
   );
 
   const totalCosts = useMemo(
-    () => costsSummary && calculateTotalDollars(costsSummary),
+    () => costsSummary && calculateTotalSavedDollars(costsSummary),
     [costsSummary]
   );
 

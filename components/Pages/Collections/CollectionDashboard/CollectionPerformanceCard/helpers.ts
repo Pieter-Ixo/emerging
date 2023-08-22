@@ -1,11 +1,11 @@
 import { ChartDataItem } from "@/components/Presentational/Chart/types";
 
-export function calculateTotalDollars(summary: ChartDataItem[]): number {
+export function calculateTotalSavedDollars(summary: ChartDataItem[]): number {
   return Math.round(summary.reduce((acc, { total }) => acc + total, 0));
 }
 
 // get dollars per 1 kilogram of fuel record
-export function calculateDollars(summary: ChartDataItem[]): ChartDataItem[] {
+export function calculateSavedDollars(summary: ChartDataItem[]): ChartDataItem[] {
   return summary.map(({ total, month }) => ({
     month,
     total: total * 0.26,
