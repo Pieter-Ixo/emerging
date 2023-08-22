@@ -11,6 +11,7 @@ interface INewsPost {
   title: string;
   feature_image: string;
   published_at: string;
+  url: string;
 }
 
 export interface INewsPostExtended extends INewsPost {

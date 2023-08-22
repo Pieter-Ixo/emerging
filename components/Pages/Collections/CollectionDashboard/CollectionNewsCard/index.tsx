@@ -29,8 +29,6 @@ export default function CollectionNewsCard() {
     dispatch(fetchLastNewsPost());
   }, []);
 
-  const isPostExists = lastNewsPost?.posts?.length;
-
   if (isLastNewsPostLoading) {
     return (
       <PageBlock title="NEWS">
@@ -40,7 +38,7 @@ export default function CollectionNewsCard() {
       </PageBlock>
     );
   }
-  if (!isPostExists) {
+  if (!lastNewsPost) {
     return (
       <PageBlock title="NEWS">
         <Center mih={267} pb={40}>
@@ -69,17 +67,19 @@ export default function CollectionNewsCard() {
         ) : null
       }
     >
-      <Flex mih={267} direction="column" gap={8}>
-        <Image
-          src={lastNewsPost?.posts[0]?.feature_image}
-          alt="news story image"
-          height={170}
-        />
-        <Text fw={800} size="sm">
-          {dateToDayMonthYear(lastNewsPost?.posts[0]?.published_at)}
-        </Text>
-        <Text size="md">{lastNewsPost?.posts[0]?.title}</Text>
-      </Flex>
+      <Link href={lastNewsPost.url}>
+        <Flex mih={267} direction="column" gap={8}>
+          <Image
+            src={lastNewsPost?.feature_image}
+            alt="news story image"
+            height={170}
+          />
+          <Text fw={800} size="sm">
+            {dateToDayMonthYear(lastNewsPost?.published_at)}
+          </Text>
+          <Text size="md">{lastNewsPost?.title}</Text>
+        </Flex>
+      </Link>
     </PageBlock>
   );
 }
