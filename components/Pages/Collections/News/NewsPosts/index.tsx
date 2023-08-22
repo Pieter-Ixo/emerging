@@ -12,7 +12,6 @@ type Props = {
 
 export default function NewsPosts({ newsPosts }: Props) {
   const newsPostsError = useAppSelector(selectNewsPostsError);
-
   if (newsPostsError) {
     return (
       <Text color={palette.redFull} size="md">
@@ -32,6 +31,7 @@ export default function NewsPosts({ newsPosts }: Props) {
             key={post?.id}
             title={post?.title}
             description={post?.excerpt}
+            url={post?.url}
           />
         ))}
     </div>
