@@ -13,13 +13,14 @@ import { Web3Modal } from "@web3modal/standalone";
 import { ChainInfo } from "@keplr-wallet/types";
 import { fromHex } from "@cosmjs/encoding";
 
-import { sendTransaction, initStargateClient } from "./client";
 import { TRX_FEE_OPTION, TRX_MSG } from "@/types/transactions";
 import { USER } from "@/types/user";
-import { stringifySignDoc } from "./encoding";
 import { EVENT_LISTENER_TYPE } from "@/constants/events";
-import { setLocalStorage } from "./persistence";
 import { palette } from "@/theme/palette";
+
+import { stringifySignDoc } from "./encoding";
+import { setLocalStorage } from "./persistence";
+import { sendTransaction, initStargateClient } from "./client";
 
 let signClient: SignClient;
 export let address: string;
@@ -69,6 +70,7 @@ export const initializeWC = async (
       walletConnectVersion: 2,
       themeMode: "light",
       themeVariables: {
+        "--w3m-z-index": "4",
         "--w3m-accent-color": palette.fullBlue,
         "--w3m-accent-fill-color": "#fff",
         "--w3m-background-color": "#090909",

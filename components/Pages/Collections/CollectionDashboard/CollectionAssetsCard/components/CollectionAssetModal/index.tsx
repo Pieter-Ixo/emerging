@@ -38,6 +38,7 @@ export default function CollectionAssetModal() {
       opened={opened}
       onClose={unselectAsset}
       radius={16}
+      zIndex={3}
       size="md"
       centered
       scrollAreaComponent={ScrollArea.Autosize}
@@ -47,7 +48,7 @@ export default function CollectionAssetModal() {
         <meta name="description" content="Supamoto Dashboard" />
       </Head>
 
-      <Modal.Overlay zIndex={2} />
+      <Modal.Overlay/>
       <Modal.Content>
         <Modal.Header style={{ height: 36 }}>
           <Modal.Title>Supamoto Dashboard</Modal.Title>
