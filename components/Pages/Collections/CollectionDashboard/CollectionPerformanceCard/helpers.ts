@@ -1,11 +1,11 @@
 import { ChartDataItem } from "@/components/Presentational/Chart/types";
 
-export function calculateTotalCosts(summary: ChartDataItem[]): number {
+export function calculateTotalDollars(summary: ChartDataItem[]): number {
   return Math.round(summary.reduce((acc, { total }) => acc + total, 0));
 }
 
-// get savings per 1 kilogram of fuel record
-export function calculateCosts(summary: ChartDataItem[]): ChartDataItem[] {
+// get dollars per 1 kilogram of fuel record
+export function calculateDollars(summary: ChartDataItem[]): ChartDataItem[] {
   return summary.map(({ total, month }) => ({
     month,
     total: total * 0.26,
@@ -17,7 +17,7 @@ export function calculateTotalSessions(summary: ChartDataItem[]): number {
 }
 
 // get saved minutes per 1 hour of session usage record
-export function calculateSessionsSavedTime(
+export function calculateSessionsSavedMinutes(
   summary: ChartDataItem[]
 ): ChartDataItem[] {
   return summary.map(({ total, month }) => ({
@@ -27,7 +27,7 @@ export function calculateSessionsSavedTime(
 }
 
 // calculate hours from saved minutes of session usage record
-export function calculateTotalSessionsSavedTime(
+export function calculateTotalSessionsSavedHours(
   summary: ChartDataItem[]
 ): number {
   return Math.round(summary.reduce((acc, { total }) => acc + total, 0) / 60);

@@ -8,8 +8,8 @@ import { palette } from "@/theme/palette";
 import CollectionSessionsTimeChart from "@/components/Presentational/Chart/Instances/CollectionSessionsTimeChart";
 
 import {
-  calculateTotalSessionsSavedTime,
-  calculateSessionsSavedTime,
+  calculateTotalSessionsSavedHours,
+  calculateSessionsSavedMinutes,
 } from "../helpers";
 
 export default function CollectionTime() {
@@ -21,13 +21,13 @@ export default function CollectionTime() {
   const entitesExternalIds = useAppSelector(selectAllEntitiesExternalIds);
 
   const sessionsSavedTime = useMemo(
-    () => sessionsSummary && calculateSessionsSavedTime(sessionsSummary),
+    () => sessionsSummary && calculateSessionsSavedMinutes(sessionsSummary),
     [sessionsSummary]
   );
 
   const totalSessionsSavedTime = useMemo(
     () =>
-      sessionsSavedTime && calculateTotalSessionsSavedTime(sessionsSavedTime),
+      sessionsSavedTime && calculateTotalSessionsSavedHours(sessionsSavedTime),
     [sessionsSavedTime]
   );
 

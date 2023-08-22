@@ -25,7 +25,7 @@ type ImpactTabProps = PropsWithChildren & {
 };
 
 export function PerformanceTab({
-  isActive = false,
+  isActive,
   activeBGColor,
   Icon,
   onClick,
@@ -40,7 +40,7 @@ export function PerformanceTab({
         variant="filled"
         h={46}
         px={isActive ? 20 : 10}
-        radius={23}
+        radius="xl"
         sx={{
           margin: 0,
           textTransform: "none",
