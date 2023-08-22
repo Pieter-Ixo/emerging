@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactNode } from "react";
-import { Badge, Group, Text } from "@mantine/core";
+import { Badge, Group, Text, Tooltip } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
 
@@ -35,27 +35,35 @@ export function PerformanceTab({
   const color = disabled || !isActive ? "Grey" : activeBGColor;
 
   return (
-    <Badge
-      variant="filled"
-      h={46}
-      px={20}
-      radius={23}
-      style={{
-        textTransform: "none",
-        cursor: disabled ? "not-allowed" : "pointer",
-      }}
-      color={color}
-      leftSection={<div style={{ paddingTop: 5, paddingRight: 5 }}>{Icon}</div>}
-      onClick={disabled ? undefined : onClick}
-    >
-      <Text
-        size={16}
-        weight={400}
-        color={isActive ? palette.White : palette.Black}
+    <Tooltip label={children} disabled={isActive}>
+      <Badge
+        variant="filled"
+        h={46}
+        px={isActive ? 20 : 10}
+        radius="xl"
+        sx={{
+          margin: 0,
+          textTransform: "none",
+          cursor: disabled ? "not-allowed" : "pointer",
+          span: {
+            marginRight: 0,
+          },
+        }}
+        color={color}
+        leftSection={
+          <div style={{ paddingTop: 5, paddingRight: isActive ? 10 : 0 }}>
+            {Icon}
+          </div>
+        }
+        onClick={disabled ? undefined : onClick}
       >
-        {children}
-      </Text>
-    </Badge>
+        {isActive && (
+          <Text size={16} weight={400} color={palette.White}>
+            {children}
+          </Text>
+        )}
+      </Badge>
+    </Tooltip>
   );
 }
 

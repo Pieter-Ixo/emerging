@@ -12,7 +12,7 @@ const initialTheme: Record<IconStatus, IconProp> = {
     bgColor: palette.fullBlue,
   },
   notSelected: {
-    stroke: palette.lightBlue,
+    stroke: palette.Black,
     fill: palette.Black,
     bgColor: palette.White,
   },
@@ -48,6 +48,7 @@ function BaseIcon({
         }}
         fill={selectedTheme.fill}
         stroke={isStroke ? selectedTheme.stroke : "none"}
+        strokeWidth={1.25}
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...svgProps}
       />

@@ -5,11 +5,11 @@ import { palette } from "@/theme/palette";
 import { useCookstove } from "@/context/cookstove";
 import { useAppSelector } from "@/hooks/redux";
 import { selectAllEntitiesExternalIds } from "@/redux/entityCollections/selectors";
-import CollectionFuelChart from "@/components/Presentational/Chart/Instances/CollectionFuelChart";
+import CollectionCostsChart from "@/components/Presentational/Chart/Instances/CollectionCostsChart";
 
-import { calculateTotalFuel } from "../helpers";
+import { calculateSavedDollars, calculateTotalSavedDollars } from "../helpers";
 
-export default function CollectionFuel() {
+export default function CollectionCosts() {
   const {
     stove: { fuelSummary },
     fetchFuelSummary,
@@ -17,16 +17,21 @@ export default function CollectionFuel() {
 
   const entitesExternalIds = useAppSelector(selectAllEntitiesExternalIds);
 
-  const totalValue = useMemo(
-    () => fuelSummary && calculateTotalFuel(fuelSummary),
+  const costsSummary = useMemo(
+    () => fuelSummary && calculateSavedDollars(fuelSummary),
     [fuelSummary]
+  );
+
+  const totalCosts = useMemo(
+    () => costsSummary && calculateTotalSavedDollars(costsSummary),
+    [costsSummary]
   );
 
   useEffect(() => {
     if (entitesExternalIds?.length) fetchFuelSummary(entitesExternalIds);
   }, [entitesExternalIds?.length]);
 
-  if (!fuelSummary) {
+  if (!costsSummary) {
     return (
       <Center py="xl">
         <Loader />
@@ -38,13 +43,13 @@ export default function CollectionFuel() {
     <>
       <Flex pt={28} align="flex-end">
         <Text size={56} color={palette.fullBlue} pr={10} fs="normal">
-          {totalValue?.toLocaleString() || 0}
+          ${totalCosts?.toLocaleString() || 0}
         </Text>
         <Text color={palette.Black} pb={18} fs="normal" weight={300}>
-          kg pellets bought in last 2 months
+          saved on energy costs
         </Text>
       </Flex>
-      <CollectionFuelChart fuelSummary={fuelSummary} />
+      <CollectionCostsChart costsSummary={costsSummary} />
     </>
   );
 }

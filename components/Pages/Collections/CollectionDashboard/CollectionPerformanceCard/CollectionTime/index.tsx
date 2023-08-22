@@ -5,11 +5,14 @@ import { useAppSelector } from "@/hooks/redux";
 import { useCookstove } from "@/context/cookstove";
 import { selectAllEntitiesExternalIds } from "@/redux/entityCollections/selectors";
 import { palette } from "@/theme/palette";
-import CollectionSessionsChart from "@/components/Presentational/Chart/Instances/CollectionSessionsChart";
+import CollectionSessionsTimeChart from "@/components/Presentational/Chart/Instances/CollectionSessionsTimeChart";
 
-import { calculateTotalSessions } from "../helpers";
+import {
+  calculateTotalSessionsSavedHours,
+  calculateSessionsSavedMinutes,
+} from "../helpers";
 
-export default function CollectionUsage() {
+export default function CollectionTime() {
   const {
     stove: { sessionsSummary },
     fetchSessionsSummary,
@@ -17,9 +20,15 @@ export default function CollectionUsage() {
 
   const entitesExternalIds = useAppSelector(selectAllEntitiesExternalIds);
 
-  const totalValue = useMemo(
-    () => sessionsSummary && calculateTotalSessions(sessionsSummary),
+  const sessionsSavedTime = useMemo(
+    () => sessionsSummary && calculateSessionsSavedMinutes(sessionsSummary),
     [sessionsSummary]
+  );
+
+  const totalSessionsSavedTime = useMemo(
+    () =>
+      sessionsSavedTime && calculateTotalSessionsSavedHours(sessionsSavedTime),
+    [sessionsSavedTime]
   );
 
   useEffect(() => {
@@ -28,26 +37,25 @@ export default function CollectionUsage() {
     }
   }, [entitesExternalIds?.length]);
 
-  if (!sessionsSummary) {
+  if (!sessionsSavedTime)
     return (
       <Center py="xl">
         <Loader />
       </Center>
     );
-  }
 
   return (
     <>
       <Flex pt={28} align="flex-end">
         <Text size="xl" color={palette.fullBlue} pr={10} fs="normal">
-          {totalValue?.toLocaleString() || 0}
+          {totalSessionsSavedTime?.toLocaleString() || 0}
         </Text>
         <Text size="md" color={palette.Black} pb={18} fs="normal" weight={300}>
-          clean cooking sessions with renewable energy during last 2 months
+          hours saved on cooking time
         </Text>
       </Flex>
 
-      <CollectionSessionsChart sessionsSummary={sessionsSummary} />
+      <CollectionSessionsTimeChart sessionsSavedTime={sessionsSavedTime} />
     </>
   );
 }
