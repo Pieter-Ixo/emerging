@@ -1,4 +1,4 @@
-import { ElementType, HTMLAttributes } from "react";
+import { ElementType, HTMLAttributes, Ref, forwardRef } from "react";
 
 import { Flex, Text } from "@mantine/core";
 import { palette } from "@/theme/palette";
@@ -9,10 +9,13 @@ type ImageTextCardProps = {
   vertical?: boolean;
 } & HTMLAttributes<HTMLDivElement>;
 
-// TODO: find appropriate place for this file
-function ImageTextCard({ text, Img, vertical = false }: ImageTextCardProps) {
+function ImageTextCard(
+  { text, Img, vertical = false }: ImageTextCardProps,
+  ref: Ref<HTMLDivElement>
+) {
   return (
     <Flex
+      ref={ref}
       bg={palette.whiteTransparentSecondary}
       p={15}
       h="100%"
@@ -39,4 +42,4 @@ function ImageTextCard({ text, Img, vertical = false }: ImageTextCardProps) {
   );
 }
 
-export default ImageTextCard;
+export default forwardRef(ImageTextCard);

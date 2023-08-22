@@ -6,6 +6,7 @@ import {
   Loader,
   Text,
   Title,
+  Tooltip,
 } from "@mantine/core";
 import Link from "next/link";
 
@@ -122,15 +123,18 @@ export default function CookstoveDashboard({
               </Link>
             </Box>
             <Box w="100%">
-              <ImageTextCard
-                Img={Sprout}
-                text="Explore the benefits of clean cooking"
-                vertical
-              />
+              <Link href="https://cleancooking.org/the-value-of-clean-cooking/">
+                <ImageTextCard
+                  Img={Sprout}
+                  text="Explore the benefits of clean cooking"
+                  vertical
+                />
+              </Link>
             </Box>
           </Flex>
-
-          <ImageTextCard Img={Eye} text="Carbon Credit Transactions" />
+          <Tooltip label="this page is under development">
+            <ImageTextCard Img={Eye} text="Carbon Credit Transactions" />
+          </Tooltip>
         </Flex>
       </Container>
     </BackgroundImage>
