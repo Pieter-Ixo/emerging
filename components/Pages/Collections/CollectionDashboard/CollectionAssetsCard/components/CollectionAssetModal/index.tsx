@@ -1,19 +1,16 @@
 import { useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { Modal, ScrollArea } from "@mantine/core";
+import { Modal } from "@mantine/core";
 import Head from "next/head";
 
 import CookstoveModal from "@/components/Modals/CookstoveModal";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { setSelectedEntity } from "@/redux/entityCollections/slice";
+import { useAppSelector } from "@/hooks/redux";
 import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
 
 export default function CollectionAssetModal() {
   const [opened, { open, close }] = useDisclosure(false);
 
   const selectedEntity = useAppSelector(selectSelectedEntity);
-
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (selectedEntity) {
@@ -25,7 +22,6 @@ export default function CollectionAssetModal() {
   }, [selectedEntity]);
 
   const unselectAsset = () => {
-    dispatch(setSelectedEntity(undefined));
     close();
   };
 
@@ -38,17 +34,15 @@ export default function CollectionAssetModal() {
       opened={opened}
       onClose={unselectAsset}
       radius={16}
-      zIndex={3}
       size="md"
       centered
-      scrollAreaComponent={ScrollArea.Autosize}
     >
       <Head>
         <title>Supamoto Dashboard</title>
         <meta name="description" content="Supamoto Dashboard" />
       </Head>
 
-      <Modal.Overlay/>
+      <Modal.Overlay />
       <Modal.Content>
         <Modal.Header style={{ height: 36 }}>
           <Modal.Title>Supamoto Dashboard</Modal.Title>

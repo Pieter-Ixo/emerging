@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import dynamic from "next/dynamic";
+import { Loader } from "@mantine/core";
 
 import getEntityTotalTokenAmount, {
   getEntityTotalMintedAmount,
@@ -14,7 +15,10 @@ import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
 import moreOrEqualZero from "../../utils/moreOrEqualZero";
 
 const CookstoveDashboard = dynamic(
-  () => import("../Containers/CookstoveDashboard")
+  () => import("../Containers/CookstoveDashboard"),
+  {
+    loading: () => <Loader />,
+  }
 );
 
 interface Props {
@@ -42,6 +46,8 @@ export default function CookstoveModal({ entityId, entity }: Props) {
   const totalTokenAmount = getEntityTotalTokenAmount(selectedEntity);
   const totalOffset = getEntityTotalRetiredAmount(entity);
   const totalTransferred = (totalMinted || 0) - (totalTokenAmount || 0);
+
+  if (!stove) return <Loader />;
 
   return (
     <CookstoveDashboard
