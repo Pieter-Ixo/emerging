@@ -1,14 +1,5 @@
 import { ReactNode } from "react";
-import {
-  Badge,
-  Card,
-  Flex,
-  Group,
-  Text,
-  Image,
-  Avatar,
-  Title,
-} from "@mantine/core";
+import { Badge, Card, Flex, Group, Text, Image, Title } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
 import {
@@ -17,15 +8,19 @@ import {
 } from "@/types/entityCollections";
 import getEntityTagsByCategory from "@/helpers/transformData/getEntityTagsByCategory";
 
+type Props = {
+  entity?: IEntityExtended | ICollectionExtended;
+  measure?: ReactNode;
+  tags?: string[];
+  isActive?: boolean;
+};
+
 export default function ProfileCard({
   entity,
   measure,
   tags: argumentTags,
-}: {
-  entity?: IEntityExtended | ICollectionExtended;
-  measure?: ReactNode;
-  tags?: string[];
-}) {
+  isActive,
+}: Props) {
   const tags = argumentTags || getEntityTagsByCategory(entity, "Asset Type");
 
   const isTagEven = (index: number) => index % 2 === 0;
@@ -36,6 +31,9 @@ export default function ProfileCard({
       padding="lg"
       radius="lg"
       withBorder
+      sx={{
+        outline: isActive ? `solid ${palette.activeBlue}` : undefined,
+      }}
       w={277}
       h={400}
       mx={0}
@@ -46,7 +44,7 @@ export default function ProfileCard({
 
       <Flex direction="row" justify="space-between" pt="xs">
         {tags && (
-          <Group spacing="4px" maw="60%">
+          <Group mb="xs" spacing="4px">
             {tags.map((tag, index) =>
               tag ? (
                 <Badge
@@ -60,7 +58,6 @@ export default function ProfileCard({
             )}
           </Group>
         )}
-        <Avatar src={entity?._profile?.logoUrl} alt="" radius="xl" />
       </Flex>
 
       <Title order={4} color="#01283B" fw={500} lh="lg">
