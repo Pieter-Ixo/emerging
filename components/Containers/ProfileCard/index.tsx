@@ -8,15 +8,19 @@ import {
 } from "@/types/entityCollections";
 import getEntityTagsByCategory from "@/helpers/transformData/getEntityTagsByCategory";
 
+type Props = {
+  entity?: IEntityExtended | ICollectionExtended;
+  measure?: ReactNode;
+  tags?: string[];
+  isActive?: boolean;
+};
+
 export default function ProfileCard({
   entity,
   measure,
   tags: argumentTags,
-}: {
-  entity?: IEntityExtended | ICollectionExtended;
-  measure?: ReactNode;
-  tags?: string[];
-}) {
+  isActive,
+}: Props) {
   const tags = argumentTags || getEntityTagsByCategory(entity, "Asset Type");
 
   const isTagEven = (index: number) => index % 2 === 0;
@@ -27,6 +31,9 @@ export default function ProfileCard({
       padding="lg"
       radius="lg"
       withBorder
+      sx={{
+        outline: isActive ? `solid ${palette.activeBlue}` : undefined,
+      }}
       w={277}
       h={400}
       mx={0}

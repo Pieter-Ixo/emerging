@@ -70,13 +70,11 @@ export default function EntitiesList({
             key={entity.id}
             span="content"
             mb={20}
-            sx={{
-              outline: isActive ? `solid ${palette.activeBlue}` : undefined,
-            }}
             onClick={() => handleAssetClick(entity)}
           >
             <ProfileCard
               entity={entity}
+              isActive={isActive}
               measure={
                 <Box>
                   <Badge
