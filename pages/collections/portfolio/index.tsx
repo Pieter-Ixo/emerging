@@ -75,7 +75,7 @@ export default function Collections() {
           <Text size="md">MY ASSETS</Text>
         </Box>
         <Controls />
-        <Carousel slideGap="xl" loop slideSize="270px" py={20} align="start">
+        <Carousel mih={223} slideGap="xl" loop slideSize="270px" py={20} align="start">
           {userEntityCollections?.map(({ collection, entities }) => (
             <Carousel.Slide
               key={collection.id}

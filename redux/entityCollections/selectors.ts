@@ -3,6 +3,7 @@ import { createDraftSafeSelector } from "@reduxjs/toolkit";
 import {
   ICollectionEntities,
   ICollectionExtended,
+  ICollectionTokenIpfs,
   IEntity,
   ITokenOfTokenCarbon,
 } from "@/types/entityCollections";
@@ -240,4 +241,25 @@ export const selectNewsPostsError = createDraftSafeSelector(
   selectEntityCollections,
   (entityCollectionsState: EntityCollectionState) =>
     entityCollectionsState.newsPostsError
+);
+
+export const selectCollectionsTokensIpfs = (
+  state: RootState,
+  collectionId: string | undefined
+): ICollectionTokenIpfs | undefined =>
+  state.entityCollection.entityCollections.find(
+    (collectionWithEntities) =>
+      collectionWithEntities.collection.id === collectionId
+  )?.collection._tokenIpfs;
+
+export const selectCollectionsTokensIpfsLoading = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.collectionsTokensIpfsLoading
+);
+
+export const selectCollectionTokenIpfsError = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.collectionTokenIpfsError
 );

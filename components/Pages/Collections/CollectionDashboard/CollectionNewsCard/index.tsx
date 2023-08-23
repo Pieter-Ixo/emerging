@@ -67,7 +67,7 @@ export default function CollectionNewsCard() {
         ) : null
       }
     >
-      <Link href={lastNewsPost.url}>
+      <Link target="_blank" href={lastNewsPost.url}>
         <Flex mih={267} direction="column" gap={8}>
           <Image
             src={lastNewsPost?.feature_image}

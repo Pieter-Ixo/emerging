@@ -15,6 +15,8 @@ import {
   IApiCollectionEntitiesTotal,
   IApiCollectionEntitiesTotalRetired,
   ICollectionEntities,
+  ICollectionExtended,
+  ICollectionTokenIpfs,
   IEntityExtended,
   ITokenWhateverItMean,
 } from "@/types/entityCollections";
@@ -26,6 +28,7 @@ import {
   requestLastNewsPost,
   requestNewsPosts,
 } from "@/requests/requesters/requestNews";
+import requestCollectionTokenIpfs from "@/requests/requesters/requestCollectionTokenIpfs";
 import type { RootState } from "../store";
 
 export const fetchTotalCollectionEntities = createAsyncThunk<any, string>(
@@ -166,5 +169,21 @@ export const fetchAdminTokens = createAsyncThunk(
   async (adminAddress: string): Promise<ITokenWhateverItMean | undefined> => {
     const tokenData = await requestTokenByAddress(adminAddress);
     return tokenData;
+  }
+);
+
+export const fetchCollectionTokenIpfs = createAsyncThunk(
+  "entityCollections/fetchCollectionTokenIpfs",
+  async (
+    collection: ICollectionExtended
+  ): Promise<
+    | { collectionTokenIpfs: ICollectionTokenIpfs; collectionId: string }
+    | undefined
+  > => {
+    const collectionTokenIpfs = await requestCollectionTokenIpfs(collection);
+
+    if (!collectionTokenIpfs) return undefined;
+
+    return { collectionTokenIpfs, collectionId: collection.id };
   }
 );

@@ -18,7 +18,7 @@ export default function NewsPost({
   url,
 }: Props) {
   return (
-    <Link href={url}>
+    <Link target="_blank" href={url}>
       <Flex justify="flex-start" gap={40} mb={28}>
         <Image
           width={300}

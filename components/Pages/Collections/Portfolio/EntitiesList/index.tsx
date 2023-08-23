@@ -1,15 +1,13 @@
 import { useEffect } from "react";
-import { Text, Badge, Flex, Grid, Box, Title } from "@mantine/core";
-import { palette } from "@/theme/palette";
+import { Text, Badge, Flex, Grid, Box, Title, Avatar } from "@mantine/core";
 
+import { palette } from "@/theme/palette";
 import ProgressBar from "@/components/Presentational/ProgressBar";
 import ProfileCard from "@/components/Containers/ProfileCard";
-
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
 import { selectSelectedEntityExternalId } from "@/redux/entityCollections/selectors";
-
 import {
   ICollectionEntities,
   IEntityExtended,
@@ -72,13 +70,11 @@ export default function EntitiesList({
             key={entity.id}
             span="content"
             mb={20}
-            sx={{
-              outline: isActive ? `solid ${palette.activeBlue}` : undefined,
-            }}
             onClick={() => handleAssetClick(entity)}
           >
             <ProfileCard
               entity={entity}
+              isActive={isActive}
               measure={
                 <Box>
                   <Badge
@@ -100,18 +96,25 @@ export default function EntitiesList({
                     produced={getEntityTotalMintedAmount(entity)}
                     totalTokenAmount={getEntityTotalMintedAmount(entity)}
                   />
-                  <Flex gap={6} align="end" pt="xs">
-                    <Title
-                      order={4}
-                      c={palette.Black}
-                      fw={700}
-                      sx={{ lineHeight: 1.1 }}
-                    >
-                      {entity.alsoKnownAs.replace("{id}", "")}
-                    </Title>
-                    <Text color="dimmed" size="xs">
-                      of {totalAssets ?? 500}
-                    </Text>
+                  <Flex pt="xs" align="center" justify="space-between">
+                    <Flex gap={6} align="end">
+                      <Title
+                        order={4}
+                        c={palette.Black}
+                        fw={700}
+                        sx={{ lineHeight: 1.1 }}
+                      >
+                        {entity.alsoKnownAs.replace("{id}", "")}
+                      </Title>
+                      <Text color={palette.Neutral800} size="xs">
+                        of {totalAssets ?? 500}
+                      </Text>
+                    </Flex>
+                    <Avatar
+                      src={entity?._profile?.logoUrl}
+                      alt=""
+                      radius="xl"
+                    />
                   </Flex>
                 </Box>
               }
