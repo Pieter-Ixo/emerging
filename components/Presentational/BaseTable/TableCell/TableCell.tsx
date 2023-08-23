@@ -1,8 +1,9 @@
-import { palette } from "@/theme/palette";
 import { Text } from "@mantine/core";
 import { PropsWithChildren } from "react";
 
-export default function AssetsTableCell({
+import { palette } from "@/theme/palette";
+
+export default function TableCell({
   children,
   isActive,
 }: PropsWithChildren<{ isActive: boolean }>) {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Flex, ScrollArea, Table, Text } from "@mantine/core";
+import { Flex, ScrollArea, Text } from "@mantine/core";
 
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
@@ -15,16 +15,15 @@ import { palette } from "@/theme/palette";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import ArrowRightIcon from "@/assets/icons/arrow-right.svg";
 import BaseIcon from "@/components/Presentational/BaseIcon";
+import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
 
 import PageBlock from "../PageBlock";
-import CollectionAssetsHeadCell from "./components/CollectionAssetsHeadCell";
-import CollectionAssetsTBody from "./components/CollectionAssetsTBody";
 import CollectionAssetModal from "./components/CollectionAssetModal";
 
-const defaultColumnSorterState = [
-  { name: "Serial number", isActive: false },
-  { name: "CARBON claimable", isActive: false },
-  { name: "CARBON Issued", isActive: false },
+const defaultColumnSorterState: IAssetColumnSorter[] = [
+  { name: "Serial number", isActive: false, cellField: "externalId" },
+  { name: "CARBON claimable", isActive: false, cellField: undefined },
+  { name: "CARBON Issued", isActive: false, cellField: undefined },
 ];
 
 export default function CollectionAssetsCard() {
@@ -56,7 +55,7 @@ export default function CollectionAssetsCard() {
     }
   };
 
-  function handleColumnClick(clickedColumnIndex: number) {
+  const sortEntities = (clickedColumnIndex: number) => {
     setActiveColumnSorters((columns) =>
       columns.map((column, columnIndex) =>
         clickedColumnIndex === columnIndex
@@ -65,7 +64,7 @@ export default function CollectionAssetsCard() {
       )
     );
     setColumnSorterIndex(clickedColumnIndex);
-  }
+  };
 
   useEffect(() => {
     dispatch(setSelectedEntity(undefined));
@@ -113,38 +112,12 @@ export default function CollectionAssetsCard() {
       }
     >
       <ScrollArea h={425} type="scroll">
-        <Table
-          highlightOnHover
-          style={{
-            alignSelf: "stretch",
-            width: 390,
-          }}
-        >
-          <thead>
-            <tr>
-              <CollectionAssetsHeadCell
-                name={columnSorters[0].name}
-                isColumnActive={columnSorters[0].isActive}
-                onClick={() => handleColumnClick(0)}
-              />
-              <CollectionAssetsHeadCell
-                name={columnSorters[1].name}
-                isColumnActive={columnSorters[1].isActive}
-                onClick={() => handleColumnClick(1)}
-              />
-              <CollectionAssetsHeadCell
-                name={columnSorters[2].name}
-                isColumnActive={columnSorters[2].isActive}
-                onClick={() => handleColumnClick(2)}
-              />
-            </tr>
-          </thead>
-          <CollectionAssetsTBody
-            assetFilters={columnSorters}
-            onAssetClick={selectAsset}
-            sortedAssets={sortedEntities}
-          />
-        </Table>
+        <BaseTable
+          rows={sortedEntities}
+          onRowSelect={selectAsset}
+          onSort={sortEntities}
+          columnSorters={columnSorters}
+        />
       </ScrollArea>
       <CollectionAssetModal />
     </PageBlock>

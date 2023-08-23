@@ -1,38 +1,33 @@
-import { MouseEventHandler } from "react";
-
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import { palette } from "@/theme/palette";
 import { Text } from "@mantine/core";
 import SorterActive from "@/assets/icons/sorter-actvie.svg";
+import { IAssetColumnSorter } from "@/types/entityCollections";
 
 type Props = {
-  name: string;
-  isColumnActive: boolean;
-  onClick: MouseEventHandler<any>;
+  columnSorter: IAssetColumnSorter;
+  sorterIndex: number;
+  onSort: Function;
 };
 
-export default function AssetsTableHeadCell({
-  isColumnActive,
-  name,
-  onClick,
+export default function TableHead({
+  columnSorter: { isActive, name },
+  sorterIndex,
+  onSort,
 }: Props) {
   return (
     <th
-      onClick={onClick}
+      onClick={() => onSort(sorterIndex)}
       style={{
         cursor: "pointer",
-        color: isColumnActive ? palette.lightBlue : palette.Black,
+        color: isActive ? palette.lightBlue : palette.Black,
         width: 85,
         padding: "0 0 5px 0",
       }}
     >
-      <Text
-        fw={isColumnActive ? 800 : 300}
-        size="sm"
-        style={{ display: "flex" }}
-      >
+      <Text fw={isActive ? 800 : 300} size="sm" style={{ display: "flex" }}>
         <Text pr={5}>{name}</Text>
-        {isColumnActive && (
+        {isActive && (
           <BaseIcon
             Icon={SorterActive}
             width={24}

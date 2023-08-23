@@ -252,4 +252,8 @@ export interface IApiCollectionEntitiesTotalExtended {
   totalRetired: IApiCollectionEntitiesTotalRetired;
 }
 
-export type IAssetColumnSorter = { name: string; isActive: boolean };
+export type IAssetColumnSorter = {
+  name: string;
+  isActive: boolean;
+  cellField?: string;
+};

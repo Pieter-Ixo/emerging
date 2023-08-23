@@ -1,22 +1,24 @@
-import { Table } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { IAssetColumnSorter, IEntity, IEntityExtended } from "@/types/entityCollections";
+import {
+  IAssetColumnSorter,
+  IEntity,
+  IEntityExtended,
+} from "@/types/entityCollections";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { selectSelectedEntityExternalId } from "@/redux/entityCollections/selectors";
 
 import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExternalId";
-import AssetsTableHeadCell from "./components/AssetsTableHead";
-import AssetsTBody from "./components/AssetsTBody";
+import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
 
 const defaultColumnSorterState = [
-  { name: "Serial number", isActive: false },
-  { name: "CARBON claimable", isActive: false },
-  { name: "CARBON Issued", isActive: false },
-  { name: "Asset creation date", isActive: false },
-  { name: "Asset owner", isActive: false },
-  { name: "owned", isActive: false },
+  { name: "Serial number", isActive: false, cellField: "externalId" },
+  { name: "CARBON claimable", isActive: false, cellField: "" },
+  { name: "CARBON Issued", isActive: false, cellField: undefined },
+  { name: "Asset creation date", isActive: false, cellField: undefined },
+  { name: "Asset owner", isActive: false, cellField: undefined },
+  { name: "owned", isActive: false, cellField: undefined },
 ];
 
 export default function AssetsTable() {
@@ -36,7 +38,7 @@ export default function AssetsTable() {
     number | undefined
   >();
 
-  function handleColumnClick(clickedColumnIndex: number) {
+  const sortEntities = (clickedColumnIndex: number) => {
     setActiveColumnSorters((columns) =>
       columns.map((column, columnIndex) =>
         clickedColumnIndex === columnIndex
@@ -45,7 +47,7 @@ export default function AssetsTable() {
       )
     );
     setColumnSorterIndex(clickedColumnIndex);
-  }
+  };
 
   useEffect(() => {
     if (columnSorterIndex !== undefined && sortedEntities.length)
@@ -70,7 +72,7 @@ export default function AssetsTable() {
     }
   }, [collectionEntities]);
 
-  const selectAsset = (entity: IEntity) => () => {
+  const selectAsset = (entity: IEntity) => {
     if (selectedAssetExternalId === entity.externalId)
       dispatch(setSelectedEntity(undefined));
     else {
@@ -79,29 +81,11 @@ export default function AssetsTable() {
   };
 
   return (
-    <Table
-      highlightOnHover
-      style={{
-        alignSelf: "stretch",
-      }}
-    >
-      <thead>
-        <tr>
-          {columnSorters.map((column, i) => (
-            <AssetsTableHeadCell
-              name={column.name}
-              key={column.name}
-              isColumnActive={column.isActive}
-              onClick={() => handleColumnClick(i)}
-            />
-          ))}
-        </tr>
-      </thead>
-      <AssetsTBody
-        assetFilters={columnSorters}
-        onAssetClick={selectAsset}
-        sortedEntities={sortedEntities}
-      />
-    </Table>
+    <BaseTable
+      rows={sortedEntities}
+      columnSorters={columnSorters}
+      onRowSelect={selectAsset}
+      onSort={sortEntities}
+    />
   );
 }
