@@ -10,7 +10,7 @@ type Props = {
 
 export default function CollectionSessionsChart({ sessionsSummary }: Props) {
   return (
-    <Box h="300px" id="fuel" key="fuel">
+    <Box h="300px" id="collectionSession" key="fuel">
       <Chart
         data={sessionsSummary}
         chartType="line"

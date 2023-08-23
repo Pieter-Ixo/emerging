@@ -10,7 +10,7 @@ type Props = {
 
 export default function CollectionFuelChart({ fuelSummary }: Props) {
   return (
-    <Box h="300px" id="fuel" key="fuel">
+    <Box h="300px" id="collectionFuel" key="fuel">
       <Chart
         data={fuelSummary}
         chartType="bar"
