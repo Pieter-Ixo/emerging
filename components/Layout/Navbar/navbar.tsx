@@ -38,7 +38,7 @@ export default function Nav() {
       h="100%"
       mih="100vh"
       fixed
-      sx={{ overflowY: "scroll", zIndex: 3 }}
+      sx={{ overflowY: "scroll" }}
       bg={palette.Neutral200}
       withBorder={false}
     >
