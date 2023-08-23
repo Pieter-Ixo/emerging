@@ -14,12 +14,13 @@ export default async function requestCollectionTokenIpfs(
   const collectionServicePrefix =
     lastEndpointPartResource?.serviceEndpoint.split(":")[0];
 
+  if (!collectionServicePrefix) return undefined;
+
   let firstEndpointPart: string | undefined = "";
 
-  if (collectionServicePrefix)
-    firstEndpointPart = collection.service.find((service) =>
-      service.id.endsWith(collectionServicePrefix)
-    )?.serviceEndpoint;
+  firstEndpointPart = collection.service.find((service) =>
+    service.id.endsWith(collectionServicePrefix)
+  )?.serviceEndpoint;
 
   const lastEndpointPart =
     lastEndpointPartResource?.serviceEndpoint.split(":")[1];
