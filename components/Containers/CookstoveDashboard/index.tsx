@@ -21,11 +21,13 @@ import ImageTextCard from "@/components/Presentational/ImageTextCard";
 import PerformanceCard from "@/components/Containers/CookstoveDashboard/PerformanceCard";
 import { STOVE } from "@/types/stove";
 import { palette } from "@/theme/palette";
+import { useAppSelector } from "@/hooks/redux";
 
 import CarbonIssueCard from "./CardIssue";
 
 interface Props {
   entityExternalId: string;
+  ownerAddress?: string;
   stove: STOVE;
   totalMinted?: number;
   totalTokenAmount?: number;
@@ -40,9 +42,12 @@ export default function CookstoveDashboard({
   totalTokenAmount,
   totalOffset,
   totalTransferred,
+  ownerAddress,
 }: Props) {
   const isCookstoveLoading = stove.loading || !entityExternalId;
   const isSessionsAndPelletsFound = !!(stove.sessions && stove.pellets);
+
+  const userAddress = useAppSelector((state) => state.user.connectedWallet);
 
   if (isCookstoveLoading)
     return (
@@ -102,8 +107,13 @@ export default function CookstoveDashboard({
           Supamoto #{entityExternalId}
         </Title>
         <Flex direction="column">
-          <CarbonIssueCard amount={0} />
-          <CarbonClaimCard amount={totalTokenAmount} />
+          {userAddress && userAddress === ownerAddress && (
+            <>
+              <CarbonIssueCard amount={0} />
+              <CarbonClaimCard amount={totalTokenAmount} />
+            </>
+          )}
+
           <PieChart
             totalTokenAmount={totalTokenAmount}
             totalMinted={totalMinted}

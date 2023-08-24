@@ -65,6 +65,7 @@ export default function CookstoveModal({ entityId, entity }: Props) {
       totalOffset={moreOrEqualZero(totalOffset)}
       totalTransferred={moreOrEqualZero(totalTransferred)}
       entityExternalId={entityId}
+      ownerAddress={entity.owner}
       stove={stove}
     />
   );
