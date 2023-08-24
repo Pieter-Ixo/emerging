@@ -76,8 +76,7 @@ function ConnectAccountButton() {
     <Card p="lg" radius={16} w="100%">
       <Group position="apart">
         <Text style={{ fontSize: 16, fontWeight: 300 }}>
-          Connect your Wallet to view your device data, assets and customer
-          details.
+          Connect Your Wallet to view your Assets
         </Text>
       </Group>
       <div style={{ paddingTop: 30 }} />
