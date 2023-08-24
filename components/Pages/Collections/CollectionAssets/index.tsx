@@ -11,14 +11,19 @@ import { selectSelectedEntityExternalId } from "@/redux/entityCollections/select
 
 import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExternalId";
 import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
+import extendEntities from "@/helpers/transformData/extendEntities";
 
 const defaultColumnHeadersState = [
   { name: "Serial number", isActive: false, cellField: "externalId" },
   { name: "CARBON claimable", isActive: false, cellField: undefined },
   { name: "CARBON Issued", isActive: false, cellField: undefined },
-  { name: "Asset creation date", isActive: false, cellField: undefined },
-  { name: "Asset owner", isActive: false, cellField: undefined },
-  { name: "owned", isActive: false, cellField: undefined },
+  {
+    name: "Asset creation date",
+    isActive: false,
+    cellField: "metadata.created",
+  },
+  { name: "Asset owner", isActive: false, cellField: "owner" },
+  { name: "owned", isActive: false, cellField: "owned" },
 ];
 
 export default function AssetsTable() {
@@ -82,7 +87,7 @@ export default function AssetsTable() {
 
   return (
     <BaseTable
-      rows={sortedEntities}
+      rows={extendEntities(sortedEntities)}
       columnHeaders={columnHeaders}
       onRowSelect={selectAsset}
       onSort={sortEntities}

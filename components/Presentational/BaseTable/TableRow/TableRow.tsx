@@ -1,4 +1,6 @@
 import { IColumnHeader } from "@/types/entityCollections";
+import getNestedField from "@/utils/objects/getNestedField";
+
 import TableCell from "../TableCell/TableCell";
 
 type Props = {
@@ -15,11 +17,37 @@ export default function TableRow({
   return (
     <tr onClick={() => onRowSelect(rowData)}>
       {columnHeaders &&
-        columnHeaders.map(({ name, isActive, cellField }) => (
-          <TableCell key={name} isActive={isActive}>
-            {cellField ? rowData[cellField] : "Data not found"}
-          </TableCell>
-        ))}
+        columnHeaders.map(({ name, isActive, cellField }) => {
+          if (typeof cellField !== "string") {
+            return (
+              <TableCell key={name} isActive={isActive}>
+                Incorrect data format
+              </TableCell>
+            );
+          }
+          if (!cellField?.includes("."))
+            return (
+              <TableCell key={name} isActive={isActive}>
+                {cellField ? rowData[cellField] : "Data not found"}
+              </TableCell>
+            );
+
+          const cellFieldData = getNestedField(cellField, rowData);
+
+          if (!cellFieldData) {
+            return (
+              <TableCell key={name} isActive={isActive}>
+                Incorrect data format
+              </TableCell>
+            );
+          }
+
+          return (
+            <TableCell key={name} isActive={isActive}>
+              {cellFieldData}
+            </TableCell>
+          );
+        })}
     </tr>
   );
 }
