@@ -43,7 +43,7 @@ const getTabText = (activeTab: ClimateImpactTab): string => {
       return "CARBON issued";
 
     default:
-      return "kg CO₂ offset";
+      return "CARBON Credits retired";
   }
 };
 
