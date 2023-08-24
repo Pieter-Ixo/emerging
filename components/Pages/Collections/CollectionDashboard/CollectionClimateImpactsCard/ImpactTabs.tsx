@@ -74,7 +74,7 @@ export default function ImpactTabs({ activeTab, onSetTab }: ImpactTabsProps) {
           />
         }
       >
-        CO₂ saved
+        GHG avoided
       </ImpactTab>
 
       <ImpactTab
@@ -108,7 +108,7 @@ export default function ImpactTabs({ activeTab, onSetTab }: ImpactTabsProps) {
           />
         }
       >
-        CO₂ offset
+        Credits retired
       </ImpactTab>
     </Group>
   );
