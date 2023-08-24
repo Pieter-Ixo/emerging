@@ -12,7 +12,7 @@ type Props = {
   assetsLength: number;
 };
 
-export default function WithdrowCarbonButton({
+export default function WithdrawCarbonButton({
   totalClaimable,
   assetsLength,
 }: Props) {
@@ -31,7 +31,7 @@ export default function WithdrowCarbonButton({
         }
         onClick={() => open()}
       >
-        {totalClaimable} CARBON to withdrow
+        {totalClaimable} CARBON to withdraw
       </ImpactCreditsButtonBlue>
       <Modal
         opened={opened}
