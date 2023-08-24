@@ -22,7 +22,7 @@ export default function AssetFuelChart({ pellets }: ChartProps) {
         data={pelletsChartData}
         chartType="bar"
         min={0}
-        label="kilograms sold at this month"
+        label="kg purchased"
       />
     </Box>
   );
