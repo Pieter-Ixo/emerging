@@ -16,6 +16,7 @@ export default function Protocol({
 
   const PortalChild = (
     <Link
+      target="_blank"
       href={`https://marketplace.emerging.eco/entity/${protocol?.id}/overview`}
     >
       <ProfileCard entity={protocol} tags={tags} />

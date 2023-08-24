@@ -13,6 +13,7 @@ export default function Oracle({ oracle }: Partial<OracleVerificationProps>) {
 
   const PortalChild = (
     <Link
+      target="_blank"
       href={`https://marketplace.emerging.eco/entity/${oracle?.id}/overview`}
     >
       <ProfileCard entity={oracle} tags={tag} />

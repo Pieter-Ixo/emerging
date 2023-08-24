@@ -123,7 +123,7 @@ export default function CookstoveDashboard({
               </Link>
             </Box>
             <Box w="100%">
-              <Link href="https://cleancooking.org/the-value-of-clean-cooking/">
+              <Link target="_blank" href="https://cleancooking.org/the-value-of-clean-cooking/">
                 <ImageTextCard
                   Img={Sprout}
                   text="Explore the benefits of clean cooking"
