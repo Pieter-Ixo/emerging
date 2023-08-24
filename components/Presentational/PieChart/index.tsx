@@ -41,7 +41,7 @@ function PieChart({
       text: "CARBON CREDITS",
     },
     {
-      title: "Offset",
+      title: "Retired",
       value: totalOffset,
       color: "#73B556",
       text: "CARBON CREDITS",
