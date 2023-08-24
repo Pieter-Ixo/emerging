@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import {
-  IAssetColumnSorter,
+  IColumnHeader,
   IEntity,
   IEntityExtended,
 } from "@/types/entityCollections";
@@ -12,9 +12,9 @@ import { selectSelectedEntityExternalId } from "@/redux/entityCollections/select
 import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExternalId";
 import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
 
-const defaultColumnSorterState = [
+const defaultColumnHeadersState = [
   { name: "Serial number", isActive: false, cellField: "externalId" },
-  { name: "CARBON claimable", isActive: false, cellField: "" },
+  { name: "CARBON claimable", isActive: false, cellField: undefined },
   { name: "CARBON Issued", isActive: false, cellField: undefined },
   { name: "Asset creation date", isActive: false, cellField: undefined },
   { name: "Asset owner", isActive: false, cellField: undefined },
@@ -30,30 +30,30 @@ export default function AssetsTable() {
     (state) => state.entityCollection.entityCollections[0]?.entities
   );
   const [sortedEntities, setSortedEntities] = useState<IEntityExtended[]>([]);
-  const [columnSorters, setActiveColumnSorters] = useState<
-    IAssetColumnSorter[]
-  >(defaultColumnSorterState);
+  const [columnHeaders, setActiveColumnHeaders] = useState<IColumnHeader[]>(
+    defaultColumnHeadersState
+  );
 
-  const [columnSorterIndex, setColumnSorterIndex] = useState<
+  const [columnHeaderIndex, setColumnHeaderIndex] = useState<
     number | undefined
   >();
 
   const sortEntities = (clickedColumnIndex: number) => {
-    setActiveColumnSorters((columns) =>
+    setActiveColumnHeaders((columns) =>
       columns.map((column, columnIndex) =>
         clickedColumnIndex === columnIndex
           ? { ...column, isActive: !column.isActive }
           : { ...column, isActive: false }
       )
     );
-    setColumnSorterIndex(clickedColumnIndex);
+    setColumnHeaderIndex(clickedColumnIndex);
   };
 
   useEffect(() => {
-    if (columnSorterIndex !== undefined && sortedEntities.length)
-      switch (columnSorters[columnSorterIndex].name) {
+    if (columnHeaderIndex !== undefined && sortedEntities.length)
+      switch (columnHeaders[columnHeaderIndex].name) {
         case "Serial number":
-          if (columnSorters[columnSorterIndex].isActive)
+          if (columnHeaders[columnHeaderIndex].isActive)
             setSortedEntities((assets) => sortAssetsByExternalId(assets));
           else
             setSortedEntities((assets) =>
@@ -64,7 +64,7 @@ export default function AssetsTable() {
         default:
           break;
       }
-  }, [columnSorters]);
+  }, [columnHeaders]);
 
   useEffect(() => {
     if (Array.isArray(collectionEntities)) {
@@ -83,7 +83,7 @@ export default function AssetsTable() {
   return (
     <BaseTable
       rows={sortedEntities}
-      columnSorters={columnSorters}
+      columnHeaders={columnHeaders}
       onRowSelect={selectAsset}
       onSort={sortEntities}
     />

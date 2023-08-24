@@ -5,7 +5,7 @@ import { Flex, ScrollArea, Text } from "@mantine/core";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
-  IAssetColumnSorter,
+  IColumnHeader,
   IEntity,
   IEntityExtended,
 } from "@/types/entityCollections";
@@ -20,7 +20,7 @@ import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
 import PageBlock from "../PageBlock";
 import CollectionAssetModal from "./components/CollectionAssetModal";
 
-const defaultColumnSorterState: IAssetColumnSorter[] = [
+const defaultColumnHeadersState: IColumnHeader[] = [
   { name: "Serial number", isActive: false, cellField: "externalId" },
   { name: "CARBON claimable", isActive: false, cellField: undefined },
   { name: "CARBON Issued", isActive: false, cellField: undefined },
@@ -39,11 +39,11 @@ export default function CollectionAssetsCard() {
   );
 
   const [sortedEntities, setSortedEntities] = useState<IEntityExtended[]>([]);
-  const [columnSorters, setActiveColumnSorters] = useState<
-    IAssetColumnSorter[]
-  >(defaultColumnSorterState);
+  const [columnHeaders, setActiveColumnHeaders] = useState<IColumnHeader[]>(
+    defaultColumnHeadersState
+  );
 
-  const [columnSorterIndex, setColumnSorterIndex] = useState<
+  const [columnHeaderIndex, setColumnHeaderIndex] = useState<
     number | undefined
   >();
 
@@ -56,14 +56,14 @@ export default function CollectionAssetsCard() {
   };
 
   const sortEntities = (clickedColumnIndex: number) => {
-    setActiveColumnSorters((columns) =>
+    setActiveColumnHeaders((columns) =>
       columns.map((column, columnIndex) =>
         clickedColumnIndex === columnIndex
           ? { ...column, isActive: !column.isActive }
           : { ...column, isActive: false }
       )
     );
-    setColumnSorterIndex(clickedColumnIndex);
+    setColumnHeaderIndex(clickedColumnIndex);
   };
 
   useEffect(() => {
@@ -80,10 +80,10 @@ export default function CollectionAssetsCard() {
   }, [collectionEntities]);
 
   useEffect(() => {
-    if (columnSorterIndex !== undefined && sortedEntities.length)
-      switch (columnSorters[columnSorterIndex].name) {
+    if (columnHeaderIndex !== undefined && sortedEntities.length)
+      switch (columnHeaders[columnHeaderIndex].name) {
         case "Serial number":
-          if (columnSorters[columnSorterIndex].isActive)
+          if (columnHeaders[columnHeaderIndex].isActive)
             setSortedEntities((assets) => sortAssetsByExternalId(assets));
           else
             setSortedEntities((assets) =>
@@ -94,7 +94,7 @@ export default function CollectionAssetsCard() {
         default:
           break;
       }
-  }, [columnSorters]);
+  }, [columnHeaders]);
 
   return (
     <PageBlock
@@ -116,7 +116,7 @@ export default function CollectionAssetsCard() {
           rows={sortedEntities}
           onRowSelect={selectAsset}
           onSort={sortEntities}
-          columnSorters={columnSorters}
+          columnHeaders={columnHeaders}
         />
       </ScrollArea>
       <CollectionAssetModal />

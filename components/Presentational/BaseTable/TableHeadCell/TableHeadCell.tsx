@@ -1,23 +1,23 @@
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import { palette } from "@/theme/palette";
 import { Text } from "@mantine/core";
-import SorterActive from "@/assets/icons/sorter-actvie.svg";
-import { IAssetColumnSorter } from "@/types/entityCollections";
+import HeaderActive from "@/assets/icons/header-actvie.svg";
+import { IColumnHeader } from "@/types/entityCollections";
 
 type Props = {
-  columnSorter: IAssetColumnSorter;
-  sorterIndex: number;
+  columnHeader: IColumnHeader;
+  headerIndex: number;
   onSort: Function;
 };
 
-export default function TableHead({
-  columnSorter: { isActive, name },
-  sorterIndex,
+export default function TableHeadCell({
+  columnHeader: { isActive, name },
+  headerIndex,
   onSort,
 }: Props) {
   return (
     <th
-      onClick={() => onSort(sorterIndex)}
+      onClick={() => onSort(headerIndex)}
       style={{
         cursor: "pointer",
         color: isActive ? palette.lightBlue : palette.Black,
@@ -29,7 +29,7 @@ export default function TableHead({
         <Text pr={5}>{name}</Text>
         {isActive && (
           <BaseIcon
-            Icon={SorterActive}
+            Icon={HeaderActive}
             width={24}
             isPointer
             height={24}

@@ -252,7 +252,7 @@ export interface IApiCollectionEntitiesTotalExtended {
   totalRetired: IApiCollectionEntitiesTotalRetired;
 }
 
-export type IAssetColumnSorter = {
+export type IColumnHeader = {
   name: string;
   isActive: boolean;
   cellField?: string;

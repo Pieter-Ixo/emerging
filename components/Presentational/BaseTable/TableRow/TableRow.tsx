@@ -1,25 +1,25 @@
-import { IAssetColumnSorter } from "@/types/entityCollections";
-
+import { IColumnHeader } from "@/types/entityCollections";
 import TableCell from "../TableCell/TableCell";
 
 type Props = {
-  columnSorters: IAssetColumnSorter[];
+  columnHeaders: IColumnHeader[];
   onRowSelect: Function;
   rowData: any;
 };
 
 export default function TableRow({
-  columnSorters,
+  columnHeaders,
   onRowSelect,
   rowData,
 }: Props) {
   return (
-    <tr onClick={onRowSelect(rowData)}>
-      {columnSorters.map(({ name, isActive, cellField }) => (
-        <TableCell key={name} isActive={isActive}>
-          {cellField ? rowData[cellField] : 0}
-        </TableCell>
-      ))}
+    <tr onClick={() => onRowSelect(rowData)}>
+      {columnHeaders &&
+        columnHeaders.map(({ name, isActive, cellField }) => (
+          <TableCell key={name} isActive={isActive}>
+            {cellField ? rowData[cellField] : "Data not found"}
+          </TableCell>
+        ))}
     </tr>
   );
 }

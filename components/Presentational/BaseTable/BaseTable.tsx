@@ -1,18 +1,20 @@
-import { IAssetColumnSorter } from "@/types/entityCollections";
 import { Loader, Table } from "@mantine/core";
+
+import { IColumnHeader } from "@/types/entityCollections";
+
 import TableRow from "./TableRow/TableRow";
-import TableHead from "./TableHead/TableHead";
+import TableHeadCell from "./TableHeadCell/TableHeadCell";
 
 type Props = {
   rows?: any[];
-  columnSorters: IAssetColumnSorter[];
+  columnHeaders: IColumnHeader[];
   onRowSelect: Function;
   onSort: Function;
 };
 
 export default function BaseTable({
   rows,
-  columnSorters,
+  columnHeaders,
   onRowSelect,
   onSort,
 }: Props) {
@@ -25,12 +27,12 @@ export default function BaseTable({
     >
       <thead>
         <tr>
-          {columnSorters?.length &&
-            columnSorters.map((columnSorter, sorterIndex) => (
-              <TableHead
-                key={columnSorter.name}
-                sorterIndex={sorterIndex}
-                columnSorter={columnSorter}
+          {columnHeaders?.length &&
+            columnHeaders.map((columnHeader, headerIndex) => (
+              <TableHeadCell
+                key={columnHeader.name}
+                headerIndex={headerIndex}
+                columnHeader={columnHeader}
                 onSort={onSort}
               />
             ))}
@@ -43,12 +45,12 @@ export default function BaseTable({
               key={rowData.id}
               onRowSelect={onRowSelect}
               rowData={rowData}
-              columnSorters={columnSorters}
+              columnHeaders={columnHeaders}
             />
           ))
         ) : (
           <tr style={{ textAlign: "center" }}>
-            <td style={{ paddingTop: 20 }} colSpan={columnSorters.length}>
+            <td style={{ paddingTop: 20 }} colSpan={columnHeaders.length}>
               <Loader />
             </td>
           </tr>
