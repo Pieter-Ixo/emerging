@@ -2,7 +2,6 @@ import { Text, Image, Flex, Loader, Center } from "@mantine/core";
 import { useEffect } from "react";
 import Link from "next/link";
 
-import dateToDayMonthYear from "@/utils/dates/dateTo";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchLastNewsPost } from "@/redux/entityCollections/thunks";
 import {
@@ -14,6 +13,7 @@ import { palette } from "@/theme/palette";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import ArrowRight from "@/assets/icons/arrow-right.svg";
+import { dateToDayMonthYear } from "@/utils/dates/dateTo";
 
 import PageBlock from "../PageBlock";
 
