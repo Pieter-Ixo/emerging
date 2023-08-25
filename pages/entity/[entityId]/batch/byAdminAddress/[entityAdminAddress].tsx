@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box, Grid } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchBatchesByAddress } from "@/redux/batches/thunks";
@@ -9,14 +10,20 @@ import { IAddressBatchesEntry } from "@/types/certificates";
 import BatchesPageHeader from "@/components/Pages/Batches/Header";
 import BatchesItem from "@/components/Pages/Batches/BatchesItem";
 import AppLayout from "@/components/Layout/AppLayout";
+import RetireModal from "@/components/Pages/Batches/RetireModal";
 
 export default function Batches() {
   const dispatch = useAppDispatch();
   const adminAddress = useValueFromRouter("entityAdminAddress");
   const entityId = useValueFromRouter("entityId");
   const batches = useAppSelector(selectAddressBatches);
+  const [opened, { open, close }] = useDisclosure(false);
 
   const [parsedBatches, setParsedBatches] = useState<IAddressBatchesEntry[]>();
+  const [selectedRetired, setSelectedRetired] = useState<number | undefined>();
+  const [selectedBatchNumber, setSelectedBatchNumber] = useState<
+    number | undefined
+  >();
 
   useEffect(() => {
     if (adminAddress) {
@@ -29,6 +36,20 @@ export default function Batches() {
       setParsedBatches(Object.entries(batches));
     }
   }, [batches]);
+
+  function onBatchClick(
+    retired: number | undefined,
+    batchNumber: number | undefined
+  ) {
+    setSelectedRetired(retired);
+    setSelectedBatchNumber(batchNumber);
+    open();
+  }
+
+  function onModalClose() {
+    close();
+    setSelectedRetired(undefined);
+  }
 
   return (
     <AppLayout title="Carbon Certificates">
@@ -43,12 +64,22 @@ export default function Batches() {
                 retired={betchData.retired}
                 minted={betchData.minted}
                 offset={betchData.amount}
+                onBatchClick={(
+                  retired: number | undefined,
+                  batchNumber: number | undefined
+                ) => onBatchClick(retired, batchNumber)}
                 entityId={entityId}
               />
             </Grid.Col>
           ))}
         </Grid>
       </Box>
+      <RetireModal
+        isModalOpened={opened}
+        retired={selectedRetired}
+        batchNumber={selectedBatchNumber}
+        closeModal={() => onModalClose()}
+      />
     </AppLayout>
   );
 }
