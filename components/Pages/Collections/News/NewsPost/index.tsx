@@ -1,4 +1,4 @@
-import dateToDayMonthYear from "@/utils/dates/dateTo";
+import {dateToDayMonthYear} from "@/utils/dates/dateTo";
 import { Box, Flex, Image, Text, Title } from "@mantine/core";
 import Link from "next/link";
 

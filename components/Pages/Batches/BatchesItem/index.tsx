@@ -23,6 +23,7 @@ type Props = {
   minted?: number;
   retired?: number;
   entityId?: string;
+  onBatchClick: Function;
 };
 
 export default function BatchesItem({
@@ -33,6 +34,7 @@ export default function BatchesItem({
   amount,
   retired,
   entityId,
+  onBatchClick,
 }: Props) {
   const router = useRouter();
 
@@ -52,6 +54,7 @@ export default function BatchesItem({
 
   const onOffsetBtnClick = (e: MouseEvent<any>) => {
     e.stopPropagation();
+    onBatchClick(retired, index);
   };
 
   const buttonStyles: Sx = isProgressComplete
@@ -119,11 +122,10 @@ export default function BatchesItem({
         <Button
           onClick={(e) => onOffsetBtnClick(e)}
           sx={{ flexGrow: 1, ...buttonStyles }}
-          disabled
           radius="xl"
           h={45}
         >
-          {isProgressComplete ? "Fully Offset" : "Offset Batch"}
+          {isProgressComplete ? "Fully Retired" : "Retire Credits"}
         </Button>
       </Flex>
     </Flex>

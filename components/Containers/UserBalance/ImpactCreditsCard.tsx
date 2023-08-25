@@ -31,7 +31,7 @@ import {
   ImpactCreditsButtonGrey,
 } from "./StyledButtons";
 import IssueCarbonButton from "./buttons/IssueCarbonButton";
-import WithdrowCarbonButton from "./buttons/WithdrowCarbonButton";
+import WithdrawCarbonButton from "./buttons/WithdrawCarbonButton";
 
 type CreditsTabName = "available" | "offset";
 
@@ -90,7 +90,7 @@ function ImpactCreditsCard() {
                 totalClaimable={0}
                 assetsLength={userEntitiesLength}
               />
-              <WithdrowCarbonButton
+              <WithdrawCarbonButton
                 totalClaimable={entitiesAdminTotal.toLocaleString()}
                 assetsLength={userEntitiesLength}
               />

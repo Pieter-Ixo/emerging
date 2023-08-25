@@ -33,7 +33,7 @@ export default function IssueCarbonButton({
         }
         onClick={() => open()}
       >
-        {totalClaimable} CARBON to isssue
+        {totalClaimable} CARBON to issue
       </ImpactCreditsButtonBlue>
       <Modal
         opened={opened}

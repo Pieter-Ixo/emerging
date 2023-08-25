@@ -16,7 +16,10 @@ export default function ProjectName({
   const tag = getEntityTagsByCategory(project, "Project Type");
 
   const PortalChild = (
-    <Link href={`https://marketplace.emerging.eco/entity/${project?.id}/overview`}>
+    <Link
+      target="_blank"
+      href={`https://marketplace.emerging.eco/entity/${project?.id}/overview`}
+    >
       <ProfileCard entity={project} tags={tag} />
     </Link>
   );

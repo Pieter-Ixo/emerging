@@ -25,6 +25,7 @@ export default function ClaimIssuer({
 
   const PortalChild = (
     <Link
+      target="_blank"
       href={`https://launchpad.ixo.world/entity/${claimIssuerProfileId}/overview`}
     >
       <Card shadow="sm" padding="lg" w={277} h={400} radius="md" withBorder>
