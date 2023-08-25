@@ -1,10 +1,10 @@
-export default function getNestedField(
+export default function getNestedField<T = any, R = object>(
   field: string,
-  nestedObject: object
-): any {
+  nestedObject: R
+): T | undefined {
   const fieldKeys = field?.split(".");
 
-  let resultField = nestedObject;
+  let resultField: any = nestedObject;
 
   let tempKey: string | string[] = "";
 
@@ -34,5 +34,5 @@ export default function getNestedField(
     }
   }
 
-  return resultField;
+  return resultField as T;
 }
