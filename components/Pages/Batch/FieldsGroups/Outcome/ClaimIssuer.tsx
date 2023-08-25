@@ -13,6 +13,7 @@ import Link from "next/link";
 
 import { palette } from "@/theme/palette";
 import useDetailPortal from "@/hooks/useDetailPortal";
+import STATIC_RESOURCES_URL from "@/constants/staticUrl";
 
 import { FieldText } from "../styledComponents";
 import { OutcomeProps } from "./props";
@@ -26,7 +27,7 @@ export default function ClaimIssuer({
   const PortalChild = (
     <Link
       target="_blank"
-      href={`https://launchpad.ixo.world/entity/${claimIssuerProfileId}/overview`}
+      href={`${STATIC_RESOURCES_URL}/entity/${claimIssuerProfileId}/overview`}
     >
       <Card shadow="sm" padding="lg" w={277} h={400} radius="md" withBorder>
         <Card.Section>

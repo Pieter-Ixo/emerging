@@ -4,6 +4,7 @@ import Link from "next/link";
 import ProfileCard from "@/components/Containers/ProfileCard";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import getEntityTagsByCategory from "@/helpers/transformData/getEntityTagsByCategory";
+import STATIC_RESOURCES_URL from "@/constants/staticUrl";
 
 import { FieldText } from "../styledComponents";
 import { ImpactVerificationProps } from "./props";
@@ -17,7 +18,7 @@ export default function Protocol({
   const PortalChild = (
     <Link
       target="_blank"
-      href={`https://marketplace.emerging.eco/entity/${protocol?.id}/overview`}
+      href={`${STATIC_RESOURCES_URL}/entity/${protocol?.id}/overview`}
     >
       <ProfileCard entity={protocol} tags={tags} />
     </Link>

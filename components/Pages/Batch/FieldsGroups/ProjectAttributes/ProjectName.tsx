@@ -4,6 +4,7 @@ import Link from "next/link";
 import ProfileCard from "@/components/Containers/ProfileCard";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import getEntityTagsByCategory from "@/helpers/transformData/getEntityTagsByCategory";
+import STATIC_RESOURCES_URL from "@/constants/staticUrl";
 
 import { FieldText } from "../styledComponents";
 import { ProjectAttributesProps } from "./props";
@@ -18,7 +19,7 @@ export default function ProjectName({
   const PortalChild = (
     <Link
       target="_blank"
-      href={`https://marketplace.emerging.eco/entity/${project?.id}/overview`}
+      href={`${STATIC_RESOURCES_URL}/entity/${project?.id}/overview`}
     >
       <ProfileCard entity={project} tags={tag} />
     </Link>
