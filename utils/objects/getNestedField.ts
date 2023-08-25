@@ -1,3 +1,5 @@
+// TODO: Consider any refactoring when writing unit tests for this function.
+
 export default function getNestedField<T = any, R = object>(
   field: string,
   nestedObject: R
