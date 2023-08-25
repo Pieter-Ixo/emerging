@@ -1,22 +1,37 @@
-import { Table } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { IAssetColumnSorter, IEntity, IEntityExtended } from "@/types/entityCollections";
+import {
+  IColumnHeader,
+  IEntity,
+  IEntityExtended,
+} from "@/types/entityCollections";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { selectSelectedEntityExternalId } from "@/redux/entityCollections/selectors";
 
 import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExternalId";
-import AssetsTableHeadCell from "./components/AssetsTableHead";
-import AssetsTBody from "./components/AssetsTBody";
+import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
+import extendEntities from "@/helpers/transformData/extendEntities";
 
-const defaultColumnSorterState = [
-  { name: "Serial number", isActive: false },
-  { name: "CARBON claimable", isActive: false },
-  { name: "CARBON Issued", isActive: false },
-  { name: "Asset creation date", isActive: false },
-  { name: "Asset owner", isActive: false },
-  { name: "owned", isActive: false },
+const defaultColumnHeadersState = [
+  { name: "Serial number", isActive: false, cellField: "externalId" },
+  {
+    name: "CARBON claimable",
+    isActive: false,
+    cellField: "_adminToken.CARBON.tokens.[0].amount",
+  },
+  {
+    name: "CARBON Issued",
+    isActive: false,
+    cellField: "_adminToken.CARBON.tokens.[0].minted",
+  },
+  {
+    name: "Asset creation date",
+    isActive: false,
+    cellField: "metadata.created",
+  },
+  { name: "Asset owner", isActive: false, cellField: "owner" },
+  { name: "owned", isActive: false, cellField: "owned" },
 ];
 
 export default function AssetsTable() {
@@ -28,30 +43,30 @@ export default function AssetsTable() {
     (state) => state.entityCollection.entityCollections[0]?.entities
   );
   const [sortedEntities, setSortedEntities] = useState<IEntityExtended[]>([]);
-  const [columnSorters, setActiveColumnSorters] = useState<
-    IAssetColumnSorter[]
-  >(defaultColumnSorterState);
+  const [columnHeaders, setActiveColumnHeaders] = useState<IColumnHeader[]>(
+    defaultColumnHeadersState
+  );
 
-  const [columnSorterIndex, setColumnSorterIndex] = useState<
+  const [columnHeaderIndex, setColumnHeaderIndex] = useState<
     number | undefined
   >();
 
-  function handleColumnClick(clickedColumnIndex: number) {
-    setActiveColumnSorters((columns) =>
+  const sortEntities = (clickedColumnIndex: number) => {
+    setActiveColumnHeaders((columns) =>
       columns.map((column, columnIndex) =>
         clickedColumnIndex === columnIndex
           ? { ...column, isActive: !column.isActive }
           : { ...column, isActive: false }
       )
     );
-    setColumnSorterIndex(clickedColumnIndex);
-  }
+    setColumnHeaderIndex(clickedColumnIndex);
+  };
 
   useEffect(() => {
-    if (columnSorterIndex !== undefined && sortedEntities.length)
-      switch (columnSorters[columnSorterIndex].name) {
+    if (columnHeaderIndex !== undefined && sortedEntities.length)
+      switch (columnHeaders[columnHeaderIndex].name) {
         case "Serial number":
-          if (columnSorters[columnSorterIndex].isActive)
+          if (columnHeaders[columnHeaderIndex].isActive)
             setSortedEntities((assets) => sortAssetsByExternalId(assets));
           else
             setSortedEntities((assets) =>
@@ -62,7 +77,7 @@ export default function AssetsTable() {
         default:
           break;
       }
-  }, [columnSorters]);
+  }, [columnHeaders]);
 
   useEffect(() => {
     if (Array.isArray(collectionEntities)) {
@@ -70,7 +85,7 @@ export default function AssetsTable() {
     }
   }, [collectionEntities]);
 
-  const selectAsset = (entity: IEntity) => () => {
+  const selectAsset = (entity: IEntity) => {
     if (selectedAssetExternalId === entity.externalId)
       dispatch(setSelectedEntity(undefined));
     else {
@@ -79,29 +94,11 @@ export default function AssetsTable() {
   };
 
   return (
-    <Table
-      highlightOnHover
-      style={{
-        alignSelf: "stretch",
-      }}
-    >
-      <thead>
-        <tr>
-          {columnSorters.map((column, i) => (
-            <AssetsTableHeadCell
-              name={column.name}
-              key={column.name}
-              isColumnActive={column.isActive}
-              onClick={() => handleColumnClick(i)}
-            />
-          ))}
-        </tr>
-      </thead>
-      <AssetsTBody
-        assetFilters={columnSorters}
-        onAssetClick={selectAsset}
-        sortedEntities={sortedEntities}
-      />
-    </Table>
+    <BaseTable
+      rows={extendEntities(sortedEntities)}
+      columnHeaders={columnHeaders}
+      onRowSelect={selectAsset}
+      onSort={sortEntities}
+    />
   );
 }

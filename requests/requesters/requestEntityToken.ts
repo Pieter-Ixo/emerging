@@ -30,3 +30,13 @@ export async function requestTokenByAddress(
   if (!tokenData) throw new Error("Panica!");
   return tokenData;
 }
+
+export async function requestTotalTokenByAddress(
+  tokenOwner: string
+): Promise<ITokenWhateverItMean> {
+  const totalTokenData = await requestBlocksyncAPI<ITokenWhateverItMean>(
+    `/api/token/totalByAddress/${tokenOwner}`
+  );
+  if (!totalTokenData) throw new Error("Panica!");
+  return totalTokenData;
+}

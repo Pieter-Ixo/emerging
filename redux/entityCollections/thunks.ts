@@ -10,6 +10,7 @@ import {
 } from "@/requests/blocksync";
 import requestUsersToken, {
   requestTokenByAddress,
+  requestTotalTokenByAddress,
 } from "@/requests/requesters/requestEntityToken";
 import {
   IApiCollectionEntitiesTotal,
@@ -86,9 +87,61 @@ export const fetchAndFillCollections = createAsyncThunk(
         }
       );
 
-      const newCollections = await Promise.all(getCollectionProfilePromises);
+      /* TODO:  These requests get all the ENTITY_BATCHES_TOTAL for all the collection
+         entities and they must be placed inside every
+         entityCollection.entityCollections[0].entities[0]._adminToken,
+         then you can get all ENTITY_BATCHES_TOTAL/{ENTITY_ADMIN}.amount and
+         ENTITY_BATCHES_TOTAL/{ENTITY_ADMIN}.minted for second and third table columns
+         These requests still need error handling and should be
+         swapped with backend implementation ;)
+      */
+      const getCollectionsEntitiesBatchesTotalPromises =
+        collectionsResponse?.map(async ({ entities }) => {
+          const tokenPromises = entities.map(
+            async ({ accounts }): Promise<ITokenWhateverItMean | undefined> => {
+              const entityAdmin = accounts.find(
+                (acc) => acc.name === "admin"
+              )?.address;
 
-      return newCollections;
+              if (entityAdmin) {
+                const totalToken = await requestTotalTokenByAddress(
+                  entityAdmin
+                );
+
+                return totalToken;
+              }
+
+              return undefined;
+            }
+          );
+          return Promise.allSettled(tokenPromises);
+        });
+
+      // Convert every batch promise to fulfilled
+      const collectionsEntitiesBatchesTotalFulfilledPromises =
+        getCollectionsEntitiesBatchesTotalPromises.map(async (tokenPromises) =>
+          (await tokenPromises).map((token) =>
+            token.status === "fulfilled" ? token.value : undefined
+          )
+        );
+
+      const newCollections: ICollectionEntities[] = await Promise.all(
+        getCollectionProfilePromises
+      );
+
+      const entitiesTokens = await Promise.all(
+        collectionsEntitiesBatchesTotalFulfilledPromises
+      );
+
+      return newCollections.map(
+        ({ collection, entities }, collectionIndex) => ({
+          collection,
+          entities: entities.map((entity, entityIndex) => ({
+            ...entity,
+            _adminToken: entitiesTokens[collectionIndex][entityIndex],
+          })),
+        })
+      );
     }
 
     return state.entityCollection.entityCollections;
