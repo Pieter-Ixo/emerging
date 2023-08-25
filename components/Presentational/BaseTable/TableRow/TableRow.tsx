@@ -33,10 +33,10 @@ export default function TableRow({
 
         const cellFieldData = getNestedField(cellField, rowData);
 
-        if (!cellFieldData) {
+        if (cellFieldData === undefined) {
           return (
             <TableCell key={name} isActive={isActive}>
-              0
+              Data not found
             </TableCell>
           );
         }

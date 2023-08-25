@@ -18,14 +18,12 @@ const defaultColumnHeadersState = [
   {
     name: "CARBON claimable",
     isActive: false,
-    cellField:
-      "_adminToken.CARBON.tokens.did:ixo:entity:7f0cc7a072d514b38cb90bdf2e215901.amount",
+    cellField: "_adminToken.CARBON.tokens.[0].amount",
   },
   {
     name: "CARBON Issued",
     isActive: false,
-    cellField:
-      "_adminToken.CARBON.tokens.did:ixo:entity:7f0cc7a072d514b38cb90bdf2e215901.minted",
+    cellField: "_adminToken.CARBON.tokens.[0].minted",
   },
   {
     name: "Asset creation date",

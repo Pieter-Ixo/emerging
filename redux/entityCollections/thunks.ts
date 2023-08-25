@@ -114,15 +114,23 @@ export const fetchAndFillCollections = createAsyncThunk(
               return undefined;
             }
           );
-          return Promise.all(tokenPromises);
+          return Promise.allSettled(tokenPromises);
         });
+
+      // Convert every batch promise to fulfilled
+      const collectionsEntitiesBatchesTotalFulfilledPromises =
+        getCollectionsEntitiesBatchesTotalPromises.map(async (tokenPromises) =>
+          (await tokenPromises).map((token) =>
+            token.status === "fulfilled" ? token.value : undefined
+          )
+        );
 
       const newCollections: ICollectionEntities[] = await Promise.all(
         getCollectionProfilePromises
       );
 
       const entitiesTokens = await Promise.all(
-        getCollectionsEntitiesBatchesTotalPromises
+        collectionsEntitiesBatchesTotalFulfilledPromises
       );
 
       return newCollections.map(
