@@ -1,4 +1,4 @@
-import { Loader, Table } from "@mantine/core";
+import { Table } from "@mantine/core";
 
 import { IColumnHeader } from "@/types/entityCollections";
 
@@ -50,9 +50,7 @@ export default function BaseTable({
           ))
         ) : (
           <tr style={{ textAlign: "center" }}>
-            <td style={{ paddingTop: 20 }} colSpan={columnHeaders.length}>
-              <Loader />
-            </td>
+            <td style={{ paddingTop: 20 }} colSpan={columnHeaders.length} />
           </tr>
         )}
       </tbody>
