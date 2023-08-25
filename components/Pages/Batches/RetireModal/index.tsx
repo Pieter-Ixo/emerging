@@ -50,7 +50,7 @@ export default function RetireModal({
         label="Country"
         dropdownPosition="bottom"
         placeholder="Select country"
-        data={["Zambia", "South Africa", "Malawi", "Vue"]}
+        data={["Zambia", "South Africa", "Malawi"]}
       />
 
       <Button
