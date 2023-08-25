@@ -16,7 +16,7 @@ export default function Collection({
 
   const PortalChild = (
     <>
-      <Link href="https://marketplace.emerging.eco/explore?type=asset">
+      <Link target="_blank" href="https://marketplace.emerging.eco/explore?type=asset">
         <ProfileCard
           entity={collection}
           measure={
