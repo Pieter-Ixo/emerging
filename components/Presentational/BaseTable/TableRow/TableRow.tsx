@@ -16,38 +16,37 @@ export default function TableRow({
 }: Props) {
   return (
     <tr onClick={() => onRowSelect(rowData)}>
-      {columnHeaders &&
-        columnHeaders.map(({ name, isActive, cellField }) => {
-          if (typeof cellField !== "string") {
-            return (
-              <TableCell key={name} isActive={isActive}>
-                Incorrect data format
-              </TableCell>
-            );
-          }
-          if (!cellField?.includes("."))
-            return (
-              <TableCell key={name} isActive={isActive}>
-                {cellField ? rowData[cellField] : "Data not found"}
-              </TableCell>
-            );
-
-          const cellFieldData = getNestedField(cellField, rowData);
-
-          if (!cellFieldData) {
-            return (
-              <TableCell key={name} isActive={isActive}>
-                Incorrect data format
-              </TableCell>
-            );
-          }
-
+      {columnHeaders?.map(({ name, isActive, cellField }) => {
+        if (typeof cellField !== "string") {
           return (
             <TableCell key={name} isActive={isActive}>
-              {cellFieldData}
+              Incorrect data format
             </TableCell>
           );
-        })}
+        }
+        if (!cellField?.includes("."))
+          return (
+            <TableCell key={name} isActive={isActive}>
+              {cellField ? rowData[cellField] : "Data not found"}
+            </TableCell>
+          );
+
+        const cellFieldData = getNestedField(cellField, rowData);
+
+        if (!cellFieldData) {
+          return (
+            <TableCell key={name} isActive={isActive}>
+              Incorrect data format
+            </TableCell>
+          );
+        }
+
+        return (
+          <TableCell key={name} isActive={isActive}>
+            {cellFieldData}
+          </TableCell>
+        );
+      })}
     </tr>
   );
 }
