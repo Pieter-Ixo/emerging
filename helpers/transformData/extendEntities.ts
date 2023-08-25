@@ -1,5 +1,5 @@
 import { IEntityExtended } from "@/types/entityCollections";
-import dateToDayMonthYear from "@/utils/dates/dateTo";
+import { dateToDayMonthYear } from "@/utils/dates/dateTo";
 import shortStr from "@/utils/shortStr";
 
 export default function extendEntities(sortedEntities: IEntityExtended[]) {
