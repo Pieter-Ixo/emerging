@@ -36,7 +36,7 @@ export default function TableRow({
         if (!cellFieldData) {
           return (
             <TableCell key={name} isActive={isActive}>
-              Incorrect data format
+              0
             </TableCell>
           );
         }
