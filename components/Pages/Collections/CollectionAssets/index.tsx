@@ -15,8 +15,18 @@ import extendEntities from "@/helpers/transformData/extendEntities";
 
 const defaultColumnHeadersState = [
   { name: "Serial number", isActive: false, cellField: "externalId" },
-  { name: "CARBON claimable", isActive: false, cellField: undefined },
-  { name: "CARBON Issued", isActive: false, cellField: undefined },
+  {
+    name: "CARBON claimable",
+    isActive: false,
+    cellField:
+      "_adminToken.CARBON.tokens.did:ixo:entity:7f0cc7a072d514b38cb90bdf2e215901.amount",
+  },
+  {
+    name: "CARBON Issued",
+    isActive: false,
+    cellField:
+      "_adminToken.CARBON.tokens.did:ixo:entity:7f0cc7a072d514b38cb90bdf2e215901.minted",
+  },
   {
     name: "Asset creation date",
     isActive: false,
