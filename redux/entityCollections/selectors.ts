@@ -18,6 +18,11 @@ export const selectEntityCollections = createDraftSafeSelector(
   selectRoot,
   (state: RootState): EntityCollectionState => state?.entityCollection
 );
+export const selectEntityCollectionsGlobal = createDraftSafeSelector(
+  selectRoot,
+  (state: RootState): ICollectionEntities[] =>
+    state?.entityCollection.entityCollections
+);
 
 export const selectCollections = createDraftSafeSelector(
   selectEntityCollections,
