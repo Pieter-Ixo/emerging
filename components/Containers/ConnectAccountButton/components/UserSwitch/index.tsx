@@ -5,11 +5,11 @@ import { SegmentedControl } from "@mantine/core";
 import { palette } from "@/theme/palette";
 import CollectorDistributorModal from "@/components/Modals/CollectorDistributorModal";
 
-type ICollectorDistributorTabName = "collector" | "distributor";
+type IUserSwitchTabName = "collector" | "distributor";
 
-export default function CollectorDistributorSwitch() {
+export default function UserSwitch() {
   const [collectorDistributorTabName, setCollectorDistributorTabName] =
-    useState<ICollectorDistributorTabName>("collector");
+    useState<IUserSwitchTabName>("collector");
   const [opened, { open, close }] = useDisclosure();
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function CollectorDistributorSwitch() {
       <SegmentedControl
         value={collectorDistributorTabName}
         fullWidth
-        onChange={(value: ICollectorDistributorTabName) =>
+        onChange={(value: IUserSwitchTabName) =>
           setCollectorDistributorTabName(value)
         }
         data={[

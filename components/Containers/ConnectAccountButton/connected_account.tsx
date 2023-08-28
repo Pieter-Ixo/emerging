@@ -12,7 +12,7 @@ import BaseIcon from "@/components/Presentational/BaseIcon";
 import Wallet from "@/assets/icons/wallet.svg";
 import DisconnectWallet from "@/assets/icons/disconnect-wallet.svg";
 
-import CollectorDistributorSwitch from "./components/CollectorDistributorSwitch";
+import UserSwitch from "./components/UserSwitch";
 
 function ConnectAccountButton() {
   const dispatch = useAppDispatch();
@@ -67,7 +67,7 @@ function ConnectAccountButton() {
               />
             </ActionIcon>
           </Flex>
-          <CollectorDistributorSwitch />
+          <UserSwitch />
         </Flex>
       </Card>
     );
@@ -101,7 +101,7 @@ function ConnectAccountButton() {
       >
         Connect My Account
       </Button>
-      <CollectorDistributorSwitch />
+      <UserSwitch />
     </Card>
   );
 }

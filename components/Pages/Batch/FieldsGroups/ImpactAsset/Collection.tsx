@@ -4,7 +4,7 @@ import Link from "next/link";
 import ProfileCard from "@/components/Containers/ProfileCard";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import VerifyIcon from "@/assets/icons/VerifyIcon";
-import DASHBOARD_RESOURCES_URL from "@/constants/dashboardResoursesUrl";
+import EMERGING_MARKETPLACE_URL from "@/constants/emergingMarketplaceUrl";
 
 import { FieldText } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
@@ -19,7 +19,7 @@ export default function Collection({
     <>
       <Link
         target="_blank"
-        href={`${DASHBOARD_RESOURCES_URL}/explore?type=asset`}
+        href={`${EMERGING_MARKETPLACE_URL}/explore?type=asset`}
       >
         <ProfileCard
           entity={collection}

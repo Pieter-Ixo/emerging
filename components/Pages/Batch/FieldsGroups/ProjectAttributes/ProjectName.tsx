@@ -4,7 +4,7 @@ import Link from "next/link";
 import ProfileCard from "@/components/Containers/ProfileCard";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import getEntityTagsByCategory from "@/helpers/transformData/getEntityTagsByCategory";
-import DASHBOARD_RESOURCES_URL from "@/constants/dashboardResoursesUrl";
+import EMERGING_MARKETPLACE_URL from "@/constants/emergingMarketplaceUrl";
 
 import { FieldText } from "../styledComponents";
 import { ProjectAttributesProps } from "./props";
@@ -19,7 +19,7 @@ export default function ProjectName({
   const PortalChild = (
     <Link
       target="_blank"
-      href={`${DASHBOARD_RESOURCES_URL}/entity/${project?.id}/overview`}
+      href={`${EMERGING_MARKETPLACE_URL}/entity/${project?.id}/overview`}
     >
       <ProfileCard entity={project} tags={tag} />
     </Link>

@@ -13,7 +13,7 @@ import Link from "next/link";
 
 import { palette } from "@/theme/palette";
 import useDetailPortal from "@/hooks/useDetailPortal";
-import DASHBOARD_RESOURCES_URL from "@/constants/dashboardResoursesUrl";
+import EMERGING_MARKETPLACE_URL from "@/constants/emergingMarketplaceUrl";
 
 import { FieldText } from "../styledComponents";
 import { OutcomeProps } from "./props";
@@ -27,7 +27,7 @@ export default function ClaimIssuer({
   const PortalChild = (
     <Link
       target="_blank"
-      href={`${DASHBOARD_RESOURCES_URL}/entity/${claimIssuerProfileId}/overview`}
+      href={`${EMERGING_MARKETPLACE_URL}/entity/${claimIssuerProfileId}/overview`}
     >
       <Card shadow="sm" padding="lg" w={277} h={400} radius="md" withBorder>
         <Card.Section>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import ProfileCard from "@/components/Containers/ProfileCard";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import getEntityTagsByCategory from "@/helpers/transformData/getEntityTagsByCategory";
-import DASHBOARD_RESOURCES_URL from "@/constants/dashboardResoursesUrl";
+import EMERGING_MARKETPLACE_URL from "@/constants/emergingMarketplaceUrl";
 
 import { FieldText } from "../styledComponents";
 import { ImpactVerificationProps } from "./props";
@@ -18,7 +18,7 @@ export default function Protocol({
   const PortalChild = (
     <Link
       target="_blank"
-      href={`${DASHBOARD_RESOURCES_URL}/entity/${protocol?.id}/overview`}
+      href={`${EMERGING_MARKETPLACE_URL}/entity/${protocol?.id}/overview`}
     >
       <ProfileCard entity={protocol} tags={tags} />
     </Link>
