@@ -7,8 +7,14 @@ import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 import PageBlock from "@/components/Pages/Collections/CollectionDashboard/PageBlock";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { selectCollectionById } from "@/redux/entityCollections/selectors";
-import { fetchAndFillCollectionById } from "@/redux/entityCollections/thunks";
+import {
+  selectCollectionById,
+  selectEntitiesByCollectionId,
+} from "@/redux/entityCollections/selectors";
+import {
+  fetchAndFillCollectionById,
+  fetchCollectionEntityBatchesTotalByAdminAccount,
+} from "@/redux/entityCollections/thunks";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import { palette } from "@/theme/palette";
 import AssetsTable from "@/components/Pages/Collections/CollectionAssets";
@@ -22,11 +28,26 @@ export default function Assets() {
   const collection = useAppSelector((state) =>
     selectCollectionById(state, collectionId)
   );
+  const collectionEntities = useAppSelector((state) =>
+    selectEntitiesByCollectionId(state, collectionId)
+  );
+
   useEffect(() => {
     if (collectionId) {
       dispatch(fetchAndFillCollectionById(collectionId));
     }
   }, [collectionId]);
+
+  useEffect(() => {
+    if (collectionId && collectionEntities?.length) {
+      dispatch(
+        fetchCollectionEntityBatchesTotalByAdminAccount({
+          entities: collectionEntities,
+          collectionId,
+        })
+      );
+    }
+  }, [collection]);
 
   const collectionDateYear = collection?.startDate.split("-")[0];
   const collectionTitle = `${collection?._profile?.brand} - ${collection?._profile?.name} ${collectionDateYear}`;

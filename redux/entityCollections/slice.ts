@@ -23,6 +23,7 @@ import {
   fetchNewsPosts,
   fetchCollectionTokenIpfs,
   fetchAndFillCollectionById,
+  fetchCollectionEntityBatchesTotalByAdminAccount,
 } from "./thunks";
 
 export type EntityCollectionState = {
@@ -119,12 +120,12 @@ const EntityCollectionSlice = createSlice({
     builder.addCase(fetchAndFillCollectionById.fulfilled, (state, action) => {
       if (!action.payload?.collection) return;
 
-      const updatedIndex = state.entityCollections.findIndex(
-        (item) => item.collection.id === action.payload!.collection.id
+      const collectionIndex = state.entityCollections.findIndex(
+        ({ collection }) => collection.id === action.payload!.collection.id
       );
 
-      if (updatedIndex !== -1) {
-        state.entityCollections[updatedIndex] = action.payload;
+      if (collectionIndex !== -1) {
+        state.entityCollections[collectionIndex] = action.payload;
         state.isEntityCollectionsLoading = false;
         return;
       }
@@ -135,6 +136,19 @@ const EntityCollectionSlice = createSlice({
     builder.addCase(fetchAndFillCollectionById.rejected, (state) => {
       state.isEntityCollectionsLoading = false;
     });
+
+    // fetchCollectionEntityBatchesTotalByAdminAccount
+    builder.addCase(
+      fetchCollectionEntityBatchesTotalByAdminAccount.fulfilled,
+      (state, { payload: { collectionId, entities } }) => {
+        const collectionIndex = state.entityCollections.findIndex(
+          ({ collection }) => collection.id === collectionId
+        );
+
+        if (collectionIndex !== -1)
+          state.entityCollections[collectionIndex].entities = entities;
+      }
+    );
 
     // fetchCollectionsByOwnerAddres
     builder.addCase(fetchCollectionsByOwnerAddres.pending, (state) => {

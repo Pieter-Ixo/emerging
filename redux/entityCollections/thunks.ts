@@ -104,7 +104,6 @@ export const fetchAndFillCollectionById = createAsyncThunk(
   ): Promise<ICollectionEntities | undefined> => {
     const state = getState() as RootState;
 
-    // TODO: Filling with adminTokens should be moved to new thunk
     const isCollectionsFetched =
       !!state.entityCollection.entityCollections[0]?.collection &&
       !!state.entityCollection.entityCollections[0]?.entities[0]._adminToken;
@@ -127,16 +126,35 @@ export const fetchAndFillCollectionById = createAsyncThunk(
       collection: filledCollection,
     };
 
-    /* TODO:  These requests get all the ENTITY_BATCHES_TOTAL for the collection
+    return newCollection;
+  }
+);
+
+export const fetchCollectionEntityBatchesTotalByAdminAccount = createAsyncThunk(
+  "entityCollections/fetchCollectionEntityBatchesTotalByAdminAccount",
+  async ({
+    entities,
+    collectionId,
+  }: {
+    entities: IEntityExtended[];
+    collectionId: string;
+  }) => {
+    const isEntitiesFilled = !!entities[0]._adminToken;
+    if (isEntitiesFilled)
+      return {
+        collectionId,
+        entities,
+      };
+    /* TODO:  These requests get all the ENTITY_BATCHES_TOTAL for all the collection
          entities and they must be placed inside every
          entityCollection.entityCollections[0].entities[0]._adminToken,
          then you can get all ENTITY_BATCHES_TOTAL/{ENTITY_ADMIN}.amount and
          ENTITY_BATCHES_TOTAL/{ENTITY_ADMIN}.minted for second and third table columns
-         These requests still should be
+         These requests still need error handling and should be
          swapped with backend implementation ;)
       */
     const getCollectionsEntitiesBatchesTotalPromises = await Promise.allSettled(
-      collectionResponse.entities.map(
+      entities.map(
         async ({ accounts }): Promise<ITokenWhateverItMean | undefined> => {
           const entityAdmin = accounts.find(
             (acc) => acc.name === "admin"
@@ -153,14 +171,16 @@ export const fetchAndFillCollectionById = createAsyncThunk(
       )
     );
 
-    // Convert every fulfilled batch promise to the data
-    const entitiesTokens = getCollectionsEntitiesBatchesTotalPromises.map(
-      (token) => (token.status === "fulfilled" ? token.value : undefined)
+    // Convert every batch promise to fulfilled
+    const entitiesTokens = await Promise.all(
+      getCollectionsEntitiesBatchesTotalPromises.map(async (token) =>
+        token.status === "fulfilled" ? token.value : undefined
+      )
     );
 
     return {
-      ...newCollection,
-      entities: newCollection.entities.map((entity, entityIndex) => ({
+      collectionId,
+      entities: entities.map((entity, entityIndex) => ({
         ...entity,
         _adminToken: entitiesTokens[entityIndex],
       })),
