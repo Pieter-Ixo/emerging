@@ -3,7 +3,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { SegmentedControl } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
-import CollectorDistributorModal from "@/components/Modals/CollectorDistributorModal/CollectorDistributorModal";
+import CollectorDistributorModal from "@/components/Modals/CollectorDistributorModal";
 
 type ICollectorDistributorTabName = "collector" | "distributor";
 
@@ -27,8 +27,8 @@ export default function CollectorDistributorSwitch() {
       <SegmentedControl
         value={collectorDistributorTabName}
         fullWidth
-        onChange={(value) =>
-          setCollectorDistributorTabName(value as ICollectorDistributorTabName)
+        onChange={(value: ICollectorDistributorTabName) =>
+          setCollectorDistributorTabName(value)
         }
         data={[
           { label: "collector", value: "collector" },

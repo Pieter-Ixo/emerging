@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import ProfileCard from "@/components/Containers/ProfileCard";
 import useDetailPortal from "@/hooks/useDetailPortal";
-import STATIC_RESOURCES_URL from "@/constants/staticUrl";
+import DASHBOARD_RESOURCES_URL from "@/constants/dashboardResoursesUrl";
 
 import { FieldText } from "../styledComponents";
 import { OracleVerificationProps } from "./props";
@@ -15,7 +15,7 @@ export default function Oracle({ oracle }: Partial<OracleVerificationProps>) {
   const PortalChild = (
     <Link
       target="_blank"
-      href={`${STATIC_RESOURCES_URL}/entity/${oracle?.id}/overview`}
+      href={`${DASHBOARD_RESOURCES_URL}/entity/${oracle?.id}/overview`}
     >
       <ProfileCard entity={oracle} tags={tag} />
     </Link>
