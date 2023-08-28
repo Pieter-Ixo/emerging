@@ -10,6 +10,7 @@ import {
 import useValueFromRouter from "@/utils/useValueFromRouter";
 
 import {
+  fetchAndFillCollectionById,
   fetchAndFillCollections,
   fetchTotalCollectionEntities,
 } from "@/redux/entityCollections/thunks";
@@ -62,8 +63,11 @@ export default function Collection() {
   }, [collectionId]);
 
   useEffect(() => {
-    dispatch(fetchAndFillCollections());
-  }, []);
+    // dispatch(fetchAndFillCollections());
+    if (collectionId) {
+      dispatch(fetchAndFillCollectionById(collectionId));
+    }
+  }, [collectionId]);
 
   const collectionTitle =
     collections?.[0]?._profile?.brand || collections?.[0]?._profile?.name

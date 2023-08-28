@@ -22,6 +22,7 @@ import {
   fetchLastNewsPost,
   fetchNewsPosts,
   fetchCollectionTokenIpfs,
+  fetchAndFillCollectionById,
 } from "./thunks";
 
 export type EntityCollectionState = {
@@ -107,6 +108,28 @@ const EntityCollectionSlice = createSlice({
     });
 
     builder.addCase(fetchAndFillCollections.rejected, (state) => {
+      state.isEntityCollectionsLoading = false;
+    });
+
+    // fetchAndFillCollectionById
+    builder.addCase(fetchAndFillCollectionById.pending, (state) => {
+      state.isEntityCollectionsLoading = true;
+    });
+
+    builder.addCase(fetchAndFillCollectionById.fulfilled, (state, action) => {
+      if (action.payload?.collection) {
+        const updatedIndex = state.entityCollections.findIndex(
+          (item) => item.collection.id === action.payload!.collection.id
+        );
+
+        if (updatedIndex !== -1) {
+          state.entityCollections[updatedIndex] = action.payload;
+        }
+      }
+      state.isEntityCollectionsLoading = false;
+    });
+
+    builder.addCase(fetchAndFillCollectionById.rejected, (state) => {
       state.isEntityCollectionsLoading = false;
     });
 

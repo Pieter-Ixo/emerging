@@ -27,8 +27,22 @@ export async function requestCollections(): Promise<ICollectionEntities[]> {
       "/api/entity/collections"
     );
   if (!entityCollections) throw new Error("panica!");
+  console.log("Settings: ", entityCollections[0].collection.settings);
 
   return entityCollections;
+}
+export async function requestCollectionById(
+  id: string
+): Promise<ICollectionEntities> {
+  console.log("Hi");
+  const entityCollection = await requestBlocksyncAPI<ICollectionEntities>(
+    `/api/entity/collectionById/${id}`
+  );
+  if (!entityCollection) throw new Error("panica!");
+
+  console.log("Settings: ", entityCollection.collection.settings);
+
+  return entityCollection;
 }
 
 export async function requestCollectionsByOwnerAddress(

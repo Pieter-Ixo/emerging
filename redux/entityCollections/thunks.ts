@@ -2,6 +2,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import {
+  requestCollectionById,
   requestCollections,
   requestCollectionsByOwnerAddress,
   requestEntityByExternalID,
@@ -145,6 +146,86 @@ export const fetchAndFillCollections = createAsyncThunk(
     }
 
     return state.entityCollection.entityCollections;
+  }
+);
+
+export const fetchAndFillCollectionById = createAsyncThunk(
+  "entityCollections/fetchAndFillCollectionById",
+  async (
+    collectionId: string,
+    { getState }
+  ): Promise<ICollectionEntities | undefined> => {
+    const state = getState() as RootState;
+
+    const isCollectionsFetched =
+      !!state.entityCollection.entityCollections[0]?.collection;
+
+    if (!isCollectionsFetched) {
+      const collectionResponse: ICollectionEntities =
+        await requestCollectionById(collectionId);
+
+      console.log("Settings: ", collectionId);
+
+      const filledCollection = await fillCollection(
+        collectionResponse.collection
+      );
+
+      console.log("filledCollection: ", filledCollection);
+
+      const newCollection: ICollectionEntities = {
+        ...collectionResponse,
+        ...filledCollection,
+      };
+
+      console.log("thunk::newCollection: ", newCollection);
+
+      /* TODO:  These requests get all the ENTITY_BATCHES_TOTAL for the collection
+         entities and they must be placed inside every
+         entityCollection.entityCollections[0].entities[0]._adminToken,
+         then you can get all ENTITY_BATCHES_TOTAL/{ENTITY_ADMIN}.amount and
+         ENTITY_BATCHES_TOTAL/{ENTITY_ADMIN}.minted for second and third table columns
+         These requests still should be
+         swapped with backend implementation ;)
+      */
+      const getCollectionsEntitiesBatchesTotalPromises =
+        await Promise.allSettled(
+          collectionResponse.entities.map(
+            async ({ accounts }): Promise<ITokenWhateverItMean | undefined> => {
+              const entityAdmin = accounts.find(
+                (acc) => acc.name === "admin"
+              )?.address;
+
+              if (entityAdmin) {
+                const totalToken = await requestTotalTokenByAddress(
+                  entityAdmin
+                );
+
+                return totalToken;
+              }
+
+              return undefined;
+            }
+          )
+        );
+
+      // Convert every fulfilled batch promise to the data
+      const entitiesTokens = getCollectionsEntitiesBatchesTotalPromises.map(
+        (token) => (token.status === "fulfilled" ? token.value : undefined)
+      );
+
+      // return newCollection(({ collection, entities }, collectionIndex) => ({
+      //   collection,
+      //   entities: entities.map((entity, entityIndex) => ({
+      //     ...entity,
+      //     _adminToken: entitiesTokens[collectionIndex][entityIndex],
+      //   })),
+      // }));
+      return newCollection;
+    }
+
+    return state.entityCollection.entityCollections.find(
+      ({ collection }) => collection.id === collectionId
+    );
   }
 );
 
