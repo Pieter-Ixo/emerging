@@ -21,8 +21,6 @@ Emerging is the digital platform for low-carbon basic services. Manage your inve
 - [API Data](#api-data)
 - [State Management](#state-management)
 - [Code Formatting](#code-formatting)
-- [Contributing](#contributing)
-- [Troubleshooting](#troubleshooting)
 
 ## Getting Started
 
@@ -117,35 +115,20 @@ The components in this folder are responsible for rendering NOT domain-sensitive
 - `helpers/` - contains domain-sensitive functions (like data transformations).
 - `utils/` - contains NOT domain-sensitive functions that work not knowing anything about the domain (like `shortStr`).
 - `public/` - [according to the framework](https://nextjs.org/docs/getting-started/installation#the-public-folder-optional) this contains files that will be served statically for all pages of the application.
+- `requests/` - contains async functions requesting anything through the HTTP protocol. All requests to any API should be here.
 
 ## API Data
 
-Explain how your app gathers data from different APIs. If there are authentication requirements, guide users on setting up API keys or authentication tokens.
+As was written above, all requests through the HTTP should be located in the `requests` folder.
+
+*BlockSync* API is the main source of all collections and entities. For now, all requests to Blocksync are done with the `apisause` library and stored in `requests/blocksync.ts`.
 
 ## State Management
 
-Detail how Redux Toolkit is used for state management. Describe any notable patterns or practices you've followed.
+// TODO: write documentation after refactoring
+
+// FIXME: [EMERGING-168 Refactor Redux](https://ixo.youtrack.cloud/issue/EMERGING-168/Refactor-Redux)
 
 ## Code Formatting
 
-Your app uses ESLint and Prettier for consistent code formatting. Users can lint their code using the following command:
-
-```sh
-npm run lint
-```
-
-Ensure your code follows the provided linting rules before submitting pull requests.
-
-## Contributing
-
-If you're open to contributions, outline how users can contribute to your project. Mention your preferred pull request process and coding guidelines.
-
-## Troubleshooting
-
-Provide solutions to common issues users might encounter. Address frequently asked questions to help users navigate problems effectively.
-
----
-
-Feel free to customize the above template to suit your app's specific details. A well-structured README.md helps users understand and engage with your project efficiently.
-
-Opinion: Your README covers the crucial aspects of your app effectively. It's great to see you've included details about deployment, state management, code formatting, and troubleshooting. This will undoubtedly make it easier for collaborators and users to work with your app.
+This app has the configuration for ESLint and Prettier for consistent code formatting. Install IDE extensions to notice all ESLint errors and avoid warnings.
