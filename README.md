@@ -66,7 +66,7 @@ The app is deployed on [Netlify](https://www.netlify.com/) by [Alwyn](https://gi
 
 ## Folder Structure
 
-First, let's review the example and then we'll go through each folder:
+First, let's review the folder structure and then go through each folder, explaining it:
 
 ```sh
 emerging-eco-app/
