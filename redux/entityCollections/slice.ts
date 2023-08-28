@@ -129,7 +129,6 @@ const EntityCollectionSlice = createSlice({
         return;
       }
       state.entityCollections.push(action.payload);
-      console.log()
       state.isEntityCollectionsLoading = false;
     });
 
