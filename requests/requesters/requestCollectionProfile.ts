@@ -12,7 +12,7 @@ export default async function requestCollectionProfile(
     collection.service
   );
   const profile = await request<ICollectionProfile>(collectionProfileEndpoint);
-  console.log("profile: ", profile);
+
   if (!profile) throw new Error("Panica!");
 
   const profileFilled = fillProfileLinkedData(profile);

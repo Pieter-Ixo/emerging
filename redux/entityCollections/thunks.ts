@@ -65,7 +65,6 @@ export const fetchTotalCollectionEntitiesRetired = createAsyncThunk<any>(
   }
 );
 
-// TODO: make this request by id
 export const fetchAndFillCollections = createAsyncThunk(
   "entityCollections/fetchAndFillCollections",
   async (_, { getState }): Promise<ICollectionEntities[]> => {
@@ -74,78 +73,26 @@ export const fetchAndFillCollections = createAsyncThunk(
     const isCollectionsFetched =
       !!state.entityCollection.entityCollections[0]?.collection;
 
-    if (!isCollectionsFetched) {
-      const collectionsResponse: ICollectionEntities[] =
-        await requestCollections();
+    if (isCollectionsFetched) return state.entityCollection.entityCollections;
 
-      const getCollectionProfilePromises = collectionsResponse?.map(
-        async (entityCollection): Promise<ICollectionEntities> => {
-          const collection = await fillCollection(entityCollection.collection);
-          return {
-            ...entityCollection,
-            collection,
-          };
-        }
-      );
+    const collectionsResponse: ICollectionEntities[] =
+      await requestCollections();
 
-      /* TODO:  These requests get all the ENTITY_BATCHES_TOTAL for all the collection
-         entities and they must be placed inside every
-         entityCollection.entityCollections[0].entities[0]._adminToken,
-         then you can get all ENTITY_BATCHES_TOTAL/{ENTITY_ADMIN}.amount and
-         ENTITY_BATCHES_TOTAL/{ENTITY_ADMIN}.minted for second and third table columns
-         These requests still need error handling and should be
-         swapped with backend implementation ;)
-      */
-      const getCollectionsEntitiesBatchesTotalPromises =
-        collectionsResponse?.map(async ({ entities }) => {
-          const tokenPromises = entities.map(
-            async ({ accounts }): Promise<ITokenWhateverItMean | undefined> => {
-              const entityAdmin = accounts.find(
-                (acc) => acc.name === "admin"
-              )?.address;
-
-              if (entityAdmin) {
-                const totalToken = await requestTotalTokenByAddress(
-                  entityAdmin
-                );
-
-                return totalToken;
-              }
-
-              return undefined;
-            }
-          );
-          return Promise.allSettled(tokenPromises);
-        });
-
-      // Convert every batch promise to fulfilled
-      const collectionsEntitiesBatchesTotalFulfilledPromises =
-        getCollectionsEntitiesBatchesTotalPromises.map(async (tokenPromises) =>
-          (await tokenPromises).map((token) =>
-            token.status === "fulfilled" ? token.value : undefined
-          )
-        );
-
-      const newCollections: ICollectionEntities[] = await Promise.all(
-        getCollectionProfilePromises
-      );
-
-      const entitiesTokens = await Promise.all(
-        collectionsEntitiesBatchesTotalFulfilledPromises
-      );
-
-      return newCollections.map(
-        ({ collection, entities }, collectionIndex) => ({
+    const getCollectionProfilePromises = collectionsResponse?.map(
+      async (entityCollection): Promise<ICollectionEntities> => {
+        const collection = await fillCollection(entityCollection.collection);
+        return {
+          ...entityCollection,
           collection,
-          entities: entities.map((entity, entityIndex) => ({
-            ...entity,
-            _adminToken: entitiesTokens[collectionIndex][entityIndex],
-          })),
-        })
-      );
-    }
+        };
+      }
+    );
 
-    return state.entityCollection.entityCollections;
+    const newCollections: ICollectionEntities[] = await Promise.all(
+      getCollectionProfilePromises
+    );
+
+    return newCollections;
   }
 );
 
@@ -157,29 +104,30 @@ export const fetchAndFillCollectionById = createAsyncThunk(
   ): Promise<ICollectionEntities | undefined> => {
     const state = getState() as RootState;
 
+    // TODO: Filling with adminTokens should be moved to new thunk
     const isCollectionsFetched =
-      !!state.entityCollection.entityCollections[0]?.collection;
+      !!state.entityCollection.entityCollections[0]?.collection &&
+      !!state.entityCollection.entityCollections[0]?.entities[0]._adminToken;
 
-    if (!isCollectionsFetched) {
-      const collectionResponse: ICollectionEntities =
-        await requestCollectionById(collectionId);
-
-      console.log("Settings: ", collectionId);
-
-      const filledCollection = await fillCollection(
-        collectionResponse.collection
+    if (isCollectionsFetched)
+      return state.entityCollection.entityCollections.find(
+        ({ collection }) => collection.id === collectionId
       );
 
-      console.log("filledCollection: ", filledCollection);
+    const collectionResponse: ICollectionEntities = await requestCollectionById(
+      collectionId
+    );
 
-      const newCollection: ICollectionEntities = {
-        ...collectionResponse,
-        ...filledCollection,
-      };
+    const filledCollection = await fillCollection(
+      collectionResponse.collection
+    );
 
-      console.log("thunk::newCollection: ", newCollection);
+    const newCollection: ICollectionEntities = {
+      ...collectionResponse,
+      collection: filledCollection,
+    };
 
-      /* TODO:  These requests get all the ENTITY_BATCHES_TOTAL for the collection
+    /* TODO:  These requests get all the ENTITY_BATCHES_TOTAL for the collection
          entities and they must be placed inside every
          entityCollection.entityCollections[0].entities[0]._adminToken,
          then you can get all ENTITY_BATCHES_TOTAL/{ENTITY_ADMIN}.amount and
@@ -187,45 +135,36 @@ export const fetchAndFillCollectionById = createAsyncThunk(
          These requests still should be
          swapped with backend implementation ;)
       */
-      const getCollectionsEntitiesBatchesTotalPromises =
-        await Promise.allSettled(
-          collectionResponse.entities.map(
-            async ({ accounts }): Promise<ITokenWhateverItMean | undefined> => {
-              const entityAdmin = accounts.find(
-                (acc) => acc.name === "admin"
-              )?.address;
+    const getCollectionsEntitiesBatchesTotalPromises = await Promise.allSettled(
+      collectionResponse.entities.map(
+        async ({ accounts }): Promise<ITokenWhateverItMean | undefined> => {
+          const entityAdmin = accounts.find(
+            (acc) => acc.name === "admin"
+          )?.address;
 
-              if (entityAdmin) {
-                const totalToken = await requestTotalTokenByAddress(
-                  entityAdmin
-                );
+          if (entityAdmin) {
+            const totalToken = await requestTotalTokenByAddress(entityAdmin);
 
-                return totalToken;
-              }
+            return totalToken;
+          }
 
-              return undefined;
-            }
-          )
-        );
-
-      // Convert every fulfilled batch promise to the data
-      const entitiesTokens = getCollectionsEntitiesBatchesTotalPromises.map(
-        (token) => (token.status === "fulfilled" ? token.value : undefined)
-      );
-
-      // return newCollection(({ collection, entities }, collectionIndex) => ({
-      //   collection,
-      //   entities: entities.map((entity, entityIndex) => ({
-      //     ...entity,
-      //     _adminToken: entitiesTokens[collectionIndex][entityIndex],
-      //   })),
-      // }));
-      return newCollection;
-    }
-
-    return state.entityCollection.entityCollections.find(
-      ({ collection }) => collection.id === collectionId
+          return undefined;
+        }
+      )
     );
+
+    // Convert every fulfilled batch promise to the data
+    const entitiesTokens = getCollectionsEntitiesBatchesTotalPromises.map(
+      (token) => (token.status === "fulfilled" ? token.value : undefined)
+    );
+
+    return {
+      ...newCollection,
+      entities: newCollection.entities.map((entity, entityIndex) => ({
+        ...entity,
+        _adminToken: entitiesTokens[entityIndex],
+      })),
+    };
   }
 );
 

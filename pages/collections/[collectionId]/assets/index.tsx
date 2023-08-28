@@ -8,7 +8,7 @@ import PageBlock from "@/components/Pages/Collections/CollectionDashboard/PageBl
 import PageHeader from "@/components/Pages/Collections/PageHeader";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { selectCollectionById } from "@/redux/entityCollections/selectors";
-import { fetchAndFillCollections } from "@/redux/entityCollections/thunks";
+import { fetchAndFillCollectionById } from "@/redux/entityCollections/thunks";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import { palette } from "@/theme/palette";
 import AssetsTable from "@/components/Pages/Collections/CollectionAssets";
@@ -23,8 +23,10 @@ export default function Assets() {
     selectCollectionById(state, collectionId)
   );
   useEffect(() => {
-    dispatch(fetchAndFillCollections());
-  }, []);
+    if (collectionId) {
+      dispatch(fetchAndFillCollectionById(collectionId));
+    }
+  }, [collectionId]);
 
   const collectionDateYear = collection?.startDate.split("-")[0];
   const collectionTitle = `${collection?._profile?.brand} - ${collection?._profile?.name} ${collectionDateYear}`;

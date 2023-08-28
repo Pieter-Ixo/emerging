@@ -11,7 +11,6 @@ import useValueFromRouter from "@/utils/useValueFromRouter";
 
 import {
   fetchAndFillCollectionById,
-  fetchAndFillCollections,
   fetchTotalCollectionEntities,
 } from "@/redux/entityCollections/thunks";
 

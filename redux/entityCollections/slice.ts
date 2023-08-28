@@ -117,15 +117,19 @@ const EntityCollectionSlice = createSlice({
     });
 
     builder.addCase(fetchAndFillCollectionById.fulfilled, (state, action) => {
-      if (action.payload?.collection) {
-        const updatedIndex = state.entityCollections.findIndex(
-          (item) => item.collection.id === action.payload!.collection.id
-        );
+      if (!action.payload?.collection) return;
 
-        if (updatedIndex !== -1) {
-          state.entityCollections[updatedIndex] = action.payload;
-        }
+      const updatedIndex = state.entityCollections.findIndex(
+        (item) => item.collection.id === action.payload!.collection.id
+      );
+
+      if (updatedIndex !== -1) {
+        state.entityCollections[updatedIndex] = action.payload;
+        state.isEntityCollectionsLoading = false;
+        return;
       }
+      state.entityCollections.push(action.payload);
+      console.log()
       state.isEntityCollectionsLoading = false;
     });
 

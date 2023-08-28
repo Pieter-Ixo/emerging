@@ -9,8 +9,6 @@ export default async function fillCollection(
     await requestCollectionProfile(collection),
     await getCollectionTags(collection),
   ]);
-  console.log(profileData);
-  console.log(tagData);
   const filledCollection: ICollectionExtended = structuredClone(collection);
   filledCollection._profile = profileData;
   filledCollection._tags = tagData;
