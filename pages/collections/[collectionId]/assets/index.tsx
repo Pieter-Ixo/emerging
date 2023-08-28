@@ -21,6 +21,7 @@ import AssetsTable from "@/components/Pages/Collections/CollectionAssets";
 import AssetsControls from "@/components/Pages/Collections/CollectionAssets/components/AssetsControls";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import BaseIcon from "@/components/Presentational/BaseIcon";
+import CollectionAssetModal from "@/components/Pages/Collections/CollectionDashboard/CollectionAssetsCard/components/CollectionAssetModal";
 
 export default function Assets() {
   const dispatch = useAppDispatch();
@@ -83,6 +84,7 @@ export default function Assets() {
         </Flex>
         <AssetsTable />
       </PageBlock>
+      <CollectionAssetModal />
     </AppLayout>
   );
 }

@@ -57,7 +57,7 @@ export default function CollectionAssetsCard() {
     number | undefined
   >();
 
-  const selectAsset = (entity: IEntity) => () => {
+  const selectAsset = (entity: IEntity) => {
     if (selectedAssetExternalId === entity.externalId)
       dispatch(setSelectedEntity(undefined));
     else {
