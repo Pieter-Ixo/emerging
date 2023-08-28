@@ -4,15 +4,15 @@ import { Grid, Loader } from "@mantine/core";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchAndFillCollections } from "@/redux/entityCollections/thunks";
 import {
+  selectEntityCollections,
   selectIsEntityCollectionsLoading,
-  selectUserEntityCollections,
 } from "@/redux/entityCollections/selectors";
 
 import CollectionCard from "./CollectionCard";
 
 export default function CollectionsGrid() {
   const dispatch = useAppDispatch();
-  const entityCollections = useAppSelector(selectUserEntityCollections);
+  const entityCollections = useAppSelector(selectEntityCollections);
   const isLoading = useAppSelector(selectIsEntityCollectionsLoading);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function CollectionsGrid() {
 
   return (
     <Grid maw={900} gutter="lg" m={0} p={0}>
-      {entityCollections.map(({ collection, entities }) => (
+      {entityCollections.entityCollections.map(({ collection, entities }) => (
         <Grid.Col span={6} key={`collection-${collection?.id}`} p={0}>
           <CollectionCard
             collection={collection}
