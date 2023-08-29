@@ -18,6 +18,7 @@ import HouseholdSVG from "@/assets/icons/household.svg";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import { palette } from "@/theme/palette";
 import MapImage from "@/components/Presentational/MapImage";
+import BaseIcon from "@/components/Presentational/BaseIcon";
 
 const defaultPhotos = [
   "/images/DefaultHouseholdPhotos/default_01.jpg",
@@ -52,21 +53,22 @@ export default function HouseholdPageLayout() {
         >
           Supamoto #{entityExternalId}
         </Title>
-        <Box style={{ position: "relative" }}>
+        <Box pos="relative">
           <ImageTextCard
             Img={HouseholdSVG}
             text="Visit the household"
             vertical
           />
-          <ArrowLeftIcon
+          <BaseIcon
             style={{
               position: "absolute",
               top: 0,
               right: 0,
               margin: "1em",
+              cursor: "pointer",
             }}
-            fill="black"
             onClick={() => router.back()}
+            Icon={ArrowLeftIcon}
           />
         </Box>
         <Stack p={0} mt="md">

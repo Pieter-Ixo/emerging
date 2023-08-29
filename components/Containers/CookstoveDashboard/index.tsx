@@ -144,9 +144,9 @@ export default function CookstoveDashboard({
               </Link>
             </Box>
           </Flex>
-          <Tooltip label="this page is under development">
+          <Link href={`/devices/${entityExternalId}/transactions`}>
             <ImageTextCard Img={Eye} text="Carbon Credit Transactions" />
-          </Tooltip>
+          </Link>
         </Flex>
       </Container>
     </BackgroundImage>
