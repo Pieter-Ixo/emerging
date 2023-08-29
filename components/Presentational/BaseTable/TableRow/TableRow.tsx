@@ -29,18 +29,14 @@ export default function TableRow({
         if (!cellField?.includes("."))
           return (
             <TableCell key={name} isSelected={isSelected} isActive={isActive}>
-              {cellField ? rowData[cellField] : "Data not found"}
+              {cellField ? rowData[cellField] : ""}
             </TableCell>
           );
 
         const cellFieldData = getNestedField(cellField, rowData);
 
         if (cellFieldData === undefined) {
-          return (
-            <TableCell key={name} isActive={isActive}>
-              Data not found
-            </TableCell>
-          );
+          return <TableCell key={name} isActive={isActive} />;
         }
 
         return (

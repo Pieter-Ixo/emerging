@@ -9,9 +9,7 @@ import {
   IEntity,
   IEntityExtended,
 } from "@/types/entityCollections";
-import {
-  selectSelectedEntity,
-} from "@/redux/entityCollections/selectors";
+import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
 import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExternalId";
 import { palette } from "@/theme/palette";
 import useValueFromRouter from "@/utils/useValueFromRouter";
@@ -99,7 +97,7 @@ export default function CollectionAssetsCard() {
     }
   }, [collectionEntities]);
 
-    const selectAsset = (entity: IEntity) => {
+  const selectAsset = (entity: IEntity) => {
     dispatch(setSelectedEntity(entity));
   };
 
