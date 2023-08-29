@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import ProfileCard from "@/components/Containers/ProfileCard";
 import useDetailPortal from "@/hooks/useDetailPortal";
+import EMERGING_MARKETPLACE_URL from "@/constants/emergingMarketplaceUrl";
 
 import { FieldText } from "../styledComponents";
 import { OracleVerificationProps } from "./props";
@@ -14,7 +15,7 @@ export default function Oracle({ oracle }: Partial<OracleVerificationProps>) {
   const PortalChild = (
     <Link
       target="_blank"
-      href={`https://marketplace.emerging.eco/entity/${oracle?.id}/overview`}
+      href={`${EMERGING_MARKETPLACE_URL}/entity/${oracle?.id}/overview`}
     >
       <ProfileCard entity={oracle} tags={tag} />
     </Link>

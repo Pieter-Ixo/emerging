@@ -4,6 +4,7 @@ import Link from "next/link";
 import ProfileCard from "@/components/Containers/ProfileCard";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import VerifyIcon from "@/assets/icons/VerifyIcon";
+import EMERGING_MARKETPLACE_URL from "@/constants/emergingMarketplaceUrl";
 
 import { FieldText } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
@@ -16,7 +17,10 @@ export default function Collection({
 
   const PortalChild = (
     <>
-      <Link target="_blank" href="https://marketplace.emerging.eco/explore?type=asset">
+      <Link
+        target="_blank"
+        href={`${EMERGING_MARKETPLACE_URL}/explore?type=asset`}
+      >
         <ProfileCard
           entity={collection}
           measure={
