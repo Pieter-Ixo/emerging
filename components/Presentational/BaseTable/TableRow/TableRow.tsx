@@ -3,17 +3,19 @@ import getNestedField from "@/utils/objects/getNestedField";
 
 import TableCell from "../TableCell/TableCell";
 
-type Props = {
+type Props<T> = {
   columnHeaders: IColumnHeader[];
   onRowSelect: Function;
-  rowData: any;
+  isSelected?: boolean;
+  rowData: T;
 };
 
 export default function TableRow({
   columnHeaders,
   onRowSelect,
   rowData,
-}: Props) {
+  isSelected,
+}: Props<any>) {
   return (
     <tr onClick={() => onRowSelect(rowData)}>
       {columnHeaders?.map(({ name, isActive, cellField }) => {
@@ -26,7 +28,7 @@ export default function TableRow({
         }
         if (!cellField?.includes("."))
           return (
-            <TableCell key={name} isActive={isActive}>
+            <TableCell key={name} isSelected={isSelected} isActive={isActive}>
               {cellField ? rowData[cellField] : "Data not found"}
             </TableCell>
           );
@@ -42,7 +44,7 @@ export default function TableRow({
         }
 
         return (
-          <TableCell key={name} isActive={isActive}>
+          <TableCell key={name} isSelected={isSelected} isActive={isActive}>
             {cellFieldData}
           </TableCell>
         );

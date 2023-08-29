@@ -7,11 +7,14 @@ import {
 } from "@/types/entityCollections";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
-import { selectSelectedEntityExternalId } from "@/redux/entityCollections/selectors";
+import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
 
 import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExternalId";
 import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
-import extendEntities from "@/helpers/transformData/extendEntities";
+import {
+  extendEntities,
+  extendSingleEntity,
+} from "@/helpers/transformData/extendEntities";
 
 const defaultColumnHeadersState = [
   { name: "Serial number", isActive: false, cellField: "externalId" },
@@ -36,12 +39,11 @@ const defaultColumnHeadersState = [
 
 export default function AssetsTable() {
   const dispatch = useAppDispatch();
-  const selectedAssetExternalId = useAppSelector(
-    selectSelectedEntityExternalId
-  );
   const collectionEntities = useAppSelector(
     (state) => state.entityCollection.entityCollections[0]?.entities
   );
+  const selectedEntity = useAppSelector(selectSelectedEntity);
+
   const [sortedEntities, setSortedEntities] = useState<IEntityExtended[]>([]);
   const [columnHeaders, setActiveColumnHeaders] = useState<IColumnHeader[]>(
     defaultColumnHeadersState
@@ -61,6 +63,13 @@ export default function AssetsTable() {
     );
     setColumnHeaderIndex(clickedColumnIndex);
   };
+
+  useEffect(() => {
+    dispatch(setSelectedEntity(undefined));
+    return () => {
+      dispatch(setSelectedEntity(undefined));
+    };
+  }, []);
 
   useEffect(() => {
     if (columnHeaderIndex !== undefined && sortedEntities.length)
@@ -86,16 +95,13 @@ export default function AssetsTable() {
   }, [collectionEntities]);
 
   const selectAsset = (entity: IEntity) => {
-    if (selectedAssetExternalId === entity.externalId)
-      dispatch(setSelectedEntity(undefined));
-    else {
-      dispatch(setSelectedEntity(entity));
-    }
+    dispatch(setSelectedEntity(entity));
   };
 
   return (
     <BaseTable
       rows={extendEntities(sortedEntities)}
+      selectedRow={extendSingleEntity(selectedEntity)}
       columnHeaders={columnHeaders}
       onRowSelect={selectAsset}
       onSort={sortEntities}

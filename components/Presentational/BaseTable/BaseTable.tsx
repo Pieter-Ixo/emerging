@@ -8,12 +8,18 @@ import TableHeadCell from "./TableHeadCell/TableHeadCell";
 type Props = {
   rows?: any[];
   columnHeaders: IColumnHeader[];
+  selectedRow?: any;
   onRowSelect: Function;
   onSort: Function;
 };
 
+/**
+ * @param {any} selectedRow - Has to contain id, similar to 
+ * rows param objects
+ */
 export default function BaseTable({
   rows,
+  selectedRow,
   columnHeaders,
   onRowSelect,
   onSort,
@@ -43,6 +49,7 @@ export default function BaseTable({
           rows.map((rowData) => (
             <TableRow
               key={rowData.id}
+              isSelected={selectedRow?.id === rowData?.id}
               onRowSelect={onRowSelect}
               rowData={rowData}
               columnHeaders={columnHeaders}
