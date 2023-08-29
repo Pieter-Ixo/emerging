@@ -89,7 +89,7 @@ export default function CollectionPerformanceCard() {
             Icon={<CookstoveHealthIcon isActive={false} />}
             disabled
           >
-            Health
+            Under development
           </PerformanceTab>
           <PerformanceTab
             // @ts-ignore

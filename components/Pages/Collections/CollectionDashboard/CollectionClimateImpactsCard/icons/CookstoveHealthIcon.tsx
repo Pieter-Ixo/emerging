@@ -10,6 +10,7 @@ export default function CookstoveHealthIcon({ isActive }: Props) {
     <BaseIcon
       width={24}
       height={25}
+      isCursorDisabled
       status={isActive ? "selected" : "notSelected"}
       Icon={CookstoveHealthRawIcon}
     />

@@ -15,5 +15,6 @@ export type BaseIconProps = SVGProps<SVGSVGElement> & {
   };
   isStroke?: boolean;
   isPointer?: boolean;
+  isCursorDisabled?:boolean;
   variant?: IconVariant;
 };
