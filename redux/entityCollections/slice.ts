@@ -22,6 +22,8 @@ import {
   fetchLastNewsPost,
   fetchNewsPosts,
   fetchCollectionTokenIpfs,
+  fetchAndFillCollectionById,
+  fetchCollectionEntityBatchesTotalByAdminAccount,
 } from "./thunks";
 
 export type EntityCollectionState = {
@@ -109,6 +111,44 @@ const EntityCollectionSlice = createSlice({
     builder.addCase(fetchAndFillCollections.rejected, (state) => {
       state.isEntityCollectionsLoading = false;
     });
+
+    // fetchAndFillCollectionById
+    builder.addCase(fetchAndFillCollectionById.pending, (state) => {
+      state.isEntityCollectionsLoading = true;
+    });
+
+    builder.addCase(fetchAndFillCollectionById.fulfilled, (state, action) => {
+      if (!action.payload?.collection) return;
+
+      const collectionIndex = state.entityCollections.findIndex(
+        ({ collection }) => collection.id === action.payload!.collection.id
+      );
+
+      if (collectionIndex !== -1) {
+        state.entityCollections[collectionIndex] = action.payload;
+        state.isEntityCollectionsLoading = false;
+        return;
+      }
+      state.entityCollections.push(action.payload);
+      state.isEntityCollectionsLoading = false;
+    });
+
+    builder.addCase(fetchAndFillCollectionById.rejected, (state) => {
+      state.isEntityCollectionsLoading = false;
+    });
+
+    // fetchCollectionEntityBatchesTotalByAdminAccount
+    builder.addCase(
+      fetchCollectionEntityBatchesTotalByAdminAccount.fulfilled,
+      (state, { payload: { collectionId, entities } }) => {
+        const collectionIndex = state.entityCollections.findIndex(
+          ({ collection }) => collection.id === collectionId
+        );
+
+        if (collectionIndex !== -1)
+          state.entityCollections[collectionIndex].entities = entities;
+      }
+    );
 
     // fetchCollectionsByOwnerAddres
     builder.addCase(fetchCollectionsByOwnerAddres.pending, (state) => {

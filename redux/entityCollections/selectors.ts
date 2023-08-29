@@ -5,6 +5,7 @@ import {
   ICollectionExtended,
   ICollectionTokenIpfs,
   IEntity,
+  IEntityExtended,
   ITokenOfTokenCarbon,
 } from "@/types/entityCollections";
 
@@ -31,6 +32,15 @@ export const selectCollections = createDraftSafeSelector(
       (collectionWithEntites) => collectionWithEntites.collection
     )
 );
+
+export const selectEntitiesByCollectionId = (
+  state: RootState,
+  collectionId: string | undefined
+): IEntityExtended[] | undefined =>
+  state.entityCollection.entityCollections.find(
+    (collectionWithEntites) =>
+      collectionWithEntites.collection.id === collectionId
+  )?.entities;
 
 export const selectCollectionById = (
   state: RootState,

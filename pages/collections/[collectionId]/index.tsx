@@ -5,12 +5,14 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   selectCollections,
+  selectEntitiesByCollectionId,
   selectTotalCollectionEntitiesToken,
 } from "@/redux/entityCollections/selectors";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 
 import {
-  fetchAndFillCollections,
+  fetchAndFillCollectionById,
+  fetchCollectionEntityBatchesTotalByAdminAccount,
   fetchTotalCollectionEntities,
 } from "@/redux/entityCollections/thunks";
 
@@ -50,7 +52,9 @@ export default function Collection() {
   const collectionId = useValueFromRouter("collectionId");
   const dispatch = useAppDispatch();
   const collections = useAppSelector(selectCollections);
-
+  const collectionEntities = useAppSelector((state) =>
+    selectEntitiesByCollectionId(state, collectionId)
+  );
   const totalCollectionEntitiesTokens = useAppSelector(
     selectTotalCollectionEntitiesToken
   );
@@ -62,8 +66,21 @@ export default function Collection() {
   }, [collectionId]);
 
   useEffect(() => {
-    dispatch(fetchAndFillCollections());
-  }, []);
+    if (collectionId) {
+      dispatch(fetchAndFillCollectionById(collectionId));
+    }
+  }, [collectionId]);
+
+  useEffect(() => {
+    if (collectionId && collectionEntities?.length) {
+      dispatch(
+        fetchCollectionEntityBatchesTotalByAdminAccount({
+          entities: collectionEntities,
+          collectionId,
+        })
+      );
+    }
+  }, [collections.length, collectionEntities?.length]);
 
   const collectionTitle =
     collections?.[0]?._profile?.brand || collections?.[0]?._profile?.name

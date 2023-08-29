@@ -2,6 +2,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import {
+  requestCollectionById,
   requestCollections,
   requestCollectionsByOwnerAddress,
   requestEntityByExternalID,
@@ -64,7 +65,6 @@ export const fetchTotalCollectionEntitiesRetired = createAsyncThunk<any>(
   }
 );
 
-// TODO: make this request by id
 export const fetchAndFillCollections = createAsyncThunk(
   "entityCollections/fetchAndFillCollections",
   async (_, { getState }): Promise<ICollectionEntities[]> => {
@@ -73,21 +73,79 @@ export const fetchAndFillCollections = createAsyncThunk(
     const isCollectionsFetched =
       !!state.entityCollection.entityCollections[0]?.collection;
 
-    if (!isCollectionsFetched) {
-      const collectionsResponse: ICollectionEntities[] =
-        await requestCollections();
+    if (isCollectionsFetched) return state.entityCollection.entityCollections;
 
-      const getCollectionProfilePromises = collectionsResponse?.map(
-        async (entityCollection): Promise<ICollectionEntities> => {
-          const collection = await fillCollection(entityCollection.collection);
-          return {
-            ...entityCollection,
-            collection,
-          };
-        }
+    const collectionsResponse: ICollectionEntities[] =
+      await requestCollections();
+
+    const getCollectionProfilePromises = collectionsResponse?.map(
+      async (entityCollection): Promise<ICollectionEntities> => {
+        const collection = await fillCollection(entityCollection.collection);
+        return {
+          ...entityCollection,
+          collection,
+        };
+      }
+    );
+
+    const newCollections: ICollectionEntities[] = await Promise.all(
+      getCollectionProfilePromises
+    );
+
+    return newCollections;
+  }
+);
+
+export const fetchAndFillCollectionById = createAsyncThunk(
+  "entityCollections/fetchAndFillCollectionById",
+  async (
+    collectionId: string,
+    { getState }
+  ): Promise<ICollectionEntities | undefined> => {
+    const state = getState() as RootState;
+
+    const isCollectionsFetched =
+      !!state.entityCollection.entityCollections[0]?.collection &&
+      !!state.entityCollection.entityCollections[0]?.entities[0]._adminToken;
+
+    if (isCollectionsFetched)
+      return state.entityCollection.entityCollections.find(
+        ({ collection }) => collection.id === collectionId
       );
 
-      /* TODO:  These requests get all the ENTITY_BATCHES_TOTAL for all the collection
+    const collectionResponse: ICollectionEntities = await requestCollectionById(
+      collectionId
+    );
+
+    const filledCollection = await fillCollection(
+      collectionResponse.collection
+    );
+
+    const newCollection: ICollectionEntities = {
+      ...collectionResponse,
+      collection: filledCollection,
+    };
+
+    return newCollection;
+  }
+);
+
+export const fetchCollectionEntityBatchesTotalByAdminAccount = createAsyncThunk(
+  "entityCollections/fetchCollectionEntityBatchesTotalByAdminAccount",
+  async ({
+    entities,
+    collectionId,
+  }: {
+    entities: IEntityExtended[];
+    collectionId: string;
+  }) => {
+    const isEntitiesFilled = !!entities[0]._adminToken;
+    if (isEntitiesFilled)
+      return {
+        collectionId,
+        entities,
+      };
+    /* TODO:  These requests get all the ENTITY_BATCHES_TOTAL for all the collection
          entities and they must be placed inside every
          entityCollection.entityCollections[0].entities[0]._adminToken,
          then you can get all ENTITY_BATCHES_TOTAL/{ENTITY_ADMIN}.amount and
@@ -95,56 +153,38 @@ export const fetchAndFillCollections = createAsyncThunk(
          These requests still need error handling and should be
          swapped with backend implementation ;)
       */
-      const getCollectionsEntitiesBatchesTotalPromises =
-        collectionsResponse?.map(async ({ entities }) => {
-          const tokenPromises = entities.map(
-            async ({ accounts }): Promise<ITokenWhateverItMean | undefined> => {
-              const entityAdmin = accounts.find(
-                (acc) => acc.name === "admin"
-              )?.address;
+    const getCollectionsEntitiesBatchesTotalPromises = await Promise.allSettled(
+      entities.map(
+        async ({ accounts }): Promise<ITokenWhateverItMean | undefined> => {
+          const entityAdmin = accounts.find(
+            (acc) => acc.name === "admin"
+          )?.address;
 
-              if (entityAdmin) {
-                const totalToken = await requestTotalTokenByAddress(
-                  entityAdmin
-                );
+          if (entityAdmin) {
+            const totalToken = await requestTotalTokenByAddress(entityAdmin);
 
-                return totalToken;
-              }
+            return totalToken;
+          }
 
-              return undefined;
-            }
-          );
-          return Promise.allSettled(tokenPromises);
-        });
+          return undefined;
+        }
+      )
+    );
 
-      // Convert every batch promise to fulfilled
-      const collectionsEntitiesBatchesTotalFulfilledPromises =
-        getCollectionsEntitiesBatchesTotalPromises.map(async (tokenPromises) =>
-          (await tokenPromises).map((token) =>
-            token.status === "fulfilled" ? token.value : undefined
-          )
-        );
+    // Convert every batch promise to fulfilled
+    const entitiesTokens = await Promise.all(
+      getCollectionsEntitiesBatchesTotalPromises.map(async (token) =>
+        token.status === "fulfilled" ? token.value : undefined
+      )
+    );
 
-      const newCollections: ICollectionEntities[] = await Promise.all(
-        getCollectionProfilePromises
-      );
-
-      const entitiesTokens = await Promise.all(
-        collectionsEntitiesBatchesTotalFulfilledPromises
-      );
-
-      return newCollections.map(
-        ({ collection, entities }, collectionIndex) => ({
-          collection,
-          entities: entities.map((entity, entityIndex) => ({
-            ...entity,
-            _adminToken: entitiesTokens[collectionIndex][entityIndex],
-          })),
-        })
-      );
-    }
-
-    return state.entityCollection.entityCollections;
+    return {
+      collectionId,
+      entities: entities.map((entity, entityIndex) => ({
+        ...entity,
+        _adminToken: entitiesTokens[entityIndex],
+      })),
+    };
   }
 );
 

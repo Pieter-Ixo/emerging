@@ -9,7 +9,7 @@ import {
   IEntity,
   IEntityExtended,
 } from "@/types/entityCollections";
-import { selectSelectedEntityExternalId } from "@/redux/entityCollections/selectors";
+import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
 import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExternalId";
 import { palette } from "@/theme/palette";
 import useValueFromRouter from "@/utils/useValueFromRouter";
@@ -40,9 +40,8 @@ export default function CollectionAssetsCard() {
   const dispatch = useAppDispatch();
   const collectionId = useValueFromRouter("collectionId");
 
-  const selectedAssetExternalId = useAppSelector(
-    selectSelectedEntityExternalId
-  );
+  const selectedEntity = useAppSelector(selectSelectedEntity);
+
   // TODO: make a redux selector
   const collectionEntities = useAppSelector(
     (state) => state.entityCollection.entityCollections[0]?.entities
@@ -56,14 +55,6 @@ export default function CollectionAssetsCard() {
   const [columnHeaderIndex, setColumnHeaderIndex] = useState<
     number | undefined
   >();
-
-  const selectAsset = (entity: IEntity) => () => {
-    if (selectedAssetExternalId === entity.externalId)
-      dispatch(setSelectedEntity(undefined));
-    else {
-      dispatch(setSelectedEntity(entity));
-    }
-  };
 
   const sortEntities = (clickedColumnIndex: number) => {
     setActiveColumnHeaders((columns) =>
@@ -84,12 +75,6 @@ export default function CollectionAssetsCard() {
   }, []);
 
   useEffect(() => {
-    if (Array.isArray(collectionEntities)) {
-      setSortedEntities(collectionEntities);
-    }
-  }, [collectionEntities]);
-
-  useEffect(() => {
     if (columnHeaderIndex !== undefined && sortedEntities.length)
       switch (columnHeaders[columnHeaderIndex].name) {
         case "Serial number":
@@ -105,6 +90,16 @@ export default function CollectionAssetsCard() {
           break;
       }
   }, [columnHeaders]);
+
+  useEffect(() => {
+    if (Array.isArray(collectionEntities)) {
+      setSortedEntities(collectionEntities);
+    }
+  }, [collectionEntities]);
+
+  const selectAsset = (entity: IEntity) => {
+    dispatch(setSelectedEntity(entity));
+  };
 
   return (
     <PageBlock
@@ -125,6 +120,7 @@ export default function CollectionAssetsCard() {
         <BaseTable
           rows={sortedEntities}
           onRowSelect={selectAsset}
+          selectedRow={selectedEntity}
           onSort={sortEntities}
           columnHeaders={columnHeaders}
         />

@@ -30,6 +30,16 @@ export async function requestCollections(): Promise<ICollectionEntities[]> {
 
   return entityCollections;
 }
+export async function requestCollectionById(
+  id: string
+): Promise<ICollectionEntities> {
+  const entityCollection = await requestBlocksyncAPI<ICollectionEntities>(
+    `/api/entity/collectionById/${id}`
+  );
+  if (!entityCollection) throw new Error("panica!");
+
+  return entityCollection;
+}
 
 export async function requestCollectionsByOwnerAddress(
   owner: string

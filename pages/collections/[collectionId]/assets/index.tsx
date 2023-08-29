@@ -7,14 +7,21 @@ import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 import PageBlock from "@/components/Pages/Collections/CollectionDashboard/PageBlock";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { selectCollectionById } from "@/redux/entityCollections/selectors";
-import { fetchAndFillCollections } from "@/redux/entityCollections/thunks";
+import {
+  selectCollectionById,
+  selectEntitiesByCollectionId,
+} from "@/redux/entityCollections/selectors";
+import {
+  fetchAndFillCollectionById,
+  fetchCollectionEntityBatchesTotalByAdminAccount,
+} from "@/redux/entityCollections/thunks";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import { palette } from "@/theme/palette";
 import AssetsTable from "@/components/Pages/Collections/CollectionAssets";
 import AssetsControls from "@/components/Pages/Collections/CollectionAssets/components/AssetsControls";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import BaseIcon from "@/components/Presentational/BaseIcon";
+import CollectionAssetModal from "@/components/Pages/Collections/CollectionDashboard/CollectionAssetsCard/components/CollectionAssetModal";
 
 export default function Assets() {
   const dispatch = useAppDispatch();
@@ -22,9 +29,26 @@ export default function Assets() {
   const collection = useAppSelector((state) =>
     selectCollectionById(state, collectionId)
   );
+  const collectionEntities = useAppSelector((state) =>
+    selectEntitiesByCollectionId(state, collectionId)
+  );
+
   useEffect(() => {
-    dispatch(fetchAndFillCollections());
-  }, []);
+    if (collectionId) {
+      dispatch(fetchAndFillCollectionById(collectionId));
+    }
+  }, [collectionId]);
+
+  useEffect(() => {
+    if (collectionId && collectionEntities?.length) {
+      dispatch(
+        fetchCollectionEntityBatchesTotalByAdminAccount({
+          entities: collectionEntities,
+          collectionId,
+        })
+      );
+    }
+  }, [collection]);
 
   const collectionDateYear = collection?.startDate.split("-")[0];
   const collectionTitle = `${collection?._profile?.brand} - ${collection?._profile?.name} ${collectionDateYear}`;
@@ -60,6 +84,7 @@ export default function Assets() {
         </Flex>
         <AssetsTable />
       </PageBlock>
+      <CollectionAssetModal />
     </AppLayout>
   );
 }
