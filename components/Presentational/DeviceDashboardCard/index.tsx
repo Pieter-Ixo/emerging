@@ -7,7 +7,7 @@ type Props = {
   title: string;
 } & PropsWithChildren;
 
-function BaseDeviceCard({ children, title }: Props) {
+function DeviceDashboardCard({ children, title }: Props) {
   return (
     <Flex
       direction="column"
@@ -38,4 +38,4 @@ function BaseDeviceCard({ children, title }: Props) {
   );
 }
 
-export default BaseDeviceCard;
+export default DeviceDashboardCard;

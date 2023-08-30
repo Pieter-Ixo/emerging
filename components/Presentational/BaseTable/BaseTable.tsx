@@ -5,27 +5,37 @@ import { IColumnHeader } from "@/types/entityCollections";
 import TableRow from "./TableRow/TableRow";
 import TableHeadCell from "./TableHeadCell/TableHeadCell";
 
-type Props = {
-  rows?: any[];
+type RowWithId = {
+  id: string | number;
+};
+
+type Props<T extends RowWithId> = {
+  rows?: T[];
   columnHeaders: IColumnHeader[];
-  selectedRow?: any;
-  onRowSelect?: Function;
-  onSort?: Function;
+  selectedRow?: T;
+  centerHeaders?: boolean;
+  centerCells?: boolean;
+  // eslint-disable-next-line no-unused-vars
+  onRowSelect?: (row: T) => void;
+  // eslint-disable-next-line no-unused-vars
+  onSort?: (headerIndex: number) => void;
 };
 
 /**
- * @param {any} columnHeaders - example: columnHeaders = [
-  { name: "My name", isSortable:false, isActive: false, cellField: "myField.myField" }, 
- * @param {any} selectedRow - Has to contain id, similar to 
+ * @param {Props<T>} props - The component props.
+ * @param {IColumnHeader[]} props.columnHeaders - cellField example: "myField.myField"
+ * @param {T} props.selectedRow - Has to contain id, similar to
  * rows param objects
  */
-export default function BaseTable({
+export default function BaseTable<T extends RowWithId>({
   rows,
   selectedRow,
   columnHeaders,
   onRowSelect,
   onSort,
-}: Props) {
+  centerHeaders = false,
+  centerCells = false,
+}: Props<T>) {
   return (
     <Table
       highlightOnHover
@@ -42,6 +52,7 @@ export default function BaseTable({
                 headerIndex={headerIndex}
                 columnHeader={columnHeader}
                 onSort={onSort}
+                centerHeaders={centerHeaders}
               />
             ))}
         </tr>
@@ -50,6 +61,7 @@ export default function BaseTable({
         {rows?.length ? (
           rows.map((rowData) => (
             <TableRow
+              centerCells={centerCells}
               key={rowData.id}
               isSelected={selectedRow?.id === rowData?.id}
               onRowSelect={onRowSelect}

@@ -1,12 +1,13 @@
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import { palette } from "@/theme/palette";
-import { Text } from "@mantine/core";
+import { Flex, Text } from "@mantine/core";
 import HeaderActive from "@/assets/icons/header-actvie.svg";
 import { IColumnHeader } from "@/types/entityCollections";
 
 type Props = {
   columnHeader: IColumnHeader;
   headerIndex: number;
+  centerHeaders?: boolean;
   onSort?: Function;
 };
 
@@ -14,10 +15,11 @@ export default function TableHeadCell({
   columnHeader: { isActive = false, name, isSortable = false },
   headerIndex,
   onSort,
+  centerHeaders = false,
 }: Props) {
   return (
     <th
-      onClick={() => onSort && isSortable && onSort(headerIndex)}
+      onClick={() => isSortable && onSort?.(headerIndex)}
       style={{
         cursor: "pointer",
         color: isActive ? palette.lightBlue : palette.Black,
@@ -25,8 +27,10 @@ export default function TableHeadCell({
         padding: "0 0 5px 0",
       }}
     >
-      <Text fw={isActive ? 800 : 300} size="sm" style={{ display: "flex" }}>
-        <Text pr={5}>{name}</Text>
+      <Flex justify={centerHeaders ? "center" : "flex-start"}>
+        <Text fw={isActive ? 800 : 300} size="sm" pr={5}>
+          {name}
+        </Text>
         {isActive && (
           <BaseIcon
             Icon={HeaderActive}
@@ -36,7 +40,7 @@ export default function TableHeadCell({
             fill={palette.lightBlue}
           />
         )}
-      </Text>
+      </Flex>
     </th>
   );
 }

@@ -1,5 +1,6 @@
 import { BackgroundImage, Box, Container, Title } from "@mantine/core";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import ImageTextCard from "@/components/Presentational/ImageTextCard";
@@ -7,13 +8,15 @@ import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import Eye from "@/assets/icons/eye.svg";
 import { palette } from "@/theme/palette";
 import BaseIcon from "@/components/Presentational/BaseIcon";
-import BaseDeviceCard from "@/components/Presentational/BaseDeviceCard";
+import DeviceDashboardCard from "@/components/Presentational/DeviceDashboardCard";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { useEffect } from "react";
-import { fetchEntityTransactions } from "@/redux/entityCollections/thunks";
 import {
-  selectEntityByExternalId,
+  fetchEntityByExternalIdAndFill,
+  fetchEntityTransactions,
+} from "@/redux/entityCollections/thunks";
+import {
   selectEntityTransactions,
+  selectSelectedEntity,
 } from "@/redux/entityCollections/selectors";
 import TransactionTable from "@/components/Pages/Devices/TransactionsTable";
 
@@ -23,17 +26,17 @@ export default function DeviceTransactions() {
 
   const entityExternalId = useValueFromRouter<string>("entityId");
   const entityTransactions = useAppSelector(selectEntityTransactions);
-  const entityByExternalId = useAppSelector((state) => {
-    if (entityExternalId)
-      return selectEntityByExternalId(state, entityExternalId);
-    return undefined;
-  });
+  const entity = useAppSelector(selectSelectedEntity);
 
   useEffect(() => {
-    if (entityByExternalId && !entityTransactions) {
-      dispatch(fetchEntityTransactions(entityByExternalId));
-    }
+    if (entityExternalId)
+      dispatch(fetchEntityByExternalIdAndFill(entityExternalId));
   }, [entityExternalId]);
+
+  useEffect(() => {
+    if (entity && !entityTransactions)
+      dispatch(fetchEntityTransactions(entity));
+  }, [entity]);
 
   return (
     <BackgroundImage src="/images/background.jpg">
@@ -61,11 +64,11 @@ export default function DeviceTransactions() {
             Icon={ArrowLeftIcon}
           />
         </Box>
-        <BaseDeviceCard title="TRANSACTIONS">
+        <DeviceDashboardCard title="TRANSACTIONS">
           {entityTransactions?.data && (
             <TransactionTable transactions={entityTransactions.data} />
           )}
-        </BaseDeviceCard>
+        </DeviceDashboardCard>
       </Container>
     </BackgroundImage>
   );

@@ -58,6 +58,7 @@ function BaseIcon({
 
   const circleSizeStyles = ((size: string) => {
     if (size === "sm") return { width: 20, height: 20 };
+    if (size === "md") return { width: 46, height: 46 };
     if (size === "lg") return { width: 66, height: 66 };
     return { width: 46, height: 46 };
   })(circleSize);

@@ -4,7 +4,7 @@ import { Box, Flex, Tabs, Text } from "@mantine/core";
 import Pot from "@/assets/icons/pot.svg";
 import SproutPill from "@/assets/icons/sprout-pill.svg";
 import { SECTIONS, STOVE } from "@/types/stove";
-import BaseDeviceCard from "@/components/Presentational/BaseDeviceCard";
+import DeviceDashboardCard from "@/components/Presentational/DeviceDashboardCard";
 
 import TabButton from "./components/TabButton";
 import AssetFuelChart from "../../../Presentational/Chart/Instances/AssetFuelChart";
@@ -15,7 +15,7 @@ function PerformanceCard({ stove }: Props) {
   const [activeTab, setActiveTab] = useState<SECTIONS>(SECTIONS.sessions);
 
   return (
-    <BaseDeviceCard title="MY SUPAMOTO PERFORMANCE">
+    <DeviceDashboardCard title="MY SUPAMOTO PERFORMANCE">
       <Tabs
         variant="pills"
         value={activeTab}
@@ -68,7 +68,7 @@ function PerformanceCard({ stove }: Props) {
           </Box>
         )}
       </Tabs>
-    </BaseDeviceCard>
+    </DeviceDashboardCard>
   );
 }
 
