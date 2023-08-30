@@ -19,6 +19,7 @@ import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import { palette } from "@/theme/palette";
 import MapImage from "@/components/Presentational/MapImage";
 import BaseIcon from "@/components/Presentational/BaseIcon";
+import DeviceDashboardFooter from "@/components/Presentational/DeviceDashboardFooter";
 
 const defaultPhotos = [
   "/images/DefaultHouseholdPhotos/default_01.jpg",
@@ -85,6 +86,7 @@ export default function HouseholdPageLayout() {
             />
           ))}
         </Stack>
+        <DeviceDashboardFooter/>
       </Container>
     </BackgroundImage>
   );

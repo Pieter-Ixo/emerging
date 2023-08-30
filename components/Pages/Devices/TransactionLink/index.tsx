@@ -6,7 +6,7 @@ import shortStr from "@/utils/shortStr";
 
 export default function TransactionLink() {
   return (
-    <Link href="google.com" target="_blank">
+    <Link href="/" target="_blank">
       <Text color={palette.fullBlue}>{shortStr("123412341234", 11, 4)}</Text>
     </Link>
   );

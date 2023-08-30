@@ -19,6 +19,7 @@ import {
   selectSelectedEntity,
 } from "@/redux/entityCollections/selectors";
 import TransactionTable from "@/components/Pages/Devices/TransactionsTable";
+import DeviceDashboardFooter from "@/components/Presentational/DeviceDashboardFooter";
 
 export default function DeviceTransactions() {
   const router = useRouter();
@@ -69,6 +70,7 @@ export default function DeviceTransactions() {
             <TransactionTable transactions={entityTransactions.data} />
           )}
         </DeviceDashboardCard>
+        <DeviceDashboardFooter />
       </Container>
     </BackgroundImage>
   );
