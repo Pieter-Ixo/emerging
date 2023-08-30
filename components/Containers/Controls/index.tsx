@@ -78,7 +78,12 @@ export default function Controls({ isSearchVisible = true }: Props) {
             // FIXME: EMERGING-177 implement search, filtering, and list type (grid or list)
             data-disabled
           >
-            <BaseIcon isPointer width={24} height={25} Icon={FilterIcon} />
+            <BaseIcon
+              cursorMode="pointer"
+              width={24}
+              height={25}
+              Icon={FilterIcon}
+            />
             <Text fw={400} size={16} ml={10} color={palette.Black}>
               Filter
             </Text>

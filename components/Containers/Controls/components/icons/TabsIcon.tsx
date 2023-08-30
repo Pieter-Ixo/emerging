@@ -5,7 +5,7 @@ import TabsRawIcon from "@/assets/icons/tabs.svg";
 export default function TabsIcon() {
   return (
     <BaseIcon
-      isPointer
+      cursorMode="pointer"
       Icon={TabsRawIcon}
       width={24}
       status="disabled"

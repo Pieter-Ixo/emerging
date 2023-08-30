@@ -27,8 +27,7 @@ function BaseIcon({
   status = "notSelected",
   Icon,
   theme = initialTheme,
-  isPointer = false,
-  isCursorDisabled = false,
+  cursorMode = "default",
   isStroke = false,
   variant = "default",
   ...svgProps
@@ -41,18 +40,11 @@ function BaseIcon({
     setSelectedTheme({ ...initialTheme[status], ...theme[status] });
   }, [status, theme]);
 
-  const cursorMode = () => {
-    if (isCursorDisabled && isPointer) return "default";
-    if (isCursorDisabled) return "not-allowed";
-    if (isPointer) return "pointer";
-    return "default";
-  };
-
   if (variant === "default") {
     return (
       <Icon
         style={{
-          cursor: cursorMode(),
+          cursor: cursorMode,
         }}
         fill={selectedTheme.fill}
         stroke={isStroke ? selectedTheme.stroke : "none"}
@@ -71,12 +63,11 @@ function BaseIcon({
         borderRadius: "50%",
         position: "relative",
         backgroundColor: selectedTheme.bgColor,
-        cursor: cursorMode(),
+        cursor: cursorMode,
       }}
     >
       <Icon
         style={{
-          cursor: cursorMode(),
           transform: "translate(-50%, -50%)",
           position: "absolute",
           top: "50%",

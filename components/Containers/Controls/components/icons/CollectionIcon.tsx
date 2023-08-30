@@ -5,7 +5,7 @@ import CollectionRawIcon from "@/assets/icons/collection.svg";
 export default function CollectionIcon() {
   return (
     <BaseIcon
-      isPointer
+      cursorMode="pointer"
       isStroke
       variant="circle"
       status="disabled"

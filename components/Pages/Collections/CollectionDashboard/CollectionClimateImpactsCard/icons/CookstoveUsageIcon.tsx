@@ -9,7 +9,7 @@ export default function CookstoveUsageIcon({ isActive }: Props) {
   return (
     <BaseIcon
       status={isActive ? "selected" : "notSelected"}
-      isPointer
+      cursorMode="pointer"
       isStroke
       width={24}
       height={25}
