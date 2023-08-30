@@ -132,3 +132,25 @@ As was written above, all requests through the HTTP should be located in the `re
 ## Code Formatting
 
 This app has the configuration for ESLint and Prettier for consistent code formatting. Install IDE extensions to notice all ESLint errors and avoid warnings.
+
+## Version Control
+
+Each change can come to the repo only through a GitHub Pull Request targeted to the `develop` branch.
+
+Each new branch should be named in this format: `TYPE OF A BRANCH` / `TICKET NUMBER` / `short description`.
+
+- `TYPE OF A BRANCH` - can be bugfix, feature, chore, docs, tests, hotfix, etc...
+
+- `TICKET NUMBER` - should be taken from the YouTrack board (i.e. e-162). If no ticket, or it is a hotfix, you can write e-xxx.
+
+PR prepared for the review should be rebased on the `origin/develop`. Usually, when you have a couple of commits of changes, you can use this approach to actualize your branch.
+
+```sh
+git fetch # check actual state on the origin
+git rebase origin/develop # can have a few conflicts, it is ok
+git push -f # override the exisitng branch with the same name on the origin. It is ok as well ;D
+```
+
+Recommended to use VSCode extention Git Graph (`mhutchie.git-graph`) to see, control, and check git history.
+
+GH PR can have [labels](https://github.com/emerging-eco/app/labels). When you just created it and still working on it set `IN PROGRESS`. Then use `READY FOR REVIEW`, after an approval, please actualise your commit with git rebase and set `READY FOR MERGE`. Use other Labels when appropriate.
