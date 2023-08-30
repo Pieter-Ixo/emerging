@@ -33,6 +33,7 @@ interface Props {
 export default function CookstoveModal({ entityId, entity }: Props) {
   const { stove, fetchStove } = useCookstove();
   const selectedEntity = useAppSelector(selectSelectedEntity);
+  const userAddress = useAppSelector((state) => state.user.connectedWallet);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -66,6 +67,7 @@ export default function CookstoveModal({ entityId, entity }: Props) {
       totalTransferred={moreOrEqualZero(totalTransferred)}
       entityExternalId={entityId}
       ownerAddress={entity.owner}
+      userAddress={userAddress}
       stove={stove}
     />
   );

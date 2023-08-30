@@ -9,7 +9,10 @@ import {
   IEntity,
   IEntityExtended,
 } from "@/types/entityCollections";
-import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
+import {
+  selectAllEntities,
+  selectSelectedEntity,
+} from "@/redux/entityCollections/selectors";
 import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExternalId";
 import { palette } from "@/theme/palette";
 import useValueFromRouter from "@/utils/useValueFromRouter";
@@ -42,10 +45,7 @@ export default function CollectionAssetsCard() {
 
   const selectedEntity = useAppSelector(selectSelectedEntity);
 
-  // TODO: make a redux selector
-  const collectionEntities = useAppSelector(
-    (state) => state.entityCollection.entityCollections[0]?.entities
-  );
+  const collectionEntities = useAppSelector(selectAllEntities);
 
   const [sortedEntities, setSortedEntities] = useState<IEntityExtended[]>([]);
   const [columnHeaders, setActiveColumnHeaders] = useState<IColumnHeader[]>(

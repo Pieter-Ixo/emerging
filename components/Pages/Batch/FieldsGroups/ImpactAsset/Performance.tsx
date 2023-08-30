@@ -4,6 +4,7 @@ import { Button, Card, Flex } from "@mantine/core";
 
 import { useCookstove } from "@/context/cookstove";
 import useDetailPortal from "@/hooks/useDetailPortal";
+import { useAppSelector } from "@/hooks/redux";
 import moreOrEqualZero from "@/utils/moreOrEqualZero";
 
 import { FieldText } from "../styledComponents";
@@ -22,6 +23,7 @@ export default function Performance({
 }: ImpactAssetProps) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("Performance");
   const { stove, fetchStove } = useCookstove();
+  const userAddress = useAppSelector((state) => state.user.connectedWallet);
 
   useEffect(() => {
     if (entityExternalId) {
@@ -34,6 +36,7 @@ export default function Performance({
       {entityExternalId && (
         <CookstoveDashboard
           entityExternalId={entityExternalId}
+          userAddress={userAddress}
           stove={stove}
           totalTokenAmount={moreOrEqualZero(totalTokenAmount)}
           totalMinted={moreOrEqualZero(totalMinted)}

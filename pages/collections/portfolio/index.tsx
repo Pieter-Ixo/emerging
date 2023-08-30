@@ -5,6 +5,7 @@ import { Carousel } from "@mantine/carousel";
 
 import { useAppSelector } from "@/hooks/redux";
 import {
+  selectAllEntities,
   selectEntityCollections,
   selectIsEntityCollectionsLoading,
   selectUserEntityCollections,
@@ -31,7 +32,7 @@ export default function Collections() {
     useState<ICollectionEntities>();
 
   const userEntityCollections = useAppSelector(selectUserEntityCollections);
-  const entityCollections = useAppSelector(selectEntityCollections);
+  const entitiesArrayLength = useAppSelector(selectAllEntities).length;
   const isEntityCollectionsLoading = useAppSelector(
     selectIsEntityCollectionsLoading
   );
@@ -60,8 +61,6 @@ export default function Collections() {
      */
   }, [activeCardId, userEntityCollections]);
 
-  const totalAssets = entityCollections?.entityCollections[0]?.entities.length;
-
   return (
     <AppLayout title="Emergency Portfolio">
       <PageHeader>
@@ -75,7 +74,14 @@ export default function Collections() {
           <Text size="md">MY ASSETS</Text>
         </Box>
         <Controls />
-        <Carousel mih={223} slideGap="xl" loop slideSize="270px" py={20} align="start">
+        <Carousel
+          mih={223}
+          slideGap="xl"
+          loop
+          slideSize="270px"
+          py={20}
+          align="start"
+        >
           {userEntityCollections?.map(({ collection, entities }) => (
             <Carousel.Slide
               key={collection.id}
@@ -95,7 +101,7 @@ export default function Collections() {
         {activeEntityCollection && (
           <EntitiesList
             activeEntityCollection={activeEntityCollection}
-            totalAssets={totalAssets}
+            totalAssets={entitiesArrayLength}
           />
         )}
       </Container>
