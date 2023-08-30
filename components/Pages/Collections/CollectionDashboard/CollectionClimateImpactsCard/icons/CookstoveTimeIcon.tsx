@@ -9,7 +9,7 @@ export default function CookstoveTimeIcon({ isActive }: Props) {
     <BaseIcon
       status={isActive ? "selected" : "notSelected"}
       width={24}
-      isPointer
+      cursorMode="pointer"
       height={25}
       Icon={CookstoveTimeRawIcon}
     />

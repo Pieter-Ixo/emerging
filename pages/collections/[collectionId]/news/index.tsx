@@ -72,7 +72,7 @@ export default function News() {
         rightSide={
           collectionId ? (
             <Link href={`/collections/${collectionId}`} color={palette.Black}>
-              <BaseIcon isPointer Icon={ArrowLeft} />
+              <BaseIcon cursorMode="pointer" Icon={ArrowLeft} />
             </Link>
           ) : null
         }

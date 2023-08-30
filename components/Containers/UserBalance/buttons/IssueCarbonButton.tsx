@@ -24,7 +24,7 @@ export default function IssueCarbonButton({
       <ImpactCreditsButtonBlue
         leftIcon={
           <BaseIcon
-            isPointer
+            cursorMode="pointer"
             width={24}
             height={24}
             fill={palette.White}

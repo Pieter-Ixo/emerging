@@ -30,7 +30,7 @@ export default function PortfolioIconLink({ isSelected }: Props) {
         Icon={PortfolioIcon}
         width={24}
         height={24}
-        isPointer
+        cursorMode="pointer"
         status={status}
         variant="circle"
       />

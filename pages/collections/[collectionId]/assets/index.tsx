@@ -71,7 +71,7 @@ export default function Assets() {
         rightSide={
           collectionId ? (
             <Link href={`/collections/${collectionId}`} color={palette.Black}>
-              <BaseIcon isPointer Icon={ArrowLeftIcon} />
+              <BaseIcon cursorMode="pointer" Icon={ArrowLeftIcon} />
             </Link>
           ) : null
         }

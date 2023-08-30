@@ -111,7 +111,7 @@ export default function CollectionAssetsCard() {
         >
           <Flex>
             <Text size="md">SEE ALL</Text>
-            <BaseIcon width={24} height={25} isPointer Icon={ArrowRightIcon} />
+            <BaseIcon width={24} height={25} cursorMode="pointer" Icon={ArrowRightIcon} />
           </Flex>
         </Link>
       }

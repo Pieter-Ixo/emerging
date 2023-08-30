@@ -9,7 +9,7 @@ export default function AssetsControls() {
   return (
     <Flex gap={8}>
       <Input
-        icon={<BaseIcon isPointer width={24} height={25} Icon={SearchIcon} />}
+        icon={<BaseIcon cursorMode="pointer" width={24} height={25} Icon={SearchIcon} />}
         placeholder="search"
         size="md"
         variant="filled"
@@ -22,7 +22,7 @@ export default function AssetsControls() {
         radius="xl"
         bg={palette.Neutral200}
       >
-        <BaseIcon isPointer width={24} height={25} Icon={FilterIcon} />
+        <BaseIcon cursorMode="pointer" width={24} height={25} Icon={FilterIcon} />
 
         <Text fw={400} size={16} ml={10} color={palette.Black}>
           Filter

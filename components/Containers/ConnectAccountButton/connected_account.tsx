@@ -60,7 +60,7 @@ function ConnectAccountButton() {
               <BaseIcon
                 width={46}
                 variant="circle"
-                isPointer
+                cursorMode="pointer"
                 height={46}
                 status="selected"
                 Icon={DisconnectWallet}
@@ -92,7 +92,7 @@ function ConnectAccountButton() {
           <BaseIcon
             width={18}
             height={18}
-            isPointer
+            cursorMode="pointer"
             Icon={Wallet}
             fill={palette.White}
           />

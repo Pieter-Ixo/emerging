@@ -15,7 +15,7 @@ export default function GlobalIconLink({ isSelected }: Props) {
       <BaseIcon
         Icon={GlobalIcon}
         width={24}
-        isPointer
+        cursorMode="pointer"
         height={25}
         status={status}
         variant="circle"

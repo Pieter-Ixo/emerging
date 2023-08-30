@@ -61,7 +61,7 @@ export default function CollectionNewsCard() {
           >
             <Flex>
               <Text size="md">SEE ALL</Text>
-              <BaseIcon width={24} height={25} isPointer Icon={ArrowRight} />
+              <BaseIcon width={24} height={25} cursorMode="pointer" Icon={ArrowRight} />
             </Flex>
           </Link>
         ) : null

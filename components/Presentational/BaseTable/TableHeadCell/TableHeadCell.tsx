@@ -31,7 +31,7 @@ export default function TableHeadCell({
           <BaseIcon
             Icon={HeaderActive}
             width={24}
-            isPointer
+            cursorMode="pointer"
             height={24}
             fill={palette.lightBlue}
           />
