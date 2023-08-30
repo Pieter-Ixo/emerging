@@ -167,7 +167,7 @@ _BlockSync_ API is the main source of all collections and entities. For now, all
 
 ## Code Formatting
 
-This app has the configuration for ESLint and Prettier for consistent code formatting. Install IDE extensions to notice all ESLint errors and avoid warnings.
+This app has the configuration for ESLint and Prettier for consistent code formatting. Install IDE extensions to notice all ESLint errors and avoid warnings. `📄 .eslintrc.js`, `📄 .prettierrc.json`.
 
 <br/>
 
