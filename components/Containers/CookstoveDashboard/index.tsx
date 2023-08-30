@@ -21,13 +21,13 @@ import ImageTextCard from "@/components/Presentational/ImageTextCard";
 import PerformanceCard from "@/components/Containers/CookstoveDashboard/PerformanceCard";
 import { STOVE } from "@/types/stove";
 import { palette } from "@/theme/palette";
-import { useAppSelector } from "@/hooks/redux";
 
 import CarbonIssueCard from "./CardIssue";
 
 interface Props {
   entityExternalId: string;
   ownerAddress?: string;
+  userAddress?: string;
   stove: STOVE;
   totalMinted?: number;
   totalTokenAmount?: number;
@@ -43,11 +43,10 @@ export default function CookstoveDashboard({
   totalOffset,
   totalTransferred,
   ownerAddress,
+  userAddress,
 }: Props) {
   const isCookstoveLoading = stove.loading || !entityExternalId;
   const isSessionsAndPelletsFound = !!(stove.sessions && stove.pellets);
-
-  const userAddress = useAppSelector((state) => state.user.connectedWallet);
 
   if (isCookstoveLoading)
     return (
@@ -133,7 +132,10 @@ export default function CookstoveDashboard({
               </Link>
             </Box>
             <Box w="100%">
-              <Link target="_blank" href="https://cleancooking.org/the-value-of-clean-cooking/">
+              <Link
+                target="_blank"
+                href="https://cleancooking.org/the-value-of-clean-cooking/"
+              >
                 <ImageTextCard
                   Img={Sprout}
                   text="Explore the benefits of clean cooking"

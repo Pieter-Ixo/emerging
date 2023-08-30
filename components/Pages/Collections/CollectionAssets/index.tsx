@@ -7,7 +7,10 @@ import {
 } from "@/types/entityCollections";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
-import { selectSelectedEntity } from "@/redux/entityCollections/selectors";
+import {
+  selectAllEntities,
+  selectSelectedEntity,
+} from "@/redux/entityCollections/selectors";
 
 import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExternalId";
 import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
@@ -39,9 +42,7 @@ const defaultColumnHeadersState = [
 
 export default function AssetsTable() {
   const dispatch = useAppDispatch();
-  const collectionEntities = useAppSelector(
-    (state) => state.entityCollection.entityCollections[0]?.entities
-  );
+  const collectionEntities = useAppSelector(selectAllEntities);
   const selectedEntity = useAppSelector(selectSelectedEntity);
 
   const [sortedEntities, setSortedEntities] = useState<IEntityExtended[]>([]);
