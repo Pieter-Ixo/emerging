@@ -24,7 +24,12 @@ import PageBlock from "../PageBlock";
 import CollectionAssetModal from "./components/CollectionAssetModal";
 
 const defaultColumnHeadersState: IColumnHeader[] = [
-  { name: "Serial number", isActive: false, cellField: "externalId" },
+  {
+    name: "Serial number",
+    isActive: false,
+    isSortable: true,
+    cellField: "externalId",
+  },
   {
     name: "CARBON claimable",
     isActive: false,

@@ -1,16 +1,22 @@
+import { useState } from "react";
+import Link from "next/link";
+
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
 import { IColumnHeader } from "@/types/entityCollections";
 import { ITransactionData } from "@/types/entityCollections/transactions";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
-import { Text } from "@mantine/core";
+import { Flex, Text } from "@mantine/core";
+import { palette } from "@/theme/palette";
+
+import shortStr from "../../../../utils/shortStr";
 
 type Props = {
   transactions: ITransactionData[];
 };
 
 export default function TransactionTable({ transactions }: Props) {
-  const columnHeaders: IColumnHeader[] = [
+  const defaultColumnHeadersState: IColumnHeader[] = [
     {
       name: "Type",
       isActive: false,
@@ -20,32 +26,45 @@ export default function TransactionTable({ transactions }: Props) {
     {
       name: "Date",
       isActive: false,
-      cellField: "typeUrl",
+      isSortable: true,
+      cellField: "",
     },
     {
       name: "Detail",
       isActive: false,
-      cellField: "typeUrl",
+      cellField: "",
     },
     {
       name: "Link",
       isActive: false,
-      cellField: "typeUrl",
+      cellField: "transactionLink",
     },
   ];
 
-  function convertTransactions(transactions: ITransactionData[]) {
-    return transactions.map((transaction) => ({
+  const [columnHeaders, setActiveColumnHeaders] = useState<IColumnHeader[]>(
+    defaultColumnHeadersState
+  );
+
+  function convertTransactions(transactionsData: ITransactionData[]) {
+    return transactionsData.map((transaction) => ({
       ...transaction,
       transactionType: (
-        <Text>
+        <Flex align="center" gap={4}>
           <BaseIcon
             variant="circle"
             circleSize="sm"
             status="selected"
             Icon={ArrowLeftIcon}
           />
-        </Text>
+          <Text>Test</Text>
+        </Flex>
+      ),
+      transactionLink: (
+        <Link href="google.com" target="_blank">
+          <Text color={palette.fullBlue}>
+            {shortStr("123412341234", 11, 4)}
+          </Text>
+        </Link>
       ),
     }));
   }
