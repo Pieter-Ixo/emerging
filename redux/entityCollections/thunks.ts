@@ -6,6 +6,7 @@ import {
   requestCollections,
   requestCollectionsByOwnerAddress,
   requestEntityByExternalID,
+  requestEntityTransactions,
   requestTotalCollectionEntitiesCarbon,
   requestTotalCollectionEntitiesRetired,
 } from "@/requests/blocksync";
@@ -31,6 +32,7 @@ import {
   requestNewsPosts,
 } from "@/requests/requesters/requestNews";
 import requestCollectionTokenIpfs from "@/requests/requesters/requestCollectionTokenIpfs";
+import getEntityAdmin from "@/helpers/transformData/getEntityAdmin";
 import type { RootState } from "../store";
 
 export const fetchTotalCollectionEntities = createAsyncThunk<any, string>(
@@ -62,6 +64,18 @@ export const fetchTotalCollectionEntitiesRetired = createAsyncThunk<any>(
     if (!totalRetiredResponse) throw new Error("panica!");
 
     return totalRetiredResponse;
+  }
+);
+export const fetchEntityTransactions = createAsyncThunk(
+  "entityCollections/fetchEntityTransactions",
+  async (entity: IEntityExtended): Promise<any> => {
+    const entityAdmin = getEntityAdmin(entity);
+
+    if (entityAdmin) {
+      const entityTransactions = await requestEntityTransactions(entityAdmin);
+      return entityTransactions;
+    }
+    return undefined;
   }
 );
 
@@ -139,12 +153,11 @@ export const fetchCollectionEntityBatchesTotalByAdminAccount = createAsyncThunk(
          These requests still need error handling and should be
          swapped with backend implementation ;)
       */
-    const getCollectionsEntitiesBatchesTotalPromises = await Promise.allSettled(
-      entities.map(
-        async ({ accounts }): Promise<ITokenWhateverItMean | undefined> => {
-          const entityAdmin = accounts.find(
-            (acc) => acc.name === "admin"
-          )?.address;
+      const getCollectionsEntitiesBatchesTotalPromises =
+        collectionsResponse?.map(async ({ entities }) => {
+          const tokenPromises = entities.map(
+            async (entity): Promise<ITokenWhateverItMean | undefined> => {
+              const entityAdmin = getEntityAdmin(entity);
 
           if (entityAdmin) {
             const totalToken = await requestTotalTokenByAddress(entityAdmin);

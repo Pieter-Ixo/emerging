@@ -11,6 +11,7 @@ import {
 } from "@/types/entityCollections";
 
 import { INewsPostsResponse, INewsPostsResponseExtended } from "@/types/news";
+import { IEntityTransactionResponse } from "@/types/entityCollections/transactions";
 import {
   fetchAndFillCollections,
   fetchCollectionsByOwnerAddres,
@@ -24,6 +25,7 @@ import {
   fetchCollectionTokenIpfs,
   fetchAndFillCollectionById,
   fetchCollectionEntityBatchesTotalByAdminAccount,
+  fetchEntityTransactions,
 } from "./thunks";
 
 export type EntityCollectionState = {
@@ -53,6 +55,8 @@ export type EntityCollectionState = {
   collectionsTokensIpfs: ICollectionTokenIpfs[];
   collectionsTokensIpfsLoading: boolean;
   collectionTokenIpfsError: string | undefined;
+
+  entityTransactions: IEntityTransactionResponse | undefined;
 };
 
 // TODO: GOD store: add new slices for GLOBAL COLLECTIONS and for USER's COLLECTIONS
@@ -83,6 +87,8 @@ const initialState: EntityCollectionState = {
   collectionsTokensIpfs: [],
   collectionsTokensIpfsLoading: true,
   collectionTokenIpfsError: undefined,
+
+  entityTransactions: undefined,
 };
 
 const EntityCollectionSlice = createSlice({
@@ -149,6 +155,11 @@ const EntityCollectionSlice = createSlice({
           state.entityCollections[collectionIndex].entities = entities;
       }
     );
+
+    // fetchEntityTransactions,
+    builder.addCase(fetchEntityTransactions.fulfilled, (state, action) => {
+      state.entityTransactions = action.payload;
+    });
 
     // fetchCollectionsByOwnerAddres
     builder.addCase(fetchCollectionsByOwnerAddres.pending, (state) => {

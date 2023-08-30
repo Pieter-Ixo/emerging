@@ -10,6 +10,7 @@ import {
 } from "@/types/entityCollections";
 
 // eslint-disable-next-line import/no-cycle
+import { IEntityTransactionResponse } from "@/types/entityCollections/transactions";
 import { RootState } from "../store";
 import { EntityCollectionState } from "./slice";
 
@@ -50,6 +51,12 @@ export const selectCollectionById = (
     (collectionWithEntites) =>
       collectionWithEntites.collection.id === collectionId
   )?.collection;
+
+export const selectEntityTransactions = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): IEntityTransactionResponse | undefined =>
+    state.entityTransactions
+);
 
 export const selectUserEntityCollections = createDraftSafeSelector(
   selectEntityCollections,

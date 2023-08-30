@@ -3,16 +3,36 @@ import { useRouter } from "next/navigation";
 
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import ImageTextCard from "@/components/Presentational/ImageTextCard";
-import HouseholdSVG from "@/assets/icons/household.svg";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
+import Eye from "@/assets/icons/eye.svg";
 import { palette } from "@/theme/palette";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import BaseDeviceCard from "@/components/Presentational/BaseDeviceCard";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useEffect } from "react";
+import { fetchEntityTransactions } from "@/redux/entityCollections/thunks";
+import {
+  selectEntityByExternalId,
+  selectEntityTransactions,
+} from "@/redux/entityCollections/selectors";
 
 export default function DeviceTransactions() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const entityExternalId = useValueFromRouter<string>("entityId");
+  const entityTransactions = useAppSelector(selectEntityTransactions);
+  const entityByExternalId = useAppSelector((state) => {
+    if (entityExternalId)
+      return selectEntityByExternalId(state, entityExternalId);
+    return undefined;
+  });
+
+  useEffect(() => {
+    if (entityByExternalId && !entityTransactions) {
+      dispatch(fetchEntityTransactions(entityByExternalId));
+    }
+  }, [entityExternalId]);
 
   return (
     <BackgroundImage src="/images/background.jpg">
@@ -26,12 +46,8 @@ export default function DeviceTransactions() {
         >
           Supamoto #{entityExternalId}
         </Title>
-        <Box style={{ position: "relative" }}>
-          <ImageTextCard
-            Img={HouseholdSVG}
-            text="Visit the household"
-            vertical
-          />
+        <Box pos="relative" mb={28}>
+          <ImageTextCard Img={Eye} text="Carbon Credit Transactions" />
           <BaseIcon
             style={{
               position: "absolute",
@@ -45,7 +61,7 @@ export default function DeviceTransactions() {
           />
         </Box>
         <BaseDeviceCard title="TRANSACTIONS">
-          <div>Hello</div>
+          <div>{JSON.stringify(entityTransactions)}</div>
         </BaseDeviceCard>
       </Container>
     </BackgroundImage>

@@ -6,7 +6,6 @@ import {
   Loader,
   Text,
   Title,
-  Tooltip,
 } from "@mantine/core";
 import Link from "next/link";
 
