@@ -153,11 +153,10 @@ export const fetchCollectionEntityBatchesTotalByAdminAccount = createAsyncThunk(
          These requests still need error handling and should be
          swapped with backend implementation ;)
       */
-      const getCollectionsEntitiesBatchesTotalPromises =
-        collectionsResponse?.map(async ({ entities }) => {
-          const tokenPromises = entities.map(
-            async (entity): Promise<ITokenWhateverItMean | undefined> => {
-              const entityAdmin = getEntityAdmin(entity);
+    const getCollectionsEntitiesBatchesTotalPromises = await Promise.allSettled(
+      entities.map(
+        async (entity): Promise<ITokenWhateverItMean | undefined> => {
+          const entityAdmin = getEntityAdmin(entity);
 
           if (entityAdmin) {
             const totalToken = await requestTotalTokenByAddress(entityAdmin);
