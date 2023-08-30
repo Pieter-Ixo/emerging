@@ -98,21 +98,7 @@ export const fetchAndFillCollections = createAsyncThunk(
 
 export const fetchAndFillCollectionById = createAsyncThunk(
   "entityCollections/fetchAndFillCollectionById",
-  async (
-    collectionId: string,
-    { getState }
-  ): Promise<ICollectionEntities | undefined> => {
-    const state = getState() as RootState;
-
-    const isCollectionsFetched =
-      !!state.entityCollection.entityCollections[0]?.collection &&
-      !!state.entityCollection.entityCollections[0]?.entities[0]._adminToken;
-
-    if (isCollectionsFetched)
-      return state.entityCollection.entityCollections.find(
-        ({ collection }) => collection.id === collectionId
-      );
-
+  async (collectionId: string): Promise<ICollectionEntities | undefined> => {
     const collectionResponse: ICollectionEntities = await requestCollectionById(
       collectionId
     );
@@ -122,7 +108,7 @@ export const fetchAndFillCollectionById = createAsyncThunk(
     );
 
     const newCollection: ICollectionEntities = {
-      ...collectionResponse,
+      entities: collectionResponse.entities,
       collection: filledCollection,
     };
 

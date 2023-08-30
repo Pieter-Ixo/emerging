@@ -125,11 +125,11 @@ const EntityCollectionSlice = createSlice({
       );
 
       if (collectionIndex !== -1) {
-        state.entityCollections[collectionIndex] = action.payload;
-        state.isEntityCollectionsLoading = false;
-        return;
+        state.entityCollections[collectionIndex].collection =
+          action.payload.collection;
+      } else {
+        state.entityCollections.push(action.payload);
       }
-      state.entityCollections.push(action.payload);
       state.isEntityCollectionsLoading = false;
     });
 
