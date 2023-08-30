@@ -58,8 +58,8 @@ export default function DeviceTransactions() {
               top: 0,
               right: 0,
               margin: "1em",
-              cursor: "pointer",
             }}
+            cursorMode="pointer"
             onClick={() => router.back()}
             Icon={ArrowLeftIcon}
           />
