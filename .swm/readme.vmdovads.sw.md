@@ -2,7 +2,7 @@
 id: vmdovads
 title: README
 file_version: 1.1.3
-app_version: 1.16.0
+app_version: 1.16.2
 ---
 
 # [Emerging Eco App](https://app.emerging.eco/)
@@ -115,49 +115,49 @@ emerging-eco-app/
 ├─ hooks/
 ```
 
-### `pages/`
+### `📄 pages`
 
 This folder is responsible for managing routing, based on [the Next.js framework](https://nextjs.org/docs/pages/building-your-application/routing). This folder should contain less logic and layout.
 
-### `components/pages/`
+### `📄 components/Pages`
 
-The components in this folder are responsible for rendering the layout of pages and contain components, which will be rendered only on a particular page. So `components/pages/collections/` contain all components that will be rendered only on this page. If a component will be reused, it should be moved to another folder.
+The components in this folder are responsible for rendering the layout of pages and contain components, which will be rendered only on a particular page. So `📄 components/Pages/Collections` contain all components that will be rendered only on this page. If a component will be reused, it should be moved to another folder.
 
-### `components/containers/`
+### `📄 components/Containers`
 
 The components in this folder are responsible for rendering domain-sensitive data. These components use redux a lot.
 
-### `components/modals/`
+### `📄 components/Modals`
 
 The components in this folder are responsible for rendering elements to the root of the HTML document.
 
-### `components/presentational/`
+### `📄 components/Presentational`
 
-The components in this folder are responsible for rendering NOT domain-sensitive data. For example, the `Chart` can take any data in chart format. Components of this folder do not use redux.
+The components in this folder are responsible for rendering NOT domain-sensitive data. For example, the `Chart`<swm-token data-swm-token=":components/Presentational/Chart/index.tsx:22:6:6:`export default function Chart({`"/> can take any data in chart format. Components of this folder do not use redux.
 
 ### Other folders
 
-*   `assets/` - not executable files (like images).
+*   `📄 assets` - not executable files (like images).
 
-*   `types/` - domain-sensitive TypeScript types.
+*   `📄 types` - domain-sensitive TypeScript types.
 
-*   `hooks/` - custom React hooks.
+*   `📄 hooks` - custom React hooks.
 
-*   `constants/` - sealed variables, sometimes defined by the `.env` variables.
+*   `📄 constants` - sealed variables, sometimes defined by the `.env` variables.
 
-*   `helpers/` - contains domain-sensitive functions (like data transformations).
+*   `📄 helpers` - contains domain-sensitive functions (like data transformations).
 
-*   `utils/` - contains NOT domain-sensitive functions that work not knowing anything about the domain (like `shortStr`).
+*   `📄 utils` - contains NOT domain-sensitive functions that work not knowing anything about the domain (like `shortStr`<swm-token data-swm-token=":utils/shortStr.ts:1:6:6:`export default function shortStr(`"/>).
 
 *   `public/` - [according to the framework](https://nextjs.org/docs/getting-started/installation#the-public-folder-optional) this contains files that will be served statically for all pages of the application.
 
-*   `requests/` - contains async functions requesting anything through the HTTP protocol. All requests to any API should be here.
+*   `📄 requests` - contains async functions requesting anything through the HTTP protocol. All requests to any API should be here.
 
 ## API Data
 
-As was written above, all requests through the HTTP should be located in the `requests` folder.
+As was written above, all requests through HTTP should be located in the `📄 requests` folder.
 
-_BlockSync_ API is the main source of all collections and entities. For now, all requests to Blocksync are done with the `apisause` library and stored in `requests/blocksync.ts`.
+_BlockSync_ API is the main source of all collections and entities. For now, all requests to Blocksync are done with the `apisause` library and stored in `📄 requests/blocksync.ts`.
 
 ## State Management
 
