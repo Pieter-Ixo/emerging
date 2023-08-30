@@ -8,7 +8,7 @@ interface ITransaction {
     time: string;
 }
 
-interface ITransactionData {
+export interface ITransactionData {
     id: number;
     transactionHash: string;
     typeUrl: string;

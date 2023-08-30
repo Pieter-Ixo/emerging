@@ -30,6 +30,7 @@ function BaseIcon({
   cursorMode = "default",
   isStroke = false,
   variant = "default",
+  circleSize = "md",
   ...svgProps
 }: BaseIconProps) {
   const [selectedTheme, setSelectedTheme] = useState<any>(
@@ -55,15 +56,20 @@ function BaseIcon({
     );
   }
 
+  const circleSizeStyles = ((size: string) => {
+    if (size === "sm") return { width: 20, height: 20 };
+    if (size === "lg") return { width: 66, height: 66 };
+    return { width: 46, height: 46 };
+  })(circleSize);
+
   return (
     <Box
-      w={46}
-      h={46}
       sx={{
         borderRadius: "50%",
         position: "relative",
         backgroundColor: selectedTheme.bgColor,
         cursor: cursorMode,
+        ...circleSizeStyles,
       }}
     >
       <Icon

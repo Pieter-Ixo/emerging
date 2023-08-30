@@ -5,7 +5,7 @@ import TableCell from "../TableCell/TableCell";
 
 type Props<T> = {
   columnHeaders: IColumnHeader[];
-  onRowSelect: Function;
+  onRowSelect?: Function;
   isSelected?: boolean;
   rowData: T;
 };
@@ -17,7 +17,7 @@ export default function TableRow({
   isSelected,
 }: Props<any>) {
   return (
-    <tr onClick={() => onRowSelect(rowData)}>
+    <tr onClick={() => onRowSelect && onRowSelect(rowData)}>
       {columnHeaders?.map(({ name, isActive, cellField }) => {
         if (typeof cellField !== "string") {
           return (

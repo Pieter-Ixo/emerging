@@ -7,17 +7,17 @@ import { IColumnHeader } from "@/types/entityCollections";
 type Props = {
   columnHeader: IColumnHeader;
   headerIndex: number;
-  onSort: Function;
+  onSort?: Function;
 };
 
 export default function TableHeadCell({
-  columnHeader: { isActive, name },
+  columnHeader: { isActive = false, name, isSortable = false },
   headerIndex,
   onSort,
 }: Props) {
   return (
     <th
-      onClick={() => onSort(headerIndex)}
+      onClick={() => onSort && isSortable && onSort(headerIndex)}
       style={{
         cursor: "pointer",
         color: isActive ? palette.lightBlue : palette.Black,

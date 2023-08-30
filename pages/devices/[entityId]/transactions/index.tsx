@@ -15,6 +15,7 @@ import {
   selectEntityByExternalId,
   selectEntityTransactions,
 } from "@/redux/entityCollections/selectors";
+import TransactionTable from "@/components/Pages/Devices/TransactionsTable";
 
 export default function DeviceTransactions() {
   const router = useRouter();
@@ -61,7 +62,9 @@ export default function DeviceTransactions() {
           />
         </Box>
         <BaseDeviceCard title="TRANSACTIONS">
-          <div>{JSON.stringify(entityTransactions)}</div>
+          {entityTransactions?.data && (
+            <TransactionTable transactions={entityTransactions.data} />
+          )}
         </BaseDeviceCard>
       </Container>
     </BackgroundImage>

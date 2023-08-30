@@ -253,7 +253,8 @@ export interface IApiCollectionEntitiesTotalExtended {
 }
 
 export type IColumnHeader = {
-  name: string;
-  isActive: boolean;
+  name?: string;
+  isSortable?: boolean;
+  isActive?: boolean;
   cellField?: string;
 };

@@ -7,7 +7,7 @@ export default function TableCell({
   children,
   isSelected,
   isActive,
-}: PropsWithChildren<{ isActive: boolean; isSelected?: boolean }>) {
+}: PropsWithChildren<{ isActive?: boolean; isSelected?: boolean }>) {
   return (
     <td
       style={{

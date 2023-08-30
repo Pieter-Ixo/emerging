@@ -16,4 +16,5 @@ export type BaseIconProps = SVGProps<SVGSVGElement> & {
   isStroke?: boolean;
   cursorMode?: "default" | "pointer" | "not-allowed" | "inherit";
   variant?: IconVariant;
+  circleSize?: "md" | "lg" | "sm";
 };

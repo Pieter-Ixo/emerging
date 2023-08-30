@@ -9,11 +9,13 @@ type Props = {
   rows?: any[];
   columnHeaders: IColumnHeader[];
   selectedRow?: any;
-  onRowSelect: Function;
-  onSort: Function;
+  onRowSelect?: Function;
+  onSort?: Function;
 };
 
 /**
+ * @param {any} columnHeaders - example: columnHeaders = [
+  { name: "My name", isSortable:false, isActive: false, cellField: "myField.myField" }, 
  * @param {any} selectedRow - Has to contain id, similar to 
  * rows param objects
  */
