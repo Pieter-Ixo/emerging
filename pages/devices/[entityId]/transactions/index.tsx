@@ -1,13 +1,10 @@
 import { BackgroundImage, Box, Container, Title } from "@mantine/core";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import ImageTextCard from "@/components/Presentational/ImageTextCard";
-import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import Eye from "@/assets/icons/eye.svg";
 import { palette } from "@/theme/palette";
-import BaseIcon from "@/components/Presentational/BaseIcon";
 import DeviceDashboardCard from "@/components/Presentational/DeviceDashboardCard";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -20,9 +17,9 @@ import {
 } from "@/redux/entityCollections/selectors";
 import TransactionTable from "@/components/Pages/Devices/TransactionsTable";
 import DeviceDashboardFooter from "@/components/Presentational/DeviceDashboardFooter";
+import ArrowBackLink from "@/components/Layout/ArrowBackLink";
 
 export default function DeviceTransactions() {
-  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const entityExternalId = useValueFromRouter<string>("entityId");
@@ -53,16 +50,9 @@ export default function DeviceTransactions() {
         </Title>
         <Box pos="relative" mb={28}>
           <ImageTextCard Img={Eye} text="Carbon Credit Transactions" />
-          <BaseIcon
-            style={{
-              position: "absolute",
-              top: 0,
-              right: 0,
-              margin: "1em",
-            }}
-            cursorMode="pointer"
-            onClick={() => router.back()}
-            Icon={ArrowLeftIcon}
+          <ArrowBackLink
+            link={`/devices/${entityExternalId}`}
+            styles={{ top: 0, right: 0, margin: "1em" }}
           />
         </Box>
         <DeviceDashboardCard title="TRANSACTIONS">

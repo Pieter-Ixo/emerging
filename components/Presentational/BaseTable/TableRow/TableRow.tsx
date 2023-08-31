@@ -12,13 +12,13 @@ type Props<T> = {
   centerCells?: boolean;
 };
 
-export default function TableRow({
+export default function TableRow<T>({
   columnHeaders,
   onRowSelect,
   rowData,
   isSelected,
   centerCells,
-}: Props<any>) {
+}: Props<T>) {
   return (
     <tr onClick={() => onRowSelect?.(rowData)}>
       {columnHeaders?.map(({ name, isActive, cellField }) => {

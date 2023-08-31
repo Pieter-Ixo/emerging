@@ -9,7 +9,6 @@ import {
   ITokenOfTokenCarbon,
 } from "@/types/entityCollections";
 
-// eslint-disable-next-line import/no-cycle
 import { IEntityTransactionResponse } from "@/types/entityCollections/transactions";
 import { RootState } from "../store";
 import { EntityCollectionState } from "./slice";

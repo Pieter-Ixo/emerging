@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 
 import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
 import { IColumnHeader } from "@/types/entityCollections";
-import { ITransactionData } from "@/types/entityCollections/transactions";
+import { IExtendedTransaction, ITransactionData } from "@/types/entityCollections/transactions";
 
 import TransactionType from "../TransactionType";
 import TransactionLink from "../TransactionLink";
@@ -41,7 +41,7 @@ export default function TransactionTable({ transactions }: Props) {
     defaultColumnHeadersState
   );
 
-  const convertTransactions = (transactionsData: ITransactionData[]) =>
+  const convertTransactions = (transactionsData: ITransactionData[]):IExtendedTransaction[] =>
     transactionsData.map((transaction) => ({
       ...transaction,
       transactionType: <TransactionType />,
@@ -54,7 +54,7 @@ export default function TransactionTable({ transactions }: Props) {
   );
 
   return (
-    <BaseTable
+    <BaseTable<IExtendedTransaction>
       columnHeaders={columnHeaders}
       centerHeaders
       centerCells

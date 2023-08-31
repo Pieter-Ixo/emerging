@@ -1,4 +1,4 @@
-import { Flex } from "@mantine/core";
+import { Text } from "@mantine/core";
 import { PropsWithChildren } from "react";
 
 import { palette } from "@/theme/palette";
@@ -19,17 +19,12 @@ export default function TableCell({
         color: isActive ? palette.lightBlue : palette.Black,
         backgroundColor: isSelected ? palette.Neutral200 : palette.White,
         cursor: "pointer",
-        paddingLeft: 0,
+        paddingLeft: 2,
       }}
     >
-      <Flex
-        sx={{
-          fontSize: 16,
-        }}
-        justify={centerCells ? "center" : "flex-start"}
-      >
+      <Text size="md" ta={centerCells ? "center" : "start"}>
         {children}
-      </Flex>
+      </Text>
     </td>
   );
 }

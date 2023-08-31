@@ -33,6 +33,7 @@ import {
 } from "@/requests/requesters/requestNews";
 import requestCollectionTokenIpfs from "@/requests/requesters/requestCollectionTokenIpfs";
 import getEntityAdmin from "@/helpers/transformData/getEntityAdmin";
+import { IEntityTransactionResponse } from "@/types/entityCollections/transactions";
 import type { RootState } from "../store";
 
 export const fetchTotalCollectionEntities = createAsyncThunk<any, string>(
@@ -68,7 +69,9 @@ export const fetchTotalCollectionEntitiesRetired = createAsyncThunk<any>(
 );
 export const fetchEntityTransactions = createAsyncThunk(
   "entityCollections/fetchEntityTransactions",
-  async (entity: IEntityExtended): Promise<any> => {
+  async (
+    entity: IEntityExtended
+  ): Promise<IEntityTransactionResponse | undefined> => {
     const entityAdmin = getEntityAdmin(entity);
 
     if (entityAdmin) {

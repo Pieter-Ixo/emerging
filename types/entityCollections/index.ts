@@ -117,7 +117,7 @@ export type IEntity = {
   metadata: IMetadata;
   accounts: IAccount[];
   externalId: string;
-  owner: string;
+  owner?: string;
   controller: string[];
   verificationMethod: IVerificationMethod[];
   authentication: string[];

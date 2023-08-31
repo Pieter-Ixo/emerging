@@ -1,18 +1,20 @@
-import { Flex, Text } from "@mantine/core";
+import { Center, Text } from "@mantine/core";
 
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 
 export default function TransactionType() {
   return (
-    <Flex align="center" gap={4}>
+    <Center>
       <BaseIcon
         variant="circle"
         circleSize="sm"
         status="selected"
         Icon={ArrowLeftIcon}
       />
-      <Text>Test</Text>
-    </Flex>
+      <Text pl={4} lh={1}>
+        Test
+      </Text>
+    </Center>
   );
 }

@@ -18,7 +18,6 @@ import {
 } from "@/redux/entityCollections/selectors";
 import { selectSelectedBatch } from "@/redux/batches/selectors";
 
-import HeaderCard from "./FieldsGroups/HeaderCard";
 import ImpactAsset from "./FieldsGroups/ImpactAsset";
 import DetailCard from "./DetailCard";
 import Outcome from "./FieldsGroups/Outcome";
@@ -26,6 +25,7 @@ import AssetAttributes from "./FieldsGroups/AssetAttributes";
 import ProjectAttributes from "./FieldsGroups/ProjectAttributes";
 import ImpactVerification from "./FieldsGroups/ImpactVerification";
 import ImpactEvaluator from "./FieldsGroups/ImpactEvaluator";
+import HeaderCard from "./FieldsGroups/HeaderCard";
 
 export default function BatchPageLayout() {
   const dispatch = useAppDispatch();
@@ -70,6 +70,8 @@ export default function BatchPageLayout() {
   const batchProgress =
     entity?._adminToken?.CARBON?.tokens[batchId || ""]?.minted;
 
+  const entityAdminAddress = entity?.accounts[0].address;
+
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <DetailPortalContext.Provider value={{ key, setKey }}>
@@ -83,6 +85,7 @@ export default function BatchPageLayout() {
             <HeaderCard
               name={batch?.name}
               index={batch?.id}
+              entityAdminAddress={entityAdminAddress}
               progress={batchProgress}
             />
 

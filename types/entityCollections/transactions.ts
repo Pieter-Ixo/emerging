@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 interface ITransaction {
   hash: string;
   height: number;
@@ -15,9 +17,13 @@ export interface ITransactionData {
   value: string;
   from: string;
   to: string | null;
-  denoms: any[];
+  denoms: unknown[];
   tokenNames: string[];
   Transaction: ITransaction;
+}
+export interface IExtendedTransaction extends ITransactionData {
+  transactionType: ReactNode;
+  transactionLink: ReactNode;
 }
 
 export interface IEntityTransactionResponse {
