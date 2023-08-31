@@ -26,6 +26,7 @@ export const palette = {
   greenDarker: "#47822b",
   greenBright: "#AAE38F",
   // Transparents
+  transparent: "rgba(255, 255, 255, 0)",
   whiteTransparent: "rgba(255, 255, 255, 0.30)",
   whiteTransparentSecondary: "rgba(255, 255, 255, 0.65)",
 };

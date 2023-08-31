@@ -107,9 +107,9 @@ export enum SECTIONS {
   health = "health",
 }
 
-export enum PortfolioViewMods {
-  listView = "listView",
-  iconView = "iconView",
+export enum ViewMods {
+  listView = "list",
+  gridView = "grid",
 }
 
 export type SECTION = {

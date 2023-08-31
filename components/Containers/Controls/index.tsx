@@ -1,23 +1,26 @@
 import { Text, Flex, Input, Button, Tooltip } from "@mantine/core";
-import { palette } from "@/theme/palette";
-import { PortfolioViewMods } from "@/types/stove";
-import { useState } from "react";
 
+import { palette } from "@/theme/palette";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import SearchIcon from "@/assets/icons/search.svg";
 import FilterIcon from "@/assets/icons/filter.svg";
+import { ViewMods } from "@/types/stove";
 
 import CollectionIcon from "./components/icons/CollectionIcon";
 import TabsIcon from "./components/icons/TabsIcon";
 
 type Props = {
   isSearchVisible?: boolean;
+  activeViewMode: ViewMods;
+  toggleViewMode: (viewMod: ViewMods) => void;
 };
 
-export default function Controls({ isSearchVisible = true }: Props) {
-  // FIXME: EMERGING-177 implement search, filtering, and list type (grid or list)
-  const [viewMode, setViewMode] = useState(PortfolioViewMods.iconView);
-
+export default function Controls({
+  isSearchVisible = true,
+  toggleViewMode,
+  activeViewMode,
+}: Props) {
+  // FIXME: EMERGING-177 implement search, filtering
   return (
     <Flex gap={8}>
       {isSearchVisible && (
@@ -35,38 +38,26 @@ export default function Controls({ isSearchVisible = true }: Props) {
         </Tooltip>
       )}
 
-      <Tooltip label="This functionality is under development" withArrow>
-        <span>
-          <Button
-            variant="unstyled"
-            px={0}
-            h="100%"
-            data-disabled
-            // FIXME: EMERGING-177 implement search, filtering, and list type (grid or list)
-            sx={{
-              "&[data-disabled]": { backgroundColor: palette.whiteTransparent },
-            }}
-          >
-            <CollectionIcon />
-          </Button>
-        </span>
-      </Tooltip>
-      <Tooltip label="This functionality is under development" withArrow>
-        <span>
-          <Button
-            variant="unstyled"
-            px={0}
-            h="100%"
-            data-disabled
-            // FIXME: EMERGING-177 implement search, filtering, and list type (grid or list)
-            sx={{
-              "&[data-disabled]": { backgroundColor: palette.whiteTransparent },
-            }}
-          >
-            <TabsIcon />
-          </Button>
-        </span>
-      </Tooltip>
+      <span>
+        <Button
+          variant="unstyled"
+          onClick={() => toggleViewMode(ViewMods.gridView)}
+          px={0}
+          h="100%"
+        >
+          <CollectionIcon activeViewMode={activeViewMode} />
+        </Button>
+      </span>
+      <span>
+        <Button
+          variant="unstyled"
+          onClick={() => toggleViewMode(ViewMods.listView)}
+          px={0}
+          h="100%"
+        >
+          <TabsIcon activeViewMode={activeViewMode} />
+        </Button>
+      </span>
 
       <Tooltip label="This functionality is under development" withArrow>
         <span>
@@ -75,7 +66,7 @@ export default function Controls({ isSearchVisible = true }: Props) {
             variant="unstyled"
             w={100}
             radius="xl"
-            // FIXME: EMERGING-177 implement search, filtering, and list type (grid or list)
+            // FIXME: EMERGING-177 implement search, filtering
             data-disabled
           >
             <BaseIcon
