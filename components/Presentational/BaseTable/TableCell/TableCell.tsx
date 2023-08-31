@@ -7,7 +7,12 @@ export default function TableCell({
   children,
   isSelected,
   isActive,
-}: PropsWithChildren<{ isActive: boolean; isSelected?: boolean }>) {
+  centerCells,
+}: PropsWithChildren<{
+  isActive?: boolean;
+  isSelected?: boolean;
+  centerCells?: boolean;
+}>) {
   return (
     <td
       style={{
@@ -17,7 +22,9 @@ export default function TableCell({
         paddingLeft: 2,
       }}
     >
-      <Text size="md">{children}</Text>
+      <Text size="md" ta={centerCells ? "center" : "start"}>
+        {children}
+      </Text>
     </td>
   );
 }

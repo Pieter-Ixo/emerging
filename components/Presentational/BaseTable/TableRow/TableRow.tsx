@@ -5,30 +5,38 @@ import TableCell from "../TableCell/TableCell";
 
 type Props<T> = {
   columnHeaders: IColumnHeader[];
-  onRowSelect: Function;
+  // eslint-disable-next-line no-unused-vars
+  onRowSelect?: (rowData: T) => void;
   isSelected?: boolean;
   rowData: T;
+  centerCells?: boolean;
 };
 
-export default function TableRow({
+export default function TableRow<T>({
   columnHeaders,
   onRowSelect,
   rowData,
   isSelected,
-}: Props<any>) {
+  centerCells,
+}: Props<T>) {
   return (
-    <tr onClick={() => onRowSelect(rowData)}>
+    <tr onClick={() => onRowSelect?.(rowData)}>
       {columnHeaders?.map(({ name, isActive, cellField }) => {
         if (typeof cellField !== "string") {
           return (
-            <TableCell key={name} isActive={isActive}>
+            <TableCell centerCells={centerCells} key={name} isActive={isActive}>
               Incorrect data format
             </TableCell>
           );
         }
         if (!cellField?.includes("."))
           return (
-            <TableCell key={name} isSelected={isSelected} isActive={isActive}>
+            <TableCell
+              centerCells={centerCells}
+              key={name}
+              isSelected={isSelected}
+              isActive={isActive}
+            >
               {cellField ? rowData[cellField] : ""}
             </TableCell>
           );
@@ -36,11 +44,22 @@ export default function TableRow({
         const cellFieldData = getNestedField(cellField, rowData);
 
         if (cellFieldData === undefined) {
-          return <TableCell key={name} isActive={isActive} />;
+          return (
+            <TableCell
+              centerCells={centerCells}
+              key={name}
+              isActive={isActive}
+            />
+          );
         }
 
         return (
-          <TableCell key={name} isSelected={isSelected} isActive={isActive}>
+          <TableCell
+            centerCells={centerCells}
+            key={name}
+            isSelected={isSelected}
+            isActive={isActive}
+          >
             {cellFieldData}
           </TableCell>
         );

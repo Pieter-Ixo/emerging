@@ -6,7 +6,6 @@ import {
   Loader,
   Text,
   Title,
-  Tooltip,
 } from "@mantine/core";
 import Link from "next/link";
 
@@ -21,6 +20,7 @@ import ImageTextCard from "@/components/Presentational/ImageTextCard";
 import PerformanceCard from "@/components/Containers/CookstoveDashboard/PerformanceCard";
 import { STOVE } from "@/types/stove";
 import { palette } from "@/theme/palette";
+import DeviceDashboardFooter from "@/components/Presentational/DeviceDashboardFooter";
 
 import CarbonIssueCard from "./CardIssue";
 
@@ -144,9 +144,10 @@ export default function CookstoveDashboard({
               </Link>
             </Box>
           </Flex>
-          <Tooltip label="this page is under development">
+          <Link href={`/devices/${entityExternalId}/transactions`}>
             <ImageTextCard Img={Eye} text="Carbon Credit Transactions" />
-          </Tooltip>
+          </Link>
+          <DeviceDashboardFooter />
         </Flex>
       </Container>
     </BackgroundImage>

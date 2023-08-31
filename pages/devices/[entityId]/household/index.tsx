@@ -8,16 +8,16 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { useRouter } from "next/navigation";
 
 import { useCookstove } from "@/context/cookstove";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import { useAppDispatch } from "@/hooks/redux";
 import ImageTextCard from "@/components/Presentational/ImageTextCard";
 import HouseholdSVG from "@/assets/icons/household.svg";
-import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 import { palette } from "@/theme/palette";
 import MapImage from "@/components/Presentational/MapImage";
+import DeviceDashboardFooter from "@/components/Presentational/DeviceDashboardFooter";
+import ArrowBackLink from "@/components/Layout/ArrowBackLink";
 
 const defaultPhotos = [
   "/images/DefaultHouseholdPhotos/default_01.jpg",
@@ -27,7 +27,6 @@ const defaultPhotos = [
 ];
 
 export default function HouseholdPageLayout() {
-  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const entityExternalId = useValueFromRouter<string>("entityId");
@@ -52,21 +51,15 @@ export default function HouseholdPageLayout() {
         >
           Supamoto #{entityExternalId}
         </Title>
-        <Box style={{ position: "relative" }}>
+        <Box pos="relative">
           <ImageTextCard
             Img={HouseholdSVG}
             text="Visit the household"
             vertical
           />
-          <ArrowLeftIcon
-            style={{
-              position: "absolute",
-              top: 0,
-              right: 0,
-              margin: "1em",
-            }}
-            fill="black"
-            onClick={() => router.back()}
+          <ArrowBackLink
+            link={`/devices/${entityExternalId}`}
+            styles={{ top: 0, right: 0, margin: "1em" }}
           />
         </Box>
         <Stack p={0} mt="md">
@@ -83,6 +76,7 @@ export default function HouseholdPageLayout() {
             />
           ))}
         </Stack>
+        <DeviceDashboardFooter />
       </Container>
     </BackgroundImage>
   );

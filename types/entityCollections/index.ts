@@ -117,7 +117,7 @@ export type IEntity = {
   metadata: IMetadata;
   accounts: IAccount[];
   externalId: string;
-  owner: string;
+  owner?: string;
   controller: string[];
   verificationMethod: IVerificationMethod[];
   authentication: string[];
@@ -253,7 +253,8 @@ export interface IApiCollectionEntitiesTotalExtended {
 }
 
 export type IColumnHeader = {
-  name: string;
-  isActive: boolean;
+  name?: string;
+  isSortable?: boolean;
+  isActive?: boolean;
   cellField?: string;
 };

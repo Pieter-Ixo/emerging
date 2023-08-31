@@ -10,6 +10,7 @@ import {
   IEntity,
   IEntityExtended,
 } from "@/types/entityCollections";
+import { IEntityTransactionResponse } from "@/types/entityCollections/transactions";
 
 export const blocksynkAPI = create({ baseURL: BlocksyncUrl });
 
@@ -80,6 +81,15 @@ export async function requestEntitiesByOwnerAddress(
   return entity;
 }
 
+export async function requestEntityTransactions(
+  entityAdmin
+): Promise<IEntityTransactionResponse | undefined> {
+  const url = `/api/transactions/getLatestTransactions/${entityAdmin}`;
+  const { data, problem } = await blocksynkAPI.get<IEntityTransactionResponse>(url);
+  if (problem) throw problem;
+
+  return data;
+}
 export async function requestBatches(): Promise<IBatch[] | undefined> {
   const url = "/api/token/name/CARBON";
   const { data, problem } = await blocksynkAPI.get<IBatch[]>(url);

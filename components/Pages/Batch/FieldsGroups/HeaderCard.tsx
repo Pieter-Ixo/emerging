@@ -1,7 +1,8 @@
 import { Flex } from "@mantine/core";
 
-import ArrowBack from "@/components/Layout/ArrowBack";
+import ArrowBackLink from "@/components/Layout/ArrowBackLink";
 import BatchIdentifier from "@/components/Containers/BatchIdentifier";
+import useValueFromRouter from "@/utils/useValueFromRouter";
 
 import CardTitle from "../CardTitle";
 import CardContainer from "../CardContainer";
@@ -14,11 +15,22 @@ type Props = {
   index?: string;
   offset?: number;
   progress?: number;
+  entityAdminAddress?: string;
 };
-export default function HeaderCard({ name, index, offset, progress }: Props) {
+export default function HeaderCard({
+  name,
+  index,
+  offset,
+  progress,
+  entityAdminAddress,
+}: Props) {
+  const entityExternalId = useValueFromRouter("entityId");
+
+  const batchDashboardHref = `/entity/${entityExternalId}/batch/byAdminAddress/${entityAdminAddress}`;
+
   return (
     <CardContainer>
-      <ArrowBack />
+      <ArrowBackLink link={batchDashboardHref} styles={{ top: 48 }} />
       <Flex direction="column" gap={10} justify="center">
         <CardTitle>Verified Emission Reduction</CardTitle>
         <BatchIdentifier name={name} index={index} />

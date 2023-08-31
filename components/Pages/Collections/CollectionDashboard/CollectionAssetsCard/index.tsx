@@ -24,7 +24,12 @@ import PageBlock from "../PageBlock";
 import CollectionAssetModal from "./components/CollectionAssetModal";
 
 const defaultColumnHeadersState: IColumnHeader[] = [
-  { name: "Serial number", isActive: false, cellField: "externalId" },
+  {
+    name: "Serial number",
+    isActive: false,
+    isSortable: true,
+    cellField: "externalId",
+  },
   {
     name: "CARBON claimable",
     isActive: false,
@@ -111,13 +116,18 @@ export default function CollectionAssetsCard() {
         >
           <Flex>
             <Text size="md">SEE ALL</Text>
-            <BaseIcon width={24} height={25} cursorMode="pointer" Icon={ArrowRightIcon} />
+            <BaseIcon
+              width={24}
+              height={25}
+              cursorMode="pointer"
+              Icon={ArrowRightIcon}
+            />
           </Flex>
         </Link>
       }
     >
       <ScrollArea h={425} type="scroll">
-        <BaseTable
+        <BaseTable<IEntityExtended>
           rows={sortedEntities}
           onRowSelect={selectAsset}
           selectedRow={selectedEntity}

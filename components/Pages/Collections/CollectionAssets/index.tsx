@@ -19,8 +19,13 @@ import {
   extendSingleEntity,
 } from "@/helpers/transformData/extendEntities";
 
-const defaultColumnHeadersState = [
-  { name: "Serial number", isActive: false, cellField: "externalId" },
+const defaultColumnHeadersState: IColumnHeader[] = [
+  {
+    name: "Serial number",
+    isSortable: true,
+    isActive: false,
+    cellField: "externalId",
+  },
   {
     name: "CARBON claimable",
     isActive: false,
@@ -100,7 +105,7 @@ export default function AssetsTable() {
   };
 
   return (
-    <BaseTable
+    <BaseTable<IEntityExtended>
       rows={extendEntities(sortedEntities)}
       selectedRow={extendSingleEntity(selectedEntity)}
       columnHeaders={columnHeaders}
