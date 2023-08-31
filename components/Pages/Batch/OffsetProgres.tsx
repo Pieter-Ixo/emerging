@@ -39,12 +39,12 @@ export default function OffsetProgres({
         radius="xl"
         size={14}
         value={progresPercent}
-        sections={[{ value: progresPercent, color: palette.fullBlue }]}
+        sections={[{ value: progresPercent, color: palette.darkerBlue }]}
         sx={{ minWidth: 300 }}
       />
 
       <Text c={palette.White} fw={400} sx={{ fontSize: 13 }}>
-        <Text span c={palette.fullBlue} inherit>
+        <Text span c={palette.darkerBlue} inherit>
           {offsetString} CARBON
         </Text>{" "}
         / {progressString} CARBON offset ( 1 CARBON = 1 kgCO₂)

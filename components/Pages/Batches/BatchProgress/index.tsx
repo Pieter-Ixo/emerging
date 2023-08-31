@@ -17,7 +17,7 @@ export default function BatchProgress({
   const isProgressComplete = !!(minted && retired === minted);
   const progressColor = isProgressComplete
     ? palette.greenFull
-    : palette.fullBlue;
+    : palette.darkerBlue;
 
   const progressPaletteText = isProgressComplete
     ? palette.greenFull

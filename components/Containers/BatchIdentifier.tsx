@@ -14,7 +14,9 @@ export default function BatchIdentifier({
   index?: string;
   isProgressComplete?: boolean;
 }) {
-  const indexTextColor = isProgressComplete ? palette.Black : palette.fullBlue;
+  const indexTextColor = isProgressComplete
+    ? palette.Black
+    : palette.darkerBlue;
 
   return (
     <CopyButton value={`${name}/${index}`}>
@@ -37,7 +39,7 @@ export default function BatchIdentifier({
             style={{ position: "absolute", top: "2px", marginLeft: "1em" }}
             theme={{
               notSelected: {
-                fill: copied ? palette.brightBlue : palette.fullBlue,
+                fill: copied ? palette.brightBlue : palette.darkerBlue,
               },
             }}
           />
