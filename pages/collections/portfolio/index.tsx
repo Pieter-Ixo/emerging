@@ -6,7 +6,6 @@ import { Carousel } from "@mantine/carousel";
 import { useAppSelector } from "@/hooks/redux";
 import {
   selectAllEntities,
-  selectEntityCollections,
   selectIsEntityCollectionsLoading,
   selectUserEntityCollections,
 } from "@/redux/entityCollections/selectors";
@@ -32,7 +31,7 @@ export default function Collections() {
     useState<ICollectionEntities>();
 
   const userEntityCollections = useAppSelector(selectUserEntityCollections);
-  const entitiesArrayLength = useAppSelector(selectAllEntities).length;
+  const entitiesArrayLength = useAppSelector(selectAllEntities)?.length;
   const isEntityCollectionsLoading = useAppSelector(
     selectIsEntityCollectionsLoading
   );
@@ -88,7 +87,7 @@ export default function Collections() {
               onClick={() => onCollectionCardClick(collection.id)}
             >
               <CollectionsItem
-                collection={collection}
+                collectionId={collection.id}
                 isActive={collection.id === activeCardId}
                 entitiesLength={entities.length}
               />
