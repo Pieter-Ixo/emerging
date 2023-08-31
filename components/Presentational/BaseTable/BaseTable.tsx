@@ -15,9 +15,7 @@ type Props<T extends RowWithId> = {
   selectedRow?: T;
   centerHeaders?: boolean;
   centerCells?: boolean;
-  // eslint-disable-next-line no-unused-vars
   onRowSelect?: (row: T) => void;
-  // eslint-disable-next-line no-unused-vars
   onSort?: (headerIndex: number) => void;
 };
 
