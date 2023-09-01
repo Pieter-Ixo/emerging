@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import {
   IAddressBatchesEntry,
-  IAddressBatchesEntryConverted,
+  IAddressBatchesEntryExtended,
 } from "@/types/certificates";
 import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
 import { IColumnHeader } from "@/types/entityCollections";
@@ -58,7 +58,7 @@ export default function BatchesTable({ batches }: Props) {
     number | undefined
   >();
   const [selectedBatch, setSelectedBatch] = useState<
-    IAddressBatchesEntryConverted | undefined
+    IAddressBatchesEntryExtended | undefined
   >();
   const [sortedBatches, setSortedBatches] = useState<IAddressBatchesEntry[]>(
     []
@@ -96,19 +96,16 @@ export default function BatchesTable({ batches }: Props) {
   }, [columnHeaders]);
 
   useEffect(() => {
-    if (batches?.length) {
+    if (batches?.length && batches !== sortedBatches) {
       setSortedBatches(batches);
     }
   }, [batches]);
 
-  const selectBatch = (batch: IAddressBatchesEntryConverted) =>
-    setSelectedBatch(batch);
-
   return (
-    <BaseTable<IAddressBatchesEntryConverted>
+    <BaseTable<IAddressBatchesEntryExtended>
       rows={batches ? extendBatches(sortedBatches) : []}
       selectedRow={selectedBatch}
-      onRowSelect={selectBatch}
+      onRowSelect={(batch) => setSelectedBatch(batch)}
       onSort={sortBatches}
       columnHeaders={columnHeaders}
     />

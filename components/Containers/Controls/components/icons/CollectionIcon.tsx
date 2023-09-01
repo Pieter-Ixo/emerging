@@ -20,7 +20,7 @@ export default function CollectionIcon({ activeViewMode }: Props) {
         },
         notSelected: {
           bgColor: palette.Neutral200,
-          fill: "transparent",
+          fill: palette.transparent,
           stroke: palette.Black,
         },
         selected: {
