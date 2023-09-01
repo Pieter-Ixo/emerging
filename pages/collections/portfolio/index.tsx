@@ -17,6 +17,7 @@ import AppLayout from "@/components/Layout/AppLayout";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
 
 import Controls from "@/components/Containers/Controls";
+import { ViewMods } from "@/types/stove";
 
 const CollectionsItem = dynamic(
   () => import("@/components/Pages/Collections/Portfolio/CollectionsItem")
@@ -72,7 +73,11 @@ export default function Collections() {
         <Box mb={28} sx={{ borderBottom: `1px solid ${palette.Black}` }}>
           <Text size="md">MY ASSETS</Text>
         </Box>
-        <Controls />
+        {/* FIXME: EMERGING-177 implement search, filtering, view mods */}
+        <Controls
+          activeViewMode={ViewMods.gridView}
+          toggleViewMode={() => null}
+        />
         <Carousel
           mih={223}
           slideGap="xl"
@@ -95,7 +100,6 @@ export default function Collections() {
           ))}
         </Carousel>
         <Box mb={28} sx={{ borderBottom: `1px solid ${palette.Neutral500}` }} />
-
         {isEntityCollectionsLoading && <Loader w="100%" mx="auto" />}
         {activeEntityCollection && (
           <EntitiesList

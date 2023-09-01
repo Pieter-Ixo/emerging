@@ -30,7 +30,7 @@ export default function Controls({
             placeholder="search"
             size="md"
             sx={{
-              caretColor: "transparent",
+              caretColor: palette.transparent,
             }}
             variant="unstyled"
             radius="xl"
@@ -60,7 +60,14 @@ export default function Controls({
       </span>
 
       <Tooltip label="This functionality is under development" withArrow>
-        <span>
+        <span
+        // TODO: Temporary solution, because of broken Mantine Tooltip, when
+        // the Button disabled tooltip is hidden if we are not using span
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
           <Button
             h={44}
             variant="unstyled"

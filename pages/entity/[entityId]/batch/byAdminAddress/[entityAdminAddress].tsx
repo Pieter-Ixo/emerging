@@ -12,6 +12,7 @@ import BatchesItem from "@/components/Pages/Batches/BatchesItem";
 import AppLayout from "@/components/Layout/AppLayout";
 import RetireModal from "@/components/Pages/Batches/RetireModal";
 import { ViewMods } from "@/types/stove";
+import BatchesTable from "@/components/Pages/Batches/BatchesTable";
 
 export default function Batches() {
   const dispatch = useAppDispatch();
@@ -37,9 +38,7 @@ export default function Batches() {
   }, [adminAddress, dispatch]);
 
   useEffect(() => {
-    if (batches) {
-      setParsedBatches(Object.entries(batches));
-    }
+    if (batches) setParsedBatches(Object.entries(batches));
   }, [batches]);
 
   function onBatchClick(
@@ -58,12 +57,12 @@ export default function Batches() {
 
   return (
     <AppLayout title="Carbon Certificates">
-      <Box maw="70%">
-        <BatchesPageHeader
-          activeViewMode={batchesViewMode}
-          toggleBatchesViewMode={toggleBatchesViewMode}
-        />
-        {batchesViewMode === ViewMods.gridView ? (
+      <BatchesPageHeader
+        activeViewMode={batchesViewMode}
+        toggleBatchesViewMode={toggleBatchesViewMode}
+      />
+      {batchesViewMode === ViewMods.gridView ? (
+        <Box maw="70%">
           <Grid gutter="xl">
             {parsedBatches?.map(([betchId, betchData]) => (
               <Grid.Col key={betchId} span={6}>
@@ -82,10 +81,10 @@ export default function Batches() {
               </Grid.Col>
             ))}
           </Grid>
-        ) : (
-          <div>Test</div>
-        )}
-      </Box>
+        </Box>
+      ) : (
+        <BatchesTable batches={parsedBatches} />
+      )}
       <RetireModal
         isModalOpened={opened}
         retired={selectedRetired}
