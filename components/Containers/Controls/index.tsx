@@ -4,15 +4,15 @@ import { palette } from "@/theme/palette";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import SearchIcon from "@/assets/icons/search.svg";
 import FilterIcon from "@/assets/icons/filter.svg";
-import { ViewMods } from "@/types/stove";
+import { ContentViewMods } from "@/types";
 
-import CollectionIcon from "./components/icons/CollectionIcon";
-import TabsIcon from "./components/icons/TabsIcon";
+import GridViewIcon from "./components/icons/GridViewIcon";
+import ListViewIcon from "./components/icons/ListViewIcon";
 
 type Props = {
   isSearchVisible?: boolean;
-  activeViewMode: ViewMods;
-  toggleViewMode: (viewMod: ViewMods) => void;
+  activeViewMode: ContentViewMods;
+  toggleViewMode: (viewMod: ContentViewMods) => void;
 };
 
 export default function Controls({
@@ -38,31 +38,27 @@ export default function Controls({
         </Tooltip>
       )}
 
-      <span>
-        <Button
-          variant="unstyled"
-          onClick={() => toggleViewMode(ViewMods.gridView)}
-          px={0}
-          h="100%"
-        >
-          <CollectionIcon activeViewMode={activeViewMode} />
-        </Button>
-      </span>
-      <span>
-        <Button
-          variant="unstyled"
-          onClick={() => toggleViewMode(ViewMods.listView)}
-          px={0}
-          h="100%"
-        >
-          <TabsIcon activeViewMode={activeViewMode} />
-        </Button>
-      </span>
+      <Button
+        variant="unstyled"
+        onClick={() => toggleViewMode(ContentViewMods.gridView)}
+        px={0}
+        h="100%"
+      >
+        <GridViewIcon isActive={activeViewMode === ContentViewMods.gridView} />
+      </Button>
+      <Button
+        variant="unstyled"
+        onClick={() => toggleViewMode(ContentViewMods.listView)}
+        px={0}
+        h="100%"
+      >
+        <ListViewIcon isActive={activeViewMode === ContentViewMods.listView} />
+      </Button>
 
       <Tooltip label="This functionality is under development" withArrow>
         <span
-        // TODO: Temporary solution, because of broken Mantine Tooltip, when
-        // the Button disabled tooltip is hidden if we are not using span
+          // TODO: Temporary solution, because of broken Mantine Tooltip, when
+          // the Button disabled tooltip is hidden if we are not using span
           style={{
             display: "flex",
             alignItems: "center",

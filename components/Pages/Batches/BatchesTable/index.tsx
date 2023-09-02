@@ -57,9 +57,7 @@ export default function BatchesTable({ batches }: Props) {
   const [columnHeaderIndex, setColumnHeaderIndex] = useState<
     number | undefined
   >();
-  const [selectedBatch, setSelectedBatch] = useState<
-    IAddressBatchesEntryExtended | undefined
-  >();
+  const [selectedBatchId, setSelectedBatchId] = useState<string | undefined>();
   const [sortedBatches, setSortedBatches] = useState<IAddressBatchesEntry[]>(
     []
   );
@@ -103,9 +101,9 @@ export default function BatchesTable({ batches }: Props) {
 
   return (
     <BaseTable<IAddressBatchesEntryExtended>
-      rows={batches ? extendBatches(sortedBatches) : []}
-      selectedRow={selectedBatch}
-      onRowSelect={(batch) => setSelectedBatch(batch)}
+      rows={extendBatches(sortedBatches)}
+      selectedRowId={selectedBatchId}
+      onRowSelect={(batch) => setSelectedBatchId(batch.id)}
       onSort={sortBatches}
       columnHeaders={columnHeaders}
     />

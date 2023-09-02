@@ -9,15 +9,13 @@ import {
   selectIsEntityCollectionsLoading,
   selectUserEntityCollections,
 } from "@/redux/entityCollections/selectors";
-
 import { palette } from "@/theme/palette";
 import { ICollectionEntities } from "@/types/entityCollections";
 import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 import AppLayout from "@/components/Layout/AppLayout";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
-
+import { ContentViewMods } from "@/types";
 import Controls from "@/components/Containers/Controls";
-import { ViewMods } from "@/types/stove";
 
 const CollectionsItem = dynamic(
   () => import("@/components/Pages/Collections/Portfolio/CollectionsItem")
@@ -75,7 +73,7 @@ export default function Collections() {
         </Box>
         {/* FIXME: EMERGING-177 implement search, filtering, view mods */}
         <Controls
-          activeViewMode={ViewMods.gridView}
+          activeViewMode={ContentViewMods.gridView}
           toggleViewMode={() => null}
         />
         <Carousel

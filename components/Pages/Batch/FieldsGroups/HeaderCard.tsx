@@ -12,14 +12,14 @@ import TagForSomethingIDunnoWhat from "../TagForSomethingIDunnoWhat";
 
 type Props = {
   name?: string;
-  index?: string;
+  batchId?: string;
   offset?: number;
   progress?: number;
   entityAdminAddress?: string;
 };
 export default function HeaderCard({
   name,
-  index,
+  batchId,
   offset,
   progress,
   entityAdminAddress,
@@ -33,7 +33,7 @@ export default function HeaderCard({
       <ArrowBackLink link={batchDashboardHref} styles={{ top: 48 }} />
       <Flex direction="column" gap={10} justify="center">
         <CardTitle>Verified Emission Reduction</CardTitle>
-        <BatchIdentifier name={name} index={index} />
+        <BatchIdentifier name={name} batchId={batchId} />
       </Flex>
 
       <Flex align="center" justify="center" gap={28}>

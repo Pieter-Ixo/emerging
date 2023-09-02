@@ -1,23 +1,19 @@
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import { palette } from "@/theme/palette";
 import CollectionRawIcon from "@/assets/icons/collection.svg";
-import { ViewMods } from "@/types/stove";
 
 type Props = {
-  activeViewMode: ViewMods;
+  isActive: boolean;
 };
 
-export default function CollectionIcon({ activeViewMode }: Props) {
+export default function GridViewIcon({ isActive }: Props) {
   return (
     <BaseIcon
       cursorMode="pointer"
       isStroke
       variant="circle"
-      status={activeViewMode === ViewMods.gridView ? "selected" : "notSelected"}
+      status={isActive ? "selected" : "notSelected"}
       theme={{
-        disabled: {
-          fill: palette.whiteTransparent,
-        },
         notSelected: {
           bgColor: palette.Neutral200,
           fill: palette.transparent,

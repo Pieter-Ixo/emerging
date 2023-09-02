@@ -130,7 +130,7 @@ export default function CollectionAssetsCard() {
         <BaseTable<IEntityExtended>
           rows={sortedEntities}
           onRowSelect={selectAsset}
-          selectedRow={selectedEntity}
+          selectedRowId={selectedEntity?.id}
           onSort={sortEntities}
           columnHeaders={columnHeaders}
         />

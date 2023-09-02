@@ -1,17 +1,17 @@
 import { Container, Flex, Title } from "@mantine/core";
 
+import { ContentViewMods } from "@/types";
 import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
-import { ViewMods } from "@/types/stove";
 import Controls from "@/components/Containers/Controls";
 
 type Props = {
   toggleBatchesViewMode: () => void;
-  activeViewMode?: ViewMods;
+  activeViewMode?: ContentViewMods;
 };
 
 export default function BatchesPageHeader({
   toggleBatchesViewMode,
-  activeViewMode = ViewMods.gridView,
+  activeViewMode = ContentViewMods.gridView,
 }: Props) {
   return (
     <Container fluid mb="xl" px="0" sx={{ width: "100%" }}>

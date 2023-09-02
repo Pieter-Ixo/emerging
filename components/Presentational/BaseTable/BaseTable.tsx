@@ -12,7 +12,7 @@ type RowWithId = {
 type Props<T extends RowWithId> = {
   rows?: T[];
   columnHeaders: IColumnHeader[];
-  selectedRow?: T;
+  selectedRowId?: string | number;
   centerHeaders?: boolean;
   centerCells?: boolean;
   onRowSelect?: (row: T) => void;
@@ -27,7 +27,7 @@ type Props<T extends RowWithId> = {
  */
 export default function BaseTable<T extends RowWithId>({
   rows,
-  selectedRow,
+  selectedRowId,
   columnHeaders,
   onRowSelect,
   onSort,
@@ -61,7 +61,7 @@ export default function BaseTable<T extends RowWithId>({
             <TableRow
               centerCells={centerCells}
               key={rowData.id}
-              isSelected={selectedRow?.id === rowData?.id}
+              isSelected={selectedRowId === rowData?.id}
               onRowSelect={onRowSelect}
               rowData={rowData}
               columnHeaders={columnHeaders}

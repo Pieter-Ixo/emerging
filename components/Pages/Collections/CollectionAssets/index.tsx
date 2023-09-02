@@ -107,7 +107,7 @@ export default function AssetsTable() {
   return (
     <BaseTable<IEntityExtended>
       rows={extendEntities(sortedEntities)}
-      selectedRow={extendSingleEntity(selectedEntity)}
+      selectedRowId={selectedEntity?.id}
       columnHeaders={columnHeaders}
       onRowSelect={selectAsset}
       onSort={sortEntities}
