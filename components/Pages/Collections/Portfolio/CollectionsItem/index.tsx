@@ -1,4 +1,5 @@
-import { Card, Text, Badge, Image, Flex, Center, Loader } from "@mantine/core";
+import { Card, Text, Badge, Flex } from "@mantine/core";
+import Image from "next/image";
 import { useEffect } from "react";
 
 import { palette } from "@/theme/palette";
@@ -7,64 +8,48 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchCollectionTokenIpfs } from "@/redux/entityCollections/thunks";
 import {
   selectCollectionTokenIpfsError,
-  selectCollectionsTokensIpfs,
-  selectCollectionsTokensIpfsLoading,
+  selectCollectionById,
 } from "@/redux/entityCollections/selectors";
 
 type CollectionsItemProps = {
-  collection: ICollectionExtended;
+  collectionId: ICollectionExtended["id"];
   entitiesLength?: number;
   isActive: boolean;
 };
 
 export default function CollectionsItem({
-  collection,
+  collectionId,
   entitiesLength,
   isActive,
 }: CollectionsItemProps) {
   const dispatch = useAppDispatch();
 
-  const collectionTokenIpfs = useAppSelector((state) =>
-    selectCollectionsTokensIpfs(state, collection.id)
+  const collection = useAppSelector((state) =>
+    selectCollectionById(state, collectionId)
   );
   const collectionTokenIpfsError = useAppSelector(
     selectCollectionTokenIpfsError
   );
-  const collectionTokenIpfsLoading = useAppSelector(
-    selectCollectionsTokensIpfsLoading
-  );
 
   useEffect(() => {
-    if (!collection._tokenIpfs) dispatch(fetchCollectionTokenIpfs(collection));
-  }, [collection.id]);
+    if (collection && !collection?._tokenIpfs) {
+      dispatch(fetchCollectionTokenIpfs(collection));
+    }
+  }, [collection?.id]);
+
+  if (!collection) return null;
 
   const activeCardBg = isActive ? palette.fullBlue : palette.Neutral100;
-
   const activeCardFont = isActive ? palette.White : palette.Black;
 
-  if (collectionTokenIpfsLoading) {
-    return (
-      <Center w="100%" mih={223}>
-        <Loader />
-      </Center>
-    );
-  }
-  
-  if (collectionTokenIpfsError) {
-    return (
-      <Center w="100%" mih={223}>
-        <Text size="md" color={palette.redFull}>
-          {collectionTokenIpfsError}
-        </Text>
-      </Center>
-    );
-  }
+  const imageId = collection._profile?.imageUrl.split("/").at(-1);
 
   return (
     <Card padding="none" sx={{ color: activeCardFont }} radius={16}>
       <Card.Section>
         <Image
-          src={collection._profile?.imageUrl}
+          src={`https://ipfs.io/ipfs/${imageId}`}
+          width={250}
           height={150}
           alt="Collection's asset item"
         />
@@ -84,7 +69,9 @@ export default function CollectionsItem({
               variant="filled"
             >
               <Text size="md" fw={500}>
-                {collectionTokenIpfs?.properties.denom}
+                {collectionTokenIpfsError
+                  ? "Error"
+                  : collection._tokenIpfs?.properties.denom}
               </Text>
             </Badge>
           </Flex>

@@ -24,7 +24,15 @@ const nextConfig = {
     });
 
     return config
-  }
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ipfs.io',
+      },
+    ],
+  },
 };
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({

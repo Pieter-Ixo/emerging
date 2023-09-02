@@ -85,7 +85,7 @@ const initialState: EntityCollectionState = {
   isNewsPostsLoading: true,
 
   collectionsTokensIpfs: [],
-  collectionsTokensIpfsLoading: true,
+  collectionsTokensIpfsLoading: false,
   collectionTokenIpfsError: undefined,
 
   entityTransactions: undefined,
@@ -106,7 +106,9 @@ const EntityCollectionSlice = createSlice({
   extraReducers(builder) {
     // fetchAndFillCollections
     builder.addCase(fetchAndFillCollections.pending, (state) => {
-      state.isEntityCollectionsLoading = true;
+      if (!state.entityCollections?.length) {
+        state.isEntityCollectionsLoading = true;
+      }
     });
 
     builder.addCase(fetchAndFillCollections.fulfilled, (state, action) => {
@@ -120,7 +122,9 @@ const EntityCollectionSlice = createSlice({
 
     // fetchAndFillCollectionById
     builder.addCase(fetchAndFillCollectionById.pending, (state) => {
-      state.isEntityCollectionsLoading = true;
+      if (!state.entityCollections?.length) {
+        state.isEntityCollectionsLoading = true;
+      }
     });
 
     builder.addCase(fetchAndFillCollectionById.fulfilled, (state, action) => {
@@ -163,7 +167,9 @@ const EntityCollectionSlice = createSlice({
 
     // fetchCollectionsByOwnerAddres
     builder.addCase(fetchCollectionsByOwnerAddres.pending, (state) => {
-      state.isEntityCollectionsLoading = true;
+      if (!state.userEntityCollections?.length) {
+        state.isEntityCollectionsLoading = true;
+      }
     });
 
     builder.addCase(
@@ -180,7 +186,9 @@ const EntityCollectionSlice = createSlice({
 
     // fetchEntityByExternalIdAndFill
     builder.addCase(fetchEntityByExternalIdAndFill.pending, (state) => {
-      state.isEntityLoading = true;
+      if (!state.selectedEntity) {
+        state.isEntityLoading = true;
+      }
     });
     builder.addCase(
       fetchEntityByExternalIdAndFill.fulfilled,
@@ -192,7 +200,9 @@ const EntityCollectionSlice = createSlice({
 
     // fillEntitiesForUserCollections
     builder.addCase(fillEntitiesForUserCollections.pending, (state) => {
-      state.isEntityLoading = true;
+      if (!state.userEntityCollections) {
+        state.isEntityLoading = true;
+      }
     });
     builder.addCase(
       fillEntitiesForUserCollections.fulfilled,
@@ -211,7 +221,9 @@ const EntityCollectionSlice = createSlice({
 
     // fetchUsersTokens
     builder.addCase(fetchUsersTokens.pending, (state) => {
-      state.isUserTokensLoading = true;
+      if (!state.userTokens) {
+        state.isUserTokensLoading = true;
+      }
     });
     builder.addCase(fetchUsersTokens.fulfilled, (state, action) => {
       state.userTokens = action.payload;
@@ -220,7 +232,9 @@ const EntityCollectionSlice = createSlice({
 
     // fetchAdminTokens
     builder.addCase(fetchAdminTokens.pending, (state) => {
-      state.isAdminTokensLoading = true;
+      if (!state.adminTokens) {
+        state.isAdminTokensLoading = true;
+      }
     });
     // eslint-disable-next-line no-undef
     builder.addCase(fetchAdminTokens.fulfilled, (state, action) => {

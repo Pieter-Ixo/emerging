@@ -273,12 +273,6 @@ export const selectCollectionsTokensIpfs = (
       collectionWithEntities.collection.id === collectionId
   )?.collection._tokenIpfs;
 
-export const selectCollectionsTokensIpfsLoading = createDraftSafeSelector(
-  selectEntityCollections,
-  (entityCollectionsState: EntityCollectionState) =>
-    entityCollectionsState.collectionsTokensIpfsLoading
-);
-
 export const selectCollectionTokenIpfsError = createDraftSafeSelector(
   selectEntityCollections,
   (entityCollectionsState: EntityCollectionState) =>
