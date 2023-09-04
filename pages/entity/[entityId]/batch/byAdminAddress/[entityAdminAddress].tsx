@@ -1,28 +1,30 @@
 import { useEffect, useState } from "react";
-import { Box, Grid } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useToggle } from "@mantine/hooks";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchBatchesByAddress } from "@/redux/batches/thunks";
 import { selectAddressBatches } from "@/redux/batches/selectors";
 import useValueFromRouter from "@/utils/useValueFromRouter";
-import { IAddressBatchesEntry } from "@/types/certificates";
 import BatchesPageHeader from "@/components/Pages/Batches/Header";
-import BatchesItem from "@/components/Pages/Batches/BatchesItem";
 import AppLayout from "@/components/Layout/AppLayout";
 import RetireModal from "@/components/Pages/Batches/RetireModal";
+import { ControlsDisplayMods } from "@/types";
+import BatchesTable from "@/components/Pages/Batches/BatchesTable";
+import BatchesGrid from "@/components/Pages/Batches/BatchesGrid";
 
 export default function Batches() {
   const dispatch = useAppDispatch();
   const adminAddress = useValueFromRouter("entityAdminAddress");
-  const entityId = useValueFromRouter("entityId");
   const batches = useAppSelector(selectAddressBatches);
   const [opened, { open, close }] = useDisclosure(false);
+  const [batchesViewMode, toggleBatchesViewMode] = useToggle([
+    ControlsDisplayMods.gridView,
+    ControlsDisplayMods.listView,
+  ]);
 
-  const [parsedBatches, setParsedBatches] = useState<IAddressBatchesEntry[]>();
   const [selectedRetired, setSelectedRetired] = useState<number | undefined>();
   const [selectedBatchNumber, setSelectedBatchNumber] = useState<
-    number | undefined
+    string | undefined
   >();
 
   useEffect(() => {
@@ -31,20 +33,14 @@ export default function Batches() {
     }
   }, [adminAddress, dispatch]);
 
-  useEffect(() => {
-    if (batches) {
-      setParsedBatches(Object.entries(batches));
-    }
-  }, [batches]);
-
-  function onBatchClick(
+  const onBatchClick = (
     retired: number | undefined,
-    batchNumber: number | undefined
-  ) {
+    batchId: string | undefined
+  ) => {
     setSelectedRetired(retired);
-    setSelectedBatchNumber(batchNumber);
+    setSelectedBatchNumber(batchId);
     open();
-  }
+  };
 
   function onModalClose() {
     close();
@@ -53,27 +49,15 @@ export default function Batches() {
 
   return (
     <AppLayout title="Carbon Certificates">
-      <Box maw="70%">
-        <BatchesPageHeader />
-        <Grid gutter="xl">
-          {parsedBatches?.map(([betchId, betchData]) => (
-            <Grid.Col key={betchId} span={6}>
-              <BatchesItem
-                index={betchId}
-                amount={betchData.amount}
-                retired={betchData.retired}
-                minted={betchData.minted}
-                offset={betchData.amount}
-                onBatchClick={(
-                  retired: number | undefined,
-                  batchNumber: number | undefined
-                ) => onBatchClick(retired, batchNumber)}
-                entityId={entityId}
-              />
-            </Grid.Col>
-          ))}
-        </Grid>
-      </Box>
+      <BatchesPageHeader
+        activeViewMode={batchesViewMode}
+        toggleBatchesViewMode={toggleBatchesViewMode}
+      />
+      {batchesViewMode === ControlsDisplayMods.gridView ? (
+        <BatchesGrid onBatchClick={onBatchClick} batches={batches} />
+      ) : (
+        <BatchesTable batches={batches && Object.entries(batches)} />
+      )}
       <RetireModal
         isModalOpened={opened}
         retired={selectedRetired}

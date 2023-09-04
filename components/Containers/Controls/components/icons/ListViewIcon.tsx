@@ -1,14 +1,19 @@
 import BaseIcon from "@/components/Presentational/BaseIcon";
+
 import { palette } from "@/theme/palette";
 import TabsRawIcon from "@/assets/icons/tabs.svg";
 
-export default function TabsIcon() {
+type Props = {
+  isActive: boolean;
+};
+
+export default function ListViewIcon({ isActive }: Props) {
   return (
     <BaseIcon
       cursorMode="pointer"
       Icon={TabsRawIcon}
       width={24}
-      status="disabled"
+      status={isActive ? "selected" : "notSelected"}
       variant="circle"
       height={25}
       theme={{

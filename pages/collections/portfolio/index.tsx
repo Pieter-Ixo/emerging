@@ -9,13 +9,12 @@ import {
   selectIsEntityCollectionsLoading,
   selectUserEntityCollections,
 } from "@/redux/entityCollections/selectors";
-
 import { palette } from "@/theme/palette";
 import { ICollectionEntities } from "@/types/entityCollections";
 import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 import AppLayout from "@/components/Layout/AppLayout";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
-
+import { ControlsDisplayMods } from "@/types";
 import Controls from "@/components/Containers/Controls";
 
 const CollectionsItem = dynamic(
@@ -72,7 +71,11 @@ export default function Collections() {
         <Box mb={28} sx={{ borderBottom: `1px solid ${palette.Black}` }}>
           <Text size="md">MY ASSETS</Text>
         </Box>
-        <Controls />
+        {/* FIXME: EMERGING-177 implement search, filtering, view mods */}
+        <Controls
+          activeViewMode={ControlsDisplayMods.gridView}
+          toggleViewMode={() => null}
+        />
         <Carousel
           mih={223}
           slideGap="xl"
@@ -95,7 +98,6 @@ export default function Collections() {
           ))}
         </Carousel>
         <Box mb={28} sx={{ borderBottom: `1px solid ${palette.Neutral500}` }} />
-
         {isEntityCollectionsLoading && <Loader w="100%" mx="auto" />}
         {activeEntityCollection && (
           <EntitiesList

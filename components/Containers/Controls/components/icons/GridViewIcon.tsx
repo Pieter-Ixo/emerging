@@ -2,22 +2,25 @@ import BaseIcon from "@/components/Presentational/BaseIcon";
 import { palette } from "@/theme/palette";
 import CollectionRawIcon from "@/assets/icons/collection.svg";
 
-export default function CollectionIcon() {
+type Props = {
+  isActive: boolean;
+};
+
+export default function GridViewIcon({ isActive }: Props) {
   return (
     <BaseIcon
       cursorMode="pointer"
       isStroke
       variant="circle"
-      status="disabled"
+      status={isActive ? "selected" : "notSelected"}
       theme={{
-        disabled: {
-          fill: palette.whiteTransparent,
-        },
         notSelected: {
           bgColor: palette.Neutral200,
+          fill: palette.transparent,
           stroke: palette.Black,
         },
         selected: {
+          fill: palette.transparent,
           stroke: palette.White,
         },
       }}

@@ -84,7 +84,7 @@ export default function BatchPageLayout() {
           <Grid.Col span={8} order={1}>
             <HeaderCard
               name={batch?.name}
-              index={batch?.id}
+              batchId={batch?.id}
               entityAdminAddress={entityAdminAddress}
               progress={batchProgress}
             />

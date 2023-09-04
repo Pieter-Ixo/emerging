@@ -7,11 +7,11 @@ import Copy from "@/assets/icons/copy.svg";
 
 export default function BatchIdentifier({
   name,
-  index,
+  batchId,
   isProgressComplete,
 }: {
   name?: string;
-  index?: string;
+  batchId?: string;
   isProgressComplete?: boolean;
 }) {
   const indexTextColor = isProgressComplete
@@ -19,7 +19,7 @@ export default function BatchIdentifier({
     : palette.darkerBlue;
 
   return (
-    <CopyButton value={`${name}/${index}`}>
+    <CopyButton value={`${name}/${batchId}`}>
       {({ copied, copy }) => (
         <Text
           fw={600}
@@ -31,7 +31,7 @@ export default function BatchIdentifier({
             copy();
           }}
         >
-          {`${name}/${shortStr(index, 25, 10)}`}
+          {`${name}/${shortStr(batchId, 25, 10)}`}
           <BaseIcon
             Icon={Copy}
             width="18"

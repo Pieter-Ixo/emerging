@@ -17,18 +17,21 @@ import BatchProgress from "../BatchProgress";
 
 type Props = {
   name?: string;
-  index?: string;
+  batchId?: string;
   offset?: number;
   amount?: number;
   minted?: number;
   retired?: number;
   entityId?: string;
-  onBatchClick: Function;
+  onBatchClick: (
+    retired: number | undefined,
+    batchId: string | undefined
+  ) => void;
 };
 
 export default function BatchesItem({
   name,
-  index,
+  batchId,
   offset,
   minted,
   amount,
@@ -47,14 +50,14 @@ export default function BatchesItem({
     : "url(/images/bg/certificate-bg.png)";
 
   const toSingleBatch = () => {
-    const redirectUrl = `/entity/${entityId}/batch/${index}`;
+    const redirectUrl = `/entity/${entityId}/batch/${batchId}`;
 
     router.push(redirectUrl);
   };
 
   const onOffsetBtnClick = (e: MouseEvent<any>) => {
     e.stopPropagation();
-    onBatchClick(retired, index);
+    onBatchClick(retired, batchId);
   };
 
   const buttonStyles: Sx = isProgressComplete
@@ -100,7 +103,7 @@ export default function BatchesItem({
         <BatchIdentifier
           isProgressComplete={isProgressComplete}
           name="CARBON"
-          index={index}
+          batchId={batchId}
         />
       </Flex>
 

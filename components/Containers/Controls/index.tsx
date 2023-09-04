@@ -1,23 +1,26 @@
-import { Text, Flex, Input, Button, Tooltip } from "@mantine/core";
-import { palette } from "@/theme/palette";
-import { PortfolioViewMods } from "@/types/stove";
-import { useState } from "react";
+import { Text, Flex, Input, Button, Tooltip, ActionIcon } from "@mantine/core";
 
+import { palette } from "@/theme/palette";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import SearchIcon from "@/assets/icons/search.svg";
 import FilterIcon from "@/assets/icons/filter.svg";
+import { ControlsDisplayMods } from "@/types";
 
-import CollectionIcon from "./components/icons/CollectionIcon";
-import TabsIcon from "./components/icons/TabsIcon";
+import GridViewIcon from "./components/icons/GridViewIcon";
+import ListViewIcon from "./components/icons/ListViewIcon";
 
 type Props = {
   isSearchVisible?: boolean;
+  activeViewMode: ControlsDisplayMods;
+  toggleViewMode: (viewMod: ControlsDisplayMods) => void;
 };
 
-export default function Controls({ isSearchVisible = true }: Props) {
-  // FIXME: EMERGING-177 implement search, filtering, and list type (grid or list)
-  const [viewMode, setViewMode] = useState(PortfolioViewMods.iconView);
-
+export default function Controls({
+  isSearchVisible = true,
+  toggleViewMode,
+  activeViewMode,
+}: Props) {
+  // FIXME: EMERGING-177 implement search, filtering
   return (
     <Flex gap={8}>
       {isSearchVisible && (
@@ -27,7 +30,7 @@ export default function Controls({ isSearchVisible = true }: Props) {
             placeholder="search"
             size="md"
             sx={{
-              caretColor: "transparent",
+              caretColor: palette.transparent,
             }}
             variant="unstyled"
             radius="xl"
@@ -35,47 +38,40 @@ export default function Controls({ isSearchVisible = true }: Props) {
         </Tooltip>
       )}
 
-      <Tooltip label="This functionality is under development" withArrow>
-        <span>
-          <Button
-            variant="unstyled"
-            px={0}
-            h="100%"
-            data-disabled
-            // FIXME: EMERGING-177 implement search, filtering, and list type (grid or list)
-            sx={{
-              "&[data-disabled]": { backgroundColor: palette.whiteTransparent },
-            }}
-          >
-            <CollectionIcon />
-          </Button>
-        </span>
-      </Tooltip>
-      <Tooltip label="This functionality is under development" withArrow>
-        <span>
-          <Button
-            variant="unstyled"
-            px={0}
-            h="100%"
-            data-disabled
-            // FIXME: EMERGING-177 implement search, filtering, and list type (grid or list)
-            sx={{
-              "&[data-disabled]": { backgroundColor: palette.whiteTransparent },
-            }}
-          >
-            <TabsIcon />
-          </Button>
-        </span>
-      </Tooltip>
+      <ActionIcon
+        w="100%"
+        h="100%"
+        onClick={() => toggleViewMode(ControlsDisplayMods.gridView)}
+      >
+        <GridViewIcon
+          isActive={activeViewMode === ControlsDisplayMods.gridView}
+        />
+      </ActionIcon>
+      <ActionIcon
+        w="100%"
+        h="100%"
+        onClick={() => toggleViewMode(ControlsDisplayMods.listView)}
+      >
+        <ListViewIcon
+          isActive={activeViewMode === ControlsDisplayMods.listView}
+        />
+      </ActionIcon>
 
       <Tooltip label="This functionality is under development" withArrow>
-        <span>
+        <span
+          // TODO: Temporary solution, because of broken Mantine Tooltip, when
+          // the Button disabled tooltip is hidden if we are not using span
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
           <Button
             h={44}
             variant="unstyled"
             w={100}
             radius="xl"
-            // FIXME: EMERGING-177 implement search, filtering, and list type (grid or list)
+            // FIXME: EMERGING-177 implement search, filtering
             data-disabled
           >
             <BaseIcon

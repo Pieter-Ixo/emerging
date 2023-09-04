@@ -107,11 +107,6 @@ export enum SECTIONS {
   health = "health",
 }
 
-export enum PortfolioViewMods {
-  listView = "listView",
-  iconView = "iconView",
-}
-
 export type SECTION = {
   id: SECTIONS;
   description: string;

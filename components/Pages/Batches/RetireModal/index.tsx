@@ -7,7 +7,7 @@ import { palette } from "@/theme/palette";
 type Props = {
   isModalOpened: boolean;
   retired?: number;
-  batchNumber?: number;
+  batchNumber?: string;
   closeModal: () => void;
 };
 
