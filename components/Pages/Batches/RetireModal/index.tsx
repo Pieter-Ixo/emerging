@@ -55,7 +55,7 @@ export default function RetireModal({
   batchNumber,
 }: Props) {
   const retireForm = useForm({
-    // TODO: initial values need to be discussed
+    // Initial values are mocked up until the requirements are met
     initialValues: {
       offsetAmount: 0,
       country: "",
@@ -63,7 +63,7 @@ export default function RetireModal({
       postalCode: "",
       note: "",
     },
-    // TODO: validations need to be discussed
+    // Validations are placeholders, correct validations will be required later.
     validate: {
       offsetAmount: (value) => value <= 1_200_000 && value > 0,
       country: (value) => (value ? null : "Country required"),
@@ -75,7 +75,7 @@ export default function RetireModal({
     },
   });
 
-  // TODO: submit actions need to be discussed
+  // FIXME: EMERGING-196 submit actions need to be discussed
   function onOffsetFormSubmit() {
     retireForm.setValues({ offsetAmount: retired });
     console.log("RetireForm values: ", retireForm.values);
@@ -121,7 +121,7 @@ export default function RetireModal({
           label="Country"
           dropdownPosition="bottom"
           placeholder="Select country"
-          // TODO: Autocomplete needs to contain all countries in the world
+          // FIXME: EMERGING-196 Autocomplete needs to contain all countries in the world
           // as well as flag icons, use array that Petrus provided
           data={["Zambia", "South Africa", "Malawi"]}
           {...retireForm.getInputProps("country")}
