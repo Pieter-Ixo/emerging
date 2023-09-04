@@ -10,6 +10,8 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
+import { CSSProperties } from "react";
+
 import LeafIcon from "@/assets/icons/leaf.svg";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import { palette } from "@/theme/palette";
@@ -22,9 +24,7 @@ type Props = {
   closeModal: () => void;
 };
 
-const textInputStyles:
-  | Styles<TextInputStylesNames, Record<string, any>>
-  | undefined = {
+const textInputStyles: Styles<TextInputStylesNames, CSSProperties> = {
   root: {
     position: "relative",
     minHeight: 75,
@@ -40,7 +40,6 @@ const textInputStyles:
     position: "absolute",
     top: -7,
     left: 15,
-    background: palette.White,
     backgroundColor: palette.White,
     color: palette.fullBlue,
     zIndex: 2,
@@ -129,9 +128,7 @@ export default function RetireModal({
         />
         <Flex gap="xl">
           <TextInput
-            styles={{
-              ...textInputStyles,
-            }}
+            styles={textInputStyles}
             radius="lg"
             size="md"
             label="State / Region (Optional)"
@@ -151,9 +148,7 @@ export default function RetireModal({
         </Flex>
         <TextInput
           radius="lg"
-          styles={{
-            ...textInputStyles,
-          }}
+          styles={textInputStyles}
           size="md"
           label="Note (Optional)"
           placeholder="Offset on behalf of"
