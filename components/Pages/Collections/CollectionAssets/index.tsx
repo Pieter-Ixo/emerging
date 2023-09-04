@@ -55,7 +55,7 @@ export default function AssetsTable() {
     defaultColumnHeadersState
   );
 
-  const [columnHeaderIndex, setColumnHeaderIndex] = useState<
+  const [selectedColumnHeaderIndex, setSelectedColumnHeaderIndex] = useState<
     number | undefined
   >();
 
@@ -67,7 +67,7 @@ export default function AssetsTable() {
           : { ...column, isActive: false }
       )
     );
-    setColumnHeaderIndex(clickedColumnIndex);
+    setSelectedColumnHeaderIndex(clickedColumnIndex);
   };
 
   useEffect(() => {
@@ -78,10 +78,10 @@ export default function AssetsTable() {
   }, []);
 
   useEffect(() => {
-    if (columnHeaderIndex !== undefined && sortedEntities.length)
-      switch (columnHeaders[columnHeaderIndex].name) {
+    if (selectedColumnHeaderIndex !== undefined && sortedEntities.length)
+      switch (columnHeaders[selectedColumnHeaderIndex].name) {
         case "Serial number":
-          if (columnHeaders[columnHeaderIndex].isActive)
+          if (columnHeaders[selectedColumnHeaderIndex].isActive)
             setSortedEntities((assets) => sortAssetsByExternalId(assets));
           else
             setSortedEntities((assets) =>

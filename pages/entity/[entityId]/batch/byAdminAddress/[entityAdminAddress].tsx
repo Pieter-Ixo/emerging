@@ -35,10 +35,10 @@ export default function Batches() {
 
   const onBatchClick = (
     retired: number | undefined,
-    batchNumber: string | undefined
+    batchId: string | undefined
   ) => {
     setSelectedRetired(retired);
-    setSelectedBatchNumber(batchNumber);
+    setSelectedBatchNumber(batchId);
     open();
   };
 

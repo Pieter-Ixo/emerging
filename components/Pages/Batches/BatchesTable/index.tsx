@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import {
   IAddressBatchesEntry,
-  IAddressBatchesEntryWithId,
+  IAddressBatchWithId,
 } from "@/types/certificates";
 import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
 import { IColumnHeader } from "@/types/entityCollections";
@@ -54,7 +54,7 @@ export default function BatchesTable({ batches }: Props) {
   const [columnHeaders, setActiveColumnHeaders] = useState<IColumnHeader[]>(
     defaultColumnHeadersState
   );
-  const [columnHeaderIndex, setColumnHeaderIndex] = useState<
+  const [selectedColumnHeaderIndex, setSelectedColumnHeaderIndex] = useState<
     number | undefined
   >();
   const [selectedBatchId, setSelectedBatchId] = useState<string | undefined>();
@@ -70,14 +70,14 @@ export default function BatchesTable({ batches }: Props) {
           : { ...column, isActive: false }
       )
     );
-    setColumnHeaderIndex(clickedColumnIndex);
+    setSelectedColumnHeaderIndex(clickedColumnIndex);
   };
 
   useEffect(() => {
-    if (columnHeaderIndex !== undefined && sortedBatches.length)
-      switch (columnHeaders[columnHeaderIndex].name) {
+    if (selectedColumnHeaderIndex !== undefined && sortedBatches.length)
+      switch (columnHeaders[selectedColumnHeaderIndex].name) {
         case "CARBON verified":
-          if (columnHeaders[columnHeaderIndex].isActive) {
+          if (columnHeaders[selectedColumnHeaderIndex].isActive) {
             setSortedBatches((prevBatches) =>
               sortBatchesByAmount(prevBatches, false)
             );
@@ -100,7 +100,7 @@ export default function BatchesTable({ batches }: Props) {
   }, [batches]);
 
   return (
-    <BaseTable<IAddressBatchesEntryWithId>
+    <BaseTable<IAddressBatchWithId>
       rows={extendBatches(sortedBatches)}
       selectedRowId={selectedBatchId}
       onRowSelect={(batch) => setSelectedBatchId(batch.id)}

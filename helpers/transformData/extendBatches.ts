@@ -1,11 +1,11 @@
 import {
   IAddressBatchesEntry,
-  IAddressBatchesEntryWithId,
+  IAddressBatchWithId,
 } from "@/types/certificates";
 
 export default function extendBatches(
   batchesToConvert: IAddressBatchesEntry[]
-): IAddressBatchesEntryWithId[] {
+): IAddressBatchWithId[] {
   return batchesToConvert?.map(([batchId, batch]) => ({
     id: batchId,
     ...batch,

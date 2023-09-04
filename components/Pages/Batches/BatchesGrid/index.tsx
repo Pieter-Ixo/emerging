@@ -9,7 +9,7 @@ type Props = {
   batches?: IAddressBatches;
   onBatchClick: (
     retired: number | undefined,
-    batchNumber: string | undefined
+    batchId: string | undefined
   ) => void;
 };
 

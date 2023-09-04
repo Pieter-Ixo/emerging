@@ -25,7 +25,7 @@ type Props = {
   entityId?: string;
   onBatchClick: (
     retired: number | undefined,
-    batchNumber: string | undefined
+    batchId: string | undefined
   ) => void;
 };
 
