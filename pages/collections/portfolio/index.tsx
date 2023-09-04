@@ -14,7 +14,7 @@ import { ICollectionEntities } from "@/types/entityCollections";
 import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
 import AppLayout from "@/components/Layout/AppLayout";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
-import { ContentViewMods } from "@/types";
+import { ControlsDisplayMods } from "@/types";
 import Controls from "@/components/Containers/Controls";
 
 const CollectionsItem = dynamic(
@@ -73,7 +73,7 @@ export default function Collections() {
         </Box>
         {/* FIXME: EMERGING-177 implement search, filtering, view mods */}
         <Controls
-          activeViewMode={ContentViewMods.gridView}
+          activeViewMode={ControlsDisplayMods.gridView}
           toggleViewMode={() => null}
         />
         <Carousel

@@ -1,4 +1,4 @@
-export enum ContentViewMods {
-    listView = "list",
-    gridView = "grid",
-  }
+export enum ControlsDisplayMods {
+  listView = "list",
+  gridView = "grid",
+}

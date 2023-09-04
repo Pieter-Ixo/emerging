@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import {
   IAddressBatchesEntry,
-  IAddressBatchesEntryExtended,
+  IAddressBatchesEntryWithId,
 } from "@/types/certificates";
 import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
 import { IColumnHeader } from "@/types/entityCollections";
@@ -100,7 +100,7 @@ export default function BatchesTable({ batches }: Props) {
   }, [batches]);
 
   return (
-    <BaseTable<IAddressBatchesEntryExtended>
+    <BaseTable<IAddressBatchesEntryWithId>
       rows={extendBatches(sortedBatches)}
       selectedRowId={selectedBatchId}
       onRowSelect={(batch) => setSelectedBatchId(batch.id)}

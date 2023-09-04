@@ -1,18 +1,18 @@
-import { Text, Flex, Input, Button, Tooltip } from "@mantine/core";
+import { Text, Flex, Input, Button, Tooltip, ActionIcon } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import SearchIcon from "@/assets/icons/search.svg";
 import FilterIcon from "@/assets/icons/filter.svg";
-import { ContentViewMods } from "@/types";
+import { ControlsDisplayMods } from "@/types";
 
 import GridViewIcon from "./components/icons/GridViewIcon";
 import ListViewIcon from "./components/icons/ListViewIcon";
 
 type Props = {
   isSearchVisible?: boolean;
-  activeViewMode: ContentViewMods;
-  toggleViewMode: (viewMod: ContentViewMods) => void;
+  activeViewMode: ControlsDisplayMods;
+  toggleViewMode: (viewMod: ControlsDisplayMods) => void;
 };
 
 export default function Controls({
@@ -38,22 +38,24 @@ export default function Controls({
         </Tooltip>
       )}
 
-      <Button
-        variant="unstyled"
-        onClick={() => toggleViewMode(ContentViewMods.gridView)}
-        px={0}
+      <ActionIcon
+        w="100%"
         h="100%"
+        onClick={() => toggleViewMode(ControlsDisplayMods.gridView)}
       >
-        <GridViewIcon isActive={activeViewMode === ContentViewMods.gridView} />
-      </Button>
-      <Button
-        variant="unstyled"
-        onClick={() => toggleViewMode(ContentViewMods.listView)}
-        px={0}
+        <GridViewIcon
+          isActive={activeViewMode === ControlsDisplayMods.gridView}
+        />
+      </ActionIcon>
+      <ActionIcon
+        w="100%"
         h="100%"
+        onClick={() => toggleViewMode(ControlsDisplayMods.listView)}
       >
-        <ListViewIcon isActive={activeViewMode === ContentViewMods.listView} />
-      </Button>
+        <ListViewIcon
+          isActive={activeViewMode === ControlsDisplayMods.listView}
+        />
+      </ActionIcon>
 
       <Tooltip label="This functionality is under development" withArrow>
         <span

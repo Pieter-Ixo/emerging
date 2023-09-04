@@ -48,7 +48,7 @@ type IAddressBatchData = {
 
 export type IAddressBatchesEntry = [string, IAddressBatchData];
 
-export type IAddressBatchesEntryExtended = { id: string } & IAddressBatchData;
+export type IAddressBatchesEntryWithId = { id: string } & IAddressBatchData;
 
 export type Batches = IBatch[];
 
