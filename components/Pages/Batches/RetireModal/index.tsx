@@ -1,8 +1,19 @@
-import { Autocomplete, Button, Modal, ScrollArea, Text } from "@mantine/core";
+import {
+  Autocomplete,
+  Button,
+  Flex,
+  Modal,
+  Styles,
+  Text,
+  TextInput,
+  TextInputStylesNames,
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
 
 import LeafIcon from "@/assets/icons/leaf.svg";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import { palette } from "@/theme/palette";
+import shortStr from "@/utils/shortStr";
 
 type Props = {
   isModalOpened: boolean;
@@ -11,61 +22,163 @@ type Props = {
   closeModal: () => void;
 };
 
+const textInputStyles:
+  | Styles<TextInputStylesNames, Record<string, any>>
+  | undefined = {
+  root: {
+    position: "relative",
+    minHeight: 75,
+  },
+  input: {
+    borderColor: palette.fullBlue,
+  },
+  error: {
+    fontSize: 12,
+    paddingLeft: 10,
+  },
+  label: {
+    position: "absolute",
+    top: -7,
+    left: 15,
+    background: palette.White,
+    backgroundColor: palette.White,
+    color: palette.fullBlue,
+    zIndex: 2,
+    padding: "0 5px",
+    fontSize: 12,
+  },
+};
+
 export default function RetireModal({
   isModalOpened,
   closeModal,
   retired,
   batchNumber,
 }: Props) {
+  const retireForm = useForm({
+    // TODO: initial values need to be discussed
+    initialValues: {
+      offsetAmount: 0,
+      country: "",
+      stateRegion: "",
+      postalCode: "",
+      note: "",
+    },
+    // TODO: validations need to be discussed
+    validate: {
+      offsetAmount: (value) => value <= 1_200_000 && value > 0,
+      country: (value) => (value ? null : "Country required"),
+      stateRegion: (value) =>
+        value.trim().length > 10 ? "Invalid state or region" : null,
+      postalCode: (value) =>
+        value.trim().length > 10 ? "Postal code is too long" : null,
+      note: (value) => (value.trim().length > 200 ? "Note is too long" : null),
+    },
+  });
+
+  // TODO: submit actions need to be discussed
+  function onOffsetFormSubmit() {
+    retireForm.setValues({ offsetAmount: retired });
+    console.log("RetireForm values: ", retireForm.values);
+  }
+
+  function onOffsetModalClose() {
+    retireForm.reset();
+    closeModal();
+  }
+
   return (
     <Modal
       opened={isModalOpened}
-      onClose={closeModal}
-      title="Retired"
+      onClose={() => onOffsetModalClose()}
+      title="Offset Batch"
       radius="lg"
       centered
       styles={{ header: { color: palette.fullBlue } }}
-      scrollAreaComponent={ScrollArea.Autosize}
     >
-      <Text pt="lg" mb="xl">
-        This action will retire a total of{" "}
-        <Text display="inline" weight={800}>
-          {retired} CARBON
-        </Text>{" "}
-        credits in your selected batch (
-        <Text display="inline" weight={800}>
-          #{batchNumber}
+      <form onSubmit={retireForm.onSubmit(() => onOffsetFormSubmit())}>
+        <Text pt="lg" mb="lg">
+          This action will retire a total of{" "}
+          <Text display="inline" weight={800}>
+            {retired} CARBON
+          </Text>{" "}
+          credits in your selected batch (
+          <Text display="inline" weight={800}>
+            #{shortStr(String(batchNumber), 9, 3)}
+          </Text>
+          ).
+          <Text>Please fill out the offset details.</Text>
         </Text>
-        ).
-        <Text>
-          In which country would you prefer these to be recorded as Carbon
-          Offsets?
-        </Text>
-      </Text>
-
-      <Autocomplete
-        radius="lg"
-        pb="xl"
-        size="md"
-        label="Country"
-        dropdownPosition="bottom"
-        placeholder="Select country"
-        data={["Zambia", "South Africa", "Malawi"]}
-      />
-
-      <Button
-        leftIcon={
-          <BaseIcon width={37} height={37} status="disabled" Icon={LeafIcon} />
-        }
-        disabled
-        w="100%"
-        radius="lg"
-        size="md"
-        fw={400}
-        h={46}
-      >
-        Sign to Retired
-      </Button>
+        <Autocomplete
+          radius="lg"
+          size="md"
+          styles={{
+            dropdown: {
+              maxHeight: 100,
+              overflow: "hidden",
+            },
+            ...textInputStyles,
+          }}
+          label="Country"
+          dropdownPosition="bottom"
+          placeholder="Select country"
+          // TODO: Autocomplete needs to contain all countries in the world
+          // as well as flag icons, use array that Petrus provided
+          data={["Zambia", "South Africa", "Malawi"]}
+          {...retireForm.getInputProps("country")}
+        />
+        <Flex gap="xl">
+          <TextInput
+            styles={{
+              ...textInputStyles,
+            }}
+            radius="lg"
+            size="md"
+            label="State / Region (Optional)"
+            placeholder="Enter state"
+            {...retireForm.getInputProps("stateRegion")}
+          />
+          <TextInput
+            radius="lg"
+            styles={{
+              ...textInputStyles,
+            }}
+            size="md"
+            label="Postal Code (Optional)"
+            placeholder="Enter Postal Code"
+            {...retireForm.getInputProps("postalCode")}
+          />
+        </Flex>
+        <TextInput
+          radius="lg"
+          styles={{
+            ...textInputStyles,
+          }}
+          size="md"
+          label="Note (Optional)"
+          placeholder="Offset on behalf of"
+          {...retireForm.getInputProps("note")}
+        />
+        <Button
+          leftIcon={
+            <BaseIcon
+              width={37}
+              height={37}
+              status="disabled"
+              Icon={LeafIcon}
+            />
+          }
+          disabled
+          type="submit"
+          w="100%"
+          radius="lg"
+          size="md"
+          fw={400}
+          h={46}
+        >
+          Sign to Offset
+        </Button>
+      </form>
     </Modal>
   );
 }
