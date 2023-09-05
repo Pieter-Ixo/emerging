@@ -62,7 +62,7 @@ export default function Collection() {
   );
 
   useEffect(() => {
-    if (collectionId && !collection) {
+    if (collectionId) {
       dispatch(fetchAndFillCollectionById(collectionId));
       dispatch(fetchTotalCollectionEntities(collectionId));
     }

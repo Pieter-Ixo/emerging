@@ -34,7 +34,7 @@ export default function Assets() {
   );
 
   useEffect(() => {
-    if (collectionId && !collection) {
+    if (collectionId) {
       dispatch(fetchAndFillCollectionById(collectionId));
     }
   }, [collectionId]);
