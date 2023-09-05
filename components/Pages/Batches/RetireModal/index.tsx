@@ -1,5 +1,4 @@
 import {
-  Autocomplete,
   Button,
   Flex,
   Modal,
@@ -9,13 +8,14 @@ import {
   TextInputStylesNames,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-
 import { CSSProperties } from "react";
 
 import LeafIcon from "@/assets/icons/leaf.svg";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import { palette } from "@/theme/palette";
 import shortStr from "@/utils/shortStr";
+import { IRetireFormData } from "@/types/certificates";
+import CountryPicker from "@/components/Presentational/CountryPicker";
 
 type Props = {
   isModalOpened: boolean;
@@ -54,7 +54,7 @@ export default function RetireModal({
   retired,
   batchNumber,
 }: Props) {
-  const retireForm = useForm({
+  const retireForm = useForm<IRetireFormData>({
     // Initial values are mocked up until the requirements are met
     initialValues: {
       offsetAmount: 0,
@@ -108,23 +108,10 @@ export default function RetireModal({
           ).
           <Text>Please fill out the offset details.</Text>
         </Text>
-        <Autocomplete
-          radius="lg"
-          size="md"
-          styles={{
-            dropdown: {
-              maxHeight: 100,
-              overflow: "hidden",
-            },
-            ...textInputStyles,
-          }}
-          label="Country"
-          dropdownPosition="bottom"
-          placeholder="Select country"
-          // FIXME: EMERGING-196 Autocomplete needs to contain all countries in the world
-          // as well as flag icons, use array that Petrus provided
-          data={["Zambia", "South Africa", "Malawi"]}
-          {...retireForm.getInputProps("country")}
+        <CountryPicker<IRetireFormData>
+          form={retireForm}
+          formField="country"
+          countryPickerStyles={textInputStyles}
         />
         <Flex gap="xl">
           <TextInput

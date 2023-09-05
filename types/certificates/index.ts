@@ -3,6 +3,14 @@ import { IClaimCer } from "./claimCer";
 import { IClaimIssuer, IClaimVer } from "./claimVer";
 import { IVerifiableCred } from "./verifiableCred";
 
+export type IRetireFormData = {
+  offsetAmount: number;
+  country: string;
+  stateRegion: string;
+  postalCode: string;
+  note: string;
+};
+
 export type ITokenData = {
   aid: number;
   uri: string;
