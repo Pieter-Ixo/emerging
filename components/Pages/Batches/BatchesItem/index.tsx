@@ -18,13 +18,12 @@ import BatchProgress from "../BatchProgress";
 type Props = {
   name?: string;
   batchId?: string;
-  offset?: number;
   amount?: number;
   minted?: number;
   retired?: number;
   entityId?: string;
   onBatchClick: (
-    retired: number | undefined,
+    offset: number | undefined,
     batchId: string | undefined
   ) => void;
 };
@@ -32,7 +31,6 @@ type Props = {
 export default function BatchesItem({
   name,
   batchId,
-  offset,
   minted,
   amount,
   retired,
@@ -41,11 +39,9 @@ export default function BatchesItem({
 }: Props) {
   const router = useRouter();
 
-  const isProgressComplete = !!(minted && retired === minted);
+  const isProgressComplete = retired === amount;
 
-  const isBatchHasProgress = !!(amount === 0 && (retired || 0) > 0);
-
-  const batchBackgroundImage = isBatchHasProgress
+  const batchBackgroundImage = isProgressComplete
     ? "url(/images/bg/certificate-bg--disabled.png)"
     : "url(/images/bg/certificate-bg.png)";
 
@@ -57,12 +53,15 @@ export default function BatchesItem({
 
   const onOffsetBtnClick = (e: MouseEvent<any>) => {
     e.stopPropagation();
-    onBatchClick(retired, batchId);
+    
+    if (amount !== undefined && retired !== undefined)
+      onBatchClick(amount - retired, batchId);
   };
 
   const buttonStyles: Sx = isProgressComplete
     ? {
         cursor: "default",
+        pointerEvents: "none",
         backgroundColor: palette.Neutral800,
         ":hover": { backgroundColor: palette.Neutral800 },
       }
