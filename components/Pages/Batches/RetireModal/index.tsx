@@ -8,7 +8,7 @@ import {
   TextInputStylesNames,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useContext, useEffect, useState } from "react";
 
 import LeafIcon from "@/assets/icons/leaf.svg";
 import BaseIcon from "@/components/Presentational/BaseIcon";
@@ -21,6 +21,12 @@ import {
 } from "@/types/certificates";
 import CountryPicker from "@/components/Presentational/CountryPicker";
 import countryPickerData from "@/constants/countryPickerData";
+import { WalletContext } from "@/context/wallet";
+import generateRetireTokenTrx from "@/helpers/batches/transactions";
+import { ChainContext } from "@/context/chain";
+import { broadCastMessages } from "@/utils/wallets";
+import { useAppSelector } from "@/hooks/redux";
+import { selectConnectedWallet } from "@/redux/selectors";
 
 type Props = {
   isModalOpened: boolean;
@@ -59,9 +65,9 @@ export default function RetireModal({
   offset,
   batchId,
 }: Props) {
-  const [trxGenerationData, setTrxGenerationData] =
-    useState<IRetireTokenTrxGenerationData>();
-
+  const { chainInfo } = useContext(ChainContext);
+  const { wallet } = useContext(WalletContext);
+  const userWallet = useAppSelector(selectConnectedWallet);
   const retireForm = useForm<IRetireFormData>({
     // Initial values are mocked up until the requirements are met
     initialValues: {
@@ -81,10 +87,13 @@ export default function RetireModal({
     },
   });
 
+  const [trxGenerationData, setTrxGenerationData] =
+    useState<IRetireTokenTrxGenerationData>();
+
   // FIXME: EMERGING-196 submit actions need to be discussed
   function onOffsetFormSubmit() {
     const isRetireValid = offset && offset > 0 && offset <= 1_200_000;
-    if (!isRetireValid || !batchId) return;
+    if (!isRetireValid || !batchId || !userWallet) return;
 
     const countryCode = countryPickerData.find(
       (country) => country.name === retireForm.values.country
@@ -95,7 +104,7 @@ export default function RetireModal({
     setTrxGenerationData({
       jurisdiction: countryCode,
       tokens,
-      owner: "",
+      owner: userWallet,
     });
   }
 
@@ -103,6 +112,24 @@ export default function RetireModal({
     retireForm.reset();
     closeModal();
   }
+
+  useEffect(() => {
+    console.log("🦍 Cached value: ", userWallet);
+    console.log("🦍 Not cached value: ", wallet);
+    console.log("🦍 Not cached value: ", chainInfo);
+    if (trxGenerationData?.owner && chainInfo && wallet.user?.address) {
+      const retireTokenTrx = generateRetireTokenTrx(trxGenerationData);
+      // TODO: Mocked broadcast method, used params must be rewritten to Redux
+      // const result = broadCastMessages(
+      //   wallet,
+      //   [retireTokenTrx],
+      //   undefined,
+      //   "average",
+      //   "uixo",
+      //   chainInfo
+      // );
+    }
+  }, [trxGenerationData]);
 
   return (
     <Modal

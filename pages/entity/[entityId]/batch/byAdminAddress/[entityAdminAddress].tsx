@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDisclosure, useToggle } from "@mantine/hooks";
+import { useRouter } from "next/router";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchBatchesByAddress } from "@/redux/batches/thunks";
@@ -11,11 +12,14 @@ import RetireModal from "@/components/Pages/Batches/RetireModal";
 import { ControlsDisplayMods } from "@/types";
 import BatchesTable from "@/components/Pages/Batches/BatchesTable";
 import BatchesGrid from "@/components/Pages/Batches/BatchesGrid";
+import { selectConnectedWallet } from "@/redux/selectors";
 
 export default function Batches() {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const adminAddress = useValueFromRouter("entityAdminAddress");
   const batches = useAppSelector(selectAddressBatches);
+  const userAddress = useAppSelector(selectConnectedWallet);
   const [opened, { open, close }] = useDisclosure(false);
   const [batchesViewMode, toggleBatchesViewMode] = useToggle([
     ControlsDisplayMods.gridView,
@@ -23,9 +27,12 @@ export default function Batches() {
   ]);
 
   const [selectedOffset, setSelectedOffset] = useState<number | undefined>();
-  const [selectedBatchId, setSelectedBatchId] = useState<
-    string | undefined
-  >();
+  const [selectedBatchId, setSelectedBatchId] = useState<string | undefined>();
+
+  useEffect(() => {
+    if (!userAddress)
+      router.push("/collections/global", undefined, { shallow: true });
+  }, [userAddress]);
 
   useEffect(() => {
     if (adminAddress) {
