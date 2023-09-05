@@ -16,7 +16,6 @@ import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExte
 import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
 import {
   extendEntities,
-  extendSingleEntity,
 } from "@/helpers/transformData/extendEntities";
 
 const defaultColumnHeadersState: IColumnHeader[] = [

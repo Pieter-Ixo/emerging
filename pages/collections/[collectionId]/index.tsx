@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
-  selectCollections,
+  selectCollectionById,
   selectEntitiesByCollectionId,
   selectTotalCollectionEntitiesToken,
 } from "@/redux/entityCollections/selectors";
@@ -51,7 +51,9 @@ const CollectionPerformanceCard = dynamic(
 export default function Collection() {
   const collectionId = useValueFromRouter("collectionId");
   const dispatch = useAppDispatch();
-  const collections = useAppSelector(selectCollections);
+  const collection = useAppSelector((state) =>
+    selectCollectionById(state, collectionId)
+  );
   const collectionEntities = useAppSelector((state) =>
     selectEntitiesByCollectionId(state, collectionId)
   );
@@ -61,8 +63,8 @@ export default function Collection() {
 
   useEffect(() => {
     if (collectionId) {
-      dispatch(fetchTotalCollectionEntities(collectionId));
       dispatch(fetchAndFillCollectionById(collectionId));
+      dispatch(fetchTotalCollectionEntities(collectionId));
     }
   }, [collectionId]);
 
@@ -75,12 +77,10 @@ export default function Collection() {
         })
       );
     }
-  }, [collections.length, collectionEntities?.length]);
+  }, [collection]);
 
-  const collectionTitle =
-    collections?.[0]?._profile?.brand || collections?.[0]?._profile?.name
-      ? `${collections?.[0]?._profile?.brand} ${collections?.[0]?._profile?.name}`
-      : "Collection";
+  const collectionDateYear = collection?.startDate.split("-")[0];
+  const collectionTitle = `${collection?._profile?.brand} - ${collection?._profile?.name} ${collectionDateYear}`;
 
   return (
     <AppLayout title="Emerging Collections">
@@ -92,7 +92,7 @@ export default function Collection() {
           </Title>
         </Link>
         <Title order={2} fw={300}>
-          {collectionTitle}
+          {collection ? collectionTitle : "Collection"}
         </Title>
       </PageHeader>
 

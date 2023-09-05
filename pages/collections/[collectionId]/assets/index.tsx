@@ -61,9 +61,7 @@ export default function Assets() {
           Collections
         </Title>
         <Title order={2} fw={300}>
-          {collection
-            ? `${collection?._profile?.brand} ${collection?._profile?.name}`
-            : "Collection"}
+          {collection ? collectionTitle : "Collection"}
         </Title>
       </PageHeader>
       <PageBlock
