@@ -14,7 +14,7 @@ import {
 import { fetchTransactionByHash } from "@/redux/transactions/thunks";
 import JSONViewer from "@/components/Presentational/JSONViewer";
 
-export default function Batches() {
+export default function TransactionCertificate() {
   const dispatch = useAppDispatch();
   const transactionId = useValueFromRouter("transactionId");
   const transaction = useAppSelector(selectTransaction);
@@ -28,7 +28,7 @@ export default function Batches() {
   }, [transactionId]);
 
   return (
-    <AppLayout title="Carbon Certificates">
+    <AppLayout title="Transaction Certificate">
       <BatchesPageHeader
         activeViewMode={ControlsDisplayMods.listView}
         toggleBatchesViewMode={() => {}}
