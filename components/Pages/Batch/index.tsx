@@ -67,8 +67,12 @@ export default function BatchPageLayout() {
   const verifiableCred = batch?._verifiableCred;
   const claimCer = batch?._claimCer;
 
-  const batchProgress =
+  const minted =
     entity?._adminToken?.CARBON?.tokens[batchId || ""]?.minted;
+  const amount =
+    entity?._adminToken?.CARBON?.tokens[batchId || ""]?.amount;
+  const retired =
+    entity?._adminToken?.CARBON?.tokens[batchId || ""]?.retired;
 
   const entityAdminAddress = entity?.accounts[0].address;
 
@@ -86,7 +90,9 @@ export default function BatchPageLayout() {
               name={batch?.name}
               batchId={batch?.id}
               entityAdminAddress={entityAdminAddress}
-              progress={batchProgress}
+              minted={minted}
+              amount={amount}
+              retired={retired}
             />
 
             <Grid py="md" px="lg" gutter="lg">

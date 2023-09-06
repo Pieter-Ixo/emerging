@@ -39,7 +39,7 @@ export default function BatchesItem({
 }: Props) {
   const router = useRouter();
 
-  const isProgressComplete = retired === amount;
+  const isProgressComplete = retired === minted;
 
   const batchBackgroundImage = isProgressComplete
     ? "url(/images/bg/certificate-bg--disabled.png)"
@@ -53,9 +53,9 @@ export default function BatchesItem({
 
   const onOffsetBtnClick = (e: MouseEvent<any>) => {
     e.stopPropagation();
-    
-    if (amount !== undefined && retired !== undefined)
-      onBatchClick(amount - retired, batchId);
+
+    if (amount !== undefined)
+      onBatchClick(amount, batchId);
   };
 
   const buttonStyles: Sx = isProgressComplete
