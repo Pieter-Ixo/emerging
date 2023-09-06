@@ -54,18 +54,15 @@ export default function BatchesItem({
   const onOffsetBtnClick = (e: MouseEvent<any>) => {
     e.stopPropagation();
 
-    if (amount !== undefined)
-      onBatchClick(amount, batchId);
+    if (amount !== undefined) onBatchClick(amount, batchId);
   };
 
-  const buttonStyles: Sx = isProgressComplete
-    ? {
-        cursor: "default",
-        pointerEvents: "none",
-        backgroundColor: palette.Neutral800,
-        ":hover": { backgroundColor: palette.Neutral800 },
-      }
-    : {};
+  const buttonStyles: Sx = {
+    cursor: "default",
+    pointerEvents: "none",
+    backgroundColor: palette.Neutral800,
+    ":hover": { backgroundColor: palette.Neutral800 },
+  };
 
   return (
     <Flex
@@ -127,7 +124,7 @@ export default function BatchesItem({
           radius="xl"
           h={45}
         >
-          {isProgressComplete ? "Fully Retired" : "Retire Credits"}
+          Retire Credits
         </Button>
       </Flex>
     </Flex>
