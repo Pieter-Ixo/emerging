@@ -7,13 +7,15 @@ import AppLayout from "@/components/Layout/AppLayout";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import CollectionCard from "@/components/Pages/Collections/Global/CollectionsGrid/CollectionCard";
+
 import {
   selectGlobalCollections,
   selectIsGlobalCollectionsLoading,
   selectGlobalCollectionsLoadingError,
 } from "@/redux/globalCollections/selectors";
 import { fetchGlobalCollections } from "@/redux/globalCollections/thunks";
+
+import CollectionCard from "./CollectionCard";
 
 export default function Collections() {
   const dispatch = useAppDispatch();
