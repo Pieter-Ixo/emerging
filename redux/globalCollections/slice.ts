@@ -8,6 +8,7 @@ import {
   ICollection,
   ICollectionProfile,
   ICollectionTags,
+  ICollectionTokenIpfs,
 } from "@/types/entityCollections";
 import { GlobalCollectionsState, ICollectionState } from "./types";
 import { getCollectionIndex } from "./helpers";
@@ -35,7 +36,7 @@ const initialState: GlobalCollectionsState = {
 };
 
 const GlobalCollectionsSlice = createSlice({
-  name: "globalCollections",
+  name: "GlobalCollectionsSlice",
   initialState,
   reducers: {
     setGlobalCollections: (state, action: PayloadAction<ICollection[]>) => {
@@ -135,10 +136,39 @@ const GlobalCollectionsSlice = createSlice({
       const collectionIndex = getCollectionIndex(state, id);
       state.globalCollections[collectionIndex].tagsError = error;
     },
-  },
-
-  extraReducers: (builder: ActionReducerMapBuilder<GlobalCollectionsState>) => {
-    builder.addDefaultCase(() => {});
+    setCollectionTokenIpfs: (
+      state,
+      action: PayloadAction<{
+        id: ICollection["id"];
+        tokenIpfs: ICollectionTokenIpfs;
+      }>
+    ) => {
+      const { id, tokenIpfs } = action.payload;
+      const indexOfCollectionInState = getCollectionIndex(state, id);
+      state.globalCollections[indexOfCollectionInState].tokenIpfs = tokenIpfs;
+    },
+    setIsCollectionTokenIpfsLoading: (
+      state,
+      action: PayloadAction<{
+        id: ICollection["id"];
+        isLoading: ICollectionState["isTokenIpfsLoading"];
+      }>
+    ) => {
+      const { id, isLoading } = action.payload;
+      const collectionIndex = getCollectionIndex(state, id);
+      state.globalCollections[collectionIndex].isTokenIpfsLoading = isLoading;
+    },
+    setCollectionTokenIpfsError: (
+      state,
+      action: PayloadAction<{
+        id: ICollection["id"];
+        error: ICollectionState["tokenIpfsError"];
+      }>
+    ) => {
+      const { id, error } = action.payload;
+      const collectionIndex = getCollectionIndex(state, id);
+      state.globalCollections[collectionIndex].tokenIpfsError = error;
+    },
   },
 });
 
@@ -154,6 +184,10 @@ export const {
   setCollectionTags,
   setIsCollectionTagsLoading,
   setCollectionTagsError,
+
+  setCollectionTokenIpfs,
+  setIsCollectionTokenIpfsLoading,
+  setCollectionTokenIpfsError,
 } = GlobalCollectionsSlice.actions;
 
 export default GlobalCollectionsSlice.reducer;
