@@ -124,7 +124,7 @@ export default function RetireModal({
   useEffect(() => {
     console.log("🦍 Cached value: ", userWallet);
     console.log("🦍 Not cached value: ", { wallet, chainInfo });
-  });
+  }, []);
 
   return (
     <Modal

@@ -82,7 +82,7 @@ export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
             {adminTokensLength || userTokensLength}
           </Text>
           <Text color={palette.accentActive} pb="md" ml="xs">
-            BATCHES
+            BATCHES {entity.alsoKnownAs.replace("{id}", "")}
           </Text>
         </Flex>
         <Stack spacing="xs">

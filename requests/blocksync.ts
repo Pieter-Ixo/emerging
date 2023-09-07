@@ -57,7 +57,7 @@ export async function requestCollectionsByOwnerAddress(
 
 export async function requestEntityByExternalID(
   externalId: string
-): Promise<IEntityExtended> {
+): Promise<IEntity> {
   const entity = await requestBlocksyncAPI<IEntity>(
     `/api/entity/byExternalId/${externalId}`
   );

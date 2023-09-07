@@ -4,6 +4,7 @@ import {
   requestBatches,
   requestBatchByID,
   requestBatchesByAddress,
+  requestEntityByExternalID,
 } from "@/requests/blocksync";
 import requestClaimCerFilled from "@/requests/requesters/requestClaimCer";
 import requestClaimIssuerFilled from "@/requests/requesters/requestClaimIssuer";
@@ -16,6 +17,7 @@ import {
   IBatchDataFilled,
 } from "@/types/certificates";
 import isURL from "@/utils/isStrUrl";
+import { IEntity } from "@/types/entityCollections";
 
 // eslint-disable-next-line import/no-cycle
 import { AppDispatch } from "../store";
@@ -46,14 +48,28 @@ export const fetchBatchesForEntity = createAsyncThunk<
     return batchesResponse;
   }
 );
-export const fetchBatchesByAddress = createAsyncThunk<
+export const fetchBatchesByOwnerAddress = createAsyncThunk<
   IAddressBatchResponse,
   string,
   { dispatch: AppDispatch }
 >(
-  "batches/fetchBatchesByAddress",
-  async (address: string, { dispatch }): Promise<IAddressBatchResponse> => {
-    const batchesResponse = await requestBatchesByAddress(address);
+  "batches/fetchBatchesByOwnerAddress",
+  async (ownerAddress: string, { dispatch }): Promise<IAddressBatchResponse> => {
+    const batchesResponse = await requestBatchesByAddress(ownerAddress);
+
+    if (!batchesResponse) throw new Error("panica!");
+
+    return batchesResponse;
+  }
+);
+export const fetchBatchesByAdminAddress = createAsyncThunk<
+  IAddressBatchResponse,
+  string,
+  { dispatch: AppDispatch }
+>(
+  "batches/fetchBatchesByAdminAddress",
+  async (adminAddress: string, { dispatch }): Promise<IAddressBatchResponse> => {
+    const batchesResponse = await requestBatchesByAddress(adminAddress);
 
     if (!batchesResponse) throw new Error("panica!");
 
@@ -100,4 +116,10 @@ export const fetchBatchById = createAsyncThunk<
 
     return filledBatch;
   }
+);
+
+export const fetchBatchesEntityByExternalId = createAsyncThunk(
+  "entityCollections/fetchBatchesEntityByExternalId",
+  async (externalId: string): Promise<IEntity> =>
+    requestEntityByExternalID(externalId)
 );

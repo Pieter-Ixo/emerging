@@ -2,8 +2,16 @@ import { useEffect, useState } from "react";
 import { useDisclosure, useToggle } from "@mantine/hooks";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { fetchBatchesByAddress } from "@/redux/batches/thunks";
-import { selectAddressBatches } from "@/redux/batches/selectors";
+import {
+  fetchBatchesEntityByExternalId,
+  fetchBatchesByOwnerAddress,
+  fetchBatchesByAdminAddress,
+} from "@/redux/batches/thunks";
+import {
+  selectAdminAddressBatches,
+  selectBatchesEntity,
+  selectOwnerAddressBatches,
+} from "@/redux/batches/selectors";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import BatchesPageHeader from "@/components/Pages/Batches/Header";
 import AppLayout from "@/components/Layout/AppLayout";
@@ -15,20 +23,41 @@ import BatchesGrid from "@/components/Pages/Batches/BatchesGrid";
 export default function OwnerBatches() {
   const dispatch = useAppDispatch();
   const ownerAddress = useValueFromRouter("entityOwnerAddress");
-  const batches = useAppSelector(selectAddressBatches);
+  const entityExternalId = useValueFromRouter("entityId");
+
   const [opened, { open, close }] = useDisclosure(false);
   const [batchesViewMode, toggleBatchesViewMode] = useToggle([
     ControlsDisplayMods.gridView,
     ControlsDisplayMods.listView,
   ]);
 
-  const [selectedAvailableCreditsOffset, setSelectedAvailableCredits] =
-    useState<number | undefined>();
+  const adminBatches = useAppSelector(selectAdminAddressBatches);
+  const ownerBatches = useAppSelector(selectOwnerAddressBatches);
+  const batchesEntity = useAppSelector(selectBatchesEntity);
+
+  const [selectedAvailableCredits, setSelectedAvailableCredits] = useState<
+    number | undefined
+  >();
   const [selectedBatchId, setSelectedBatchId] = useState<string | undefined>();
 
   useEffect(() => {
-    if (ownerAddress) dispatch(fetchBatchesByAddress(ownerAddress));
-  }, [ownerAddress, dispatch]);
+    if (ownerAddress) {
+      dispatch(fetchBatchesByOwnerAddress(ownerAddress));
+      console.log("owner batches: ", ownerBatches);
+    }
+  }, [ownerAddress]);
+
+  useEffect(() => {
+    if (batchesEntity?.accounts[0].address) {
+      dispatch(fetchBatchesByAdminAddress(batchesEntity?.accounts[0].address));
+      console.log("admin batches: ", adminBatches);
+    }
+  }, [batchesEntity?.accounts[0].address]);
+
+  useEffect(() => {
+    if (entityExternalId)
+      dispatch(fetchBatchesEntityByExternalId(entityExternalId));
+  }, [entityExternalId, dispatch]);
 
   const onBatchClick = (
     availableCredits: number | undefined,
@@ -51,13 +80,13 @@ export default function OwnerBatches() {
         toggleBatchesViewMode={toggleBatchesViewMode}
       />
       {batchesViewMode === ControlsDisplayMods.gridView ? (
-        <BatchesGrid onBatchClick={onBatchClick} batches={batches} />
+        <BatchesGrid onBatchClick={onBatchClick} batches={ownerBatches} />
       ) : (
-        <BatchesTable batches={batches && Object.entries(batches)} />
+        <BatchesTable batches={ownerBatches && Object.entries(ownerBatches)} />
       )}
       <RetireModal
         isModalOpened={opened}
-        availableCredits={selectedAvailableCreditsOffset}
+        availableCredits={selectedAvailableCredits}
         batchId={selectedBatchId}
         closeModal={() => onModalClose()}
       />

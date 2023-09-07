@@ -7,28 +7,35 @@ import {
   IBatch,
   IBatchDataFilled,
 } from "@/types/certificates";
+import { IEntity } from "@/types/entityCollections";
 
 // eslint-disable-next-line import/no-cycle
 import {
   fetchAllBatches,
   fetchBatchById,
-  fetchBatchesByAddress,
+  fetchBatchesEntityByExternalId,
+  fetchBatchesByOwnerAddress,
+  fetchBatchesByAdminAddress,
 } from "./thunks";
 
 export type IBatchesState = {
   batches: IBatch[];
-  // TODO: improve naming for addressBatches
-  addressBatches: IAddressBatches;
+  // TODO: should we remove word Address from naming ? 
+  ownerAddressBatches: IAddressBatches;
+  adminAddressBatches: IAddressBatches;
   isBatchLoading: boolean;
   isBatchesLoading: boolean;
   selectedBatchData: IBatchDataFilled | undefined;
+  batchesEntity: IEntity | undefined;
 };
 const initialState: IBatchesState = {
   isBatchesLoading: false,
   isBatchLoading: false,
   batches: [],
-  addressBatches: {},
+  ownerAddressBatches: {},
+  adminAddressBatches: {},
   selectedBatchData: undefined,
+  batchesEntity: undefined,
 };
 
 const BatchesSlice = createSlice({
@@ -59,13 +66,34 @@ const BatchesSlice = createSlice({
       state.selectedBatchData = action.payload;
     });
 
-    // fetchBatchesByAddress
-    builder.addCase(fetchBatchesByAddress.pending, (state) => {
+    // fetchBatchesEntityByExternalId
+    builder.addCase(fetchBatchesEntityByExternalId.pending, (state) => {
       state.isBatchLoading = true;
     });
-    builder.addCase(fetchBatchesByAddress.fulfilled, (state, action) => {
+    builder.addCase(
+      fetchBatchesEntityByExternalId.fulfilled,
+      (state, action) => {
+        state.isBatchLoading = false;
+        state.batchesEntity = action.payload;
+      }
+    );
+
+    // fetchBatchesByOwnerAddress
+    builder.addCase(fetchBatchesByOwnerAddress.pending, (state) => {
+      state.isBatchLoading = true;
+    });
+    builder.addCase(fetchBatchesByOwnerAddress.fulfilled, (state, action) => {
       state.isBatchLoading = false;
-      state.addressBatches = action?.payload?.CARBON?.tokens;
+      state.ownerAddressBatches = action?.payload?.CARBON?.tokens;
+    });
+
+    // fetchBatchesByAdminAddress
+    builder.addCase(fetchBatchesByAdminAddress.pending, (state) => {
+      state.isBatchLoading = true;
+    });
+    builder.addCase(fetchBatchesByAdminAddress.fulfilled, (state, action) => {
+      state.isBatchLoading = false;
+      state.adminAddressBatches = action?.payload?.CARBON?.tokens;
     });
 
     builder.addCase(HYDRATE, (state, action) => ({

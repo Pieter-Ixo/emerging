@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useDisclosure, useToggle } from "@mantine/hooks";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { fetchBatchesByAddress } from "@/redux/batches/thunks";
-import { selectAddressBatches } from "@/redux/batches/selectors";
+import { fetchBatchesByAdminAddress } from "@/redux/batches/thunks";
+import { selectAdminAddressBatches } from "@/redux/batches/selectors";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import BatchesPageHeader from "@/components/Pages/Batches/Header";
 import AppLayout from "@/components/Layout/AppLayout";
@@ -15,7 +15,7 @@ import BatchesGrid from "@/components/Pages/Batches/BatchesGrid";
 export default function AdminBatches() {
   const dispatch = useAppDispatch();
   const adminAddress = useValueFromRouter("entityAdminAddress");
-  const batches = useAppSelector(selectAddressBatches);
+  const adminBatches = useAppSelector(selectAdminAddressBatches);
   const [opened, { open, close }] = useDisclosure(false);
   const [batchesViewMode, toggleBatchesViewMode] = useToggle([
     ControlsDisplayMods.gridView,
@@ -27,7 +27,7 @@ export default function AdminBatches() {
 
   useEffect(() => {
     if (adminAddress) {
-      dispatch(fetchBatchesByAddress(adminAddress));
+      dispatch(fetchBatchesByAdminAddress(adminAddress));
     }
   }, [adminAddress, dispatch]);
 
@@ -52,9 +52,9 @@ export default function AdminBatches() {
         toggleBatchesViewMode={toggleBatchesViewMode}
       />
       {batchesViewMode === ControlsDisplayMods.gridView ? (
-        <BatchesGrid onBatchClick={onBatchClick} batches={batches} />
+        <BatchesGrid onBatchClick={onBatchClick} batches={adminBatches} />
       ) : (
-        <BatchesTable batches={batches && Object.entries(batches)} />
+        <BatchesTable batches={adminBatches && Object.entries(adminBatches)} />
       )}
       <RetireModal
         isModalOpened={opened}

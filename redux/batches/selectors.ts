@@ -18,10 +18,20 @@ export const selectAllBatches = createDraftSafeSelector(
     batchesState.batches
 );
 
-export const selectAddressBatches = createDraftSafeSelector(
+export const selectAdminAddressBatches = createDraftSafeSelector(
   selectBatchesState,
-  (batchesState: IBatchesState): IBatchesState["addressBatches"] | undefined =>
-    batchesState.addressBatches
+  (
+    batchesState: IBatchesState
+  ): IBatchesState["adminAddressBatches"] | undefined =>
+    batchesState.adminAddressBatches
+);
+
+export const selectOwnerAddressBatches = createDraftSafeSelector(
+  selectBatchesState,
+  (
+    batchesState: IBatchesState
+  ): IBatchesState["ownerAddressBatches"] | undefined =>
+    batchesState.ownerAddressBatches
 );
 
 export const selectSelectedBatch = createDraftSafeSelector(
@@ -51,3 +61,14 @@ export const selectBatchesForEntity =
 
     return filteredBatches;
   };
+
+export const selectBatchesEntity = createDraftSafeSelector(
+  selectBatchesState,
+  (batchesState: IBatchesState): IBatchesState["batchesEntity"] => {
+    const batchesEntity = batchesState.batchesEntity;
+
+    if (!batchesEntity) return undefined;
+
+    return batchesEntity;
+  }
+);
