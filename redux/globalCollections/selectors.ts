@@ -1,6 +1,7 @@
 import { createDraftSafeSelector } from "@reduxjs/toolkit";
 
 import { RootState } from "../store";
+
 import { GlobalCollectionsState, ICollectionState } from "./types";
 
 export const selectRoot = (state: RootState) => state;

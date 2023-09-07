@@ -25,9 +25,11 @@ export async function requestGlobalCollections(): Promise<
   const { data, error } = await BlocksyncAPI<IApiEntityCollectionsResponse>(
     "/api/entity/collections"
   );
-  const collections = data?.map(
-    (entityCollection) => entityCollection.collection
-  );
+
+  const collections = data?.map((entityCollection) => ({
+    ...entityCollection.collection,
+    entitiesLength: entityCollection.entities?.length,
+  }));
 
   return { data: collections, error };
 }

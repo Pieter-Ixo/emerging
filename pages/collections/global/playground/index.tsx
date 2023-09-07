@@ -16,6 +16,7 @@ import fetchGlobalCollections from "@/redux/globalCollections/thunks/fetchGlobal
 
 import CollectionCard from "./CollectionCard";
 
+
 export default function Collections() {
   const dispatch = useAppDispatch();
 
