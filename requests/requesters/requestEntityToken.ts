@@ -16,7 +16,6 @@ export default async function requestUsersToken(
 
   if (tokenData.CARBON && tokenDataTotal)
     tokenData.CARBON._totalMinted = tokenDataTotal?.CARBON;
-
   return tokenData;
 }
 

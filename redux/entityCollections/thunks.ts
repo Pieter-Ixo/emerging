@@ -10,7 +10,7 @@ import {
   requestTotalCollectionEntitiesCarbon,
   requestTotalCollectionEntitiesRetired,
 } from "@/requests/blocksync";
-import {
+import requestUsersToken, {
   requestTokenByAddress,
   requestTotalTokenByAddress,
 } from "@/requests/requesters/requestEntityToken";
@@ -254,14 +254,16 @@ export const fetchNewsPosts = createAsyncThunk(
 export const fetchUsersTokens = createAsyncThunk(
   "entityCollections/fetchUsersTokens",
   async (entityOwner: string): Promise<ITokenWhateverItMean | undefined> => {
-    const tokenData = await requestTokenByAddress(entityOwner);
+    const tokenData = await requestUsersToken(entityOwner);
     return tokenData;
   }
 );
 export const fetchUsersTotalTokens = createAsyncThunk(
   "entityCollections/fetchUsersTotalTokens",
   async (entityOwner: string): Promise<ITokenWhateverItMean | undefined> => {
-    const tokensForAllUserEntities = await requestTotalTokenByAddress(entityOwner);
+    const tokensForAllUserEntities = await requestTotalTokenByAddress(
+      entityOwner
+    );
     return tokensForAllUserEntities;
   }
 );
@@ -271,11 +273,6 @@ export const fetchAdminTokens = createAsyncThunk(
     const tokenData = await requestTokenByAddress(adminAddress);
     return tokenData;
   }
-);
-
-export const resetEntityTokens = createAsyncThunk(
-  "entityCollections/resetEntityTokens",
-  (): void => {}
 );
 
 export const fetchCollectionTokenIpfs = createAsyncThunk(

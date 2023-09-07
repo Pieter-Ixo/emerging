@@ -26,8 +26,8 @@ import {
   fetchAndFillCollectionById,
   fetchCollectionEntityBatchesTotalByAdminAccount,
   fetchEntityTransactions,
-  resetEntityTokens,
 } from "./thunks";
+import resetEntityTokens from "./actions";
 
 export type EntityCollectionState = {
   entityCollections: ICollectionEntities[];
@@ -231,7 +231,7 @@ const EntityCollectionSlice = createSlice({
       state.isUserTokensLoading = false;
     });
     // resetAdminUserToken
-    builder.addCase(resetEntityTokens.fulfilled, (state) => {
+    builder.addCase(resetEntityTokens, (state) => {
       state.userTokens = undefined;
       state.adminTokens = undefined;
     });

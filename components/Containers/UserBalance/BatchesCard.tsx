@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   fetchAdminTokens,
   fetchUsersTokens,
-  resetEntityTokens,
 } from "@/redux/entityCollections/thunks";
 import {
   selectAdminTokens,
@@ -19,6 +18,7 @@ import {
 import { IEntityExtended } from "@/types/entityCollections";
 import Generated from "@/assets/icons/generated.svg";
 import BaseIcon from "@/components/Presentational/BaseIcon";
+import resetEntityTokens from "@/redux/entityCollections/actions";
 
 import { ImpactCreditsButtonBlue } from "./StyledButtons";
 
@@ -40,7 +40,6 @@ export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
   const entityExternalId = entity.externalId;
 
   useEffect(() => {
-    console.log(entityOwnerAddress);
     dispatch(resetEntityTokens());
   }, []);
 
