@@ -51,6 +51,7 @@ export default function CollectionCard({
         <BackgroundImage src={imageUrl || ""} mih={250}>
           <Flex justify="flex-end" align="flex-start" gap="sm" p="md">
             {sdgTags?.map((tagText) => (
+
               <TagIcon name={tagText} key={tagText} />
             ))}
           </Flex>
