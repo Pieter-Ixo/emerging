@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import {
   Box,
   Text,
@@ -9,27 +10,33 @@ import {
   Badge,
 } from "@mantine/core";
 
-import { useAppDispatch } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { ICollectionExtended } from "@/types/entityCollections";
 import getEntityTagsByCategory from "@/helpers/transformData/getEntityTagsByCategory";
 import { palette } from "@/theme/palette";
 import TagIcon from "@/components/Pages/Collections/Global/CollectionsGrid/TagIcon";
+import { fetchCollectionsProfile } from "@/redux/globalCollections/thunks";
+import { selectCollectionProfileById } from "@/redux/globalCollections/selectors";
 
 type Props = { collection: ICollectionExtended; entitiesLength: number };
 
 export default function CollectionCard({ collection, entitiesLength }: Props) {
-  const dispatch = useAppDispatch();
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const profile = useAppSelector((state) =>
+    selectCollectionProfileById(state, collection.id)
+  );
   const collectionTokenIpfs = collection._tokenIpfs;
 
-  const brand = collection._profile?.brand;
-  const name = collection._profile?.name;
-  const imageUrl = collection._profile?.imageUrl;
-  const logoUrl = collection._profile?.logoUrl;
+  const { brand, name, imageUrl, logoUrl } = profile || {};
 
   const tags = getEntityTagsByCategory(collection, "SDG") ?? [];
 
   const badgeTitle = collectionTokenIpfs?.properties.denom;
+
+  useEffect(() => {
+    dispatch(fetchCollectionsProfile(collection.id));
+  }, [collection.id]);
 
   return (
     <Card

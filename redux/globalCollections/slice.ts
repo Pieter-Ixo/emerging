@@ -4,38 +4,9 @@ import {
   PayloadAction,
   createSlice,
 } from "@reduxjs/toolkit";
-import {
-  ICollection,
-  ICollectionProfile,
-  ICollectionTags,
-  ICollectionTokenIpfs,
-} from "@/types/entityCollections";
-
-export type ICollectionState = {
-  collection: ICollection;
-
-  profile?: ICollectionProfile;
-  isProfileLoading?: boolean;
-  profileLoadingError?: Error | undefined;
-
-  tags?: ICollectionTags;
-  isTagsLoading?: boolean;
-  tagsLoadingError?: Error | undefined;
-
-  tokenIpfs?: ICollectionTokenIpfs;
-  isTokenIpfsLoading?: boolean;
-  tokenIpfsLoadingError?: Error | undefined;
-};
-
-export type GlobalCollectionsState = {
-  globalCollections: ICollectionState[];
-  isGlobalCollectionsLoading: boolean;
-  globalCollectionsLoadingError: Error | undefined;
-
-  selectedCollection: ICollectionState | undefined;
-  isSelectedCollectionLoading: boolean;
-  selectedCollectionLoadingError: Error | undefined;
-};
+import { ICollection, ICollectionProfile } from "@/types/entityCollections";
+import { GlobalCollectionsState, ICollectionState } from "./types";
+import { getCollectionIndex } from "./helpers";
 
 const initialState: GlobalCollectionsState = {
   globalCollections: [],
@@ -51,6 +22,7 @@ const GlobalCollectionsSlice = createSlice({
   name: "globalCollections",
   initialState,
   reducers: {
+    // TODO: move reducers to ./reducers.ts
     setGlobalCollections: (state, action: PayloadAction<ICollection[]>) => {
       const collections = action.payload;
       const collectionsState: ICollectionState[] = collections.map(
@@ -64,6 +36,40 @@ const GlobalCollectionsSlice = createSlice({
     setGlobalCollectionsLoadingError: (state, action: PayloadAction<Error>) => {
       state.globalCollectionsLoadingError = action.payload;
     },
+
+    setCollectionProfile: (
+      state,
+      action: PayloadAction<{
+        id: ICollection["id"];
+        profile: ICollectionProfile;
+      }>
+    ) => {
+      const { id, profile } = action.payload;
+      const indexOfCollectionInState = getCollectionIndex(state, id);
+      state.globalCollections[indexOfCollectionInState].profile = profile;
+    },
+    setIsCollectionProfileLoading: (
+      state,
+      action: PayloadAction<{
+        id: ICollection["id"];
+        isLoading: ICollectionState["isProfileLoading"];
+      }>
+    ) => {
+      const { id, isLoading } = action.payload;
+      const collectionIndex = getCollectionIndex(state, id);
+      state.globalCollections[collectionIndex].isProfileLoading = isLoading;
+    },
+    setCollectionProfileLoadingError: (
+      state,
+      action: PayloadAction<{
+        id: ICollection["id"];
+        error: ICollectionState["profileLoadingError"];
+      }>
+    ) => {
+      const { id, error } = action.payload;
+      const collectionIndex = getCollectionIndex(state, id);
+      state.globalCollections[collectionIndex].profileLoadingError = error;
+    },
   },
 
   extraReducers: (builder: ActionReducerMapBuilder<GlobalCollectionsState>) => {
@@ -75,6 +81,10 @@ export const {
   setGlobalCollections,
   setIsGlobalCollectionsLoading,
   setGlobalCollectionsLoadingError,
+
+  setCollectionProfile,
+  setIsCollectionProfileLoading,
+  setCollectionProfileLoadingError,
 } = GlobalCollectionsSlice.actions;
 
 export default GlobalCollectionsSlice.reducer;
