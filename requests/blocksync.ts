@@ -14,7 +14,7 @@ import { IEntityTransactionResponse } from "@/types/entityCollections/transactio
 import { ITransaction } from "@/types/transaction";
 
 export const blocksynkAPI = create({ baseURL: BlocksyncUrl });
-export const blocksynkGqlUrl = `${BlocksyncUrl}/graphql`;
+export const blocksynkGqlUrl = `https://devnet-blocksync-new.ixo.earth/graphql`;
 
 export async function requestBlocksyncAPI<ReturnType>(
   url: string
@@ -138,14 +138,30 @@ export async function requestTransactionByHash(
   try {
     const response = await fetch(blocksynkGqlUrl, {
       method: "POST",
-      body: `query Transaction {
-        transaction(hash: "${hash}") {
-            nodeId
-        }
-    }`,
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        query: `query Transaction {
+          transaction(
+              hash: "${hash}"
+          ) {
+              nodeId
+              hash
+              time
+              gasWanted
+              gasUsed
+              fee
+              code
+              height
+          }
+      }
+    `,
+      }),
     });
     const transaction = await response.json();
-    return transaction;
+    if (transaction.errors) throw transaction.errors;
+    else return transaction.data;
   } catch (error) {
     return {
       "@type": "/ixo.token.v1beta1.MsgRetireToken",
