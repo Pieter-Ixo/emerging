@@ -8,19 +8,26 @@ import {
   TextInputStylesNames,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { CSSProperties } from "react";
+import { CSSProperties, useContext, useEffect } from "react";
 
 import LeafIcon from "@/assets/icons/leaf.svg";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import { palette } from "@/theme/palette";
 import shortStr from "@/utils/shortStr";
-import { IRetireFormData } from "@/types/certificates";
+import { IRetireFormData, ImpactToken } from "@/types/certificates";
 import CountryPicker from "@/components/Presentational/CountryPicker";
+import countryPickerData from "@/constants/countryPickerData";
+import { WalletContext } from "@/context/wallet";
+import generateRetireTokenTrx from "@/helpers/batches/transactions";
+import { ChainContext } from "@/context/chain";
+import { broadCastMessages } from "@/utils/wallets";
+import { useAppSelector } from "@/hooks/redux";
+import { selectConnectedWallet } from "@/redux/selectors";
 
 type Props = {
   isModalOpened: boolean;
-  retired?: number;
-  batchNumber?: string;
+  offset?: number;
+  batchId?: string;
   closeModal: () => void;
 };
 
@@ -51,13 +58,15 @@ const textInputStyles: Styles<TextInputStylesNames, CSSProperties> = {
 export default function RetireModal({
   isModalOpened,
   closeModal,
-  retired,
-  batchNumber,
+  offset,
+  batchId,
 }: Props) {
+  const { chainInfo } = useContext(ChainContext);
+  const { wallet } = useContext(WalletContext);
+  const userWallet = useAppSelector(selectConnectedWallet);
   const retireForm = useForm<IRetireFormData>({
     // Initial values are mocked up until the requirements are met
     initialValues: {
-      offsetAmount: 0,
       country: "",
       stateRegion: "",
       postalCode: "",
@@ -65,7 +74,6 @@ export default function RetireModal({
     },
     // Validations are placeholders, correct validations will be required later.
     validate: {
-      offsetAmount: (value) => value <= 1_200_000 && value > 0,
       country: (value) => (value ? null : "Country required"),
       stateRegion: (value) =>
         value.trim().length > 10 ? "Invalid state or region" : null,
@@ -77,14 +85,43 @@ export default function RetireModal({
 
   // FIXME: EMERGING-196 submit actions need to be discussed
   function onOffsetFormSubmit() {
-    retireForm.setValues({ offsetAmount: retired });
-    console.log("RetireForm values: ", retireForm.values);
+    const isRetireValid = offset && offset > 0 && offset <= 1_200_000;
+    if (!isRetireValid || !batchId || !userWallet) return;
+
+    const countryCode = countryPickerData.find(
+      (country) => country.name === retireForm.values.country
+    )?.code;
+
+    const tokens: ImpactToken[] = [{ id: batchId, amount: offset.toString() }];
+
+    if (userWallet && chainInfo && wallet.user?.address) {
+      const retireTokenTrx = generateRetireTokenTrx({
+        jurisdiction: countryCode,
+        tokens,
+        owner: userWallet,
+      });
+
+      // TODO: Mocked broadcast method, used params must be rewritten to Redux
+      // const result = broadCastMessages(
+      //   wallet,
+      //   [retireTokenTrx],
+      //   undefined,
+      //   "average",
+      //   "uixo",
+      //   chainInfo
+      // );
+    }
   }
 
   function onOffsetModalClose() {
     retireForm.reset();
     closeModal();
   }
+
+  useEffect(() => {
+    console.log("🦍 Cached value: ", userWallet);
+    console.log("🦍 Not cached value: ", { wallet, chainInfo });
+  });
 
   return (
     <Modal
@@ -99,11 +136,11 @@ export default function RetireModal({
         <Text pt="lg" mb="lg">
           This action will retire a total of{" "}
           <Text display="inline" weight={800}>
-            {retired} CARBON
+            {offset} CARBON
           </Text>{" "}
           credits in your selected batch (
           <Text display="inline" weight={800}>
-            #{shortStr(String(batchNumber), 9, 3)}
+            #{shortStr(String(batchId), 9, 3)}
           </Text>
           ).
           <Text>Please fill out the offset details.</Text>
@@ -150,7 +187,7 @@ export default function RetireModal({
               Icon={LeafIcon}
             />
           }
-          disabled
+          disabled={!retireForm.values.country}
           type="submit"
           w="100%"
           radius="lg"

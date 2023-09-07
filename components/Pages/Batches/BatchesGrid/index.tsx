@@ -8,7 +8,7 @@ import BatchesItem from "../BatchesItem";
 type Props = {
   batches?: IAddressBatches;
   onBatchClick: (
-    retired: number | undefined,
+    offset: number | undefined,
     batchId: string | undefined
   ) => void;
 };
@@ -27,7 +27,6 @@ export default function BatchesGrid({ batches, onBatchClick }: Props) {
                 amount={batchData.amount}
                 retired={batchData.retired}
                 minted={batchData.minted}
-                offset={batchData.amount}
                 onBatchClick={onBatchClick}
                 entityId={entityId}
               />

@@ -37,25 +37,26 @@ export default function Controls({
           />
         </Tooltip>
       )}
-
-      <ActionIcon
-        w="100%"
+      <Button
+        variant="unstyled"
         h="100%"
+        p={0}
         onClick={() => toggleViewMode(ControlsDisplayMods.gridView)}
       >
         <GridViewIcon
           isActive={activeViewMode === ControlsDisplayMods.gridView}
         />
-      </ActionIcon>
-      <ActionIcon
-        w="100%"
+      </Button>
+      <Button
+        variant="unstyled"
+        p={0}
         h="100%"
         onClick={() => toggleViewMode(ControlsDisplayMods.listView)}
       >
         <ListViewIcon
           isActive={activeViewMode === ControlsDisplayMods.listView}
         />
-      </ActionIcon>
+      </Button>
 
       <Tooltip label="This functionality is under development" withArrow>
         <span

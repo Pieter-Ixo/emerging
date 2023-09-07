@@ -3,8 +3,19 @@ import { IClaimCer } from "./claimCer";
 import { IClaimIssuer, IClaimVer } from "./claimVer";
 import { IVerifiableCred } from "./verifiableCred";
 
+export type ImpactToken = {
+  id: string;
+  amount: string;
+};
+
+export type IRetireTokenTrxGenerationData = {
+  owner: string;
+  reason?: string;
+  jurisdiction?: string;
+  tokens: ImpactToken[];
+};
+
 export type IRetireFormData = {
-  offsetAmount: number;
   country: string;
   stateRegion: string;
   postalCode: string;

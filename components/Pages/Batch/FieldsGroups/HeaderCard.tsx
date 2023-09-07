@@ -2,26 +2,28 @@ import { Flex } from "@mantine/core";
 
 import ArrowBackLink from "@/components/Layout/ArrowBackLink";
 import BatchIdentifier from "@/components/Containers/BatchIdentifier";
+import BatchProgress from "@/components/Containers/BatchProgress";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 
 import CardTitle from "../CardTitle";
 import CardContainer from "../CardContainer";
-import OffsetProgres from "../OffsetProgres";
 import AstroCarbonImage from "../AstroCarbonImage";
 import TagForSomethingIDunnoWhat from "../TagForSomethingIDunnoWhat";
 
 type Props = {
   name?: string;
   batchId?: string;
-  offset?: number;
-  progress?: number;
+  minted?: number;
+  amount?: number;
+  retired?: number;
   entityAdminAddress?: string;
 };
 export default function HeaderCard({
   name,
   batchId,
-  offset,
-  progress,
+  minted,
+  amount,
+  retired,
   entityAdminAddress,
 }: Props) {
   const entityExternalId = useValueFromRouter("entityId");
@@ -36,9 +38,9 @@ export default function HeaderCard({
         <BatchIdentifier name={name} batchId={batchId} />
       </Flex>
 
-      <Flex align="center" justify="center" gap={28}>
+      <Flex align="center" justify="center" px="xl" gap={28}>
         <AstroCarbonImage />
-        <OffsetProgres progress={progress} />
+        <BatchProgress retired={retired} amount={amount} minted={minted} />
       </Flex>
 
       <Flex gap="md" justify="center" align="center" direction="row">

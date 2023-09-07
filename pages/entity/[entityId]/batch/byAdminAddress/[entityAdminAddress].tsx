@@ -22,10 +22,8 @@ export default function Batches() {
     ControlsDisplayMods.listView,
   ]);
 
-  const [selectedRetired, setSelectedRetired] = useState<number | undefined>();
-  const [selectedBatchNumber, setSelectedBatchNumber] = useState<
-    string | undefined
-  >();
+  const [selectedOffset, setSelectedOffset] = useState<number | undefined>();
+  const [selectedBatchId, setSelectedBatchId] = useState<string | undefined>();
 
   useEffect(() => {
     if (adminAddress) {
@@ -34,17 +32,17 @@ export default function Batches() {
   }, [adminAddress, dispatch]);
 
   const onBatchClick = (
-    retired: number | undefined,
+    offset: number | undefined,
     batchId: string | undefined
   ) => {
-    setSelectedRetired(retired);
-    setSelectedBatchNumber(batchId);
+    setSelectedOffset(offset);
+    setSelectedBatchId(batchId);
     open();
   };
 
   function onModalClose() {
     close();
-    setSelectedRetired(undefined);
+    setSelectedOffset(undefined);
   }
 
   return (
@@ -60,8 +58,8 @@ export default function Batches() {
       )}
       <RetireModal
         isModalOpened={opened}
-        retired={selectedRetired}
-        batchNumber={selectedBatchNumber}
+        offset={selectedOffset}
+        batchId={selectedBatchId}
         closeModal={() => onModalClose()}
       />
     </AppLayout>

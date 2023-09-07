@@ -60,7 +60,7 @@ export default function BatchProgress({
         <Text span c={progressColor} inherit>
           {retiredString} CARBON
         </Text>{" "}
-        / {mintedString} CARBON Retired
+        / {mintedString} CARBON offset
       </Text>
     </Flex>
   );

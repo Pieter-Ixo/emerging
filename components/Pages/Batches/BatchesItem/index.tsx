@@ -9,22 +9,21 @@ import Batch1 from "@/assets/icons/batch-1.svg";
 import Batch2 from "@/assets/icons/batch-2.svg";
 import Batch3 from "@/assets/icons/batch-3.svg";
 
+import BatchProgress from "@/components/Containers/BatchProgress";
 import BatchIdentifier from "@/components/Containers/BatchIdentifier";
 
 import BatchButton from "../BatchButton";
 import AstroBatchImage from "../AstroBatchImage";
-import BatchProgress from "../BatchProgress";
 
 type Props = {
   name?: string;
   batchId?: string;
-  offset?: number;
   amount?: number;
   minted?: number;
   retired?: number;
   entityId?: string;
   onBatchClick: (
-    retired: number | undefined,
+    offset: number | undefined,
     batchId: string | undefined
   ) => void;
 };
@@ -32,7 +31,6 @@ type Props = {
 export default function BatchesItem({
   name,
   batchId,
-  offset,
   minted,
   amount,
   retired,
@@ -41,11 +39,9 @@ export default function BatchesItem({
 }: Props) {
   const router = useRouter();
 
-  const isProgressComplete = !!(minted && retired === minted);
+  const isProgressComplete = retired === minted;
 
-  const isBatchHasProgress = !!(amount === 0 && (retired || 0) > 0);
-
-  const batchBackgroundImage = isBatchHasProgress
+  const batchBackgroundImage = isProgressComplete
     ? "url(/images/bg/certificate-bg--disabled.png)"
     : "url(/images/bg/certificate-bg.png)";
 
@@ -57,16 +53,16 @@ export default function BatchesItem({
 
   const onOffsetBtnClick = (e: MouseEvent<any>) => {
     e.stopPropagation();
-    onBatchClick(retired, batchId);
+
+    if (amount !== undefined) onBatchClick(amount, batchId);
   };
 
-  const buttonStyles: Sx = isProgressComplete
-    ? {
-        cursor: "default",
-        backgroundColor: palette.Neutral800,
-        ":hover": { backgroundColor: palette.Neutral800 },
-      }
-    : {};
+  const buttonStyles: Sx = {
+    cursor: "default",
+    pointerEvents: "none",
+    backgroundColor: palette.Neutral800,
+    ":hover": { backgroundColor: palette.Neutral800 },
+  };
 
   return (
     <Flex
@@ -128,7 +124,7 @@ export default function BatchesItem({
           radius="xl"
           h={45}
         >
-          {isProgressComplete ? "Fully Retired" : "Retire Credits"}
+          Retire Credits
         </Button>
       </Flex>
     </Flex>
