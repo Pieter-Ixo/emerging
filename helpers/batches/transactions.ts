@@ -13,10 +13,10 @@ const generateRetireTokenTrx = ({
     owner,
     reason,
     jurisdiction,
-    tokens: tokens.map((b) =>
+    tokens: tokens.map((batch) =>
       ixo.token.v1beta1.TokenBatch.fromPartial({
-        id: b.id,
-        amount: (b?.amount ?? 0).toString(),
+        id: batch.id,
+        amount: (batch?.amount ?? 0).toString(),
       })
     ),
   }),
