@@ -14,6 +14,7 @@ import localStorage from "redux-persist/lib/storage";
 import EntityCollectionSlice from "@/redux/entityCollections/slice";
 import BatchesSlice from "@/redux/batches/slice";
 import UserSlice from "@/redux/userSlice";
+import TransactionSlice from "@/redux/transactions/slice";
 
 const persistConfig = {
   key: "root",
@@ -25,6 +26,7 @@ export const rootReducer = combineReducers({
   user: UserSlice,
   entityCollection: EntityCollectionSlice,
   batches: BatchesSlice,
+  transactions: TransactionSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
