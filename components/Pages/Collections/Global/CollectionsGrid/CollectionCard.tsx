@@ -10,12 +10,11 @@ import {
   Badge,
 } from "@mantine/core";
 
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useAppDispatch } from "@/hooks/redux";
 import { ICollectionExtended } from "@/types/entityCollections";
 import getEntityTagsByCategory from "@/helpers/transformData/getEntityTagsByCategory";
 import { palette } from "@/theme/palette";
 import { fetchCollectionTokenIpfs } from "@/redux/entityCollections/thunks";
-import { selectCollectionsTokensIpfs } from "@/redux/entityCollections/selectors";
 
 import TagIcon from "./TagIcon";
 
@@ -24,17 +23,16 @@ type Props = { collection: ICollectionExtended; entitiesLength: number };
 export default function CollectionCard({ collection, entitiesLength }: Props) {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const collectionTokenIpfs = useAppSelector((state) =>
-    selectCollectionsTokensIpfs(state, collection.id)
-  );
+  const collectionTokenIpfs = collection._tokenIpfs;
 
   useEffect(() => {
     if (!collection._tokenIpfs) dispatch(fetchCollectionTokenIpfs(collection));
   }, [collection.id]);
 
-  if (!collection?._profile) return null;
-
-  const { brand, name, imageUrl, logoUrl } = collection._profile;
+  const brand = collection._profile?.brand;
+  const name = collection._profile?.name;
+  const imageUrl = collection._profile?.imageUrl;
+  const logoUrl = collection._profile?.logoUrl;
 
   const tags = getEntityTagsByCategory(collection, "SDG") ?? [];
 
@@ -52,7 +50,7 @@ export default function CollectionCard({ collection, entitiesLength }: Props) {
     >
       <Card.Section>
         <BackgroundImage
-          src={imageUrl}
+          src={imageUrl || ""}
           mih={250}
           data-testid="collection-card-image"
         >

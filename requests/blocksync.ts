@@ -23,7 +23,9 @@ export async function requestBlocksyncAPI<ReturnType>(
   return data;
 }
 
-export async function requestCollections(): Promise<ICollectionEntities[]> {
+export async function requestCollectionsWithEntities(): Promise<
+  ICollectionEntities[]
+> {
   const entityCollections =
     await requestBlocksyncAPI<IApiEntityCollectionsResponse>(
       "/api/entity/collections"

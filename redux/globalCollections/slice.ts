@@ -1,4 +1,9 @@
-import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
+/* eslint-disable no-param-reassign */
+import {
+  ActionReducerMapBuilder,
+  PayloadAction,
+  createSlice,
+} from "@reduxjs/toolkit";
 import {
   ICollection,
   ICollectionProfile,
@@ -10,16 +15,16 @@ export type ICollectionState = {
   collection: ICollection;
 
   profile?: ICollectionProfile;
-  isProfileLoading: boolean;
-  profileLoadingError: Error | undefined;
+  isProfileLoading?: boolean;
+  profileLoadingError?: Error | undefined;
 
   tags?: ICollectionTags;
-  isTagsLoading: boolean;
-  tagsLoadingError: Error | undefined;
+  isTagsLoading?: boolean;
+  tagsLoadingError?: Error | undefined;
 
   tokenIpfs?: ICollectionTokenIpfs;
-  isTokenIpfsLoading: boolean;
-  tokenIpfsLoadingError: Error | undefined;
+  isTokenIpfsLoading?: boolean;
+  tokenIpfsLoadingError?: Error | undefined;
 };
 
 export type GlobalCollectionsState = {
@@ -45,11 +50,31 @@ const initialState: GlobalCollectionsState = {
 const GlobalCollectionsSlice = createSlice({
   name: "globalCollections",
   initialState,
-  reducers: {},
+  reducers: {
+    setGlobalCollections: (state, action: PayloadAction<ICollection[]>) => {
+      const collections = action.payload;
+      const collectionsState: ICollectionState[] = collections.map(
+        (collection) => ({ collection })
+      );
+      state.globalCollections = collectionsState;
+    },
+    setIsGlobalCollectionsLoading: (state, action: PayloadAction<boolean>) => {
+      state.isGlobalCollectionsLoading = action.payload;
+    },
+    setGlobalCollectionsLoadingError: (state, action: PayloadAction<Error>) => {
+      state.globalCollectionsLoadingError = action.payload;
+    },
+  },
 
   extraReducers: (builder: ActionReducerMapBuilder<GlobalCollectionsState>) => {
     builder.addDefaultCase(() => {});
   },
 });
+
+export const {
+  setGlobalCollections,
+  setIsGlobalCollectionsLoading,
+  setGlobalCollectionsLoadingError,
+} = GlobalCollectionsSlice.actions;
 
 export default GlobalCollectionsSlice.reducer;

@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import {
   requestCollectionById,
-  requestCollections,
+  requestCollectionsWithEntities,
   requestCollectionsByOwnerAddress,
   requestEntityByExternalID,
   requestEntityTransactions,
@@ -94,7 +94,7 @@ export const fetchAndFillCollections = createAsyncThunk(
     if (isCollectionsFetched) return state.entityCollection.entityCollections;
 
     const collectionsResponse: ICollectionEntities[] =
-      await requestCollections();
+      await requestCollectionsWithEntities();
 
     const getCollectionProfilePromises = collectionsResponse?.map(
       async (entityCollection): Promise<ICollectionEntities> => {
