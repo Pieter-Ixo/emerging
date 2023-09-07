@@ -117,11 +117,7 @@ export default function BatchesCard({
 
       <Flex align="center" justify="space-between" gap={10}>
         <AstroBatchImage />
-        <BatchProgress
-          retired={retired}
-          amount={amount}
-          adminMinted={adminMinted}
-        />
+        <BatchProgress retired={retired} amount={amount} adminMinted={adminMinted} />
       </Flex>
 
       <Flex gap="sm" justify="center" align="center" direction="row">
