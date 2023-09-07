@@ -1,13 +1,20 @@
 import Link from "next/link";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 import { Card, Flex, Loader, Stack, Text } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { fetchAdminTokens } from "@/redux/entityCollections/thunks";
+import {
+  fetchAdminTokens,
+  fetchUsersTokens,
+  resetEntityTokens,
+} from "@/redux/entityCollections/thunks";
 import {
   selectAdminTokens,
   selectAdminTokensIsLoading,
+  selectUserTokens,
+  selectUserTokensIsLoading,
 } from "@/redux/entityCollections/selectors";
 import { IEntityExtended } from "@/types/entityCollections";
 import Generated from "@/assets/icons/generated.svg";
@@ -17,19 +24,54 @@ import { ImpactCreditsButtonBlue } from "./StyledButtons";
 
 export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const adminTokens = useAppSelector(selectAdminTokens);
   const isAdminTokensLoading = useAppSelector(selectAdminTokensIsLoading);
+  const userTokens = useAppSelector(selectUserTokens);
+  const isUserTokensLoading = useAppSelector(selectUserTokensIsLoading);
+
+  const isPortfolioCollectionsRoute =
+    router.pathname === "/collections/portfolio";
+  const isGlobalCollectionsRoute =
+    router.pathname === "/collections/[collectionId]";
 
   const entityAdminAddress = entity.accounts[0].address;
+  const entityOwnerAddress = entity.owner;
   const entityExternalId = entity.externalId;
-  const batchDashboardHref = `/entity/${entityExternalId}/batch/byAdminAddress/${entityAdminAddress}`;
 
   useEffect(() => {
-    if (entityAdminAddress) dispatch(fetchAdminTokens(entityAdminAddress));
-  }, [entityAdminAddress]);
+    console.log(entityOwnerAddress);
+    dispatch(resetEntityTokens());
+  }, []);
 
-  if (isAdminTokensLoading) return <Loader />;
-  if (!adminTokens || !Object.keys(adminTokens).length) return null;
+  useEffect(() => {
+    if (isPortfolioCollectionsRoute && entityOwnerAddress) {
+      dispatch(fetchUsersTokens(entityOwnerAddress));
+    }
+
+    if (isGlobalCollectionsRoute && entityAdminAddress) {
+      dispatch(fetchAdminTokens(entityAdminAddress));
+    }
+  }, [entityAdminAddress, entityOwnerAddress]);
+
+  if (isAdminTokensLoading || isUserTokensLoading) return <Loader />;
+
+  const isAdminTokensEmpty = !adminTokens || !Object.keys(adminTokens).length;
+  const isUserTokensEmpty = !userTokens || !Object.keys(userTokens).length;
+
+  if (isAdminTokensEmpty && isUserTokensEmpty) return null;
+
+  const adminTokensLength = adminTokens?.CARBON?.tokens
+    ? Object.keys(adminTokens.CARBON?.tokens).length
+    : 0;
+
+  const userTokensLength = userTokens?.CARBON?.tokens
+    ? Object.keys(userTokens?.CARBON?.tokens).length
+    : 0;
+
+  const batchDashboardHref = isGlobalCollectionsRoute
+    ? `/entity/${entityExternalId}/batch/byAdminAddress/${entityAdminAddress}`
+    : `/entity/${entityExternalId}/batch/byOwnerAddress/${entityOwnerAddress}`;
 
   return (
     <Card p="lg" radius={16}>
@@ -38,7 +80,7 @@ export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
       <Stack spacing="xl">
         <Flex align="flex-end">
           <Text color={palette.accentActive} size={56}>
-            {Object.keys(adminTokens?.CARBON.tokens).length}
+            {adminTokensLength || userTokensLength}
           </Text>
           <Text color={palette.accentActive} pb="md" ml="xs">
             BATCHES

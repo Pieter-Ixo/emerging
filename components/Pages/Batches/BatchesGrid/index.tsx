@@ -8,7 +8,7 @@ import BatchesItem from "../BatchesItem";
 type Props = {
   batches?: IAddressBatches;
   onBatchClick: (
-    offset: number | undefined,
+    availableCredits: number | undefined,
     batchId: string | undefined
   ) => void;
 };

@@ -61,6 +61,7 @@ export default function EntitiesList({
     activeEntityCollection?.entities.length === 0
   )
     return <Text>No Assets</Text>;
+
   return (
     <Grid gutter={24}>
       {activeEntityCollection?.entities?.map((entity) => {

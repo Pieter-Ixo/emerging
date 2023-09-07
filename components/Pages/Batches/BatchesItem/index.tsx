@@ -23,7 +23,7 @@ type Props = {
   retired?: number;
   entityId?: string;
   onBatchClick: (
-    offset: number | undefined,
+    availableCredits: number | undefined,
     batchId: string | undefined
   ) => void;
 };
@@ -39,7 +39,7 @@ export default function BatchesItem({
 }: Props) {
   const router = useRouter();
 
-  const isProgressComplete = retired === minted;
+  const isProgressComplete = amount === 0;
 
   const batchBackgroundImage = isProgressComplete
     ? "url(/images/bg/certificate-bg--disabled.png)"

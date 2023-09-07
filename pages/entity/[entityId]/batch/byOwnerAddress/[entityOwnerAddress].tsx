@@ -12,9 +12,9 @@ import { ControlsDisplayMods } from "@/types";
 import BatchesTable from "@/components/Pages/Batches/BatchesTable";
 import BatchesGrid from "@/components/Pages/Batches/BatchesGrid";
 
-export default function AdminBatches() {
+export default function OwnerBatches() {
   const dispatch = useAppDispatch();
-  const adminAddress = useValueFromRouter("entityAdminAddress");
+  const ownerAddress = useValueFromRouter("entityOwnerAddress");
   const batches = useAppSelector(selectAddressBatches);
   const [opened, { open, close }] = useDisclosure(false);
   const [batchesViewMode, toggleBatchesViewMode] = useToggle([
@@ -22,27 +22,26 @@ export default function AdminBatches() {
     ControlsDisplayMods.listView,
   ]);
 
-  const [selectedOffset, setSelectedOffset] = useState<number | undefined>();
+  const [selectedAvailableCreditsOffset, setSelectedAvailableCredits] =
+    useState<number | undefined>();
   const [selectedBatchId, setSelectedBatchId] = useState<string | undefined>();
 
   useEffect(() => {
-    if (adminAddress) {
-      dispatch(fetchBatchesByAddress(adminAddress));
-    }
-  }, [adminAddress, dispatch]);
+    if (ownerAddress) dispatch(fetchBatchesByAddress(ownerAddress));
+  }, [ownerAddress, dispatch]);
 
   const onBatchClick = (
-    offset: number | undefined,
+    availableCredits: number | undefined,
     batchId: string | undefined
   ) => {
-    setSelectedOffset(offset);
+    setSelectedAvailableCredits(availableCredits);
     setSelectedBatchId(batchId);
     open();
   };
 
   function onModalClose() {
     close();
-    setSelectedOffset(undefined);
+    setSelectedAvailableCredits(undefined);
   }
 
   return (
@@ -58,7 +57,7 @@ export default function AdminBatches() {
       )}
       <RetireModal
         isModalOpened={opened}
-        availableCredits={selectedOffset}
+        availableCredits={selectedAvailableCreditsOffset}
         batchId={selectedBatchId}
         closeModal={() => onModalClose()}
       />

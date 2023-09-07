@@ -26,6 +26,7 @@ import {
   fetchAndFillCollectionById,
   fetchCollectionEntityBatchesTotalByAdminAccount,
   fetchEntityTransactions,
+  resetEntityTokens,
 } from "./thunks";
 
 export type EntityCollectionState = {
@@ -228,6 +229,11 @@ const EntityCollectionSlice = createSlice({
     builder.addCase(fetchUsersTokens.fulfilled, (state, action) => {
       state.userTokens = action.payload;
       state.isUserTokensLoading = false;
+    });
+    // resetAdminUserToken
+    builder.addCase(resetEntityTokens.fulfilled, (state) => {
+      state.userTokens = undefined;
+      state.adminTokens = undefined;
     });
 
     // fetchAdminTokens

@@ -12,7 +12,6 @@ export default async function requestUsersToken(
       `/api/token/totalByAddress/${tokenOwner}`
     ),
   ]);
-
   if (!tokenData) throw new Error("Panica!");
 
   if (tokenData.CARBON && tokenDataTotal)
