@@ -6,32 +6,39 @@ import useValueFromRouter from "@/utils/useValueFromRouter";
 import BatchesItem from "../BatchesItem";
 
 type Props = {
-  batches?: IAddressBatches;
+  ownerBatches?: IAddressBatches;
+  adminBatches?: IAddressBatches;
   onBatchClick: (
     availableCredits: number | undefined,
     batchId: string | undefined
   ) => void;
 };
 
-export default function BatchesGrid({ batches, onBatchClick }: Props) {
+export default function BatchesGrid({
+  ownerBatches,
+  adminBatches,
+  onBatchClick,
+}: Props) {
   const entityId = useValueFromRouter("entityId");
 
   return (
     <Box maw="70%">
       <Grid gutter="xl">
-        {batches &&
-          Object.entries(batches).map(([batchId, batchData]) => (
-            <Grid.Col key={batchId} span={6}>
-              <BatchesItem
-                batchId={batchId}
-                amount={batchData.amount}
-                retired={batchData.retired}
-                minted={batchData.minted}
-                onBatchClick={onBatchClick}
-                entityId={entityId}
-              />
-            </Grid.Col>
-          ))}
+        {((ownerBatches && adminBatches) || (!ownerBatches && adminBatches)) &&
+          Object.entries(ownerBatches || adminBatches).map(
+            ([batchId, batchData]) => (
+              <Grid.Col key={batchId} span={6}>
+                <BatchesItem
+                  batchId={batchId}
+                  amount={batchData.amount}
+                  retired={batchData.retired}
+                  adminMinted={adminBatches[batchId]?.minted}
+                  onBatchClick={onBatchClick}
+                  entityId={entityId}
+                />
+              </Grid.Col>
+            )
+          )}
       </Grid>
     </Box>
   );

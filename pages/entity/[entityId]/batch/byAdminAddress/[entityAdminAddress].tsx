@@ -52,7 +52,7 @@ export default function AdminBatches() {
         toggleBatchesViewMode={toggleBatchesViewMode}
       />
       {batchesViewMode === ControlsDisplayMods.gridView ? (
-        <BatchesGrid onBatchClick={onBatchClick} batches={adminBatches} />
+        <BatchesGrid onBatchClick={onBatchClick} adminBatches={adminBatches} />
       ) : (
         <BatchesTable batches={adminBatches && Object.entries(adminBatches)} />
       )}

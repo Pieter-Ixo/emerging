@@ -3,19 +3,19 @@ import { Flex, Progress, Text } from "@mantine/core";
 
 export default function BatchProgress({
   amount = 0,
-  minted = 0,
+  adminMinted = 0,
   retired = 0,
 }: {
   amount?: number;
-  minted?: number;
+  adminMinted?: number;
   retired?: number;
 }) {
   const amountString = amount.toLocaleString();
   const retiredString = retired.toLocaleString();
 
-  const mintedString = minted.toLocaleString();
-  const progresPercent = !retired || !minted ? 0 : (retired / minted) * 100;
-  const isProgressComplete = !!(minted && retired === minted);
+  const mintedString = adminMinted.toLocaleString();
+  const progresPercent = !retired || !adminMinted ? 0 : (retired / adminMinted) * 100;
+  const isProgressComplete = !!(adminMinted && retired === adminMinted);
 
   const progressColor = isProgressComplete
     ? palette.greenFull

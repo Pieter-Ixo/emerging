@@ -19,7 +19,7 @@ type Props = {
   name?: string;
   batchId?: string;
   amount?: number;
-  minted?: number;
+  adminMinted?: number;
   retired?: number;
   entityId?: string;
   onBatchClick: (
@@ -31,7 +31,7 @@ type Props = {
 export default function BatchesItem({
   name,
   batchId,
-  minted,
+  adminMinted,
   amount,
   retired,
   entityId,
@@ -105,7 +105,7 @@ export default function BatchesItem({
 
       <Flex align="center" justify="space-between" gap={10}>
         <AstroBatchImage />
-        <BatchProgress retired={retired} amount={amount} minted={minted} />
+        <BatchProgress retired={retired} amount={amount} adminMinted={adminMinted} />
       </Flex>
 
       <Flex gap="sm" justify="center" align="center" direction="row">

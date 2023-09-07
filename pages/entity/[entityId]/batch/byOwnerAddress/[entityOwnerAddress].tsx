@@ -41,17 +41,12 @@ export default function OwnerBatches() {
   const [selectedBatchId, setSelectedBatchId] = useState<string | undefined>();
 
   useEffect(() => {
-    if (ownerAddress) {
-      dispatch(fetchBatchesByOwnerAddress(ownerAddress));
-      console.log("owner batches: ", ownerBatches);
-    }
+    if (ownerAddress) dispatch(fetchBatchesByOwnerAddress(ownerAddress));
   }, [ownerAddress]);
 
   useEffect(() => {
-    if (batchesEntity?.accounts[0].address) {
+    if (batchesEntity?.accounts[0].address)
       dispatch(fetchBatchesByAdminAddress(batchesEntity?.accounts[0].address));
-      console.log("admin batches: ", adminBatches);
-    }
   }, [batchesEntity?.accounts[0].address]);
 
   useEffect(() => {
@@ -80,7 +75,11 @@ export default function OwnerBatches() {
         toggleBatchesViewMode={toggleBatchesViewMode}
       />
       {batchesViewMode === ControlsDisplayMods.gridView ? (
-        <BatchesGrid onBatchClick={onBatchClick} batches={ownerBatches} />
+        <BatchesGrid
+          onBatchClick={onBatchClick}
+          ownerBatches={ownerBatches}
+          adminBatches={adminBatches}
+        />
       ) : (
         <BatchesTable batches={ownerBatches && Object.entries(ownerBatches)} />
       )}
