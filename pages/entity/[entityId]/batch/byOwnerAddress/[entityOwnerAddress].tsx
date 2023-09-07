@@ -76,6 +76,7 @@ export default function OwnerBatches() {
       />
       {batchesViewMode === ControlsDisplayMods.gridView ? (
         <BatchesGrid
+          ownerAddress={batchesEntity?.owner}
           onBatchClick={onBatchClick}
           ownerBatches={ownerBatches}
           adminBatches={adminBatches}

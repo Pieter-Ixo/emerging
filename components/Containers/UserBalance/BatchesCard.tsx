@@ -44,13 +44,11 @@ export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
   }, []);
 
   useEffect(() => {
-    if (isPortfolioCollectionsRoute && entityOwnerAddress) {
+    if (isPortfolioCollectionsRoute && entityOwnerAddress)
       dispatch(fetchUsersTokens(entityOwnerAddress));
-    }
 
-    if (isGlobalCollectionsRoute && entityAdminAddress) {
+    if (isGlobalCollectionsRoute && entityAdminAddress)
       dispatch(fetchAdminTokens(entityAdminAddress));
-    }
   }, [entityAdminAddress, entityOwnerAddress]);
 
   if (isAdminTokensLoading || isUserTokensLoading) return <Loader />;

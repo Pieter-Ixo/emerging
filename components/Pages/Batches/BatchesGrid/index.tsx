@@ -8,6 +8,7 @@ import BatchesItem from "../BatchesItem";
 type Props = {
   ownerBatches?: IAddressBatches;
   adminBatches?: IAddressBatches;
+  ownerAddress?:string;
   onBatchClick: (
     availableCredits: number | undefined,
     batchId: string | undefined
@@ -17,6 +18,7 @@ type Props = {
 export default function BatchesGrid({
   ownerBatches,
   adminBatches,
+  ownerAddress,
   onBatchClick,
 }: Props) {
   const entityId = useValueFromRouter("entityId");
@@ -34,6 +36,7 @@ export default function BatchesGrid({
                   retired={batchData.retired}
                   adminMinted={adminBatches[batchId]?.minted}
                   onBatchClick={onBatchClick}
+                  ownerAddress={ownerAddress}
                   entityId={entityId}
                 />
               </Grid.Col>

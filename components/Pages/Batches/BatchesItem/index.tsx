@@ -12,6 +12,8 @@ import Batch3 from "@/assets/icons/batch-3.svg";
 import BatchProgress from "@/components/Containers/BatchProgress";
 import BatchIdentifier from "@/components/Containers/BatchIdentifier";
 
+import { useAppSelector } from "@/hooks/redux";
+import { selectConnectedWallet } from "@/redux/selectors";
 import BatchButton from "../BatchButton";
 import AstroBatchImage from "../AstroBatchImage";
 
@@ -22,6 +24,7 @@ type Props = {
   adminMinted?: number;
   retired?: number;
   entityId?: string;
+  ownerAddress?: string;
   onBatchClick: (
     availableCredits: number | undefined,
     batchId: string | undefined
@@ -35,9 +38,11 @@ export default function BatchesItem({
   amount,
   retired,
   entityId,
+  ownerAddress,
   onBatchClick,
 }: Props) {
   const router = useRouter();
+  const userWallet = useAppSelector(selectConnectedWallet);
 
   const isProgressComplete = amount === 0;
 
@@ -57,11 +62,15 @@ export default function BatchesItem({
     if (amount !== undefined) onBatchClick(amount, batchId);
   };
 
+  const isUserValid = userWallet && userWallet === ownerAddress;
+
   const buttonStyles: Sx = {
-    cursor: "default",
-    pointerEvents: "none",
-    backgroundColor: palette.Neutral800,
-    ":hover": { backgroundColor: palette.Neutral800 },
+    cursor: isUserValid ? "pointer" : "default",
+    pointerEvents: isUserValid ? "all" : "none",
+    backgroundColor: isUserValid ? palette.fullBlue : palette.Neutral800,
+    ":hover": {
+      backgroundColor: isUserValid ? palette.fullBlue : palette.Neutral800,
+    },
   };
 
   return (
@@ -105,7 +114,11 @@ export default function BatchesItem({
 
       <Flex align="center" justify="space-between" gap={10}>
         <AstroBatchImage />
-        <BatchProgress retired={retired} amount={amount} adminMinted={adminMinted} />
+        <BatchProgress
+          retired={retired}
+          amount={amount}
+          adminMinted={adminMinted}
+        />
       </Flex>
 
       <Flex gap="sm" justify="center" align="center" direction="row">

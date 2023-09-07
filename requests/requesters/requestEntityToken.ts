@@ -1,5 +1,8 @@
 import { requestBlocksyncAPI } from "@/requests/blocksync";
-import { ICarbonTokens, ICarbonsTokenExtended } from "@/types/entityCollections";
+import {
+  ICarbonTokens,
+  ICarbonsTokenExtended,
+} from "@/types/entityCollections";
 
 export default async function requestUsersTokensAndTotal(
   tokenOwner: string
@@ -23,7 +26,7 @@ export default async function requestUsersTokensAndTotal(
 export async function requestTokenByAddress(
   tokenOwner: string
 ): Promise<ICarbonTokens> {
-  const tokenData = await requestBlocksyncAPI<ICarbonsTokenExtended>(
+  const tokenData = await requestBlocksyncAPI<ICarbonTokens>(
     `/api/token/byAddress/${tokenOwner}`
   );
   if (!tokenData) throw new Error("Panica!");
@@ -33,10 +36,10 @@ export async function requestTokenByAddress(
 export async function requestTotalTokenByAddress(
   tokenOwner: string
 ): Promise<ICarbonTokens> {
-  const totalTokenData = await requestBlocksyncAPI<ICarbonsTokenExtended>(
+  const totalTokenData = await requestBlocksyncAPI<ICarbonTokens>(
     `/api/token/totalByAddress/${tokenOwner}`
   );
   if (!totalTokenData) throw new Error("Panica!");
-  
+
   return totalTokenData;
 }
