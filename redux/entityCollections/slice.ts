@@ -4,10 +4,11 @@ import { HYDRATE } from "next-redux-wrapper";
 import {
   ICollectionEntities,
   IEntityExtended,
-  ITokenWhateverItMean,
+  ICarbonsTokenExtended,
   IApiCollectionEntitiesTotal,
   IApiCollectionEntitiesTotalRetired,
   ICollectionTokenIpfs,
+  ICarbonTokens,
 } from "@/types/entityCollections";
 
 import { INewsPostsResponse, INewsPostsResponseExtended } from "@/types/news";
@@ -17,7 +18,7 @@ import {
   fetchCollectionsByOwnerAddres,
   fetchEntityByExternalIdAndFill,
   fillEntitiesForUserCollections,
-  fetchUsersTokens,
+  fetchUsersTokensAndTotal,
   fetchAdminTokens,
   fetchTotalCollectionEntities,
   fetchLastNewsPost,
@@ -26,6 +27,7 @@ import {
   fetchAndFillCollectionById,
   fetchCollectionEntityBatchesTotalByAdminAccount,
   fetchEntityTransactions,
+  fetchUsersTokens,
 } from "./thunks";
 import resetEntityTokens from "./actions";
 
@@ -35,8 +37,9 @@ export type EntityCollectionState = {
   isEntityLoading: boolean;
   selectedEntity: undefined | IEntityExtended;
   userEntityCollections: ICollectionEntities[];
-  userTokens: undefined | ITokenWhateverItMean;
-  adminTokens: undefined | ITokenWhateverItMean;
+  userTokensAndTotal: undefined | ICarbonsTokenExtended;
+  adminTokens: undefined | ICarbonsTokenExtended;
+  userTokens: undefined | ICarbonTokens;
   totalCollectionEntities: IApiCollectionEntitiesTotal[];
   totalCollectionEntitiesRetired:
     | undefined
@@ -69,8 +72,9 @@ const initialState: EntityCollectionState = {
   isEntityLoading: false,
   selectedEntity: undefined,
   userEntityCollections: [],
-  userTokens: undefined,
+  userTokensAndTotal: undefined,
   adminTokens: undefined,
+  userTokens: undefined,
   totalCollectionEntities: [],
   totalCollectionEntitiesRetired: undefined,
   isAdminTokensLoading: false,
@@ -222,15 +226,25 @@ const EntityCollectionSlice = createSlice({
 
     // fetchUsersTokens
     builder.addCase(fetchUsersTokens.pending, (state) => {
-      if (!state.userTokens) {
-        state.isUserTokensLoading = true;
-      }
+      state.isUserTokensLoading = true;
     });
     builder.addCase(fetchUsersTokens.fulfilled, (state, action) => {
       state.userTokens = action.payload;
       state.isUserTokensLoading = false;
     });
-    // resetAdminUserToken
+
+    // fetchUsersTokensAndTotal
+    builder.addCase(fetchUsersTokensAndTotal.pending, (state) => {
+      if (!state.userTokensAndTotal) {
+        state.isUserTokensLoading = true;
+      }
+    });
+    
+    builder.addCase(fetchUsersTokensAndTotal.fulfilled, (state, action) => {
+      state.userTokensAndTotal = action.payload;
+      state.isUserTokensLoading = false;
+    });
+    // resetAdminAndUserTokens
     builder.addCase(resetEntityTokens, (state) => {
       state.userTokens = undefined;
       state.adminTokens = undefined;

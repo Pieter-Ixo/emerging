@@ -10,18 +10,19 @@ import {
   requestTotalCollectionEntitiesCarbon,
   requestTotalCollectionEntitiesRetired,
 } from "@/requests/blocksync";
-import requestUsersToken, {
+import requestUsersTokensAndTotal, {
   requestTokenByAddress,
   requestTotalTokenByAddress,
 } from "@/requests/requesters/requestEntityToken";
 import {
   IApiCollectionEntitiesTotal,
   IApiCollectionEntitiesTotalRetired,
+  ICarbonTokens,
+  ICarbonsTokenExtended,
   ICollectionEntities,
   ICollectionExtended,
   ICollectionTokenIpfs,
   IEntityExtended,
-  ITokenWhateverItMean,
 } from "@/types/entityCollections";
 import fillCollection from "@/helpers/fillCollection";
 import fillEntity from "@/helpers/fillEntity";
@@ -158,7 +159,7 @@ export const fetchCollectionEntityBatchesTotalByAdminAccount = createAsyncThunk(
       */
     const getCollectionsEntitiesBatchesTotalPromises = await Promise.allSettled(
       entities.map(
-        async (entity): Promise<ITokenWhateverItMean | undefined> => {
+        async (entity): Promise<ICarbonsTokenExtended | undefined> => {
           const entityAdmin = getEntityAdmin(entity);
 
           if (entityAdmin) {
@@ -251,16 +252,16 @@ export const fetchNewsPosts = createAsyncThunk(
   ): Promise<INewsPostsResponseExtended | undefined> => requestNewsPosts(page)
 );
 
-export const fetchUsersTokens = createAsyncThunk(
-  "entityCollections/fetchUsersTokens",
-  async (entityOwner: string): Promise<ITokenWhateverItMean | undefined> => {
-    const tokenData = await requestUsersToken(entityOwner);
+export const fetchUsersTokensAndTotal = createAsyncThunk(
+  "entityCollections/fetchUsersTokensAndTotal",
+  async (entityOwner: string): Promise<ICarbonsTokenExtended | undefined> => {
+    const tokenData = await requestUsersTokensAndTotal(entityOwner);
     return tokenData;
   }
 );
 export const fetchUsersTotalTokens = createAsyncThunk(
   "entityCollections/fetchUsersTotalTokens",
-  async (entityOwner: string): Promise<ITokenWhateverItMean | undefined> => {
+  async (entityOwner: string): Promise<ICarbonTokens | undefined> => {
     const tokensForAllUserEntities = await requestTotalTokenByAddress(
       entityOwner
     );
@@ -269,8 +270,19 @@ export const fetchUsersTotalTokens = createAsyncThunk(
 );
 export const fetchAdminTokens = createAsyncThunk(
   "entityCollections/fetchAdminTokens",
-  async (adminAddress: string): Promise<ITokenWhateverItMean | undefined> => {
+  async (adminAddress: string): Promise<ICarbonTokens | undefined> => {
     const tokenData = await requestTokenByAddress(adminAddress);
+    console.log("Admin tokens: ", tokenData);
+    return tokenData;
+  }
+);
+
+export const fetchUsersTokens = createAsyncThunk(
+  "entityCollections/fetchUsersTokens",
+  async (adminAddress: string): Promise<ICarbonTokens | undefined> => {
+    const tokenData = await requestTokenByAddress(adminAddress);
+    console.log("User tokens: ", tokenData);
+
     return tokenData;
   }
 );

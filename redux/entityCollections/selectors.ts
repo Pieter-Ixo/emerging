@@ -6,7 +6,7 @@ import {
   ICollectionTokenIpfs,
   IEntity,
   IEntityExtended,
-  ITokenOfTokenCarbon,
+  ISingleToken,
 } from "@/types/entityCollections";
 
 import { IEntityTransactionResponse } from "@/types/entityCollections/transactions";
@@ -77,11 +77,16 @@ export const selectUserEntitiesLength = createDraftSafeSelector(
       0
     )
 );
-
 export const selectUserTokens = createDraftSafeSelector(
   selectEntityCollections,
   (state: EntityCollectionState): EntityCollectionState["userTokens"] =>
     state.userTokens
+);
+
+export const selectUserTokensAndTotal = createDraftSafeSelector(
+  selectEntityCollections,
+  (state: EntityCollectionState): EntityCollectionState["userTokensAndTotal"] =>
+    state.userTokensAndTotal
 );
 
 export const selectUserTokensIsLoading = createDraftSafeSelector(
@@ -124,8 +129,9 @@ export const selectEntitiesAdminTotal = createDraftSafeSelector(
 
 export const selectUserEntitiesTotalAmount = createDraftSafeSelector(
   selectEntityCollections,
-  (state: EntityCollectionState): ITokenOfTokenCarbon | undefined => {
-    const totalTokensMap = state.userTokens?.CARBON?._totalMinted?.tokens;
+  (state: EntityCollectionState): ISingleToken | undefined => {
+    const totalTokensMap =
+      state.userTokensAndTotal?.CARBON?._totalMinted?.tokens;
     if (!totalTokensMap) return undefined;
     const token = Object.values(totalTokensMap)?.[0] || {};
     return token;

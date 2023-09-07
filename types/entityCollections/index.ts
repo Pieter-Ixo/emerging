@@ -163,31 +163,35 @@ export type ICollectionExtended = ICollection & {
   _tokenIpfs?: ICollectionTokenIpfs;
 };
 
-export type ITokenOfTokenCarbon = {
+export type ISingleToken = {
   collection: string;
   amount: number;
   minted: number;
   retired: number;
 };
 
-export type ITokenCarbon = {
+export type ITokens = {
   contractAddress: string;
   description: string;
   image: string;
-  tokens: { [key: string]: ITokenOfTokenCarbon };
+  tokens: { [key: string]: ISingleToken };
 };
 
-export type ITokenCarbonExtended = ITokenCarbon & {
-  _totalMinted?: ITokenCarbon;
+export type ITokensExtended = ITokens & {
+  _totalMinted?: ITokens;
 };
 
-export type ITokenWhateverItMean = {
-  CARBON: ITokenCarbonExtended;
+export type ICarbonsTokenExtended = {
+  CARBON: ITokensExtended;
+};
+
+export type ICarbonTokens = {
+  CARBON: ITokens;
 };
 
 export type IEntityExtended = IEntity & {
   _profile?: IEntityProfile;
-  _adminToken?: ITokenWhateverItMean;
+  _adminToken?: ICarbonsTokenExtended;
   _deviceCredential?: IDeviceCredentials;
   _supamoto?: ISupamoto;
   _supamotoCookingSummary?: ISupamotoCookingSumary;
