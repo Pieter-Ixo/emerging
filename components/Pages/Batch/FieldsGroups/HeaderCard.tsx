@@ -2,13 +2,13 @@ import { Flex } from "@mantine/core";
 
 import ArrowBackLink from "@/components/Layout/ArrowBackLink";
 import BatchIdentifier from "@/components/Containers/BatchIdentifier";
+import BatchProgress from "@/components/Containers/BatchProgress";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 
 import CardTitle from "../CardTitle";
 import CardContainer from "../CardContainer";
 import AstroCarbonImage from "../AstroCarbonImage";
 import TagForSomethingIDunnoWhat from "../TagForSomethingIDunnoWhat";
-import BatchProgress from "../../Batches/BatchProgress";
 
 type Props = {
   name?: string;

@@ -9,11 +9,11 @@ import Batch1 from "@/assets/icons/batch-1.svg";
 import Batch2 from "@/assets/icons/batch-2.svg";
 import Batch3 from "@/assets/icons/batch-3.svg";
 
+import BatchProgress from "@/components/Containers/BatchProgress";
 import BatchIdentifier from "@/components/Containers/BatchIdentifier";
 
 import BatchButton from "../BatchButton";
 import AstroBatchImage from "../AstroBatchImage";
-import BatchProgress from "../BatchProgress";
 
 type Props = {
   name?: string;

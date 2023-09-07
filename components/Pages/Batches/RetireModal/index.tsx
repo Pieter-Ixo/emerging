@@ -8,17 +8,13 @@ import {
   TextInputStylesNames,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { CSSProperties, useContext, useEffect, useState } from "react";
+import { CSSProperties, useContext, useEffect } from "react";
 
 import LeafIcon from "@/assets/icons/leaf.svg";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import { palette } from "@/theme/palette";
 import shortStr from "@/utils/shortStr";
-import {
-  IRetireFormData,
-  IRetireTokenTrxGenerationData,
-  ImpactToken,
-} from "@/types/certificates";
+import { IRetireFormData, ImpactToken } from "@/types/certificates";
 import CountryPicker from "@/components/Presentational/CountryPicker";
 import countryPickerData from "@/constants/countryPickerData";
 import { WalletContext } from "@/context/wallet";
@@ -87,9 +83,6 @@ export default function RetireModal({
     },
   });
 
-  const [trxGenerationData, setTrxGenerationData] =
-    useState<IRetireTokenTrxGenerationData>();
-
   // FIXME: EMERGING-196 submit actions need to be discussed
   function onOffsetFormSubmit() {
     const isRetireValid = offset && offset > 0 && offset <= 1_200_000;
@@ -101,24 +94,13 @@ export default function RetireModal({
 
     const tokens: ImpactToken[] = [{ id: batchId, amount: offset.toString() }];
 
-    setTrxGenerationData({
-      jurisdiction: countryCode,
-      tokens,
-      owner: userWallet,
-    });
-  }
+    if (userWallet && chainInfo && wallet.user?.address) {
+      const retireTokenTrx = generateRetireTokenTrx({
+        jurisdiction: countryCode,
+        tokens,
+        owner: userWallet,
+      });
 
-  function onOffsetModalClose() {
-    retireForm.reset();
-    closeModal();
-  }
-
-  useEffect(() => {
-    console.log("🦍 Cached value: ", userWallet);
-    console.log("🦍 Not cached value: ", wallet);
-    console.log("🦍 Not cached value: ", chainInfo);
-    if (trxGenerationData?.owner && chainInfo && wallet.user?.address) {
-      const retireTokenTrx = generateRetireTokenTrx(trxGenerationData);
       // TODO: Mocked broadcast method, used params must be rewritten to Redux
       // const result = broadCastMessages(
       //   wallet,
@@ -129,7 +111,17 @@ export default function RetireModal({
       //   chainInfo
       // );
     }
-  }, [trxGenerationData]);
+  }
+
+  function onOffsetModalClose() {
+    retireForm.reset();
+    closeModal();
+  }
+
+  useEffect(() => {
+    console.log("🦍 Cached value: ", userWallet);
+    console.log("🦍 Not cached value: ", { wallet, chainInfo });
+  });
 
   return (
     <Modal
