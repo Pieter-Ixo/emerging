@@ -142,31 +142,25 @@ export async function requestTransactionByHash(
       },
       body: JSON.stringify({
         query: `query Transaction {
-          transaction(
-              hash: "${hash}"
+          messages(
+            filter: {transactionHash: {like: "${hash}"},
+            typeUrl: {like: "/ixo.token.v1beta1.MsgRetireToken"}}
           ) {
-              nodeId
-              hash
-              time
-              gasWanted
-              gasUsed
-              fee
-              code
-              height
+            nodes {
+              value
+              typeUrl
+            }
           }
-      }
+        }
     `,
       }),
     });
     const transaction = await response.json();
 
-    console.log("transaction: ", transaction);
-
     if (transaction.errors) throw transaction.errors;
-    else return transaction.data;
+    else return transaction.data.messages.nodes[0].value;
   } catch (error) {
     return {
-      "@type": "/ixo.token.v1beta1.MsgRetireToken",
       owner: "ixo1xwn45d6xhe3egcz3nqlfc2elpc3h6usy6yw3uk",
       tokens: [
         {
