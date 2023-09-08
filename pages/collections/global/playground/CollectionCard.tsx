@@ -13,12 +13,11 @@ import {
 import { useAppDispatch } from "@/hooks/redux";
 import { palette } from "@/theme/palette";
 import TagIcon from "@/components/Pages/Collections/Global/CollectionsGrid/TagIcon";
-import {
-  fetchCollectionsProfile,
-  fetchCollectionsTags,
-} from "@/redux/globalCollections/thunks";
-import { ICollectionState } from "@/redux/globalCollections/types";
+
 import { getEntityTagsFromTags } from "@/helpers/transformData/getEntityTagsByCategory";
+import { ICollectionState } from "@/redux/globalCollections/types";
+import fetchCollectionsProfile from "@/redux/globalCollections/thunks/fetchCollectionsProfile";
+import fetchCollectionsTags from "@/redux/globalCollections/thunks/fetchCollectionsTags";
 
 type Props = { collectionState: ICollectionState; entitiesLength: number };
 

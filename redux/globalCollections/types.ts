@@ -9,16 +9,16 @@ export type ICollectionState = {
   collection: ICollection;
 
   profile?: ICollectionProfile;
-  isProfileLoading?: boolean;
-  profileError?: Error | undefined;
+  isProfileLoading: boolean;
+  profileError: Error | undefined;
 
   tags?: ICollectionTags;
-  isTagsLoading?: boolean;
-  tagsError?: Error | undefined;
+  isTagsLoading: boolean;
+  tagsError: Error | undefined;
 
   tokenIpfs?: ICollectionTokenIpfs;
-  isTokenIpfsLoading?: boolean;
-  tokenIpfsError?: Error | undefined;
+  isTokenIpfsLoading: boolean;
+  tokenIpfsError: Error | undefined;
 };
 
 export type GlobalCollectionsState = {

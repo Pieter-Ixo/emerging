@@ -30,7 +30,7 @@ export const selectGlobalCollectionsError = createDraftSafeSelector(
   (state: GlobalCollectionsState) => state?.globalCollectionsError
 );
 
-export const selectCollectionById = (
+export const selectCollectionStateById = (
   state: RootState,
   collectionId: string
 ): ICollectionState | undefined =>
@@ -41,49 +41,47 @@ export const selectCollectionById = (
 export const selectCollectionProfileById = (
   state: RootState,
   collectionId: string
-): ICollectionState["profile"] | undefined =>
-  state.globalCollections.globalCollections?.find(
-    ({ collection }) => collection.id === collectionId
-  )?.profile;
+): ICollectionState["profile"] | undefined => {
+  const collectionState = selectCollectionStateById(state, collectionId);
+  return collectionState?.profile;
+};
 
 export const selectCollectionProfileLoadingById = (
   state: RootState,
   collectionId: string
-): ICollectionState["isProfileLoading"] | undefined =>
-  state.globalCollections.globalCollections?.find(
-    ({ collection }) => collection.id === collectionId
-  )?.isProfileLoading;
+): ICollectionState["isProfileLoading"] | undefined => {
+  const collectionState = selectCollectionStateById(state, collectionId);
+  return collectionState?.isProfileLoading;
+};
 
 export const selectCollectionProfileErrorById = (
   state: RootState,
   collectionId: string
-): ICollectionState["profileError"] | undefined =>
-  state.globalCollections.globalCollections?.find(
-    ({ collection }) => collection.id === collectionId
-  )?.profileError;
-
-// TODO: unify selectors with arguments below. Maybe write a util `chainSelectors` or `combineSelectors`
+): ICollectionState["profileError"] | undefined => {
+  const collectionState = selectCollectionStateById(state, collectionId);
+  return collectionState?.profileError;
+};
 
 export const selectCollectionTagsById = (
   state: RootState,
   collectionId: string
-): ICollectionState["tags"] | undefined =>
-  state.globalCollections.globalCollections?.find(
-    ({ collection }) => collection.id === collectionId
-  )?.tags;
+): ICollectionState["tags"] | undefined => {
+  const collectionState = selectCollectionStateById(state, collectionId);
+  return collectionState?.tags;
+};
 
 export const selectCollectionTagsLoadingById = (
   state: RootState,
   collectionId: string
-): ICollectionState["isTagsLoading"] | undefined =>
-  state.globalCollections.globalCollections?.find(
-    ({ collection }) => collection.id === collectionId
-  )?.isTagsLoading;
+): ICollectionState["isTagsLoading"] | undefined => {
+  const collectionState = selectCollectionStateById(state, collectionId);
+  return collectionState?.isTagsLoading;
+};
 
 export const selectCollectionTagsErrorById = (
   state: RootState,
   collectionId: string
-): ICollectionState["tagsError"] | undefined =>
-  state.globalCollections.globalCollections?.find(
-    ({ collection }) => collection.id === collectionId
-  )?.tagsError;
+): ICollectionState["tagsError"] | undefined => {
+  const collectionState = selectCollectionStateById(state, collectionId);
+  return collectionState?.tagsError;
+};

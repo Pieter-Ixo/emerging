@@ -2,7 +2,6 @@ import { Title, Grid, Loader, Alert } from "@mantine/core";
 import { useEffect } from "react";
 
 import GlobalPortfolioSwitch from "@/components/Layout/GlobalPortfolioSwitch";
-
 import AppLayout from "@/components/Layout/AppLayout";
 import PageHeader from "@/components/Pages/Collections/PageHeader";
 
@@ -13,7 +12,7 @@ import {
   selectIsGlobalCollectionsLoading,
   selectGlobalCollectionsError,
 } from "@/redux/globalCollections/selectors";
-import { fetchGlobalCollections } from "@/redux/globalCollections/thunks";
+import fetchGlobalCollections from "@/redux/globalCollections/thunks/fetchGlobalCollections";
 
 import CollectionCard from "./CollectionCard";
 
