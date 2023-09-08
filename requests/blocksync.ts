@@ -161,6 +161,7 @@ export async function requestTransactionByHash(
       }),
     });
     const transaction = await response.json();
+    console.log("transaction: ", transaction);
     if (transaction.errors) throw transaction.errors;
     else return transaction.data;
   } catch (error) {
