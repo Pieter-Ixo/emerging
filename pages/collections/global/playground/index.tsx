@@ -14,8 +14,6 @@ import {
 } from "@/redux/globalCollections/selectors";
 import fetchGlobalCollections from "@/redux/globalCollections/thunks/fetchGlobalCollections";
 
-import CollectionCard from "./CollectionCard";
-
 
 import CollectionCard from "./CollectionCard";
 

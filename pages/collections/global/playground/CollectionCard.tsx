@@ -14,7 +14,6 @@ import { useAppDispatch } from "@/hooks/redux";
 
 import { palette } from "@/theme/palette";
 import TagIcon from "@/components/Pages/Collections/Global/CollectionsGrid/TagIcon";
-import { selectCollectionProfileById } from "@/redux/globalCollections/selectors";
 
 import { getEntityTagsFromTags } from "@/helpers/transformData/getEntityTagsByCategory";
 import { ICollectionState } from "@/redux/globalCollections/types";

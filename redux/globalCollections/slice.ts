@@ -40,7 +40,6 @@ const GlobalCollectionsSlice = createSlice({
   name: "GlobalCollectionsSlice",
   initialState,
   reducers: {
-    // TODO: move reducers to ./reducers.ts
     setGlobalCollections: (state, action: PayloadAction<ICollection[]>) => {
       const collections = action.payload;
       const isStateEmpty = !state.globalCollections.length;
