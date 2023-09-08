@@ -35,3 +35,6 @@ export const palette = {
 export const shadow = {
   default: "0px 0px 24px rgba(0, 0, 0, 0.15)",
 };
+
+export const limeByOpacity = (rate: number) => `rgba(97, 180, 58, ${rate})`;
+export const fullBlueByOpacity = (rate: number) => `rgba(43, 132, 163, ${rate})`;
