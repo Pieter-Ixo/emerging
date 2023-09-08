@@ -14,3 +14,11 @@ export const BlocksyncUrls: { [network in CHAIN_NETWORK_TYPE]: string } = {
   devnet: "https://devnet-blocksync.ixo.earth",
 };
 export const BlocksyncUrl = BlocksyncUrls[DefaultChainNetwork];
+
+export const BlocksyncGraphqlUrls: { [network in CHAIN_NETWORK_TYPE]: string } =
+  {
+    mainnet: "",
+    testnet: "https://testnet-blocksync-graphql.ixo.earth/graphql",
+    devnet: "https://devnet-blocksync-graphql.ixo.earth/graphql",
+  };
+export const BlocksyncGraphqlUrl = BlocksyncGraphqlUrls[DefaultChainNetwork];

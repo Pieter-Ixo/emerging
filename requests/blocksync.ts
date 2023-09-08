@@ -1,6 +1,6 @@
 import { create } from "apisauce";
 
-import { BlocksyncUrl } from "@/constants/chains";
+import { BlocksyncUrl, BlocksyncGraphqlUrl } from "@/constants/chains";
 import { IAddressBatchResponse, IBatch } from "@/types/certificates";
 import {
   IApiCollectionEntitiesTotal,
@@ -14,7 +14,6 @@ import { IEntityTransactionResponse } from "@/types/entityCollections/transactio
 import { ITransaction } from "@/types/transaction";
 
 export const blocksynkAPI = create({ baseURL: BlocksyncUrl });
-export const blocksynkGqlUrl = `https://devnet-blocksync-new.ixo.earth/graphql`;
 
 export async function requestBlocksyncAPI<ReturnType>(
   url: string
@@ -125,7 +124,6 @@ export async function requestBatchesByAddress(
 ): Promise<IAddressBatchResponse | undefined> {
   const url = `/api/token/byAddress/${entityAddress}`;
 
-  console.log(url);
   const { data, problem } = await blocksynkAPI.get<IAddressBatchResponse>(url);
 
   if (!problem && data) return data;
@@ -137,7 +135,7 @@ export async function requestTransactionByHash(
   hash: string
 ): Promise<ITransaction | undefined> {
   try {
-    const response = await fetch(blocksynkGqlUrl, {
+    const response = await fetch(BlocksyncGraphqlUrl, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -161,7 +159,9 @@ export async function requestTransactionByHash(
       }),
     });
     const transaction = await response.json();
+
     console.log("transaction: ", transaction);
+
     if (transaction.errors) throw transaction.errors;
     else return transaction.data;
   } catch (error) {

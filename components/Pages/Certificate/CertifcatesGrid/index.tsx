@@ -21,7 +21,7 @@ export default function CertificatesGrid({ batches, onBatchClick }: Props) {
               batchId={id}
               amount={0}
               retired={Number(amount)}
-              minted={Number(amount)}
+              adminMinted={Number(amount)}
               onBatchClick={onBatchClick}
             />
           </Grid.Col>
