@@ -1,5 +1,5 @@
 import { Text, Flex } from "@mantine/core";
-import { palette } from "@/theme/palette";
+import { fullBlueByOpacity, limeByOpacity, palette } from "@/theme/palette";
 import fillTreesProgress from "@/helpers/impactCharts/fillTreesProgress";
 
 import Ratings from "react-ratings-declarative";
@@ -27,10 +27,10 @@ function getAccentColor(activeTab: ClimateImpactTab): string {
 const getRateColor = (activeTab: ClimateImpactTab, rate: number): string => {
   switch (activeTab) {
     case ClimateImpactTab.OFFSET:
-      return `rgba(97, 180, 58, ${rate})`;
+      return limeByOpacity(rate);
 
     default:
-      return `rgba(43, 148, 245,${rate})`;
+      return fullBlueByOpacity(rate);
   }
 };
 

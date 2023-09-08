@@ -11,6 +11,9 @@ export function ImpactCreditsButtonBlue(
       h={46}
       radius={23}
       bg={palette.fullBlue}
+      sx={{
+        ":hover": { backgroundColor: palette.blueHover },
+      }}
       onClick={onClick}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...otherProps}

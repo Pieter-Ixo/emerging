@@ -34,7 +34,7 @@ export default function UserRoleSwitch() {
           { label: "collector", value: "collector" },
           { label: "distributor", value: "distributor" },
         ]}
-        color={palette.fullBlue}
+        color="fullBlue.0"
         radius={23}
       />
       <CollectorDistributorModal
