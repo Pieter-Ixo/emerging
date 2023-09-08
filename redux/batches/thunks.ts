@@ -54,7 +54,10 @@ export const fetchBatchesByOwnerAddress = createAsyncThunk<
   { dispatch: AppDispatch }
 >(
   "batches/fetchBatchesByOwnerAddress",
-  async (ownerAddress: string, { dispatch }): Promise<IAddressBatchResponse> => {
+  async (
+    ownerAddress: string,
+    { dispatch }
+  ): Promise<IAddressBatchResponse> => {
     const batchesResponse = await requestBatchesByAddress(ownerAddress);
 
     if (!batchesResponse) throw new Error("panica!");
@@ -68,9 +71,11 @@ export const fetchBatchesByAdminAddress = createAsyncThunk<
   { dispatch: AppDispatch }
 >(
   "batches/fetchBatchesByAdminAddress",
-  async (adminAddress: string, { dispatch }): Promise<IAddressBatchResponse> => {
+  async (
+    adminAddress: string,
+    { dispatch }
+  ): Promise<IAddressBatchResponse> => {
     const batchesResponse = await requestBatchesByAddress(adminAddress);
-
     if (!batchesResponse) throw new Error("panica!");
 
     return batchesResponse;

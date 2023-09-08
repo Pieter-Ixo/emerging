@@ -18,7 +18,7 @@ import {
 import { IEntityExtended } from "@/types/entityCollections";
 import Generated from "@/assets/icons/generated.svg";
 import BaseIcon from "@/components/Presentational/BaseIcon";
-import resetEntityTokens from "@/redux/entityCollections/actions";
+import { resetEntityTokens } from "@/redux/entityCollections/actions";
 
 import { ImpactCreditsButtonBlue } from "./StyledButtons";
 
@@ -32,6 +32,7 @@ export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
 
   const isPortfolioCollectionsRoute =
     router.pathname === "/collections/portfolio";
+
   const isGlobalCollectionsRoute =
     router.pathname === "/collections/[collectionId]";
 
@@ -41,14 +42,18 @@ export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
 
   useEffect(() => {
     dispatch(resetEntityTokens());
+    return () => {
+      dispatch(resetEntityTokens());
+    };
   }, []);
 
   useEffect(() => {
-    if (isPortfolioCollectionsRoute && entityOwnerAddress)
+    if (entityOwnerAddress) {
       dispatch(fetchUsersTokens(entityOwnerAddress));
-
-    if (isGlobalCollectionsRoute && entityAdminAddress)
+    }
+    if (entityAdminAddress) {
       dispatch(fetchAdminTokens(entityAdminAddress));
+    }
   }, [entityAdminAddress, entityOwnerAddress]);
 
   if (isAdminTokensLoading || isUserTokensLoading) return <Loader />;
@@ -80,7 +85,7 @@ export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
             {adminTokensLength || userTokensLength}
           </Text>
           <Text color={palette.accentActive} pb="md" ml="xs">
-            BATCHES {entity.alsoKnownAs.replace("{id}", "")}
+            BATCHES FOR {entity.alsoKnownAs.replace("{id}", "")}
           </Text>
         </Flex>
         <Stack spacing="xs">

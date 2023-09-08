@@ -1,5 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
 
-const resetEntityTokens = createAction<void>('entityCollections/resetEntityTokens')
+export const resetEntityTokens = createAction<void>('entityCollections/resetEntityTokens')
+export const resetSelectedEntity = createAction<void>('entityCollections/resetSelectedEntity')
 
-export default resetEntityTokens;

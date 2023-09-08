@@ -29,7 +29,7 @@ import {
   fetchEntityTransactions,
   fetchUsersTokens,
 } from "./thunks";
-import resetEntityTokens from "./actions";
+import { resetEntityTokens, resetSelectedEntity } from "./actions";
 
 export type EntityCollectionState = {
   entityCollections: ICollectionEntities[];
@@ -239,7 +239,7 @@ const EntityCollectionSlice = createSlice({
         state.isUserTokensLoading = true;
       }
     });
-    
+
     builder.addCase(fetchUsersTokensAndTotal.fulfilled, (state, action) => {
       state.userTokensAndTotal = action.payload;
       state.isUserTokensLoading = false;
@@ -248,6 +248,11 @@ const EntityCollectionSlice = createSlice({
     builder.addCase(resetEntityTokens, (state) => {
       state.userTokens = undefined;
       state.adminTokens = undefined;
+    });
+
+    // resetAdminAndUserTokens
+    builder.addCase(resetSelectedEntity, (state) => {
+      state.selectedEntity = undefined;
     });
 
     // fetchAdminTokens

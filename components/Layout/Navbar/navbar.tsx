@@ -9,6 +9,7 @@ import {
   selectUserEntityCollections,
 } from "@/redux/entityCollections/selectors";
 import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
+import { resetSelectedEntity } from "@/redux/entityCollections/actions";
 
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import IxoLogoIcon from "@/assets/icons/ixo-logo.svg";
@@ -24,6 +25,13 @@ export default function Nav() {
   const userEntityCollections = useAppSelector(selectUserEntityCollections);
   const selectedEntity = useAppSelector(selectSelectedEntity);
   const isUserCollectionsFilled = useRef(false);
+
+  useEffect(() => {
+    dispatch(resetSelectedEntity());
+    return () => {
+      dispatch(resetSelectedEntity());
+    };
+  }, []);
 
   useEffect(() => {
     if (userAddress && !isUserCollectionsFilled.current) {

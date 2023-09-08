@@ -62,14 +62,17 @@ export default function BatchesItem({
     if (amount !== undefined) onBatchClick(amount, batchId);
   };
 
-  const isUserValid = userWallet && userWallet === ownerAddress;
+  const isRetireAvailable =
+    userWallet && userWallet === ownerAddress && !isProgressComplete;
 
   const buttonStyles: Sx = {
-    cursor: isUserValid ? "pointer" : "default",
-    pointerEvents: isUserValid ? "all" : "none",
-    backgroundColor: isUserValid ? palette.fullBlue : palette.Neutral800,
+    cursor: isRetireAvailable ? "pointer" : "default",
+    pointerEvents: isRetireAvailable ? "all" : "none",
+    backgroundColor: isRetireAvailable ? palette.fullBlue : palette.Neutral800,
     ":hover": {
-      backgroundColor: isUserValid ? palette.fullBlue : palette.Neutral800,
+      backgroundColor: isRetireAvailable
+        ? palette.fullBlue
+        : palette.Neutral800,
     },
   };
 
