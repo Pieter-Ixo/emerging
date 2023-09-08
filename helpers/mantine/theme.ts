@@ -18,17 +18,14 @@ const mantineTheme: MantineThemeOverride = {
     },
   },
   colors: {
-    FullBlue: [
-      "#CEDCEA",
-      "#ACC9E3",
-      "#88B7E3",
-      "#2B94F5",
-      "#5297D7",
-      "#4988C2",
-      "#487AA8",
-      "#4A6E8F",
-      "#49627A",
-      "#46586A",
+    fullBlue: [
+      "#2B84A3",
+      "#2B84A3",
+      "#2B84A3",
+      "#2B84A3",
+      "#2B84A3",
+      "#2B84A3",
+      "#2B84A3",
     ],
     GreenFull: [
       "#95B885",

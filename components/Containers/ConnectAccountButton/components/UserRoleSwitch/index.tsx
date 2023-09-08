@@ -34,7 +34,8 @@ export default function UserRoleSwitch() {
           { label: "collector", value: "collector" },
           { label: "distributor", value: "distributor" },
         ]}
-        color={palette.fullBlue}
+        // FIXME:EMERGING-248 override and use mantine provider theme
+        color="fullBlue"
         radius={23}
       />
       <CollectorDistributorModal

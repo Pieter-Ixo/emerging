@@ -32,7 +32,7 @@ export function PerformanceTab({
   children,
   disabled,
 }: ImpactTabProps) {
-  const color = disabled || !isActive ? "Grey" : activeBGColor;
+  const bgColor = disabled || !isActive ? palette.Neutral100 : activeBGColor;
 
   return (
     <Tooltip label={children} disabled={isActive}>
@@ -49,7 +49,8 @@ export function PerformanceTab({
             marginRight: 0,
           },
         }}
-        color={color}
+        // FIXME:EMERGING-248 override and use mantine provider theme
+        bg={bgColor}
         leftSection={
           <div style={{ paddingTop: 5, paddingRight: isActive ? 10 : 0 }}>
             {Icon}

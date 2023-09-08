@@ -30,7 +30,7 @@ const getRateColor = (activeTab: ClimateImpactTab, rate: number): string => {
       return `rgba(97, 180, 58, ${rate})`;
 
     default:
-      return `rgba(43, 148, 245,${rate})`;
+      return `rgba(43, 132, 163,${rate})`;
   }
 };
 

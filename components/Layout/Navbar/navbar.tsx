@@ -10,9 +10,12 @@ import {
 } from "@/redux/entityCollections/selectors";
 import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
 
+import BaseIcon from "@/components/Presentational/BaseIcon";
+import IxoLogoIcon from "@/assets/icons/ixo-logo.svg";
+
 import ConnectAccountButton from "../../Containers/ConnectAccountButton/connected_account";
 import ImpactCreditsCard from "../../Containers/UserBalance/ImpactCreditsCard";
-import HeaderLogo from "../Header_Logo/Index";
+
 import BatchesCard from "../../Containers/UserBalance/BatchesCard";
 
 export default function Nav() {
@@ -45,7 +48,12 @@ export default function Nav() {
       <Navbar.Section p="xs" style={{ paddingBottom: 10 }}>
         <Flex justify="center" sx={{ padding: "20px 0px" }}>
           <Link href="/">
-            <HeaderLogo />
+            <BaseIcon
+              cursorMode="pointer"
+              width={100}
+              height={59}
+              Icon={IxoLogoIcon}
+            />
           </Link>
         </Flex>
       </Navbar.Section>

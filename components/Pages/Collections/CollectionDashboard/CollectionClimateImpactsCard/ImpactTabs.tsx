@@ -37,7 +37,8 @@ function ImpactTab({
         textTransform: "none",
         cursor: "pointer",
       }}
-      color={isActive ? activeBGColor : "Grey"}
+      // FIXME:EMERGING-248 override and use mantine provider theme
+      bg={isActive ? activeBGColor : palette.Neutral100}
       leftSection={<div style={{ paddingTop: 5, paddingRight: 5 }}>{Icon}</div>}
       onClick={onClick}
     >
