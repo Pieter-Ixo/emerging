@@ -49,7 +49,6 @@ export function PerformanceTab({
             marginRight: 0,
           },
         }}
-        // FIXME:EMERGING-248 override and use mantine provider theme
         bg={bgColor}
         leftSection={
           <div style={{ paddingTop: 5, paddingRight: isActive ? 10 : 0 }}>
