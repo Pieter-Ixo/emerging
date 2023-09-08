@@ -19,6 +19,7 @@ export type ICollectionState = {
   tokenIpfs?: ICollectionTokenIpfs;
   isTokenIpfsLoading: boolean;
   tokenIpfsError: Error | undefined;
+
 };
 
 export type GlobalCollectionsState = {

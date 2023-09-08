@@ -31,6 +31,7 @@ export async function requestGlobalCollections(): Promise<
     entitiesLength: entityCollection.entities?.length,
   }));
 
+
   return { data: collections, error };
 }
 

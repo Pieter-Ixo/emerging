@@ -103,6 +103,7 @@ const GlobalCollectionsSlice = createSlice({
       const { id, error } = action.payload;
       const collectionIndex = getCollectionIndex(state, id);
       state.globalCollections[collectionIndex].profileError = error;
+
     },
 
     setCollectionTags: (

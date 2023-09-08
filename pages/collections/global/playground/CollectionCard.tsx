@@ -42,7 +42,10 @@ export default function CollectionCard({
 
 
   useEffect(() => {
-    dispatch(fetchCollectionsProfile(collection.id));
+    if (collection.id) {
+      dispatch(fetchCollectionsProfile(collection.id));
+      dispatch(fetchCollectionsTags(collection.id));
+    }
   }, [collection.id]);
 
   return (
