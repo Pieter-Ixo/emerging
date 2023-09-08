@@ -43,7 +43,7 @@ export const selectCollectionProfileById = (
   collectionId: string
 ): ICollectionState["profile"] | undefined =>
   state.globalCollections.globalCollections?.find(
-    (collectionState) => collectionState.id === collectionId
+    ({ collection }) => collection.id === collectionId
   )?.profile;
 
 export const selectCollectionProfileLoadingById = (
