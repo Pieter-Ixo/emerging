@@ -12,11 +12,10 @@ import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks
 import { resetSelectedEntity } from "@/redux/entityCollections/actions";
 import ImpactCreditsCard from "@/components/Containers/UserBalance/ImpactCreditsCard";
 import ConnectAccountButton from "@/components/Containers/ConnectAccountButton/connected_account";
-import BatchesCard from "@/components/Containers/UserBalance/BatchesCard";
+import NavBatchesCard from "@/components/Containers/UserBalance/BatchesCard";
 
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import IxoLogoIcon from "@/assets/icons/ixo-logo.svg";
-
 
 export default function Nav() {
   const dispatch = useAppDispatch();
@@ -76,7 +75,7 @@ export default function Nav() {
       )}
       {selectedEntity && (
         <Navbar.Section p="xs">
-          <BatchesCard entity={selectedEntity} />
+          <NavBatchesCard entity={selectedEntity} />
         </Navbar.Section>
       )}
     </Navbar>

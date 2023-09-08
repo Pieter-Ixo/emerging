@@ -22,7 +22,7 @@ import { resetEntityTokens } from "@/redux/entityCollections/actions";
 
 import { ImpactCreditsButtonBlue } from "./StyledButtons";
 
-export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
+export default function NavBatchesCard({ entity }: { entity: IEntityExtended }) {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const adminTokens = useAppSelector(selectAdminTokens);
