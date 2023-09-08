@@ -54,7 +54,7 @@ export default function OwnerBatches() {
       dispatch(fetchBatchesEntityByExternalId(entityExternalId));
   }, [entityExternalId, dispatch]);
 
-  const onBatchClick = (
+  const onRetireBtnClick = (
     availableCredits: number | undefined,
     batchId: string | undefined
   ) => {
@@ -77,7 +77,7 @@ export default function OwnerBatches() {
       {batchesViewMode === ControlsDisplayMods.gridView ? (
         <BatchesGrid
           ownerAddress={batchesEntity?.owner}
-          onBatchClick={onBatchClick}
+          onRetireBtnClick={onRetireBtnClick}
           ownerBatches={ownerBatches}
           adminBatches={adminBatches}
         />

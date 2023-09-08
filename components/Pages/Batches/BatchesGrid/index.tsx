@@ -3,13 +3,13 @@ import { Box, Grid } from "@mantine/core";
 import { IAddressBatches } from "@/types/certificates";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 
-import BatchesItem from "../BatchesItem";
+import BatchesCard from "../BatchesCard";
 
 type Props = {
   ownerBatches?: IAddressBatches;
   adminBatches?: IAddressBatches;
-  ownerAddress?:string;
-  onBatchClick: (
+  ownerAddress?: string;
+  onRetireBtnClick: (
     availableCredits: number | undefined,
     batchId: string | undefined
   ) => void;
@@ -19,7 +19,7 @@ export default function BatchesGrid({
   ownerBatches,
   adminBatches,
   ownerAddress,
-  onBatchClick,
+  onRetireBtnClick,
 }: Props) {
   const entityId = useValueFromRouter("entityId");
 
@@ -30,12 +30,12 @@ export default function BatchesGrid({
           Object.entries(ownerBatches || adminBatches).map(
             ([batchId, batchData]) => (
               <Grid.Col key={batchId} span={6}>
-                <BatchesItem
+                <BatchesCard
                   batchId={batchId}
                   amount={batchData.amount}
                   retired={batchData.retired}
                   adminMinted={adminBatches[batchId]?.minted}
-                  onBatchClick={onBatchClick}
+                  onRetireBtnClick={onRetireBtnClick}
                   ownerAddress={ownerAddress}
                   entityId={entityId}
                 />

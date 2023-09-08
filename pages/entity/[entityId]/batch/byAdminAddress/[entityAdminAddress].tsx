@@ -31,7 +31,7 @@ export default function AdminBatches() {
     }
   }, [adminAddress, dispatch]);
 
-  const onBatchClick = (
+  const onRetireBtnClick = (
     offset: number | undefined,
     batchId: string | undefined
   ) => {
@@ -52,7 +52,7 @@ export default function AdminBatches() {
         toggleBatchesViewMode={toggleBatchesViewMode}
       />
       {batchesViewMode === ControlsDisplayMods.gridView ? (
-        <BatchesGrid onBatchClick={onBatchClick} adminBatches={adminBatches} />
+        <BatchesGrid onRetireBtnClick={onRetireBtnClick} adminBatches={adminBatches} />
       ) : (
         <BatchesTable batches={adminBatches && Object.entries(adminBatches)} />
       )}

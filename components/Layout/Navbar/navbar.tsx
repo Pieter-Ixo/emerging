@@ -10,14 +10,13 @@ import {
 } from "@/redux/entityCollections/selectors";
 import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
 import { resetSelectedEntity } from "@/redux/entityCollections/actions";
+import ImpactCreditsCard from "@/components/Containers/UserBalance/ImpactCreditsCard";
+import ConnectAccountButton from "@/components/Containers/ConnectAccountButton/connected_account";
+import BatchesCard from "@/components/Containers/UserBalance/BatchesCard";
 
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import IxoLogoIcon from "@/assets/icons/ixo-logo.svg";
 
-import ConnectAccountButton from "../../Containers/ConnectAccountButton/connected_account";
-import ImpactCreditsCard from "../../Containers/UserBalance/ImpactCreditsCard";
-
-import BatchesCard from "../../Containers/UserBalance/BatchesCard";
 
 export default function Nav() {
   const dispatch = useAppDispatch();

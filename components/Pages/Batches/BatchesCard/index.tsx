@@ -25,13 +25,13 @@ type Props = {
   retired?: number;
   entityId?: string;
   ownerAddress?: string;
-  onBatchClick: (
+  onRetireBtnClick: (
     availableCredits: number | undefined,
     batchId: string | undefined
   ) => void;
 };
 
-export default function BatchesItem({
+export default function BatchesCard({
   name,
   batchId,
   adminMinted,
@@ -39,7 +39,7 @@ export default function BatchesItem({
   retired,
   entityId,
   ownerAddress,
-  onBatchClick,
+  onRetireBtnClick,
 }: Props) {
   const router = useRouter();
   const userWallet = useAppSelector(selectConnectedWallet);
@@ -50,16 +50,16 @@ export default function BatchesItem({
     ? "url(/images/bg/certificate-bg--disabled.png)"
     : "url(/images/bg/certificate-bg.png)";
 
-  const toSingleBatch = () => {
+  const redirectToBatchDashboard = () => {
     const redirectUrl = `/entity/${entityId}/batch/${batchId}`;
 
     router.push(redirectUrl);
   };
 
-  const onOffsetBtnClick = (e: MouseEvent<any>) => {
+  const handleRetireBtnClick = (e: MouseEvent<any>) => {
     e.stopPropagation();
 
-    if (amount !== undefined) onBatchClick(amount, batchId);
+    onRetireBtnClick(amount, batchId);
   };
 
   const isRetireAvailable =
@@ -78,7 +78,7 @@ export default function BatchesItem({
 
   return (
     <Flex
-      onClick={() => toSingleBatch()}
+      onClick={() => redirectToBatchDashboard()}
       direction="column"
       justify="center"
       gap={10}
@@ -135,7 +135,7 @@ export default function BatchesItem({
           <BaseIcon fill={palette.White} width={24} height={25} Icon={Batch3} />
         </BatchButton>
         <Button
-          onClick={(e) => onOffsetBtnClick(e)}
+          onClick={(e) => handleRetireBtnClick(e)}
           sx={{ flexGrow: 1, ...buttonStyles }}
           radius="xl"
           h={45}

@@ -5,10 +5,10 @@ import Pot from "@/assets/icons/pot.svg";
 import SproutPill from "@/assets/icons/sprout-pill.svg";
 import { SECTIONS, STOVE } from "@/types/stove";
 import DeviceDashboardCard from "@/components/Presentational/DeviceDashboardCard";
+import AssetFuelChart from "@/components/Presentational/Chart/Instances/AssetFuelChart";
+import AssetSessionsChart from "@/components/Presentational/Chart/Instances/AssetSessionsChart";
 
 import TabButton from "./components/TabButton";
-import AssetFuelChart from "../../../Presentational/Chart/Instances/AssetFuelChart";
-import AssetSessionsChart from "../../../Presentational/Chart/Instances/AssetSessionsChart";
 
 type Props = { stove: STOVE };
 function PerformanceCard({ stove }: Props) {
