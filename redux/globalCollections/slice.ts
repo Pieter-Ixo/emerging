@@ -4,18 +4,34 @@ import {
   PayloadAction,
   createSlice,
 } from "@reduxjs/toolkit";
-import { ICollection, ICollectionProfile } from "@/types/entityCollections";
+import {
+  ICollection,
+  ICollectionProfile,
+  ICollectionTags,
+} from "@/types/entityCollections";
 import { GlobalCollectionsState, ICollectionState } from "./types";
 import { getCollectionIndex } from "./helpers";
+
+const initialCollectionState: Omit<ICollectionState, "collection"> = {
+  profile: undefined,
+  isProfileLoading: false,
+  profileError: undefined,
+  tags: undefined,
+  isTagsLoading: false,
+  tagsError: undefined,
+  tokenIpfs: undefined,
+  isTokenIpfsLoading: false,
+  tokenIpfsError: undefined,
+};
 
 const initialState: GlobalCollectionsState = {
   globalCollections: [],
   isGlobalCollectionsLoading: false,
-  globalCollectionsLoadingError: undefined,
+  globalCollectionsError: undefined,
 
   selectedCollection: undefined,
   isSelectedCollectionLoading: false,
-  selectedCollectionLoadingError: undefined,
+  selectedCollectionError: undefined,
 };
 
 const GlobalCollectionsSlice = createSlice({
@@ -25,16 +41,32 @@ const GlobalCollectionsSlice = createSlice({
     // TODO: move reducers to ./reducers.ts
     setGlobalCollections: (state, action: PayloadAction<ICollection[]>) => {
       const collections = action.payload;
-      const collectionsState: ICollectionState[] = collections.map(
-        (collection) => ({ collection })
-      );
-      state.globalCollections = collectionsState;
+      const isStateEmpty = !state.globalCollections.length;
+
+      if (isStateEmpty) {
+        state.globalCollections = collections.map(
+          (collection): ICollectionState => ({
+            collection,
+            ...initialCollectionState,
+          })
+        );
+      } else {
+        collections.forEach((collection) => {
+          const index = getCollectionIndex(state, collection.id);
+          if (index === -1)
+            state.globalCollections.push({
+              collection,
+              ...initialCollectionState,
+            });
+          else state.globalCollections[index].collection = collection;
+        });
+      }
     },
     setIsGlobalCollectionsLoading: (state, action: PayloadAction<boolean>) => {
       state.isGlobalCollectionsLoading = action.payload;
     },
-    setGlobalCollectionsLoadingError: (state, action: PayloadAction<Error>) => {
-      state.globalCollectionsLoadingError = action.payload;
+    setGlobalCollectionsError: (state, action: PayloadAction<Error>) => {
+      state.globalCollectionsError = action.payload;
     },
 
     setCollectionProfile: (
@@ -59,16 +91,50 @@ const GlobalCollectionsSlice = createSlice({
       const collectionIndex = getCollectionIndex(state, id);
       state.globalCollections[collectionIndex].isProfileLoading = isLoading;
     },
-    setCollectionProfileLoadingError: (
+    setCollectionProfileError: (
       state,
       action: PayloadAction<{
         id: ICollection["id"];
-        error: ICollectionState["profileLoadingError"];
+        error: ICollectionState["profileError"];
       }>
     ) => {
       const { id, error } = action.payload;
       const collectionIndex = getCollectionIndex(state, id);
-      state.globalCollections[collectionIndex].profileLoadingError = error;
+      state.globalCollections[collectionIndex].profileError = error;
+    },
+
+    setCollectionTags: (
+      state,
+      action: PayloadAction<{
+        id: ICollection["id"];
+        tags: ICollectionTags;
+      }>
+    ) => {
+      const { id, tags } = action.payload;
+      const indexOfCollectionInState = getCollectionIndex(state, id);
+      state.globalCollections[indexOfCollectionInState].tags = tags;
+    },
+    setIsCollectionTagsLoading: (
+      state,
+      action: PayloadAction<{
+        id: ICollection["id"];
+        isLoading: ICollectionState["isTagsLoading"];
+      }>
+    ) => {
+      const { id, isLoading } = action.payload;
+      const collectionIndex = getCollectionIndex(state, id);
+      state.globalCollections[collectionIndex].isTagsLoading = isLoading;
+    },
+    setCollectionTagsError: (
+      state,
+      action: PayloadAction<{
+        id: ICollection["id"];
+        error: ICollectionState["tagsError"];
+      }>
+    ) => {
+      const { id, error } = action.payload;
+      const collectionIndex = getCollectionIndex(state, id);
+      state.globalCollections[collectionIndex].tagsError = error;
     },
   },
 
@@ -80,11 +146,15 @@ const GlobalCollectionsSlice = createSlice({
 export const {
   setGlobalCollections,
   setIsGlobalCollectionsLoading,
-  setGlobalCollectionsLoadingError,
+  setGlobalCollectionsError,
 
   setCollectionProfile,
   setIsCollectionProfileLoading,
-  setCollectionProfileLoadingError,
+  setCollectionProfileError,
+
+  setCollectionTags,
+  setIsCollectionTagsLoading,
+  setCollectionTagsError,
 } = GlobalCollectionsSlice.actions;
 
 export default GlobalCollectionsSlice.reducer;

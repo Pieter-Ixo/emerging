@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   selectGlobalCollections,
   selectIsGlobalCollectionsLoading,
-  selectGlobalCollectionsLoadingError,
+  selectGlobalCollectionsError,
 } from "@/redux/globalCollections/selectors";
 import { fetchGlobalCollections } from "@/redux/globalCollections/thunks";
 
@@ -25,12 +25,12 @@ export default function Collections() {
     selectIsGlobalCollectionsLoading
   );
   const globalCollectionsLoadingError = useAppSelector(
-    selectGlobalCollectionsLoadingError
+    selectGlobalCollectionsError
   );
 
   useEffect(() => {
     dispatch(fetchGlobalCollections());
-  }, [dispatch]);
+  }, []);
 
   return (
     <AppLayout title="Emerging Collections">
@@ -47,9 +47,9 @@ export default function Collections() {
         </Alert>
       )}
       <Grid maw={900} gutter="lg" m={0} p={0}>
-        {globalCollections.map(({ collection }) => (
-          <Grid.Col span={6} key={`collection-${collection?.id}`} p={0}>
-            <CollectionCard collection={collection} entitiesLength={0} />
+        {globalCollections.map((colState) => (
+          <Grid.Col span={6} key={`col-${colState.collection?.id}`} p={0}>
+            <CollectionCard collectionState={colState} entitiesLength={500} />
           </Grid.Col>
         ))}
       </Grid>

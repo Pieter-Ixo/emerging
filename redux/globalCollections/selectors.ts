@@ -1,5 +1,4 @@
 import { createDraftSafeSelector } from "@reduxjs/toolkit";
-import { ICollection } from "@/types/entityCollections";
 
 import { RootState } from "../store";
 import { GlobalCollectionsState, ICollectionState } from "./types";
@@ -26,16 +25,16 @@ export const selectIsGlobalCollectionsLoading = createDraftSafeSelector(
     state?.isGlobalCollectionsLoading
 );
 
-export const selectGlobalCollectionsLoadingError = createDraftSafeSelector(
+export const selectGlobalCollectionsError = createDraftSafeSelector(
   selectGlobalCollectionsState,
-  (state: GlobalCollectionsState) => state?.globalCollectionsLoadingError
+  (state: GlobalCollectionsState) => state?.globalCollectionsError
 );
 
 export const selectCollectionById = (
   state: RootState,
   collectionId: string
 ): ICollectionState | undefined =>
-  state.globalCollections.globalCollections.find(
+  state.globalCollections.globalCollections?.find(
     ({ collection }) => collection.id === collectionId
   );
 
@@ -43,8 +42,48 @@ export const selectCollectionProfileById = (
   state: RootState,
   collectionId: string
 ): ICollectionState["profile"] | undefined =>
-  state.globalCollections.globalCollections.find(
-    ({ collection }) => collection.id === collectionId
+  state.globalCollections.globalCollections?.find(
+    (collectionState) => collectionState.id === collectionId
   )?.profile;
 
-// TODO: write a combine selectors which will fork for selectors with arguments
+export const selectCollectionProfileLoadingById = (
+  state: RootState,
+  collectionId: string
+): ICollectionState["isProfileLoading"] | undefined =>
+  state.globalCollections.globalCollections?.find(
+    ({ collection }) => collection.id === collectionId
+  )?.isProfileLoading;
+
+export const selectCollectionProfileErrorById = (
+  state: RootState,
+  collectionId: string
+): ICollectionState["profileError"] | undefined =>
+  state.globalCollections.globalCollections?.find(
+    ({ collection }) => collection.id === collectionId
+  )?.profileError;
+
+// TODO: unify selectors with arguments below. Maybe write a util `chainSelectors` or `combineSelectors`
+
+export const selectCollectionTagsById = (
+  state: RootState,
+  collectionId: string
+): ICollectionState["tags"] | undefined =>
+  state.globalCollections.globalCollections?.find(
+    ({ collection }) => collection.id === collectionId
+  )?.tags;
+
+export const selectCollectionTagsLoadingById = (
+  state: RootState,
+  collectionId: string
+): ICollectionState["isTagsLoading"] | undefined =>
+  state.globalCollections.globalCollections?.find(
+    ({ collection }) => collection.id === collectionId
+  )?.isTagsLoading;
+
+export const selectCollectionTagsErrorById = (
+  state: RootState,
+  collectionId: string
+): ICollectionState["tagsError"] | undefined =>
+  state.globalCollections.globalCollections?.find(
+    ({ collection }) => collection.id === collectionId
+  )?.tagsError;

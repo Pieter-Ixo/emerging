@@ -10,32 +10,33 @@ import {
   Badge,
 } from "@mantine/core";
 
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { ICollectionExtended } from "@/types/entityCollections";
-import getEntityTagsByCategory from "@/helpers/transformData/getEntityTagsByCategory";
+import { useAppDispatch } from "@/hooks/redux";
 import { palette } from "@/theme/palette";
 import TagIcon from "@/components/Pages/Collections/Global/CollectionsGrid/TagIcon";
-import { fetchCollectionsProfile } from "@/redux/globalCollections/thunks";
-import { selectCollectionProfileById } from "@/redux/globalCollections/selectors";
+import {
+  fetchCollectionsProfile,
+  fetchCollectionsTags,
+} from "@/redux/globalCollections/thunks";
+import { ICollectionState } from "@/redux/globalCollections/types";
+import { getEntityTagsFromTags } from "@/helpers/transformData/getEntityTagsByCategory";
 
-type Props = { collection: ICollectionExtended; entitiesLength: number };
+type Props = { collectionState: ICollectionState; entitiesLength: number };
 
-export default function CollectionCard({ collection, entitiesLength }: Props) {
+export default function CollectionCard({
+  collectionState,
+  entitiesLength,
+}: Props) {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const profile = useAppSelector((state) =>
-    selectCollectionProfileById(state, collection.id)
-  );
-  const collectionTokenIpfs = collection._tokenIpfs;
-
+  const { collection, profile, tags } = collectionState;
+  const sdgTags = getEntityTagsFromTags(tags);
   const { brand, name, imageUrl, logoUrl } = profile || {};
 
-  const tags = getEntityTagsByCategory(collection, "SDG") ?? [];
-
-  const badgeTitle = collectionTokenIpfs?.properties.denom;
-
   useEffect(() => {
-    dispatch(fetchCollectionsProfile(collection.id));
+    if (collection.id) {
+      dispatch(fetchCollectionsProfile(collection.id));
+      dispatch(fetchCollectionsTags(collection.id));
+    }
   }, [collection.id]);
 
   return (
@@ -50,7 +51,7 @@ export default function CollectionCard({ collection, entitiesLength }: Props) {
       <Card.Section>
         <BackgroundImage src={imageUrl || ""} mih={250}>
           <Flex justify="flex-end" align="flex-start" gap="sm" p="md">
-            {tags.map((tagText) => (
+            {sdgTags?.map((tagText) => (
               <TagIcon name={tagText} key={tagText} />
             ))}
           </Flex>
@@ -79,7 +80,7 @@ export default function CollectionCard({ collection, entitiesLength }: Props) {
               variant="filled"
             >
               <Text size="md" fw={500}>
-                {badgeTitle}
+                DENOM
               </Text>
             </Badge>
           </Flex>

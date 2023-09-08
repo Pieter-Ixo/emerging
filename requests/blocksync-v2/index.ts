@@ -26,8 +26,8 @@ export async function requestGlobalCollections(): Promise<
     "/api/entity/collections"
   );
   const collections = data?.map(
-    ({ collection }) => collection
-  ) as ICollection[];
+    (entityCollection) => entityCollection.collection
+  );
 
   return { data: collections, error };
 }

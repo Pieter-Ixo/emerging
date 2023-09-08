@@ -10,23 +10,23 @@ export type ICollectionState = {
 
   profile?: ICollectionProfile;
   isProfileLoading?: boolean;
-  profileLoadingError?: Error | undefined;
+  profileError?: Error | undefined;
 
   tags?: ICollectionTags;
   isTagsLoading?: boolean;
-  tagsLoadingError?: Error | undefined;
+  tagsError?: Error | undefined;
 
   tokenIpfs?: ICollectionTokenIpfs;
   isTokenIpfsLoading?: boolean;
-  tokenIpfsLoadingError?: Error | undefined;
+  tokenIpfsError?: Error | undefined;
 };
 
 export type GlobalCollectionsState = {
   globalCollections: ICollectionState[];
   isGlobalCollectionsLoading: boolean;
-  globalCollectionsLoadingError: Error | undefined;
+  globalCollectionsError: Error | undefined;
 
   selectedCollection: ICollectionState | undefined;
   isSelectedCollectionLoading: boolean;
-  selectedCollectionLoadingError: Error | undefined;
+  selectedCollectionError: Error | undefined;
 };
