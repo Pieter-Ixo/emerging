@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import { Box, Flex, Navbar } from "@mantine/core";
 
@@ -12,12 +13,13 @@ import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks
 import { resetSelectedEntity } from "@/redux/entityCollections/actions";
 import ImpactCreditsCard from "@/components/Containers/UserBalance/ImpactCreditsCard";
 import ConnectAccountButton from "@/components/Containers/ConnectAccountButton/connected_account";
-import NavBatchesCard from "@/components/Containers/UserBalance/BatchesCard";
-
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import IxoLogoIcon from "@/assets/icons/ixo-logo.svg";
+import NavBatchesOwnerCard from "@/components/Containers/NavBatchesOwnerCard";
+import NavBatchesAdminCard from "@/components/Containers/NavBatchesAdminCard";
 
 export default function Nav() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const userAddress = useAppSelector((state) => state.user.connectedWallet);
   const userEntityCollections = useAppSelector(selectUserEntityCollections);
@@ -39,6 +41,12 @@ export default function Nav() {
       isUserCollectionsFilled.current = true;
     }
   }, [userAddress]);
+
+  const isPortfolioCollectionsRoute =
+    router.pathname === "/collections/portfolio";
+
+  const isGlobalCollectionsRoute =
+    router.pathname === "/collections/[collectionId]";
 
   return (
     <Navbar
@@ -75,7 +83,12 @@ export default function Nav() {
       )}
       {selectedEntity && (
         <Navbar.Section p="xs">
-          <NavBatchesCard entity={selectedEntity} />
+          {isPortfolioCollectionsRoute && (
+            <NavBatchesOwnerCard entity={selectedEntity} />
+          )}
+          {isGlobalCollectionsRoute && (
+            <NavBatchesAdminCard entity={selectedEntity} />
+          )}
         </Navbar.Section>
       )}
     </Navbar>
