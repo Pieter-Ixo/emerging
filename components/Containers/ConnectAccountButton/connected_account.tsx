@@ -86,7 +86,6 @@ function ConnectAccountButton() {
           if (!wallet.user) updateWalletType(WALLET_TYPE.walletConnect);
         }}
         mb={30}
-        // FIXME:EMERGING-248 override and use mantine provider theme
         bg={palette.accentActive}
         sx={{
           ":hover": { backgroundColor: palette.accentHover },
