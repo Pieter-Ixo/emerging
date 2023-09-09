@@ -1,5 +1,5 @@
 import { Text, Flex } from "@mantine/core";
-import { fullBlueByOpacity, limeByOpacity, palette } from "@/theme/palette";
+import { accentActiveByOpacity, limeByOpacity, palette } from "@/theme/palette";
 import fillTreesProgress from "@/helpers/impactCharts/fillTreesProgress";
 
 import Ratings from "react-ratings-declarative";
@@ -20,7 +20,7 @@ function getAccentColor(activeTab: ClimateImpactTab): string {
       return palette.greenFull;
 
     default:
-      return palette.fullBlue;
+      return palette.accentActive;
   }
 }
 
@@ -30,7 +30,7 @@ const getRateColor = (activeTab: ClimateImpactTab, rate: number): string => {
       return limeByOpacity(rate);
 
     default:
-      return fullBlueByOpacity(rate);
+      return accentActiveByOpacity(rate);
   }
 };
 

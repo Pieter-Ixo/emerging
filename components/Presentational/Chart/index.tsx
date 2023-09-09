@@ -55,7 +55,7 @@ export default function Chart({
         renderSVG: () => (
           <defs>
             <linearGradient id="0" x1="0" x2="0" y1="1" y2="0">
-              <stop offset="0%" stopColor={palette.fullBlue} />
+              <stop offset="0%" stopColor={palette.accentActive} />
             </linearGradient>
           </defs>
         ),

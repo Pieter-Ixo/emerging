@@ -36,7 +36,7 @@ export default function ProgressBar({
         size={claimable ? "xl" : "md"}
         sections={[
           { value: retiredPercent, color: palette.greenFull },
-          { value: claimablePercent, color: palette.fullBlue },
+          { value: claimablePercent, color: palette.accentActive },
           { value: producedPercent, color: palette.Black },
         ]}
       />
@@ -54,7 +54,7 @@ export default function ProgressBar({
           )}
         </Flex>
         {claimable ? (
-          <Text size="xs" lts="0.6px" color={palette.fullBlue}>
+          <Text size="xs" lts="0.6px" color={palette.accentActive}>
             {showClaimable}
           </Text>
         ) : null}

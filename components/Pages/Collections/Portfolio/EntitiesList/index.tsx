@@ -79,7 +79,7 @@ export default function EntitiesList({
                 <Box>
                   <Badge
                     sx={{
-                      background: palette.activeBlue,
+                      background: palette.accentActive,
                       textAlign: "center",
                       textTransform: "none",
                     }}

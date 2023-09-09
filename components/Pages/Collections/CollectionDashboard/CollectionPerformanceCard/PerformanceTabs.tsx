@@ -80,7 +80,7 @@ export default function PerformanceTabs({
     <Group>
       <PerformanceTab
         isActive={activeTab === ClimateImpactTab.SAVED}
-        activeBGColor={palette.fullBlue}
+        activeBGColor={palette.accentActive}
         onClick={() => onSetTab(ClimateImpactTab.SAVED)}
         Icon={
           <CO2Saved
@@ -97,7 +97,7 @@ export default function PerformanceTabs({
 
       <PerformanceTab
         isActive={activeTab === ClimateImpactTab.ISSUED}
-        activeBGColor={palette.fullBlue}
+        activeBGColor={palette.accentActive}
         onClick={() => onSetTab(ClimateImpactTab.ISSUED)}
         Icon={
           <CO2IssuedIcon

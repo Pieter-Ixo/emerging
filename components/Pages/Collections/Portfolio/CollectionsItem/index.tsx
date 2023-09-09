@@ -39,7 +39,7 @@ export default function CollectionsItem({
 
   if (!collection) return null;
 
-  const activeCardBg = isActive ? palette.fullBlue : palette.Neutral100;
+  const activeCardBg = isActive ? palette.accentActive : palette.Neutral100;
   const activeCardFont = isActive ? palette.White : palette.Black;
 
   const imageId = collection._profile?.imageUrl.split("/").at(-1);

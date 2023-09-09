@@ -37,10 +37,10 @@ export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
 
       <Stack spacing="xl">
         <Flex align="flex-end">
-          <Text color={palette.fullBlue} size={56}>
+          <Text color={palette.accentActive} size={56}>
             {Object.keys(adminTokens?.CARBON.tokens).length}
           </Text>
-          <Text color={palette.fullBlue} pb="md" ml="xs">
+          <Text color={palette.accentActive} pb="md" ml="xs">
             BATCHES
           </Text>
         </Flex>

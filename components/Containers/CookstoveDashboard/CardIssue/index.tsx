@@ -15,7 +15,7 @@ function CarbonIssueCard({ amount = 0 }: CarbonIssueCardProps) {
       mih={140}
       p="md"
       sx={{
-        backgroundColor: palette.secondaryBlue,
+        backgroundColor: palette.accentLight,
         borderRadius: 12,
       }}
     >

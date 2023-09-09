@@ -16,7 +16,7 @@ export default function TableCell({
   return (
     <td
       style={{
-        color: isActive ? palette.lightBlue : palette.Black,
+        color: isActive ? palette.accentLight : palette.Black,
         backgroundColor: isSelected ? palette.Neutral200 : palette.White,
         cursor: "pointer",
         paddingLeft: 2,

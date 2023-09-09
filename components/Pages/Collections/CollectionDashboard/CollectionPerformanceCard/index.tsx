@@ -44,7 +44,7 @@ export default function CollectionPerformanceCard() {
           <PerformanceTab
             // @ts-ignore
             name={SECTIONS.usage as string}
-            activeBGColor={palette.fullBlue}
+            activeBGColor={palette.accentActive}
             Icon={
               <CookstoveUsageIcon isActive={SECTIONS.usage === activeTab} />
             }
@@ -56,7 +56,7 @@ export default function CollectionPerformanceCard() {
           <PerformanceTab
             // @ts-ignore
             name={SECTIONS.fuel as string}
-            activeBGColor={palette.fullBlue}
+            activeBGColor={palette.accentActive}
             Icon={<CookstoveFuelIcon isActive={activeTab === SECTIONS.fuel} />}
             onClick={() => setActiveTab(SECTIONS.fuel)}
             isActive={SECTIONS.fuel === activeTab}
@@ -66,7 +66,7 @@ export default function CollectionPerformanceCard() {
           <PerformanceTab
             // @ts-ignore
             name={SECTIONS.time as string}
-            activeBGColor={palette.fullBlue}
+            activeBGColor={palette.accentActive}
             Icon={<CookstoveTimeIcon isActive={activeTab === SECTIONS.time} />}
             onClick={() => setActiveTab(SECTIONS.time)}
             isActive={SECTIONS.time === activeTab}
@@ -76,7 +76,7 @@ export default function CollectionPerformanceCard() {
           <PerformanceTab
             // @ts-ignore
             name={SECTIONS.costs as string}
-            activeBGColor={palette.fullBlue}
+            activeBGColor={palette.accentActive}
             onClick={() => setActiveTab(SECTIONS.costs)}
             Icon={
               <CookstoveCostsIcon isActive={activeTab === SECTIONS.costs} />
@@ -94,7 +94,7 @@ export default function CollectionPerformanceCard() {
           <PerformanceTab
             // @ts-ignore
             name={SECTIONS.location as string}
-            activeBGColor={palette.fullBlue}
+            activeBGColor={palette.accentActive}
             onClick={() => setActiveTab(SECTIONS.location)}
             Icon={
               <CookstoveLocationIcon
