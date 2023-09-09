@@ -8,15 +8,10 @@ export const palette = {
   Black: "#000000",
   White: "#FFFFFF",
   // EmergingBlue
-  brightBlue: "#84C8DF",
-  blueHover: "#3696B8",
-  secondaryBlue: "#84C8DF",
-  fullBlue: "#2B84A3",
-  activeBlue: "#2B84A3",
-  darkerBlue: "#2B84A3",
+  accentActive: "#2B84A3",
+  accentHover: "#3696B8",
+  accentLight: "#84C8DF",
   darkestBlue: "#000000",
-  lightBlue: "#84C8DF",
-  o1blue: "#2B84A3",
   // Highlights
   redBright: "#F9909E",
   redFull: "#E2223B",
@@ -37,4 +32,5 @@ export const shadow = {
 };
 
 export const limeByOpacity = (rate: number) => `rgba(97, 180, 58, ${rate})`;
-export const fullBlueByOpacity = (rate: number) => `rgba(43, 132, 163, ${rate})`;
+export const accentActiveByOpacity = (rate: number) =>
+  `rgba(43, 132, 163, ${rate})`;

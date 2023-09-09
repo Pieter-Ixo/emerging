@@ -45,7 +45,7 @@ export default function CollectorDistributorModal({
       title="Distributor panel"
       radius="lg"
       centered
-      styles={{ header: { color: palette.fullBlue } }}
+      styles={{ header: { color: palette.accentActive } }}
       scrollAreaComponent={ScrollArea.Autosize}
     >
       <Text pt="md" mb="md">

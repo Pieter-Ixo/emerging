@@ -71,7 +71,7 @@ export const initializeWC = async (
       themeMode: "light",
       themeVariables: {
         "--w3m-z-index": "4",
-        "--w3m-accent-color": palette.fullBlue,
+        "--w3m-accent-color": palette.accentActive,
         "--w3m-accent-fill-color": "#fff",
         "--w3m-background-color": "#090909",
         "--w3m-logo-image-url":

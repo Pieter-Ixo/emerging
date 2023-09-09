@@ -40,7 +40,7 @@ export default function IssueCarbonButton({
         onClose={close}
         title="Issue CARBON"
         centered
-        styles={{ header: { color: palette.fullBlue } }}
+        styles={{ header: { color: palette.accentActive } }}
       >
         <Text mb="xl">
           You will issue {totalClaimable} CARBON Credits to {assetsLength}{" "}

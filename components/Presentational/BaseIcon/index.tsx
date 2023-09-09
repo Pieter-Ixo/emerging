@@ -9,7 +9,7 @@ const initialTheme: Record<IconStatus, IconProp> = {
   selected: {
     stroke: palette.White,
     fill: palette.White,
-    bgColor: palette.fullBlue,
+    bgColor: palette.accentActive,
   },
   notSelected: {
     stroke: palette.Black,

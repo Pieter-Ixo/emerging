@@ -32,7 +32,7 @@ export default function ProfileCard({
       radius="lg"
       withBorder
       sx={{
-        outline: isActive ? `solid ${palette.activeBlue}` : undefined,
+        outline: isActive ? `solid ${palette.accentActive}` : undefined,
       }}
       w={277}
       h={400}

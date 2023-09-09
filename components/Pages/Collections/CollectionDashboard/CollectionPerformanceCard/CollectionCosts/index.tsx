@@ -42,7 +42,7 @@ export default function CollectionCosts() {
   return (
     <>
       <Flex pt={28} align="flex-end">
-        <Text size={56} color={palette.fullBlue} pr={10} fs="normal">
+        <Text size={56} color={palette.accentActive} pr={10} fs="normal">
           ${totalCosts?.toLocaleString() || 0}
         </Text>
         <Text color={palette.Black} pb={18} fs="normal" weight={300}>

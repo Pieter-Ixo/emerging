@@ -62,7 +62,7 @@ export default function ImpactTabs({ activeTab, onSetTab }: ImpactTabsProps) {
     <Group pb={28}>
       <ImpactTab
         isActive={activeTab === ClimateImpactTab.SAVED}
-        activeBGColor={palette.fullBlue}
+        activeBGColor={palette.accentActive}
         onClick={() => onSetTab(ClimateImpactTab.SAVED)}
         Icon={
           <CO2Saved
@@ -79,7 +79,7 @@ export default function ImpactTabs({ activeTab, onSetTab }: ImpactTabsProps) {
 
       <ImpactTab
         isActive={activeTab === ClimateImpactTab.ISSUED}
-        activeBGColor={palette.fullBlue}
+        activeBGColor={palette.accentActive}
         onClick={() => onSetTab(ClimateImpactTab.ISSUED)}
         Icon={
           <CO2IssuedIcon

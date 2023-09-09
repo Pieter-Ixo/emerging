@@ -37,7 +37,7 @@ const textInputStyles: Styles<TextInputStylesNames, CSSProperties> = {
     minHeight: 75,
   },
   input: {
-    borderColor: palette.fullBlue,
+    borderColor: palette.accentActive,
   },
   error: {
     fontSize: 12,
@@ -48,7 +48,7 @@ const textInputStyles: Styles<TextInputStylesNames, CSSProperties> = {
     top: -7,
     left: 15,
     backgroundColor: palette.White,
-    color: palette.fullBlue,
+    color: palette.accentActive,
     zIndex: 2,
     padding: "0 5px",
     fontSize: 12,
@@ -130,7 +130,7 @@ export default function RetireModal({
       title="Offset Batch"
       radius="lg"
       centered
-      styles={{ header: { color: palette.fullBlue } }}
+      styles={{ header: { color: palette.accentActive } }}
     >
       <form onSubmit={retireForm.onSubmit(() => onOffsetFormSubmit())}>
         <Text pt="lg" mb="lg">

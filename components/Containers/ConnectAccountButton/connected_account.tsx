@@ -86,9 +86,9 @@ function ConnectAccountButton() {
           if (!wallet.user) updateWalletType(WALLET_TYPE.walletConnect);
         }}
         mb={30}
-        bg={palette.fullBlue}
+        bg={palette.accentActive}
         sx={{
-          ":hover": { backgroundColor: palette.blueHover },
+          ":hover": { backgroundColor: palette.accentHover },
         }}
         w="99%"
         radius={23}

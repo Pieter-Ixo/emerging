@@ -39,7 +39,7 @@ export default function CollectionUsage() {
   return (
     <>
       <Flex pt={28} align="flex-end">
-        <Text size="xl" color={palette.fullBlue} pr={10} fs="normal">
+        <Text size="xl" color={palette.accentActive} pr={10} fs="normal">
           {totalValue?.toLocaleString() || 0}
         </Text>
         <Text size="md" color={palette.Black} pb={18} fs="normal" weight={300}>

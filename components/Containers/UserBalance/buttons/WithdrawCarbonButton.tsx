@@ -38,7 +38,7 @@ export default function WithdrawCarbonButton({
         onClose={close}
         title="Issue CARBON"
         centered
-        styles={{ header: { color: palette.fullBlue } }}
+        styles={{ header: { color: palette.accentActive } }}
       >
         <Text mb="xl">
           You will withdraw {totalClaimable} CARBON Credits from {assetsLength}{" "}

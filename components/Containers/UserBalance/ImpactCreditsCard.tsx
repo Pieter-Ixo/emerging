@@ -65,7 +65,9 @@ function ImpactCreditsCard() {
             { label: "available", value: "available" },
             { label: "offset", value: "offset" },
           ]}
-          color={creditsTabName === "available" ? "fullBlue.0" : "greenFull.0"}
+          color={
+            creditsTabName === "available" ? "accentActive.0" : "greenFull.0"
+          }
           mt="xl"
           radius={23}
         />
@@ -74,10 +76,10 @@ function ImpactCreditsCard() {
           <>
             <Flex align="flex-end">
               {userTotalLoading && <Loader />}
-              <Text color={palette.fullBlue} size={56}>
+              <Text color={palette.accentActive} size={56}>
                 {(userTotalAmount?.amount || 0)?.toLocaleString()}
               </Text>
-              <Text color={palette.fullBlue} pb="md" ml="xs">
+              <Text color={palette.accentActive} pb="md" ml="xs">
                 CARBON
               </Text>
             </Flex>

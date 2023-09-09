@@ -22,7 +22,7 @@ export default function TableHeadCell({
       onClick={() => isSortable && onSort?.(headerIndex)}
       style={{
         cursor: "pointer",
-        color: isActive ? palette.lightBlue : palette.Black,
+        color: isActive ? palette.accentLight : palette.Black,
         width: 85,
         padding: "0 0 5px 0",
       }}
@@ -37,7 +37,7 @@ export default function TableHeadCell({
             width={24}
             cursorMode="pointer"
             height={24}
-            fill={palette.lightBlue}
+            fill={palette.accentLight}
           />
         )}
       </Flex>

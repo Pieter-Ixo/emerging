@@ -15,7 +15,7 @@ function CarbonClaimCard({ amount = 0 }: CarbonClaimCardProps) {
       mih={140}
       p="md"
       sx={{
-        backgroundColor: palette.fullBlue,
+        backgroundColor: palette.accentActive,
         borderRadius: 12,
       }}
     >
