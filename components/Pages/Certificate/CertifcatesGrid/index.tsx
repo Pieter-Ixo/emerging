@@ -1,8 +1,7 @@
 import { Box, Grid } from "@mantine/core";
 
 import { ITransactionBatch } from "@/types/certificates";
-
-import BatchesItem from "../../Batches/BatchesItem";
+import BatchesCard from "@/components/Pages/Batches/BatchesCard";
 
 type Props = {
   batches?: ITransactionBatch[];
@@ -17,12 +16,12 @@ export default function CertificatesGrid({ batches, onBatchClick }: Props) {
       <Grid gutter="xl">
         {batches?.map(({ id, amount }) => (
           <Grid.Col key={id} span={6}>
-            <BatchesItem
+            <BatchesCard
               batchId={id}
               amount={0}
               retired={Number(amount)}
               adminMinted={Number(amount)}
-              onBatchClick={onBatchClick}
+              onRetireBtnClick={onBatchClick}
             />
           </Grid.Col>
         ))}

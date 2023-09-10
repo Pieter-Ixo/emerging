@@ -37,7 +37,7 @@ export default function TransactionCertificate() {
   return (
     <AppLayout title="Transaction Certificate">
       <BatchesPageHeader
-        activeViewMode={ControlsDisplayMods.listView}
+        activeViewMode={ControlsDisplayMods.gridView}
         toggleBatchesViewMode={() => {}}
       />
       {transactionIsLoading && <Loader />}
