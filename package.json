@@ -4,6 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "build-start": "next build && next start",
+    "testgen": "yarn build-start & npx playwright codegen localhost:3000/",
+    "testgen:fast": "ENVIRONMENT='localhost-tests' yarn testgen",
+    "test:start-run": "yarn build-start & npx playwright test",
+    "test:run": "yarn build-start & npx playwright test",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
