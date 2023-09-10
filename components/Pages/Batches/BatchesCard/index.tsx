@@ -50,7 +50,6 @@ export default function BatchesCard({
     ? "url(/images/bg/certificate-bg--disabled.png)"
     : "url(/images/bg/certificate-bg.png)";
 
-
   const isNotCertificateTransactionsRoute =
     router.pathname !== "/certificate/[transactionId]";
 
@@ -75,10 +74,12 @@ export default function BatchesCard({
     display: isNotCertificateTransactionsRoute ? "block" : "none",
     cursor: isRetireAvailable ? "pointer" : "default",
     pointerEvents: isRetireAvailable ? "all" : "none",
-    backgroundColor: isRetireAvailable ? palette.accentActive : palette.Neutral800,
+    backgroundColor: isRetireAvailable
+      ? palette.accentHover
+      : palette.Neutral800,
     ":hover": {
       backgroundColor: isRetireAvailable
-        ? palette.accentActive
+        ? palette.accentHover
         : palette.Neutral800,
     },
   };
@@ -124,7 +125,11 @@ export default function BatchesCard({
 
       <Flex align="center" justify="space-between" gap={10}>
         <AstroBatchImage />
-        <BatchProgress retired={retired} amount={amount} adminMinted={adminMinted} />
+        <BatchProgress
+          retired={retired}
+          amount={amount}
+          adminMinted={adminMinted}
+        />
       </Flex>
 
       <Flex gap="sm" justify="center" align="center" direction="row">
