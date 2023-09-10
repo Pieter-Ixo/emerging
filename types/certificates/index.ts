@@ -40,6 +40,11 @@ export type IBatch = {
   tokenData: ITokenData[];
 };
 
+export type ITransactionBatch = {
+  id: string;
+  amount: string;
+};
+
 export type IAddressBatches = {
   [key: string]: {
     amount: number;

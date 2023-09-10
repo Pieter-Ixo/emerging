@@ -7,11 +7,13 @@ export const palette = {
   Neutral800: "#9A9A9A",
   Black: "#000000",
   White: "#FFFFFF",
+  
   // EmergingBlue
   accentActive: "#2B84A3",
   accentHover: "#3696B8",
   accentLight: "#84C8DF",
   darkestBlue: "#000000",
+
   // Highlights
   redBright: "#F9909E",
   redFull: "#E2223B",

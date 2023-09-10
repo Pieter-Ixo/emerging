@@ -18,7 +18,6 @@ import BatchButton from "../BatchButton";
 import AstroBatchImage from "../AstroBatchImage";
 
 type Props = {
-  name?: string;
   batchId?: string;
   amount?: number;
   adminMinted?: number;
@@ -32,7 +31,6 @@ type Props = {
 };
 
 export default function BatchesCard({
-  name,
   batchId,
   adminMinted,
   amount,
@@ -51,9 +49,8 @@ export default function BatchesCard({
     : "url(/images/bg/certificate-bg.png)";
 
   const redirectToBatchDashboard = () => {
-    const redirectUrl = `/entity/${entityId}/batch/${batchId}`;
-
-    router.push(redirectUrl);
+    if (router.pathname !== "/certificate/[transactionId]")
+      router.push(`/entity/${entityId}/batch/${batchId}`);
   };
 
   const handleRetireBtnClick = (e: MouseEvent<any>) => {
@@ -66,12 +63,16 @@ export default function BatchesCard({
     userWallet && userWallet === ownerAddress && !isProgressComplete;
 
   const buttonStyles: Sx = {
+    display:
+      router.pathname !== "/certificate/[transactionId]" ? "block" : "none",
     cursor: isRetireAvailable ? "pointer" : "default",
     pointerEvents: isRetireAvailable ? "all" : "none",
-    backgroundColor: isRetireAvailable ? palette.accentActive : palette.Neutral800,
+    backgroundColor: isRetireAvailable
+      ? palette.accentHover
+      : palette.Neutral800,
     ":hover": {
       backgroundColor: isRetireAvailable
-        ? palette.accentActive
+        ? palette.accentHover
         : palette.Neutral800,
     },
   };
@@ -91,7 +92,10 @@ export default function BatchesCard({
         backgroundPosition: "center",
         maxHeight: 352,
         borderRadius: 16,
-        cursor: "pointer",
+        cursor:
+          router.pathname !== "/certificate/[transactionId]"
+            ? "pointer"
+            : "default",
       }}
     >
       <Flex direction="column" gap={10} justify="center">

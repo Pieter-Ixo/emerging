@@ -3,7 +3,6 @@ export interface IToken {
   amount: string;
 }
 export interface ITransaction {
-  "@type": string;
   owner: string;
   tokens: IToken[];
   jurisdiction: string;

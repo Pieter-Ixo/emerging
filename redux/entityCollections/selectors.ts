@@ -111,7 +111,7 @@ export const selectEntitiesAdminTotal = createDraftSafeSelector(
     const collecitonsAmount = state.userEntityCollections.reduce(
       (collectionAcc, { entities }) => {
         const entitiesAmount = entities.reduce((entityAcc, entity) => {
-          const tokens = entity._adminToken?.CARBON._totalMinted?.tokens;
+          const tokens = entity._adminToken?.CARBON?._totalMinted?.tokens;
           if (!tokens) return entityAcc;
 
           const tokenAmount = Object.values(tokens)[0].amount;
