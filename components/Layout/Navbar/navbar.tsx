@@ -42,12 +42,6 @@ export default function Nav() {
     }
   }, [userAddress]);
 
-  const isPortfolioCollectionsRoute =
-    router.pathname === "/collections/portfolio";
-
-  const isGlobalCollectionsRoute =
-    router.pathname === "/collections/[collectionId]";
-
   return (
     <Navbar
       p="xs"
@@ -83,10 +77,10 @@ export default function Nav() {
       )}
       {selectedEntity && (
         <Navbar.Section p="xs">
-          {isPortfolioCollectionsRoute && (
+          {router.pathname === "/collections/portfolio" && (
             <NavBatchesOwnerCard entity={selectedEntity} />
           )}
-          {isGlobalCollectionsRoute && (
+          {router.pathname === "/collections/[collectionId]" && (
             <NavBatchesAdminCard entity={selectedEntity} />
           )}
         </Navbar.Section>

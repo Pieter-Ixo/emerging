@@ -58,11 +58,9 @@ export default function NavBatchesOwnerCard({
   
   // FIXME:EMERGING-244 handle how many batches are inside ownerTokensLenght,
   // by mapping through adminTokens and ownerTokens
-  const ownerTokensLength = userTokens?.CARBON?.tokens
-    ? Object.keys(userTokens?.CARBON?.tokens).length
-    : 0;
+  const ownerTokensLength = Object.keys(userTokens?.CARBON?.tokens || {}).length;
 
-  const ownerBatchesDashboardHref = `/entity/${entityExternalId}/batch/byOwnerAddress/${entityOwnerAddress}`;
+  const ownerBatchesGridHref = `/entity/${entityExternalId}/batch/byOwnerAddress/${entityOwnerAddress}`;
 
   return (
     <Card p="lg" radius={16}>
@@ -79,7 +77,7 @@ export default function NavBatchesOwnerCard({
           </Text>
         </Flex>
         <Stack spacing="xs">
-          <Link href={ownerBatchesDashboardHref}>
+          <Link href={ownerBatchesGridHref}>
             <ImpactCreditsButtonBlue
               leftIcon={
                 <BaseIcon

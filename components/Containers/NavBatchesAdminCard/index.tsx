@@ -47,11 +47,9 @@ export default function NavBatchesAdminCard({
 
   if (isAdminTokensEmpty) return null;
 
-  const adminTokensLength = adminTokens?.CARBON?.tokens
-    ? Object.keys(adminTokens.CARBON?.tokens).length
-    : 0;
-
-  const adminBatchesDashboardHref = `/entity/${entityExternalId}/batch/byAdminAddress/${entityAdminAddress}`;
+  const adminTokensLength = Object.keys(adminTokens?.CARBON?.tokens || {}).length;
+  
+  const adminBatchesGridHref = `/entity/${entityExternalId}/batch/byAdminAddress/${entityAdminAddress}`;
 
   return (
     <Card p="lg" radius={16}>
@@ -67,7 +65,7 @@ export default function NavBatchesAdminCard({
           </Text>
         </Flex>
         <Stack spacing="xs">
-          <Link href={adminBatchesDashboardHref}>
+          <Link href={adminBatchesGridHref}>
             <ImpactCreditsButtonBlue
               leftIcon={
                 <BaseIcon
