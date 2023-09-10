@@ -18,7 +18,6 @@ import BatchButton from "../BatchButton";
 import AstroBatchImage from "../AstroBatchImage";
 
 type Props = {
-  name?: string;
   batchId?: string;
   amount?: number;
   adminMinted?: number;
@@ -32,7 +31,6 @@ type Props = {
 };
 
 export default function BatchesCard({
-  name,
   batchId,
   adminMinted,
   amount,
@@ -50,11 +48,9 @@ export default function BatchesCard({
     ? "url(/images/bg/certificate-bg--disabled.png)"
     : "url(/images/bg/certificate-bg.png)";
 
-  const isNotCertificateTransactionsRoute =
-    router.pathname !== "/certificate/[transactionId]";
 
   const toSingleBatch = () => {
-    if (isNotCertificateTransactionsRoute) {
+    if (router.pathname !== "/certificate/[transactionId]") {
       const redirectUrl = `/entity/${entityId}/batch/${batchId}`;
 
       router.push(redirectUrl);
@@ -71,7 +67,7 @@ export default function BatchesCard({
     userWallet && userWallet === ownerAddress && !isProgressComplete;
 
   const buttonStyles: Sx = {
-    display: isNotCertificateTransactionsRoute ? "block" : "none",
+    display: router.pathname !== "/certificate/[transactionId]" ? "block" : "none",
     cursor: isRetireAvailable ? "pointer" : "default",
     pointerEvents: isRetireAvailable ? "all" : "none",
     backgroundColor: isRetireAvailable
@@ -99,7 +95,7 @@ export default function BatchesCard({
         backgroundPosition: "center",
         maxHeight: 352,
         borderRadius: 16,
-        cursor: isNotCertificateTransactionsRoute ? "pointer" : "default",
+        cursor: router.pathname !== "/certificate/[transactionId]" ? "pointer" : "default",
       }}
     >
       <Flex direction="column" gap={10} justify="center">
