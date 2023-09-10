@@ -1,15 +1,32 @@
 import { test, expect } from "@playwright/test";
 import { APP_LOCATION } from "@/e2e-tests/constants";
+import { BlocksyncUrl } from "@/constants/chains";
+
+const LOCATION_GLOBAL_COLLECTIONS_LIST = `${APP_LOCATION}collections/global`;
+const BLOCK_SYNC_URL = BlocksyncUrl;
 
 test.beforeAll(async () => {
-  console.log("🪿 Before tests");
+  console.log("🪿 beforeAll");
 });
 
-test("should not be logged in when come at first", async ({ page }) => {
+test("should redirect from '/' to global collections list", async ({
+  page,
+}) => {
   await page.goto(APP_LOCATION);
-  await page.waitForURL(`${APP_LOCATION}collections/global`);
+  await page.waitForURL(LOCATION_GLOBAL_COLLECTIONS_LIST);
+
   const url = await page.url();
-  await expect(url).toEqual(`${APP_LOCATION}collections/global`);
+  await expect(url).toEqual(LOCATION_GLOBAL_COLLECTIONS_LIST);
+});
+
+test("should request and display collections", async ({ page }) => {
+  await page.goto(APP_LOCATION);
+  await page.waitForURL(LOCATION_GLOBAL_COLLECTIONS_LIST);
+
+  const requestPromise = await page.waitForRequest(
+    `${BLOCK_SYNC_URL}/api/entity/collections`
+  );
+  const url = requestPromise.url();
 });
 
 // test("get started link", async ({ page }) => {
