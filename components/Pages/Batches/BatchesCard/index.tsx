@@ -48,13 +48,9 @@ export default function BatchesCard({
     ? "url(/images/bg/certificate-bg--disabled.png)"
     : "url(/images/bg/certificate-bg.png)";
 
-
-  const toSingleBatch = () => {
-    if (router.pathname !== "/certificate/[transactionId]") {
-      const redirectUrl = `/entity/${entityId}/batch/${batchId}`;
-
-      router.push(redirectUrl);
-    }
+  const redirectToBatchDashboard = () => {
+    if (router.pathname !== "/certificate/[transactionId]")
+      router.push(`/entity/${entityId}/batch/${batchId}`);
   };
 
   const handleRetireBtnClick = (e: MouseEvent<any>) => {
@@ -67,7 +63,8 @@ export default function BatchesCard({
     userWallet && userWallet === ownerAddress && !isProgressComplete;
 
   const buttonStyles: Sx = {
-    display: router.pathname !== "/certificate/[transactionId]" ? "block" : "none",
+    display:
+      router.pathname !== "/certificate/[transactionId]" ? "block" : "none",
     cursor: isRetireAvailable ? "pointer" : "default",
     pointerEvents: isRetireAvailable ? "all" : "none",
     backgroundColor: isRetireAvailable
@@ -82,7 +79,7 @@ export default function BatchesCard({
 
   return (
     <Flex
-      onClick={() => toSingleBatch()}
+      onClick={() => redirectToBatchDashboard()}
       direction="column"
       justify="center"
       gap={10}
@@ -95,7 +92,10 @@ export default function BatchesCard({
         backgroundPosition: "center",
         maxHeight: 352,
         borderRadius: 16,
-        cursor: router.pathname !== "/certificate/[transactionId]" ? "pointer" : "default",
+        cursor:
+          router.pathname !== "/certificate/[transactionId]"
+            ? "pointer"
+            : "default",
       }}
     >
       <Flex direction="column" gap={10} justify="center">
