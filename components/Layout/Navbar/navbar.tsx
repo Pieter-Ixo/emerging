@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import { Box, Flex, Navbar } from "@mantine/core";
 
@@ -9,21 +10,28 @@ import {
   selectUserEntityCollections,
 } from "@/redux/entityCollections/selectors";
 import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
-
+import { resetSelectedEntity } from "@/redux/entityCollections/actions";
+import ImpactCreditsCard from "@/components/Containers/UserBalance/ImpactCreditsCard";
+import ConnectAccountButton from "@/components/Containers/ConnectAccountButton/connected_account";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import IxoLogoIcon from "@/assets/icons/ixo-logo.svg";
-
-import ConnectAccountButton from "../../Containers/ConnectAccountButton/connected_account";
-import ImpactCreditsCard from "../../Containers/UserBalance/ImpactCreditsCard";
-
-import BatchesCard from "../../Containers/UserBalance/BatchesCard";
+import NavBatchesOwnerCard from "@/components/Containers/NavBatchesOwnerCard";
+import NavBatchesAdminCard from "@/components/Containers/NavBatchesAdminCard";
 
 export default function Nav() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const userAddress = useAppSelector((state) => state.user.connectedWallet);
   const userEntityCollections = useAppSelector(selectUserEntityCollections);
   const selectedEntity = useAppSelector(selectSelectedEntity);
   const isUserCollectionsFilled = useRef(false);
+
+  useEffect(() => {
+    dispatch(resetSelectedEntity());
+    return () => {
+      dispatch(resetSelectedEntity());
+    };
+  }, []);
 
   useEffect(() => {
     if (userAddress && !isUserCollectionsFilled.current) {
@@ -69,7 +77,12 @@ export default function Nav() {
       )}
       {selectedEntity && (
         <Navbar.Section p="xs">
-          <BatchesCard entity={selectedEntity} />
+          {router.pathname === "/collections/portfolio" && (
+            <NavBatchesOwnerCard entity={selectedEntity} />
+          )}
+          {router.pathname === "/collections/[collectionId]" && (
+            <NavBatchesAdminCard entity={selectedEntity} />
+          )}
         </Navbar.Section>
       )}
     </Navbar>

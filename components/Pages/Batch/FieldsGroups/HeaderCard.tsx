@@ -40,7 +40,7 @@ export default function HeaderCard({
 
       <Flex align="center" justify="center" px="xl" gap={28}>
         <AstroCarbonImage />
-        <BatchProgress retired={retired} amount={amount} minted={minted} />
+        <BatchProgress retired={retired} amount={amount} adminMinted={minted} />
       </Flex>
 
       <Flex gap="md" justify="center" align="center" direction="row">

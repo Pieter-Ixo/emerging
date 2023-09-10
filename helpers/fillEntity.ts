@@ -1,7 +1,7 @@
 import requestEntityDeviceCredential from "@/requests/requesters/requestEntityDeviceCredential";
 import requestEntityProfile from "@/requests/requesters/requestEntityProfile";
 import requestEntityTags from "@/requests/requesters/requestEntityTags";
-import requestUsersToken from "@/requests/requesters/requestEntityToken";
+import requestUsersTokensAndTotal from "@/requests/requesters/requestEntityToken";
 import { IEntity, IEntityExtended } from "@/types/entityCollections";
 
 export default async function fillEntity(
@@ -13,7 +13,7 @@ export default async function fillEntity(
 
   const [profile, adminToken, deviceCredential, tags] = await Promise.all([
     await requestEntityProfile(entity),
-    entityOwner ? await requestUsersToken(entityOwner) : undefined,
+    entityOwner ? await requestUsersTokensAndTotal(entityOwner) : undefined,
     await requestEntityDeviceCredential(entity),
     await requestEntityTags(entity),
     // await requestSupamoto(entity.externalId),
@@ -38,7 +38,7 @@ export async function fillEntityWithToken(
   )?.address;
   if (!entityOwner) return entity;
 
-  const adminToken = await requestUsersToken(entityOwner);
+  const adminToken = await requestUsersTokensAndTotal(entityOwner);
 
   return { ...entity, _adminToken: adminToken };
 }

@@ -57,7 +57,7 @@ export async function requestCollectionsByOwnerAddress(
 
 export async function requestEntityByExternalID(
   externalId: string
-): Promise<IEntityExtended> {
+): Promise<IEntity> {
   const entity = await requestBlocksyncAPI<IEntity>(
     `/api/entity/byExternalId/${externalId}`
   );
@@ -121,10 +121,11 @@ export async function requestBatchByID(
 }
 
 export async function requestBatchesByAddress(
-  entityAdminAddress: string
+  entityAddress: string
 ): Promise<IAddressBatchResponse | undefined> {
-  const url = `/api/token/byAddress/${entityAdminAddress}`;
+  const url = `/api/token/byAddress/${entityAddress}`;
 
+  console.log(url);
   const { data, problem } = await blocksynkAPI.get<IAddressBatchResponse>(url);
 
   if (!problem && data) return data;

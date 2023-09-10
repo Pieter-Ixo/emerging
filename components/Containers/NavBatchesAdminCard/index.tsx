@@ -12,24 +12,44 @@ import {
 import { IEntityExtended } from "@/types/entityCollections";
 import Generated from "@/assets/icons/generated.svg";
 import BaseIcon from "@/components/Presentational/BaseIcon";
+import { resetEntityTokens } from "@/redux/entityCollections/actions";
 
-import { ImpactCreditsButtonBlue } from "./StyledButtons";
+import { ImpactCreditsButtonBlue } from "../UserBalance/StyledButtons";
 
-export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
+export default function NavBatchesAdminCard({
+  entity,
+}: {
+  entity: IEntityExtended;
+}) {
   const dispatch = useAppDispatch();
   const adminTokens = useAppSelector(selectAdminTokens);
   const isAdminTokensLoading = useAppSelector(selectAdminTokensIsLoading);
 
   const entityAdminAddress = entity.accounts[0].address;
   const entityExternalId = entity.externalId;
-  const batchDashboardHref = `/entity/${entityExternalId}/batch/byAdminAddress/${entityAdminAddress}`;
 
   useEffect(() => {
-    if (entityAdminAddress) dispatch(fetchAdminTokens(entityAdminAddress));
+    dispatch(resetEntityTokens());
+    return () => {
+      dispatch(resetEntityTokens());
+    };
+  }, []);
+
+  useEffect(() => {
+    if (entityAdminAddress) {
+      dispatch(fetchAdminTokens(entityAdminAddress));
+    }
   }, [entityAdminAddress]);
 
   if (isAdminTokensLoading) return <Loader />;
-  if (!adminTokens || !Object.keys(adminTokens).length) return null;
+
+  const isAdminTokensEmpty = !adminTokens || !Object.keys(adminTokens).length;
+
+  if (isAdminTokensEmpty) return null;
+
+  const adminTokensLength = Object.keys(adminTokens?.CARBON?.tokens || {}).length;
+  
+  const adminBatchesGridHref = `/entity/${entityExternalId}/batch/byAdminAddress/${entityAdminAddress}`;
 
   return (
     <Card p="lg" radius={16}>
@@ -38,14 +58,14 @@ export default function BatchesCard({ entity }: { entity: IEntityExtended }) {
       <Stack spacing="xl">
         <Flex align="flex-end">
           <Text color={palette.accentActive} size={56}>
-            {Object.keys(adminTokens?.CARBON.tokens).length}
+            {adminTokensLength}
           </Text>
           <Text color={palette.accentActive} pb="md" ml="xs">
-            BATCHES
+            BATCHES FOR {entity.alsoKnownAs.replace("{id}", "")}
           </Text>
         </Flex>
         <Stack spacing="xs">
-          <Link href={batchDashboardHref}>
+          <Link href={adminBatchesGridHref}>
             <ImpactCreditsButtonBlue
               leftIcon={
                 <BaseIcon

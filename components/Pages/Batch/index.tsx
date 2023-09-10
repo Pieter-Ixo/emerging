@@ -66,13 +66,11 @@ export default function BatchPageLayout() {
   const claimIssuerProfile = batch?._claimIssuer?._profile;
   const verifiableCred = batch?._verifiableCred;
   const claimCer = batch?._claimCer;
+  const batchById = entity?._adminToken?.CARBON?.tokens[batchId || ""];
 
-  const minted =
-    entity?._adminToken?.CARBON?.tokens[batchId || ""]?.minted;
-  const amount =
-    entity?._adminToken?.CARBON?.tokens[batchId || ""]?.amount;
-  const retired =
-    entity?._adminToken?.CARBON?.tokens[batchId || ""]?.retired;
+  const minted = batchById?.minted;
+  const amount = batchById?.amount;
+  const retired = batchById?.retired;
 
   const entityAdminAddress = entity?.accounts[0].address;
 

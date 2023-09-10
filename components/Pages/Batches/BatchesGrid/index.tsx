@@ -3,35 +3,51 @@ import { Box, Grid } from "@mantine/core";
 import { IAddressBatches } from "@/types/certificates";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 
-import BatchesItem from "../BatchesItem";
+import BatchesCard from "../BatchesCard";
 
 type Props = {
-  batches?: IAddressBatches;
-  onBatchClick: (
-    offset: number | undefined,
+  ownerBatches?: IAddressBatches;
+  adminBatches?: IAddressBatches;
+  ownerAddress?: string;
+  onRetireBtnClick: (
+    availableCredits: number | undefined,
     batchId: string | undefined
   ) => void;
 };
 
-export default function BatchesGrid({ batches, onBatchClick }: Props) {
+export default function BatchesGrid({
+  ownerBatches,
+  adminBatches,
+  ownerAddress,
+  onRetireBtnClick,
+}: Props) {
   const entityId = useValueFromRouter("entityId");
 
+  if (!adminBatches) return null;
+  /** The logic behind this grid will be next:
+   *  to show owner batches we need to get minted values for the actual
+   *  progress from admin batches. Amount(Available Credits to withdraw) / Retired (withdrawn)
+   *  we get from owner batches + admin batches or only admin batches(because admin batches
+   *  already have all the necessary values)
+   *  */
   return (
     <Box maw="70%">
       <Grid gutter="xl">
-        {batches &&
-          Object.entries(batches).map(([batchId, batchData]) => (
+        {Object.entries(ownerBatches || adminBatches).map(
+          ([batchId, batchData]) => (
             <Grid.Col key={batchId} span={6}>
-              <BatchesItem
+              <BatchesCard
                 batchId={batchId}
                 amount={batchData.amount}
                 retired={batchData.retired}
-                minted={batchData.minted}
-                onBatchClick={onBatchClick}
+                adminMinted={adminBatches[batchId]?.minted}
+                onRetireBtnClick={onRetireBtnClick}
+                ownerAddress={ownerAddress}
                 entityId={entityId}
               />
             </Grid.Col>
-          ))}
+          )
+        )}
       </Grid>
     </Box>
   );

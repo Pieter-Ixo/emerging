@@ -13,6 +13,7 @@ import {
   IEntityExtended,
 } from "@/types/entityCollections";
 import { getEntityTotalMintedAmount } from "@/helpers/transformData/getTotalMintedAmount";
+import { resetSelectedEntity } from "@/redux/entityCollections/actions";
 
 type EntitiesItemsProps = {
   activeEntityCollection?: ICollectionEntities;
@@ -33,19 +34,18 @@ export default function EntitiesList({
     dispatch(setSelectedEntity(entity));
   }
 
-  function deselectAsset() {
-    dispatch(setSelectedEntity(undefined));
-  }
-
   function handleAssetClick(entity: IEntityExtended) {
     if (selectedAssetExternalId === undefined) selectAsset(entity);
-    else if (selectedAssetExternalId === entity.externalId) deselectAsset();
+    else if (selectedAssetExternalId === entity.externalId)
+      dispatch(resetSelectedEntity());
     else if (selectedAssetExternalId !== entity.externalId) selectAsset(entity);
   }
 
   useEffect(() => {
-    deselectAsset();
-    return () => deselectAsset();
+    dispatch(resetSelectedEntity());
+    return () => {
+      dispatch(resetSelectedEntity());
+    };
   }, []);
 
   useEffect(() => {
@@ -61,6 +61,7 @@ export default function EntitiesList({
     activeEntityCollection?.entities.length === 0
   )
     return <Text>No Assets</Text>;
+
   return (
     <Grid gutter={24}>
       {activeEntityCollection?.entities?.map((entity) => {

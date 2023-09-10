@@ -18,7 +18,7 @@ import {
 } from "@/redux/entityCollections/selectors";
 import {
   fetchCollectionsByOwnerAddres,
-  fetchUsersTokens,
+  fetchUsersTokensAndTotal,
 } from "@/redux/entityCollections/thunks";
 
 import BaseIcon from "@/components/Presentational/BaseIcon";
@@ -48,7 +48,7 @@ function ImpactCreditsCard() {
 
   useEffect(() => {
     if (userAddress) {
-      dispatch(fetchUsersTokens(userAddress));
+      dispatch(fetchUsersTokensAndTotal(userAddress));
       dispatch(fetchCollectionsByOwnerAddres(userAddress));
     }
   }, [userAddress]);

@@ -6,7 +6,6 @@ import {
   IEntityExtended,
 } from "@/types/entityCollections";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import {
   selectAllEntities,
   selectSelectedEntity,
@@ -17,6 +16,8 @@ import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
 import {
   extendEntities,
 } from "@/helpers/transformData/extendEntities";
+import { resetSelectedEntity } from "@/redux/entityCollections/actions";
+import { setSelectedEntity } from "@/redux/entityCollections/slice";
 
 const defaultColumnHeadersState: IColumnHeader[] = [
   {
@@ -70,9 +71,9 @@ export default function AssetsTable() {
   };
 
   useEffect(() => {
-    dispatch(setSelectedEntity(undefined));
+    dispatch(resetSelectedEntity());
     return () => {
-      dispatch(setSelectedEntity(undefined));
+      dispatch(resetSelectedEntity());
     };
   }, []);
 

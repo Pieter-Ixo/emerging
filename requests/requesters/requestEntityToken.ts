@@ -1,18 +1,20 @@
 import { requestBlocksyncAPI } from "@/requests/blocksync";
-import { ITokenWhateverItMean } from "@/types/entityCollections";
+import {
+  ICarbonTokens,
+  ICarbonsTokenExtended,
+} from "@/types/entityCollections";
 
-export default async function requestUsersToken(
+export default async function requestUsersTokensAndTotal(
   tokenOwner: string
-): Promise<ITokenWhateverItMean | undefined> {
+): Promise<ICarbonsTokenExtended | undefined> {
   const [tokenData, tokenDataTotal] = await Promise.all([
-    await requestBlocksyncAPI<ITokenWhateverItMean>(
+    await requestBlocksyncAPI<ICarbonsTokenExtended>(
       `/api/token/byAddress/${tokenOwner}`
     ),
-    await requestBlocksyncAPI<ITokenWhateverItMean>(
+    await requestBlocksyncAPI<ICarbonsTokenExtended>(
       `/api/token/totalByAddress/${tokenOwner}`
     ),
   ]);
-
   if (!tokenData) throw new Error("Panica!");
 
   if (tokenData.CARBON && tokenDataTotal)
@@ -23,8 +25,8 @@ export default async function requestUsersToken(
 
 export async function requestTokenByAddress(
   tokenOwner: string
-): Promise<ITokenWhateverItMean> {
-  const tokenData = await requestBlocksyncAPI<ITokenWhateverItMean>(
+): Promise<ICarbonTokens> {
+  const tokenData = await requestBlocksyncAPI<ICarbonTokens>(
     `/api/token/byAddress/${tokenOwner}`
   );
   if (!tokenData) throw new Error("Panica!");
@@ -33,10 +35,11 @@ export async function requestTokenByAddress(
 
 export async function requestTotalTokenByAddress(
   tokenOwner: string
-): Promise<ITokenWhateverItMean> {
-  const totalTokenData = await requestBlocksyncAPI<ITokenWhateverItMean>(
+): Promise<ICarbonTokens> {
+  const totalTokenData = await requestBlocksyncAPI<ICarbonTokens>(
     `/api/token/totalByAddress/${tokenOwner}`
   );
   if (!totalTokenData) throw new Error("Panica!");
+
   return totalTokenData;
 }

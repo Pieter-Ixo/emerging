@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
 
-import BaseIcon from "../../Presentational/BaseIcon";
+import BaseIcon from "@/components/Presentational/BaseIcon";
 
 type Props = {
   styles?: CSSProperties;

@@ -26,7 +26,7 @@ import { selectConnectedWallet } from "@/redux/selectors";
 
 type Props = {
   isModalOpened: boolean;
-  offset?: number;
+  availableCredits?: number;
   batchId?: string;
   closeModal: () => void;
 };
@@ -58,7 +58,7 @@ const textInputStyles: Styles<TextInputStylesNames, CSSProperties> = {
 export default function RetireModal({
   isModalOpened,
   closeModal,
-  offset,
+  availableCredits,
   batchId,
 }: Props) {
   const { chainInfo } = useContext(ChainContext);
@@ -85,14 +85,17 @@ export default function RetireModal({
 
   // FIXME: EMERGING-196 submit actions need to be discussed
   function onOffsetFormSubmit() {
-    const isRetireValid = offset && offset > 0 && offset <= 1_200_000;
+    const isRetireValid =
+      availableCredits && availableCredits > 0 && availableCredits <= 1_200_000;
     if (!isRetireValid || !batchId || !userWallet) return;
 
     const countryCode = countryPickerData.find(
       (country) => country.name === retireForm.values.country
     )?.code;
 
-    const tokens: ImpactToken[] = [{ id: batchId, amount: offset.toString() }];
+    const tokens: ImpactToken[] = [
+      { id: batchId, amount: availableCredits.toString() },
+    ];
 
     if (userWallet && chainInfo && wallet.user?.address) {
       const retireTokenTrx = generateRetireTokenTrx({
@@ -121,7 +124,7 @@ export default function RetireModal({
   useEffect(() => {
     console.log("🦍 Cached value: ", userWallet);
     console.log("🦍 Not cached value: ", { wallet, chainInfo });
-  });
+  }, []);
 
   return (
     <Modal
@@ -136,7 +139,7 @@ export default function RetireModal({
         <Text pt="lg" mb="lg">
           This action will retire a total of{" "}
           <Text display="inline" weight={800}>
-            {offset} CARBON
+            {availableCredits} CARBON
           </Text>{" "}
           credits in your selected batch (
           <Text display="inline" weight={800}>
@@ -179,6 +182,7 @@ export default function RetireModal({
           {...retireForm.getInputProps("note")}
         />
         <Button
+          bg={palette.accentActive}
           leftIcon={
             <BaseIcon
               width={37}
@@ -187,6 +191,9 @@ export default function RetireModal({
               Icon={LeafIcon}
             />
           }
+          sx={{
+            ":hover": { backgroundColor: palette.accentHover },
+          }}
           disabled={!retireForm.values.country}
           type="submit"
           w="100%"

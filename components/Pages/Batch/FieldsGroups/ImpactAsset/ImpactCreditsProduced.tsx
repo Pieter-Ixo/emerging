@@ -1,6 +1,6 @@
 import { Button, Flex, Card, Text, Anchor } from "@mantine/core";
 
-import { ITokenCarbonExtended } from "@/types/entityCollections";
+import { ITokensExtended } from "@/types/entityCollections";
 import useDetailPortal from "@/hooks/useDetailPortal";
 import { palette } from "@/theme/palette";
 import shortStr from "@/utils/shortStr";
@@ -10,7 +10,7 @@ import { FieldText } from "../styledComponents";
 
 type Props = {
   tokenTotal?: number;
-  tokens?: ITokenCarbonExtended;
+  tokens?: ITokensExtended;
   created?: string;
 };
 
