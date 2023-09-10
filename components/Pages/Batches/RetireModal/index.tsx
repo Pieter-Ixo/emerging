@@ -182,6 +182,7 @@ export default function RetireModal({
           {...retireForm.getInputProps("note")}
         />
         <Button
+          bg={palette.accentActive}
           leftIcon={
             <BaseIcon
               width={37}
@@ -190,6 +191,9 @@ export default function RetireModal({
               Icon={LeafIcon}
             />
           }
+          sx={{
+            ":hover": { backgroundColor: palette.accentHover },
+          }}
           disabled={!retireForm.values.country}
           type="submit"
           w="100%"

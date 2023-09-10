@@ -57,10 +57,10 @@ export default function NavBatchesAdminCard({
 
       <Stack spacing="xl">
         <Flex align="flex-end">
-          <Text color={palette.fullBlue} size={56}>
+          <Text color={palette.accentActive} size={56}>
             {adminTokensLength}
           </Text>
-          <Text color={palette.fullBlue} pb="md" ml="xs">
+          <Text color={palette.accentActive} pb="md" ml="xs">
             BATCHES FOR {entity.alsoKnownAs.replace("{id}", "")}
           </Text>
         </Flex>

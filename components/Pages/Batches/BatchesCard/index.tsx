@@ -68,10 +68,10 @@ export default function BatchesCard({
   const buttonStyles: Sx = {
     cursor: isRetireAvailable ? "pointer" : "default",
     pointerEvents: isRetireAvailable ? "all" : "none",
-    backgroundColor: isRetireAvailable ? palette.fullBlue : palette.Neutral800,
+    backgroundColor: isRetireAvailable ? palette.accentActive : palette.Neutral800,
     ":hover": {
       backgroundColor: isRetireAvailable
-        ? palette.fullBlue
+        ? palette.accentActive
         : palette.Neutral800,
     },
   };
