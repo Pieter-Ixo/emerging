@@ -7,35 +7,30 @@ import {
   IBatch,
   IBatchDataFilled,
 } from "@/types/certificates";
-import { IEntity } from "@/types/entityCollections";
 
-// eslint-disable-next-line import/no-cycle
 import {
-  fetchAllBatches,
   fetchBatchById,
-  fetchBatchesEntityByExternalId,
-  fetchBatchesByOwnerAddress,
   fetchBatchesByAdminAddress,
+  fetchAndFilterAdminOwnerBatches,
 } from "./thunks";
 
 export type IBatchesState = {
-  batches: IBatch[];
-  // TODO: should we remove word Address from naming ? 
-  ownerAddressBatches: IAddressBatches;
-  adminAddressBatches: IAddressBatches;
   isBatchLoading: boolean;
   isBatchesLoading: boolean;
+  adminBatchesFiltered: IAddressBatches | undefined;
+  ownerFilteredBatches: IAddressBatches | undefined;
+  adminBatches:IAddressBatches | undefined;
+  ownerAddress: string | undefined;
   selectedBatchData: IBatchDataFilled | undefined;
-  batchesEntity: IEntity | undefined;
 };
 const initialState: IBatchesState = {
   isBatchesLoading: false,
   isBatchLoading: false,
-  batches: [],
-  ownerAddressBatches: {},
-  adminAddressBatches: {},
+  adminBatchesFiltered: {},
+  ownerFilteredBatches: {},
+  adminBatches:{},
+  ownerAddress: undefined,
   selectedBatchData: undefined,
-  batchesEntity: undefined,
 };
 
 const BatchesSlice = createSlice({
@@ -48,14 +43,20 @@ const BatchesSlice = createSlice({
   },
   // FIXME: EMERGING-147: it throws a warning `createSlice.extraReducers` is deprecated, and will be removed
   extraReducers(builder) {
-    // fetchAllBatches
-    builder.addCase(fetchAllBatches.pending, (state) => {
+    // fetchAndFilterAdminOwnerBatches
+    builder.addCase(fetchAndFilterAdminOwnerBatches.pending, (state) => {
       state.isBatchesLoading = true;
     });
-    builder.addCase(fetchAllBatches.fulfilled, (state, action) => {
-      state.isBatchesLoading = false;
-      state.batches = action.payload;
-    });
+    builder.addCase(
+      fetchAndFilterAdminOwnerBatches.fulfilled,
+      (state, action) => {
+        state.isBatchesLoading = false;
+
+        state.adminBatchesFiltered = action.payload.adminFilteredBatches;
+        state.ownerFilteredBatches = action.payload.ownerFilteredBatches;
+        state.ownerAddress = action.payload.ownerAddress;
+      }
+    );
 
     // fetchBatchById
     builder.addCase(fetchBatchById.pending, (state) => {
@@ -66,34 +67,13 @@ const BatchesSlice = createSlice({
       state.selectedBatchData = action.payload;
     });
 
-    // fetchBatchesEntityByExternalId
-    builder.addCase(fetchBatchesEntityByExternalId.pending, (state) => {
-      state.isBatchLoading = true;
-    });
-    builder.addCase(
-      fetchBatchesEntityByExternalId.fulfilled,
-      (state, action) => {
-        state.isBatchLoading = false;
-        state.batchesEntity = action.payload;
-      }
-    );
-
-    // fetchBatchesByOwnerAddress
-    builder.addCase(fetchBatchesByOwnerAddress.pending, (state) => {
-      state.isBatchLoading = true;
-    });
-    builder.addCase(fetchBatchesByOwnerAddress.fulfilled, (state, action) => {
-      state.isBatchLoading = false;
-      state.ownerAddressBatches = action?.payload?.CARBON?.tokens;
-    });
-
     // fetchBatchesByAdminAddress
     builder.addCase(fetchBatchesByAdminAddress.pending, (state) => {
       state.isBatchLoading = true;
     });
     builder.addCase(fetchBatchesByAdminAddress.fulfilled, (state, action) => {
       state.isBatchLoading = false;
-      state.adminAddressBatches = action?.payload?.CARBON?.tokens;
+      state.adminBatches = action?.payload?.CARBON?.tokens;
     });
 
     builder.addCase(HYDRATE, (state, action) => ({

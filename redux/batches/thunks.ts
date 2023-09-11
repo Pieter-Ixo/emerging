@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import {
-  requestBatches,
   requestBatchByID,
   requestBatchesByAddress,
   requestEntityByExternalID,
@@ -17,64 +16,17 @@ import {
   IBatchDataFilled,
 } from "@/types/certificates";
 import isURL from "@/utils/isStrUrl";
-import { IEntity } from "@/types/entityCollections";
 
-// eslint-disable-next-line import/no-cycle
-import { AppDispatch } from "../store";
-import { fetchAndFillCollections } from "../entityCollections/thunks";
+import getEntityAdmin from "@/helpers/transformData/getEntityAdmin";
+import { requestTokenByAddress } from "@/requests/requesters/requestEntityToken";
+import filterCarbonTokens from "@/helpers/batches/filterCarbonTokens";
 
-export const fetchAllBatches = createAsyncThunk<
-  IBatch[],
-  void,
-  { dispatch: AppDispatch }
->("batches/fetchAllBatches", async (_, { dispatch }): Promise<IBatch[]> => {
-  await dispatch(fetchAndFillCollections());
-  const batchesResponse = await requestBatches();
-  if (!batchesResponse) throw new Error("panica!");
-
-  return batchesResponse;
-});
-
-export const fetchBatchesForEntity = createAsyncThunk<
-  IBatch[],
-  string,
-  { dispatch: AppDispatch }
->(
-  "batches/fetchBatchesForEntity",
-  async (externalId: string, { dispatch }): Promise<IBatch[]> => {
-    const batchesResponse = await requestBatches();
-    if (!batchesResponse) throw new Error("panica!");
-
-    return batchesResponse;
-  }
-);
-export const fetchBatchesByOwnerAddress = createAsyncThunk<
-  IAddressBatchResponse,
-  string,
-  { dispatch: AppDispatch }
->(
-  "batches/fetchBatchesByOwnerAddress",
-  async (
-    ownerAddress: string,
-    { dispatch }
-  ): Promise<IAddressBatchResponse> => {
-    const batchesResponse = await requestBatchesByAddress(ownerAddress);
-
-    if (!batchesResponse) throw new Error("panica!");
-
-    return batchesResponse;
-  }
-);
 export const fetchBatchesByAdminAddress = createAsyncThunk<
   IAddressBatchResponse,
-  string,
-  { dispatch: AppDispatch }
+  string
 >(
   "batches/fetchBatchesByAdminAddress",
-  async (
-    adminAddress: string,
-    { dispatch }
-  ): Promise<IAddressBatchResponse> => {
+  async (adminAddress: string): Promise<IAddressBatchResponse> => {
     const batchesResponse = await requestBatchesByAddress(adminAddress);
     if (!batchesResponse) throw new Error("panica!");
 
@@ -82,13 +34,9 @@ export const fetchBatchesByAdminAddress = createAsyncThunk<
   }
 );
 
-export const fetchBatchById = createAsyncThunk<
-  IBatch,
-  string,
-  { dispatch: AppDispatch }
->(
+export const fetchBatchById = createAsyncThunk<IBatch, string>(
   "batches/fetchBatchById",
-  async (batchId: string, { dispatch }): Promise<IBatchDataFilled> => {
+  async (batchId: string): Promise<IBatchDataFilled> => {
     const batchesResponse = await requestBatchByID(batchId);
     if (!batchesResponse) throw new Error("!batchesResponse");
     const filledBatch: IBatchDataFilled = batchesResponse;
@@ -123,8 +71,43 @@ export const fetchBatchById = createAsyncThunk<
   }
 );
 
-export const fetchBatchesEntityByExternalId = createAsyncThunk(
-  "entityCollections/fetchBatchesEntityByExternalId",
-  async (externalId: string): Promise<IEntity> =>
-    requestEntityByExternalID(externalId)
+export const fetchAndFilterAdminOwnerBatches = createAsyncThunk(
+  "entityCollections/fetchAndFilterAdminOwnerBatches",
+  async ({
+    externalId,
+    ownerAddress,
+  }: {
+    externalId: string;
+    ownerAddress: string;
+  }): Promise<any> => {
+    const entity = await requestEntityByExternalID(externalId);
+
+    const entityAdminAddress = getEntityAdmin(entity);
+
+    if (!entityAdminAddress) return undefined;
+
+    const adminEntityBatchesRes = await requestTokenByAddress(
+      entityAdminAddress
+    );
+    const ownerAddressBatchesRes = await requestTokenByAddress(ownerAddress);
+
+    const adminEntityBathesMap = adminEntityBatchesRes.CARBON.tokens;
+    const ownerAddressBatchesMap = ownerAddressBatchesRes.CARBON.tokens;
+
+    const adminFilteredEntityBatches = filterCarbonTokens(
+      adminEntityBathesMap,
+      ownerAddressBatchesMap
+    );
+
+    const userFilteredEntityBatches = filterCarbonTokens(
+      ownerAddressBatchesMap,
+      adminEntityBathesMap
+    );
+
+    return {
+      ownerFilteredBatches: userFilteredEntityBatches,
+      adminFilteredBatches: adminFilteredEntityBatches,
+      ownerAddress: entity.owner,
+    };
+  }
 );

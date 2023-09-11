@@ -18,7 +18,7 @@ import { ITokenMap, IEntityExtended } from "@/types/entityCollections";
 import Generated from "@/assets/icons/generated.svg";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import { resetEntityTokens } from "@/redux/entityCollections/actions";
-import filterAdminTokens from "@/helpers/batches/filterAdminTokens";
+import filterCarbonTokens from "@/helpers/batches/filterCarbonTokens";
 
 import { ImpactCreditsButtonBlue } from "../UserBalance/StyledButtons";
 
@@ -58,7 +58,7 @@ export default function NavBatchesOwnerCard({
       const adminCarbonTokens = adminTokens?.CARBON?.tokens;
       const ownerCarbonTokens = ownerTokens.CARBON.tokens;
 
-      const adminTokensFilteredMap = filterAdminTokens(
+      const adminTokensFilteredMap = filterCarbonTokens(
         adminCarbonTokens,
         ownerCarbonTokens
       );
@@ -69,8 +69,7 @@ export default function NavBatchesOwnerCard({
 
   if (isAdminTokensLoading || isUserTokensLoading) return <Loader />;
 
-  if (filteredAdminTokens && !Object.keys(filteredAdminTokens)?.length)
-    return null;
+  if (!Object.keys(filteredAdminTokens)?.length) return null;
 
   const ownerBatchesGridHref = `/entity/${entityExternalId}/batch/byOwnerAddress/${entityOwnerAddress}`;
 
@@ -81,7 +80,7 @@ export default function NavBatchesOwnerCard({
       <Stack spacing="xl">
         <Flex align="flex-end">
           <Text color={palette.accentActive} size={56}>
-            {Object.entries(filteredAdminTokens|| {}).length}
+            {Object.entries(filteredAdminTokens).length}
           </Text>
           <Text color={palette.accentActive} pb="md" ml="xs">
             BATCHES FOR {entity.alsoKnownAs.replace("{id}", "")}

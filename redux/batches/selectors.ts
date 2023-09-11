@@ -1,10 +1,7 @@
 import { createDraftSafeSelector } from "@reduxjs/toolkit";
 
-import { IEntity } from "@/types/entityCollections";
-
 import { RootState } from "../store";
 import { selectRoot } from "../selectors";
-import { selectEntityByExternalId } from "../entityCollections/selectors";
 import { IBatchesState } from "./slice";
 
 export const selectBatchesState = createDraftSafeSelector(
@@ -12,26 +9,10 @@ export const selectBatchesState = createDraftSafeSelector(
   (state: RootState): IBatchesState => state?.batches
 );
 
-export const selectAllBatches = createDraftSafeSelector(
-  selectBatchesState,
-  (batchesState: IBatchesState): IBatchesState["batches"] | undefined =>
-    batchesState.batches
-);
-
 export const selectAdminAddressBatches = createDraftSafeSelector(
   selectBatchesState,
-  (
-    batchesState: IBatchesState
-  ): IBatchesState["adminAddressBatches"] | undefined =>
-    batchesState.adminAddressBatches
-);
-
-export const selectOwnerAddressBatches = createDraftSafeSelector(
-  selectBatchesState,
-  (
-    batchesState: IBatchesState
-  ): IBatchesState["ownerAddressBatches"] | undefined =>
-    batchesState.ownerAddressBatches
+  (batchesState: IBatchesState): IBatchesState["adminBatches"] | undefined =>
+    batchesState.adminBatches
 );
 
 export const selectSelectedBatch = createDraftSafeSelector(
@@ -48,27 +29,34 @@ export const selectIsBatchesLoading = createDraftSafeSelector(
     batchesState.isBatchesLoading
 );
 
-export const selectBatchesForEntity =
-  (externalId: IEntity["externalId"]) => (state: RootState) => {
-    const batches = selectAllBatches(state);
-    const entity = selectEntityByExternalId(state, externalId);
-
-    if (!entity) return undefined;
-
-    const filteredBatches = batches?.filter(
-      (batch) => entity.id === batch?.tokenData?.[0]?.id
-    );
-
-    return filteredBatches;
-  };
-
-export const selectBatchesEntity = createDraftSafeSelector(
+export const selectAdminBatchesFiltered = createDraftSafeSelector(
   selectBatchesState,
-  (batchesState: IBatchesState): IBatchesState["batchesEntity"] => {
-    const batchesEntity = batchesState.batchesEntity;
+  (batchesState: IBatchesState): IBatchesState["adminBatchesFiltered"] => {
+    const batches = batchesState.adminBatchesFiltered;
 
-    if (!batchesEntity) return undefined;
+    if (!batches) return undefined;
 
-    return batchesEntity;
+    return batches;
+  }
+);
+
+export const selectOwnerFilteredBatches = createDraftSafeSelector(
+  selectBatchesState,
+  (batchesState: IBatchesState): IBatchesState["ownerFilteredBatches"] => {
+    const batches = batchesState.ownerFilteredBatches;
+
+    if (!batches) return undefined;
+
+    return batches;
+  }
+);
+export const selectOwnerAddress = createDraftSafeSelector(
+  selectBatchesState,
+  (batchesState: IBatchesState): IBatchesState["ownerAddress"] => {
+    const ownerAddress = batchesState.ownerAddress;
+
+    if (!ownerAddress) return undefined;
+
+    return ownerAddress;
   }
 );
