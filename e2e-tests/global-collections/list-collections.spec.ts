@@ -5,28 +5,29 @@ import { BlocksyncUrl } from "@/constants/chains";
 const LOCATION_GLOBAL_COLLECTIONS_LIST = `${APP_LOCATION}collections/global`;
 const BLOCK_SYNC_URL = BlocksyncUrl;
 
-test.beforeAll(async () => {
-  console.log("🪿 beforeAll");
+test.beforeEach(async ({ page }) => {
+  await page.goto(APP_LOCATION);
+  await page.waitForURL(LOCATION_GLOBAL_COLLECTIONS_LIST);
 });
 
 test("should redirect from '/' to global collections list", async ({
   page,
 }) => {
-  await page.goto(APP_LOCATION);
-  await page.waitForURL(LOCATION_GLOBAL_COLLECTIONS_LIST);
-
   const url = await page.url();
   await expect(url).toEqual(LOCATION_GLOBAL_COLLECTIONS_LIST);
 });
 
 test("should request and display collections", async ({ page }) => {
-  await page.goto(APP_LOCATION);
-  await page.waitForURL(LOCATION_GLOBAL_COLLECTIONS_LIST);
-
-  const requestPromise = await page.waitForRequest(
+  const requestGlobalCollections = await page.waitForRequest(
     `${BLOCK_SYNC_URL}/api/entity/collections`
   );
-  const url = requestPromise.url();
+
+  const requestedURL = requestGlobalCollections.url();
+  expect(requestedURL).toEqual(`${BLOCK_SYNC_URL}/api/entity/collections`);
+
+  const CollectionCard = await page.getByTestId("CollectionCard");
+  await page.getByTestId("CollectionCard").waitFor();
+  await expect(CollectionCard).toBeVisible();
 });
 
 // test("get started link", async ({ page }) => {

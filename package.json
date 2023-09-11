@@ -7,7 +7,7 @@
     "build": "next build",
     "build:fast": "ENVIRONMENT='localhost-tests' next build",
     "start": "next start",
-    "build-start": "next build:fast && next start",
+    "build-start": "yarn build:fast && next start",
     "test": "npx playwright test",
     "test:start": "build-start & npx playwright test",
     "testgen": "build-start & npx playwright codegen localhost:3000/",
