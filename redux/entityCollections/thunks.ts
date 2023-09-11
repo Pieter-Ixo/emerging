@@ -278,8 +278,8 @@ export const fetchAdminTokens = createAsyncThunk(
 
 export const fetchUsersTokens = createAsyncThunk(
   "entityCollections/fetchUsersTokens",
-  async (adminAddress: string): Promise<ICarbonTokens | undefined> => {
-    const tokenData = await requestTokenByAddress(adminAddress);
+  async (ownerAddress: string): Promise<ICarbonTokens | undefined> => {
+    const tokenData = await requestTokenByAddress(ownerAddress);
 
     return tokenData;
   }

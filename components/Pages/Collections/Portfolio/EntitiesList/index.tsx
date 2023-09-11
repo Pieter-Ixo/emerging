@@ -8,12 +8,12 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 import { fillEntitiesForUserCollections } from "@/redux/entityCollections/thunks";
 import { selectSelectedEntityExternalId } from "@/redux/entityCollections/selectors";
+import { resetSelectedEntity } from "@/redux/entityCollections/actions";
 import {
   ICollectionEntities,
   IEntityExtended,
 } from "@/types/entityCollections";
 import { getEntityTotalMintedAmount } from "@/helpers/transformData/getTotalMintedAmount";
-import { resetSelectedEntity } from "@/redux/entityCollections/actions";
 
 type EntitiesItemsProps = {
   activeEntityCollection?: ICollectionEntities;

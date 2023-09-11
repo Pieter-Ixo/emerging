@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Card, Flex, Loader, Stack, Text } from "@mantine/core";
 
 import { palette } from "@/theme/palette";
@@ -14,10 +14,11 @@ import {
   selectUserTokens,
   selectUserTokensIsLoading,
 } from "@/redux/entityCollections/selectors";
-import { IEntityExtended } from "@/types/entityCollections";
+import { ITokenMap, IEntityExtended } from "@/types/entityCollections";
 import Generated from "@/assets/icons/generated.svg";
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import { resetEntityTokens } from "@/redux/entityCollections/actions";
+import filterAdminTokens from "@/helpers/batches/filterAdminTokens";
 
 import { ImpactCreditsButtonBlue } from "../UserBalance/StyledButtons";
 
@@ -29,8 +30,12 @@ export default function NavBatchesOwnerCard({
   const dispatch = useAppDispatch();
   const adminTokens = useAppSelector(selectAdminTokens);
   const isAdminTokensLoading = useAppSelector(selectAdminTokensIsLoading);
-  const userTokens = useAppSelector(selectUserTokens);
+  const ownerTokens = useAppSelector(selectUserTokens);
   const isUserTokensLoading = useAppSelector(selectUserTokensIsLoading);
+
+  const [filteredAdminTokens, setFilteredAdminTokens] = useState<
+    ITokenMap | {}
+  >({});
 
   const entityAdminAddress = entity.accounts[0].address;
   const entityOwnerAddress = entity.owner;
@@ -48,17 +53,24 @@ export default function NavBatchesOwnerCard({
     if (entityAdminAddress) dispatch(fetchAdminTokens(entityAdminAddress));
   }, [entityAdminAddress, entityOwnerAddress]);
 
+  useEffect(() => {
+    if (ownerTokens && adminTokens) {
+      const adminCarbonTokens = adminTokens?.CARBON?.tokens;
+      const ownerCarbonTokens = ownerTokens.CARBON.tokens;
+
+      const adminTokensFilteredMap = filterAdminTokens(
+        adminCarbonTokens,
+        ownerCarbonTokens
+      );
+
+      setFilteredAdminTokens(adminTokensFilteredMap);
+    }
+  }, [ownerTokens, adminTokens]);
+
   if (isAdminTokensLoading || isUserTokensLoading) return <Loader />;
 
-  const isAdminTokensEmpty = !adminTokens || !Object.keys(adminTokens).length;
-  const isUserTokensEmpty = !userTokens || !Object.keys(userTokens).length;
-
-
-  if (isAdminTokensEmpty && isUserTokensEmpty) return null;
-  
-  // FIXME:EMERGING-244 handle how many batches are inside ownerTokensLenght,
-  // by mapping through adminTokens and ownerTokens
-  const ownerTokensLength = Object.keys(userTokens?.CARBON?.tokens || {}).length;
+  if (filteredAdminTokens && !Object.keys(filteredAdminTokens)?.length)
+    return null;
 
   const ownerBatchesGridHref = `/entity/${entityExternalId}/batch/byOwnerAddress/${entityOwnerAddress}`;
 
@@ -68,9 +80,8 @@ export default function NavBatchesOwnerCard({
 
       <Stack spacing="xl">
         <Flex align="flex-end">
-
           <Text color={palette.accentActive} size={56}>
-            {ownerTokensLength}
+            {filteredAdminTokens && Object.entries(filteredAdminTokens).length}
           </Text>
           <Text color={palette.accentActive} pb="md" ml="xs">
             BATCHES FOR {entity.alsoKnownAs.replace("{id}", "")}

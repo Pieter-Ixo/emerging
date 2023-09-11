@@ -13,9 +13,7 @@ import {
 
 import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExternalId";
 import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
-import {
-  extendEntities,
-} from "@/helpers/transformData/extendEntities";
+import { extendEntities } from "@/helpers/transformData/extendEntities";
 import { resetSelectedEntity } from "@/redux/entityCollections/actions";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
 

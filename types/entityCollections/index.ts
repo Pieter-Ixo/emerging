@@ -170,11 +170,15 @@ export type ISingleToken = {
   retired: number;
 };
 
+export type ITokenMap = {
+  [key: string]: ISingleToken;
+};
+
 export type ITokens = {
   contractAddress: string;
   description: string;
   image: string;
-  tokens: { [key: string]: ISingleToken };
+  tokens: ITokenMap;
 };
 
 export type ITokensExtended = ITokens & {
