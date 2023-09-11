@@ -10,7 +10,7 @@ test.beforeEach(async ({ page }) => {
   await page.waitForURL(LOCATION_GLOBAL_COLLECTIONS_LIST);
 });
 
-test("should redirect from '/' to global collections list", async ({
+test("should redirect from '/' to the global collections list", async ({
   page,
 }) => {
   const url = await page.url();
@@ -30,5 +30,17 @@ test.describe("Home page. The global collections list", () => {
     const CollectionCard = await page.getByTestId("CollectionCard");
     await page.getByTestId("CollectionCard").waitFor();
     await expect(CollectionCard).toBeVisible();
+  });
+
+  test("should display tags on the first collection card", async ({ page }) => {
+    const CollectionCardTagsContainer = await page.getByTestId(
+      "collection-card-tags-container"
+    );
+    await CollectionCardTagsContainer.waitFor();
+    const childrenTagName = await CollectionCardTagsContainer.evaluate(
+      (elem) => elem.children[0].tagName
+    );
+
+    expect(childrenTagName).toBe("svg");
   });
 });

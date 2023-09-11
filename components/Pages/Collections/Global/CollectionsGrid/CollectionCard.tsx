@@ -52,7 +52,13 @@ export default function CollectionCard({ collection, entitiesLength }: Props) {
     >
       <Card.Section>
         <BackgroundImage src={imageUrl} mih={250}>
-          <Flex justify="flex-end" align="flex-start" gap="sm" p="md">
+          <Flex
+            justify="flex-end"
+            align="flex-start"
+            gap="sm"
+            p="md"
+            data-testid="collection-card-tags-container"
+          >
             {tags.map((tagText) => (
               <TagIcon name={tagText} key={tagText} />
             ))}
