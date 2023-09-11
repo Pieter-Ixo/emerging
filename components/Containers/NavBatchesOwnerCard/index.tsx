@@ -81,7 +81,7 @@ export default function NavBatchesOwnerCard({
       <Stack spacing="xl">
         <Flex align="flex-end">
           <Text color={palette.accentActive} size={56}>
-            {filteredAdminTokens && Object.entries(filteredAdminTokens).length}
+            {Object.entries(filteredAdminTokens|| {}).length}
           </Text>
           <Text color={palette.accentActive} pb="md" ml="xs">
             BATCHES FOR {entity.alsoKnownAs.replace("{id}", "")}

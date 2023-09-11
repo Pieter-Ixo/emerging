@@ -4,18 +4,13 @@ export default function filterAdminTokens(
   adminCarbonTokens: ITokenMap,
   ownerCarbonTokens: ITokenMap
 ): ITokenMap | {} {
-  return adminCarbonTokens
-    ? Object.keys(adminCarbonTokens).reduce(
-        (filteredAdminTokensObject, adminTokenId) => {
-          if (adminTokenId in ownerCarbonTokens) {
-            return {
-              ...filteredAdminTokensObject,
-              [adminTokenId]: adminCarbonTokens[adminTokenId],
-            };
-          }
-          return filteredAdminTokensObject;
-        },
-        {}
-      )
-    : {};
+  if (!adminCarbonTokens) return {};
+
+  const tokenEntries = Object.entries(adminCarbonTokens);
+  
+  const filteredEntries = tokenEntries.filter(
+    ([adminTokenId]) => adminTokenId in ownerCarbonTokens
+  );
+  
+  return Object.fromEntries(filteredEntries);
 }
