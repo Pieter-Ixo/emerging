@@ -38,7 +38,7 @@ export default function CollectionAssetModal() {
       centered
     >
       <Head>
-        <title>Supamoto Dashboard</title>
+        <title>Impacts</title>
         <meta name="description" content="Supamoto Dashboard" />
       </Head>
 

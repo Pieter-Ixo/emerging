@@ -35,7 +35,7 @@ export default function TransactionCertificate() {
       router.push("/collections/global", undefined, { shallow: true });
   }, []);
   return (
-    <AppLayout title="Transaction Certificate">
+    <AppLayout title="Impacts">
       <BatchesPageHeader
         activeViewMode={ControlsDisplayMods.gridView}
         toggleBatchesViewMode={() => {}}

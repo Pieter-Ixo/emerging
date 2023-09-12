@@ -7,7 +7,7 @@ export default function BatchesPage() {
   const batchId = useValueFromRouter("batchId");
 
   return (
-    <AppLayout title="Batch Dashboard">
+    <AppLayout title="Impacts">
       <main
         style={{
           marginLeft: initStyles.navWidth,

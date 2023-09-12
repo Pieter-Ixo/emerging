@@ -62,7 +62,7 @@ export default function OwnerBatches() {
   }
 
   return (
-    <AppLayout title="Carbon Certificates">
+    <AppLayout title="Impacts">
       <BatchesPageHeader
         activeViewMode={batchesViewMode}
         toggleBatchesViewMode={toggleBatchesViewMode}

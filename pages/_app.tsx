@@ -31,7 +31,7 @@ function App({ Component, pageProps, router }: AppProps) {
   return (
     <>
       <Head>
-        <title>Emerging App</title>
+        <title>Impacts</title>
       </Head>
 
       <MantineProvider withGlobalStyles withNormalizeCSS theme={mantineTheme}>

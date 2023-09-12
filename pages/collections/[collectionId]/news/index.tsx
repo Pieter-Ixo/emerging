@@ -55,7 +55,7 @@ export default function News() {
   const isNewsPostsLoading = useAppSelector(selectIsNewsPostsLoading);
 
   return (
-    <AppLayout title="Collection News">
+    <AppLayout title="Impacts">
       <PageHeader>
         <GlobalPortfolioSwitch selectedLink="global" />
         <Title order={2} fw={300} color={palette.Neutral800}>
