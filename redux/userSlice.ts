@@ -12,7 +12,7 @@ const initialState: UserState = {
 };
 
 const UserSlice = createSlice({
-  name: "user",
+  name: "UserSlice",
   initialState,
   reducers: {
     connectWallet: (state, action) => {

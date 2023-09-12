@@ -19,7 +19,7 @@ export type IBatchesState = {
   isBatchesLoading: boolean;
   adminBatchesFiltered: IAddressBatches | undefined;
   ownerFilteredBatches: IAddressBatches | undefined;
-  adminBatches:IAddressBatches | undefined;
+  adminBatches: IAddressBatches | undefined;
   ownerAddress: string | undefined;
   selectedBatchData: IBatchDataFilled | undefined;
 };
@@ -28,20 +28,19 @@ const initialState: IBatchesState = {
   isBatchLoading: false,
   adminBatchesFiltered: {},
   ownerFilteredBatches: {},
-  adminBatches:{},
+  adminBatches: {},
   ownerAddress: undefined,
   selectedBatchData: undefined,
 };
 
 const BatchesSlice = createSlice({
-  name: "batches",
+  name: "BatchesSlice",
   initialState,
   reducers: {
     setSelectedBatch: (state, action: PayloadAction<IBatch>) => {
       state.selectedBatchData = action.payload;
     },
   },
-  // FIXME: EMERGING-147: it throws a warning `createSlice.extraReducers` is deprecated, and will be removed
   extraReducers(builder) {
     // fetchAndFilterAdminOwnerBatches
     builder.addCase(fetchAndFilterAdminOwnerBatches.pending, (state) => {
@@ -75,11 +74,6 @@ const BatchesSlice = createSlice({
       state.isBatchLoading = false;
       state.adminBatches = action?.payload?.CARBON?.tokens;
     });
-
-    builder.addCase(HYDRATE, (state, action) => ({
-      ...state,
-      ...action,
-    }));
   },
 });
 
