@@ -2,20 +2,22 @@
 id: rbpiqpfz
 title: End-to-end tests
 file_version: 1.1.3
-app_version: 1.16.0
+app_version: 1.17.1
 ---
 
-Project has end-to-end tests (e2e) configured using [Playwright](https://playwright.dev). Please read [Best Practices article from the Playwright docs](https://playwright.dev/docs/best-practices#avoid-testing-third-party-dependencies) before contributing to these tests.
+The project has end-to-end tests (e2e) configured using the [Playwright](https://playwright.dev). Please read the [Best Practices article from the Playwright docs](https://playwright.dev/docs/best-practices#avoid-testing-third-party-dependencies) before contributing to these tests.
 
 ## How to run tests in the app
 
-Playwright need an adress which will be tested by our tests. So we need to start a local server. Better to make a build and test this build. In order to make and run the build use these scripts:
+The Playwright needs an address to test. So we need to start a local server. To build, run, and test the app use these scripts:
 
 <br/>
 
-Use these scripts to develop e2e tests. First make a fast build (with checks disabled) and start the app in one command which is `build-start`<swm-token data-swm-token=":package.json:10:2:4:`    &quot;build-start&quot;: &quot;yarn build:fast &amp;&amp; next start&quot;,`"/>. Then you are ready to run tests, just open a new terminal and run `test`<swm-token data-swm-token=":package.json:11:2:2:`    &quot;test&quot;: &quot;npx playwright test&quot;,`"/>. Playwright will try to test the app running at [localhost:3000](http://localhost:3000) (See doc below to see how tartget can be changed).
+Use these scripts to develop e2e tests. First, make a fast build (with checks disabled) and start the app with one command: `build-start`<swm-token data-swm-token=":package.json:10:2:4:`    &quot;build-start&quot;: &quot;yarn build:fast &amp;&amp; next start&quot;,`"/>.
 
-`testgen`<swm-token data-swm-token=":package.json:13:2:2:`    &quot;testgen&quot;: &quot;build-start &amp; npx playwright codegen localhost:3000/&quot;,`"/> will open [a Test-generator tool from Playwright](https://playwright.dev/docs/codegen-intro) which will assist you with creating new tests.
+Now you are ready to run the project tests. Open a new terminal and run `test`<swm-token data-swm-token=":package.json:11:2:2:`    &quot;test&quot;: &quot;npx playwright test&quot;,`"/>. The Playwright will try to test the app running at [localhost:3000](http://localhost:3000) (See doc below to see how the target can be changed).
+
+`testgen`<swm-token data-swm-token=":package.json:13:2:2:`    &quot;testgen&quot;: &quot;build-start &amp; npx playwright codegen localhost:3000/&quot;,`"/> opens [a Test-generator tool from Playwright](https://playwright.dev/docs/codegen-intro) to assist you with creating new tests.
 <!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
 ### 📄 package.json
 ```json
@@ -29,11 +31,11 @@ Use these scripts to develop e2e tests. First make a fast build (with checks dis
 
 <br/>
 
-For now target address for tests specified in the `📄 e2e-tests/constants.ts`
+For now, the target address for tests is specified in the `📄 e2e-tests/constants.ts`
 
 <br/>
 
-This constant is used as a target for e2e tests. In future we can simply use a `.env` variable for this.
+This constant is used as a target for e2e tests. In the future, we can use a `.env` variable for this.
 <!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
 ### 📄 e2e-tests/constants.ts
 ```typescript
