@@ -49,7 +49,10 @@ export default function Collections() {
       <Grid maw={900} gutter="lg" m={0} p={0}>
         {globalCollections.map((colState) => (
           <Grid.Col span={6} key={`col-${colState.collection?.id}`} p={0}>
-            <CollectionCard collectionState={colState} entitiesLength={500} />
+            <CollectionCard
+              collectionState={colState}
+              entitiesLength={colState.collection.entitiesLength}
+            />
           </Grid.Col>
         ))}
       </Grid>

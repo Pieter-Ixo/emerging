@@ -104,6 +104,7 @@ export type ICollection = {
   linkedResource: ILinkedResource[];
   service: IService[];
   settings: ISettings;
+  entitiesLength: number;
 };
 export type IEntity = {
   id: string;

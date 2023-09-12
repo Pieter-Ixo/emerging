@@ -138,6 +138,7 @@ const GlobalCollectionsSlice = createSlice({
       const collectionIndex = getCollectionIndex(state, id);
       state.globalCollections[collectionIndex].tagsError = error;
     },
+
     setCollectionTokenIpfs: (
       state,
       action: PayloadAction<{
@@ -190,7 +191,6 @@ export const {
   setCollectionTokenIpfs,
   setIsCollectionTokenIpfsLoading,
   setCollectionTokenIpfsError,
-
 } = GlobalCollectionsSlice.actions;
 
 export default GlobalCollectionsSlice.reducer;

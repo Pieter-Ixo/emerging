@@ -14,11 +14,12 @@ import { useAppDispatch } from "@/hooks/redux";
 
 import { palette } from "@/theme/palette";
 import TagIcon from "@/components/Pages/Collections/Global/CollectionsGrid/TagIcon";
-
 import { getEntityTagsFromTags } from "@/helpers/transformData/getEntityTagsByCategory";
+
 import { ICollectionState } from "@/redux/globalCollections/types";
 import fetchCollectionsProfile from "@/redux/globalCollections/thunks/fetchCollectionsProfile";
 import fetchCollectionsTags from "@/redux/globalCollections/thunks/fetchCollectionsTags";
+import fetchCollectionsTokenIpfs from "@/redux/globalCollections/thunks/fetchCollectionsTokenIpfs";
 
 type Props = { collectionState: ICollectionState; entitiesLength: number };
 
@@ -28,7 +29,7 @@ export default function CollectionCard({
 }: Props) {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { collection, profile, tags } = collectionState;
+  const { collection, profile, tags, tokenIpfs } = collectionState;
   const sdgTags = getEntityTagsFromTags(tags);
   const { brand, name, imageUrl, logoUrl } = profile || {};
 
@@ -36,6 +37,7 @@ export default function CollectionCard({
     if (collection.id) {
       dispatch(fetchCollectionsProfile(collection.id));
       dispatch(fetchCollectionsTags(collection.id));
+      dispatch(fetchCollectionsTokenIpfs(collection.id));
     }
   }, [collection.id]);
 
@@ -89,7 +91,7 @@ export default function CollectionCard({
               variant="filled"
             >
               <Text size="md" fw={500}>
-                DENOM
+                {tokenIpfs?.properties.denom}
               </Text>
             </Badge>
           </Flex>
