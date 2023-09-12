@@ -20,12 +20,14 @@ export default function ImpactEvaluatorValidator({
   const { isVisible, openPortal, closePortal } = useDetailPortal(
     "ImpactEvaluatorValidator"
   );
+  const validatorEntityId = "did:ixo:entity:7889238a0a6a68554f65f5c7da96f13b";
+
   const tags = oracle?._tags?.entityTags[0].tags;
 
   const PortalChild = (
     <Link
       target="_blank"
-      href={`${EMERGING_MARKETPLACE_URL}/entity/did:ixo:entity:7889238a0a6a68554f65f5c7da96f13b/overview`}
+      href={`${EMERGING_MARKETPLACE_URL}/entity/${validatorEntityId}/overview`}
     >
       <ProfileCard entity={oracle} tags={tags} />
     </Link>
