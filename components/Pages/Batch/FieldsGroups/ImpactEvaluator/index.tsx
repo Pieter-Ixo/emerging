@@ -4,9 +4,15 @@ import { FieldText, FieldsGroupTitle } from "../styledComponents";
 
 import Protocol from "./Oracle";
 import { OracleVerificationProps } from "./props";
+import ImpactEvaluatorValidator from "./ImpactEvaluatorValidator";
 
 export default function ImpactEvaluator({ oracle }: OracleVerificationProps) {
-  const attributes = oracle?._profile?.attributes;
+  const validatorAttr = oracle?._profile?.attributes.find(
+    (attr) => attr.key === "Validator"
+  );
+  const attributes = oracle?._profile?.attributes.filter(
+    (attr) => attr.key !== "Validator"
+  );
 
   return (
     <Flex direction="column">
@@ -26,6 +32,10 @@ export default function ImpactEvaluator({ oracle }: OracleVerificationProps) {
             <FieldText>{attr.value}</FieldText>
           </Flex>
         ))}
+        <ImpactEvaluatorValidator
+          oracle={oracle}
+          validatorAttr={validatorAttr}
+        />
       </Flex>
     </Flex>
   );
