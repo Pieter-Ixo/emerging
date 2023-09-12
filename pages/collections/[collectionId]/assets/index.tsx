@@ -54,7 +54,7 @@ export default function Assets() {
   const collectionTitle = `${collection?._profile?.brand} - ${collection?._profile?.name} ${collectionDateYear}`;
 
   return (
-    <AppLayout title="Collection News">
+    <AppLayout title="Impacts">
       <PageHeader>
         <GlobalPortfolioSwitch selectedLink="global" />
         <Title order={2} fw={300} color={palette.Neutral800}>

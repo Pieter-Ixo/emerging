@@ -60,7 +60,7 @@ export default function Collections() {
   }, [activeCardId, userEntityCollections]);
 
   return (
-    <AppLayout title="Emergency Portfolio">
+    <AppLayout title="Impacts">
       <PageHeader>
         <GlobalPortfolioSwitch selectedLink="portfolio" />
         <Title order={2} fw={300}>

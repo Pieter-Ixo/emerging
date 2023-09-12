@@ -46,7 +46,7 @@ export default function AdminBatches() {
   }
 
   return (
-    <AppLayout title="Carbon Certificates">
+    <AppLayout title="Impacts">
       <BatchesPageHeader
         activeViewMode={batchesViewMode}
         toggleBatchesViewMode={toggleBatchesViewMode}

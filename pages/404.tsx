@@ -6,7 +6,7 @@ import QuestionIcon from "@/assets/icons/question.svg";
 
 export default function Error404() {
   return (
-    <AppLayout title="Not found">
+    <AppLayout title="Impacts">
       <Flex direction="column" justify="center" align="center" mih="65vh">
         <BaseIcon
           width={81}

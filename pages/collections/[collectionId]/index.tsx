@@ -83,7 +83,7 @@ export default function Collection() {
   const collectionTitle = `${collection?._profile?.brand} - ${collection?._profile?.name} ${collectionDateYear}`;
 
   return (
-    <AppLayout title="Emerging Collections">
+    <AppLayout title="Impacts">
       <PageHeader>
         <GlobalPortfolioSwitch selectedLink="global" />
         <Link href="/collections">

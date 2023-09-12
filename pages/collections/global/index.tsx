@@ -9,7 +9,7 @@ import CollectionListFilteringControls from "@/components/Pages/Collections/Glob
 
 export default function Collections() {
   return (
-    <AppLayout title="Emerging Collections">
+    <AppLayout title="Impacts">
       <PageHeader>
         <GlobalPortfolioSwitch selectedLink="global" />
         <Title order={2} fw={300}>
