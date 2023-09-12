@@ -1,6 +1,8 @@
 
 # [Emerging Eco App](https://app.emerging.eco/)
 
+> ⚠️ this Readme doc is not supported anymore, because documenting continued in Swimm documentation app.
+
 Emerging is the digital platform for low-carbon basic services. Manage your inventory of impact-generating technologies through a single interface. Capture the financial value of verified carbon emission reductions and social impacts in real-time.
 
 ## Table of Contents

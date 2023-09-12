@@ -5,7 +5,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:fast": "ENVIRONMENT='localhost-tests' next build",
     "start": "next start",
+    "build-start": "yarn build:fast && next start",
+    "test": "npx playwright test",
+    "test:start": "build-start & npx playwright test",
+    "testgen": "build-start & npx playwright codegen localhost:3000/",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "prettier": "prettier **/*.{js,ts,tsx,md} --write",
@@ -83,6 +88,7 @@
     "typescript": "4.9.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.37.1",
     "@types/leaflet": "^1.9.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "^8.8.0",

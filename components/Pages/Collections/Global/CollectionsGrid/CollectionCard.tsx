@@ -38,7 +38,7 @@ export default function CollectionCard({ collection, entitiesLength }: Props) {
 
   const tags = getEntityTagsByCategory(collection, "SDG") ?? [];
 
-  const badgeTitle = collectionTokenIpfs?.properties.denom;
+  const denom = collectionTokenIpfs?.properties.denom;
 
   return (
     <Card
@@ -48,10 +48,21 @@ export default function CollectionCard({ collection, entitiesLength }: Props) {
       mih="260px"
       padding={0}
       radius="lg"
+      data-testid="collection-card"
     >
       <Card.Section>
-        <BackgroundImage src={imageUrl} mih={250}>
-          <Flex justify="flex-end" align="flex-start" gap="sm" p="md">
+        <BackgroundImage
+          src={imageUrl}
+          mih={250}
+          data-testid="collection-card-image"
+        >
+          <Flex
+            justify="flex-end"
+            align="flex-start"
+            gap="sm"
+            p="md"
+            data-testid="collection-card-tags-container"
+          >
             {tags.map((tagText) => (
               <TagIcon name={tagText} key={tagText} />
             ))}
@@ -60,8 +71,8 @@ export default function CollectionCard({ collection, entitiesLength }: Props) {
       </Card.Section>
       <Flex gap="md" justify="space-between" p="sm" bg={palette.Neutral200}>
         <Box>
-          <Text>{brand}</Text>
-          <Text>{name}</Text>
+          <Text data-testid="collection-card-brand">{brand}</Text>
+          <Text data-testid="collection-card-name">{name}</Text>
         </Box>
         <Flex align="end" pos="relative">
           <Avatar
@@ -72,16 +83,20 @@ export default function CollectionCard({ collection, entitiesLength }: Props) {
             alt="Collection Logotype"
             bg={palette.White}
             radius="50%"
+            data-testid="collection-card-logo"
+            my-prop="prop-value"
           />
           <Flex align="center" gap={8}>
-            <Text size="md">{entitiesLength || 0}</Text>
+            <Text size="md" data-testid="collection-card-entities-length">
+              {entitiesLength || 0}
+            </Text>
             <Badge
               sx={{ background: palette.greenFull }}
               radius="md"
               variant="filled"
             >
-              <Text size="md" fw={500}>
-                {badgeTitle}
+              <Text size="md" fw={500} data-testid="collection-card-denom">
+                {denom}
               </Text>
             </Badge>
           </Flex>

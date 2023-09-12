@@ -1,8 +1,7 @@
 /** @type {import('next').NextConfig} */
 
-
-const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
+const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const nextConfig = {
   reactStrictMode: false,
@@ -11,32 +10,38 @@ const nextConfig = {
       new CopyPlugin({
         patterns: [
           {
-            from: 'node_modules/leaflet/dist/images',
-            to: path.resolve(__dirname, 'public', 'leaflet', 'images')
+            from: "node_modules/leaflet/dist/images",
+            to: path.resolve(__dirname, "public", "leaflet", "images"),
           },
         ],
-      }),
+      })
     );
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack'],
+      use: ["@svgr/webpack"],
     });
 
-    return config
+    return config;
   },
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'ipfs.io',
+        protocol: "https",
+        hostname: "ipfs.io",
       },
     ],
   },
+  typescript: {
+    ignoreBuildErrors: process.env.ENVIRONMENT === "localhost-tests",
+  },
+  eslint: {
+    ignoreDuringBuilds: process.env.ENVIRONMENT === "localhost-tests",
+  },
 };
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-})
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 
-module.exports = withBundleAnalyzer(nextConfig)
+module.exports = withBundleAnalyzer(nextConfig);

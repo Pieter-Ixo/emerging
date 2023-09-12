@@ -39,6 +39,8 @@ Emerging is the digital platform for low-carbon basic services. Manage your inve
 
 *   API Data (#api-data)
 
+*   End-to-end tests (#End-to-end-tests)
+
 *   State Management (#state-management)
 
 *   Code Formatting (#code-formatting)
@@ -161,6 +163,10 @@ As was written above, all requests through HTTP should be located in the `📄 r
 
 _BlockSync_ API is the main source of all collections and entities. For now, all requests to Blocksync are done with the `apisause` library and stored in `📄 requests/blocksync.ts`.
 
+## End-to-end tests
+
+Usage and how to run explained in [End-to-end tests](end-to-end-tests.rbpiqpfz.sw.md)
+
 ## State Management
 
 // TODO: write documentation after refactoring
@@ -192,8 +198,6 @@ git push -f # override the exisitng branch with the same name on the origin. It 
 Recommended to use VSCode extention Git Graph (`mhutchie.git-graph`) to see, control, and check git history.
 
 GH PR can have [labels](https://github.com/emerging-eco/app/labels). When you just created it and still working on it set `IN PROGRESS`. Then use `READY FOR REVIEW`, after an approval, please actualise your commit with git rebase and set `READY FOR MERGE`. Use other Labels when appropriate.
-
-<br/>
 
 <br/>
 
