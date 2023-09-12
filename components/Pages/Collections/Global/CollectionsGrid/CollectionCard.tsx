@@ -48,7 +48,7 @@ export default function CollectionCard({ collection, entitiesLength }: Props) {
       mih="260px"
       padding={0}
       radius="lg"
-      data-testid="CollectionCard"
+      data-testid="collection-card"
     >
       <Card.Section>
         <BackgroundImage

@@ -27,8 +27,8 @@ test.describe("Home page. The global collections list", () => {
   });
 
   test("should display collections cards", async ({ page }) => {
-    const CollectionCard = page.getByTestId("CollectionCard");
-    await page.getByTestId("CollectionCard").waitFor();
+    const CollectionCard = page.getByTestId("collection-card");
+    await page.getByTestId("collection-card").waitFor();
     await expect(CollectionCard).toBeVisible();
   });
 
