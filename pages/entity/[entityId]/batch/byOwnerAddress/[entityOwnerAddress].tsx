@@ -2,15 +2,11 @@ import { useEffect, useState } from "react";
 import { useDisclosure, useToggle } from "@mantine/hooks";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { fetchAndFilterAdminOwnerBatches } from "@/redux/batches/thunks";
 import {
-  fetchBatchesEntityByExternalId,
-  fetchBatchesByOwnerAddress,
-  fetchBatchesByAdminAddress,
-} from "@/redux/batches/thunks";
-import {
-  selectAdminAddressBatches,
-  selectBatchesEntity,
-  selectOwnerAddressBatches,
+  selectAdminBatchesFiltered,
+  selectOwnerAddress,
+  selectOwnerFilteredBatches,
 } from "@/redux/batches/selectors";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import BatchesPageHeader from "@/components/Pages/Batches/Header";
@@ -22,18 +18,17 @@ import BatchesGrid from "@/components/Pages/Batches/BatchesGrid";
 
 export default function OwnerBatches() {
   const dispatch = useAppDispatch();
-  const ownerAddress = useValueFromRouter("entityOwnerAddress");
+  const routeOwnerAddress = useValueFromRouter("entityOwnerAddress");
   const entityExternalId = useValueFromRouter("entityId");
-
   const [opened, { open, close }] = useDisclosure(false);
   const [batchesViewMode, toggleBatchesViewMode] = useToggle([
     ControlsDisplayMods.gridView,
     ControlsDisplayMods.listView,
   ]);
 
-  const adminBatches = useAppSelector(selectAdminAddressBatches);
-  const ownerBatches = useAppSelector(selectOwnerAddressBatches);
-  const batchesEntity = useAppSelector(selectBatchesEntity);
+  const adminFilteredBatches = useAppSelector(selectAdminBatchesFiltered);
+  const ownerFilteredBatches = useAppSelector(selectOwnerFilteredBatches);
+  const entityOwnerAddress = useAppSelector(selectOwnerAddress);
 
   const [selectedAvailableCredits, setSelectedAvailableCredits] = useState<
     number | undefined
@@ -41,18 +36,16 @@ export default function OwnerBatches() {
   const [selectedBatchId, setSelectedBatchId] = useState<string | undefined>();
 
   useEffect(() => {
-    if (ownerAddress) dispatch(fetchBatchesByOwnerAddress(ownerAddress));
-  }, [ownerAddress]);
+    if (entityExternalId && routeOwnerAddress)
+      dispatch(
+        fetchAndFilterAdminOwnerBatches({
+          externalId: entityExternalId,
+          ownerAddress: routeOwnerAddress,
+        })
+      );
+  }, [entityExternalId]);
 
-  useEffect(() => {
-    if (batchesEntity?.accounts[0].address)
-      dispatch(fetchBatchesByAdminAddress(batchesEntity?.accounts[0].address));
-  }, [batchesEntity?.accounts[0].address]);
-
-  useEffect(() => {
-    if (entityExternalId)
-      dispatch(fetchBatchesEntityByExternalId(entityExternalId));
-  }, [entityExternalId, dispatch]);
+  if (!Object.keys(ownerFilteredBatches || {})?.length) return null;
 
   const onRetireBtnClick = (
     availableCredits: number | undefined,
@@ -76,13 +69,13 @@ export default function OwnerBatches() {
       />
       {batchesViewMode === ControlsDisplayMods.gridView ? (
         <BatchesGrid
-          ownerAddress={batchesEntity?.owner}
+          ownerAddress={entityOwnerAddress}
           onRetireBtnClick={onRetireBtnClick}
-          ownerBatches={ownerBatches}
-          adminBatches={adminBatches}
+          ownerBatches={ownerFilteredBatches}
+          adminBatches={adminFilteredBatches}
         />
       ) : (
-        <BatchesTable batches={ownerBatches && Object.entries(ownerBatches)} />
+        <BatchesTable batches={Object.entries(ownerFilteredBatches || {})} />
       )}
       <RetireModal
         isModalOpened={opened}
