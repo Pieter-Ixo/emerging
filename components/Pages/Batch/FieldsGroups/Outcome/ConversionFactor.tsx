@@ -23,7 +23,7 @@ export default function ConversionFactor({
         sx={{ borderBottom: `1px solid ${palette.Black}` }}
         mb="xs"
       >
-        <Text>Asset Credential Subject</Text>
+        <Text>Verifiable Data</Text>
         <Link
           href={jsonToJsonld(verifiableCred)}
           download={`verifiableCred-${verifiableCred?.id}.jsonld`}
