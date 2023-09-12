@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
-import { APP_LOCATION } from "@/e2e-tests/constants";
-import { BlocksyncUrl } from "@/constants/chains";
-
-const LOCATION_GLOBAL_COLLECTIONS_LIST = `${APP_LOCATION}collections/global`;
-const BLOCK_SYNC_URL = BlocksyncUrl;
+import {
+  APP_LOCATION,
+  BLOCK_SYNC_URL,
+  LOCATION_GLOBAL_COLLECTIONS_LIST,
+} from "@/e2e-tests/constants";
 
 test.beforeEach(async ({ page }) => {
   await page.goto(APP_LOCATION);
