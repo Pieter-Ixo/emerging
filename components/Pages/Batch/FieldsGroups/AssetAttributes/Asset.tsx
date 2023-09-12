@@ -25,7 +25,7 @@ export default function AssetName({
           sx={{ borderBottom: `1px solid ${palette.Black}` }}
           mb="xs"
         >
-          <Text>Asset Credential Subject</Text>
+          <Text>Verifiable Data</Text>
           <Link
             href={jsonToJsonld(deviceCredSubject)}
             download={`deviceCredSubject-${deviceCredSubject?.id}.jsonld`}
