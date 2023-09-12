@@ -9,7 +9,9 @@ export default function Outcome({
   entityProfile,
   deviceCredSubject,
 }: AssetAttributesProps) {
-  const attributes = entityProfile?.attributes;
+  const attributes = entityProfile?.attributes.map((attr) =>
+    attr.key === "Product" ? { key: "Impact Credits", value: "CARBON" } : attr
+  );
 
   return (
     <Flex direction="column">
