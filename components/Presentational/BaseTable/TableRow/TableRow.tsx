@@ -21,10 +21,15 @@ export default function TableRow<T>({
 }: Props<T>) {
   return (
     <tr onClick={() => onRowSelect?.(rowData)}>
-      {columnHeaders?.map(({ name, isActive, cellField }) => {
+      {columnHeaders?.map(({ name, cellField, sortOrder, isSortable }) => {
         if (typeof cellField !== "string") {
           return (
-            <TableCell centerCells={centerCells} key={name} isActive={isActive}>
+            <TableCell
+              centerCells={centerCells}
+              key={name}
+              sortOrder={sortOrder}
+              isSortable={isSortable}
+            >
               Incorrect data format
             </TableCell>
           );
@@ -34,8 +39,9 @@ export default function TableRow<T>({
             <TableCell
               centerCells={centerCells}
               key={name}
+              sortOrder={sortOrder}
               isSelected={isSelected}
-              isActive={isActive}
+              isSortable={isSortable}
             >
               {cellField ? rowData[cellField] : ""}
             </TableCell>
@@ -47,8 +53,9 @@ export default function TableRow<T>({
           return (
             <TableCell
               centerCells={centerCells}
+              sortOrder={sortOrder}
               key={name}
-              isActive={isActive}
+              isSortable={isSortable}
             />
           );
         }
@@ -56,9 +63,10 @@ export default function TableRow<T>({
         return (
           <TableCell
             centerCells={centerCells}
+            sortOrder={sortOrder}
             key={name}
             isSelected={isSelected}
-            isActive={isActive}
+            isSortable={isSortable}
           >
             {cellFieldData}
           </TableCell>

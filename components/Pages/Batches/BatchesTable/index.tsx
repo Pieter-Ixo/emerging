@@ -1,51 +1,42 @@
 import { useEffect, useState } from "react";
 
-import {
-  IAddressBatchesEntry,
-  IAddressBatchWithId,
-} from "@/types/certificates";
-import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
+import { IAddressBatchWithId } from "@/types/certificates";
 import { IColumnHeader } from "@/types/entityCollections";
-import sortBatchesByAmount from "@/helpers/batches/sortByAmount";
-import extendBatches from "@/helpers/transformData/extendBatches";
+import sortObjectsBy from "@/helpers/sorters/sortObjectsBy";
+import BaseTable from "@/components/Presentational/BaseTable";
+import { Text } from "@mantine/core";
 
 type Props = {
-  batches?: IAddressBatchesEntry[];
+  batches?: IAddressBatchWithId[];
 };
 
 const defaultColumnHeadersState: IColumnHeader[] = [
   {
     name: "Date",
-    isActive: false,
-    isSortable: true,
     cellField: "",
   },
   {
     name: "Asset",
-    isActive: false,
-    isSortable: true,
     cellField: "",
   },
   {
     name: "Measurement",
-    isActive: false,
     cellField: "",
   },
   {
     name: "Verifier",
-    isActive: false,
     cellField: "",
   },
   {
     name: "CARBON verified",
-    isActive: false,
     isSortable: true,
+    sortOrder: "default",
     cellField: "amount",
   },
   {
     name: "CARBON retired",
-    isActive: false,
     isSortable: true,
+    sortOrder: "default",
     cellField: "retired",
   },
 ];
@@ -54,54 +45,66 @@ export default function BatchesTable({ batches }: Props) {
   const [columnHeaders, setActiveColumnHeaders] = useState<IColumnHeader[]>(
     defaultColumnHeadersState
   );
-  const [selectedColumnHeaderIndex, setSelectedColumnHeaderIndex] = useState<
-    number | undefined
-  >();
   const [selectedBatchId, setSelectedBatchId] = useState<string | undefined>();
-  const [sortedBatches, setSortedBatches] = useState<IAddressBatchesEntry[]>(
-    []
-  );
+  const [sortedBatches, setSortedBatches] = useState<IAddressBatchWithId[]>([]);
 
-  const sortBatches = (clickedColumnIndex: number) => {
-    setActiveColumnHeaders((columns) =>
-      columns.map((column, columnIndex) =>
-        clickedColumnIndex === columnIndex
-          ? { ...column, isActive: !column.isActive }
-          : { ...column, isActive: false }
-      )
+  const sortBatches = (clickedColumnFieldName: string) => {
+    const activeColumnHeader = columnHeaders.find(
+      (header) => header.cellField === clickedColumnFieldName
     );
-    setSelectedColumnHeaderIndex(clickedColumnIndex);
+    if (activeColumnHeader?.sortOrder === "default") {
+      setSortedBatches((prevBatches) => {
+        const ascendingEntities = sortObjectsBy(
+          prevBatches,
+          clickedColumnFieldName
+        );
+        setActiveColumnHeaders((columns) =>
+          columns.map((column) =>
+            clickedColumnFieldName === column.cellField
+              ? { ...column, sortOrder: "ascending" }
+              : { ...column, sortOrder: "default" }
+          )
+        );
+        return ascendingEntities;
+      });
+    }
+    if (activeColumnHeader?.sortOrder === "ascending") {
+      setSortedBatches((prevBatches) => {
+        const descendingEntities = sortObjectsBy(
+          prevBatches,
+          clickedColumnFieldName,
+          false
+        );
+        setActiveColumnHeaders((columns) =>
+          columns.map((column) =>
+            clickedColumnFieldName === column.cellField
+              ? { ...column, sortOrder: "descending" }
+              : { ...column, sortOrder: "default" }
+          )
+        );
+        return descendingEntities;
+      });
+    }
+    if (activeColumnHeader?.sortOrder === "descending") {
+      setSortedBatches(() => {
+        setActiveColumnHeaders((columns) =>
+          columns.map((column) => ({ ...column, sortOrder: "default" }))
+        );
+        return batches!;
+      });
+    }
   };
 
   useEffect(() => {
-    if (selectedColumnHeaderIndex !== undefined && sortedBatches.length)
-      switch (columnHeaders[selectedColumnHeaderIndex].name) {
-        case "CARBON verified":
-          if (columnHeaders[selectedColumnHeaderIndex].isActive) {
-            setSortedBatches((prevBatches) =>
-              sortBatchesByAmount(prevBatches, false)
-            );
-            return;
-          }
-          if (batches?.length) {
-            setSortedBatches(batches);
-          }
-          break;
-
-        default:
-          break;
-      }
-  }, [columnHeaders]);
-
-  useEffect(() => {
-    if (batches?.length && batches !== sortedBatches) {
+    if (batches?.length) {
       setSortedBatches(batches);
     }
   }, [batches]);
+  if (batches?.length === 0) return <Text>No Batches</Text>;
 
   return (
     <BaseTable<IAddressBatchWithId>
-      rows={extendBatches(sortedBatches)}
+      rows={sortedBatches}
       selectedRowId={selectedBatchId}
       onRowSelect={(batch) => setSelectedBatchId(batch.id)}
       onSort={sortBatches}

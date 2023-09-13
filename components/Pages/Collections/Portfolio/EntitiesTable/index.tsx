@@ -11,8 +11,8 @@ import {
   IColumnHeader,
   IEntityExtended,
 } from "@/types/entityCollections";
-import sortObjectsBy from "@/helpers/collectionAsset/sortByAlsoExternalId";
-import BaseTableUpdated from "@/components/Presentational/BaseTable/BaseTableUpdated";
+import sortObjectsBy from "@/helpers/sorters/sortObjectsBy";
+import BaseTable from "@/components/Presentational/BaseTable";
 import {
   transformPortfolioEntitiesToTableView,
   transformPortfolioEntitiesToTableSort,
@@ -25,35 +25,33 @@ type Props = {
 const defaultColumnHeadersState: IColumnHeader[] = [
   {
     name: "Asset",
-    isActive: false,
     isSortable: true,
     sortOrder: "default",
     cellField: "alsoKnownAs",
   },
   {
     name: "CARBON produced",
-    isActive: false,
     isSortable: true,
     sortOrder: "default",
     cellField: "produced",
   },
   {
     name: "CARBON claimable",
-    isActive: false,
     isSortable: true,
     sortOrder: "default",
     cellField: "totalTokenAmount",
   },
   {
     name: "CARBON offset",
-    isActive: false,
     isSortable: true,
     sortOrder: "default",
     cellField: "retired",
   },
 ];
 
-export default function PLayground({ activeEntityCollection }: Props) {
+export default function PortfolioEntitiesTable({
+  activeEntityCollection,
+}: Props) {
   const dispatch = useAppDispatch();
 
   const [columnHeaders, setActiveColumnHeaders] = useState<IColumnHeader[]>(
@@ -91,12 +89,6 @@ export default function PLayground({ activeEntityCollection }: Props) {
       setSortedEntities(tableEntities);
     }
   }, [tableEntities]);
-
-  if (
-    Array.isArray(activeEntityCollection?.entities) &&
-    activeEntityCollection?.entities.length === 0
-  )
-    return <Text>No Assets</Text>;
 
   const sortEntities = (clickedColumnFieldName: string) => {
     const activeColumnHeader = columnHeaders.find(
@@ -146,9 +138,14 @@ export default function PLayground({ activeEntityCollection }: Props) {
   };
 
   if (!sortedEntities[0]?._adminToken?.CARBON) return null;
+  if (
+    Array.isArray(activeEntityCollection?.entities) &&
+    activeEntityCollection?.entities.length === 0
+  )
+    return <Text>No Assets</Text>;
 
   return (
-    <BaseTableUpdated<IEntityExtended>
+    <BaseTable<IEntityExtended>
       rows={transformPortfolioEntitiesToTableView(sortedEntities)}
       selectedRowId={selectedAssetExternalId}
       onRowSelect={(entity) => selectAsset(entity)}

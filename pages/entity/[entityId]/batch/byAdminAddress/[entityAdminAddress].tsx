@@ -10,6 +10,7 @@ import AppLayout from "@/components/Layout/AppLayout";
 import { ControlsDisplayMods } from "@/types";
 import BatchesTable from "@/components/Pages/Batches/BatchesTable";
 import BatchesGrid from "@/components/Pages/Batches/BatchesGrid";
+import convertBatchesToTableView from "@/helpers/transformData/extendBatches";
 
 export default function AdminBatches() {
   const dispatch = useAppDispatch();
@@ -36,7 +37,11 @@ export default function AdminBatches() {
       {batchesViewMode === ControlsDisplayMods.gridView ? (
         <BatchesGrid onRetireBtnClick={() => {}} adminBatches={adminBatches} />
       ) : (
-        <BatchesTable batches={adminBatches && Object.entries(adminBatches)} />
+        <BatchesTable
+          batches={
+            convertBatchesToTableView(Object.entries(adminBatches || {}))
+          }
+        />
       )}
     </AppLayout>
   );

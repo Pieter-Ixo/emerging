@@ -13,12 +13,12 @@ import {
   selectAllEntities,
   selectSelectedEntity,
 } from "@/redux/entityCollections/selectors";
-import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExternalId";
+import sortObjectsBy from "@/helpers/sorters/sortObjectsBy";
 import { palette } from "@/theme/palette";
 import useValueFromRouter from "@/utils/useValueFromRouter";
 import ArrowRightIcon from "@/assets/icons/arrow-right.svg";
 import BaseIcon from "@/components/Presentational/BaseIcon";
-import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
+import BaseTable from "@/components/Presentational/BaseTable";
 
 import PageBlock from "../PageBlock";
 import CollectionAssetModal from "./components/CollectionAssetModal";
@@ -26,18 +26,20 @@ import CollectionAssetModal from "./components/CollectionAssetModal";
 const defaultColumnHeadersState: IColumnHeader[] = [
   {
     name: "Serial number",
-    isActive: false,
     isSortable: true,
+    sortOrder: "default",
     cellField: "externalId",
   },
   {
     name: "CARBON claimable",
-    isActive: false,
+    sortOrder: "default",
+    isSortable: true,
     cellField: "_adminToken.CARBON.tokens.[0].amount",
   },
   {
     name: "CARBON Issued",
-    isActive: false,
+    sortOrder: "default",
+    isSortable: true,
     cellField: "_adminToken.CARBON.tokens.[0].minted",
   },
 ];
@@ -55,21 +57,6 @@ export default function CollectionAssetsCard() {
     defaultColumnHeadersState
   );
 
-  const [selectedColumnHeaderIndex, setSelectedColumnHeaderIndex] = useState<
-    number | undefined
-  >();
-
-  const sortEntities = (clickedColumnIndex: number) => {
-    setActiveColumnHeaders((columns) =>
-      columns.map((column, columnIndex) =>
-        clickedColumnIndex === columnIndex
-          ? { ...column, isActive: !column.isActive }
-          : { ...column, isActive: false }
-      )
-    );
-    setSelectedColumnHeaderIndex(clickedColumnIndex);
-  };
-
   useEffect(() => {
     dispatch(setSelectedEntity(undefined));
     return () => {
@@ -77,22 +64,52 @@ export default function CollectionAssetsCard() {
     };
   }, []);
 
-  useEffect(() => {
-    if (selectedColumnHeaderIndex !== undefined && sortedEntities.length)
-      switch (columnHeaders[selectedColumnHeaderIndex].name) {
-        case "Serial number":
-          if (columnHeaders[selectedColumnHeaderIndex].isActive)
-            setSortedEntities((assets) => sortAssetsByExternalId(assets));
-          else
-            setSortedEntities((assets) =>
-              sortAssetsByExternalId(assets, false)
-            );
-          break;
-
-        default:
-          break;
-      }
-  }, [columnHeaders]);
+  const sortEntities = (clickedColumnFieldName: string) => {
+    const activeColumnHeader = columnHeaders.find(
+      (header) => header.cellField === clickedColumnFieldName
+    );
+    if (activeColumnHeader?.sortOrder === "default") {
+      setSortedEntities((prevEntities) => {
+        const ascendingEntities = sortObjectsBy(
+          prevEntities,
+          clickedColumnFieldName
+        );
+        setActiveColumnHeaders((columns) =>
+          columns.map((column) =>
+            clickedColumnFieldName === column.cellField
+              ? { ...column, sortOrder: "ascending" }
+              : { ...column, sortOrder: "default" }
+          )
+        );
+        return ascendingEntities;
+      });
+    }
+    if (activeColumnHeader?.sortOrder === "ascending") {
+      setSortedEntities((prevEntities) => {
+        const descendingEntities = sortObjectsBy(
+          prevEntities,
+          clickedColumnFieldName,
+          false
+        );
+        setActiveColumnHeaders((columns) =>
+          columns.map((column) =>
+            clickedColumnFieldName === column.cellField
+              ? { ...column, sortOrder: "descending" }
+              : { ...column, sortOrder: "default" }
+          )
+        );
+        return descendingEntities;
+      });
+    }
+    if (activeColumnHeader?.sortOrder === "descending") {
+      setSortedEntities(() => {
+        setActiveColumnHeaders((columns) =>
+          columns.map((column) => ({ ...column, sortOrder: "default" }))
+        );
+        return collectionEntities;
+      });
+    }
+  };
 
   useEffect(() => {
     if (Array.isArray(collectionEntities)) {

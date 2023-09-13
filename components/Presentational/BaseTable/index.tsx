@@ -2,9 +2,8 @@ import { Table } from "@mantine/core";
 
 import { IColumnHeader } from "@/types/entityCollections";
 
+import TableHeadCell from "./TableHeadCell/TableHeadCell";
 import TableRow from "./TableRow/TableRow";
-import TableHeadCellUpdated from "./TableHeadCell/TableHeadUpdated";
-import TableRowUpdated from "./TableRow/TableRowUpdated";
 
 type RowWithId = {
   id: string | number;
@@ -26,7 +25,7 @@ type Props<T extends RowWithId> = {
  * @param {T} props.selectedRow - Has to contain id, similar to
  * rows param objects
  */
-export default function BaseTableUpdated<T extends RowWithId>({
+export default function BaseTable<T extends RowWithId>({
   rows,
   selectedRowId,
   columnHeaders,
@@ -46,7 +45,7 @@ export default function BaseTableUpdated<T extends RowWithId>({
         <tr>
           {columnHeaders?.length &&
             columnHeaders.map((columnHeader) => (
-              <TableHeadCellUpdated
+              <TableHeadCell
                 key={columnHeader.name}
                 columnHeader={columnHeader}
                 onSort={onSort}
@@ -58,7 +57,7 @@ export default function BaseTableUpdated<T extends RowWithId>({
       <tbody>
         {rows?.length ? (
           rows.map((rowData) => (
-            <TableRowUpdated
+            <TableRow
               centerCells={centerCells}
               key={rowData.id}
               isSelected={selectedRowId === rowData?.id}
