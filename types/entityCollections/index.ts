@@ -264,5 +264,6 @@ export type IColumnHeader = {
   name?: string;
   isSortable?: boolean;
   isActive?: boolean;
+  sortOrder?: "default" | "ascending" | "descending";
   cellField?: string;
 };

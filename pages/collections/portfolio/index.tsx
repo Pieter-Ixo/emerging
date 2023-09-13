@@ -20,7 +20,6 @@ const CollectionsItem = dynamic(
 const PortfolioEntitiesTable = dynamic(
   () => import("@/components/Pages/Collections/Portfolio/EntitiesTable")
 );
-
 export default function Collections() {
   const [activeCardId, setActiveCardId] = useState<string>();
   const [activeEntityCollection, setActiveEntityCollection] =

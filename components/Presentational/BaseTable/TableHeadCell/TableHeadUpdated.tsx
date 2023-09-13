@@ -1,33 +1,35 @@
 import BaseIcon from "@/components/Presentational/BaseIcon";
 import { palette } from "@/theme/palette";
 import { Flex, Text } from "@mantine/core";
-import HeaderActive from "@/assets/icons/header-actvie.svg";
+import SortUpIcon from "@/assets/icons/sort-amount-up.svg";
+import SortDownIcon from "@/assets/icons/sort-amount-down.svg";
+
 import { IColumnHeader } from "@/types/entityCollections";
 
 type Props = {
   columnHeader: IColumnHeader;
-  headerIndex: number;
   centerHeaders?: boolean;
   onSort?: Function;
 };
 
-export default function TableHeadCell({
+export default function TableHeadCellUpdated({
   columnHeader: {
     isActive = false,
     name,
     isSortable = false,
+    cellField,
     sortOrder,
   },
-  headerIndex,
   onSort,
   centerHeaders = false,
 }: Props) {
+  const isSortOrderActive = sortOrder !== "default";
   return (
     <th
-      onClick={() => isSortable && onSort?.(headerIndex)}
+      onClick={() => isSortable && onSort?.(cellField)}
       style={{
         cursor: "pointer",
-        color: isActive ? palette.accentLight : palette.Black,
+        color: isSortOrderActive ? palette.accentActive : palette.Black,
         width: 85,
         padding: "0 0 5px 0",
       }}
@@ -38,20 +40,20 @@ export default function TableHeadCell({
         </Text>
         {sortOrder === "ascending" && (
           <BaseIcon
-            Icon={HeaderActive}
+            Icon={SortDownIcon}
             width={24}
             cursorMode="pointer"
             height={20}
-            fill={palette.accentLight}
+            fill={palette.accentActive}
           />
         )}
         {sortOrder === "descending" && (
           <BaseIcon
-            Icon={HeaderActive}
+            Icon={SortUpIcon}
             width={24}
             cursorMode="pointer"
             height={20}
-            fill={palette.orangeBright}
+            fill={palette.accentActive}
           />
         )}
       </Flex>
