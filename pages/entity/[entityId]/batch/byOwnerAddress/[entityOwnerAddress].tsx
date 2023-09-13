@@ -15,6 +15,7 @@ import RetireModal from "@/components/Pages/Batches/RetireModal";
 import { ControlsDisplayMods } from "@/types";
 import BatchesTable from "@/components/Pages/Batches/BatchesTable";
 import BatchesGrid from "@/components/Pages/Batches/BatchesGrid";
+import convertBatchesToTableView from "@/helpers/transformData/extendBatches";
 
 export default function OwnerBatches() {
   const dispatch = useAppDispatch();
@@ -75,7 +76,7 @@ export default function OwnerBatches() {
           adminBatches={adminFilteredBatches}
         />
       ) : (
-        <BatchesTable batches={Object.entries(ownerFilteredBatches || {})} />
+        <BatchesTable batches={convertBatchesToTableView(Object.entries(ownerFilteredBatches || {}))} />
       )}
       <RetireModal
         isModalOpened={opened}

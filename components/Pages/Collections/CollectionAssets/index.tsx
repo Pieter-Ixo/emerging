@@ -11,36 +11,40 @@ import {
   selectSelectedEntity,
 } from "@/redux/entityCollections/selectors";
 
-import { sortAssetsByExternalId } from "@/helpers/collectionAsset/sortByAlsoExternalId";
-import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
 import { extendEntities } from "@/helpers/transformData/extendEntities";
 import { resetSelectedEntity } from "@/redux/entityCollections/actions";
 import { setSelectedEntity } from "@/redux/entityCollections/slice";
+import sortObjectsBy from "@/helpers/sorters/sortObjectsBy";
+import BaseTable from "@/components/Presentational/BaseTable";
 
 const defaultColumnHeadersState: IColumnHeader[] = [
   {
     name: "Serial number",
     isSortable: true,
-    isActive: false,
+    sortOrder: "default",
     cellField: "externalId",
   },
   {
     name: "CARBON claimable",
-    isActive: false,
+    isSortable: true,
+    sortOrder: "default",
     cellField: "_adminToken.CARBON.tokens.[0].amount",
   },
   {
     name: "CARBON Issued",
-    isActive: false,
+    isSortable: true,
+    sortOrder: "default",
     cellField: "_adminToken.CARBON.tokens.[0].minted",
   },
   {
     name: "Asset creation date",
-    isActive: false,
     cellField: "metadata.created",
   },
-  { name: "Asset owner", isActive: false, cellField: "owner" },
-  { name: "owned", isActive: false, cellField: "owned" },
+  {
+    name: "Asset owner",
+    cellField: "owner",
+  },
+  { name: "owned", cellField: "owned" },
 ];
 
 export default function AssetsTable() {
@@ -53,19 +57,51 @@ export default function AssetsTable() {
     defaultColumnHeadersState
   );
 
-  const [selectedColumnHeaderIndex, setSelectedColumnHeaderIndex] = useState<
-    number | undefined
-  >();
-
-  const sortEntities = (clickedColumnIndex: number) => {
-    setActiveColumnHeaders((columns) =>
-      columns.map((column, columnIndex) =>
-        clickedColumnIndex === columnIndex
-          ? { ...column, isActive: !column.isActive }
-          : { ...column, isActive: false }
-      )
+  const sortEntities = (clickedColumnFieldName: string) => {
+    const activeColumnHeader = columnHeaders.find(
+      (header) => header.cellField === clickedColumnFieldName
     );
-    setSelectedColumnHeaderIndex(clickedColumnIndex);
+    if (activeColumnHeader?.sortOrder === "default") {
+      setSortedEntities((prevEntities) => {
+        const ascendingEntities = sortObjectsBy(
+          prevEntities,
+          clickedColumnFieldName
+        );
+        setActiveColumnHeaders((columns) =>
+          columns.map((column) =>
+            clickedColumnFieldName === column.cellField
+              ? { ...column, sortOrder: "ascending" }
+              : { ...column, sortOrder: "default" }
+          )
+        );
+        return ascendingEntities;
+      });
+    }
+    if (activeColumnHeader?.sortOrder === "ascending") {
+      setSortedEntities((prevEntities) => {
+        const descendingEntities = sortObjectsBy(
+          prevEntities,
+          clickedColumnFieldName,
+          false
+        );
+        setActiveColumnHeaders((columns) =>
+          columns.map((column) =>
+            clickedColumnFieldName === column.cellField
+              ? { ...column, sortOrder: "descending" }
+              : { ...column, sortOrder: "default" }
+          )
+        );
+        return descendingEntities;
+      });
+    }
+    if (activeColumnHeader?.sortOrder === "descending") {
+      setSortedEntities(() => {
+        setActiveColumnHeaders((columns) =>
+          columns.map((column) => ({ ...column, sortOrder: "default" }))
+        );
+        return collectionEntities;
+      });
+    }
   };
 
   useEffect(() => {
@@ -74,23 +110,6 @@ export default function AssetsTable() {
       dispatch(resetSelectedEntity());
     };
   }, []);
-
-  useEffect(() => {
-    if (selectedColumnHeaderIndex !== undefined && sortedEntities.length)
-      switch (columnHeaders[selectedColumnHeaderIndex].name) {
-        case "Serial number":
-          if (columnHeaders[selectedColumnHeaderIndex].isActive)
-            setSortedEntities((assets) => sortAssetsByExternalId(assets));
-          else
-            setSortedEntities((assets) =>
-              sortAssetsByExternalId(assets, false)
-            );
-          break;
-
-        default:
-          break;
-      }
-  }, [columnHeaders]);
 
   useEffect(() => {
     if (Array.isArray(collectionEntities)) {

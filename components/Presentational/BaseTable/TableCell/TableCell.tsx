@@ -6,17 +6,23 @@ import { palette } from "@/theme/palette";
 export default function TableCell({
   children,
   isSelected,
-  isActive,
+  sortOrder,
   centerCells,
+  isSortable,
 }: PropsWithChildren<{
-  isActive?: boolean;
   isSelected?: boolean;
   centerCells?: boolean;
+  sortOrder?: string;
+  isSortable?: boolean;
 }>) {
+  const isSortOrderActive = sortOrder !== "default";
   return (
     <td
       style={{
-        color: isActive ? palette.accentLight : palette.Black,
+        color:
+          isSortOrderActive && isSortable
+            ? palette.accentActive
+            : palette.Black,
         backgroundColor: isSelected ? palette.Neutral200 : palette.White,
         cursor: "pointer",
         paddingLeft: 2,

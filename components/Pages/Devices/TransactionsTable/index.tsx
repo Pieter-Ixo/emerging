@@ -1,8 +1,11 @@
 import { useMemo, useState } from "react";
 
-import BaseTable from "@/components/Presentational/BaseTable/BaseTable";
 import { IColumnHeader } from "@/types/entityCollections";
-import { IExtendedTransaction, ITransactionData } from "@/types/entityCollections/transactions";
+import {
+  IExtendedTransaction,
+  ITransactionData,
+} from "@/types/entityCollections/transactions";
+import BaseTable from "@/components/Presentational/BaseTable";
 
 import TransactionType from "../TransactionType";
 import TransactionLink from "../TransactionLink";
@@ -14,24 +17,22 @@ type Props = {
 const defaultColumnHeadersState: IColumnHeader[] = [
   {
     name: "Type",
-    isActive: false,
     isSortable: true,
+    sortOrder: "default",
     cellField: "transactionType",
   },
   {
     name: "Date",
-    isActive: false,
     isSortable: true,
+    sortOrder: "default",
     cellField: "",
   },
   {
     name: "Detail",
-    isActive: false,
     cellField: "",
   },
   {
     name: "Link",
-    isActive: false,
     cellField: "transactionLink",
   },
 ];
@@ -41,7 +42,9 @@ export default function TransactionTable({ transactions }: Props) {
     defaultColumnHeadersState
   );
 
-  const convertTransactions = (transactionsData: ITransactionData[]):IExtendedTransaction[] =>
+  const convertTransactions = (
+    transactionsData: ITransactionData[]
+  ): IExtendedTransaction[] =>
     transactionsData.map((transaction) => ({
       ...transaction,
       transactionType: <TransactionType />,

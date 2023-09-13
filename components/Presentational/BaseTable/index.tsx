@@ -2,8 +2,8 @@ import { Table } from "@mantine/core";
 
 import { IColumnHeader } from "@/types/entityCollections";
 
-import TableRow from "./TableRow/TableRow";
 import TableHeadCell from "./TableHeadCell/TableHeadCell";
+import TableRow from "./TableRow/TableRow";
 
 type RowWithId = {
   id: string | number;
@@ -16,7 +16,7 @@ type Props<T extends RowWithId> = {
   centerHeaders?: boolean;
   centerCells?: boolean;
   onRowSelect?: (row: T) => void;
-  onSort?: (headerIndex: number) => void;
+  onSort?: (columnFieldName: string) => void;
 };
 
 /**
@@ -44,10 +44,9 @@ export default function BaseTable<T extends RowWithId>({
       <thead>
         <tr>
           {columnHeaders?.length &&
-            columnHeaders.map((columnHeader, headerIndex) => (
+            columnHeaders.map((columnHeader) => (
               <TableHeadCell
                 key={columnHeader.name}
-                headerIndex={headerIndex}
                 columnHeader={columnHeader}
                 onSort={onSort}
                 centerHeaders={centerHeaders}
