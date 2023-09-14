@@ -1,5 +1,8 @@
 import { IEntityExtended } from "@/types/entityCollections";
-import { getEntityTotalMintedAmount } from "@/helpers/transformData/getTotalMintedAmount";
+import getEntityTotalTokenAmount, {
+  getEntityTotalMintedAmount,
+  getEntityTotalRetiredAmount,
+} from "@/helpers/transformData/getTotalMintedAmount";
 
 export function transformPortfolioEntitiesToTableView(
   entities: IEntityExtended[]
@@ -10,9 +13,9 @@ export function transformPortfolioEntitiesToTableView(
     alsoKnownAs: entity.alsoKnownAs.includes("#")
       ? entity.alsoKnownAs?.replace("{id}", "")
       : `#${entity.alsoKnownAs}`,
-    retired: (getEntityTotalMintedAmount(entity) || 0) / 2,
+    retired: getEntityTotalRetiredAmount(entity) || 0,
     produced: getEntityTotalMintedAmount(entity),
-    totalTokenAmount: getEntityTotalMintedAmount(entity),
+    totalTokenAmount: getEntityTotalTokenAmount(entity),
   }));
 }
 
@@ -23,8 +26,8 @@ export function transformPortfolioEntitiesToTableSort(
     ...entity,
     id: entity.externalId,
     alsoKnownAs: entity.alsoKnownAs?.replace("{id}#", ""),
-    retired: (getEntityTotalMintedAmount(entity) || 0) / 2,
+    retired: getEntityTotalRetiredAmount(entity) || 0,
     produced: getEntityTotalMintedAmount(entity),
-    totalTokenAmount: getEntityTotalMintedAmount(entity),
+    totalTokenAmount: getEntityTotalTokenAmount(entity),
   }));
 }
