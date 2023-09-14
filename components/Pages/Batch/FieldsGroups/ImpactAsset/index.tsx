@@ -8,8 +8,8 @@ import getEntityTotalTokenAmount, {
 import EntityVerifyModal from "@/components/Modals/EntityVerifyModal";
 import { useDisclosure } from "@mantine/hooks";
 import { useAppDispatch } from "@/hooks/redux";
-
 import verifyEntityByDid from "@/redux/entityCollections/thunks/verifyEntityByDid";
+
 import { FieldAnchor, FieldText, FieldsGroupTitle } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
 import Identifier from "./Identifier";
