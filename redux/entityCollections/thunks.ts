@@ -35,6 +35,7 @@ import {
 import requestCollectionTokenIpfs from "@/requests/requesters/requestCollectionTokenIpfs";
 import getEntityAdmin from "@/helpers/transformData/getEntityAdmin";
 import { IEntityTransactionResponse } from "@/types/entityCollections/transactions";
+import requestEntityVerifyByDid from "@/requests/requesters/requestEntityVerify";
 import type { RootState } from "../store";
 
 export const fetchTotalCollectionEntities = createAsyncThunk<any, string>(
@@ -59,6 +60,15 @@ export const fetchTotalCollectionEntities = createAsyncThunk<any, string>(
   }
 );
 
+export const verifyEntity = createAsyncThunk<any, string>(
+  "entityCollections/verifyEntityByDid",
+  async (entityDid: string): Promise<any> => {
+    const totalRetiredResponse = await requestEntityVerifyByDid(entityDid);
+    if (!totalRetiredResponse) throw new Error("panica!");
+
+    return totalRetiredResponse;
+  }
+);
 export const fetchTotalCollectionEntitiesRetired = createAsyncThunk<any>(
   "entityCollections/fetchTotalCollectionEntitiesRetired",
   async (): Promise<IApiCollectionEntitiesTotalRetired> => {

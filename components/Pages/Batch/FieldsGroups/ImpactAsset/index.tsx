@@ -5,10 +5,13 @@ import getEntityTotalTokenAmount, {
   getEntityTotalMintedAmount,
   getEntityTotalRetiredAmount,
 } from "@/helpers/transformData/getTotalMintedAmount";
+import EntityVerifyModal from "@/components/Modals/EntityVerifyModal";
+import { useDisclosure } from "@mantine/hooks";
+import { useAppDispatch } from "@/hooks/redux";
+import verifyEntityByDid from "@/redux/entityCollections/thunks/verifyEntityByDid";
 
 import { FieldAnchor, FieldText, FieldsGroupTitle } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
-
 import Identifier from "./Identifier";
 import Collection from "./Collection";
 import Performance from "./Performance";
@@ -22,10 +25,19 @@ export default function ImpactAsset({
   entity,
   collection,
 }: ImpactAssetProps) {
+  const [isVerifyEntityModalOpened, verifyEntityModal] = useDisclosure(false);
+  const dispatch = useAppDispatch();
+
   const totalTokenAmount = getEntityTotalTokenAmount(entity);
   const totalMinted = getEntityTotalMintedAmount(entity);
   const totalRetired = getEntityTotalRetiredAmount(entity);
   const totalTransferred = (totalMinted || 0) - (totalTokenAmount || 0);
+
+  function verifyEntity() {
+    verifyEntityModal.open();
+
+    if (entity) dispatch(verifyEntityByDid(entity.id));
+  }
 
   return (
     <Flex direction="column">
@@ -40,6 +52,7 @@ export default function ImpactAsset({
           totalTokenAmount={totalTokenAmount}
           entity={entity}
           collectionAssetsAmount={collectionAssetsAmount}
+          onVerifyClick={() => verifyEntity()}
         />
         <Collection
           collection={collection}
@@ -76,6 +89,10 @@ export default function ImpactAsset({
           </FieldAnchor>
         </Flex>
       </Flex>
+      <EntityVerifyModal
+        isModalOpened={isVerifyEntityModalOpened}
+        closeModal={verifyEntityModal.close}
+      />
     </Flex>
   );
 }

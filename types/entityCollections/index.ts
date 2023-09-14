@@ -106,6 +106,56 @@ export type ICollection = {
   settings: ISettings;
   entitiesLength: number;
 };
+
+type IidDocumentContext = {
+  key: string;
+  val: string;
+};
+
+export type IidDocument = {
+  context: IidDocumentContext[];
+  id: string;
+  controller: string[];
+  verificationMethod: IVerificationMethod[];
+  service: IService[];
+  authentication: string[];
+  assertionMethod: unknown[];
+  keyAgreement: unknown[];
+  capabilityInvocation: unknown[];
+  capabilityDelegation: unknown[];
+  linkedResource: ILinkedResource[];
+  linkedClaim: unknown[];
+  accordedRight: unknown[];
+  linkedEntity: ILinkedEntity[];
+  alsoKnownAs: string;
+  metadata: {
+    versionId: string;
+    created: string;
+    updated: string;
+    deactivated: boolean;
+  };
+};
+
+export type IVerifiedEntity = {
+  entity: {
+    id: string;
+    type: string;
+    start_date: null | string;
+    end_date: null | string;
+    status: number;
+    relayer_node: string;
+    credentials: unknown[];
+    entity_verified: boolean;
+    metadata: {
+      version_id: string;
+      created: string;
+      updated: string;
+    };
+    accounts: IAccount[];
+  };
+  IidDocument: IidDocument;
+};
+
 export type IEntity = {
   id: string;
   type: string;

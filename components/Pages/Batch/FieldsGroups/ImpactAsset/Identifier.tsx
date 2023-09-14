@@ -5,9 +5,18 @@ import useDetailPortal from "@/hooks/useDetailPortal";
 import ProfileCard from "@/components/Containers/ProfileCard";
 import VerifyIcon from "@/assets/icons/VerifyIcon";
 import { palette } from "@/theme/palette";
+import { IEntityExtended } from "@/types/entityCollections";
 
 import { FieldText } from "../styledComponents";
-import { ImpactAssetProps } from "./props";
+
+type Props = {
+  collectionAssetsAmount?: number;
+  entity?: IEntityExtended;
+  totalTokenAmount?: number;
+  retired?: number;
+  produced?: number;
+  onVerifyClick: Function;
+};
 
 export default function Identifier({
   entity,
@@ -15,7 +24,8 @@ export default function Identifier({
   retired,
   totalTokenAmount,
   produced,
-}: ImpactAssetProps) {
+  onVerifyClick,
+}: Props) {
   const { isVisible, openPortal, closePortal } = useDetailPortal("Identifier");
   const label = entity?.alsoKnownAs.split("}")[1];
 
@@ -51,7 +61,14 @@ export default function Identifier({
           </>
         }
       />
-      <Button w={277} mt={40} h={46} radius="xl" leftIcon={<VerifyIcon />}>
+      <Button
+        onClick={() => onVerifyClick()}
+        w={277}
+        mt={40}
+        h={46}
+        radius="xl"
+        leftIcon={<VerifyIcon />}
+      >
         <Text fw={400} size="md">
           Verify
         </Text>
