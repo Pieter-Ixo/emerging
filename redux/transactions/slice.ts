@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { ITransaction } from "@/types/transaction";
 
 import { fetchTransactionByHash } from "./thunks";
@@ -20,19 +20,25 @@ const TransactionSlice = createSlice({
   initialState,
   reducers: {},
 
-  extraReducers(builder) {
-    // fetchTransactionByHash
-    builder.addCase(fetchTransactionByHash.pending, (state) => {
-      state.isTransactionsLoading = true;
-    });
-    builder.addCase(fetchTransactionByHash.fulfilled, (state, action) => {
-      state.isTransactionsLoading = false;
-      state.transaction = action.payload;
-    });
-    builder.addCase(fetchTransactionByHash.rejected, (state, action) => {
-      state.isTransactionsLoading = false;
-      state.transactionsError = action.error as Error;
-    });
+  extraReducers: (builder: ActionReducerMapBuilder<TransactionState>) => {
+    (function fetchTransactionByHashReducer() {
+      const { pending, fulfilled, rejected } = fetchTransactionByHash;
+      builder
+        .addCase(pending, (state) => ({
+          ...state,
+          isTransactionsLoading: true,
+        }))
+        .addCase(fulfilled, (state, action) => ({
+          ...state,
+          isTransactionsLoading: false,
+          transaction: action.payload,
+        }))
+        .addCase(rejected, (state, action) => ({
+          ...state,
+          isTransactionsLoading: false,
+          transactionsError: action.error as Error,
+        }));
+    })();
   },
 });
 

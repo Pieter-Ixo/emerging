@@ -2,7 +2,7 @@ import {
   IEntityExtended,
   ICollectionExtended,
 } from "@/types/entityCollections";
-import { IEntityTags } from "@/types/entityCollections/tag";
+import { IEntityTags, ITagsSettings } from "@/types/entityCollections/tag";
 
 export default function getEntityTagsByCategory(
   entity: IEntityExtended | ICollectionExtended | undefined,
@@ -10,4 +10,11 @@ export default function getEntityTagsByCategory(
 ): IEntityTags["tags"] | undefined {
   if (!entity || !category) return undefined;
   return entity?._tags?.entityTags.find((t) => t.category === category)?.tags;
+}
+
+export function getEntityTagsFromTags(
+  tags: ITagsSettings | undefined,
+  category: string = "SDG"
+): IEntityTags["tags"] | undefined {
+  return tags?.entityTags.find((t) => t.category === category)?.tags;
 }

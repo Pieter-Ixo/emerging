@@ -2,7 +2,7 @@ import request from "@/requests/request";
 import { ICollection, ICollectionTags } from "@/types/entityCollections";
 import getFullServiceEndpoint from "@/utils/getServiceEndpoint";
 
-export default async function requestCollectionProfile(
+export default async function requestCollectionTags(
   collection: ICollection
 ): Promise<ICollectionTags | undefined> {
   const tagsEndpointLastPart = collection.settings.Tags.serviceEndpoint;

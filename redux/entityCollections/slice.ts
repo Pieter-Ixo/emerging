@@ -107,7 +107,6 @@ const EntityCollectionSlice = createSlice({
       state.selectedEntity = action.payload;
     },
   },
-  // FIXME: EMERGING-147: it throws a warning `createSlice.extraReducers` is deprecated, and will be removed
   extraReducers(builder) {
     // fetchAndFillCollections
     builder.addCase(fetchAndFillCollections.pending, (state) => {
@@ -333,11 +332,6 @@ const EntityCollectionSlice = createSlice({
       state.collectionTokenIpfsError = "An error occurred while fetching data.";
       state.collectionsTokensIpfsLoading = false;
     });
-
-    builder.addCase(HYDRATE, (state, action) => ({
-      ...state,
-      ...action,
-    }));
   },
 });
 
