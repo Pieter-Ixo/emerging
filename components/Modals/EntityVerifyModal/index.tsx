@@ -26,9 +26,9 @@ export default function EntityVerifyModal({
     >
       <Flex py="xl" justify="space-between" align="center">
         <Text>Checking entity verification...</Text>
-        <Text>
+        <Flex gap={5} align="center">
           verified <BaseIcon fill={palette.greenFull} Icon={VerifiedIcon} />
-        </Text>
+        </Flex>
       </Flex>
       <Text pb="xl" color={palette.greenFull}>
         The entity is verified.
