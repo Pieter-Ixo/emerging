@@ -284,3 +284,21 @@ export const selectCollectionTokenIpfsError = createDraftSafeSelector(
   (entityCollectionsState: EntityCollectionState) =>
     entityCollectionsState.collectionTokenIpfsError
 );
+
+export const selectEntityVerified = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.entityVerified
+);
+
+export const selectEntityVerifiedLoading = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.entityVerifiedLoading
+);
+
+export const selectEntityVerifiedError = createDraftSafeSelector(
+  selectEntityCollections,
+  (entityCollectionsState: EntityCollectionState) =>
+    entityCollectionsState.entityVerifiedError
+);

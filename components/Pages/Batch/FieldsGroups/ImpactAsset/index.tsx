@@ -7,7 +7,9 @@ import getEntityTotalTokenAmount, {
 } from "@/helpers/transformData/getTotalMintedAmount";
 import EntityVerifyModal from "@/components/Modals/EntityVerifyModal";
 import { useDisclosure } from "@mantine/hooks";
+import { useAppDispatch } from "@/hooks/redux";
 
+import verifyEntityByDid from "@/redux/entityCollections/thunks/verifyEntityByDid";
 import { FieldAnchor, FieldText, FieldsGroupTitle } from "../styledComponents";
 import { ImpactAssetProps } from "./props";
 import Identifier from "./Identifier";
@@ -23,16 +25,18 @@ export default function ImpactAsset({
   entity,
   collection,
 }: ImpactAssetProps) {
-  const [isVerifyEntityModalOpened, verifyEntityModal] =
-    useDisclosure(false);
+  const [isVerifyEntityModalOpened, verifyEntityModal] = useDisclosure(false);
+  const dispatch = useAppDispatch();
 
   const totalTokenAmount = getEntityTotalTokenAmount(entity);
   const totalMinted = getEntityTotalMintedAmount(entity);
   const totalRetired = getEntityTotalRetiredAmount(entity);
   const totalTransferred = (totalMinted || 0) - (totalTokenAmount || 0);
 
-  function verifyEntity(){
+  function verifyEntity() {
     verifyEntityModal.open();
+
+    if (entity) dispatch(verifyEntityByDid(entity.id));
   }
 
   return (

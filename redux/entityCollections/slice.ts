@@ -61,6 +61,10 @@ export type EntityCollectionState = {
   collectionTokenIpfsError: string | undefined;
 
   entityTransactions: IEntityTransactionResponse | undefined;
+
+  entityVerified: boolean;
+  entityVerifiedLoading: boolean;
+  entityVerifiedError: string | undefined;
 };
 
 // TODO: GOD store: add new slices for GLOBAL COLLECTIONS and for USER's COLLECTIONS
@@ -94,6 +98,10 @@ const initialState: EntityCollectionState = {
   collectionTokenIpfsError: undefined,
 
   entityTransactions: undefined,
+
+  entityVerified: false,
+  entityVerifiedLoading: false,
+  entityVerifiedError: undefined,
 };
 
 const EntityCollectionSlice = createSlice({
@@ -105,6 +113,29 @@ const EntityCollectionSlice = createSlice({
       action: PayloadAction<IEntityExtended | undefined>
     ) => {
       state.selectedEntity = action.payload;
+    },
+    setEntityVerified: (
+      state,
+      action: PayloadAction<{ isVerified: boolean }>
+    ) => {
+      const { isVerified } = action.payload;
+      state.entityVerified = isVerified;
+    },
+    setEntityVerifiedLoading: (
+      state,
+      action: PayloadAction<{ isLoading: boolean }>
+    ) => {
+      const { isLoading } = action.payload;
+      state.entityVerifiedLoading = isLoading;
+    },
+    setEntityVerifiedError: (
+      state,
+      action: PayloadAction<{
+        error: EntityCollectionState["entityVerifiedError"];
+      }>
+    ) => {
+      const { error } = action.payload;
+      state.entityVerifiedError = error;
     },
   },
   extraReducers(builder) {
@@ -335,6 +366,11 @@ const EntityCollectionSlice = createSlice({
   },
 });
 
-export const { setSelectedEntity } = EntityCollectionSlice.actions;
+export const {
+  setSelectedEntity,
+  setEntityVerified,
+  setEntityVerifiedError,
+  setEntityVerifiedLoading,
+} = EntityCollectionSlice.actions;
 
 export default EntityCollectionSlice.reducer;

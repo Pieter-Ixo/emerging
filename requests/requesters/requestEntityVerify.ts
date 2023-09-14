@@ -1,4 +1,4 @@
-import { IEntity } from "@/types/entityCollections";
+import { IVerifiedEntity } from "@/types/entityCollections";
 import { CHAIN_NETWORK_TYPE } from "@/types/chain";
 import request from "../request";
 
@@ -12,15 +12,14 @@ const verifyUrls: { [network in CHAIN_NETWORK_TYPE]: string } = {
 };
 
 const chainVerifyUrl = verifyUrls[defaultChainNetwork];
-
 export default async function requestEntityVerifyByDid(
   entityDid: string
-): Promise<any | undefined> {
-  const verifyResponse = await request<IEntity>(
+): Promise<IVerifiedEntity | undefined> {
+  const verifyResponse = await request<IVerifiedEntity>(
     `${chainVerifyUrl}${entityDid}`
   );
 
-  if (verifyResponse && verifyResponse.id) return verifyResponse;
+  if (verifyResponse && verifyResponse.entity.id) return verifyResponse;
 
   throw new Error("The entity has not been verified.");
 }
