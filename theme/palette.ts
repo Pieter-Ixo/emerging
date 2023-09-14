@@ -7,11 +7,11 @@ export const palette = {
   Neutral800: "#9A9A9A",
   Black: "#000000",
   White: "#FFFFFF",
-  
+
   // EmergingBlue
-  accentActive: "#2B84A3",
-  accentHover: "#3696B8",
-  accentLight: "#84C8DF",
+  accentActive: "#0EB8DC",
+  accentHover: "#17C6EB",
+  accentLight: "#ADEBF8",
   darkestBlue: "#000000",
 
   // Highlights
@@ -35,4 +35,4 @@ export const shadow = {
 
 export const limeByOpacity = (rate: number) => `rgba(97, 180, 58, ${rate})`;
 export const accentActiveByOpacity = (rate: number) =>
-  `rgba(43, 132, 163, ${rate})`;
+  `rgba(14, 184, 220, ${rate})`;

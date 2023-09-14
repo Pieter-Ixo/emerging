@@ -60,6 +60,12 @@ export default function Nav() {
               cursorMode="pointer"
               width={100}
               height={59}
+              status="selected"
+              theme={{
+                selected: {
+                  fill: palette.transparent,
+                },
+              }}
               Icon={IxoLogoIcon}
             />
           </Link>
