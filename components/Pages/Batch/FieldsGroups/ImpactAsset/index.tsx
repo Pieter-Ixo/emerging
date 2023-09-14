@@ -23,13 +23,17 @@ export default function ImpactAsset({
   entity,
   collection,
 }: ImpactAssetProps) {
-  const [isVerifyEntityModalOpened, verifyEntityModalClose] =
+  const [isVerifyEntityModalOpened, verifyEntityModal] =
     useDisclosure(false);
 
   const totalTokenAmount = getEntityTotalTokenAmount(entity);
   const totalMinted = getEntityTotalMintedAmount(entity);
   const totalRetired = getEntityTotalRetiredAmount(entity);
   const totalTransferred = (totalMinted || 0) - (totalTokenAmount || 0);
+
+  function verifyEntity(){
+    verifyEntityModal.open();
+  }
 
   return (
     <Flex direction="column">
@@ -44,7 +48,7 @@ export default function ImpactAsset({
           totalTokenAmount={totalTokenAmount}
           entity={entity}
           collectionAssetsAmount={collectionAssetsAmount}
-          onVerifyClick={() => verifyEntityModalClose.open()}
+          onVerifyClick={() => verifyEntity()}
         />
         <Collection
           collection={collection}
@@ -83,7 +87,7 @@ export default function ImpactAsset({
       </Flex>
       <EntityVerifyModal
         isModalOpened={isVerifyEntityModalOpened}
-        closeModal={verifyEntityModalClose.close}
+        closeModal={verifyEntityModal.close}
       />
     </Flex>
   );

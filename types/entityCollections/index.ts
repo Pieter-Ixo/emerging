@@ -106,6 +106,7 @@ export type ICollection = {
   settings: ISettings;
   entitiesLength: number;
 };
+
 export type IEntity = {
   id: string;
   type: string;
