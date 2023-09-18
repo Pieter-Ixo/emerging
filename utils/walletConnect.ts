@@ -87,7 +87,7 @@ export const initializeWC = async (
         projectId: WalletConnectProjectId,
         metadata: {
           name: "Collect Emerging",
-          description: "SupaMoto" + " Nifties",
+          description: "SupaMoto Nifties",
           url: "https://collect.emerging.eco/",
           icons: [
             "https://pub-b70e83e3eb40427986dcead162fde832.r2.dev/image_nifty.png",
@@ -115,6 +115,7 @@ export const initializeWC = async (
       const curSession = sessions[0];
       const curSessionNamespace = Object.keys(curSession?.namespaces)?.[0];
       const curSessionChain =
+        // @ts-ignore
         curSession?.namespaces?.[curSessionNamespace]?.chains?.[0];
       const curSessionMatchesChain = curSessionChain?.includes(
         chainInfo.chainId
