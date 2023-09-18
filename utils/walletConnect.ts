@@ -9,7 +9,7 @@ import { SignDoc } from "@ixo/impactxclient-sdk/types/codegen/cosmos/tx/v1beta1/
 import SignClient from "@walletconnect/sign-client";
 import { SessionTypes } from "@walletconnect/types";
 import { getSdkError } from "@walletconnect/utils";
-import { Web3Modal } from "@web3modal/standalone";
+import { WalletConnectModal } from "@walletconnect/modal";
 import { ChainInfo } from "@keplr-wallet/types";
 import { fromHex } from "@cosmjs/encoding";
 
@@ -21,11 +21,14 @@ import { palette } from "@/theme/palette";
 import { stringifySignDoc } from "./encoding";
 import { setLocalStorage } from "./persistence";
 import { sendTransaction, initStargateClient } from "./client";
+import { delay } from "./misc";
+
+// change to true to see random logs for initializeWC()
+// if 100% confident in WC, can remove this and logs
+const log = false;
 
 let signClient: SignClient;
-export let address: string;
-export let pubkeyByteArray: Uint8Array;
-let web3Modal: Web3Modal;
+let web3Modal: WalletConnectModal;
 let web3ModalSubscription: undefined | (() => void);
 
 export enum WC_METHODS {
@@ -61,25 +64,29 @@ export const deleteSession = () => {
 export const initializeWC = async (
   chainInfo: ChainInfo
 ): Promise<USER | undefined> => {
+  if (log) console.log("initializeWC");
   try {
+    if (log) console.log("initializeWC::1");
     if (!getWalletConnect())
       throw new Error("WalletConnect cannot initialize without a project id");
 
-    web3Modal = new Web3Modal({
+    if (log) console.log("initializeWC::2");
+    web3Modal = new WalletConnectModal({
       projectId: WalletConnectProjectId!,
-      walletConnectVersion: 2,
+      // walletConnectVersion: 2,
       themeMode: "light",
+      chains: [chainInfo.chainId],
       themeVariables: {
-        "--w3m-z-index": "4",
-        "--w3m-accent-color": palette.accentActive,
-        "--w3m-accent-fill-color": "#fff",
-        "--w3m-background-color": "#090909",
-        "--w3m-logo-image-url":
-          "https://pub-b70e83e3eb40427986dcead162fde832.r2.dev/image_nifty.png",
+        "--wcm-z-index": "4",
+        "--wcm-accent-color": palette.accentActive,
+        "--wcm-accent-fill-color": "#fff",
+        "--wcm-background-color": "#090909",
       },
     });
 
+    if (log) console.log("initializeWC::3");
     if (!web3Modal) throw new Error("Web3Modal is not initialized");
+    if (log) console.log("initializeWC::4");
     if (!signClient)
       signClient = await SignClient.init({
         // logger: 'debug',
@@ -94,43 +101,58 @@ export const initializeWC = async (
           ],
         },
       });
+    if (log) console.log("initializeWC::5");
     if (typeof signClient === "undefined")
       throw new Error("WalletConnect is not initialized");
 
+    if (log) console.log("initializeWC::6");
     signClient.on("session_event", (p) => {
       const event = new Event(EVENT_LISTENER_TYPE.wc_sessionevent);
       window.dispatchEvent(event);
     });
+    if (log) console.log("initializeWC::7");
     signClient.on("session_update", ({ topic, params }) => {
       const event = new Event(EVENT_LISTENER_TYPE.wc_sessionupdate);
       window.dispatchEvent(event);
     });
+    if (log) console.log("initializeWC::8");
     signClient.once("session_delete", deleteSession);
 
+    if (log) console.log("initializeWC::9");
     let _session: SessionTypes.Struct;
 
+    if (log) console.log("initializeWC::10");
     const sessions = signClient.session.getAll();
 
+    if (log) console.log("initializeWC::11");
     if (sessions.length) {
+      if (log) console.log("initializeWC::11.1");
       const curSession = sessions[0];
+      if (log) console.log("initializeWC::11.2");
       const curSessionNamespace = Object.keys(curSession?.namespaces)?.[0];
+      if (log) console.log("initializeWC::11.3");
       const curSessionChain =
         // @ts-ignore
         curSession?.namespaces?.[curSessionNamespace]?.chains?.[0];
+      if (log) console.log("initializeWC::11.4");
       const curSessionMatchesChain = curSessionChain?.includes(
         chainInfo.chainId
       );
+      if (log) console.log("initializeWC::11.5");
       if (!curSessionMatchesChain) {
+        if (log) console.log("initializeWC::11.5.1.1");
         signClient.session.delete(
           curSession.topic,
           getSdkError("USER_DISCONNECTED")
         );
+        if (log) console.log("initializeWC::11.5.1.2");
         (signClient.session.getAll() ?? []).forEach((session) =>
           signClient.session.delete(
             session.topic,
             getSdkError("USER_DISCONNECTED")
           )
         );
+        if (log) console.log("initializeWC::11.5.1.3");
         (signClient.pairing.getAll() ?? []).forEach((pairing) =>
           signClient.pairing.delete(
             pairing.topic,
@@ -138,11 +160,13 @@ export const initializeWC = async (
           )
         );
       } else {
+        if (log) console.log("initializeWC::11.5.2.1");
         const account = await onSessionConnected();
         return account;
       }
     }
 
+    if (log) console.log("initializeWC::12");
     const namespaces = {
       ixo: {
         methods: Object.values(WC_METHODS),
@@ -150,15 +174,18 @@ export const initializeWC = async (
         events: [],
       },
     };
+    if (log) console.log("initializeWC::13", namespaces);
     const { uri, approval } = await signClient.connect({
       // Optionally: pass a known prior pairing (e.g. from `signClient.core.pairing.getPairings()`) to skip the `uri` step.
       // pairingTopic: pairing?.topic,
       requiredNamespaces: namespaces,
     });
 
+    if (log) console.log("initializeWC::14");
     // Open QRCode modal if a URI was returned (i.e. we're not connecting an existing pairing).
     if (!uri) throw new Error("Failed to connect via WalletConnect");
 
+    if (log) console.log("initializeWC::15");
     web3ModalSubscription = web3Modal.subscribeModal(({ open }) => {
       if (!open)
         setTimeout(() => {
@@ -166,30 +193,35 @@ export const initializeWC = async (
         }, 1500);
     });
 
+    if (log) console.log("initializeWC::16");
     // Check if mobile and then manually do the deeplink, until we add the mobile app to web3 modal wallets
     if (isMobile) {
-      // setTimeout(() => {
+      if (log) console.log("window.open()");
       const newWindow = window.open(
         `ixomobile://wc?uri=${uri}`,
         "_top",
         "noopener,noreferrer"
       );
       if (newWindow) newWindow.opener = null;
-      // });
     } else {
+      if (log) console.log("web3Modal.openModal()");
       await web3Modal.openModal({
         uri,
-        standaloneChains: namespaces.ixo.chains,
+        chains: namespaces.ixo.chains,
       });
     }
 
+    if (log) console.log("initializeWC::17");
     // Await session approval from the wallet.
     // @ts-ignore
-    _session = await approval();
+    _session = await Promise.race([approval(), pollSessions(chainInfo)]);
 
+    if (log) console.log("initializeWC::18");
     if (!_session) throw new Error("WalletConnect connection rejected");
 
+    if (log) console.log("initializeWC::19");
     const account = await onSessionConnected();
+    if (log) console.log("initializeWC::20");
     return account;
   } catch (e) {
     console.error("walletConnect::initializeWC::", e);
@@ -198,7 +230,26 @@ export const initializeWC = async (
     // clear web3modal subscription in case still active
     if (web3ModalSubscription) web3ModalSubscription();
     // Close the QRCode modal in case it was open.
+    if (log) console.log("web3Modal.closeModal()");
     web3Modal.closeModal();
+  }
+};
+
+// Poll for session approval as browsers don't always trigger the event
+const pollSessions = async (chainInfo: ChainInfo) => {
+  await delay(1000);
+  try {
+    const sessions = signClient.session.getAll() ?? [];
+    if (!sessions.length) throw new Error("No current sessions");
+    const curSession = sessions[0];
+    const curSessionNamespace = Object.keys(curSession?.namespaces)?.[0];
+    const curSessionChain =
+      curSession?.namespaces?.[curSessionNamespace]?.chains?.[0];
+    const curSessionMatchesChain = curSessionChain?.includes(chainInfo.chainId);
+    if (!curSessionMatchesChain) throw new Error("No current sessions");
+    return curSession;
+  } catch (error) {
+    await pollSessions(chainInfo);
   }
 };
 
@@ -223,11 +274,14 @@ const onSessionConnected = async (): Promise<USER | undefined> => {
 
 export const getAccounts = async (): Promise<readonly AccountData[]> => {
   try {
+    await delay(1000);
     const _session = getCurrentSession();
     const curSessionNamespace = Object.values(_session?.namespaces)?.[0];
     const namespaceAccount = curSessionNamespace.accounts[0];
     const [namespace, chainId, address] = namespaceAccount.split(":");
+    if (log) console.log({ namespace, chainId, address });
     const chain = `${namespace}:${chainId}`;
+    if (log) console.log({ chain, _session });
     const accounts = await signClient.request<
       {
         address: string;
@@ -243,6 +297,7 @@ export const getAccounts = async (): Promise<readonly AccountData[]> => {
         params: undefined,
       },
     });
+    if (log) console.log({ accounts });
 
     return accounts.map((a) => ({ ...a, pubkey: fromHex(a.pubkey) }));
   } catch (error) {

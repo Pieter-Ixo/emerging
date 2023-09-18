@@ -18,14 +18,11 @@ type ErrorWithMessage = {
   message: string;
 };
 
-const isErrorWithMessage = (error: unknown): error is ErrorWithMessage => {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    "message" in error &&
-    typeof (error as Record<string, unknown>).message === "string"
-  );
-};
+const isErrorWithMessage = (error: unknown): error is ErrorWithMessage =>
+  typeof error === "object" &&
+  error !== null &&
+  "message" in error &&
+  typeof (error as Record<string, unknown>).message === "string";
 
 const toErrorWithMessage = (error: unknown): ErrorWithMessage => {
   if (isErrorWithMessage(error)) return error;
@@ -49,10 +46,10 @@ export const truncateString = function (
 
     separator = separator || "...";
 
-    var sepLen = separator.length,
-      charsToShow = strLen - sepLen,
-      frontChars = Math.ceil(charsToShow / 2),
-      backChars = Math.floor(charsToShow / 2);
+    const sepLen = separator.length;
+    const charsToShow = strLen - sepLen;
+    const frontChars = Math.ceil(charsToShow / 2);
+    const backChars = Math.floor(charsToShow / 2);
 
     return (
       fullStr.substring(0, frontChars) +
@@ -62,4 +59,16 @@ export const truncateString = function (
   } catch (e) {
     return "";
   }
+};
+
+/**
+ * @param ms The number of milliseconds to wait.
+ */
+export const delay = (ms: number) =>
+  // eslint-disable-next-line no-promise-executor-return
+  new Promise((resolve) => setTimeout(resolve, ms));
+
+export const minDelay = async (p: Promise<any>, ms: number) => {
+  const [res] = await Promise.all([p, delay(ms)]);
+  return res;
 };

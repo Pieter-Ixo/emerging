@@ -10,11 +10,11 @@ import {
   CURRENCY_TOKEN,
 } from "@/types/wallet";
 import { USER } from "@/types/user";
+import { DELEGATION, UNBONDING_DELEGATION } from "@/types/validators";
 import { initializeWC, WCBroadCastMessage } from "./walletConnect";
 import { initializeKeplr, keplrBroadCastMessage } from "./keplr";
 import { initializeOpera, operaBroadCastMessage } from "./opera";
 import { getFeeDenom, TOKEN_ASSET } from "./currency";
-import { DELEGATION, UNBONDING_DELEGATION } from "@/types/validators";
 import { sumArray } from "./misc";
 
 export const shortenAddress = (address: string) =>
@@ -41,7 +41,7 @@ export const groupWalletAssets = (
     const asset = assets.get(delegation.balance.denom);
     assets.set(
       delegation.balance.denom,
-      !!asset
+      asset
         ? {
             ...asset,
             staked: Number(delegation.balance.amount ?? 0) + asset.staked,
@@ -99,13 +99,13 @@ export const initializeWallet = async (
   if (!chain) return;
   switch (walletType) {
     case WALLET_TYPE.keplr:
-      return await initializeKeplr(chain as ChainInfo);
+      return initializeKeplr(chain as ChainInfo);
     case WALLET_TYPE.opera:
-      return await initializeOpera(chain as ChainInfo);
+      return initializeOpera(chain as ChainInfo);
     case WALLET_TYPE.walletConnect:
-      return await initializeWC(chain as ChainInfo);
+      return initializeWC(chain as ChainInfo);
     default:
-      return;
+      return undefined;
   }
 };
 
