@@ -29,6 +29,7 @@
     "@ixo/impactxclient-sdk": "^0.0.17",
     "@ixo/jambo-wallet-sdk": "^0.0.3",
     "@keplr-wallet/cosmos": "^0.11.34",
+    "@keplr-wallet/types": "^0.11.34",
     "@keplr-wallet/wc-client": "^0.11.34",
     "@mantine/carousel": "^6.0.17",
     "@mantine/core": "^6.0.13",
@@ -49,7 +50,8 @@
     "@walletconnect/encoding": "^1.0.2",
     "@walletconnect/qrcode-modal": "^1.8.0",
     "@walletconnect/sign-client": "2.1.4",
-		"@walletconnect/utils": "2.0.0-rc.1",
+    "@walletconnect/utils": "2.0.0-rc.1",
+    "@walletconnect/types": "2.1.1",
     "@web3modal/standalone": "^2.3.7",
     "apisauce": "^2.1.6",
     "axios": "^1.2.3",
@@ -86,10 +88,8 @@
     "typescript": "4.9.4"
   },
   "devDependencies": {
-    "@keplr-wallet/types": "^0.11.34",
     "@playwright/test": "^1.37.1",
     "@types/leaflet": "^1.9.0",
-    "@walletconnect/types": "2.1.1",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.25.3",
